@@ -3,7 +3,7 @@ import './app.less'
 
 const App = (props) => {
   useEffect(() => {
-    console.log(props,'1234')
+    console.log(props,'12345')
   }, [])
   return props.children
 }
