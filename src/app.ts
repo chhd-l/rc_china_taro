@@ -6,6 +6,8 @@ const App = (props) => {
     console.log(props,'12345')
     console.log(props,'12345')
     console.log(props,'12345')
+    console.log(props,'12345')
+    console.log(props,'12345')
   }, [])
   return props.children
 }
