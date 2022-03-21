@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { View, Text, Button } from '@tarojs/components'
+import { AtButton } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import './index.less'
 
@@ -16,7 +17,12 @@ const Index = () => {
             url: '/pages/productDetail/index'
           })
         }}>go</Button>
-        <Button openType='contact'>contact</Button>
+        <Button className='w-10' openType='contact'>contact</Button>
+        <AtButton type='primary' onClick={() => {
+          Taro.navigateTo({
+            url: '/pages/productDetail/index'
+          })
+        }}>contact</AtButton>
       </View>
   )
 }

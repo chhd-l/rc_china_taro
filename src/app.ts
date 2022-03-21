@@ -1,5 +1,7 @@
 import { Component, useEffect } from 'react'
+import 'taro-ui/dist/style/index.scss'
 import './app.less'
+import 'windi.css'
 
 const App = (props) => {
   useEffect(() => {
