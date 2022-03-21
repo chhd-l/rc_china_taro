@@ -1,6 +1,6 @@
 {
   "miniprogramRoot": "./",
-  "projectname": "taroApp",
+  "projectname": "rc_china_taro",
   "appid": "testAppId",
   "setting": {
     "es6": false,

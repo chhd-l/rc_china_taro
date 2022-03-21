@@ -1,6 +1,6 @@
 {
     "miniprogramRoot": "dist/",
-    "projectname": "taroApp",
+    "projectname": "rc_china_taro",
     "description": "",
     "appid": "touristappid",
     "setting": {
