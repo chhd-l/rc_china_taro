@@ -1,36 +1,42 @@
-import { CentOrHighPrecisionMoney, TaxedPrice, LineItem } from "./common";
+import { TaxedPrice } from "./common";
 import { Address } from "./address";
+import {
+  CentOrHighPrecisionMoney,
+  CreatedOrLastModifiedBy,
+  Scalars,
+  State,
+  Store,
+} from "./schema";
+import { LineItem } from "./cart";
+import { CartOrigin, OrderState, PaymentState, ShipmentState } from "./enum";
 
 export type OrderItem = {
   id: string;
+  createdAt: Scalars["DateTime"];
+  createdBy: CreatedOrLastModifiedBy;
+  lastModifiedAt: Scalars["DateTime"];
+  lastModifiedBy: CreatedOrLastModifiedBy;
+  completedAt: Scalars["DateTime"];
   orderNumber: string;
   customerId: string;
   customerEmail: string;
-  lineItems: LineItem[]; //对应fgs order tradeItem
+  anonymousId: string;
+  store: Store;
+  lineItems: LineItem[];
   totalPrice: CentOrHighPrecisionMoney;
   taxedPrice: TaxedPrice;
-  shippingAddress: Address; //送货地址
-  billingAddress: Address; //账单地址
+  shippingAddress: Address;
+  billingAddress: Address;
   orderState: OrderState;
+  state: State;
+  shipmentState: ShipmentState;
   paymentState: PaymentState;
-  paymentInfo:PaymentInfo
+  // shippingInfo:ShippingInfo
+  // returnInfo : ReturnInfo[]
+  // discountCodes : DiscountCodeInfo[]
+  // refusedGifts : CartDiscounts[]
+  // paymentInfo :PaymentInfo
+  origin: CartOrigin;
 };
 
-export enum OrderState {
-  "Open" = "Open",
-  "Confirmed" = "Confirmed",
-  "Complete" = "Complete",
-  "Cancelled" = "Cancelled",
-}
-
-export enum PaymentState {
-  "BalanceDue" = "BalanceDue",
-  "Failed" = "Failed",
-  "Pending" = "Pending",
-  "CreditOwed" = "CreditOwed",
-  "Paid" = "paid",
-}
-
-export enum PaymentInfo{
-
-}
+export enum PaymentInfo {}

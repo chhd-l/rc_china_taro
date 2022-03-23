@@ -1,6 +1,7 @@
 export type Address = {
   country: string;
   id: string;
+  salutation?:string
   firstName: string;
   lastName: string;
   streetName: string;
