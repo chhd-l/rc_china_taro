@@ -1,19 +1,7 @@
-import { CentOrHighPrecisionMoney, Scalars } from "./schema";
-
-export type TaxedPrice = {
-  totalNet: CentOrHighPrecisionMoney;
-  totalGross: CentOrHighPrecisionMoney;
-  taxPortions?: TaxPortion[];
-};
-
-export type TaxPortion = {
-  name: string;
-  rate: number;
-  amount: CentOrHighPrecisionMoney;
-};
+import { CentPrecisionMoney, Scalars } from "../schema/common.schema";
 
 export type DiscountedPrice = {
-  value: CentOrHighPrecisionMoney;
+  value: CentPrecisionMoney;
   discount: ProductDiscount;
 };
 

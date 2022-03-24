@@ -1,21 +1,20 @@
-import { TaxedPrice } from "./common";
-import { Address } from "./address";
 import {
-  CentOrHighPrecisionMoney,
-  CreatedOrLastModifiedBy,
+  CentPrecisionMoney,
+  CreatedBy,
+  LastModifiedBy,
   Scalars,
-  State,
-  Store,
-} from "./schema";
-import { LineItem } from "./cart";
-import { CartOrigin, OrderState, PaymentState, ShipmentState } from "./enum";
+} from "../schema/common.schema";
+import { LineItem, Store, State, TaxedPrice } from "./carts";
+import { CartOrigin, OrderState, PaymentState, ShipmentState } from "../enum";
+import { Payment } from "./payments";
+import { Address } from "./customers";
 
-export type OrderItem = {
+export type Order = {
   id: string;
   createdAt: Scalars["DateTime"];
-  createdBy: CreatedOrLastModifiedBy;
+  createdBy: CreatedBy;
   lastModifiedAt: Scalars["DateTime"];
-  lastModifiedBy: CreatedOrLastModifiedBy;
+  lastModifiedBy: LastModifiedBy;
   completedAt: Scalars["DateTime"];
   orderNumber: string;
   customerId: string;
@@ -23,7 +22,7 @@ export type OrderItem = {
   anonymousId: string;
   store: Store;
   lineItems: LineItem[];
-  totalPrice: CentOrHighPrecisionMoney;
+  totalPrice: CentPrecisionMoney;
   taxedPrice: TaxedPrice;
   shippingAddress: Address;
   billingAddress: Address;
@@ -35,8 +34,6 @@ export type OrderItem = {
   // returnInfo : ReturnInfo[]
   // discountCodes : DiscountCodeInfo[]
   // refusedGifts : CartDiscounts[]
-  // paymentInfo :PaymentInfo
+  paymentInfo: Payment[];
   origin: CartOrigin;
 };
-
-export enum PaymentInfo {}

@@ -1,14 +1,16 @@
-import { TaxedPrice, TaxRate, Asset, Images } from "./common";
+import { TaxRate, Asset, Images } from "./common";
 import {
   Scalars,
-  CreatedOrLastModifiedBy,
-  CentOrHighPrecisionMoney,
-} from "./schema";
-import { InventoryMode, TaxMode, CartOrigin } from "./enum";
+  CreatedBy,
+  LastModifiedBy,
+  CentPrecisionMoney,
+  HighPrecisionMoney,
+} from "../schema/common.schema";
+import { InventoryMode, TaxMode, CartOrigin } from "../enum";
 
 export type Price = {
   id: string;
-  value: CentOrHighPrecisionMoney;
+  value: CentPrecisionMoney | HighPrecisionMoney;
   country: string;
   validFrom: Scalars["DateTime"];
   validUntil: Scalars["DateTime"];
@@ -24,7 +26,7 @@ export type LineItem = {
   //variant:ProductVariant //sku info
   price: Price;
   taxedPrice: TaxedPrice;
-  totalPrice: CentOrHighPrecisionMoney;
+  totalPrice: CentPrecisionMoney;
   quantity: number;
   taxRate: TaxRate;
   lineItemMode: "Standard" | "GiftLineItem";
@@ -61,18 +63,18 @@ export type Store = {
   lastModifiedAt?: Scalars["DateTime"];
 };
 
-export type Carts = {
+export type Cart = {
   id: string;
   createdAt?: Scalars["DateTime"];
-  createdBy?: CreatedOrLastModifiedBy;
+  createdBy?: CreatedBy;
   lastModifiedAt?: Scalars["DateTime"];
-  lastModifiedBy?: CreatedOrLastModifiedBy;
+  lastModifiedBy?: LastModifiedBy;
   customerId?: string;
   customerEmail?: string;
   anonymousId?: string;
   store: Store;
   lineItems: LineItem[]; //product items
-  totalPrice: CentOrHighPrecisionMoney;
+  totalPrice: CentPrecisionMoney;
   taxedPrice?: TaxedPrice;
   totalLineItemQuantity: number;
   // shippingInfo: ShippingInfo;
@@ -106,10 +108,22 @@ export type ProductVariantAvailability = {
 
 export type ScopedPrice = {
   id: string;
-  value: CentOrHighPrecisionMoney;
-  currentValue: CentOrHighPrecisionMoney;
+  value: CentPrecisionMoney | HighPrecisionMoney;
+  currentValue: CentPrecisionMoney | HighPrecisionMoney;
   country: string;
   validFrom: Scalars["DateTime"];
   validUntil: Scalars["DateTime"];
   // discounted :DiscountedPrice
+};
+
+export type TaxedPrice = {
+  totalNet: CentPrecisionMoney;
+  totalGross: CentPrecisionMoney;
+  taxPortions?: TaxPortion[];
+};
+
+export type TaxPortion = {
+  name: string;
+  rate: number;
+  amount: CentPrecisionMoney;
 };
