@@ -40,3 +40,10 @@ export enum ShipmentState {
   Partial = "Partial",
   Backorder = "Backorder",
 }
+
+export enum AttributeConstraint {
+  None = "None",
+  Unique = "Unique",
+  CombinationUnique = "CombinationUnique",
+  SameForAll = "SameForAll"
+}
