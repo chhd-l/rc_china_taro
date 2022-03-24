@@ -62,6 +62,9 @@ const config = {
       }
     },
     esnextModules: ['taro-ui']
+  },
+  alias:{
+    '@':'src'
   }
 }
 
