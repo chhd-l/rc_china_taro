@@ -1,3 +1,5 @@
+const path=require('path');
+
 const config = {
   projectName: 'rc_china_taro',
   date: '2022-3-1',
@@ -63,8 +65,9 @@ const config = {
     },
     esnextModules: ['taro-ui']
   },
-  alias:{
-    '@':'src'
+  alias: {
+    '@/components': path.resolve(__dirname,'..','src/components'),
+    "@/assets":path.resolve(__dirname,'..','src/assets')
   }
 }
 

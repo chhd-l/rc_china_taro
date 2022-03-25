@@ -1,9 +1,10 @@
+import HomeNarBar from "@/components/home/HomeNavbar";
 import { useEffect, useState } from 'react'
 import { View, Text, Button } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import './index.less'
-import HomeNarBar from "../../component/home/HomeNavbar";
+
 
 const Index = () => {
   const [name, setName] = useState('')
