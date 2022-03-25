@@ -13,7 +13,7 @@ const HomeNarBar = () => {
   });
   return (
     <View style={{ paddingTop: paddingTop + "px" }}>
-      <View className='mt-2'>自定义导航栏</View>
+      <View className='mt-4 mb-10'>自定义导航栏</View>
     </View>
   );
 };
