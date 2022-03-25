@@ -1,5 +1,5 @@
 import { CreatedBy, LastModifiedBy, Scalars } from "../schema/common.schema";
-import { Store } from "../schema/carts.schema";
+import { Store } from "../schema/cart.schema";
 
 export type Address = {
   country: string;

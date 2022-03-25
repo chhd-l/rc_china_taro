@@ -4,10 +4,10 @@ import {
   LastModifiedBy,
   Scalars,
 } from "../schema/common.schema";
-import { LineItem, Store, State, TaxedPrice } from "./carts";
+import { LineItem, Store, State, TaxedPrice } from "./cart";
 import { CartOrigin, OrderState, PaymentState, ShipmentState } from "../enum";
-import { Payment } from "./payments";
-import { Address } from "./customers";
+import { Payment } from "./payment";
+import { Address } from "./customer";
 
 export type Order = {
   id: string;

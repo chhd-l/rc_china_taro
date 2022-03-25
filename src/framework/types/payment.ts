@@ -5,8 +5,8 @@ import {
   CustomFields,
   Scalars,
 } from "../schema/common.schema";
-import { Customer } from "./customers";
-import { State } from "./carts";
+import { Customer } from "./customer";
+import { State } from "./cart";
 
 export type Payment = {
   id: string;

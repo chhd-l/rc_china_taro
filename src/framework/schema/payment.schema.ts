@@ -5,8 +5,8 @@ import {
   CentPrecisionMoney,
   CustomFields,
 } from "./common.schema";
-import { Customer } from "./customers.schema";
-import {State} from "./orders.schema"
+import { Customer } from "./customer.schema";
+import {State} from "./order.schema"
 
 export type Payment = {
   id: string;

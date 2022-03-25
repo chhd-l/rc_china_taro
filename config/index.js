@@ -66,8 +66,7 @@ const config = {
     esnextModules: ['taro-ui']
   },
   alias: {
-    '@/components': path.resolve(__dirname,'..','src/components'),
-    "@/assets":path.resolve(__dirname,'..','src/assets')
+    '@': path.resolve(__dirname,'..','src'),
   }
 }
 

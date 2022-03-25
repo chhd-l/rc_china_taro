@@ -7,7 +7,7 @@ import {
   HighPrecisionMoney,
   CustomLineItem,
 } from "./common.schema";
-import { Address } from "./customers.schema";
+import { Address } from "./customer.schema";
 import { InventoryMode, CartOrigin } from "../enum";
 
 export type Store = {

@@ -6,8 +6,8 @@ import {
   CustomLineItem,
   CustomFields,
 } from "./common.schema";
-import { Store, LineItem, Cart } from "./carts.schema";
-import { Address } from "./customers.schema";
+import { Store, LineItem, Cart } from "./cart.schema";
+import { Address } from "./customer.schema";
 import {
   TaxMode,
   OrderState,
