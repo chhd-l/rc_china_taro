@@ -23,7 +23,7 @@ export type LineItem = {
   productId: string; //spuId
   name: Scalars["LocalizedString"]; //product name
   //productType:ProductType
-  //variant:ProductVariant //sku info
+  variant:ProductVariant //sku info
   price: Price;
   taxedPrice: TaxedPrice;
   totalPrice: CentPrecisionMoney;
@@ -74,6 +74,13 @@ export type Cart = {
   anonymousId?: string;
   store: Store;
   lineItems: LineItem[]; //product items
+  // The sum of all the prices of all the items in the cart.
+  // Duties, taxes, shipping and discounts excluded.
+  lineItemsSubtotalPrice: number;//new
+  // Price of the cart before duties, shipping and taxes.
+  subtotalPrice: number;//new 订阅总价
+  // The sum of all the prices of all the items in the cart.
+  // Duties, taxes and discounts included.
   totalPrice: CentPrecisionMoney;
   taxedPrice?: TaxedPrice;
   totalLineItemQuantity: number;
@@ -83,6 +90,7 @@ export type Cart = {
   taxMode: TaxMode;
   deleteDaysAfterLastModification?: number;
   origin: CartOrigin;
+  // discount?:Discount[]
 };
 
 export type ProductVariant = {
@@ -94,10 +102,12 @@ export type ProductVariant = {
   price: Price;
   images: Images[];
   assets: Asset[];
-  availability: ProductVariantAvailability;
-  isMatchingVariant: boolean;
+  availability: ProductVariantAvailability;//是否有库存以及库存情况
+  isMatchingVariant: boolean;//是否是选中的那个sku
   scopedPrice: ScopedPrice;
   scopedPriceDiscounted: boolean;
+  // Indicates if the product variant is available for sale.
+  availableForSale?: boolean
 };
 
 export type ProductVariantAvailability = {
@@ -127,3 +137,18 @@ export type TaxPortion = {
   rate: number;
   amount: CentPrecisionMoney;
 };
+
+export interface CartPrice {
+  totalPrice: number
+  tradePrice: number
+  subscriptionDiscountPrice: number
+  shippingPrice: number
+  promotions: PromotionItem[]
+  promotionFlag: boolean
+}
+
+export interface PromotionItem {
+  label: string
+  discount: number
+  code: string
+}

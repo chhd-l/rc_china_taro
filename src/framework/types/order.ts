@@ -22,8 +22,6 @@ export type Order = {
   anonymousId: string;
   store: Store;
   lineItems: LineItem[];
-  totalPrice: CentPrecisionMoney;
-  taxedPrice: TaxedPrice;
   shippingAddress: Address;
   billingAddress: Address;
   orderState: OrderState;
@@ -36,4 +34,9 @@ export type Order = {
   // refusedGifts : CartDiscounts[]
   paymentInfo: Payment[];
   origin: CartOrigin;
+  totalPrice: CentPrecisionMoney;
+  taxedPrice: TaxedPrice;
+  subscriptionDiscountPrice?: number;
+  subtotalPrice?: number
+  // discount:Discount[]
 };
