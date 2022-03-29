@@ -1,42 +1,37 @@
-import {
-  CentPrecisionMoney,
-  CreatedBy,
-  LastModifiedBy,
-  Scalars,
-} from "../schema/common.schema";
-import { LineItem, Store, State, TaxedPrice } from "./cart";
+import { CreatedBy, LastModifiedBy, Scalars } from "../schema/common.schema";
+import { LineItem, PromotionItem } from "./cart";
 import { CartOrigin, OrderState, PaymentState, ShipmentState } from "../enum";
 import { Payment } from "./payment";
 import { Address } from "./customer";
 
 export type Order = {
   id: string;
-  createdAt: Scalars["DateTime"];
-  createdBy: CreatedBy;
-  lastModifiedAt: Scalars["DateTime"];
-  lastModifiedBy: LastModifiedBy;
+  createdAt?: Scalars["DateTime"];
+  createdBy?: CreatedBy;
+  lastModifiedAt?: Scalars["DateTime"];
+  lastModifiedBy?: LastModifiedBy;
   completedAt: Scalars["DateTime"];
   orderNumber: string;
   customerId: string;
   customerEmail: string;
-  anonymousId: string;
-  store: Store;
+  anonymousId?: string;
+  storeId: String;
   lineItems: LineItem[];
   shippingAddress: Address;
   billingAddress: Address;
   orderState: OrderState;
-  state: State;
   shipmentState: ShipmentState;
   paymentState: PaymentState;
+  paymentInfo: Payment[];
+  origin?: CartOrigin; //来源，购物车下单/代客下单
+  totalPrice: number;
+  taxedPrice: number;
+  subscriptionDiscountPrice?: number;
+  subtotalPrice?: number;
+  promotion: PromotionItem[];
+  // discount:Discount[]
   // shippingInfo:ShippingInfo
   // returnInfo : ReturnInfo[]
   // discountCodes : DiscountCodeInfo[]
   // refusedGifts : CartDiscounts[]
-  paymentInfo: Payment[];
-  origin: CartOrigin;
-  totalPrice: CentPrecisionMoney;
-  taxedPrice: TaxedPrice;
-  subscriptionDiscountPrice?: number;
-  subtotalPrice?: number
-  // discount:Discount[]
 };

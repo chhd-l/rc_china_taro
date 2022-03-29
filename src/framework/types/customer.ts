@@ -1,5 +1,4 @@
 import { CreatedBy, LastModifiedBy, Scalars } from "../schema/common.schema";
-import { Store } from "../schema/cart.schema";
 
 export type Address = {
   country: string;
@@ -26,7 +25,7 @@ export type Customer = {
   lastModifiedBy: LastModifiedBy;
   email: string;
   password: string;
-  stores: Store;
+  stores: string;
   firstName: string;
   lastName: string;
   middleName: string;
@@ -40,6 +39,5 @@ export type Customer = {
   defaultBillingAddressId: string;
   billingAddressIds: [];
   isEmailVerified: Boolean;
-  // authenticationMode : AuthenticationMode
-  /**Indicates whether the password is required for the Customer.*/
+  // authenticationMode : AuthenticationMode //Indicates whether the password is required for the Customer.
 };
