@@ -13,6 +13,8 @@ const AddressItem = ({ addressInfo }: AddressItemProps) => {
 
   const delAddress = () => {};
 
+  const setAsDefault = () => {};
+
   return (
     <View className="p-2 bg-white address-item text-sm">
       <View className="flex flex-row justify-between">
@@ -29,7 +31,14 @@ const AddressItem = ({ addressInfo }: AddressItemProps) => {
       </View>
       <AtDivider className="p-0 my-2 rc_divider" />
       <View className="flex flex-row justify-between items-center">
-        <Radio value="选中" checked={Boolean(addressInfo.isDefault)}>
+        <Radio
+          value="选中"
+          checked={Boolean(addressInfo.isDefault)}
+          style={{ transform: "scale(0.6)" }}
+          color="red"
+          className="text-48 -ml-5"
+          onClick={() => setAsDefault()}
+        >
           默认地址
         </Radio>
         <View className="flex flex-row items-center">
