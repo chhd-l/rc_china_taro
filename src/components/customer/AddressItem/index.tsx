@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { View, Radio } from "@tarojs/components";
+import { View, Radio, Text } from "@tarojs/components";
 import { AtDivider, AtIcon, AtModal } from "taro-ui";
+import { Address } from "@/framework/types/customer";
 import "./index.less";
 
-const AddressItem = () => {
+interface AddressItemProps {
+  addressInfo: Address;
+}
+
+const AddressItem = ({ addressInfo }: AddressItemProps) => {
   const [showDelTip, setShowDelTip] = useState(false);
 
   const delAddress = () => {};
@@ -11,13 +16,20 @@ const AddressItem = () => {
   return (
     <View className="p-2 bg-white address-item text-sm">
       <View className="flex flex-row justify-between">
-        <text>Rechl</text>
-        <text className="text-gray-400">13101227768</text>
+        <Text>{addressInfo.receiver}</Text>
+        <Text className="text-gray-400">{addressInfo.phone}</Text>
       </View>
-      <View className="mt-2">111111</View>
+      <View className="mt-2">
+        <Text>
+          {addressInfo.province}
+          {addressInfo.city}
+          {addressInfo.region}
+          {addressInfo.detail}
+        </Text>
+      </View>
       <AtDivider className="p-0 my-2 rc_divider" />
       <View className="flex flex-row justify-between items-center">
-        <Radio value="选中" checked={false}>
+        <Radio value="选中" checked={Boolean(addressInfo.isDefault)}>
           默认地址
         </Radio>
         <View className="flex flex-row items-center">

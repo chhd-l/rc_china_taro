@@ -1,20 +1,57 @@
 import Taro from "@tarojs/taro";
 import { View, Button } from "@tarojs/components";
 import { AddressItem } from "@/components/customer";
+import { useEffect, useState } from "react";
+import { Address } from "@/framework/types/customer";
 import "./index.less";
 
 const Index = () => {
+  const [addressList, setAddressList] = useState<Address[]>([]);
+
+  useEffect(() => {
+    Taro.getStorage({
+      key: "addressList",
+      success: function (res) {
+        console.log("addressList", res.data);
+        setAddressList([
+          {
+            city: "衢州市",
+            detail: "临猗县",
+            id: "310000199212084394",
+            isDefault: 0,
+            phone: "78314227225",
+            postcode: "568031",
+            province: "香港特别行政区",
+            receiver: "潘明",
+            region: "华北",
+          },
+        ]);
+      },
+    });
+  }, []);
+
   const getWechatAddress = () => {
     Taro.chooseAddress({
       success: function (res) {
-        console.log(res);
+        console.log(res.userName); //receiver
+        console.log(res.postalCode); //postcode
+        console.log(res.provinceName); //province
+        console.log(res.cityName); //city
+        console.log(res.countyName); //region
+        console.log(res.detailInfo); //detail
+        console.log(res.nationalCode);
+        console.log(res.telNumber); //phone
+        //todo
+        //将获取到或者新增的地址传给后台
       },
     });
   };
 
   return (
     <View className="index bg-gray-200 p-2 h-screen">
-      <AddressItem />
+      {addressList.map((item: Address) => (
+        <AddressItem addressInfo={item} />
+      ))}
       <View className="m-0 flex flex-row justify-end mt-2">
         <Button
           className="text-xs m-0 h-6 bg-white mr-2 flex items-center text-gray-400"

@@ -1,42 +1,25 @@
-import { CreatedBy, LastModifiedBy, Scalars } from "../schema/common.schema";
-
 export type Address = {
-  country: string;
-  id: string;
-  salutation?: string;
-  firstName: string;
-  lastName: string;
-  streetName: string;
-  streetNumber: string;
-  postalCode: string;
-  city: string;
-  region: string;
-  state: string;
+  id?: string;
+  receiver: string;
   phone: string;
-  email: string;
+  province: string; //省
+  city: string; //市
+  detail: string;
+  postcode?: string;
+  isDefault: number;
+  country?: string;
+  region: string; //区
 };
 
 export type Customer = {
-  id: string;
-  customerNumber: string;
-  createdAt: Scalars["DateTime"];
-  createdBy: CreatedBy;
-  lastModifiedAt: Scalars["DateTime"];
-  lastModifiedBy: LastModifiedBy;
-  email: string;
-  password: string;
-  stores: string;
-  firstName: string;
-  lastName: string;
-  middleName: string;
-  title?: string;
-  salutation?: string;
-  dateOfBirth: Date;
-  companyName?: string;
+  name: string;
+  image: string;
+  nickname: string; //昵称
+  phone: string;
+  level: string;
+  points: number; //积分情况，小程序会显示
+  lastLoginTime?: string;
   addresses: Address[];
-  defaultShippingAddressId: string;
-  shippingAddressIds: [];
-  defaultBillingAddressId: string;
-  billingAddressIds: [];
-  isEmailVerified: Boolean;
+  pets?: any[];
+  orders?: any[];
 };

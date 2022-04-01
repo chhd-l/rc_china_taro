@@ -1,15 +1,18 @@
-import { View } from "@tarojs/components";
+import { Radio, View } from "@tarojs/components";
 import { useState } from "react";
-import { AtForm, AtInput, AtButton } from "taro-ui";
+import { AtForm, AtInput, AtButton, AtTextarea } from "taro-ui";
+import { Address } from "@/framework/types/customer";
 import "./index.less";
 
 const Index = () => {
-  const [addressInfo, setAddressInfo] = useState({
-    name: "",
+  const [addressInfo, setAddressInfo] = useState<Address>({
+    receiver: "",
     phone: "",
     province: "",
     city: "",
-    district: "",
+    region: "",
+    detail: "",
+    isDefault: 0,
   });
 
   const updateAddressInfo = (value: any, name: string) => {
@@ -20,18 +23,45 @@ const Index = () => {
 
   return (
     <View className="index bg-gray-200 p-2 h-screen">
-      <View className="bg-white p-2">
-        <AtForm onSubmit={() => saveNewAddress()}>
+      <AtForm className="p-2" onSubmit={() => saveNewAddress()}>
+        <View className=" bg-white">
           <AtInput
-            name="name"
+            name="receiver"
             title="收货人"
             type="text"
             placeholder="请输入姓名"
             value={addressInfo["name"]}
-            onChange={(value) => updateAddressInfo(value, "name")}
+            onChange={(value) => updateAddressInfo(value, "receiver")}
           />
-          <AtButton formType="submit">保存</AtButton>
-        </AtForm>
+          <AtInput
+            name="phone"
+            title="联系电话"
+            type="text"
+            placeholder="请输入联系电话"
+            value={addressInfo["phone"]}
+            onChange={(value) => updateAddressInfo(value, "phone")}
+          />
+          <AtTextarea
+            value={addressInfo["detail"]}
+            onChange={(value) => updateAddressInfo(value, "detail")}
+            maxLength={200}
+            placeholder="请输入详细地址"
+          />
+          <Radio
+            value="0"
+            checked={Boolean(addressInfo.isDefault)}
+            onClick={() =>
+              updateAddressInfo(!addressInfo.isDefault, "isDefault")
+            }
+          >
+            默认地址
+          </Radio>
+        </View>
+      </AtForm>
+      <View className="mt-2">
+        <AtButton className="bg-red-500 color-white w-20" formType="submit">
+          保存
+        </AtButton>
       </View>
     </View>
   );
