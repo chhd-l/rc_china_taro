@@ -5,9 +5,14 @@ import { View, Text, Image } from "@tarojs/components";
 import { AtAvatar, AtButton } from "taro-ui";
 import "./index.less";
 
+interface OrderTypeProps {
+  label: string;
+  icon: string;
+  url: string;
+}
 
 const Account = () => {
-  const orderTypeList = [
+  const orderTypeList: OrderTypeProps[] = [
     { label: "待付款", icon: defaultIcon, url: "" },
     { label: "待发货", icon: defaultIcon, url: "" },
     { label: "待收货", icon: defaultIcon, url: "" },
@@ -21,7 +26,11 @@ const Account = () => {
         {/*个人信息和个人管理*/}
         <View className="flex flex-row justify-between px-2 pb-4 items-center">
           <View className="flex flex-row items-center">
-            <AtAvatar circle size="large" openData={{type: 'userAvatarUrl'}}/>
+            <AtAvatar
+              circle
+              size="large"
+              openData={{ type: "userAvatarUrl" }}
+            />
             <View className="flex-col ml-4">
               <View>
                 <Text>左琴</Text>
@@ -31,15 +40,18 @@ const Account = () => {
             </View>
           </View>
           <View className="m-0">
-            <AtButton className="text-xs" size="small" onClick={()=>{
-              Taro.navigateTo({
-                url: '/pages/addressManage/index'
-              })
-            }}>
+            <AtButton
+              className="text-xs"
+              size="small"
+              onClick={() => {
+                Taro.navigateTo({
+                  url: "/pages/addressManage/index",
+                });
+              }}
+            >
               地址管理+
             </AtButton>
           </View>
-
         </View>
         {/*我的订单*/}
         <View className="p-2 bg-gray-50">

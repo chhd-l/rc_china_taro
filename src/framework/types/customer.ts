@@ -39,5 +39,4 @@ export type Customer = {
   defaultBillingAddressId: string;
   billingAddressIds: [];
   isEmailVerified: Boolean;
-  // authenticationMode : AuthenticationMode //Indicates whether the password is required for the Customer.
 };
