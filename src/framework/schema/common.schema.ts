@@ -1,4 +1,4 @@
-import { Customer } from "./customers.schema";
+import { Customer } from "./customer.schema";
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {

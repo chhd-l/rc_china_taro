@@ -4,7 +4,7 @@ import {
   CreatedBy,
   LastModifiedBy,
 } from "./common.schema";
-import { Store } from "./carts.schema";
+import { Store } from "./cart.schema";
 
 export type Address = {
   country: string;
