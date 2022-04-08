@@ -1,5 +1,4 @@
 import {CartOrigin} from "@/framework/enum";
-import { Asset, Images } from "./common";
 import { Scalars, CreatedBy, LastModifiedBy } from "../schema/common.schema";
 
 export type Cart = {
@@ -25,18 +24,19 @@ export type Cart = {
 };
 
 export type LineItem = {
-  id: string;
+  id?: string;
   productId: string; //spuId
   name: string; //product name
-  variant: ProductVariant; //sku info
+  variant: ProductVariant[]; //sku info
   price: number;
   subPrice?:number;//订阅价格
-  taxedPrice: number;
+  taxedPrice?: number;
   totalPrice: number;
   quantity: number;
   lineItemMode: "Standard" | "GiftLineItem";
   addedAt?: Scalars["DateTime"];
   lastModifiedAt?: Scalars["DateTime"];
+  select?:boolean
   // discountedPricePerQuantity:DiscountedLineItemPriceForQuantity[]
   // priceMode:LineItemPriceMode
   // lineItemMode:LineItemMode
@@ -48,13 +48,12 @@ export type LineItem = {
 };
 
 export type ProductVariant = {
-  id: number;
-  sku: string;
+  id?: number;
+  skuId: string;
   isOnStock: boolean;
   availableQuantity?: number; //还有多少库存
   price: number;
-  images: Images[];
-  assets: Asset[];
+  image: string;
   isMatchingVariant: boolean; //是否是选中的那个sku
   availableForSale?: boolean; // Indicates if the product variant is available for sale.
   // attributes: Attribute[];
