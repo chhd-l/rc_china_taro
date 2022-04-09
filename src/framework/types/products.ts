@@ -8,6 +8,26 @@ import { Scalars } from "../schema/common.schema";
 import { Price, ScopedPrice } from "./prices";
 import { AttributeConstraint } from "../enum";
 
+export enum FloorType {
+  Activity,
+  Stars,
+  Dry,
+  Wet,
+}
+
+export interface SwiperProps {
+  url: string;
+  img: string;
+}
+
+export interface FloorListProps {
+  title: string;
+  label: string;
+  subTitle: string;
+  icon?: string;
+  type: FloorType;
+  active: boolean;
+}
 export interface ProductListItemProps {
   name: string;
   img: string;

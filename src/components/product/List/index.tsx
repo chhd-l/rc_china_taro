@@ -1,6 +1,10 @@
+import { ProductListItemProps } from "@/framework/types/products";
 import { View, Image } from "@tarojs/components";
 import "./index.less";
-const List = ({ list }) => {
+interface ListProps {
+  list: ProductListItemProps[];
+}
+const List = ({ list }: ListProps) => {
   console.info("productList", list);
   return (
     <View className="px-1 product-list">
