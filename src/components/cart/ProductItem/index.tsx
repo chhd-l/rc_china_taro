@@ -20,8 +20,10 @@ const ProductItem = ({
     image: "",
     isMatchingVariant: true,
     availableForSale: true,
+    tags: [],
+    specs: "",
   });
-  const { image, price } = selectedSkuInfo;
+  const { image, price, specs, tags } = selectedSkuInfo;
 
   const getSelectSkuInfo = () => {
     setSelectedSkuInfo(
@@ -67,14 +69,13 @@ const ProductItem = ({
           <Image className="w-20 h-20" src={image} />
           <View>
             <View>{name}</View>
-            <View className="mt-1">400G*3</View>
+            <View className="mt-1">{specs}</View>
             <View className="flex flex-row mt-1 text-xs">
-              <View className="border border-solid rounded-md border-red-500 mr-2">
-                适用年龄：幼龄
-              </View>
-              <View className="border border-solid rounded-md border-red-500">
-                建议饲喂天数：1
-              </View>
+              {tags.map((el) => (
+                <View className="border border-solid rounded-md border-red-500 mr-2 px-1">
+                  {el}
+                </View>
+              ))}
             </View>
             <View className="flex flex-row mt-1 justify-between items-center pr-8">
               <View>{formatMoney(price)}</View>

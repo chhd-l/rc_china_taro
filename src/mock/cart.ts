@@ -14,6 +14,8 @@ export const dataSource = [
           "https://d2cstgstorage.z13.web.core.windows.net/fr/fr-229732-master.jpg",
         isMatchingVariant: true,
         availableForSale: true,
+        tags:['适用年龄：幼龄','建议饲喂天数：1'],
+        specs:'400G*3'
       },
     ],
     price: 83,
