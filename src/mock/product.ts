@@ -81,3 +81,29 @@ export const mockProduct = {
     },
   ],
 };
+
+export const mockDetail = {
+  "skus|3": [
+    {
+      name: Mock.Random.cname(),
+      specs: Mock.Random.cname(),
+      stock: Mock.Random.natural(1, 100),
+      id: Mock.Random.cname(),
+      img: [Mock.Random.image("100x100")],
+      defaultChoose: Mock.Random.boolean(),
+      price: Mock.Random.cname(),
+      originalPrice: Mock.Random.cname(),
+      no: Mock.Random.cname(), //商品编号
+    },
+  ],
+  id: Mock.Random.name(),
+  no: Mock.Random.name(),
+  description: Mock.Random.name(),
+  img: [Mock.Random.image("100x100")],
+  stock: Mock.Random.natural(1, 100),
+  type: Mock.Random.name(),
+  price: Mock.Random.cname(),
+  originalPrice: Mock.Random.cname(),
+  "tags|2": [Mock.Random.cname()],
+  name: Mock.Random.name(), //没有sku的时候需要显示
+};

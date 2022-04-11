@@ -7,6 +7,26 @@ import {
 import { Scalars } from "../schema/common.schema";
 import { Price, ScopedPrice } from "./prices";
 import { AttributeConstraint } from "../enum";
+export interface ProductBaseProps {
+  specs: string;
+  name: string;
+  stock: number;
+  price: string;
+  originalPrice: string;
+  id: string;
+  no: string;
+}
+export interface SkuItemProps extends ProductBaseProps {
+  defaultChoose: boolean;
+  img: string[] /*  */;
+}
+export interface ProductDetailProps extends ProductBaseProps {
+  skus: SkuItemProps[];
+  img: string[];
+  type: string;
+  tags: string[];
+  description: string;
+}
 
 export enum FloorType {
   Activity,
@@ -27,6 +47,7 @@ export interface FloorListProps {
   icon?: string;
   type: FloorType;
   active: boolean;
+  id: string;
 }
 export interface ProductListItemProps {
   name: string;
