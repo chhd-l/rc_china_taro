@@ -3,11 +3,12 @@ export default defineAppConfig({
     "pages/index/index",
     "pages/productDetail/index",
     "pages/productList/index",
-    "pages/cart/index",
     "pages/subscription/index",
+    "pages/cart/index",
     "pages/account/index",
     "pages/addressManage/index",
     "pages/newAddress/index",
+    "pages/checkout/index",
   ],
   window: {
     backgroundTextStyle: "light",

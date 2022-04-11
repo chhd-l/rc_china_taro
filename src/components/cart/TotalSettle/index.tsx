@@ -1,8 +1,9 @@
 import { Radio, View, Text } from "@tarojs/components";
 import { useEffect, useState } from "react";
 import { formatMoney } from "@/utils/utils";
-import { AtButton } from "taro-ui";
+import { AtButton, AtModal } from "taro-ui";
 import { LineItem } from "@/framework/types/cart";
+import Taro from "@tarojs/taro";
 import "./index.less";
 
 const TotalSettle = ({
@@ -16,6 +17,7 @@ const TotalSettle = ({
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
+  const [showNoSelect, setShowNoSelect] = useState(false);
 
   const changeIsAllSelect = () => {
     setIsChecked(!isChecked);
@@ -27,6 +29,21 @@ const TotalSettle = ({
       return prev + cur.totalPrice * cur.quantity;
     }, 0);
     setTotalPrice(total);
+  };
+
+  const checkoutProduct = () => {
+    if (selectedProduct.length === 0) {
+      setShowNoSelect(true);
+      return;
+    }
+    Taro.setStorage({
+      key: "select-product",
+      data: JSON.stringify(selectedProduct),
+      complete: (respon) => {
+        console.log(respon);
+        Taro.navigateTo({ url: "/pages/checkout/index" });
+      },
+    });
   };
 
   useEffect(() => {
@@ -59,11 +76,21 @@ const TotalSettle = ({
         <AtButton
           type="primary"
           className="total-settle-button w-20 h-24"
-          onClick={() => {}}
+          onClick={() => checkoutProduct()}
         >
           结算({selectedProduct.length})
         </AtButton>
       </View>
+      <AtModal
+        isOpened={showNoSelect}
+        title="提示"
+        confirmText="确定"
+        content="请选择需要结算的商品"
+        onClose={() => {
+          setShowNoSelect(false);
+        }}
+        onConfirm={() => setShowNoSelect(false)}
+      />
     </View>
   );
 };
