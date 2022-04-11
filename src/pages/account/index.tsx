@@ -31,7 +31,7 @@ const Account = () => {
     try {
       Taro.setStorage({
         key:"addressList",
-        data:JSON.stringify(customerInfo.addresses),
+        data:JSON.stringify(Mock.mock(dataSource).addresses),
         success:function (res) {
           console.log(res);
         }
