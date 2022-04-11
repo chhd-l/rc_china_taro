@@ -23,3 +23,32 @@ export type Customer = {
   pets?: any[];
   orders?: any[];
 };
+
+export interface PetListItemProps {
+  age: string;
+  id: number;
+  name: string;
+  type: PetType;
+  gender: PetGender;
+  breed: string;
+  isSterilized: Sterilized;
+  birthday: string;
+  image: string;
+  isOpened?: boolean;
+  customer: string;
+}
+
+export enum PetType {
+  Dog,
+  Cat,
+}
+
+export enum PetGender {
+  Male,
+  Female,
+}
+
+export enum Sterilized {
+  Yes,
+  No,
+}

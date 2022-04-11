@@ -57,20 +57,23 @@ const ProductList = () => {
                 <View className="text-26  text-gray-400">{floor.subTitle}</View>
               </View>
               <View>
-                {floor.type == FloorType.Activity && (
-                  <ActivityList list={activityList} />
-                )}
-                {floor.type == FloorType.Stars && (
-                  <StarsList list={starsList} />
-                )}
-                {(floor.type == FloorType.Dry || FloorType.Wet) && (
-                  <DryOrWetList
-                    list={productList}
-                    queryList={queryList}
-                    lifestageList={lifestageList}
-                    setLifestageList={setLifestageList}
-                  />
-                )}
+                {(() => {
+                  switch (floor.type) {
+                    case FloorType.Activity:
+                      return <ActivityList list={activityList} />;
+                    case FloorType.Stars:
+                      return <StarsList list={starsList} />;
+                    default: //FloorType.Dry || FloorType.Wet
+                      return (
+                        <DryOrWetList
+                          list={productList}
+                          queryList={queryList}
+                          lifestageList={lifestageList}
+                          setLifestageList={setLifestageList}
+                        />
+                      );
+                  }
+                })()}
               </View>
             </View>
           ))}

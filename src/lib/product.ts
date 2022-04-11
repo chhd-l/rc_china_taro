@@ -65,3 +65,18 @@ export const floorList: FloorListProps[] = [
     id: "dogWetFood",
   },
 ];
+
+export const editPetButton = [
+  {
+    text: "编辑",
+    style: {
+      backgroundColor: "rgb(254, 202, 202)",
+    },
+  },
+  {
+    text: "删除",
+    style: {
+      backgroundColor: "rgb(239, 68, 68)",
+    },
+  },
+];

@@ -1,56 +1,89 @@
-import HomeNarBar from "@/components/home/HomeNavbar";
-import { useEffect, useState } from "react";
-import { View, Text, Button } from "@tarojs/components";
-import { AtButton } from "taro-ui";
-import Taro from "@tarojs/taro";
+import Taro, { Component } from "@tarojs/taro";
+import { View, ScrollView } from "@tarojs/components";
 import "./index.less";
+import React, { useState } from "react";
 
-const Index = () => {
-  const [name, setName] = useState("");
-  useEffect(() => {
-    setName("zyq");
-  }, []);
+// scrollTop: 0,
+const list = [
+  {
+    id: "A",
+    name: "A",
+  },
+  {
+    id: "B",
+    name: "B",
+  },
+  {
+    id: "C",
+    name: "C",
+  },
+  {
+    id: "D",
+    name: "D",
+  },
+];
+export default () => {
+  const [viewId, setViewId] = useState("A");
+  const setViews = (item) => {
+    console.log(item);
+    let id = item.id;
+    setViewId(id);
+  };
   return (
-    <View className="index">
-      <HomeNarBar />
-      <Text>{`Hello world!${name}`}</Text>
-      <View className="text-26">text-26</View>
-      <View className="text-28">text-28</View>
-      <View className="text-30">text-30</View>
-      <View className="text-32">text-32</View>
-      <View className="text-34">text-34</View>
-      <View className="text-36">text-36</View>
-      <View className="text-38">text-38</View>
-      <View className="text-40">text-40</View>
-      <View className="text-42">text-42</View>
-      <View className="text-48">text-48</View>
-      <View className="text-xs">text-xs</View>
-      <View className="text-sm">text-sm</View>
-      <View className="text-base">text-base</View>
-      <Button
-        onClick={() => {
-          Taro.navigateTo({
-            url: "/pages/productDetail/index",
-          });
-        }}
+    <View>
+      <View style="height:90vh">cscs</View>
+      <View className="toolBar sticky top-10">
+        {list.map((item) => {
+          return (
+            <View
+              className="tag inline-block"
+              key={item.id}
+              onClick={() => {
+                setViews(item);
+              }}
+            >
+              {[item.name]}
+            </View>
+          );
+        })}
+      </View>
+      <ScrollView
+        style="height:100vh"
+        className="scrollview"
+        scrollY
+        scrollIntoView={viewId}
       >
-        go
-      </Button>
-      <Button className="w-10 flex flex-row" openType="contact">
-        contact
-      </Button>
-      <AtButton
-        type="primary"
-        onClick={() => {
-          Taro.navigateTo({
-            url: "/pages/productDetail/index",
-          });
-        }}
-      >
-        contact
-      </AtButton>
+        <View id="A" style="height:500px;background:red">
+          A
+        </View>
+        <View id="B" style="height:500px;background:green">
+          B
+        </View>
+        <View id="C" style="height:500px;background:red">
+          C
+        </View>
+        <View id="D" style="height:500px;background:green">
+          D
+        </View>
+        <View id="E" style="height:500px;background:red">
+          E
+        </View>
+        <View id="F" style="height:500px;background:green">
+          F
+        </View>
+        <View id="G" style="height:500px;background:red">
+          G
+        </View>
+        <View id="H" style="height:500px;background:green">
+          H
+        </View>
+        <View id="I" style="height:500px;background:red">
+          I
+        </View>
+        <View id="J" style="height:500px;background:green">
+          J
+        </View>
+      </ScrollView>
     </View>
   );
 };
-
-export default Index;
