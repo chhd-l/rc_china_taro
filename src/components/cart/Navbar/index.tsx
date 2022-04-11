@@ -11,7 +11,7 @@ const NarBar = ({ num }: { num: number }) => {
       console.log(res.statusBarHeight);
       setPaddingTop(res.statusBarHeight);
     });
-  });
+  },[]);
 
   return (
     <View style={{ paddingTop: paddingTop + "px" }}>

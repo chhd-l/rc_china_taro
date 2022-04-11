@@ -60,10 +60,11 @@ const Index = () => {
             detail: res.detailInfo,
             postcode: res.postalCode,
           });
+          setAddress([res.provinceName, res.cityName,  res.countyName]);
         }
       },
     });
-  });
+  },[]);
 
   return (
     <View className="index bg-gray-200 p-2 h-screen">
