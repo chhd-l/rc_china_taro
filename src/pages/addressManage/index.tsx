@@ -12,20 +12,9 @@ const Index = () => {
     Taro.getStorage({
       key: "addressList",
       success: function (res) {
-        console.log("addressList", res.data);
-        setAddressList([
-          {
-            city: "衢州市",
-            detail: "临猗县",
-            id: "310000199212084394",
-            isDefault: 0,
-            phone: "78314227225",
-            postcode: "568031",
-            province: "香港特别行政区",
-            receiver: "潘明",
-            region: "华北",
-          },
-        ]);
+        const data = JSON.parse(res.data);
+        console.log("addressList", data);
+        setAddressList(data);
       },
     });
   }, []);

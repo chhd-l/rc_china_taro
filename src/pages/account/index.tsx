@@ -5,7 +5,7 @@ import { View, Text, Image } from "@tarojs/components";
 import { AtAvatar, AtButton } from "taro-ui";
 import { useEffect, useState } from "react";
 import Mock from "mockjs";
-import {dataSource} from "@/mock/customer";
+import { dataSource } from "@/mock/customer";
 import "./index.less";
 
 interface OrderTypeProps {
@@ -23,19 +23,19 @@ const orderTypeList: OrderTypeProps[] = [
 ];
 
 const Account = () => {
-  const [customerInfo, setCustomerInfo] = useState<any>({ addresses: [] });
+  const [customerInfo, setCustomerInfo] = useState<any>({});
 
   useEffect(() => {
     setCustomerInfo(Mock.mock(dataSource));
     console.log(Mock.mock(dataSource));
     try {
       Taro.setStorage({
-        key:"addressList",
-        data:JSON.stringify(customerInfo.addresses),
-        success:function (res) {
+        key: "addressList",
+        data: JSON.stringify(Mock.mock(dataSource).addresses),
+        success: function (res) {
           console.log(res);
-        }
-      })
+        },
+      });
     } catch (e) {
       console.log(e);
     }

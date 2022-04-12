@@ -2,6 +2,7 @@ import { useState } from "react";
 import { View, Radio, Text } from "@tarojs/components";
 import { AtDivider, AtIcon, AtModal } from "taro-ui";
 import { Address } from "@/framework/types/customer";
+import Taro from "@tarojs/taro";
 import "./index.less";
 
 interface AddressItemProps {
@@ -17,8 +18,22 @@ const AddressItem = ({ addressInfo }: AddressItemProps) => {
 
   const setAsDefault = () => {};
 
+  //checkout过来勾选地址
+  const selectAddress = () => {
+    Taro.setStorage({
+      key: "select-address",
+      data: JSON.stringify(addressInfo),
+      success: function (res) {
+        console.log(res);
+        Taro.navigateBack({
+          delta: 1,
+        });
+      },
+    });
+  };
+
   return (
-    <View className="p-2 bg-white address-item text-sm">
+    <View className="p-2 bg-white address-item text-sm" onClick={selectAddress}>
       <View className="flex flex-row justify-between">
         <Text>{receiver}</Text>
         <Text className="text-gray-400">{phone}</Text>
