@@ -7,6 +7,7 @@ export default defineAppConfig({
     "pages/cart/index",
     "pages/account/index",
     "pages/addressManage/index",
+    "pages/search/index",
     "pages/newAddress/index",
     "pages/checkout/index",
   ],

@@ -1,5 +1,9 @@
 import { CentPrecisionMoney, Scalars } from "../schema/common.schema";
 
+export interface OptionsProps {
+  label: string;
+  value: string;
+}
 export type DiscountedPrice = {
   value: CentPrecisionMoney;
   discount: ProductDiscount;
@@ -36,63 +40,62 @@ export type Images = {
   label?: string;
 };
 
-
 export type TypeKeyReference = {
-  typeId: 'type';
+  typeId: "type";
   /**
    *
    */
   key: string;
-}
+};
 /**
  *	References a product by key.
  */
 export type ProductKeyReference = {
-  typeId: 'product'
+  typeId: "product";
   key: string;
-}
+};
 export type TaxCategoryKeyReference = {
-  typeId: 'tax-category';
+  typeId: "tax-category";
   /**
    *
    */
   key: string;
-}
+};
 /**
  *	References a customer group by key.
  */
 export type CustomerGroupKeyReference = {
-  typeId: 'customer-group';
+  typeId: "customer-group";
   key: string;
-}
+};
 /**
  *	References a channel by key.
  */
 export type ChannelKeyReference = {
-  typeId: 'channel';
+  typeId: "channel";
   /**
    *
    */
   key: string;
-}
+};
 export type FieldContainer = {
   //todo
-}
+};
 /**
-*	References a product type by key.
-*/
+ *	References a product type by key.
+ */
 export type ProductTypeKeyReference = {
-  typeId: 'product-type';
+  typeId: "product-type";
   /**
    *
    */
   key: string;
-}
+};
 export type Image = {
   /**
-    *	URL of the image in its original size. The URL must be unique within a single variant. It can be used to obtain the image in different sizes.
-    *
-    */
+   *	URL of the image in its original size. The URL must be unique within a single variant. It can be used to obtain the image in different sizes.
+   *
+   */
   url: string;
   /**
    *	Dimensions of the original image. This can be used by your application, for example, to determine whether the image is large enough to display a zoom view.
@@ -104,7 +107,7 @@ export type Image = {
    *
    */
   label?: string;
-}
+};
 export type AssetDimensions = {
   /**
    *	The width of the asset source.
@@ -116,8 +119,8 @@ export type AssetDimensions = {
    *
    */
   h: number;
-}
+};
 export type CustomFields = {
-  type: TypeKeyReference
-  fields?: FieldContainer
+  type: TypeKeyReference;
+  fields?: FieldContainer;
 };
