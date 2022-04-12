@@ -1,5 +1,16 @@
 import { FloorListProps, FloorType } from "@/framework/types/products";
-
+import Mock from "mockjs";
+import { mocksearchPrams } from "@/mock/product";
+export const filterListArr = [
+  { key: "specialarea", label: "专区", list: Mock.mock(mocksearchPrams).list },
+  { key: "age", label: "年龄", list: Mock.mock(mocksearchPrams).list },
+  {
+    key: "productFunction",
+    label: "功能",
+    list: Mock.mock(mocksearchPrams).list,
+  },
+  { key: "breed", label: "品种", list: Mock.mock(mocksearchPrams).list },
+];
 export const floorList: FloorListProps[] = [
   {
     title: "活动专区",
@@ -80,3 +91,6 @@ export const editPetButton = [
     },
   },
 ];
+
+export const largeButtonClass =
+  "items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-3  mb-2";

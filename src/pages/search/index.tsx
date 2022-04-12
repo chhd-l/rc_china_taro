@@ -10,10 +10,12 @@ import {
   ProductListItemProps,
 } from "@/framework/types/products";
 import { useEffect, useState } from "react";
-import { AtFloatLayout } from "taro-ui";
 import SearchFilters from "@/components/product/SearchFilters";
 import List from "@/components/product/List";
 import { mockList, mocksearchPrams } from "@/mock/product";
+import { filterListArr, largeButtonClass } from "@/lib/product";
+import SearchFloatLayout from "@/components/product/SearchFloatLayout";
+import SearchLastOrHot from "@/components/product/SearchLastOrHot";
 interface SearchProps {
   keywords: string;
   type: PetType;
@@ -22,17 +24,6 @@ interface SearchProps {
   productFunction: string;
   breed: string;
 }
-
-const filterListArr = [
-  { key: "specialarea", label: "专区", list: Mock.mock(mocksearchPrams).list },
-  { key: "age", label: "年龄", list: Mock.mock(mocksearchPrams).list },
-  {
-    key: "productFunction",
-    label: "功能",
-    list: Mock.mock(mocksearchPrams).list,
-  },
-  { key: "breed", label: "品种", list: Mock.mock(mocksearchPrams).list },
-];
 const Search = () => {
   const [keyword, setKeyword] = useState("");
   const [hotSearchList, setHotSearchList] = useState<OptionProps[]>([]);
@@ -115,9 +106,10 @@ const Search = () => {
           onActionClick={handleSearch}
         />
         {lastSearchList.length > 0 ? (
-          <View className="pb-2 overflow-hidden">
-            <View className="flex justify-between pb-2">
-              <View className="text-xs font-semibold ">最近搜索</View>
+          <SearchLastOrHot
+            handleLastSearch={handleLastSearch}
+            titleLeft="最近搜索"
+            titleRight={
               <View>
                 <AtIcon
                   onClick={deleteLast}
@@ -126,60 +118,29 @@ const Search = () => {
                   color="rgb(107, 114, 128)"
                 ></AtIcon>
               </View>
-            </View>
-            <View>
-              {lastSearchList.map((item) => (
-                <AtButton
-                  className="float-left  px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-1 mb-2"
-                  size="small"
-                  onClick={() => {
-                    handleLastSearch(item.label);
-                  }}
-                >
-                  {item.label}
-                </AtButton>
-              ))}
-            </View>
-          </View>
+            }
+            searchList={lastSearchList}
+          />
         ) : null}
-
-        <View className="pb-2  overflow-hidden">
-          <View className=" pb-2 flex justify-between">
-            <View className="text-xs font-semibold ">热门搜索</View>
+        <SearchLastOrHot
+          handleLastSearch={handleLastSearch}
+          titleLeft="热门搜索"
+          titleRight={
             <View className="text-xs" onClick={changeSearchHot}>
               换一批
             </View>
-          </View>
-          <View>
-            {hotSearchList.map((item) => (
-              <AtButton
-                className="float-left  px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-1 mb-2"
-                size="small"
-                onClick={() => {
-                  console.info("item.label", item.label);
-                  handleLastSearch(item.label);
-                }}
-              >
-                {item.label}
-              </AtButton>
-            ))}
-          </View>
-        </View>
+          }
+          searchList={hotSearchList}
+        />
 
         <View className=" pb-2">
           <View className="text-xs font-semibold pb-2">我想搜</View>
           <View className="flex text-xs justify-between">
             <View className="flex-1 flex">
-              <AtButton
-                className="items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-3  mb-2"
-                onClick={() => {}}
-              >
+              <AtButton className={largeButtonClass} onClick={() => {}}>
                 猫产品
               </AtButton>
-              <AtButton
-                className="items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-3  mb-2"
-                onClick={() => {}}
-              >
+              <AtButton className={largeButtonClass} onClick={() => {}}>
                 狗产品
               </AtButton>
             </View>
@@ -193,54 +154,13 @@ const Search = () => {
             </Text>
           </View>
         </View>
-        <AtFloatLayout
-          isOpened={openSearchMore}
-          onClose={() => {
-            setOpenSearchMore(false);
-          }}
-        >
-          <View>
-            <View className="flex">
-              <AtButton
-                className="items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-3  mb-2"
-                onClick={() => {}}
-              >
-                猫产品
-              </AtButton>
-              <AtButton
-                className="items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-3  mb-2"
-                onClick={() => {}}
-              >
-                狗产品
-              </AtButton>
-            </View>
-            <View>
-              <SearchFilters
-                filterList={filterList}
-                setFilterList={setFilterList}
-              />
-            </View>
-            <View className="flex justify-center mt-20">
-              <View
-                className="text-xs rounded-lg justify-center text-gray-400"
-                onClick={() => {
-                  setOpenSearchMore(false);
-                }}
-              >
-                取消
-              </View>
-              <View
-                className="text-xs rounded-full bg-red-600"
-                onClick={() => {
-                  setOpenSearchMore(false);
-                  handleSearch();
-                }}
-              >
-                确定
-              </View>
-            </View>
-          </View>
-        </AtFloatLayout>
+        <SearchFloatLayout
+          openSearchMore={openSearchMore}
+          setOpenSearchMore={setOpenSearchMore}
+          filterList={filterList}
+          setFilterList={setFilterList}
+          handleSearch={handleSearch}
+        />
         <View className="text-xs">
           <SearchFilters
             filterList={filterList.slice(0, 2)}

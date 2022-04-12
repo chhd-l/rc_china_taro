@@ -4,7 +4,7 @@ import {
   PetType,
   Sterilized,
 } from "@/framework/types/customer";
-import { Button, Form, Input, Text, View } from "@tarojs/components";
+import { Form, Input, Text, View } from "@tarojs/components";
 import { useState } from "react";
 import { cloneDeep } from "lodash";
 import SingleChoice from "../SingleChoice";
