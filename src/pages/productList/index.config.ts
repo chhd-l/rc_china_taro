@@ -1,3 +1,7 @@
 export default definePageConfig({
-  navigationBarTitleText: '商城'
-})
+  navigationStyle: "custom",
+  navigationBarTitleText: "商城",
+  usingComponents: {
+    navbar: "@/components/home/HomeNavbar/index",
+  },
+});
