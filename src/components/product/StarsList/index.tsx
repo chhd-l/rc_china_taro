@@ -11,7 +11,7 @@ const StarsList = ({ list }: StarsListProps) => {
             id="video"
             className="w-full"
             src={product.video}
-            poster="https://misc.aotu.io/booxood/mobile-video/cover_900x500.jpg"
+            poster="http://dummyimage.com/200x100"
             //   initialTime='0'
             controls={true}
             autoplay={false}

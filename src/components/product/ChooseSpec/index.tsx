@@ -2,12 +2,14 @@ import { ProductDetailProps, SkuItemProps } from "@/framework/types/products";
 import { View, Image, Text } from "@tarojs/components";
 import { AtFloatLayout, AtInputNumber } from "taro-ui";
 import { cloneDeep } from "lodash";
+import { addToTypeEnum } from "@/framework/types/common";
+import Taro from "@tarojs/taro";
 interface ChooseSpecProps {
   choosedSku: SkuItemProps | ProductDetailProps;
   detailInfo: ProductDetailProps;
   buyCount: number;
-  handleShowSpec: () => void;
   showSpecs: boolean;
+  addToType: addToTypeEnum;
   setShowSpecs: (show: boolean) => void;
   setDetailInfo: (info: ProductDetailProps) => void;
   setBuyCount: (buycount: number) => void;
@@ -17,6 +19,7 @@ const ChooseSpec = ({
   showSpecs,
   detailInfo,
   setShowSpecs,
+  addToType,
   setBuyCount,
   buyCount,
   setDetailInfo,
@@ -31,6 +34,53 @@ const ChooseSpec = ({
       }
     });
     setDetailInfo(newDetailInfo);
+  };
+  const addToCart = () => {
+    Taro.navigateTo({
+      url: "/pages/cart/index",
+    });
+  };
+  const addToCheckout = () => {
+    let { id: productId, name } = detailInfo;
+    let variant = detailInfo.skus.map((item) => {
+      let newSku = {
+        skuId: item.id,
+        isOnStock: !!item.stock,
+        availableQuantity: item.stock,
+        image: item.img[0],
+        isMatchingVariant: choosedSku.id === item.id,
+        tags: item.tags,
+      };
+      // if (item.id === choosedSku.id) {
+      //   item.isMatchingVariant = true;
+      // }
+    });
+    let selectedProduct = {
+      productId,
+      name,
+      price: detailInfo.price,
+      quantity: buyCount,
+      variant: [],
+    };
+    Taro.setStorage({
+      key: "select-product",
+      data: JSON.stringify(selectedProduct),
+      complete: (respon) => {
+        console.log(respon);
+        Taro.navigateTo({ url: "/pages/checkout/index" });
+      },
+    });
+  };
+  const handleComfirm = async () => {
+    switch (addToType) {
+      case addToTypeEnum.Cart:
+        await addToCart();
+        break;
+      case addToTypeEnum.Checkout:
+        await addToCheckout();
+        break;
+    }
+    setShowSpecs(false);
   };
   return (
     <AtFloatLayout
@@ -90,6 +140,12 @@ const ChooseSpec = ({
             />
           </View>
         </View>
+      </View>
+      <View
+        className="text-center rounded-full fixed bottom-0 left-0 right-0 mx-2 my-4 py-2 border border-solid border-red-600 text-red-600"
+        onClick={handleComfirm}
+      >
+        确定
       </View>
     </AtFloatLayout>
   );

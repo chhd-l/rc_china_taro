@@ -1,10 +1,16 @@
 import { ProductListItemProps } from "@/framework/types/products";
 import { View, Image } from "@tarojs/components";
+import Taro from "@tarojs/taro";
 import "./index.less";
 interface ListProps {
   list: ProductListItemProps[];
 }
 const List = ({ list }: ListProps) => {
+  const toDetail = ({ spu }) => {
+    Taro.navigateTo({
+      url: `/pages/productDetail/index?id=${spu}`,
+    });
+  };
   console.info("productList", list);
   return (
     <View className="px-1 product-list">
@@ -28,7 +34,12 @@ const List = ({ list }: ListProps) => {
                     ¥{product.price}
                   </View>
                 </View>
-                <View className="buy-button px-2 py-1 bg-white text-red-600 border border-solid border-red-600 rounded-full">
+                <View
+                  onClick={() => {
+                    toDetail(product);
+                  }}
+                  className="buy-button px-2 py-1 bg-white text-red-600 border border-solid border-red-600 rounded-full"
+                >
                   立即购买
                 </View>
               </View>

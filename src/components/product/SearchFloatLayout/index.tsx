@@ -41,7 +41,7 @@ const SearchFloatLayout = ({
         </View>
         <View className="flex justify-center mt-20">
           <View
-            className="text-xs rounded-lg justify-center text-gray-400"
+            className="text-xs rounded-lg justify-center border border-solid border-gray-400 text-gray-400 px-8 py-2  "
             onClick={() => {
               setOpenSearchMore(false);
             }}
@@ -49,7 +49,7 @@ const SearchFloatLayout = ({
             取消
           </View>
           <View
-            className="text-xs rounded-full bg-red-600"
+            className="text-xs rounded-full bg-red-600 px-8 py-2 text-white"
             onClick={() => {
               setOpenSearchMore(false);
               handleSearch();

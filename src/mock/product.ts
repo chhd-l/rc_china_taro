@@ -20,7 +20,7 @@ export const mockBanner = {
   "list|4": [
     {
       url: Mock.Random.name(),
-      img: Mock.Random.image("200x200"),
+      img: Mock.Random.image("200x100"),
     },
   ],
 };
@@ -33,15 +33,18 @@ export const mockTabOptions = {
       value: Mock.Random.guid(),
       icon: Mock.Random.image("100x100"),
       headerImg: Mock.Random.image("200x100"),
-      seeMoreUrl: Mock.Random.url(),
+      seeMoreUrl: "/pages/moreProducts/index",
+      moduleColor: Mock.Random.color(),
+      titleLable: Mock.Random.cname(),
       "children|3": [
         {
+          titleLable: Mock.Random.cname(),
           subLabel: Mock.Random.name(),
           label: Mock.Random.cname(),
           value: Mock.Random.guid(),
           icon: Mock.Random.image("100x100"),
           headerImg: Mock.Random.image("200x100"),
-          seeMoreUrl: Mock.Random.url(),
+          seeMoreUrl: "/pages/moreProducts/index",
         },
       ],
     },
@@ -85,6 +88,7 @@ export const mockDetail = {
       price: Mock.Random.cname(),
       originalPrice: Mock.Random.cname(),
       no: Mock.Random.cname(), //商品编号
+      "tags|2": [Mock.Random.cname()],
     },
   ],
   id: Mock.Random.name(),
