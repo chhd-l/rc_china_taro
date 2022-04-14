@@ -1,8 +1,9 @@
 import { Radio, View, Text } from "@tarojs/components";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AtForm, AtInput, AtButton, AtTextarea } from "taro-ui";
 import { Address } from "@/framework/types/customer";
 import RegionPicker from "@/components/common/WePicker/index";
+import Taro from "@tarojs/taro";
 import "./index.less";
 
 const Index = () => {
@@ -16,6 +17,7 @@ const Index = () => {
     isDefault: 0,
   });
   const [address, setAddress] = useState(["浙江省", "杭州市", "滨江区"]);
+  const { province, city, region } = addressInfo;
 
   let WPickerRef: any = null;
   const onRef = (ref) => {
@@ -24,17 +26,14 @@ const Index = () => {
 
   const onConfirm = (res: any) => {
     console.log(res);
+    const { obj } = res;
     setAddressInfo({
       ...addressInfo,
-      province: res.obj.province.label,
-      city: res.obj.city.label,
-      region: res.obj.area.label,
+      province: obj.province.label,
+      city: obj.city.label,
+      region: obj.area.label,
     });
-    setAddress([
-      res.obj.province.label,
-      res.obj.city.label,
-      res.obj.area.label,
-    ]);
+    setAddress([obj.province.label, obj.city.label, obj.area.label]);
   };
   const onCancel = () => {};
 
@@ -42,7 +41,30 @@ const Index = () => {
     setAddressInfo({ ...addressInfo, [name]: value });
   };
 
-  const saveNewAddress = () => {};
+  const saveNewAddress = () => {
+    Taro.navigateTo({ url: "/pages/addressManage/index" });
+  };
+
+  useEffect(() => {
+    Taro.chooseAddress({
+      success: function (res) {
+        console.log(res);
+        if (res?.userName) {
+          setAddressInfo({
+            ...addressInfo,
+            receiver: res.userName,
+            phone: res.telNumber,
+            province: res.provinceName,
+            city: res.cityName,
+            region: res.countyName,
+            detail: res.detailInfo,
+            postcode: res.postalCode,
+          });
+          setAddress([res.provinceName, res.cityName,  res.countyName]);
+        }
+      },
+    });
+  },[]);
 
   return (
     <View className="index bg-gray-200 p-2 h-screen">
@@ -53,7 +75,7 @@ const Index = () => {
             title="收货人"
             type="text"
             placeholder="请输入姓名"
-            value={addressInfo["name"]}
+            value={addressInfo["receiver"]}
             onChange={(value) => updateAddressInfo(value, "receiver")}
           />
           <AtInput
@@ -70,15 +92,9 @@ const Index = () => {
               onClick={() => {
                 WPickerRef.show();
               }}
-              className="ml-7 text-gray-300"
+              className={`${province ? "" : "text-gray-300"} ml-7`}
             >
-              {addressInfo.province
-                ? addressInfo.province +
-                  "," +
-                  addressInfo.city +
-                  "," +
-                  addressInfo.region
-                : "省,市,区"}
+              {province ? province + "," + city + "," + region : "省,市,区"}
             </Text>
           </View>
           <RegionPicker
@@ -104,8 +120,8 @@ const Index = () => {
             onClick={() =>
               updateAddressInfo(!addressInfo.isDefault, "isDefault")
             }
-            style={{transform:'scale(0.6)'}}
-            color='red'
+            style={{ transform: "scale(0.6)" }}
+            color="red"
             className="mt-2 text-48 -ml-4"
           >
             默认地址
@@ -113,7 +129,11 @@ const Index = () => {
         </View>
       </AtForm>
       <View className="mt-2">
-        <AtButton className="bg-red-500 rc-button text-white w-20" formType="submit">
+        <AtButton
+          className="bg-red-500 rc-button text-white w-20"
+          formType="submit"
+          onClick={saveNewAddress}
+        >
           保存
         </AtButton>
       </View>

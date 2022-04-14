@@ -1,8 +1,8 @@
 import Taro from "@tarojs/taro";
-import { View } from "@tarojs/components";
+import { View, Text } from "@tarojs/components";
 import { useEffect, useState } from "react";
 
-const HomeNarBar = () => {
+const NarBar = ({ num }: { num: number }) => {
   const [paddingTop, setPaddingTop] = useState<any>(0);
 
   useEffect(() => {
@@ -15,8 +15,10 @@ const HomeNarBar = () => {
 
   return (
     <View style={{ paddingTop: paddingTop + "px" }}>
-      <View className='mt-4 mb-10'>自定义导航栏</View>
+      <View className="mt-2 mb-2 text-center">
+        购物车{num > 0 ? <Text>({num})</Text> : null}
+      </View>
     </View>
   );
 };
-export default HomeNarBar;
+export default NarBar;
