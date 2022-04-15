@@ -15,6 +15,7 @@ import {
 import { floorList } from "@/lib/product";
 import FloorNav from "@/components/product/FloorNav";
 import ListBanner from "@/components/product/ListBanner";
+import NavBarForList from "@/components/product/NavBarForList";
 
 const bannerLists = Mock.mock(mockBanner).list;
 const starsLists = Mock.mock(mockStar).list;
@@ -37,9 +38,10 @@ const ProductList = () => {
 
   return (
     <View className="product-list">
+      <NavBarForList />
       <ScrollView
         style="height:100vh"
-        className="scrollview"
+        className="scrollview mt-0"
         scrollIntoView={floorId}
         scrollY
         scrollWithAnimation

@@ -1,3 +1,4 @@
+import { addToTypeEnum } from "@/framework/types/common";
 import { ProductDetailProps, SkuItemProps } from "@/framework/types/products";
 import { Swiper, SwiperItem, View, Text } from "@tarojs/components";
 import { AtIcon } from "taro-ui";
@@ -5,7 +6,7 @@ interface DetailProps {
   choosedSku: SkuItemProps | ProductDetailProps;
   detailInfo: ProductDetailProps;
   buyCount: number;
-  handleShowSpec: () => void;
+  handleShowSpec: (type: addToTypeEnum) => void;
 }
 const Detail = ({
   choosedSku,
@@ -34,7 +35,7 @@ const Detail = ({
         <AtIcon prefixClass="fa" value="share" size="30" color="red"></AtIcon>
       </View>
       <View>
-        {detailInfo.tags.map((tag) => (
+        {choosedSku?.tags.map((tag) => (
           <Text className="border border-solid border-red-600 px-1 mr-1  text-26 rounded-lg text-red-600">
             {tag}
           </Text>
@@ -51,7 +52,12 @@ const Detail = ({
           已选
           {choosedSku.specs}，{buyCount}件
         </View>
-        <View onClick={handleShowSpec} className="text-red-600 text-40">
+        <View
+          onClick={() => {
+            handleShowSpec(addToTypeEnum.None);
+          }}
+          className="text-red-600 text-40"
+        >
           ...
         </View>
       </View>
