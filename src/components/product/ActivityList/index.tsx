@@ -16,7 +16,7 @@ const ActivityList = ({ list }: ActivityProps) => {
       {list.map((item) => (
         <SwiperItem>
           {item.img ? (
-            <Image src={item.img} lazyLoad mode="widthFix" style="width:100%" />
+            <Image src={item.img} mode="widthFix" style="width:100%" />
           ) : null}
         </SwiperItem>
       ))}

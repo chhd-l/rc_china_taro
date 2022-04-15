@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import ShopProductList from "../ShopProductList";
 import { AtButton } from "taro-ui";
 import Taro from "@tarojs/taro";
+import { FloorListProps } from "@/framework/types/products";
 interface TabOptionsProps extends OptionsProps {
   icon: string;
   active: boolean | undefined;
@@ -12,6 +13,8 @@ interface TabOptionsProps extends OptionsProps {
   children?: TabOptionsProps[];
   headerImg?: string;
   seeMoreUrl?: string;
+  moduleColor?: string;
+  titleLable?: string;
 }
 interface DryListProps {
   list: any;
@@ -42,6 +45,21 @@ const DryOrWetList = ({
     setHeaderImg(newItem.headerImg || "");
     setseeMoreUrl(newItem.seeMoreUrl || "");
   }, [lifestageList, breedList]);
+  useEffect(() => {
+    //一进来默认第一个是active
+    lifestageList[0].active = true;
+    if (breedList?.length) {
+      breedList[0].active = true;
+    }
+  }, []);
+  const handleChangeBreed = (breed) => {
+    breedList.forEach((item) => {
+      if (item.value === breed.value) {
+        item.active = !item.active;
+      }
+    });
+    setBreedList(cloneDeep(breedList));
+  };
   const handleChangeLifestage = (lifestage) => {
     let params: any = {};
     lifestageList.forEach((item) => {
@@ -64,8 +82,13 @@ const DryOrWetList = ({
     setLifestageList(cloneDeep(lifestageList));
   };
   const handleSeeMore = () => {
+    let selected = breedList?.length ? breedList : lifestageList;
+    debugger;
+    let title = selected.find((item) => item.active)?.titleLable;
+    let url = `${seeMoreUrl || "/pages/moreProducts/index"}?title=${title}`;
+    console.info(seeMoreUrl, url);
     Taro.navigateTo({
-      url: seeMoreUrl,
+      url,
     });
   };
   return (
@@ -74,15 +97,18 @@ const DryOrWetList = ({
         <ScrollView className="whitespace-nowrap pb-2" scrollX>
           {lifestageList.map((lifestage) => (
             <View
-              className="px-1 inline-block text-center"
+              className={`px-1 inline-block text-center `}
               onClick={() => {
                 handleChangeLifestage(lifestage);
               }}
             >
               <View
-                className={` inline-block w-12 h-12 rounded-full border-10 border-solid ${
-                  lifestage.active ? "border-red-600" : "border-transparent"
-                }`}
+                className={` inline-block w-12 h-12 rounded-full border-10 border-solid `}
+                style={{
+                  borderColor: `${
+                    lifestage.active ? lifestage.moduleColor : "transparent"
+                  }`,
+                }}
               >
                 <Image
                   className={`box-border w-12 h-12 rounded-full border-1 border-solid  ${
@@ -100,9 +126,12 @@ const DryOrWetList = ({
         <ScrollView className="whitespace-nowrap" scrollX>
           {breedList.map((breed) => (
             <View
-              className="inline-block text-center px-1"
+              style="width:33.3%"
+              className={`inline-block text-center px-1 ${
+                breed.active ? "bg-red-600" : "bg-gray-400"
+              }`}
               onClick={() => {
-                handleChangeLifestage(breed);
+                handleChangeBreed(breed);
               }}
             >
               <View>
@@ -112,18 +141,24 @@ const DryOrWetList = ({
                   }`}
                   src={breed.icon}
                 />
-                <Text className="text-26">{breed.label}</Text>
+                <Text className="text-26 font-medium">{breed.label}</Text>
               </View>
 
-              <View className="text-26">{breed.subLabel}</View>
+              <View className="text-24">{breed.subLabel}</View>
             </View>
           ))}
         </ScrollView>
       ) : null}
-      <Image src={headerImg} />
+      <Image src={headerImg} className="w-full" mode="widthFix" />
       <ShopProductList list={list} />
       <View className="p-2">
-        <AtButton size="small" type="primary" circle onClick={handleSeeMore}>
+        <AtButton
+          size="small"
+          type="primary"
+          className="bg-red-600 border-0"
+          circle
+          onClick={handleSeeMore}
+        >
           查看更多
         </AtButton>
       </View>

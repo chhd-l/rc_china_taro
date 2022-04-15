@@ -1,4 +1,9 @@
 import { CentPrecisionMoney, Scalars } from "../schema/common.schema";
+export enum addToTypeEnum {
+  Cart,
+  Checkout,
+  None,
+}
 
 export interface OptionsProps {
   label: string;

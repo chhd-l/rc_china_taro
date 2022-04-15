@@ -15,16 +15,15 @@ export interface ProductBaseProps {
   originalPrice: string;
   id: string;
   no: string;
+  tags: string[];
+  img: string[] /*  */;
 }
 export interface SkuItemProps extends ProductBaseProps {
   defaultChoose: boolean;
-  img: string[] /*  */;
 }
 export interface ProductDetailProps extends ProductBaseProps {
   skus: SkuItemProps[];
-  img: string[];
   type: string;
-  tags: string[];
   description: string;
 }
 

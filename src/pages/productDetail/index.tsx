@@ -7,6 +7,7 @@ import { mockDetail } from "@/mock/product";
 import ChooseSpec from "@/components/product/ChooseSpec";
 import AddCart from "@/components/product/AddCart";
 import Detail from "@/components/product/Detail";
+import { addToTypeEnum } from "@/framework/types/common";
 
 const detailData = Mock.mock(mockDetail);
 console.info("detailData", detailData);
@@ -14,6 +15,7 @@ const ProductDetail = () => {
   const [detailInfo, setDetailInfo] = useState<ProductDetailProps>(
     {} as ProductDetailProps
   );
+  const [addToType, setAddToType] = useState(addToTypeEnum.Cart);
   const [buyCount, setBuyCount] = useState<number>(1);
   const [showSpecs, setShowSpecs] = useState<boolean>(false);
   useEffect(() => {
@@ -32,8 +34,9 @@ const ProductDetail = () => {
     return data || ({} as SkuItemProps);
   }, [detailInfo]);
   console.info("choosedSku", choosedSku);
-  const handleShowSpec = () => {
+  const handleShowSpec = (type: addToTypeEnum) => {
     setShowSpecs(true);
+    setAddToType(type);
   };
 
   return (
@@ -52,6 +55,7 @@ const ProductDetail = () => {
           <ChooseSpec
             choosedSku={choosedSku}
             showSpecs={showSpecs}
+            addToType={addToType}
             detailInfo={detailInfo}
             setShowSpecs={setShowSpecs}
             setBuyCount={setBuyCount}
