@@ -36,7 +36,7 @@ const ChooseSpec = ({
     setDetailInfo(newDetailInfo);
   };
   const addToCart = () => {
-    Taro.navigateTo({
+    Taro.switchTab({
       url: "/pages/cart/index",
     });
   };

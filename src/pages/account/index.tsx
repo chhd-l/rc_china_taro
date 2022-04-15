@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import Mock from "mockjs";
 import { dataSource } from "@/mock/customer";
 import "./index.less";
+import PetList from "@/components/customer/PetList";
 
 interface OrderTypeProps {
   label: string;
@@ -99,7 +100,9 @@ const Account = () => {
         {/*微信关注*/}
         <View>微信关注</View>
         {/*我的宠物*/}
-        <View>我的宠物</View>
+        <View>
+          <PetList />
+        </View>
       </View>
     </View>
   );

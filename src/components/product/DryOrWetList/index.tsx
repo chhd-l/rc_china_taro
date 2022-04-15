@@ -83,7 +83,6 @@ const DryOrWetList = ({
   };
   const handleSeeMore = () => {
     let selected = breedList?.length ? breedList : lifestageList;
-    debugger;
     let title = selected.find((item) => item.active)?.titleLable;
     let url = `${seeMoreUrl || "/pages/moreProducts/index"}?title=${title}`;
     console.info(seeMoreUrl, url);

@@ -7,10 +7,12 @@ export default defineAppConfig({
     "pages/moreProducts/index",
     "pages/cart/index",
     "pages/account/index",
+    "pages/productDetail/index",
     "pages/addressManage/index",
     "pages/search/index",
     "pages/newAddress/index",
     "pages/checkout/index",
+    "pages/petList/index",
   ],
   window: {
     backgroundTextStyle: "light",

@@ -12,7 +12,7 @@ const AddCart = ({ handleShowSpec }: Props) => {
         <View
           className="flex flex-col justify-center items-center text-26 px-4"
           onClick={() => {
-            Taro.navigateTo({
+            Taro.switchTab({
               url: "/pages/cart/index",
             });
           }}
