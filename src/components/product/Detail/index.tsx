@@ -35,7 +35,7 @@ const Detail = ({
         <AtIcon prefixClass="fa" value="share" size="30" color="red"></AtIcon>
       </View>
       <View>
-        {choosedSku?.tags.map((tag) => (
+        {choosedSku?.tags?.map((tag) => (
           <Text className="border border-solid border-red-600 px-1 mr-1  text-26 rounded-lg text-red-600">
             {tag}
           </Text>
