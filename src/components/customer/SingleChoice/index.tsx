@@ -6,7 +6,7 @@ import {
 } from "@/framework/types/customer";
 import { View } from "@tarojs/components";
 import { ReactNode, useState } from "react";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.cloneDeep";
 interface OptionProps {
   active?: boolean;
   label: string;

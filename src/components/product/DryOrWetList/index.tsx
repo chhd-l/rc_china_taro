@@ -1,5 +1,5 @@
 import { OptionsProps } from "@/framework/types/common";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.cloneDeep";
 import { ScrollView, View, Image, Text } from "@tarojs/components";
 import { useEffect, useState } from "react";
 import ShopProductList from "../ShopProductList";

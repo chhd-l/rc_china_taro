@@ -1633,11 +1633,6 @@
   resolved "https://registry.npmmirror.com/@types/scheduler/-/scheduler-0.16.2.tgz"
   integrity sha512-hppQEBDmlwhFAXKJX2KnWLYu5yMfi91yazPb2l+lbJiwW+wdo1gNeRA+3RgNSO39WYX2euey41KEwnqesU2Jew==
 
-"@types/tailwindcss@^2.2.4":
-  version "2.2.4"
-  resolved "https://registry.yarnpkg.com/@types/tailwindcss/-/tailwindcss-2.2.4.tgz#c3bca7d265e608ffc50a6d1a4932b5b53be14553"
-  integrity sha512-8mIk+0BoReKiaBI4e3hjaz9YDQto+rdZ2eEExHf6AfS38FZcALQ6s8mTd+74N8BtBaLnTzLdNe5GbkzObWlSXw==
-
 "@types/webpack-env@^1.13.6":
   version "1.16.3"
   resolved "https://registry.npmmirror.com/@types/webpack-env/-/webpack-env-1.16.3.tgz"
@@ -9018,13 +9013,6 @@ table@^6.8.0:
     slice-ansi "^4.0.0"
     string-width "^4.2.3"
     strip-ansi "^6.0.1"
-
-tailwindcss-miniprogram-preset@^2.1.2:
-  version "2.1.2"
-  resolved "https://registry.yarnpkg.com/tailwindcss-miniprogram-preset/-/tailwindcss-miniprogram-preset-2.1.2.tgz#678ac173c7d2b4c7d98deb1edbdc65c7afd1189d"
-  integrity sha512-b4XBYLi7XicOi8SWjHPbYBaIbiSH6/AqydKGI7ZiiNoK9XKOz74HA615DdB6Q6nUJzVmKd1Hdc9/HQn1VscjiA==
-  dependencies:
-    "@types/tailwindcss" "^2.2.4"
 
 tapable@^1.0.0, tapable@^1.1.3:
   version "1.1.3"

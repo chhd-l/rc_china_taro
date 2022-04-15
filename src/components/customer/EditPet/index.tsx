@@ -6,7 +6,7 @@ import {
 } from "@/framework/types/customer";
 import { Form, Input, Text, View } from "@tarojs/components";
 import { useState } from "react";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.cloneDeep";
 import SingleChoice from "../SingleChoice";
 interface EditPetProps {
   pet: PetListItemProps;

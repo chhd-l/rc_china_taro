@@ -1,7 +1,7 @@
 import { ProductDetailProps, SkuItemProps } from "@/framework/types/products";
 import { View, Image, Text } from "@tarojs/components";
 import { AtFloatLayout, AtInputNumber } from "taro-ui";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.cloneDeep";
 interface ChooseSpecProps {
   choosedSku: SkuItemProps | ProductDetailProps;
   detailInfo: ProductDetailProps;

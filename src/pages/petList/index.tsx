@@ -10,7 +10,7 @@ import {
   Sterilized,
 } from "@/framework/types/customer";
 import Taro from "@tarojs/taro";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.cloneDeep";
 import { useState } from "react";
 import EditPet from "@/components/customer/EditPet";
 import { editPetButton } from "@/lib/product";

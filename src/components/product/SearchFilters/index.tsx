@@ -1,6 +1,6 @@
 import { FilterListItemProps } from "@/framework/types/products";
 import { ScrollView, View, Text } from "@tarojs/components";
-import { cloneDeep } from "lodash";
+import cloneDeep from "lodash.cloneDeep";
 interface SearchFiltersProps {
   filterList: FilterListItemProps[];
   setFilterList: (a: FilterListItemProps[]) => void;
