@@ -1,8 +1,9 @@
 export default defineAppConfig({
   pages: [
+    "pages/petList/index",
     "pages/index/index",
+    "pages/breedList/index",
     "pages/productList/index",
-    "pages/productDetail/index",
     "pages/subscription/index",
     "pages/moreProducts/index",
     "pages/cart/index",
@@ -12,7 +13,6 @@ export default defineAppConfig({
     "pages/search/index",
     "pages/newAddress/index",
     "pages/checkout/index",
-    "pages/petList/index",
   ],
   window: {
     backgroundTextStyle: "light",
