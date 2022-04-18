@@ -3,6 +3,7 @@ import { View, Radio, Text } from "@tarojs/components";
 import { AtDivider, AtIcon, AtModal } from "taro-ui";
 import { Address } from "@/framework/types/customer";
 import Taro from "@tarojs/taro";
+import { deleteAddress, updateAddress } from "@/framework/api/customer/address";
 import "./index.less";
 
 interface AddressItemProps {
@@ -11,12 +12,26 @@ interface AddressItemProps {
 
 const AddressItem = ({ addressInfo }: AddressItemProps) => {
   const [showDelTip, setShowDelTip] = useState(false);
-  const { receiver, phone, province, city, region, detail, isDefault } =
+  const { receiverName, phone, province, city, region, detail, isDefault } =
     addressInfo;
 
-  const delAddress = () => {};
+  const delAddress = async () => {
+    await deleteAddress({
+      id: addressInfo.id || "",
+    });
+    setShowDelTip(false);
+  };
 
-  const setAsDefault = () => {};
+  const setAsDefault = async () => {
+    await updateAddress({
+      params: {
+        customerId: addressInfo.customerId,
+        id: addressInfo.id,
+        isDefault: !isDefault,
+        receiverName:receiverName
+      },
+    });
+  };
 
   //checkout过来勾选地址
   const selectAddress = () => {
@@ -33,9 +48,12 @@ const AddressItem = ({ addressInfo }: AddressItemProps) => {
   };
 
   return (
-    <View className="p-2 bg-white address-item text-sm" onClick={selectAddress}>
+    <View
+      className="p-2 bg-white address-item text-sm mt-2"
+      onClick={selectAddress}
+    >
       <View className="flex flex-row justify-between">
-        <Text>{receiver}</Text>
+        <Text>{receiverName}</Text>
         <Text className="text-gray-400">{phone}</Text>
       </View>
       <View className="mt-2">

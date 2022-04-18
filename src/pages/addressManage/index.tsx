@@ -3,20 +3,29 @@ import { View, Button } from "@tarojs/components";
 import { AddressItem } from "@/components/customer";
 import { useEffect, useState } from "react";
 import { Address } from "@/framework/types/customer";
+import { getAddresses } from "@/framework/api/customer/address";
 import "./index.less";
 
 const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([]);
 
-  useEffect(() => {
-    Taro.getStorage({
-      key: "addressList",
-      success: function (res) {
-        const data = JSON.parse(res.data);
-        console.log("addressList", data);
-        setAddressList(data);
-      },
+  const getAddressList = async () => {
+    const res = await getAddresses({
+      customerId: "e5edfa8c-ff05-cee0-45af-5c9e69d1b162",
     });
+    setAddressList(res);
+  };
+
+  useEffect(() => {
+    // Taro.getStorage({
+    //   key: "addressList",
+    //   success: function (res) {
+    //     const data = JSON.parse(res.data);
+    //     console.log("addressList", data);
+    //     setAddressList(data);
+    //   },
+    // });
+    getAddressList();
   }, []);
 
   const getWechatAddress = () => {

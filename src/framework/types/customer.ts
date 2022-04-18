@@ -1,6 +1,6 @@
 export type Address = {
   id?: string;
-  receiver: string;
+  receiverName: string;
   phone: string;
   province: string; //省
   city: string; //市
@@ -9,6 +9,7 @@ export type Address = {
   isDefault: number;
   country?: string;
   region: string; //区
+  customerId?:string
 };
 
 export type Customer = {
