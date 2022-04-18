@@ -1212,6 +1212,19 @@
     "@prefresh/core" "^1.3.3"
     "@prefresh/utils" "^1.1.2"
 
+"@rc-china-commerce/common@^1.0.4":
+  version "1.0.4"
+  resolved "https://packages.aliyun.com/5f923bdf728df4b180fad101/npm/npm-registry/@rc-china-commerce/common/-/@rc-china-commerce/common-1.0.4.tgz#a473b08a8c28970d6cd8088804225d2e538010df"
+  integrity sha512-qpatoWsJ+kDw3Zg11IbLEvqJ1M3S/quMB2R4jU+l5JcibckUmyEzG0xEgBh89p5WpG2diQqMNX5kAgdXYjyyRA==
+
+"@rc-china-commerce/taro@^1.0.4":
+  version "1.0.4"
+  resolved "https://packages.aliyun.com/5f923bdf728df4b180fad101/npm/npm-registry/@rc-china-commerce/taro/-/@rc-china-commerce/taro-1.0.4.tgz#eeaab62ba24cdd318650ac978101fd7572b8c42c"
+  integrity sha512-RYIlgBweDlSlWkAR0s6ua2sqX2hETR71Zlyw5LlneDXl601kfPJfGwxqXP/7WvXfO5bPuBAe668iS8dESO33gQ==
+  dependencies:
+    "@rc-china-commerce/common" "^1.0.4"
+    "@tarojs/taro" "^3.4.6"
+
 "@stencil/core@2.9.0":
   version "2.9.0"
   resolved "https://registry.npmmirror.com/@stencil/core/-/core-2.9.0.tgz"
@@ -1224,6 +1237,14 @@
   dependencies:
     "@babel/runtime" "^7.14.5"
     "@tarojs/runtime" "3.4.2"
+
+"@tarojs/api@3.4.6":
+  version "3.4.6"
+  resolved "https://registry.npmmirror.com/@tarojs/api/-/api-3.4.6.tgz#858637b3282aada67381d63d5368c8bfe21361a3"
+  integrity sha512-eAVkPPncjQ2rkjmiB+62Xrq7aJo9rodNCc8q45QZ3SIyEuIoa1hUF6MQ+Dq4p4E4IKzP6u0PRlE26Bdlp/KFdQ==
+  dependencies:
+    "@babel/runtime" "^7.14.5"
+    "@tarojs/runtime" "3.4.6"
 
 "@tarojs/components@3.4.2":
   version "3.4.2"
@@ -1411,6 +1432,17 @@
     universal-router "^8.3.0"
     url-parse "^1.4.7"
 
+"@tarojs/router@3.4.6":
+  version "3.4.6"
+  resolved "https://registry.npmmirror.com/@tarojs/router/-/router-3.4.6.tgz#ce2663d8d996780e87da117e3c73ca6d5013fb14"
+  integrity sha512-hohW4hvY/iTGvcRHkMMCLm0T97ScephTYJiYVIte+5kR21HG0v6JhQNM5qzK7zCRSB/jj13fP+3Bvy7sOKWsjg==
+  dependencies:
+    "@tarojs/runtime" "3.4.6"
+    "@tarojs/taro" "3.4.6"
+    history "^5.1.0"
+    query-string "^7.1.1"
+    universal-router "^8.3.0"
+
 "@tarojs/runner-utils@3.4.2":
   version "3.4.2"
   resolved "https://registry.npmmirror.com/@tarojs/runner-utils/-/runner-utils-3.4.2.tgz"
@@ -1425,6 +1457,16 @@
   integrity sha512-aWOIEzQnmCXvX7yGyOgM37ZQDcnk/PVKrZ9FEiAzZknXesfyF5TPiwhoKY6wm1KnRoSzcaUeWMFSnT8wXaAY6g==
   dependencies:
     "@tarojs/shared" "3.4.2"
+    inversify "5.1.1"
+    lodash-es "4.17.15"
+    reflect-metadata "^0.1.13"
+
+"@tarojs/runtime@3.4.6":
+  version "3.4.6"
+  resolved "https://registry.npmmirror.com/@tarojs/runtime/-/runtime-3.4.6.tgz#d0483504b49dd23feb7ac631a58aae44ece7d348"
+  integrity sha512-mZEJDAcBNuss/vqiySXSFxxI/vOpHFWFGz6ieWw0ADDN9MDatNrEtdtoXqZdnyR2SFTyKfk8xTd+W/6hyAIuzQ==
+  dependencies:
+    "@tarojs/shared" "3.4.6"
     inversify "5.1.1"
     lodash-es "4.17.15"
     reflect-metadata "^0.1.13"
@@ -1449,6 +1491,11 @@
   resolved "https://registry.npmmirror.com/@tarojs/shared/-/shared-3.4.2.tgz"
   integrity sha512-01DkLfC5f/XPqIe8PDHsps4spdbQ4yV1XHWBpe8kwvgdjfdqbcnyTTocGaoKd7c+gqueITKSapwHVQ0I4C6spg==
 
+"@tarojs/shared@3.4.6":
+  version "3.4.6"
+  resolved "https://registry.npmmirror.com/@tarojs/shared/-/shared-3.4.6.tgz#1d184aaa528b73575b39f8e6d208af3cb473d9d6"
+  integrity sha512-zWdJDNq108rMrn4p6NgvNcxq7Ezare5NoQVXaE2Va1wNlW/LviD4liaA4SXAaJUyrzUOmESbAExrosxOhELqYg==
+
 "@tarojs/taro-h5@3.4.2":
   version "3.4.2"
   resolved "https://registry.npmmirror.com/@tarojs/taro-h5/-/taro-h5-3.4.2.tgz"
@@ -1461,6 +1508,21 @@
     base64-js "^1.3.0"
     jsonp-retry "^1.0.3"
     mobile-detect "^1.4.2"
+    whatwg-fetch "^3.4.0"
+
+"@tarojs/taro-h5@3.4.6":
+  version "3.4.6"
+  resolved "https://registry.npmmirror.com/@tarojs/taro-h5/-/taro-h5-3.4.6.tgz#3db48fcafe507a36860c6a4e69bcf55bf0a5e17e"
+  integrity sha512-eQqntVxaxQ5uPhRLA7EARQxKSdtza5V/xJ8iES/kjKATTXcmjcLU2mMVTcTqtfRq5YpIz+G3Myf/R93y8cw54A==
+  dependencies:
+    "@tarojs/api" "3.4.6"
+    "@tarojs/router" "3.4.6"
+    "@tarojs/runtime" "3.4.6"
+    "@tarojs/taro" "3.4.6"
+    base64-js "^1.3.0"
+    jsonp-retry "^1.0.3"
+    mobile-detect "^1.4.2"
+    query-string "^7.1.1"
     whatwg-fetch "^3.4.0"
 
 "@tarojs/taro-loader@3.4.2":
@@ -1480,6 +1542,15 @@
     "@tarojs/api" "3.4.2"
     "@tarojs/runtime" "3.4.2"
     "@tarojs/taro-h5" "3.4.2"
+
+"@tarojs/taro@3.4.6", "@tarojs/taro@^3.4.6":
+  version "3.4.6"
+  resolved "https://registry.npmmirror.com/@tarojs/taro/-/taro-3.4.6.tgz#b456db23eabf49beb8985196519aeda7d124517e"
+  integrity sha512-WSJilKKI71T/TbIFC5WKNQerFtHf+zykBAakEyCQD1FqbAooJfowcbEzSAiW+LLSOayr+gNP8BbZZoAORXXWmg==
+  dependencies:
+    "@tarojs/api" "3.4.6"
+    "@tarojs/runtime" "3.4.6"
+    "@tarojs/taro-h5" "3.4.6"
 
 "@tarojs/webpack-runner@3.4.2":
   version "3.4.2"
@@ -7625,6 +7696,16 @@ query-string@^6.13.8:
     split-on-first "^1.0.0"
     strict-uri-encode "^2.0.0"
 
+query-string@^7.1.1:
+  version "7.1.1"
+  resolved "https://registry.npmmirror.com/query-string/-/query-string-7.1.1.tgz#754620669db978625a90f635f12617c271a088e1"
+  integrity sha512-MplouLRDHBZSG9z7fpuAAcI7aAYjDLhtsiVZsevsfaHWDS2IDdORKbSd1kWUA+V4zyva/HZoSfpwnYMMQDhb0w==
+  dependencies:
+    decode-uri-component "^0.2.0"
+    filter-obj "^1.1.0"
+    split-on-first "^1.0.0"
+    strict-uri-encode "^2.0.0"
+
 querystring-es3@^0.2.0:
   version "0.2.1"
   resolved "https://registry.npmmirror.com/querystring-es3/-/querystring-es3-0.2.1.tgz"
@@ -7684,6 +7765,13 @@ raw-body@2.4.3:
     http-errors "1.8.1"
     iconv-lite "0.4.24"
     unpipe "1.0.0"
+
+rc_china_commerce@^1.0.7:
+  version "1.0.7"
+  resolved "https://packages.aliyun.com/5f923bdf728df4b180fad101/npm/npm-registry/rc_china_commerce/-/rc_china_commerce-1.0.7.tgz#202578d007bd10a5688f2e1360a5e64efc8dcbcc"
+  integrity sha512-aLUBi0x7Ld/4F5nUoSCR0/O9/oMQ4UJMUsGlEs6Hx0bodLsvp+Bzqw+oWTmFkwFdzlbk0+s3/k5bpeJa4lwWTg==
+  dependencies:
+    "@tarojs/taro" "^3.4.6"
 
 react-dom@^17.0.0:
   version "17.0.2"
