@@ -1,34 +1,33 @@
-import Taro, { Component } from "@tarojs/taro";
-import { View, ScrollView } from "@tarojs/components";
-import "./index.less";
-import React, { useState } from "react";
+import { View, ScrollView } from '@tarojs/components'
+import './index.less'
+import { useState } from 'react'
 
 // scrollTop: 0,
 const list = [
   {
-    id: "A",
-    name: "A",
+    id: 'A',
+    name: 'A',
   },
   {
-    id: "B",
-    name: "B",
+    id: 'B',
+    name: 'B',
   },
   {
-    id: "C",
-    name: "C",
+    id: 'C',
+    name: 'C',
   },
   {
-    id: "D",
-    name: "D",
+    id: 'D',
+    name: 'D',
   },
-];
+]
 export default () => {
-  const [viewId, setViewId] = useState("A");
+  const [viewId, setViewId] = useState('A')
   const setViews = (item) => {
-    console.log(item);
-    let id = item.id;
-    setViewId(id);
-  };
+    console.log(item)
+    let id = item.id
+    setViewId(id)
+  }
   return (
     <View>
       <View style="height:90vh">cscs</View>
@@ -39,20 +38,15 @@ export default () => {
               className="tag inline-block"
               key={item.id}
               onClick={() => {
-                setViews(item);
+                setViews(item)
               }}
             >
               {[item.name]}
             </View>
-          );
+          )
         })}
       </View>
-      <ScrollView
-        style="height:100vh"
-        className="scrollview"
-        scrollY
-        scrollIntoView={viewId}
-      >
+      <ScrollView style="height:100vh" className="scrollview" scrollY scrollIntoView={viewId}>
         <View id="A" style="height:500px;background:red">
           A
         </View>
@@ -85,5 +79,5 @@ export default () => {
         </View>
       </ScrollView>
     </View>
-  );
-};
+  )
+}

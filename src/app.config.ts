@@ -1,17 +1,21 @@
 export default defineAppConfig({
   pages: [
     'pages/index/index',
-    'pages/breedList/index',
-    'pages/productList/index',
     'pages/subscription/index',
-    'pages/moreProducts/index',
     'pages/cart/index',
-    'pages/account/index',
-    'pages/petList/index',
-    'pages/addressManage/index',
-    'pages/search/index',
-    'pages/newAddress/index',
     'pages/checkout/index',
+    'pages/productList/index',
+    'pages/account/index',
+  ],
+  subpackages: [
+    {
+      root: 'pages/packageA',
+      pages: ['search/index', 'moreProducts/index', 'productDetail/index'],
+    },
+    {
+      root: 'pages/packageB',
+      pages: ['addressManage/index', 'breedList/index', 'newAddress/index', 'petList/index'],
+    },
   ],
   window: {
     backgroundTextStyle: 'light',
@@ -57,4 +61,5 @@ export default defineAppConfig({
     ],
     position: 'bottom',
   },
+  lazyCodeLoading: 'requiredComponents',
 })
