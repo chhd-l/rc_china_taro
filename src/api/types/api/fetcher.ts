@@ -3,7 +3,7 @@ export interface Config {
     query: string,
     queryData?: CommerceAPIFetchOptions<Variables>,
     fetchOptions?: RequestInit
-  ): Promise<GraphQLFetcherResult<Data>>
+  ): Promise<GraphQLFetcherResult<Data>>;
 }
 
 export type GraphQLFetcher<
@@ -13,14 +13,14 @@ export type GraphQLFetcher<
   query: string,
   queryData?: CommerceAPIFetchOptions<Variables>,
   fetchOptions?: RequestInit
-) => Promise<Data>
+) => Promise<Data>;
 
 export interface GraphQLFetcherResult<Data = any> {
-  data: Data
-  res: Response
+  data: Data;
+  res: Response | any;
 }
 
 export interface CommerceAPIFetchOptions<Variables> {
-  variables?: Variables
-  preview?: boolean
+  variables?: Variables;
+  preview?: boolean;
 }

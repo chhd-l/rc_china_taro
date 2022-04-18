@@ -77,20 +77,5 @@ export const floorList: FloorListProps[] = [
   },
 ];
 
-export const editPetButton = [
-  {
-    text: "编辑",
-    style: {
-      backgroundColor: "rgb(254, 202, 202)",
-    },
-  },
-  {
-    text: "删除",
-    style: {
-      backgroundColor: "rgb(239, 68, 68)",
-    },
-  },
-];
-
 export const largeButtonClass =
   "items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-3  mb-2";

@@ -27,29 +27,29 @@ export type Customer = {
 
 export interface PetListItemProps {
   age: string;
-  id: number;
+  id: string;
   name: string;
   type: PetType;
   gender: PetGender;
   breed: string;
-  isSterilized: Sterilized;
-  birthday: string;
+  isSterilized: boolean;
+  birthday: Date;
   image: string;
   isOpened?: boolean;
-  customer: string;
+  customerId?: string;
 }
 
 export enum PetType {
-  Dog,
-  Cat,
+  Dog = "DOG",
+  Cat = "CAT",
 }
 
 export enum PetGender {
-  Male,
-  Female,
+  Male = "MALE",
+  Female = "FEMAL",
 }
 
 export enum Sterilized {
-  Yes,
   No,
+  Yes,
 }

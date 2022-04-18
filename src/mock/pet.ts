@@ -10,8 +10,15 @@ export const petLists = {
       gender: Mock.Random.name(),
       breed: Mock.Random.name(),
       isSterilized: Mock.Random.boolean(),
-      birthday: Mock.Random.name(),
+      birthday: Mock.Random.date(),
       customer: Mock.Random.name(),
     },
+  ],
+};
+
+export const breedListMock = {
+  "list|38": [
+    { image: Mock.Random.image("100x100"), value: "啊啊啊" },
+    { image: Mock.Random.image("100x100"), value: "哦哦哦" },
   ],
 };
