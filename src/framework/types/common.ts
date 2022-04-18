@@ -5,6 +5,15 @@ export enum addToTypeEnum {
   None,
 }
 
+export interface imageOptionProps {
+  image: string;
+  value: string;
+}
+export interface PySortProps {
+  letter: string;
+  data: imageOptionProps[];
+}
+
 export interface OptionsProps {
   label: string;
   value: string;

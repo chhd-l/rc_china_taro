@@ -1,0 +1,26 @@
+export const mockPetlist = [
+  {
+    birthday: new Date("2021-04-02"),
+    breedCode: "哦哦哦",
+    customerId: "",
+    gender: "MALE",
+    image: "http://dummyimage.com/100x100",
+    isSterilized: false,
+    name: "test",
+    operator: "",
+    type: "CAT",
+    id: "1",
+  },
+  {
+    birthday: new Date("2020-04-02"),
+    breedCode: "哦哦哦",
+    customerId: "",
+    gender: "MALE",
+    image: "http://dummyimage.com/100x100",
+    isSterilized: true,
+    name: "土狗",
+    operator: "",
+    type: "DOG",
+    id: "2",
+  },
+];

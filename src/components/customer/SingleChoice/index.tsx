@@ -5,12 +5,12 @@ import {
   Sterilized,
 } from "@/framework/types/customer";
 import { View } from "@tarojs/components";
-import { ReactNode, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import cloneDeep from "lodash.cloneDeep";
 interface OptionProps {
   active?: boolean;
   label: string;
-  value: PetType | PetGender | Sterilized;
+  value: PetType | PetGender | boolean;
 }
 interface SingleChoiceProps {
   label: string | ReactNode;
@@ -26,9 +26,21 @@ const SingleChoice = ({ label, options, name, pet }: SingleChoiceProps) => {
       item.active = false;
     });
     optionList[idx].active = true;
-    setOptionList(cloneDeep(optionList));
     pet[name] = item.value;
+    console.info("pet", pet);
+    setOptionList(cloneDeep(optionList));
   };
+  useEffect(() => {
+    console.info("optionList", optionList);
+    console.info("petname", pet[name]);
+    optionList.forEach((item) => {
+      if (item.value === pet[name]) {
+        item.active = true;
+      }
+    });
+    setOptionList(cloneDeep(optionList));
+    console.info(optionList, "optionList");
+  }, []);
   return (
     <View className="grid grid-cols-12 text-26 py-1">
       {label}
