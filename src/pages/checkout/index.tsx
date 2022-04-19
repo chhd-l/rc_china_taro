@@ -68,7 +68,6 @@ const Checkout = () => {
     Taro.getStorage({
       key: "select-address",
       success: function (res) {
-        console.log(res)
         if(res.data){
           setAddress(JSON.parse(res.data));
         }

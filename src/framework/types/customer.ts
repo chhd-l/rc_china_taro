@@ -1,14 +1,15 @@
 export type Address = {
   id?: string;
-  receiver: string;
+  receiverName: string;
   phone: string;
   province: string; //省
   city: string; //市
   detail: string;
   postcode?: string;
-  isDefault: number;
+  isDefault: boolean;
   country?: string;
   region: string; //区
+  customerId?:string
 };
 
 export type Customer = {
