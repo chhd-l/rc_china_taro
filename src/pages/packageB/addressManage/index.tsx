@@ -1,20 +1,20 @@
-import Taro from "@tarojs/taro";
-import { View, Button } from "@tarojs/components";
-import { AddressItem } from "@/components/customer";
-import { useEffect, useState } from "react";
-import { Address } from "@/framework/types/customer";
-import { getAddresses } from "@/framework/api/customer/address";
-import "./index.less";
+import Taro from '@tarojs/taro'
+import { View, Button } from '@tarojs/components'
+import { AddressItem } from '@/components/customer'
+import { useEffect, useState } from 'react'
+import { Address } from '@/framework/types/customer'
+import { createAddress, getAddresses } from '@/framework/api/customer/address'
+import './index.less'
 
 const Index = () => {
-  const [addressList, setAddressList] = useState<Address[]>([]);
+  const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddressList = async () => {
     const res = await getAddresses({
-      customerId: "e5edfa8c-ff05-cee0-45af-5c9e69d1b162",
-    });
-    setAddressList(res);
-  };
+      customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
+    })
+    setAddressList(res)
+  }
 
   useEffect(() => {
     // Taro.getStorage({
@@ -25,28 +25,32 @@ const Index = () => {
     //     setAddressList(data);
     //   },
     // });
-    getAddressList();
-  }, []);
+    getAddressList()
+  }, [])
 
   const getWechatAddress = () => {
     Taro.chooseAddress({
-      success: function (res) {
-        console.log(res.userName); //receiver
-        console.log(res.postalCode); //postcode
-        console.log(res.provinceName); //province
-        console.log(res.cityName); //city
-        console.log(res.countyName); //region
-        console.log(res.detailInfo); //detail
-        console.log(res.nationalCode);
-        console.log(res.telNumber); //phone
-        //todo
-        //将获取到或者新增的地址传给后台
+      success: async function (res) {
+        console.log('微信地址', res)
+        await createAddress({
+          receiverName: res.userName,
+          phone: res.telNumber,
+          province: res.provinceName,
+          city: res.cityName,
+          region: res.countyName,
+          detail: res.detailInfo,
+          postcode: res.postalCode,
+          isDefault: false,
+          customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
+          operator: 'master',
+          storeId: '1',
+        })
       },
-    });
-  };
+    })
+  }
 
   return (
-    <View className="index bg-gray-200 p-2 h-screen">
+    <View className="index bg-gray-200 p-2">
       {addressList.map((item: Address) => (
         <AddressItem addressInfo={item} />
       ))}
@@ -55,21 +59,18 @@ const Index = () => {
           className="text-xs m-0 h-6 bg-white mr-2 flex items-center text-gray-400"
           onClick={() => {
             Taro.navigateTo({
-              url: "/pages/newAddress/index",
-            });
+              url: '/pages/packageB/newAddress/index',
+            })
           }}
         >
           +新增地址
         </Button>
-        <Button
-          className="text-xs m-0 bg-white flex items-center text-gray-400"
-          onClick={() => getWechatAddress()}
-        >
+        <Button className="text-xs m-0 bg-white flex items-center text-gray-400" onClick={() => getWechatAddress()}>
           +获取微信收货地址
         </Button>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Index;
+export default Index

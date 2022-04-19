@@ -6,7 +6,7 @@ export type Address = {
   city: string; //市
   detail: string;
   postcode?: string;
-  isDefault: number;
+  isDefault: boolean;
   country?: string;
   region: string; //区
   customerId?:string
