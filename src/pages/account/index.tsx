@@ -70,7 +70,7 @@ const Account = () => {
               size="small"
               onClick={() => {
                 Taro.navigateTo({
-                  url: "/pages/addressManage/index",
+                  url: "/pages/packageB/addressManage/index",
                 });
               }}
             >

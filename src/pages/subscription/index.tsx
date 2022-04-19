@@ -1,6 +1,6 @@
-import PetList from "@/components/customer/PetList";
-import { View, Text } from "@tarojs/components";
-import "./index.less";
+import PetList from '@/components/customer/PetList'
+import { View, Text } from '@tarojs/components'
+import './index.less'
 
 const Subscription = () => {
   return (
@@ -8,7 +8,7 @@ const Subscription = () => {
       <Text>Subscription</Text>
       <PetList />
     </View>
-  );
-};
+  )
+}
 
-export default Subscription;
+export default Subscription

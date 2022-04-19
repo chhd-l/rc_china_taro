@@ -1,78 +1,68 @@
-import {
-  PetGender,
-  PetListItemProps,
-  PetType,
-  Sterilized,
-} from "@/framework/types/customer";
-import { Form, Input, Picker, Text, View } from "@tarojs/components";
-import { useState } from "react";
-import cloneDeep from "lodash.cloneDeep";
-import SingleChoice from "../SingleChoice";
-import { addPet } from "@/framework/api/pet/add-pet";
-import { AtIcon, AtList, AtListItem } from "taro-ui";
-import Taro from "@tarojs/taro";
-import moment from "moment";
-import { updatePet } from "@/framework/api/pet/update-pet";
-console.info("moment", moment());
+import { PetGender, PetListItemProps, PetType } from '@/framework/types/customer'
+import { Form, Input, Picker, Text, View } from '@tarojs/components'
+import { useState } from 'react'
+import cloneDeep from 'lodash.cloneDeep'
+import SingleChoice from '../SingleChoice'
+import { addPet } from '@/framework/api/pet/add-pet'
+import { AtIcon, AtList, AtListItem } from 'taro-ui'
+import Taro from '@tarojs/taro'
+import moment from 'moment'
+import { updatePet } from '@/framework/api/pet/update-pet'
+console.info('moment', moment())
 interface EditPetProps {
-  pet: PetListItemProps;
-  getList: () => void;
-  SetshowAddPetBtn: (val: boolean) => void;
-  setIsEdit: (val: boolean) => void;
+  pet: PetListItemProps
+  getList: () => void
+  SetshowAddPetBtn: (val: boolean) => void
+  setIsEdit: (val: boolean) => void
 }
 const typeOption = [
-  { label: "喵星人", value: PetType.Cat },
-  { label: "汪星人", value: PetType.Dog },
-];
+  { label: '喵星人', value: PetType.Cat },
+  { label: '汪星人', value: PetType.Dog },
+]
 const genderOption = [
-  { label: "公", value: PetGender.Male },
-  { label: "母", value: PetGender.Female },
-];
+  { label: '公', value: PetGender.Male },
+  { label: '母', value: PetGender.Female },
+]
 const isSterilizedOption = [
-  { label: "是", value: true },
-  { label: "否", value: false },
-];
-const EditPet = ({
-  pet,
-  getList,
-  SetshowAddPetBtn,
-  setIsEdit,
-}: EditPetProps) => {
-  const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet));
+  { label: '是', value: true },
+  { label: '否', value: false },
+]
+const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit }: EditPetProps) => {
+  const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet))
   const handleSave = async () => {
-    console.info("est", petInfo);
-    if (petInfo.id === "-1") {
-      await addPet(petInfo);
+    console.info('est', petInfo)
+    if (petInfo.id === '-1') {
+      await addPet(petInfo)
     } else {
-      await updatePet(petInfo, pet);
+      await updatePet(petInfo, pet)
     }
-    getList();
-    handleCancel();
+    getList()
+    handleCancel()
     // addPet
-  };
+  }
   const handleChange = (name, value) => {
-    petInfo[name] = value;
-  };
+    petInfo[name] = value
+  }
   const handleChangeDate = (e) => {
-    petInfo.birthday = new Date(e.detail.value);
-    setPetInfo(cloneDeep(petInfo));
-  };
+    petInfo.birthday = new Date(e.detail.value)
+    setPetInfo(cloneDeep(petInfo))
+  }
   const handleBreed = () => {
     Taro.navigateTo({
       url: `/pages/breedList/index`,
       events: {
         seachBreed: function ({ breed }) {
-          console.log("返回的数据---", breed);
-          let newPetInfo = Object.assign({}, petInfo, { breed });
-          setPetInfo(newPetInfo);
+          console.log('返回的数据---', breed)
+          let newPetInfo = Object.assign({}, petInfo, { breed })
+          setPetInfo(newPetInfo)
         },
       },
-    });
-  };
+    })
+  }
   const handleCancel = () => {
-    SetshowAddPetBtn(true); // add
-    setIsEdit(false); //edit
-  };
+    SetshowAddPetBtn(true) // add
+    setIsEdit(false) //edit
+  }
 
   return (
     <View className="px-2 bg-white pt-4 shadow-inner mx-2 pb-2">
@@ -99,8 +89,8 @@ const EditPet = ({
               name="name"
               value={petInfo.name}
               onBlur={(e) => {
-                console.info("valuevalue", e.detail.value);
-                handleChange("name", e.detail.value);
+                console.info('valuevalue', e.detail.value)
+                handleChange('name', e.detail.value)
               }}
               type="text"
               placeholder="点击输入宠物名"
@@ -129,7 +119,7 @@ const EditPet = ({
               size="24"
               color="#F00"
               className="right-1 absolute"
-              customStyle={{ transform: "translateY(-50%)", top: "50%" }}
+              customStyle={{ transform: 'translateY(-50%)', top: '50%' }}
             ></AtIcon>
           </View>
           <SingleChoice
@@ -157,16 +147,9 @@ const EditPet = ({
           <View>
             <View className="col-span-4 flex items-center text-26 relative">
               <View className="at-icon at-icon-tag"></View>
-              <Picker
-                mode="date"
-                className="flex-1"
-                onChange={handleChangeDate}
-              >
+              <Picker mode="date" className="flex-1" onChange={handleChangeDate}>
                 <AtList>
-                  <AtListItem
-                    title="宠物生日"
-                    extraText={moment(petInfo.birthday).format("YYYY-MM-DD")}
-                  />
+                  <AtListItem title="宠物生日" extraText={moment(petInfo.birthday).format('YYYY-MM-DD')} />
                 </AtList>
               </Picker>
               <AtIcon
@@ -174,27 +157,21 @@ const EditPet = ({
                 size="24"
                 color="#F00"
                 className="right-1 absolute"
-                customStyle={{ transform: "translateY(-50%)", top: "50%" }}
+                customStyle={{ transform: 'translateY(-50%)', top: '50%' }}
               ></AtIcon>
             </View>
           </View>
         </View>
         <View className="text-30 my-4 flex justify-around">
-          <View
-            onClick={handleCancel}
-            className="inline-block px-8 py-2 rounded-full text-gray-600 bg-gray-200"
-          >
+          <View onClick={handleCancel} className="inline-block px-8 py-2 rounded-full text-gray-600 bg-gray-200">
             取消
           </View>
-          <View
-            onClick={handleSave}
-            className="inline-block px-8 py-2 rounded-full text-white bg-red-600"
-          >
+          <View onClick={handleSave} className="inline-block px-8 py-2 rounded-full text-white bg-red-600">
             保存
           </View>
         </View>
       </Form>
     </View>
-  );
-};
-export default EditPet;
+  )
+}
+export default EditPet
