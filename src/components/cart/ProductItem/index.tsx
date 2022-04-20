@@ -3,6 +3,7 @@ import { AtInputNumber, AtSwipeAction } from "taro-ui";
 import { LineItem, ProductVariant } from "@/framework/types/cart";
 import { useEffect, useState } from "react";
 import { formatMoney } from "@/utils/utils";
+import './index.less'
 
 const ProductItem = ({
   product,
@@ -67,18 +68,18 @@ const ProductItem = ({
             }
           />
           <Image className="w-20 h-20" src={image} />
-          <View>
-            <View>{name}</View>
-            <View className="mt-1">{specs}</View>
-            <View className="flex flex-row mt-1 text-xs">
+          <View className="ml-2">
+            <View className="font-semibold text-32 text-black">{name}</View>
+            <View className="mt-1 font-semibold text-black">{specs}</View>
+            <View className="flex flex-row mt-1 text-20">
               {tags.map((el) => (
-                <View className="border border-solid rounded-md border-red-500 mr-2 px-1">
+                <View className="border border-solid rounded-md border-red-500 mr-2 px-1 text-red-500">
                   {el}
                 </View>
               ))}
             </View>
-            <View className="flex flex-row mt-1 justify-between items-center pr-8">
-              <View>{formatMoney(price)}</View>
+            <View className="flex flex-row mt-1 justify-between items-center">
+              <View className="text-red-500 font-medium text-base">{formatMoney(price)}</View>
               <View>
                 <AtInputNumber
                   min={0}
@@ -90,6 +91,7 @@ const ProductItem = ({
                       changeProduct(productId, "quantity", value);
                   }}
                   type="number"
+                  className="rc-input-number"
                 />
               </View>
             </View>

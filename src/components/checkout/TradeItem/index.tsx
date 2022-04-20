@@ -29,14 +29,14 @@ const ProductItem = ({ product }: { product: LineItem }) => {
 
   return (
     <View className="flex flex-row justify-between items-center">
-      <Image src={image} className="text-sm w-32 h-32" />
-      <View className="w-full pl-4">
-        <View>{name}</View>
-        <View>{specs}</View>
+      <Image src={image} className="w-32 h-32" />
+      <View className="w-full pl-2">
+        <View className="font-semibold text-32 text-black">{name}</View>
+        <View className="font-semibold text-32 text-black mt-1">{specs}</View>
         {tags.map((el) => (
-          <View className="text-xs text-gray-400">{el}</View>
+          <View className="text-24 text-gray-400 mt-1">{el}</View>
         ))}
-        <View className="flex flex-row justify-between">
+        <View className="flex flex-row justify-between pr-4 mt-1">
           <Text className="text-red-500">{formatMoney(price)}</Text>
           <Text className="text-xs text-gray-400">x {quantity}</Text>
         </View>
