@@ -1,14 +1,14 @@
-import { View } from "@tarojs/components";
-import NavBar from "@/components/common/Navbar";
-import { AtSearchBar } from "taro-ui";
-import { useState } from "react";
-import Taro from "@tarojs/taro";
-import "./index.less";
+import { View } from '@tarojs/components'
+import NavBar from '@/components/common/Navbar'
+import { AtSearchBar } from 'taro-ui'
+import { useState } from 'react'
+import Taro from '@tarojs/taro'
+import './index.less'
 const NavBarForList = () => {
-  const [keyword, setKeyword] = useState("猫奶罐");
+  const [keyword, setKeyword] = useState('猫奶罐')
   const handleClick = () => {
-    Taro.navigateTo({ url: "/pages/search/index" });
-  };
+    Taro.navigateTo({ url: '/pages/packageA/search/index' })
+  }
   return (
     <NavBar>
       <View className="flex items-center px-2 product-list-navbar">
@@ -19,14 +19,14 @@ const NavBarForList = () => {
             disabled
             placeholder={keyword}
             onChange={(value) => {
-              console.info("value", value);
-              setKeyword(value);
+              console.info('value', value)
+              setKeyword(value)
             }}
           />
         </View>
         <View className="w-24"></View>
       </View>
     </NavBar>
-  );
-};
-export default NavBarForList;
+  )
+}
+export default NavBarForList

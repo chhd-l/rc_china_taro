@@ -1,28 +1,28 @@
-import { PetGender, PetType, Sterilized } from "@/framework/types/customer";
+import { PetGender, PetType, Sterilized } from '@/framework/types/customer'
 export const initNewPet = {
-  age: "",
-  id: "-1",
-  name: "",
+  age: '',
+  id: '-1',
+  name: '',
   type: PetType.Cat,
   gender: PetGender.Male,
-  breed: "",
+  breed: '',
   isSterilized: false,
-  birthday: new Date(),
-  image: "http://dummyimage.com/100x100",
-  customerId: "20220415",
-};
+  birthday: '',
+  image: 'http://dummyimage.com/100x100',
+  customerId: '20220415',
+}
 
 export const editPetButton = [
   {
-    text: "编辑",
+    text: '编辑',
     style: {
-      backgroundColor: "rgb(254, 202, 202)",
+      backgroundColor: 'rgb(254, 202, 202)',
     },
   },
   {
-    text: "删除",
+    text: '删除',
     style: {
-      backgroundColor: "rgb(239, 68, 68)",
+      backgroundColor: 'rgb(239, 68, 68)',
     },
   },
-];
+]

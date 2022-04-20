@@ -1,31 +1,31 @@
-import { Customer, CustomerPagedQueryResponse } from "./types/customer";
-import { getAllCustomersQuery } from "./queries/get-all-customers-query";
-import { Config } from "./types/api/fetcher";
-import fetchGraphqlApi from "./fetchGraphqlApi";
-import { getAllPetsQuery } from "./queries/get-all-pets-query";
-import { petDeleteMutation } from "./mutations/pet-delete";
-import { petCreateMutation } from "./mutations/pet-create";
-import { Pet, PetInput } from "./types/pet";
-import { petUpdateMutation } from "./mutations/pet-update";
+import { Customer, CustomerPagedQueryResponse } from './types/customer'
+import { getAllCustomersQuery } from './queries/get-all-customers-query'
+import { Config } from './types/api/fetcher'
+import fetchGraphqlApi from './fetchGraphqlApi'
+import { getAllPetsQuery } from './queries/get-all-pets-query'
+import { petDeleteMutation } from './mutations/pet-delete'
+import { petCreateMutation } from './mutations/pet-create'
+import { Pet, PetInput } from './types/pet'
+import { petUpdateMutation } from './mutations/pet-update'
 
 const config: Config = {
   fetch: fetchGraphqlApi,
-};
+}
 
 export class ClientBuilder {
   public apiRoot: any = {
     customers: this.customers,
-  };
+  }
 
   async customers(): Promise<CustomerPagedQueryResponse | any> {
     const { data } = await config.fetch(getAllCustomersQuery, {
       variables: {
         offset: 20,
       },
-    });
+    })
     return {
       customers: data?.customers,
-    };
+    }
   }
 
   pets() {
@@ -34,29 +34,19 @@ export class ClientBuilder {
       createPet: this.createPet,
       deletePet: this.deletePet,
       updatePet: this.updatePet,
-    };
+    }
   }
 
-  private async getPets({
-    customerId,
-  }: {
-    customerId: string;
-  }): Promise<Pet[]> {
+  private async getPets({ customerId }: { customerId: string }): Promise<Pet[]> {
     const { data } = await config.fetch(getAllPetsQuery, {
       variables: {
         customerId,
       },
-    });
-    console.log(data);
-    return data.pets;
+    })
+    console.log(data)
+    return data.pets
   }
-  private async deletePet({
-    customerId,
-    operator,
-  }: {
-    customerId: string;
-    operator?: string;
-  }): Promise<any> {
+  private async deletePet({ customerId, operator }: { customerId: string; operator?: string }): Promise<any> {
     const { data } = await config.fetch(
       `
     mutation createCustomeraaa($input: createCustomerDto!){
@@ -68,21 +58,21 @@ export class ClientBuilder {
       {
         variables: {
           input: {
-            id: "xxx",
-            name: "xxx",
-            gender: "xxx",
+            id: 'xxx',
+            name: 'xxx',
+            gender: 'xxx',
           },
         },
-      }
-    );
+      },
+    )
   }
 
   private async createPet({ body }: { body: PetInput }): Promise<any> {
     const { data } = await config.fetch(petCreateMutation, {
       variables: {
-        body,
+        input: { body },
       },
-    });
+    })
   }
 
   private async updatePet({ body }: { body: PetInput }) {
@@ -90,7 +80,7 @@ export class ClientBuilder {
       variables: {
         input: { ...body },
       },
-    });
-    return;
+    })
+    return
   }
 }
