@@ -3,7 +3,9 @@ import { AtInputNumber, AtSwipeAction } from "taro-ui";
 import { LineItem, ProductVariant } from "@/framework/types/cart";
 import { useEffect, useState } from "react";
 import { formatMoney } from "@/utils/utils";
+import {deleteCart} from "@/framework/api/cart/cart";
 import './index.less'
+
 
 const ProductItem = ({
   product,
@@ -36,8 +38,9 @@ const ProductItem = ({
     getSelectSkuInfo();
   }, [product]);
 
-  const delCartProduct = () => {
+  const delCartProduct = async () => {
     console.log("333333");
+    await deleteCart({id:"998ddf4c-0d7c-b64c-eec5-eaf1d8b62926",operator:'111'})
   };
 
   return (
