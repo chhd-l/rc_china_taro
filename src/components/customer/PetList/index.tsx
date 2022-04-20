@@ -15,7 +15,7 @@ const PetList = () => {
   }
   const toPetList = () => {
     Taro.navigateTo({
-      url: '/pages/petList/index',
+      url: '/pages/packageB/petList/index',
     })
   }
   return (

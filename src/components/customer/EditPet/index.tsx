@@ -38,18 +38,17 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit }: EditPetProps) =>
     }
     getList()
     handleCancel()
-    // addPet
   }
   const handleChange = (name, value) => {
     petInfo[name] = value
   }
   const handleChangeDate = (e) => {
-    petInfo.birthday = new Date(e.detail.value)
+    petInfo.birthday = e.detail.value
     setPetInfo(cloneDeep(petInfo))
   }
   const handleBreed = () => {
     Taro.navigateTo({
-      url: `/pages/breedList/index`,
+      url: `/pages/packageB/breedList/index`,
       events: {
         seachBreed: function ({ breed }) {
           console.log('返回的数据---', breed)
@@ -149,7 +148,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit }: EditPetProps) =>
               <View className="at-icon at-icon-tag"></View>
               <Picker mode="date" className="flex-1" onChange={handleChangeDate}>
                 <AtList>
-                  <AtListItem title="宠物生日" extraText={moment(petInfo.birthday).format('YYYY-MM-DD')} />
+                  <AtListItem title="宠物生日" extraText={petInfo.birthday} />
                 </AtList>
               </Picker>
               <AtIcon

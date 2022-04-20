@@ -75,7 +75,7 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
   const handleSeeMore = () => {
     let selected = breedList?.length ? breedList : lifestageList
     let title = selected.find((item) => item.active)?.titleLable
-    let url = `${seeMoreUrl || '/pages/moreProducts/index'}?title=${title}`
+    let url = `${seeMoreUrl || '/pages/packageA/moreProducts/index'}?title=${title}`
     console.info(seeMoreUrl, url)
     Taro.navigateTo({
       url,

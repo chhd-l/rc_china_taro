@@ -2,8 +2,6 @@ export default defineAppConfig({
   pages: [
     'pages/index/index',
     'pages/subscription/index',
-    'pages/productDetail/index',
-    'pages/moreProducts/index',
     'pages/cart/index',
     'pages/checkout/index',
     'pages/productList/index',

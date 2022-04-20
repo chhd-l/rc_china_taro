@@ -1,12 +1,27 @@
 import { Goods, GoodsVariants } from '@/framework/schema/products.schema'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
-import { dealDatasForApi } from '@/utils/utils'
+import { dealDatasForApi, formatDateToApi, formatDateToFe } from '@/utils/utils'
 
 export const normalizePetsForApi = (petInfo: any) => {
-  return dealDatasForApi(petInfo, petItemApiArr, petItemFeArr)
+  let data: any = dealDatasForApi(petInfo, petItemApiArr, petItemFeArr)
+  if (data.id === '-1') {
+    //处理新增情况
+    delete data.id
+  }
+  data.operator = ''
+  if (data.birthday) {
+    //处理日期
+    data.birthday = formatDateToApi(data.birthday)
+  }
+  console.info('data', data)
+  return data
 }
 export const normalizePetsForFe = (petInfo: any) => {
   let data: any = dealDatasForApi(petInfo, petItemFeArr, petItemApiArr)
+  if (data.birthday) {
+    //处理日期
+    data.birthday = formatDateToFe(data.birthday)
+  }
   // data.birthday = moment(petInfo.birthday).format("YYYY-MM-DD");
   return data
 }
