@@ -12,7 +12,7 @@ const Coupon = () => {
   return (
     <View className="bg-white mt-2">
       <View className="flex flex-row justify-between p-2 items-center">
-        <View className="text-sm">优惠券</View>
+        <View className="text-30">优惠券</View>
         <View>
           <View>
             <Text className="text-xs text-gray-400">无</Text>

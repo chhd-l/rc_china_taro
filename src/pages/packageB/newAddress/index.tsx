@@ -1,5 +1,5 @@
 import { Radio, View, Text } from '@tarojs/components'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AtForm, AtInput, AtButton, AtTextarea } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
 import RegionPicker from '@/components/common/WePicker/index'
@@ -23,10 +23,13 @@ const Index = () => {
   const { province, city, region } = addressInfo
   const [initData, setInitData] = useState(null)
 
-  let WPickerRef: any = useRef()
+  const [WPickerRef, setWPickerRef] = useState({
+    show: () => {},
+  })
 
   const onRef = (ref) => {
-    WPickerRef = ref
+    console.log('ref', ref)
+    setWPickerRef(ref)
   }
 
   const onConfirm = (res: any) => {
@@ -128,6 +131,7 @@ const Index = () => {
             <Text>所在地区</Text>
             <Text
               onClick={() => {
+                console.log('WPickerRef', WPickerRef)
                 WPickerRef.show()
               }}
               className={`${province ? '' : 'text-gray-300'} ml-7`}
@@ -164,7 +168,7 @@ const Index = () => {
           </Radio>
         </View>
       </AtForm>
-      <View className="mt-2">
+      <View className="mt-2 flex justify-center">
         <AtButton className="bg-red-500 rc-button text-white w-20" formType="submit" onClick={saveNewAddress}>
           保存
         </AtButton>

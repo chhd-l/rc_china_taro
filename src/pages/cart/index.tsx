@@ -46,7 +46,7 @@ const Cart = () => {
   return (
     <View>
       <Navbar num={productList.length} />
-      <View className="index bg-gray-50 pt-2">
+      <View className="index bg-gray-50 py-2">
         {productList.length > 0 ? (
           productList.map((item) => (
             <ProductItem

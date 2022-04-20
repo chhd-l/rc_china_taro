@@ -11,12 +11,12 @@ const Remark = ({
   discountPrice: number;
 }) => {
   return (
-    <View className="bg-gray-50 mt-2 p-2 text-xs text-gray-400">
-      <View className="flex flex-row justify-between items-center">
+    <View className="bg-gray-50 mt-2 p-2 text-24 text-gray-400">
+      <View className="flex flex-row justify-between items-center mb-1">
         <View>商品总价</View>
         <View>{formatMoney(totalPrice)}</View>
       </View>
-      <View className="flex flex-row justify-between items-center">
+      <View className="flex flex-row justify-between items-center mb-1">
         <View>运费</View>
         <View>{formatMoney(shipPrice)}</View>
       </View>

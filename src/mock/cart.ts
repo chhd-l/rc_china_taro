@@ -3,7 +3,7 @@ import Mock from "mockjs";
 export const dataSource = [
   {
     productId: Mock.Random.id(),
-    name: Mock.Random.ctitle(),
+    name: '皇家 绝育呵护幼猫全价粮',
     variant: [
       {
         skuId: Mock.Random.id(),
