@@ -46,7 +46,7 @@ const PetList = () => {
       </Swiper>
       <View className="text-26 text-center">
         {currentIdx}
-        <Text className="text-red-600 font-semibold text-30">{petList[currentIdx].name}</Text>
+        <Text className="text-red-600 font-semibold text-24 mx-2">{petList[currentIdx].name}</Text>
         {petList[currentIdx].gender} {petList[currentIdx].breed}
         {petList[currentIdx].age}
       </View>

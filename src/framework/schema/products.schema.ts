@@ -45,6 +45,7 @@ export interface GoodsSpecificationValueRel {
   goodsSpecificationDetailId: string
   // goodsVariantId: string
   id: string
+  relId: string
 }
 export interface GoodsVariants {
   id: string
@@ -92,11 +93,18 @@ export interface GoodsAttributeAndValue {
   // id: string
   goodsId: string
 }
+
+export interface GoodsList {
+  cardName: string
+  id: string
+  goodsVariants: GoodsVariants[]
+  goodsAsserts: GoodsAssets[]
+}
 export interface Goods {
   id: string
   spuNo: string
   goodsName: string
-  // cardName: string  //？？
+  cardName: string //？？
   goodsDescription: string
   // isSupport100: IsSupport100 //？？
   type: string

@@ -8,6 +8,7 @@ export const mockProduct = {
         {
           id: 'a3ce2a16-e755-4e20-9146-d2dd9379c85a',
           goodsName: 'Cookie',
+          cardName: 'Cookie cardName',
           goodsDescription: 'this is test.',
           goodsVariants: [
             {

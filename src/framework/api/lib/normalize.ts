@@ -1,4 +1,4 @@
-import { Goods, GoodsVariants } from '@/framework/schema/products.schema'
+import { Goods, GoodsList, GoodsVariants } from '@/framework/schema/products.schema'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { dealDatasForApi, formatDateToApi, formatDateToFe } from '@/utils/utils'
 
@@ -105,7 +105,19 @@ export const normalizeSkuForFe = (
   }
   return item
 }
-
+export const normalizeProductsforFe = (data: GoodsList[]) => {
+  let list = data.map((item) => {
+    return {
+      name: item.cardName,
+      img: item.goodsAsserts[0]?.artworkUrl,
+      originalPrice: item.goodsVariants[0].listPrice,
+      price: item.goodsVariants[0].marketingPrice,
+      sku: item.goodsVariants[0].id,
+      spu: item.id,
+    }
+  })
+  return list
+}
 export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): string[] => {
   return goodsSpecificationRel.map((el) => {
     let specObj = goodsSpecifications.find((spec) => spec.id === el.goodsSpecificationId)
