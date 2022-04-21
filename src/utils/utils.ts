@@ -5,6 +5,14 @@ export const getCurrencyCode = () => {
   return '￥'
 }
 
+export const formatDateToApi = (date: string): string => {
+  return new Date(date).toISOString()
+}
+
+export const formatDateToFe = (date: string): string => {
+  return new Date(date).toLocaleDateString().replace(/\//g, '-')
+}
+
 export const formatMoney = (price: number) => {
   return getCurrencyCode() + price.toFixed(2)
 }
