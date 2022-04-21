@@ -5,9 +5,10 @@ import cloneDeep from 'lodash.cloneDeep'
 import { addToTypeEnum } from '@/framework/types/common'
 import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
-import { SelectedProps } from '@/pages/productDetail'
+import { SelectedProps } from '@/pages/packageA/productDetail'
 import './index.less'
 import { formatMoney } from '@/utils/utils'
+import { createCart } from '@/framework/api/cart/cart'
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -69,7 +70,18 @@ const ChooseSpec = ({
     })
   }
 
-  const addToCart = () => {
+  const addToCart = async () => {
+    const { id } = choosedSku
+    await createCart({
+      customerId: 'test001',
+      storeId: '12345678',
+      goodsId: detailInfo.id,
+      goodsVariantId: id,
+      goodsNum: buyCount,
+      petId: '',
+      petType: '',
+      operator: 'test',
+    })
     Taro.switchTab({
       url: '/pages/cart/index',
     })
