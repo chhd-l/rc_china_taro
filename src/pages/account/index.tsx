@@ -2,12 +2,16 @@ import Taro from '@tarojs/taro'
 import Announcement from '@/components/common/Announcement'
 // import defaultIcon from "@/assets/icons/icon-home.png";
 import { View, Text } from '@tarojs/components'
-import { AtAvatar, AtButton } from 'taro-ui'
+import { AtAvatar, AtButton, AtModal } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import Mock from 'mockjs'
 import { dataSource } from '@/mock/customer'
 import PetList from '@/components/customer/PetList'
 import './index.less'
+import { AuthLogin } from '@/components/customer'
+import { customerAtom } from '@/store/customer'
+import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
+import { useAtom } from 'jotai'
 
 // interface OrderTypeProps {
 //   label: string;
@@ -24,8 +28,11 @@ import './index.less'
 // ];
 
 const Account = () => {
-  const [customerInfo, setCustomerInfo] = useState<any>({})
-
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  useEffect(() => {
+    console.log(customerInfo, 'customerInfo')
+  }, [customerInfo])
   useEffect(() => {
     setCustomerInfo(Mock.mock(dataSource))
   }, [])
@@ -39,11 +46,19 @@ const Account = () => {
           <View className="flex flex-row items-center">
             <AtAvatar circle size="large" openData={{ type: 'userAvatarUrl' }} />
             <View className="flex-col ml-4">
-              <View>
-                <Text className="text-black font-semibold text-32">{customerInfo.name}</Text>
-                <Text className="text-24 ml-2">{customerInfo.level}</Text>
-              </View>
-              <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points}</View>
+              {customerInfo?.id ? (
+                <>
+                  <View>
+                    <Text className="text-black font-semibold text-32">{customerInfo.nickName}</Text>
+                    <Text className="text-24 ml-2">{customerInfo.level}</Text>
+                  </View>
+                  <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points || 0}</View>
+                </>
+              ) : (
+                <View onClick={() => setAuthLoginOpened(true)}>
+                  <Text className="text-black font-semibold text-32">点击授权</Text>
+                </View>
+              )}
             </View>
           </View>
           <View className="m-0">
@@ -86,6 +101,7 @@ const Account = () => {
           <PetList />
         </View>
       </View>
+      <AuthLogin />
     </View>
   )
 }

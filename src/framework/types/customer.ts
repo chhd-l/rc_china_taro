@@ -13,9 +13,10 @@ export type Address = {
 }
 
 export type Customer = {
+  id: string
   name: string
   image: string
-  nickname: string //昵称
+  nickName: string //昵称
   phone: string
   level: string
   points: number //积分情况，小程序会显示
