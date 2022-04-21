@@ -57,22 +57,23 @@ export const normalizeProductForFe = (goods: Goods): ProductDetailProps => {
     ),
     type: goods.type,
     description: goods.goodsDescription,
-    specifications: goods.goodsSpecifications
-      .map((spec) => {
-        let item = {
-          id: spec.id,
-          name: spec.specificationName,
-          children: spec.goodsSpecificationDetail.map((el) => {
-            return {
-              able: true,
-              id: el.id,
-              name: el.specificationDetailName,
-            }
-          }),
-        }
-        return item
-      })
-      .filter((el) => el.children.length),
+    specifications:
+      goods.goodsSpecifications
+        .map((spec) => {
+          let item = {
+            id: spec.id,
+            name: spec.specificationName,
+            children: spec.goodsSpecificationDetail.map((el) => {
+              return {
+                able: true,
+                id: el.id,
+                name: el.specificationDetailName,
+              }
+            }),
+          }
+          return item
+        })
+        .filter((el) => el.children.length) || [], //可能存在没规格的页面
   }
   return spu
 }
@@ -98,9 +99,10 @@ export const normalizeSkuForFe = (
     img: [sku.defaultImage],
     specString: '',
     specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications).filter((el) => el),
-    specIds: sku.goodsSpecificationRel.map((el) => {
-      return el.goodsSpecificationDetailId
-    }),
+    specIds:
+      sku.goodsSpecificationRel?.map((el) => {
+        return el.goodsSpecificationDetailId
+      }) || [],
     defaultChoose: index === 0 ? true : false,
   }
   return item

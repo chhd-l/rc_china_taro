@@ -45,7 +45,7 @@ export interface GoodsSpecificationValueRel {
   goodsSpecificationDetailId: string
   // goodsVariantId: string
   id: string
-  relId: string
+  // relId: string
 }
 export interface GoodsVariants {
   id: string
@@ -69,7 +69,7 @@ export interface GoodsVariants {
   // last_modified_at: string
   // last_modified_by: string
   // is_deleted: string //？？
-  goodsSpecificationRel: GoodsSpecificationValueRel[]
+  goodsSpecificationRel: GoodsSpecificationValueRel[] | null
 }
 export interface GoodsAssets {
   // id: string

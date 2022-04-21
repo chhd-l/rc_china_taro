@@ -1,5 +1,6 @@
 // import { ApiRoot } from "../../fetcher";
 import { mockProduct } from '@/framework/mock/product'
+import { products } from '@/framework/mock/products'
 import { ProductDetailProps } from '@/framework/types/products'
 import ApiRoot from '../fetcher'
 import { normalizeProductForFe, normalizeProductsforFe } from '../lib/normalize'
