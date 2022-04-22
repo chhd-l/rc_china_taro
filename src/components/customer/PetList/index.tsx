@@ -5,6 +5,7 @@ import { AtIcon } from 'taro-ui'
 import { PetListItemProps } from '@/framework/types/customer'
 import Mock from 'mockjs'
 import { petLists } from '@/mock/pet'
+import './index.less'
 
 const pets = Mock.mock(petLists).list
 
@@ -20,12 +21,13 @@ const PetList = () => {
     })
   }
   return (
-    <View className="py-2 px-4 rounded-lg  bg-gray-100 mt-4 flex justify-between flex-col">
+    <View className="py-2 px-4 rounded-lg  bg-gray-100 mt-4 flex justify-between flex-col h-48">
       <View className="flex justify-between">
         <View className="font-semibold">我的宠物</View>
-        <AtIcon value="edit" onClick={toPetList} size="26" color="#F00"></AtIcon>
+        <AtIcon value="edit" onClick={toPetList} size="18" color="#F00"></AtIcon>
       </View>
       <Swiper
+        style={{ height: '80px' }}
         circular
         displayMultipleItems={3}
         onChange={({ detail }) => {
@@ -44,11 +46,18 @@ const PetList = () => {
           </SwiperItem>
         ))}
       </Swiper>
-      <View className="text-26 text-center">
+      {/* <View className="text-26 text-center">
         {currentIdx}
         <Text className="text-red-600 font-semibold text-30">{petList[currentIdx].name}</Text>
         {petList[currentIdx].gender} {petList[currentIdx].breed}
         {petList[currentIdx].age}
+      </View> */}
+      <View className="text-26 text-center">
+        <Text className="text-red-600 font-semibold text-30">
+          波斯猫
+          <View className="icon"></View>
+        </Text>
+        &nbsp;&nbsp;&nbsp;&nbsp;波斯猫 一个月
       </View>
     </View>
   )
