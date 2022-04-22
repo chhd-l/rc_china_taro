@@ -1,31 +1,9 @@
-import { View, Text, Image } from "@tarojs/components";
-import { LineItem, ProductVariant } from "@/framework/types/cart";
-import { useEffect, useState } from "react";
-import { formatMoney } from "@/utils/utils";
+import { View, Text, Image } from '@tarojs/components'
+import { formatMoney } from '@/utils/utils'
 
-const ProductItem = ({ product }: { product: LineItem }) => {
-  const { name, quantity } = product;
-  const [selectedSkuInfo, setSelectedSkuInfo] = useState<ProductVariant>({
-    skuId: "",
-    isOnStock: true,
-    availableQuantity: 0,
-    price: 0,
-    image: "",
-    isMatchingVariant: true,
-    availableForSale: true,
-    tags: [],
-    specs: "",
-  });
-  const { image, price, specs, tags } = selectedSkuInfo;
-  const getSelectSkuInfo = () => {
-    setSelectedSkuInfo(
-      product.variant.filter((item) => item.isMatchingVariant)[0]
-    );
-  };
-
-  useEffect(() => {
-    getSelectSkuInfo();
-  }, [product]);
+const ProductItem = ({ product }: { product: any }) => {
+  const { goodsNum } = product
+  const { image, price, specs, tags, name } = product.localData
 
   return (
     <View className="flex flex-row justify-between items-center">
@@ -38,20 +16,20 @@ const ProductItem = ({ product }: { product: LineItem }) => {
         ))}
         <View className="flex flex-row justify-between pr-4 mt-1">
           <Text className="text-red-500">{formatMoney(price)}</Text>
-          <Text className="text-xs text-gray-400">x {quantity}</Text>
+          <Text className="text-xs text-gray-400">x {goodsNum}</Text>
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-const TradeItem = ({ tradeItems }: { tradeItems: LineItem[] }) => {
+const TradeItem = ({ tradeItems }: { tradeItems: any[] }) => {
   return (
     <View className="">
       {tradeItems.map((item) => (
         <ProductItem product={item} />
       ))}
     </View>
-  );
-};
-export default TradeItem;
+  )
+}
+export default TradeItem
