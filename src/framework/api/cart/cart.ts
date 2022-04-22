@@ -18,6 +18,20 @@ export const getCarts = async () => {
     return []
   }
 }
+export const getCartNumber = async () => {
+  try {
+    const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
+    const carts = res?.carts || []
+    console.log('cart data', carts)
+    const cartNumber = carts.reduce((prev, cur) => {
+      return prev + cur.goodsNum
+    }, 0)
+    return cartNumber || 0
+  } catch (err) {
+    console.log('err', err)
+    return 0
+  }
+}
 
 export const createCart = async (params: any) => {
   try {

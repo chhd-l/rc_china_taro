@@ -2,6 +2,7 @@ import { addToTypeEnum } from '@/framework/types/common'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { formatMoney } from '@/utils/utils'
 import { Swiper, SwiperItem, View, Text, Image } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { AtIcon } from 'taro-ui'
 interface DetailProps {
   choosedSku: SkuItemProps
@@ -12,11 +13,19 @@ interface DetailProps {
 const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProps) => {
   return (
     <View className="px-2">
-      <Swiper className="test-h" indicatorColor="#999" indicatorActiveColor="#333" circular indicatorDots autoplay>
+      <Swiper
+        className=""
+        style={{ height: Taro.getSystemInfoSync().windowWidth }}
+        indicatorColor="#999"
+        indicatorActiveColor="#333"
+        circular
+        indicatorDots
+        autoplay
+      >
         {choosedSku?.img?.map((el) => (
           <SwiperItem>
             <View className="demo-text-1">
-              <Image className="w-24 h-auto" mode="widthFix" src={el} />
+              <Image className="w-full h-auto" mode="widthFix" src={el} />
             </View>
           </SwiperItem>
         ))}
