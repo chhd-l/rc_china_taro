@@ -5,7 +5,7 @@ import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePric
 import Taro from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
 import { createOrder } from '@/framework/api/order/order'
-import { getCustomer } from '@/framework/api/customer/customer'
+// import { getCustomer } from '@/framework/api/customer/customer'
 import { AtMessage } from 'taro-ui'
 import _ from 'lodash'
 import './index.less'
@@ -50,15 +50,25 @@ const Checkout = () => {
       })
       return el.skuGoodInfo
     })
-    const customer = await getCustomer()
+    const shoppingCartIds = tradeItems.map((el) => {
+      return el.id
+    })
+    // const customer = await getCustomer()
     const customerInfo = {
-      id: customer.id,
-      headImage: customer.avatarUrl,
-      level: customer.level || '',
-      phone: customer.phone,
-      nickName: customer.nickName,
-      name: customer.name || '',
-      customerAccount: customer.email || '',
+      // id: customer.id,
+      // headImage: customer.avatarUrl,
+      // level: customer.level || '',
+      // phone: customer.phone,
+      // nickName: customer.nickName,
+      // name: customer.name || '',
+      // customerAccount: customer.email || '',
+      id: '44',
+      headImage: 'http://dummyimage.com/400x400',
+      level: 'do proident esse sint ipsum',
+      phone: '13883622944',
+      nickName: 'zzx',
+      name: '王驷洁',
+      customerAccount: 'xxxx',
     }
     const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
     const params = {
@@ -66,6 +76,7 @@ const Checkout = () => {
       customerInfo,
       addressInfo,
       remark,
+      shoppingCartIds,
       storeId: '12345678',
       operator: 'test用户001',
       expectedShippingDate: new Date(deliveryTime).toISOString(),
@@ -81,6 +92,11 @@ const Checkout = () => {
       // Taro.removeStorage({ key: 'select-product' })
       Taro.switchTab({
         url: '/pages/cart/index',
+        success: () => {
+          // const page = Taro.getCurrentPages()[0] //当前页面
+          // if (page === undefined || page === null) return
+          // page.onLoad() //或者其它操作
+        },
       })
     }
   }
