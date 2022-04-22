@@ -98,12 +98,14 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
             ) : (
               <Image className="w-20 h-20 rounded-full m-auto border border-solid border-gray-300" src={pet.image} />
             )}
-            <View className="flex justify-center">
-              <View className="text-30 text-red-600 pr-3 font-medium">{pet.name}</View>
-              <View className="text-26">
-                {pet.type} {pet.age}
+            {pet.id === '-1' ? null : (
+              <View className="flex justify-center">
+                <View className="text-30 text-red-600 pr-3 font-medium">{pet.name}</View>
+                <View className="text-26">
+                  {pet.breed} {pet.age}
+                </View>
               </View>
-            </View>
+            )}
           </View>
         </AtSwipeAction>
       </View>

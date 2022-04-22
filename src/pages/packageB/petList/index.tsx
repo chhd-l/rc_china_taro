@@ -7,20 +7,33 @@ import { useEffect, useState } from 'react'
 import { getPets } from '@/framework/api/pet/get-pets'
 import PetItem from '@/components/customer/PetItem'
 import { initNewPet } from '@/lib/customer'
+import { getCurrentInstance } from '@tarojs/taro'
 // const pets = Mock.mock(petLists).list;
 // console.info("petLists", pets);
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [showAddPetBtn, SetshowAddPetBtn] = useState(true)
+  const { router } = getCurrentInstance()
+
   const getList = async () => {
     let res = (await getPets()) || []
     setPetList(res)
     SetshowAddPetBtn(true)
-    console.info('resg1111111111111111111111111111111111111111111etss', res)
   }
   useEffect(() => {
-    getList()
+    let petNumber = router?.params?.petNumber || '0'
+    console.info('petNumber', petNumber)
+    if (Number(petNumber) > 0) {
+      getList()
+    } else {
+      addPet()
+    }
   }, [])
+  useEffect(() => {
+    if (petList.length === 0) {
+      addPet()
+    }
+  }, [petList.length])
   const addPet = () => {
     petList.push(initNewPet)
     SetshowAddPetBtn(false)
