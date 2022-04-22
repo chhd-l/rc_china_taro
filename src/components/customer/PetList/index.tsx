@@ -1,10 +1,12 @@
 import { Swiper, SwiperItem, View, Image, Text } from '@tarojs/components'
 import { useState } from 'react'
-import { petLists } from '@/mock/pet'
-import Mock from 'mockjs'
-import { PetListItemProps } from '@/framework/types/customer'
-import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
+import { AtIcon } from 'taro-ui'
+import { PetListItemProps } from '@/framework/types/customer'
+import Mock from 'mockjs'
+import { petLists } from '@/mock/pet'
+import './index.less'
+
 const pets = Mock.mock(petLists).list
 
 const PetList = () => {
@@ -19,10 +21,10 @@ const PetList = () => {
     })
   }
   return (
-    <View className="py-2 px-4 rounded-lg  bg-gray-100 mt-4">
+    <View className="py-2 px-4 rounded-lg  bg-gray-100 mt-4 flex justify-between flex-col h-48">
       <View className="flex justify-between">
         <View className="font-semibold">我的宠物</View>
-        <AtIcon value="edit" onClick={toPetList} size="26" color="#F00"></AtIcon>
+        <AtIcon value="edit" onClick={toPetList} size="18" color="#F00"></AtIcon>
       </View>
       <Swiper
         style={{ height: '80px' }}
@@ -34,8 +36,8 @@ const PetList = () => {
         }}
       >
         {petList.map((pet, idx) => (
-          <SwiperItem>
-            <View className="text-center  h-16 ">
+          <SwiperItem key={idx}>
+            <View className="text-center  h-16">
               <Image
                 src={pet.image}
                 className={`w-16 h-16 rounded-full shadow-md ${currentIdx === idx ? '' : 'scale-75 transform '}`}
@@ -44,11 +46,18 @@ const PetList = () => {
           </SwiperItem>
         ))}
       </Swiper>
-      <View className="text-26 text-center">
+      {/* <View className="text-26 text-center">
         {currentIdx}
         <Text className="text-red-600 font-semibold text-24 mx-2">{petList[currentIdx].name}</Text>
         {petList[currentIdx].gender} {petList[currentIdx].breed}
         {petList[currentIdx].age}
+      </View> */}
+      <View className="text-26 text-center">
+        <Text className="text-red-600 font-semibold text-30">
+          波斯猫
+          <View className="icon"></View>
+        </Text>
+        &nbsp;&nbsp;&nbsp;&nbsp;波斯猫 一个月
       </View>
     </View>
   )

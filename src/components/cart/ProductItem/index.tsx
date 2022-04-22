@@ -5,13 +5,22 @@ import { deleteCart } from '@/framework/api/cart/cart'
 import Taro from '@tarojs/taro'
 import './index.less'
 
-const ProductItem = ({ product, changeProduct }: { product: any; changeProduct: Function }) => {
+const ProductItem = ({
+  product,
+  changeProduct,
+  delCartSuccess,
+}: {
+  product: any
+  changeProduct: Function
+  delCartSuccess: Function
+}) => {
   const { select, goodsNum, id } = product
   const { image, price, specs, tags } = product.localData
 
   const delCartProduct = async () => {
     console.log('333333')
     await deleteCart({ id, operator: '111' })
+    delCartSuccess && delCartSuccess()
   }
 
   return (

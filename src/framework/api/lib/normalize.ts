@@ -26,11 +26,11 @@ export const normalizePetsForFe = (petInfo: any) => {
   return data
 }
 
-export const normalizeProductForFe = (goods: Goods): ProductDetailProps => {
+export const normalizeProductForFe = (goods: any): any => {
   let tags: string[] = []
-  goods.goodsAttributeValueRel.forEach((attr) => {
+  goods.goodsAttributeValueRel?.forEach((attr) => {
     let tagStr = ''
-    switch (attr.attributeName) {
+    switch (attr.attributeNameEn) {
       case 'Age':
         tagStr = `适用年龄:${attr.attributeValueName}`
         break
@@ -51,8 +51,8 @@ export const normalizeProductForFe = (goods: Goods): ProductDetailProps => {
     id: goods.id,
     no: goods.spuNo,
     tags: [''], //逻辑处理
-    img: goods.goodsAsserts.map((el) => el.artworkUrl),
-    skus: goods.goodsVariants.map((sku, index) => normalizeSkuForFe(sku, index, tags, goods.goodsSpecifications)),
+    img: goods.goodsAsserts?.map((el) => el.artworkUrl),
+    skus: goods.goodsVariants?.map((sku, index) => normalizeSkuForFe(sku, index, tags, goods.goodsSpecifications)),
     type: goods.type,
     description: goods.goodsDescription,
     specifications:

@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { View, RichText } from '@tarojs/components'
+import { View, RichText, Image } from '@tarojs/components'
 import './index.less'
 import Mock from 'mockjs'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
@@ -12,6 +12,7 @@ import cloneDeep from 'lodash.cloneDeep'
 import { getProduct } from '@/framework/api/product/get-product'
 import { getCurrentInstance } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
+import { baseSetting } from '@/framework/api/fetcher'
 export interface SelectedProps {
   [x: string]: string
 }
@@ -31,14 +32,14 @@ const ProductDetail = () => {
   }, [])
   const getList = async () => {
     console.info('router.params', router?.params)
-    let spuId = router?.params?.id || ''
-    // if (!spuId) {
+    let goodsId = router?.params?.id || ''
+    // if (!goodsId) {
     //   Taro.switchTab({
     //     url: '/pages/productList/index',
     //   })
     //   return
     // }
-    let detailData = (await getProduct()) || detailInfo
+    let detailData = (await getProduct({ storeId: baseSetting.storeId, goodsId })) || detailInfo
     if (detailData?.skus?.length) {
       detailData.skus.forEach((sku) => {
         sku.img.push(...detailData.img)
@@ -95,13 +96,20 @@ const ProductDetail = () => {
     // console.log(flag)
     return flag
   }
+  console.info('Taro.getSystemInfoSync().windowWidth', Taro.getSystemInfoSync().windowWidth)
   return (
     <>
       {choosedSku.id ? (
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
           <View>
-            <RichText nodes={detailInfo.description} />
+            <Image
+              mode="widthFix"
+              // style={{ height: Taro.getSystemInfoSync().windowWidth }}
+              src={detailInfo.description}
+              className="w-full"
+            />{' '}
+            {/* <RichText nodes={detailInfo.description} /> */}
           </View>
           <ChooseSpec
             isAble={isAble}
