@@ -1,4 +1,4 @@
-import { wxLogin } from '@/framework/api/customer/address'
+import { wxLogin } from '@/framework/api/customer/customer'
 import { View, Text, Button } from '@tarojs/components'
 import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
