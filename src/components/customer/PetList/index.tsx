@@ -1,10 +1,11 @@
 import { Swiper, SwiperItem, View, Image, Text } from '@tarojs/components'
 import { useState } from 'react'
-import { petLists } from '@/mock/pet'
-import Mock from 'mockjs'
-import { PetListItemProps } from '@/framework/types/customer'
-import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
+import { AtIcon } from 'taro-ui'
+import { PetListItemProps } from '@/framework/types/customer'
+import Mock from 'mockjs'
+import { petLists } from '@/mock/pet'
+
 const pets = Mock.mock(petLists).list
 
 const PetList = () => {
@@ -19,13 +20,12 @@ const PetList = () => {
     })
   }
   return (
-    <View className="py-2 px-4 rounded-lg  bg-gray-100 mt-4">
+    <View className="py-2 px-4 rounded-lg  bg-gray-100 mt-4 flex justify-between flex-col">
       <View className="flex justify-between">
         <View className="font-semibold">我的宠物</View>
         <AtIcon value="edit" onClick={toPetList} size="26" color="#F00"></AtIcon>
       </View>
       <Swiper
-        style={{ height: '80px' }}
         circular
         displayMultipleItems={3}
         onChange={({ detail }) => {
@@ -34,8 +34,8 @@ const PetList = () => {
         }}
       >
         {petList.map((pet, idx) => (
-          <SwiperItem>
-            <View className="text-center  h-16 ">
+          <SwiperItem key={idx}>
+            <View className="text-center  h-16">
               <Image
                 src={pet.image}
                 className={`w-16 h-16 rounded-full shadow-md ${currentIdx === idx ? '' : 'scale-75 transform '}`}
