@@ -48,6 +48,10 @@ const Cart = () => {
     setSelectedProduct(productList.filter((item) => item.select))
   }
 
+  useEffect(() => {
+    getCartProductList()
+  },[])
+
   useTabItemTap(() => {
     getCartProductList()
   })
