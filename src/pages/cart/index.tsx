@@ -17,7 +17,7 @@ const Cart = () => {
   }
 
   const changeProduct = async (id, name, value) => {
-    if (name === 'quantity') {
+    if (name === 'goodsNum') {
       await updateCart({
         id: id,
         goodsNum: value,

@@ -6,7 +6,7 @@ import Taro from '@tarojs/taro'
 import './index.less'
 
 const ProductItem = ({ product, changeProduct }: { product: any; changeProduct: Function }) => {
-  const { select, quantity, id } = product
+  const { select, goodsNum, id } = product
   const { image, price, specs, tags } = product.localData
 
   const delCartProduct = async () => {
@@ -55,9 +55,9 @@ const ProductItem = ({ product, changeProduct }: { product: any; changeProduct: 
                   min={0}
                   max={10}
                   step={1}
-                  value={quantity}
+                  value={goodsNum}
                   onChange={(value) => {
-                    changeProduct && changeProduct(id, 'quantity', value)
+                    changeProduct && changeProduct(id, 'goodsNum', value)
                   }}
                   type="number"
                   className="rc-input-number"
