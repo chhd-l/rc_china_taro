@@ -2,6 +2,7 @@ import { View } from '@tarojs/components'
 import { ProductItem, Empty, TotalSettle, Navbar } from '@/components/cart'
 import { useEffect, useState } from 'react'
 import { getCarts, updateCart } from '@/framework/api/cart/cart'
+import { useTabItemTap } from '@tarojs/taro'
 import './index.less'
 
 const Cart = () => {
@@ -47,9 +48,9 @@ const Cart = () => {
     setSelectedProduct(productList.filter((item) => item.select))
   }
 
-  useEffect(() => {
+  useTabItemTap(() => {
     getCartProductList()
-  }, [])
+  })
 
   useEffect(() => {
     getSelectProduct()
@@ -60,7 +61,14 @@ const Cart = () => {
       <Navbar num={productList.length} />
       <View className="index bg-gray-50 py-2 h-screen">
         {!loading && productList.length > 0 ? (
-          productList.map((item) => <ProductItem product={item} key={item.id} changeProduct={changeProduct} />)
+          productList.map((item) => (
+            <ProductItem
+              product={item}
+              key={item.id}
+              changeProduct={changeProduct}
+              delCartSuccess={() => getCartProductList()}
+            />
+          ))
         ) : (
           <Empty />
         )}

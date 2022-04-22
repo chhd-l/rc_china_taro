@@ -41,9 +41,7 @@ const Index = () => {
           detail: res.detailInfo,
           postcode: res.postalCode,
           isDefault: false,
-          customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
           operator: 'master',
-          storeId: '1',
         })
       },
     })
@@ -52,7 +50,7 @@ const Index = () => {
   return (
     <View className="index bg-gray-200 p-2">
       {addressList.map((item: Address) => (
-        <AddressItem addressInfo={item} />
+        <AddressItem addressInfo={item} delAddressSuccess={() => getAddressList()} />
       ))}
       <View className="m-0 flex flex-row justify-end mt-2">
         <Button
