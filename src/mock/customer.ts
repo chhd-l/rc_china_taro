@@ -1,12 +1,12 @@
-import Mock from "mockjs";
+import Mock from 'mockjs'
 
 export const dataSource = {
   name: Mock.Random.cname(),
-  image: "",
-  nickname: Mock.Random.cname(), //昵称
+  image: '',
+  nickName: Mock.Random.cname(), //昵称
   phone: /\d{11}/,
-  level: "新手铲屎官",
-  "points|1-100": 100, //积分情况，小程序会显示
+  level: '新手铲屎官',
+  'points|1-100': 100, //积分情况，小程序会显示
   addresses: [
     {
       id: Mock.Random.id(),
@@ -20,4 +20,4 @@ export const dataSource = {
       region: Mock.Random.region(), //区
     },
   ],
-};
+}
