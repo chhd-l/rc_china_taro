@@ -78,7 +78,7 @@ const Checkout = () => {
         message: '下单成功',
         type: 'success',
       })
-      Taro.removeStorage({ key: 'select-product' })
+      // Taro.removeStorage({ key: 'select-product' })
       Taro.switchTab({
         url: '/pages/cart/index',
       })
