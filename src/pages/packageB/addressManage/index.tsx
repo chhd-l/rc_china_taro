@@ -10,9 +10,7 @@ const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddressList = async () => {
-    const res = await getAddresses({
-      customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
-    })
+    const res = await getAddresses()
     setAddressList(res)
   }
 

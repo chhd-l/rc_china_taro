@@ -1,9 +1,9 @@
 import { Address } from '@/framework/types/customer'
 import ApiRoot, { baseSetting } from '../fetcher'
 
-export const getAddresses = async ({ customerId }: { customerId: string }) => {
+export const getAddresses = async () => {
   try {
-    const addresses = await ApiRoot.addresses().getAddresses({ customerId })
+    const addresses = await ApiRoot.addresses().getAddresses({ customerId:baseSetting.customerId })
     return addresses
   } catch (err) {
     console.log(err)
