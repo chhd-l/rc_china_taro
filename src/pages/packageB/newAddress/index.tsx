@@ -54,14 +54,14 @@ const Index = () => {
       let params = pickForUpdate(addressInfo, initData)
       await updateAddress({
         params: Object.assign(params, {
-          customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
+          customerId: '609177bf-ad6a-9e5c-b448-b1b3b0744349',
           storeId: '1',
         }),
       })
     } else {
       await createAddress(
         Object.assign(addressInfo, {
-          customerId: 'e5edfa8c-ff05-cee0-45af-5c9e69d1b162',
+          customerId: '609177bf-ad6a-9e5c-b448-b1b3b0744349',
           operator: 'master',
           storeId: '1',
         }),
