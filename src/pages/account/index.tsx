@@ -1,4 +1,8 @@
 import Taro from '@tarojs/taro'
+import { AuthLogin } from '@/components/customer'
+import { customerAtom } from '@/store/customer'
+import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
+import { useAtom } from 'jotai'
 import Announcement from '@/components/common/Announcement'
 // import defaultIcon from "@/assets/icons/icon-home.png";
 import { View, Text } from '@tarojs/components'
@@ -8,10 +12,6 @@ import Mock from 'mockjs'
 import { dataSource } from '@/mock/customer'
 import PetList from '@/components/customer/PetList'
 import './index.less'
-import { AuthLogin } from '@/components/customer'
-import { customerAtom } from '@/store/customer'
-import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
-import { useAtom } from 'jotai'
 
 // interface OrderTypeProps {
 //   label: string;

@@ -1,5 +1,3 @@
-import { View, ScrollView } from '@tarojs/components'
-import './index.less'
 import Mock from 'mockjs'
 import { useState } from 'react'
 import ActivityList from '@/components/product/ActivityList'
@@ -11,6 +9,8 @@ import { floorList } from '@/lib/product'
 import FloorNav from '@/components/product/FloorNav'
 import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
+import { View, ScrollView } from '@tarojs/components'
+import './index.less'
 
 const bannerLists = Mock.mock(mockBanner).list
 const starsLists = Mock.mock(mockStar).list
