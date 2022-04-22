@@ -1,27 +1,20 @@
-// import {normalizeProductForFe} from "@/framework/api/lib/normalize";
-import ApiRoot from '../fetcher'
+import { normalizeCartData } from '@/framework/api/lib/normalize'
+import { getProductBySkuId } from '@/framework/api/product/get-product'
+import ApiRoot, { baseSetting } from '../fetcher'
 
-
-export const getCarts = async ({ customerId, storeId }: { customerId: string; storeId: string }) => {
+export const getCarts = async () => {
   try {
-    const res = await ApiRoot.carts().getCarts({ customerId, storeId })
+    const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
     const carts = res?.carts || []
-    console.log('cart data',carts)
+    console.log('cart data', carts)
     for (let i = 0; i < carts.length; i++) {
-      let data=await ApiRoot.products().getProductBySku({goodsVariantId:carts[i].goodsVariantID})
-      carts[i].skuGoodInfo=data.productBySkuId
-      carts[i].select=false
-      carts[i].localData={
-        name:data.productBySkuId.goodsName,
-        image:data.productBySkuId.goodsVariants[0].defaultImage,
-        price:data.productBySkuId.goodsVariants[0].listPrice,
-        tags:[]
-      }
+      let data = await getProductBySkuId({ goodsVariantId: carts[i].goodsVariantID })
+      carts[i] = normalizeCartData(carts[i], data.productBySkuId)
     }
-    console.log('cart products data',carts)
+    console.log('cart products data', carts)
     return carts
   } catch (err) {
-    console.log('err',err)
+    console.log('err', err)
     return []
   }
 }
@@ -52,24 +45,14 @@ export const deleteCart = async ({ id, operator }: { id: string; operator: strin
   }
 }
 
-export const updateCart = async ({
-  id,
-  goodsNum,
-  operator,
-  storeId,
-}: {
-  id: string
-  goodsNum: number
-  operator: string
-  storeId: string
-}) => {
+export const updateCart = async ({ id, goodsNum, operator }: { id: string; goodsNum: number; operator: string }) => {
   try {
     const cart = await ApiRoot.carts().updateCart({
       body: {
         id,
         goodsNum,
         operator,
-        storeId,
+        storeId: baseSetting.storeId,
       },
     })
     console.log(cart)
@@ -79,16 +62,3 @@ export const updateCart = async ({
     return []
   }
 }
-
-// const addCartProduct = async () => {
-//   await createCart({
-//     customerId: 'test001',
-//     storeId: '12345678',
-//     goodsId: 'testspuId001',
-//     goodsVariantId: 'testskuId002',
-//     goodsNum: 1,
-//     petId: 'ss',
-//     petType: 'test',
-//     operator: 'test',
-//   })
-// }

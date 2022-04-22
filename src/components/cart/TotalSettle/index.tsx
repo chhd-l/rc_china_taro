@@ -41,7 +41,7 @@ const TotalSettle = ({
       data: JSON.stringify(selectedProduct),
       complete: (respon) => {
         console.log(respon);
-        Taro.navigateTo({ url: "/pages/checkout/index" });
+        Taro.navigateTo({ url: "/pages/packageA/checkout/index" });
       },
     });
   };
