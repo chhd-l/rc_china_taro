@@ -30,7 +30,7 @@ export const normalizeProductForFe = (goods: any): any => {
   let tags: string[] = []
   goods.goodsAttributeValueRel?.forEach((attr) => {
     let tagStr = ''
-    switch (attr.attributeName) {
+    switch (attr.attributeNameEn) {
       case 'Age':
         tagStr = `适用年龄:${attr.attributeValueName}`
         break
