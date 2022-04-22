@@ -5,6 +5,7 @@ import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePric
 import Taro from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
 import { createOrder } from '@/framework/api/order/order'
+import { getCustomer } from '@/framework/api/customer/customer'
 import { AtMessage } from 'taro-ui'
 import _ from 'lodash'
 import './index.less'
@@ -42,21 +43,22 @@ const Checkout = () => {
     const goodsList = tradeItems.map((el) => {
       el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
         num: el.goodsNum,
-        id: el.goodsId||"",
+        id: el.goodsId || '',
       })
       el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications.map((item) => {
         return Object.assign(item, { goodsId: item.id })
       })
       return el.skuGoodInfo
     })
+    const customer = await getCustomer()
     const customerInfo = {
-      id: '44',
-      headImage: 'http://dummyimage.com/400x400',
-      level: 'do proident esse sint ipsum',
-      phone: '13883622944',
-      nickName: 'zzx',
-      name: '王驷洁',
-      customerAccount: 'xxxx',
+      id: customer.id,
+      headImage: customer.avatarUrl,
+      level: customer.level || '',
+      phone: customer.phone,
+      nickName: customer.nickName,
+      name: customer.name || '',
+      customerAccount: customer.email || '',
     }
     const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
     const params = {
@@ -76,7 +78,7 @@ const Checkout = () => {
         message: '下单成功',
         type: 'success',
       })
-      Taro.removeStorage({ key: 'select-product' })
+      // Taro.removeStorage({ key: 'select-product' })
       Taro.switchTab({
         url: '/pages/cart/index',
       })

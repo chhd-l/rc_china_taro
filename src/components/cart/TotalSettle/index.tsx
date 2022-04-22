@@ -32,10 +32,10 @@ const TotalSettle = ({
   };
 
   const checkoutProduct = () => {
-    if (selectedProduct.length === 0) {
-      setShowNoSelect(true);
-      return;
-    }
+    // if (selectedProduct.length === 0) {
+    //   setShowNoSelect(true);
+    //   return;
+    // }
     Taro.setStorage({
       key: "select-product",
       data: JSON.stringify(selectedProduct),
