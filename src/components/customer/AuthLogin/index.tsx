@@ -1,20 +1,69 @@
+import { useState } from 'react'
 import { wxLogin } from '@/framework/api/customer/customer'
 import { View, Text, Button } from '@tarojs/components'
-import { useAtom } from 'jotai'
+import { useAtom, atom } from 'jotai'
 import { customerAtom } from '@/store/customer'
-import { AtCheckbox, AtModal } from 'taro-ui'
-import { atom } from 'jotai'
+import { AtCheckbox, AtModal, AtToast } from 'taro-ui'
 import './index.less'
 
 export const authLoginOpenedAtom = atom(false)
 
+const chexOptions = [
+  {
+    value: 'chexOne',
+    label:
+      '本人已年满16周岁，同意并接受公司按《隐私政策》及《法律声明》的规定收集和处理我的个人信息。您可以就隐私问题通过隐私政策中的方式联系我们并行使您的个人信息权利。',
+  },
+  {
+    value: 'chexTwo',
+    label: '我已阅读和了解皇家爱宠有卡的《会员规则》并同意接受其中所有的条款。',
+  },
+]
+
+const chexOptionsTwo = [
+  {
+    value: 'chexThree',
+    label: '一键勾选',
+  },
+]
+
 const AuthLogin = () => {
   const [, setCustomer] = useAtom(customerAtom)
+  const [chexList, setChexList] = useState<string[]>([])
+  const [chexListTwo, setChexListTwo] = useState<string[]>([])
+  const [loginButton, setLoginButton] = useState<boolean>(false)
   const [authLoginOpened, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const login = async () => {
-    const data = await wxLogin()
-    setCustomer(data)
+    if (chexListTwo.length) {
+      const data = await wxLogin().then((res) => {
+        console.log('1', 1)
+        setLoginButton(false)
+        return res
+      })
+      setCustomer(data)
+    } else {
+      setLoginButton(true)
+    }
   }
+
+  const chexChange = (e) => {
+    if (e.length === 2) {
+      setChexList(e)
+      setChexListTwo(['chexThree'])
+    } else {
+      setChexList(e)
+      setChexListTwo([])
+    }
+  }
+  const chexChangeTwo = (e) => {
+    if (e.length) {
+      setChexList(['chexOne', 'chexTwo'])
+    } else {
+      setChexList([])
+    }
+    setChexListTwo(e)
+  }
+
   return (
     <AtModal
       isOpened={authLoginOpened}
@@ -33,19 +82,45 @@ const AuthLogin = () => {
           </View>
         </View>
         <View className="px-5">
-          <View className="pl-4 py-2 border-0 border-b border-gray-300 border-solid">
+          <AtCheckbox
+            className="chexOne"
+            customStyle={{ fontSize: '19px !important' }}
+            options={chexOptions}
+            selectedList={chexList}
+            onChange={chexChange}
+          />
+          <AtCheckbox
+            className="chexTwo"
+            customStyle={{ fontSize: '19px !important' }}
+            options={chexOptionsTwo}
+            selectedList={chexListTwo}
+            onChange={chexChangeTwo}
+          />
+          {/* <View className="pl-4 py-2 border-0 border-b border-gray-300 border-solid">
             <Text className="text-19-rpx">
               本人已年满16周岁，同意并接受公司按《隐私政策》及《法律声明》的规定收集和处理我的个人信息。您可以就隐私问题通过隐私政策中的方式联系我们并行使您的个人信息权利。
             </Text>
-          </View>
-          <View className="pl-4 py-2">
+          </View> */}
+          {/* <View className="pl-4 py-2 border-0 border-b border-gray-300 border-solid">
+            <AtCheckbox options={chex2} selectedList={chexList} onChange={chexChange} />
             <Text className="text-19-rpx">我已阅读和了解皇家爱宠有卡的《会员规则》并同意接受其中所有的条款</Text>
-          </View>
+          </View> */}
+          {/* <View className="pl-4 py-2 border-0 border-b border-gray-300 border-solid">
+            <AtCheckbox options={chex3} selectedList={chexList} onChange={chexChange} />
+            <Text className="text-19-rpx">一键勾选</Text>
+          </View> */}
           <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
             授权登录
           </Button>
         </View>
       </View>
+      <AtToast
+        text="请先勾选条款"
+        icon="check"
+        isOpened={loginButton}
+        duration={1200}
+        onClose={() => setLoginButton(false)}
+      />
     </AtModal>
   )
 }
