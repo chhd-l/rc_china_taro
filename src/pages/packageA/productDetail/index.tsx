@@ -10,6 +10,8 @@ import Detail from '@/components/product/Detail'
 import { addToTypeEnum } from '@/framework/types/common'
 import cloneDeep from 'lodash.cloneDeep'
 import { getProduct } from '@/framework/api/product/get-product'
+import { getCurrentInstance } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 export interface SelectedProps {
   [x: string]: string
 }
@@ -23,10 +25,19 @@ const ProductDetail = () => {
   const [showSpecs, setShowSpecs] = useState<boolean>(false)
   const [selected, setSelected] = useState<SelectedProps>({})
   const [choosedSku, setChoosedSku] = useState<SkuItemProps>({} as SkuItemProps)
+  const { router } = getCurrentInstance()
   useEffect(() => {
     getList()
   }, [])
   const getList = async () => {
+    console.info('router.params', router?.params)
+    let spuId = router?.params?.id || ''
+    // if (!spuId) {
+    //   Taro.switchTab({
+    //     url: '/pages/productList/index',
+    //   })
+    //   return
+    // }
     let detailData = (await getProduct()) || detailInfo
     if (detailData?.skus?.length) {
       detailData.skus.forEach((sku) => {

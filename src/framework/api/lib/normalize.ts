@@ -1,4 +1,4 @@
-import { Goods, GoodsVariants } from '@/framework/schema/products.schema'
+import { Goods, GoodsList, GoodsVariants } from '@/framework/schema/products.schema'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { dealDatasForApi, formatDateToApi, formatDateToFe } from '@/utils/utils'
 
@@ -55,22 +55,23 @@ export const normalizeProductForFe = (goods: Goods): ProductDetailProps => {
     skus: goods.goodsVariants.map((sku, index) => normalizeSkuForFe(sku, index, tags, goods.goodsSpecifications)),
     type: goods.type,
     description: goods.goodsDescription,
-    specifications: goods.goodsSpecifications
-      .map((spec) => {
-        let item = {
-          id: spec.id,
-          name: spec.specificationName,
-          children: spec.goodsSpecificationDetail.map((el) => {
-            return {
-              able: true,
-              id: el.id,
-              name: el.specificationDetailName,
-            }
-          }),
-        }
-        return item
-      })
-      .filter((el) => el.children.length),
+    specifications:
+      goods.goodsSpecifications
+        .map((spec) => {
+          let item = {
+            id: spec.id,
+            name: spec.specificationName,
+            children: spec.goodsSpecificationDetail.map((el) => {
+              return {
+                able: true,
+                id: el.id,
+                name: el.specificationDetailName,
+              }
+            }),
+          }
+          return item
+        })
+        .filter((el) => el.children.length) || [], //可能存在没规格的页面
   }
   return spu
 }
@@ -95,14 +96,27 @@ export const normalizeSkuForFe = (
     img: [sku.defaultImage],
     specString: '',
     specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications).filter((el) => el),
-    specIds: sku.goodsSpecificationRel.map((el) => {
-      return el.goodsSpecificationDetailId
-    }),
+    specIds:
+      sku.goodsSpecificationRel?.map((el) => {
+        return el.goodsSpecificationDetailId
+      }) || [],
     defaultChoose: index === 0 ? true : false,
   }
   return item
 }
-
+export const normalizeProductsforFe = (data: any) => {
+  let list = data.map((item) => {
+    return {
+      name: item.cardName,
+      img: item.goodsAsserts[0]?.artworkUrl,
+      originalPrice: item.goodsVariants[0].listPrice,
+      price: item.goodsVariants[0].marketingPrice,
+      sku: item.goodsVariants[0].id,
+      spu: item.id,
+    }
+  })
+  return list
+}
 export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): string[] => {
   return goodsSpecificationRel.map((el) => {
     let specObj = goodsSpecifications.find((spec) => spec.id === el.goodsSpecificationId)

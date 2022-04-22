@@ -1,8 +1,10 @@
 // import { ApiRoot } from "../../fetcher";
 import { mockProduct } from '@/framework/mock/product'
+import { products } from '@/framework/mock/products'
+import { ProductDetailProps } from '@/framework/types/products'
 // import { ProductDetailProps } from '@/framework/types/products'
 import ApiRoot from '../fetcher'
-import { normalizeProductForFe } from '../lib/normalize'
+import { normalizeProductForFe, normalizeProductsforFe } from '../lib/normalize'
 
 export const getProduct = async () => {
   try {
@@ -17,6 +19,18 @@ export const getProduct = async () => {
   }
 }
 
+export const getProducts = async () => {
+  let list = mockProduct.data.FindGoodsList.records[0]
+
+  try {
+    // const pets = await ApiRoot.pets().getProduct({ id: "20220415" });
+    const productList = normalizeProductsforFe(list)
+    console.info('productListproductList', productList)
+  } catch (err) {
+    console.log(err, 'err')
+  }
+  return list
+}
 export const getProductBySkuId = async ({ goodsVariantId }: { goodsVariantId: string }) => {
   try {
     const res = await ApiRoot.products().getProductBySku({

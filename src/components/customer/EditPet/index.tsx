@@ -8,12 +8,15 @@ import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import moment from 'moment'
 import { updatePet } from '@/framework/api/pet/update-pet'
+import { petLists } from '@/mock/pet'
 console.info('moment', moment())
 interface EditPetProps {
   pet: PetListItemProps
   getList: () => void
   SetshowAddPetBtn: (val: boolean) => void
   setIsEdit: (val: boolean) => void
+  petList: PetListItemProps[]
+  setPetList: (val: PetListItemProps[]) => void
 }
 const typeOption = [
   { label: '喵星人', value: PetType.Cat },
@@ -27,7 +30,7 @@ const isSterilizedOption = [
   { label: '是', value: true },
   { label: '否', value: false },
 ]
-const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit }: EditPetProps) => {
+const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetList }: EditPetProps) => {
   const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet))
   const handleSave = async () => {
     console.info('est', petInfo)
@@ -60,9 +63,14 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit }: EditPetProps) =>
   }
   const handleCancel = () => {
     SetshowAddPetBtn(true) // add
+    debugger
+    if (petInfo.id === '-1') {
+      debugger
+      petList.pop()
+      setPetList(petList)
+    }
     setIsEdit(false) //edit
   }
-
   return (
     <View className="px-2 bg-white pt-4 shadow-inner mx-2 pb-2">
       <Form>
@@ -162,7 +170,13 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit }: EditPetProps) =>
           </View>
         </View>
         <View className="text-30 my-4 flex justify-around">
-          <View onClick={handleCancel} className="inline-block px-8 py-2 rounded-full text-gray-600 bg-gray-200">
+          <View
+            onClick={() => {
+              debugger
+              handleCancel()
+            }}
+            className="inline-block px-8 py-2 rounded-full text-gray-600 bg-gray-200"
+          >
             取消
           </View>
           <View onClick={handleSave} className="inline-block px-8 py-2 rounded-full text-white bg-red-600">

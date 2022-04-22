@@ -5,11 +5,13 @@ import cloneDeep from 'lodash.cloneDeep'
 import { addToTypeEnum } from '@/framework/types/common'
 import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
-import { SelectedProps } from '@/pages/productDetail'
+import { SelectedProps } from '@/pages/packageA/productDetail'
 import './index.less'
 import { formatMoney } from '@/utils/utils'
-import {getProductBySkuId} from "@/framework/api/product/get-product";
-import {normalizeCartData} from "@/framework/api/lib/normalize";
+import { createCart } from '@/framework/api/cart/cart'
+import { getProductBySkuId } from '@/framework/api/product/get-product'
+import { normalizeCartData } from '@/framework/api/lib/normalize'
+import { baseSetting } from '@/framework/api/fetcher'
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -71,15 +73,28 @@ const ChooseSpec = ({
     })
   }
 
-  const addToCart = () => {
+  const addToCart = async () => {
+    const { id } = choosedSku
+    await createCart({
+      customerId: baseSetting.customerId,
+      goodsId: '44c5f184-9146-187f-f738-67db27bf0468',
+      goodsVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
+      // goodsId: detailInfo.id,
+      // goodsVariantId: id,
+      goodsNum: buyCount,
+      storeId: baseSetting.storeId,
+      petId: '',
+      petType: '',
+      operator: 'test',
+    })
     Taro.switchTab({
       url: '/pages/cart/index',
     })
   }
 
-  const addToCheckout = async() => {
-    let data = await getProductBySkuId({ goodsVariantId: "2fde6f65-a83a-0760-b9a1-be9411376461" })
-    let selectedProduct = normalizeCartData({goodsNum:buyCount}, data.productBySkuId)
+  const addToCheckout = async () => {
+    let data = await getProductBySkuId({ goodsVariantId: '2fde6f65-a83a-0760-b9a1-be9411376461' })
+    let selectedProduct = normalizeCartData({ goodsNum: buyCount }, data.productBySkuId)
     Taro.setStorage({
       key: 'select-product',
       data: JSON.stringify([selectedProduct]),
