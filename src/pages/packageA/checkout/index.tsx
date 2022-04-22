@@ -51,7 +51,9 @@ const Checkout = () => {
       return el.skuGoodInfo
     })
     const shoppingCartIds = tradeItems.map((el) => {
-      return el.id
+      if(el.id){
+        return el.id
+      }
     })
     const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
     const params = {
