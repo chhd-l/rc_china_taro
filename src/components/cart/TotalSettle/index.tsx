@@ -2,7 +2,7 @@ import { Radio, View, Text } from "@tarojs/components";
 import { useEffect, useState } from "react";
 import { formatMoney } from "@/utils/utils";
 import { AtButton, AtModal } from "taro-ui";
-import { LineItem } from "@/framework/types/cart";
+// import { LineItem } from "@/framework/types/cart";
 import Taro from "@tarojs/taro";
 import "./index.less";
 
@@ -13,7 +13,7 @@ const TotalSettle = ({
 }: {
   isAllSelect: boolean;
   changeAllSelect: Function;
-  selectedProduct: LineItem[];
+  selectedProduct: any[];
 }) => {
   const [isChecked, setIsChecked] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
@@ -26,7 +26,7 @@ const TotalSettle = ({
 
   const getTotalPrice = () => {
     const total = selectedProduct.reduce((prev, cur) => {
-      return prev + cur.totalPrice * cur.quantity;
+      return prev + cur.localData.price * cur.goodsNum;
     }, 0);
     setTotalPrice(total);
   };
@@ -41,7 +41,7 @@ const TotalSettle = ({
       data: JSON.stringify(selectedProduct),
       complete: (respon) => {
         console.log(respon);
-        Taro.navigateTo({ url: "/pages/checkout/index" });
+        Taro.navigateTo({ url: "/pages/packageA/checkout/index" });
       },
     });
   };
@@ -69,16 +69,16 @@ const TotalSettle = ({
         </Radio>
       </View>
       <View className="flex flex-row items-center pr-2">
-        <Text className="text-xs">合计</Text>
-        <Text className="text-red-500 text-xl mx-1">
+        <Text className="text-xs text-gray-400">合计</Text>
+        <Text className="text-red text-2xl mx-1 font-semibold">
           {formatMoney(totalPrice)}
         </Text>
         <AtButton
           type="primary"
-          className="total-settle-button w-20 h-24"
+          className="total-settle-button w-24"
           onClick={() => checkoutProduct()}
         >
-          结算({selectedProduct.length})
+          去结算 ({selectedProduct.length})
         </AtButton>
       </View>
       <AtModal

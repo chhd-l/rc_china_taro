@@ -1,4 +1,5 @@
 import { Address } from '@/framework/types/customer'
+import Taro from '@tarojs/taro'
 import ApiRoot from '../fetcher'
 
 export const getAddresses = async ({ customerId }: { customerId: string }) => {
@@ -49,4 +50,27 @@ export const updateAddress = async ({ params }: { params: Address | any }) => {
     console.log(e)
     return []
   }
+}
+
+export const wxLogin = async () => {
+  const { userInfo } = await Taro.getUserProfile({
+    lang: 'zh_CN',
+    desc: '获取授权',
+  })
+  const loginRes = await Taro.login()
+
+  const data = await ApiRoot.customers().wxLogin({
+    input: {
+      jsCode: loginRes.code,
+      storeId: '12345678',
+      operator: userInfo.nickName,
+    },
+    userInfo: {
+      avatarUrl: userInfo.avatarUrl,
+      nickName: userInfo.nickName,
+      operator: userInfo.nickName,
+    },
+  })
+  Taro.setStorageSync('loginInfo', data.wxLogin)
+  return data.wxLogin
 }

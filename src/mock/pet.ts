@@ -1,9 +1,9 @@
-import Mock from "mockjs";
+import Mock from 'mockjs'
 export const petLists = {
-  "list|4": [
+  'list|4': [
     {
       age: Mock.Random.name(),
-      image: Mock.Random.image("100x100"),
+      image: Mock.Random.image('100x100'),
       name: Mock.Random.name(),
       type: Mock.Random.name(),
       id: Mock.Random.id(),
@@ -14,11 +14,18 @@ export const petLists = {
       customer: Mock.Random.name(),
     },
   ],
-};
+}
 
 export const breedListMock = {
-  "list|38": [
-    { image: Mock.Random.image("100x100"), value: "啊啊啊" },
-    { image: Mock.Random.image("100x100"), value: "哦哦哦" },
+  'list|2': [
+    { image: Mock.Random.image('100x100'), value: '啊啊啊' },
+    { image: Mock.Random.image('100x100'), value: '啵啵啵' },
+    { image: Mock.Random.image('100x100'), value: '吃吃吃' },
+    { image: Mock.Random.image('100x100'), value: '鹅鹅鹅' },
+    { image: Mock.Random.image('100x100'), value: '福福福' },
+    { image: Mock.Random.image('100x100'), value: '咯咯咯' },
+    { image: Mock.Random.image('100x100'), value: '呵呵呵' },
+    { image: Mock.Random.image('100x100'), value: '一一一' },
+    { image: Mock.Random.image('100x100'), value: '哦哦哦' },
   ],
-};
+}

@@ -19,7 +19,7 @@ const DeliveryTime = ({
     <View className="bg-white mt-2">
       <Picker mode="date" value={deliveryTime} onChange={onDateChange}>
         <View className="flex flex-row justify-between p-2 items-center">
-          <View className="text-sm">发货时间</View>
+          <View className="text-30">发货时间</View>
           <View>
             <View>
               <Text className="text-xs text-gray-400">{deliveryTime}</Text>

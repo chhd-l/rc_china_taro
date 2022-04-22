@@ -13,11 +13,11 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
   return (
     <View className="bg-gray-50 p-2">
       {receiverName ? (
-        <View className="flex flex-row justify-between py-2 items-center">
-          <View className="text-sm items-start font-medium">{receiverName}</View>
-          <View className="text-sm">
+        <View className="flex flex-row justify-between py-2 items-center text-32">
+          <View className=" text-black items-start font-semibold">{receiverName}</View>
+          <View className="">
             <View> {phone}</View>
-            <View>
+            <View className="mt-1">
               {province} {city} {region} {detail}
             </View>
           </View>
@@ -27,7 +27,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
         </View>
       ) : (
         <View className="flex flex-row justify-between py-2 items-center">
-          <View className="text-sm">新增收货地址</View>
+          <View className="text-32">新增收货地址</View>
           <View>
             <AtIcon value="chevron-right" size="24" onClick={() => selectAddress()} />
           </View>

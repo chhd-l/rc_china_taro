@@ -6,6 +6,7 @@ import { PetListItemProps } from '@/framework/types/customer'
 import { useEffect, useState } from 'react'
 import { getPets } from '@/framework/api/pet/get-pets'
 import PetItem from '@/components/customer/PetItem'
+import { initNewPet } from '@/lib/customer'
 // const pets = Mock.mock(petLists).list;
 // console.info("petLists", pets);
 const PetList = () => {
@@ -21,7 +22,7 @@ const PetList = () => {
     getList()
   }, [])
   const addPet = () => {
-    // petList.push(initNewPet);
+    petList.push(initNewPet)
     SetshowAddPetBtn(false)
     setPetList(cloneDeep(petList))
   }

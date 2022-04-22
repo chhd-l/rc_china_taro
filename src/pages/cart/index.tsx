@@ -1,60 +1,66 @@
-import { View } from "@tarojs/components";
-import { ProductItem, Empty, TotalSettle, Navbar } from "@/components/cart";
-import { useEffect, useState } from "react";
-import { LineItem } from "@/framework/types/cart";
-import Mock from "mockjs";
-import { dataSource } from "@/mock/cart";
-import "./index.less";
+import { View } from '@tarojs/components'
+import { ProductItem, Empty, TotalSettle, Navbar } from '@/components/cart'
+import { useEffect, useState } from 'react'
+import { getCarts, updateCart } from '@/framework/api/cart/cart'
+import './index.less'
 
 const Cart = () => {
-  const [productList, setProductList] = useState<LineItem[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState<LineItem[]>([]);
+  const [productList, setProductList] = useState<any[]>([])
+  const [selectedProduct, setSelectedProduct] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
 
-  const changeProduct = (id, name, value) => {
+  const getCartProductList = async () => {
+    setLoading(true)
+    const res = await getCarts()
+    setProductList(res)
+    setLoading(false)
+  }
+
+  const changeProduct = async (id, name, value) => {
+    if (name === 'quantity') {
+      await updateCart({
+        id: id,
+        goodsNum: value,
+        operator: 'test',
+      })
+    }
     setProductList(
       productList.map((item) => {
-        if (item.productId === id) {
-          item[name] = value;
+        if (item.id === id) {
+          item[name] = value
         }
-        return item;
-      })
-    );
-  };
+        return item
+      }),
+    )
+  }
 
   const changeAllSelect = (isAllSelect) => {
     setProductList(
       productList.map((item) => {
-        item.select = isAllSelect;
-        return item;
-      })
-    );
-  };
+        item.select = isAllSelect
+        return item
+      }),
+    )
+  }
 
   const getSelectProduct = () => {
-    setSelectedProduct(productList.filter((item) => item.select));
-  };
+    setSelectedProduct(productList.filter((item) => item.select))
+  }
 
   useEffect(() => {
-    setProductList(Mock.mock(dataSource));
-    console.log(Mock.mock(dataSource));
-  }, []);
+    getCartProductList()
+  }, [])
 
   useEffect(() => {
-    getSelectProduct();
-  }, [productList]);
+    getSelectProduct()
+  }, [productList])
 
   return (
     <View>
       <Navbar num={productList.length} />
-      <View className="index bg-gray-50 pt-2">
-        {productList.length > 0 ? (
-          productList.map((item) => (
-            <ProductItem
-              product={item}
-              key={item.productId}
-              changeProduct={changeProduct}
-            />
-          ))
+      <View className="index bg-gray-50 py-2 h-screen">
+        {!loading && productList.length > 0 ? (
+          productList.map((item) => <ProductItem product={item} key={item.id} changeProduct={changeProduct} />)
         ) : (
           <Empty />
         )}
@@ -67,7 +73,7 @@ const Cart = () => {
         </View>
       </View>
     </View>
-  );
-};
+  )
+}
 
-export default Cart;
+export default Cart
