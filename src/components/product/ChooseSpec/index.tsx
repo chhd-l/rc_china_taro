@@ -74,13 +74,14 @@ const ChooseSpec = ({
   }
 
   const addToCart = async () => {
+    console.info('choosedSkuchoosedSkuchoosedSkuchoosedSku', choosedSku)
     const { id } = choosedSku
     await createCart({
       customerId: baseSetting.customerId,
-      goodsId: '44c5f184-9146-187f-f738-67db27bf0468',
-      goodsVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
-      // goodsId: detailInfo.id,
-      // goodsVariantId: id,
+      // goodsId: '44c5f184-9146-187f-f738-67db27bf0468',
+      // goodsVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
+      goodsId: detailInfo.id,
+      goodsVariantId: id,
       goodsNum: buyCount,
       storeId: baseSetting.storeId,
       petId: '',

@@ -1,84 +1,76 @@
 export const mockProduct = {
   data: {
     FindGoodsList: {
-      limit: null,
-      offset: null,
-      total: 0,
+      limit: 10,
+      offset: 1,
+      total: 1,
       records: [
         {
           id: 'a3ce2a16-e755-4e20-9146-d2dd9379c85a',
-          goodsName: 'Cookie',
-          cardName: 'Cookie cardName',
-          goodsDescription: 'this is test.',
+          goodsName: '巴哥成犬干湿套餐',
+          cardName: '皇家 巴哥成犬干湿套餐 2.095KG*1',
+          goodsDescription: '皇家 巴哥成犬干湿套餐 2.095KG*1.',
           goodsVariants: [
             {
-              name: 'test1',
+              name: '皇家 巴哥成犬干湿套餐 2.095KG*1',
               feedingDays: 10,
-              marketingPrice: 10,
+              marketingPrice: 144,
               stock: 11,
               defaultImage:
-                'https://d2c-cdn.royalcanin.com/cdn-cgi/image/width=200,h=200,format=webp/https://d2cstgstorage.z13.web.core.windows.net/202102240857466797.jpg',
-              id: '16b19b46-1c44-4033-a9ef-075ab05ecdb1',
-              listPrice: 11.222,
-              skuNo: '1234',
-              eanCode: '9999',
+                'https://img11.360buyimg.com/n1/jfs/t1/138876/22/25742/121770/61af0f27E03fed429/fefed9906b5fd7b8.jpg',
+              listPrice: 144,
+              skuNo: '81220020F06',
+              eanCode: '81220020F06',
               goodsSpecificationRel: [
                 {
                   id: '01fde899-3ef7-85d9-54ac-802b56321b43',
                   goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5082',
                   goodsSpecificationDetailId: '3',
                 },
-                {
-                  id: '01fde899-3ef7-85d9-54ac-802b56321b42',
-                  goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5084',
-                  goodsSpecificationDetailId: '81aaf6a5-c9dc-b9d9-1696-8abdb20fd5d1',
-                },
               ],
             },
             {
-              name: 'test2',
+              name: '皇家 巴哥成犬干湿套餐 2.095KG*2',
               feedingDays: 8,
-              marketingPrice: 11,
+              marketingPrice: 220,
               stock: 11,
               defaultImage:
-                'https://d2c-cdn.royalcanin.com/cdn-cgi/image/width=200,h=200,format=webp/https://d2cstgstorage.z13.web.core.windows.net/202102240859473160.jpg',
+                'https://img11.360buyimg.com/n1/jfs/t1/138876/22/25742/121770/61af0f27E03fed429/fefed9906b5fd7b8.jpg',
               id: '16b19b46-1c44-4033-a9ef-075ab05ecdb2',
-              listPrice: 11.222,
-              skuNo: '1234',
-              eanCode: '9999',
+              listPrice: 220,
+              skuNo: '81220020F07',
+              eanCode: '81220020F07',
               goodsSpecificationRel: [
                 {
                   id: '01fde899-3ef7-85d9-54ac-802b56321b43',
                   goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5082',
                   goodsSpecificationDetailId: '2',
                 },
-                {
-                  id: '01fde899-3ef7-85d9-54ac-802b56321b42',
-                  goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5084',
-                  goodsSpecificationDetailId: '4',
-                },
               ],
             },
           ],
           goodsAsserts: [
             {
-              artworkUrl: 'http://dummyimage.com/100x100',
+              artworkUrl:
+                'https://img11.360buyimg.com/n1/jfs/t1/138876/22/25742/121770/61af0f27E03fed429/fefed9906b5fd7b8.jpg',
             },
             {
-              artworkUrl: 'http://dummyimage.com/100x100',
+              artworkUrl:
+                'https://img11.360buyimg.com/n1/jfs/t1/113333/20/7653/110340/5ec50e96E2ceec16a/17466661f4241fad.jpg',
             },
             {
-              artworkUrl: 'http://dummyimage.com/100x100',
+              artworkUrl:
+                'hhttps://img11.360buyimg.com/n1/jfs/t1/112222/25/7638/150717/5ec50e94E6cb5838e/347b0f8f0b1f7516.jpg',
             },
           ],
-          spuNo: '123456678',
-          type: 'BUNLDE',
+          spuNo: '8122',
+          type: 'REGULAR',
           goodsAttributeValueRel: [
             {
               attributeName: 'Age',
               attributeNameEn: 'Zone',
-              attributeValueName: '<4月龄',
-              attributeValueNameEn: 'Uka products',
+              attributeValueName: '< 4月龄',
+              attributeValueNameEn: '< 4months',
               goodsId: 'a3ce2a16-e755-4e20-9146-d2dd9379c85b',
             },
           ],
@@ -91,45 +83,23 @@ export const mockProduct = {
             // },
             {
               id: '6d94a5dc-6298-877d-a61a-1f49b21e5082',
-              specificationName: 'color',
-              specificationNameEn: 'sssssssssssss',
+              specificationName: '重量',
+              specificationNameEn: 'Weight',
               goodsSpecificationDetail: [
                 {
                   id: '2',
                   goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5082',
-                  specificationDetailName: 'red',
+                  specificationDetailName: '400G*2',
                 },
                 {
                   id: '3',
                   goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5082',
-                  specificationDetailName: 'blue',
+                  specificationDetailName: '2KG',
                 },
                 {
                   id: '81aaf6a5-c9dc-b9d9-1696-8abdb20fd5d122',
                   goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5082',
-                  specificationDetailName: 'yellow',
-                },
-              ],
-            },
-            {
-              id: '6d94a5dc-6298-877d-a61a-1f49b21e5084',
-              specificationName: 'size',
-              specificationNameEn: 'sssssssssssss',
-              goodsSpecificationDetail: [
-                {
-                  id: '4',
-                  goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5084',
-                  specificationDetailName: 'middle',
-                },
-                {
-                  id: '81aaf6a5-c9dc-b9d9-1696-8abdb20fd5d1',
-                  goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5084',
-                  specificationDetailName: 'large ',
-                },
-                {
-                  id: '81aaf6a5-c9dc-b9d9-1696-8abdb20fd5d12',
-                  goodsSpecificationId: '6d94a5dc-6298-877d-a61a-1f49b21e5084',
-                  specificationDetailName: 'small',
+                  specificationDetailName: '5KG',
                 },
               ],
             },

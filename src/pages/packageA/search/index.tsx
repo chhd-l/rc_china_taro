@@ -1,107 +1,107 @@
-import Taro from "@tarojs/taro";
-import { View, Text } from "@tarojs/components";
-import { AtButton, AtSearchBar, AtIcon } from "taro-ui";
-import Mock from "mockjs";
-import "./index.less";
-import {
-  FilterListItemProps,
-  OptionProps,
-  PetType,
-  ProductListItemProps,
-} from "@/framework/types/products";
-import { useEffect, useState } from "react";
-import SearchFilters from "@/components/product/SearchFilters";
-import List from "@/components/product/List";
-import { mockList, mocksearchPrams } from "@/mock/product";
-import { filterListArr, largeButtonClass } from "@/lib/product";
-import SearchFloatLayout from "@/components/product/SearchFloatLayout";
-import SearchLastOrHot from "@/components/product/SearchLastOrHot";
+import Taro from '@tarojs/taro'
+import { View, Text } from '@tarojs/components'
+import { AtButton, AtSearchBar, AtIcon } from 'taro-ui'
+import Mock from 'mockjs'
+import './index.less'
+import { FilterListItemProps, OptionProps, PetType, ProductListItemProps } from '@/framework/types/products'
+import { useEffect, useState } from 'react'
+import SearchFilters from '@/components/product/SearchFilters'
+import List from '@/components/product/List'
+import { mockList, mocksearchPrams } from '@/mock/product'
+import { filterListArr, largeButtonClass } from '@/lib/product'
+import SearchFloatLayout from '@/components/product/SearchFloatLayout'
+import SearchLastOrHot from '@/components/product/SearchLastOrHot'
+import { getProducts } from '@/framework/api/product/get-product'
 interface SearchProps {
-  keywords: string;
-  type: PetType;
-  specialarea: string;
-  age: string;
-  productFunction: string;
-  breed: string;
+  keywords: string
+  type: PetType
+  specialarea: string
+  age: string
+  productFunction: string
+  breed: string
 }
 const Search = () => {
-  const [keyword, setKeyword] = useState("");
-  const [hotSearchList, setHotSearchList] = useState<OptionProps[]>([]);
-  const [lastSearchList, setLastSearchList] = useState<OptionProps[]>([]);
-  const [openSearchMore, setOpenSearchMore] = useState<boolean>(false);
-  const [filterList, setFilterList] =
-    useState<FilterListItemProps[]>(filterListArr);
-  const [productList, setProductList] = useState<ProductListItemProps[]>(
-    Mock.mock(mockList).list
-  );
+  const [keyword, setKeyword] = useState('')
+  const [hotSearchList, setHotSearchList] = useState<OptionProps[]>([])
+  const [lastSearchList, setLastSearchList] = useState<OptionProps[]>([])
+  const [openSearchMore, setOpenSearchMore] = useState<boolean>(false)
+  const [filterList, setFilterList] = useState<FilterListItemProps[]>(filterListArr)
+  const [productList, setProductList] = useState<ProductListItemProps[]>()
   useEffect(() => {
-    getHotList();
-    getLastList();
-  }, []);
+    getList()
+    getHotList()
+    getLastList()
+  }, [])
+  const getList = async () => {
+    // debugger
+    let res = await getProducts()
+    console.info('res', res)
+    setProductList(res)
+  }
   const getHotList = () => {
-    let hotList = Mock.mock(mocksearchPrams).list;
-    console.info("mocksearchPrams", hotList);
-    setHotSearchList(hotList);
-  };
+    let hotList = Mock.mock(mocksearchPrams).list
+    console.info('mocksearchPrams', hotList)
+    setHotSearchList(hotList)
+  }
   const getLastList = async () => {
-    let lastList = await getStorageLast();
-    setLastSearchList(lastList);
-  };
+    let lastList = await getStorageLast()
+    setLastSearchList(lastList)
+  }
   const getStorageLast = async () => {
-    let list = [];
+    let list = []
     try {
-      var value = await Taro.getStorageSync("lastSearchList");
+      var value = await Taro.getStorageSync('lastSearchList')
       if (value) {
-        list = value;
+        list = value
       }
     } catch (e) {
-      list = [];
+      list = []
     }
-    return list;
-  };
+    return list
+  }
   const handleSearch = async () => {
-    await handleLastSearch(keyword);
+    await handleLastSearch(keyword)
     // to do search
-  };
+  }
   const changeSearchHot = () => {
-    getHotList();
-  };
+    getHotList()
+  }
   const deleteLast = () => {
-    console.info("....");
+    console.info('....')
     Taro.setStorage({
-      key: "lastSearchList",
+      key: 'lastSearchList',
       data: [],
-    });
-  };
+    })
+  }
   const handleLastSearch = async (value) => {
-    let newLastSearchList: OptionProps[] = await getStorageLast();
+    let newLastSearchList: OptionProps[] = await getStorageLast()
     newLastSearchList.forEach((el, i) => {
       if (el.label === value) {
-        newLastSearchList.splice(i, 1);
+        newLastSearchList.splice(i, 1)
       }
-    });
+    })
     newLastSearchList.unshift({
       label: value,
       value: value,
-    });
-    setLastSearchList(newLastSearchList);
+    })
+    setLastSearchList(newLastSearchList)
     Taro.setStorage({
-      key: "lastSearchList",
+      key: 'lastSearchList',
       data: newLastSearchList,
-    });
-    setKeyword(value);
-    console.info("seach", value);
-  };
+    })
+    setKeyword(value)
+    console.info('seach', value)
+  }
 
   return (
     <View className="search">
-      <View className=" p-2">
+      {/* <View className=" p-2">
         <AtSearchBar
           showActionButton
           focus
           value={keyword}
           onChange={(value) => {
-            setKeyword(value);
+            setKeyword(value)
           }}
           onActionClick={handleSearch}
         />
@@ -111,12 +111,7 @@ const Search = () => {
             titleLeft="最近搜索"
             titleRight={
               <View>
-                <AtIcon
-                  onClick={deleteLast}
-                  value="trash"
-                  size="16"
-                  color="rgb(107, 114, 128)"
-                ></AtIcon>
+                <AtIcon onClick={deleteLast} value="trash" size="16" color="rgb(107, 114, 128)"></AtIcon>
               </View>
             }
             searchList={lastSearchList}
@@ -147,7 +142,7 @@ const Search = () => {
             <Text
               // className="text-sm"
               onClick={() => {
-                setOpenSearchMore(true);
+                setOpenSearchMore(true)
               }}
             >
               更多
@@ -162,15 +157,12 @@ const Search = () => {
           handleSearch={handleSearch}
         />
         <View className="text-xs">
-          <SearchFilters
-            filterList={filterList.slice(0, 2)}
-            setFilterList={setFilterList}
-          />
+          <SearchFilters filterList={filterList.slice(0, 2)} setFilterList={setFilterList} />
         </View>
-      </View>
-      <List list={productList} />
+      </View> */}
+      {productList?.length ? <List list={productList} /> : null}
     </View>
-  );
-};
+  )
+}
 
-export default Search;
+export default Search
