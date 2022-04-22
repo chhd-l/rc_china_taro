@@ -17,12 +17,12 @@ export const getProduct = async () => {
   }
 }
 
-export const getProductBySkuId = async () => {
+export const getProductBySkuId = async ({ goodsVariantId }: { goodsVariantId: string }) => {
   try {
     const res = await ApiRoot.products().getProductBySku({
-      goodsVariantId: '2fde6f65-a83a-0760-b9a1-be9411376461',
+      goodsVariantId,
     })
-    console.log('getProductBySkuId view',res)
+    console.log('getProductBySkuId view', res)
     return res
   } catch (err) {
     console.log(err, 'err')

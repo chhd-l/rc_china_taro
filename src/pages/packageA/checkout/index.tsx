@@ -42,7 +42,7 @@ const Checkout = () => {
     const goodsList = tradeItems.map((el) => {
       el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
         num: el.goodsNum,
-        id: el.goodsId,
+        id: el.goodsId||"",
       })
       el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications.map((item) => {
         return Object.assign(item, { goodsId: item.id })
