@@ -53,21 +53,16 @@ const Index = () => {
     if (router?.params.type === 'edit') {
       let params = pickForUpdate(addressInfo, initData)
       await updateAddress({
-        params: Object.assign(params, {
-          customerId: '609177bf-ad6a-9e5c-b448-b1b3b0744349',
-          storeId: '1',
-        }),
+        params: Object.assign(params),
       })
     } else {
       await createAddress(
         Object.assign(addressInfo, {
-          customerId: '609177bf-ad6a-9e5c-b448-b1b3b0744349',
           operator: 'master',
-          storeId: '1',
         }),
       )
     }
-    Taro.navigateTo({ url: '/pages/packageB/addressManage/index' })
+    Taro.redirectTo({ url: '/pages/packageB/addressManage/index' })
   }
 
   useEffect(() => {
@@ -85,25 +80,25 @@ const Index = () => {
         },
       })
     } else {
-      //新增
-      Taro.chooseAddress({
-        success: function (res) {
-          console.log(res)
-          if (res?.userName) {
-            setAddressInfo({
-              ...addressInfo,
-              receiverName: res.userName,
-              phone: res.telNumber,
-              province: res.provinceName,
-              city: res.cityName,
-              region: res.countyName,
-              detail: res.detailInfo,
-              postcode: res.postalCode,
-            })
-            setAddress([res.provinceName, res.cityName, res.countyName])
-          }
-        },
-      })
+      //新增地址不用获取微信地址
+      // Taro.chooseAddress({
+      //   success: function (res) {
+      //     console.log(res)
+      //     if (res?.userName) {
+      //       setAddressInfo({
+      //         ...addressInfo,
+      //         receiverName: res.userName,
+      //         phone: res.telNumber,
+      //         province: res.provinceName,
+      //         city: res.cityName,
+      //         region: res.countyName,
+      //         detail: res.detailInfo,
+      //         postcode: res.postalCode,
+      //       })
+      //       setAddress([res.provinceName, res.cityName, res.countyName])
+      //     }
+      //   },
+      // })
     }
   }, [])
 
