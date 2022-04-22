@@ -2,15 +2,14 @@ export default defineAppConfig({
   pages: [
     // 'pages/index/index',
     // 'pages/subscription/index',
+    'pages/account/index',
     'pages/productList/index',
     'pages/cart/index',
-    'pages/checkout/index',
-    'pages/account/index',
   ],
   subpackages: [
     {
       root: 'pages/packageA',
-      pages: ['search/index', 'moreProducts/index', 'productDetail/index'],
+      pages: ['search/index', 'moreProducts/index', 'productDetail/index', 'checkout/index'],
     },
     {
       root: 'pages/packageB',

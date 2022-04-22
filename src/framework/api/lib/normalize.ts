@@ -52,9 +52,7 @@ export const normalizeProductForFe = (goods: Goods): ProductDetailProps => {
     no: goods.spuNo,
     tags: [''], //逻辑处理
     img: goods.goodsAsserts.map((el) => el.artworkUrl),
-    skus: goods.goodsVariants.map((sku, index) =>
-      normalizeSkuForFe(sku, index, goods.type, tags, goods.goodsSpecifications),
-    ),
+    skus: goods.goodsVariants.map((sku, index) => normalizeSkuForFe(sku, index, tags, goods.goodsSpecifications)),
     type: goods.type,
     description: goods.goodsDescription,
     specifications:
@@ -81,7 +79,6 @@ export const normalizeProductForFe = (goods: Goods): ProductDetailProps => {
 export const normalizeSkuForFe = (
   sku: GoodsVariants,
   index: number,
-  type: string,
   spuTags: string[],
   goodsSpecifications,
 ): SkuItemProps => {
@@ -107,7 +104,7 @@ export const normalizeSkuForFe = (
   }
   return item
 }
-export const normalizeProductsforFe = (data: GoodsList[]) => {
+export const normalizeProductsforFe = (data: any) => {
   let list = data.map((item) => {
     return {
       name: item.cardName,
@@ -155,3 +152,15 @@ const petItemFeArr = [
   'operator',
   'id',
 ]
+
+export const normalizeCartData = (cart: any, productSkuInfo: any) => {
+  cart.skuGoodInfo = productSkuInfo
+  cart.select = false
+  cart.localData = {
+    name: productSkuInfo.goodsName,
+    image: productSkuInfo.goodsVariants[0].defaultImage,
+    price: productSkuInfo.goodsVariants[0].listPrice,
+    tags: [],
+  }
+  return cart
+}

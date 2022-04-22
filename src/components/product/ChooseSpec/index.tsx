@@ -9,6 +9,9 @@ import { SelectedProps } from '@/pages/packageA/productDetail'
 import './index.less'
 import { formatMoney } from '@/utils/utils'
 import { createCart } from '@/framework/api/cart/cart'
+import { getProductBySkuId } from '@/framework/api/product/get-product'
+import { normalizeCartData } from '@/framework/api/lib/normalize'
+import { baseSetting } from '@/framework/api/fetcher'
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -73,11 +76,13 @@ const ChooseSpec = ({
   const addToCart = async () => {
     const { id } = choosedSku
     await createCart({
-      customerId: 'test001',
-      storeId: '12345678',
-      goodsId: detailInfo.id,
-      goodsVariantId: id,
+      customerId: baseSetting.customerId,
+      goodsId: '44c5f184-9146-187f-f738-67db27bf0468',
+      goodsVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
+      // goodsId: detailInfo.id,
+      // goodsVariantId: id,
       goodsNum: buyCount,
+      storeId: baseSetting.storeId,
       petId: '',
       petType: '',
       operator: 'test',
@@ -86,35 +91,16 @@ const ChooseSpec = ({
       url: '/pages/cart/index',
     })
   }
-  const addToCheckout = () => {
-    let { id: productId, name } = detailInfo
-    let variant = detailInfo.skus.map((item) => {
-      let newSku = {
-        skuId: item.id,
-        isOnStock: !!item.stock,
-        availableQuantity: item.stock,
-        image: item.img[0],
-        isMatchingVariant: choosedSku.id === item.id,
-        tags: item.tags,
-      }
-      return newSku
-      // if (item.id === choosedSku.id) {
-      //   item.isMatchingVariant = true;
-      // }
-    })
-    let selectedProduct = {
-      productId,
-      name: choosedSku.name,
-      price: formatMoney(choosedSku.price),
-      quantity: buyCount,
-      variant,
-    }
+
+  const addToCheckout = async () => {
+    let data = await getProductBySkuId({ goodsVariantId: '2fde6f65-a83a-0760-b9a1-be9411376461' })
+    let selectedProduct = normalizeCartData({ goodsNum: buyCount }, data.productBySkuId)
     Taro.setStorage({
       key: 'select-product',
-      data: JSON.stringify(selectedProduct),
+      data: JSON.stringify([selectedProduct]),
       complete: (respon) => {
         console.log(respon)
-        Taro.navigateTo({ url: '/pages/checkout/index' })
+        Taro.navigateTo({ url: '/pages/packageA/checkout/index' })
       },
     })
   }
