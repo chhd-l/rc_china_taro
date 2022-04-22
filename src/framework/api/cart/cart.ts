@@ -1,12 +1,27 @@
+// import {normalizeProductForFe} from "@/framework/api/lib/normalize";
 import ApiRoot from '../fetcher'
+
 
 export const getCarts = async ({ customerId, storeId }: { customerId: string; storeId: string }) => {
   try {
     const res = await ApiRoot.carts().getCarts({ customerId, storeId })
-    console.log('getCarts', res.carts)
-    return res.carts
+    const carts = res?.carts || []
+    console.log('cart data',carts)
+    for (let i = 0; i < carts.length; i++) {
+      let data=await ApiRoot.products().getProductBySku({goodsVariantId:carts[i].goodsVariantID})
+      carts[i].skuGoodInfo=data.productBySkuId
+      carts[i].select=false
+      carts[i].localData={
+        name:data.productBySkuId.goodsName,
+        image:data.productBySkuId.goodsVariants[0].defaultImage,
+        price:data.productBySkuId.goodsVariants[0].listPrice,
+        tags:[]
+      }
+    }
+    console.log('cart products data',carts)
+    return carts
   } catch (err) {
-    console.log(err)
+    console.log('err',err)
     return []
   }
 }

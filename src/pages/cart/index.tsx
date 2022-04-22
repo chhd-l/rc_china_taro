@@ -1,18 +1,22 @@
 import { View } from '@tarojs/components'
 import { ProductItem, Empty, TotalSettle, Navbar } from '@/components/cart'
 import { useEffect, useState } from 'react'
-import { LineItem } from '@/framework/types/cart'
+// import { LineItem } from '@/framework/types/cart'
 import Mock from 'mockjs'
 import { dataSource } from '@/mock/cart'
 import { getCarts, updateCart } from '@/framework/api/cart/cart'
 import './index.less'
 
 const Cart = () => {
-  const [productList, setProductList] = useState<LineItem[]>([])
-  const [selectedProduct, setSelectedProduct] = useState<LineItem[]>([])
+  const [productList, setProductList] = useState<any[]>([])
+  const [selectedProduct, setSelectedProduct] = useState<any[]>([])
+  const [loading, setLoading] = useState(false)
 
   const getCartProductList = async () => {
-    await getCarts({ customerId: 'test001', storeId: '12345678' })
+    setLoading(true)
+    const res = await getCarts({ customerId: 'test001', storeId: '12345678' })
+    setProductList(res)
+    setLoading(false)
   }
 
   const updateCartProduct = async () => {
@@ -64,8 +68,8 @@ const Cart = () => {
   return (
     <View>
       <Navbar num={productList.length} />
-      <View className="index bg-gray-50 py-2">
-        {productList.length > 0 ? (
+      <View className="index bg-gray-50 py-2 h-screen">
+        {!loading && productList.length > 0 ? (
           productList.map((item) => <ProductItem product={item} key={item.productId} changeProduct={changeProduct} />)
         ) : (
           <Empty />
