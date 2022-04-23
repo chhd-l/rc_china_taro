@@ -6,8 +6,15 @@ import SingleChoice from '../SingleChoice'
 import { addPet } from '@/framework/api/pet/add-pet'
 import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Taro from '@tarojs/taro'
+import './index.less'
 import moment from 'moment'
 import { updatePet } from '@/framework/api/pet/update-pet'
+import birthdayIcon from '@/assets/icons/pet/birthday.png'
+import typeIcon from '@/assets/icons/pet/type.png'
+import breedIcon from '@/assets/icons/pet/breed.png'
+import genderIcon from '@/assets/icons/pet/gender.png'
+import nicknameIcon from '@/assets/icons/pet/nickname.png'
+import sterilizedIcon from '@/assets/icons/pet/sterilized.png'
 import { petLists } from '@/mock/pet'
 console.info('moment', moment())
 interface EditPetProps {
@@ -63,9 +70,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
   }
   const handleCancel = () => {
     SetshowAddPetBtn(true) // add
-    debugger
     if (petInfo.id === '-1') {
-      debugger
       petList.pop()
       setPetList(petList)
     }
@@ -78,7 +83,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           <SingleChoice
             label={
               <View className="col-span-4 flex items-center">
-                <View className="at-icon at-icon-tag"></View>
+                <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${typeIcon})` }}></View>
                 <Text className="pl-2 ">宠物类型</Text>
               </View>
             }
@@ -88,7 +93,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           />
           <View className="grid grid-cols-12 text-26 py-1">
             <View className="col-span-4 flex items-center">
-              <View className="at-icon at-icon-tag"></View>
+              <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${nicknameIcon})` }}></View>
               <Text className="pl-2 ">宠物昵称</Text>
             </View>
             <Input
@@ -105,7 +110,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           </View>
           <View className="grid grid-cols-12 text-26 py-1 relative">
             <View className="col-span-4 flex items-center">
-              <View className="at-icon at-icon-tag"></View>
+              <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${breedIcon})` }}></View>
               <Text className="pl-2 ">宠物品种</Text>
             </View>
             <Input
@@ -132,7 +137,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           <SingleChoice
             label={
               <View className="col-span-4 flex items-center">
-                <View className="at-icon at-icon-tag"></View>
+                <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${genderIcon})` }}></View>
                 <Text className="pl-2 ">宠物性别</Text>
               </View>
             }
@@ -143,7 +148,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           <SingleChoice
             label={
               <View className="col-span-4 flex items-center">
-                <View className="at-icon at-icon-tag"></View>
+                <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${sterilizedIcon})` }}></View>
                 <Text className="pl-2 ">是否绝育</Text>
               </View>
             }
@@ -153,8 +158,13 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           />
           <View>
             <View className="col-span-4 flex items-center text-26 relative">
-              <View className="at-icon at-icon-tag"></View>
-              <Picker mode="date" className="flex-1" onChange={handleChangeDate}>
+              <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View>
+              <Picker
+                mode="date"
+                className="flex-1"
+                end={new Date().toLocaleString().split(' ')[0].replace(/\//g, '-')}
+                onChange={handleChangeDate}
+              >
                 <AtList>
                   <AtListItem title="宠物生日" extraText={petInfo.birthday} />
                 </AtList>
@@ -172,7 +182,6 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
         <View className="text-30 my-4 flex justify-around">
           <View
             onClick={() => {
-              debugger
               handleCancel()
             }}
             className="inline-block px-8 py-2 rounded-full text-gray-600 bg-gray-200"
