@@ -50,9 +50,10 @@ const Checkout = () => {
       })
       return el.skuGoodInfo
     })
-    const shoppingCartIds = tradeItems.map((el) => {
-      if(el.id){
-        return el.id
+    let shoppingCartIds:any[] = []
+    tradeItems.map((el) => {
+      if(el?.id!==null&&el.id!==undefined){
+        shoppingCartIds.push(el.id)
       }
     })
     const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
@@ -60,7 +61,8 @@ const Checkout = () => {
       goodsList,
       addressInfo,
       remark,
-      shoppingCartIds,
+      // shoppingCartIds,
+      shoppingCartIds:shoppingCartIds.length>0?shoppingCartIds:[''],
       operator: 'test用户001',
       expectedShippingDate: new Date(deliveryTime).toISOString(),
       isSubscription: false,

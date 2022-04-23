@@ -7,6 +7,11 @@ import EditPet from '@/components/customer/EditPet'
 import { editPetButton } from '@/lib/customer'
 import { deletePet } from '@/framework/api/pet/delete-pet'
 import { PetListItemProps } from '@/framework/types/customer'
+import defaultCatImg from '@/assets/img/default.png'
+import defaultDogImg from '@/assets/img/defaultdog.png'
+import addImg from '@/assets/img/addNew.png'
+import petBg from '@/assets/img/pet-bg.png'
+
 interface Props {
   pet: PetListItemProps
   petIdx: number
@@ -69,6 +74,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
         >
           <View
             className="text-center pt-14 pb-2 w-screen"
+            style={{ backgroundImage: `url(${petBg})` }}
             onClick={() => {
               showEdit(petIdx)
             }}
@@ -77,7 +83,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               <AtImagePicker
                 className="w-20 h-20 m-auto relative"
                 length={1}
-                files={[{ url: pet.image }]}
+                files={[{ url: addImg || pet.image }]}
                 onChange={(files) => {
                   console.info('files', files)
                   // Taro.uploadFile({
@@ -96,14 +102,26 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                 }}
               />
             ) : (
-              <Image className="w-20 h-20 rounded-full m-auto border border-solid border-gray-300" src={pet.image} />
-            )}
-            <View className="flex justify-center">
-              <View className="text-30 text-red-600 pr-3 font-medium">{pet.name}</View>
-              <View className="text-26">
-                {pet.type} {pet.age}
+              <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
+                <Image
+                  src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
+                  // src={pet.image}
+                  className={`w-12 h-12 m-auto `}
+                />
               </View>
-            </View>
+              // <Image
+              //   className="w-20 h-20 rounded-full m-auto border border-solid border-gray-300"
+              //   src={defaultImg || pet.image}
+              // />
+            )}
+            {pet.id === '-1' ? null : (
+              <View className="flex justify-center pt-3">
+                <View className="text-30 text-red-600 pr-3 font-medium">{pet.name}</View>
+                <View className="text-26">
+                  {pet.breed} {pet.age}
+                </View>
+              </View>
+            )}
           </View>
         </AtSwipeAction>
       </View>
