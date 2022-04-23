@@ -18,6 +18,7 @@ interface ChooseSpecProps {
   buyCount: number
   showSpecs: boolean
   addToType: addToTypeEnum
+  // isAble: (el: any) => boolean
   isAble: (pid: string, id: string, select: SelectedProps, skudata?: SkuItemProps[]) => boolean
   setSelected: (e: SelectedProps) => void
   selected: SelectedProps
@@ -42,21 +43,24 @@ const ChooseSpec = ({
   useEffect(() => {
     let selectedArr = Object.values(selected).filter((el) => el)
     if (selectedArr.length === detailInfo.specifications?.length) {
+      handleSku()
       setAddBtnStatus(true)
     } else {
       setAddBtnStatus(false)
     }
   }, [selected])
+  const handleSku = () => {
+    const selectedArr = Object.values(selected).filter((el) => el)
+    const chooseSku =
+      detailInfo.skus.find((item) => selectedArr.every((selected) => item.specIds.includes(selected))) ||
+      detailInfo.skus[0] //兼容都没有值的情况
+    chooseSku && setChoosedSku(chooseSku)
+  }
+  // useEffect(() => {
+  //   if (addBtnStatus) {
 
-  useEffect(() => {
-    if (addBtnStatus) {
-      const selectedArr = Object.values(selected).filter((el) => el)
-      const chooseSku =
-        detailInfo.skus.find((item) => selectedArr.every((selected) => item.specIds.includes(selected))) ||
-        detailInfo.skus[0] //兼容都没有值的情况
-      chooseSku && setChoosedSku(chooseSku)
-    }
-  }, [addBtnStatus])
+  //   }
+  // }, [addBtnStatus])
 
   const handleChangeSku = (specDetail: SpecDetail, specification: SpecProps) => {
     if (!specDetail.able) {
@@ -68,6 +72,7 @@ const ChooseSpec = ({
     detailInfo.specifications.forEach((item) => {
       item.children.forEach((its) => {
         its.able = isAble(item.id, its.id, selected)
+        // its.able = isAble(its)
         // console.log(its.id, its.able)
       })
     })
