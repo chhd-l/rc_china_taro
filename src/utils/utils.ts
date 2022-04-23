@@ -1,4 +1,3 @@
-import { PySortProps } from '@/framework/types/common'
 import pickBy from 'lodash/pickBy'
 
 export const getCurrencyCode = () => {
@@ -41,28 +40,4 @@ export const pickForUpdate = (data, primaryData) => {
   })
   updatedObj.id = primaryData.id //id需要一直存在
   return updatedObj
-}
-
-export const pySegSort = (arr) => {
-  if (!String.prototype.localeCompare) return []
-  let letters = 'abcdefghjklmnopqrstwxyz'.split('')
-  let zh = '阿八嚓哒妸发旮哈讥咔垃痳拏噢妑七呥扨它穵夕丫帀'.split('')
-  let segs: PySortProps[] = []
-  letters.map((item, i) => {
-    let cur: PySortProps = { letter: item, data: [] }
-    arr.map((el) => {
-      let item = el.value
-      if (item.localeCompare(zh[i]) >= 0 && item.localeCompare(zh[i + 1]) < 0) {
-        cur.data.push(el)
-      }
-    })
-    if (cur.data.length) {
-      cur.data.sort(function (a, b) {
-        return a.value.localeCompare(b.value, 'zh')
-      })
-      segs.push(cur)
-    }
-  })
-
-  return segs
 }
