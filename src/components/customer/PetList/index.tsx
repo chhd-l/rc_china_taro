@@ -102,9 +102,16 @@ const PetList = () => {
               </SwiperItem>
             ))}
           </Swiper>
-          <View className="text-26 text-center">
+          <View className="text-26 text-center flex justify-center">
             <Text className="text-red-600 font-semibold text-24 mx-2">{fakePet[currentIdx].name}</Text>
-            {fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon} {fakePet[currentIdx]?.breed}
+
+            <View
+              className="w-4 h-4 mr-2"
+              style={{
+                backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
+              }}
+            ></View>
+            {fakePet[currentIdx]?.breed}
             {fakePet[currentIdx]?.age}
           </View>
         </View>
