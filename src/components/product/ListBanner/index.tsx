@@ -9,8 +9,8 @@ const ListBanner = ({ bannerList }: ListBannerProps) => {
   return (
     <Swiper
       style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px !important;`}
-      indicatorColor="#999"
-      indicatorActiveColor="#333"
+      indicatorColor="#fff"
+      indicatorActiveColor="#e2001a"
       circular
       indicatorDots
       autoplay

@@ -16,8 +16,8 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
       <Swiper
         className=""
         style={{ height: Taro.getSystemInfoSync().windowWidth }}
-        indicatorColor="#999"
-        indicatorActiveColor="#333"
+        indicatorColor="#fff"
+        indicatorActiveColor="#e2001a"
         circular
         indicatorDots
         autoplay
