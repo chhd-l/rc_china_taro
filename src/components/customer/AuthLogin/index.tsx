@@ -36,11 +36,11 @@ const AuthLogin = () => {
   const login = async () => {
     if (chexListTwo.length) {
       const data = await wxLogin().then((res) => {
-        console.log('1', 1)
         setLoginButton(false)
         return res
       })
       setCustomer(data)
+      setAuthLoginOpened(false)
     } else {
       setLoginButton(true)
     }
@@ -73,37 +73,34 @@ const AuthLogin = () => {
           setAuthLoginOpened(false)
         }}
       >
-        <View className="absolute bottom-0 w-full bg-white overflow-hidden authLogin">
+        <View className="bottom-0 w-full bg-white overflow-hidden h-full">
           <View className="flex h-10">
-            <View className="flex-1 flex justify-center items-center text-center h-full border-0  border-b-2 border-red-600 border-solid text-xs text-red-600">
+            <View className="flex-1 flex justify-center items-center text-center h-full border-0 text-xs text-red-600">
               <Text>1.微信授权登录</Text>
             </View>
             <View className="flex-1 flex justify-center items-center text-center text-xs h-full">
               <Text>2.绑定手机号</Text>
             </View>
           </View>
-          <View className="flex-1 flex justify-center items-center text-center text-xs h-full">
-            <Text>2.绑定手机号</Text>
+          <View className="px-5">
+            <AtCheckbox
+              className="chexOne"
+              customStyle={{ fontSize: '19px !important' }}
+              options={chexOptions}
+              selectedList={chexList}
+              onChange={chexChange}
+            />
+            <AtCheckbox
+              className="chexTwo"
+              customStyle={{ fontSize: '19px !important' }}
+              options={chexOptionsTwo}
+              selectedList={chexListTwo}
+              onChange={chexChangeTwo}
+            />
+            <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
+              授权登录
+            </Button>
           </View>
-        </View>
-        <View className="px-5">
-          <AtCheckbox
-            className="chexOne"
-            customStyle={{ fontSize: '19px !important' }}
-            options={chexOptions}
-            selectedList={chexList}
-            onChange={chexChange}
-          />
-          <AtCheckbox
-            className="chexTwo"
-            customStyle={{ fontSize: '19px !important' }}
-            options={chexOptionsTwo}
-            selectedList={chexListTwo}
-            onChange={chexChangeTwo}
-          />
-          <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
-            授权登录
-          </Button>
         </View>
         <AtToast
           text="请先勾选条款"
