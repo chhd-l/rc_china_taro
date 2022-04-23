@@ -50,34 +50,19 @@ const Checkout = () => {
       })
       return el.skuGoodInfo
     })
-    const shoppingCartIds = tradeItems.map((el) => {
-      return el.id
+    let shoppingCartIds:any[] = []
+    tradeItems.map((el) => {
+      if(el?.id!==null&&el.id!==undefined){
+        shoppingCartIds.push(el.id)
+      }
     })
-    // const customer = await getCustomer()
-    const customerInfo = {
-      // id: customer.id,
-      // headImage: customer.avatarUrl,
-      // level: customer.level || '',
-      // phone: customer.phone,
-      // nickName: customer.nickName,
-      // name: customer.name || '',
-      // customerAccount: customer.email || '',
-      id: '44',
-      headImage: 'http://dummyimage.com/400x400',
-      level: 'do proident esse sint ipsum',
-      phone: '13883622944',
-      nickName: 'zzx',
-      name: '王驷洁',
-      customerAccount: 'xxxx',
-    }
     const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
     const params = {
       goodsList,
-      customerInfo,
       addressInfo,
       remark,
-      shoppingCartIds,
-      storeId: '12345678',
+      // shoppingCartIds,
+      shoppingCartIds:shoppingCartIds.length>0?shoppingCartIds:[''],
       operator: 'test用户001',
       expectedShippingDate: new Date(deliveryTime).toISOString(),
       isSubscription: false,

@@ -10,9 +10,7 @@ const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddressList = async () => {
-    const res = await getAddresses({
-      customerId: '609177bf-ad6a-9e5c-b448-b1b3b0744349',
-    })
+    const res = await getAddresses()
     setAddressList(res)
   }
 
@@ -41,9 +39,7 @@ const Index = () => {
           detail: res.detailInfo,
           postcode: res.postalCode,
           isDefault: false,
-          customerId: '609177bf-ad6a-9e5c-b448-b1b3b0744349',
           operator: 'master',
-          storeId: '1',
         })
       },
     })
@@ -52,7 +48,7 @@ const Index = () => {
   return (
     <View className="index bg-gray-200 p-2">
       {addressList.map((item: Address) => (
-        <AddressItem addressInfo={item} />
+        <AddressItem addressInfo={item} delAddressSuccess={() => getAddressList()} />
       ))}
       <View className="m-0 flex flex-row justify-end mt-2">
         <Button

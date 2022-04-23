@@ -6,7 +6,7 @@ import Taro from '@tarojs/taro'
 import { deleteAddress, updateAddress } from '@/framework/api/customer/address'
 import './index.less'
 
-const AddressItem = ({ addressInfo }: { addressInfo: Address }) => {
+const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address; delAddressSuccess: Function }) => {
   const [showDelTip, setShowDelTip] = useState(false)
   const { receiverName, phone, province, city, region, detail, isDefault } = addressInfo
 
@@ -27,6 +27,7 @@ const AddressItem = ({ addressInfo }: { addressInfo: Address }) => {
       id: addressInfo.id || '',
     })
     setShowDelTip(false)
+    delAddressSuccess && delAddressSuccess()
   }
 
   const setAsDefault = async () => {
@@ -47,9 +48,7 @@ const AddressItem = ({ addressInfo }: { addressInfo: Address }) => {
       data: JSON.stringify(addressInfo),
       success: function (res) {
         console.log(res)
-        Taro.navigateBack({
-          delta: 1,
-        })
+        Taro.redirectTo({url:'/pages/packageA/checkout/index'})
       },
     })
   }

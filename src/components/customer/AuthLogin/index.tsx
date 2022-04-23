@@ -82,38 +82,28 @@ const AuthLogin = () => {
               <Text>2.绑定手机号</Text>
             </View>
           </View>
-          <View className="px-5">
-            <AtCheckbox
-              className="chexOne"
-              customStyle={{ fontSize: '19px !important' }}
-              options={chexOptions}
-              selectedList={chexList}
-              onChange={chexChange}
-            />
-            <AtCheckbox
-              className="chexTwo"
-              customStyle={{ fontSize: '19px !important' }}
-              options={chexOptionsTwo}
-              selectedList={chexListTwo}
-              onChange={chexChangeTwo}
-            />
-            {/* <View className="pl-4 py-2 border-0 border-b border-gray-300 border-solid">
-            <Text className="text-19-rpx">
-              本人已年满16周岁，同意并接受公司按《隐私政策》及《法律声明》的规定收集和处理我的个人信息。您可以就隐私问题通过隐私政策中的方式联系我们并行使您的个人信息权利。
-            </Text>
-          </View> */}
-            {/* <View className="pl-4 py-2 border-0 border-b border-gray-300 border-solid">
-            <AtCheckbox options={chex2} selectedList={chexList} onChange={chexChange} />
-            <Text className="text-19-rpx">我已阅读和了解皇家爱宠有卡的《会员规则》并同意接受其中所有的条款</Text>
-          </View> */}
-            {/* <View className="pl-4 py-2 border-0 border-b border-gray-300 border-solid">
-            <AtCheckbox options={chex3} selectedList={chexList} onChange={chexChange} />
-            <Text className="text-19-rpx">一键勾选</Text>
-          </View> */}
-            <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
-              授权登录
-            </Button>
+          <View className="flex-1 flex justify-center items-center text-center text-xs h-full">
+            <Text>2.绑定手机号</Text>
           </View>
+        </View>
+        <View className="px-5">
+          <AtCheckbox
+            className="chexOne"
+            customStyle={{ fontSize: '19px !important' }}
+            options={chexOptions}
+            selectedList={chexList}
+            onChange={chexChange}
+          />
+          <AtCheckbox
+            className="chexTwo"
+            customStyle={{ fontSize: '19px !important' }}
+            options={chexOptionsTwo}
+            selectedList={chexListTwo}
+            onChange={chexChangeTwo}
+          />
+          <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
+            授权登录
+          </Button>
         </View>
         <AtToast
           text="请先勾选条款"
