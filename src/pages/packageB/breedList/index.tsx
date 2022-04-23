@@ -68,11 +68,11 @@ const BreedList = () => {
     return segs
   }
 
-  const handleBreed = ({ code }) => {
+  const handleBreed = ({ name, code }) => {
     const pages = Taro.getCurrentPages()
     const current = pages[pages.length - 1]
     const eventChannel = current.getOpenerEventChannel()
-    eventChannel.emit('seachBreed', { breed: code })
+    eventChannel.emit('seachBreed', { breed: name, code })
     Taro.navigateBack()
   }
   const initData = (data: BreedListItemProps[]) => {

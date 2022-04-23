@@ -8,6 +8,7 @@ import Taro from '@tarojs/taro'
 import { getPets } from '@/framework/api/pet/get-pets'
 import { customerAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
+import { getAge } from '@/utils/utils'
 
 const pets = Mock.mock(petLists).list
 const fakePetInfo = { id: '-1' }
@@ -28,6 +29,9 @@ const PetList = () => {
   }, [])
   const getList = async () => {
     let res = (await getPets()) || []
+    res.forEach((item) => {
+      item.age = getAge(item.birthday)
+    })
     setPetList(res)
     let mockPets: any = []
     if (res.length === 1) {
@@ -37,6 +41,7 @@ const PetList = () => {
     } else {
       mockPets = res
     }
+    console.info(res)
     setFakePet(mockPets)
   }
   const toPetList = () => {

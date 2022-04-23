@@ -53,9 +53,9 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
     Taro.navigateTo({
       url: `/pages/packageB/breedList/index?type=${petInfo.type}`,
       events: {
-        seachBreed: function ({ breed }) {
+        seachBreed: function ({ breed, code }) {
           console.log('返回的数据---', breed)
-          let newPetInfo = Object.assign({}, petInfo, { breed })
+          let newPetInfo = Object.assign({}, petInfo, { breed, code })
           setPetInfo(newPetInfo)
         },
       },
