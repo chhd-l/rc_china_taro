@@ -37,6 +37,7 @@ const AuthLogin = () => {
     if (chexListTwo.length) {
       const data = await wxLogin().then((res) => {
         setLoginButton(false)
+        setAuthLoginOpened(false)
         return res
       })
       setCustomer(data)
