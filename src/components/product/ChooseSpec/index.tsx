@@ -18,6 +18,7 @@ interface ChooseSpecProps {
   buyCount: number
   showSpecs: boolean
   addToType: addToTypeEnum
+  // isAble: (el: any) => boolean
   isAble: (pid: string, id: string, select: SelectedProps, skudata?: SkuItemProps[]) => boolean
   setSelected: (e: SelectedProps) => void
   selected: SelectedProps
@@ -68,6 +69,7 @@ const ChooseSpec = ({
     detailInfo.specifications.forEach((item) => {
       item.children.forEach((its) => {
         its.able = isAble(item.id, its.id, selected)
+        // its.able = isAble(its)
         // console.log(its.id, its.able)
       })
     })

@@ -92,7 +92,7 @@ export const normalizeSkuForFe = (
     id: sku.id,
     feedingDays: '',
     no: sku.skuNo,
-    tags, //todo
+    tags: tags.filter((el) => el), //筛选有数据的展示
     img: [sku.defaultImage],
     specString: '',
     specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications).filter((el) => el),
