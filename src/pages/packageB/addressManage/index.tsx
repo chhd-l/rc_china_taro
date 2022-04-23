@@ -15,14 +15,6 @@ const Index = () => {
   }
 
   useEffect(() => {
-    // Taro.getStorage({
-    //   key: "addressList",
-    //   success: function (res) {
-    //     const data = JSON.parse(res.data);
-    //     console.log("addressList", data);
-    //     setAddressList(data);
-    //   },
-    // });
     getAddressList()
   }, [])
 
@@ -46,7 +38,7 @@ const Index = () => {
   }
 
   return (
-    <View className="index bg-gray-200 p-2">
+    <View className="index bg-gray-200 p-2 h-screen">
       {addressList.map((item: Address) => (
         <AddressItem addressInfo={item} delAddressSuccess={() => getAddressList()} />
       ))}
