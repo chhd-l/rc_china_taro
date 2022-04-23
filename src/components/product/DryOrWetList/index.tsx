@@ -22,7 +22,6 @@ interface DryListProps {
   setLifestageList: (lifestageList: TabOptionsProps[]) => void
 }
 const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryListProps) => {
-  console.info('lifestageList', lifestageList)
   const [breedList, setBreedList] = useState<TabOptionsProps[]>(lifestageList[0].children || [])
   const [seeMoreUrl, setseeMoreUrl] = useState<string>('')
   const [headerImg, setHeaderImg] = useState<string>('')

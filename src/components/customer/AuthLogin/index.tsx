@@ -65,17 +65,22 @@ const AuthLogin = () => {
   }
 
   return (
-    <AtModal
-      isOpened={authLoginOpened}
-      onClose={() => {
-        console.log('close')
-        setAuthLoginOpened(false)
-      }}
-    >
-      <View className="absolute bottom-0 w-full bg-white overflow-hidden authLogin">
-        <View className="flex h-10">
-          <View className="flex-1 flex justify-center items-center text-center h-full border-0  border-b-2 border-red-600 border-solid text-xs text-red-600">
-            <Text>1.微信授权登录</Text>
+    <View className="auth-login">
+      <AtModal
+        isOpened={authLoginOpened}
+        onClose={() => {
+          console.log('close')
+          setAuthLoginOpened(false)
+        }}
+      >
+        <View className="absolute bottom-0 w-full bg-white overflow-hidden authLogin">
+          <View className="flex h-10">
+            <View className="flex-1 flex justify-center items-center text-center h-full border-0  border-b-2 border-red-600 border-solid text-xs text-red-600">
+              <Text>1.微信授权登录</Text>
+            </View>
+            <View className="flex-1 flex justify-center items-center text-center text-xs h-full">
+              <Text>2.绑定手机号</Text>
+            </View>
           </View>
           <View className="flex-1 flex justify-center items-center text-center text-xs h-full">
             <Text>2.绑定手机号</Text>
@@ -100,15 +105,15 @@ const AuthLogin = () => {
             授权登录
           </Button>
         </View>
-      </View>
-      <AtToast
-        text="请先勾选条款"
-        icon="check"
-        isOpened={loginButton}
-        duration={1200}
-        onClose={() => setLoginButton(false)}
-      />
-    </AtModal>
+        <AtToast
+          text="请先勾选条款"
+          icon="check"
+          isOpened={loginButton}
+          duration={1200}
+          onClose={() => setLoginButton(false)}
+        />
+      </AtModal>
+    </View>
   )
 }
 

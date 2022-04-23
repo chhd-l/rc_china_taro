@@ -1,4 +1,5 @@
 import { PetGender, PetType, Sterilized } from '@/framework/types/customer'
+import defaultImg from '@/assets/img/default.png'
 export const initNewPet = {
   age: '',
   id: '-1',
@@ -8,7 +9,7 @@ export const initNewPet = {
   breed: '',
   isSterilized: false,
   birthday: '',
-  image: 'http://dummyimage.com/100x100',
+  image: defaultImg,
   customerId: '20220415',
 }
 
