@@ -38,6 +38,7 @@ const AuthLogin = () => {
       const data = await wxLogin().then((res) => {
         console.log('1', 1)
         setLoginButton(false)
+        setAuthLoginOpened(false)
         return res
       })
       setCustomer(data)
