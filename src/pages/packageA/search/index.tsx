@@ -1,8 +1,3 @@
-import Taro from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
-import { AtButton, AtSearchBar, AtIcon } from 'taro-ui'
-import Mock from 'mockjs'
-import './index.less'
 import { FilterListItemProps, OptionProps, PetType, ProductListItemProps } from '@/framework/types/products'
 import { useEffect, useState } from 'react'
 import SearchFilters from '@/components/product/SearchFilters'
@@ -12,6 +7,12 @@ import { filterListArr, largeButtonClass } from '@/lib/product'
 import SearchFloatLayout from '@/components/product/SearchFloatLayout'
 import SearchLastOrHot from '@/components/product/SearchLastOrHot'
 import { getProducts } from '@/framework/api/product/get-product'
+import Taro from '@tarojs/taro'
+import { View, Text } from '@tarojs/components'
+import { AtButton, AtSearchBar, AtIcon } from 'taro-ui'
+import Mock from 'mockjs'
+import './index.less'
+
 interface SearchProps {
   keywords: string
   type: PetType
@@ -33,9 +34,7 @@ const Search = () => {
     getLastList()
   }, [])
   const getList = async () => {
-    // debugger
     let res = await getProducts()
-    console.info('res', res)
     setProductList(res)
   }
   const getHotList = () => {

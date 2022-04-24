@@ -7,7 +7,7 @@ const ProductItem = ({ product }: { product: any }) => {
 
   return (
     <View className="flex flex-row justify-between items-center">
-      <Image src={image} className="w-32 h-32" />
+      <Image src={image} mode="widthFix" />
       <View className="w-full pl-2">
         <View className="font-semibold text-32 text-black">{name}</View>
         <View className="font-semibold text-32 text-black mt-1">{specs}</View>
