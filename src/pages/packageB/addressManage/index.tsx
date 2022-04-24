@@ -11,19 +11,10 @@ const Index = () => {
 
   const getAddressList = async () => {
     const res = await getAddresses()
-    console.log("res",res)
     setAddressList(res)
   }
 
   useEffect(() => {
-    // Taro.getStorage({
-    //   key: "addressList",
-    //   success: function (res) {
-    //     const data = JSON.parse(res.data);
-    //     console.log("addressList", data);
-    //     setAddressList(data);
-    //   },
-    // });
     getAddressList()
   }, [])
 
