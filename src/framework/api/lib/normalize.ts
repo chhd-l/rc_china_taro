@@ -159,7 +159,7 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
   cart.localData = {
     name: productSkuInfo.goodsName,
     image: productSkuInfo.goodsVariants[0].defaultImage,
-    price: productSkuInfo.goodsVariants[0].listPrice,
+    price: productSkuInfo.goodsVariants[0].marketingPrice,
     tags: [],
   }
   return cart

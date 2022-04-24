@@ -7,7 +7,13 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
   const { receiverName, phone, province, city, region, detail } = address
 
   const selectAddress = () => {
-    Taro.navigateTo({ url: '/pages/packageB/addressManage/index' })
+    Taro.setStorage({
+      key: 'address-from-checkout',
+      data: JSON.stringify(true),
+      success: function () {
+        Taro.navigateTo({ url: '/pages/packageB/addressManage/index' })
+      },
+    })
   }
 
   return (
