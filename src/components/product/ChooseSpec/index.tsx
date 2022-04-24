@@ -14,6 +14,7 @@ import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { baseSetting } from '@/framework/api/fetcher'
 import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
+import routers from '@/routers'
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -111,7 +112,7 @@ const ChooseSpec = ({
       data: JSON.stringify([selectedProduct]),
       complete: (respon) => {
         console.log(respon)
-        Taro.navigateTo({ url: '/pages/packageA/checkout/index' })
+        Taro.navigateTo({ url: routers.checkout })
       },
     })
   }

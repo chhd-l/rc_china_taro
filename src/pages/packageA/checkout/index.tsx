@@ -2,12 +2,13 @@ import { View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePrice } from '@/components/checkout'
 // import { LineItem } from "@/framework/types/cart";
-import Taro from '@tarojs/taro'
+import Taro, { useDidHide } from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
 import { createOrder } from '@/framework/api/order/order'
-// import { getCustomer } from '@/framework/api/customer/customer'
 import { AtMessage } from 'taro-ui'
 import _ from 'lodash'
+import routers from '@/routers/index'
+import { getAddresses } from '@/framework/api/customer/address'
 import './index.less'
 
 const Checkout = () => {
@@ -76,11 +77,10 @@ const Checkout = () => {
           message: '下单成功',
           type: 'success',
         })
-        Taro.removeStorage({ key: 'select-product' })
         Taro.switchTab({
-          url: '/pages/cart/index',
+          url: routers.cart,
         })
-      }else{
+      } else {
         Taro.atMessage({
           message: '系统繁忙，请稍后再试',
           type: 'error',
@@ -96,6 +96,12 @@ const Checkout = () => {
     }
   }
 
+  useDidHide(() => {
+    console.log(1111111)
+    Taro.removeStorage({ key: 'select-product' })
+    Taro.removeStorage({ key: 'select-address' })
+  })
+
   useEffect(() => {
     getTotalNum()
     getTotalPrice()
@@ -110,9 +116,15 @@ const Checkout = () => {
     })
     Taro.getStorage({
       key: 'select-address',
-      success: function (res) {
+      success: async function (res) {
         if (res.data) {
           setAddress(JSON.parse(res.data))
+        } else {
+          const addresses = await getAddresses()
+          const defaultAddress = (addresses || []).filter((item) => item.isDefault)
+          if (defaultAddress.length > 0) {
+            setAddress(defaultAddress[0])
+          }
         }
       },
     })
