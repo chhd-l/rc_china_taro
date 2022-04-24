@@ -1,17 +1,17 @@
-import { View } from "@tarojs/components";
-import { formatMoney } from "@/utils/utils";
+import { View } from '@tarojs/components'
+import { formatMoney } from '@/utils/utils'
 
 const Remark = ({
   totalPrice,
   shipPrice,
   discountPrice,
 }: {
-  totalPrice: number;
-  shipPrice: number;
-  discountPrice: number;
+  totalPrice: number
+  shipPrice: number
+  discountPrice: number
 }) => {
   return (
-    <View className="bg-gray-50 mt-2 p-2 text-24 text-gray-400">
+    <View className="bg-gray-50 mt-2 p-2 text-24 text-gray-400 bg-white mt-2 rounded">
       <View className="flex flex-row justify-between items-center mb-1">
         <View>商品总价</View>
         <View>{formatMoney(totalPrice)}</View>
@@ -25,6 +25,6 @@ const Remark = ({
         <View>{formatMoney(discountPrice)}</View>
       </View>
     </View>
-  );
-};
-export default Remark;
+  )
+}
+export default Remark

@@ -1,22 +1,18 @@
-import { Picker, Text, View } from "@tarojs/components";
-import { AtIcon } from "taro-ui";
-import { useState } from "react";
-import { formatDate } from "@/utils/utils";
+import { Picker, Text, View } from '@tarojs/components'
+import { AtIcon } from 'taro-ui'
+import { useState } from 'react'
+import { formatDate } from '@/utils/utils'
 
-const DeliveryTime = ({
-  changeDeliveryDate,
-}: {
-  changeDeliveryDate: Function;
-}) => {
-  const [deliveryTime, setDeliveryTime] = useState(formatDate(new Date()));
+const DeliveryTime = ({ changeDeliveryDate }: { changeDeliveryDate: Function }) => {
+  const [deliveryTime, setDeliveryTime] = useState(formatDate(new Date()))
 
   const onDateChange = (e) => {
-    setDeliveryTime(e.detail.value);
-    changeDeliveryDate && changeDeliveryDate(e.detail.value);
-  };
+    setDeliveryTime(e.detail.value)
+    changeDeliveryDate && changeDeliveryDate(e.detail.value)
+  }
 
   return (
-    <View className="bg-white mt-2">
+    <View className="bg-white mt-2 rounded">
       <Picker mode="date" value={deliveryTime} onChange={onDateChange}>
         <View className="flex flex-row justify-between items-center">
           <View className="text-30">发货时间</View>
@@ -29,6 +25,6 @@ const DeliveryTime = ({
         </View>
       </Picker>
     </View>
-  );
-};
-export default DeliveryTime;
+  )
+}
+export default DeliveryTime
