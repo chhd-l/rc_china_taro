@@ -45,7 +45,7 @@ const SingleChoice = ({ label, options, name, pet, setPetInfo }: SingleChoicePro
     console.info(optionList, 'optionList')
   }, [])
   return (
-    <View className="grid grid-cols-12 text-26 py-1">
+    <View className="grid grid-cols-12 text-26 py-2">
       {label}
       <View className="col-span-8 flex">
         {optionList.map((option, idx) => (

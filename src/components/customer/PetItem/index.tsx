@@ -58,7 +58,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
     setPetList(cloneDeep(petList))
   }
   return (
-    <View className="m-2">
+    <View className="my-2 mx-3">
       <View className=" rounded-lg overflow-hidden">
         <AtSwipeAction
           autoClose

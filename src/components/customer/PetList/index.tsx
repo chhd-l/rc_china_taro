@@ -4,7 +4,7 @@ import { petLists } from '@/mock/pet'
 import Mock from 'mockjs'
 import { PetGender, PetListItemProps } from '@/framework/types/customer'
 import { AtIcon } from 'taro-ui'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { getPets } from '@/framework/api/pet/get-pets'
 import { customerAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
@@ -34,6 +34,10 @@ const PetList = () => {
   useEffect(() => {
     getList()
   }, [])
+  useDidShow(() => {
+    // 返回页面不渲染
+    getList()
+  })
   const getList = async () => {
     let res = (await getPets()) || []
     res.forEach((item) => {

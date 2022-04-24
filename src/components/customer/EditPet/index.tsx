@@ -83,7 +83,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
     setIsEdit(false) //edit
   }
   return (
-    <View className="px-2 bg-white pt-4 shadow-inner mx-2 pb-2">
+    <View className="px-2 bg-white edit-pet pt-4 shadow-inner mx-3 pb-2">
       <Form>
         <View className="">
           <SingleChoice
@@ -98,7 +98,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
             name="type"
             pet={petInfo}
           />
-          <View className="grid grid-cols-12 text-26 py-1">
+          <View className="grid grid-cols-12 text-26 py-2">
             <View className="col-span-4 flex items-center">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${nicknameIcon})` }}></View>
               <Text className="pl-2 ">宠物昵称</Text>
@@ -115,7 +115,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
               placeholder="点击输入宠物名"
             />
           </View>
-          <View className="grid grid-cols-12 text-26 py-1 relative">
+          <View className="grid grid-cols-12 text-26 py-2 relative">
             <View className="col-span-4 flex items-center">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${breedIcon})` }}></View>
               <Text className="pl-2 ">宠物品种</Text>
@@ -163,10 +163,11 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
             name="isSterilized"
             pet={petInfo}
           />
-          <View>
-            <View className="col-span-4 flex items-center text-26 relative">
+          <View className="date-item">
+            <View className="border-0 col-span-4 flex items-center text-26 relative">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View>
               <Picker
+                style={{ border: 0 }}
                 mode="date"
                 className="flex-1"
                 end={new Date().toLocaleString().split(' ')[0].replace(/\//g, '-')}
