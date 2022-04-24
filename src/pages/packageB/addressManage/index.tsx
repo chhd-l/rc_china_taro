@@ -38,24 +38,27 @@ const Index = () => {
   }
 
   return (
-    <View style={{ backgroundColor : "#EFEFEF" }} className="index bg-gray-50 p-2 h-screen">
+    <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 h-screen">
       {addressList.map((item: Address) => (
         <AddressItem addressInfo={item} delAddressSuccess={() => getAddressList()} />
       ))}
       <View className="m-0 flex flex-row items-center mt-2 h-20">
         <View className="flex flex-row m-auto border-none">
           <Button
-            className="text-sm h-8 bg-white mr-3 flex items-center text-gray-400"
+            className="text-xs h-8 bg-white mr-3 flex items-center text-gray-400"
             onClick={() => {
               Taro.navigateTo({
                 url: '/pages/packageB/newAddress/index',
               })
             }}
           >
-            <Text className="text-xl">+</Text>新增地址
+            <Text>+</Text>新增地址
           </Button>
-          <Button className="text-sm h-8 bg-white flex items-center text-gray-400 border-none" onClick={() => getWechatAddress()}>
-            <Text className="text-xl">+</Text>获取微信收货地址
+          <Button
+            className="text-xs h-8 bg-white flex items-center text-gray-400 border-none"
+            onClick={() => getWechatAddress()}
+          >
+            <Text>+</Text>获取微信收货地址
           </Button>
         </View>
       </View>
