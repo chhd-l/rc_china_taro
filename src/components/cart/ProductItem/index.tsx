@@ -48,7 +48,13 @@ const ProductItem = ({
             className="text-48"
             onClick={() => changeProduct && changeProduct(id, 'select', !select)}
           />
-          <Image className="w-20 h-20" src={image} />
+          <Image
+            className="w-20 h-20"
+            src={image}
+            onClick={() => {
+              Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${product.skuGoodInfo.id}` })
+            }}
+          />
           <View className="ml-2">
             <View className="font-semibold text-32 text-black">{product.skuGoodInfo.goodsName}</View>
             <View className="mt-1 font-semibold text-black">{specs}</View>
