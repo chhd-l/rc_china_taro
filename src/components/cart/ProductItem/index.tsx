@@ -66,7 +66,7 @@ const ProductItem = ({
             <View className="ml-2 w-full">
               <View className="font-semibold text-32 text-black">{product.skuGoodInfo.goodsName}</View>
               <View className="mt-2 font-semibold text-black">{specs}</View>
-              <View className="flex flex-row mt-1 text-20 mt-2">
+              <View className="flex flex-row text-20 mt-2">
                 {tags.map((el) => (
                   <View className="border border-solid rounded-md border-red-500 mr-2 px-1 text-red-500">{el}</View>
                 ))}
