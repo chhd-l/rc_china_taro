@@ -9,12 +9,13 @@ interface OptionProps {
   value: PetType | PetGender | boolean
 }
 interface SingleChoiceProps {
+  setPetInfo?: (val: PetListItemProps) => void
   label: string | ReactNode
   options: OptionProps[]
   name: string
   pet: PetListItemProps
 }
-const SingleChoice = ({ label, options, name, pet }: SingleChoiceProps) => {
+const SingleChoice = ({ label, options, name, pet, setPetInfo }: SingleChoiceProps) => {
   const [optionList, setOptionList] = useState(cloneDeep(options))
   const handleChange = (item, idx) => {
     console.info('item, idx', item, idx)
@@ -23,6 +24,12 @@ const SingleChoice = ({ label, options, name, pet }: SingleChoiceProps) => {
     })
     optionList[idx].active = true
     pet[name] = item.value
+    if (name === 'type') {
+      //切换类型清空breed
+      let newPet = Object.assign({}, pet, { breed: '' })
+      //  Object.assign({}, pet, { breed: '' })
+      setPetInfo && setPetInfo(newPet)
+    }
     console.info('pet', pet)
     setOptionList(cloneDeep(optionList))
   }

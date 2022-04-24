@@ -94,9 +94,10 @@ const BreedList = () => {
             onChange={handleKeyword}
             onActionClick={handleSearch}
           />
-          <View className="fixed top-8 right-2 z-10">
+          <View className="fixed text-24 top-16 right-2 z-10">
             {list.map((el) => (
               <View
+                className="mt-2"
                 onClick={() => {
                   setActiveId(`item-${el.letter}`)
                 }}

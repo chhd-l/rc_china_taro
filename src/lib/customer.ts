@@ -18,12 +18,16 @@ export const editPetButton = [
     text: '编辑',
     style: {
       backgroundColor: 'rgb(254, 202, 202)',
+      width: '40px',
+      textAlgin: 'center',
     },
   },
   {
     text: '删除',
     style: {
       backgroundColor: 'rgb(239, 68, 68)',
+      textAlgin: 'center',
+      width: '40px',
     },
   },
 ]

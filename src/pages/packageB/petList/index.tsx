@@ -61,7 +61,7 @@ const PetList = () => {
         )
       })}
       {showAddPetBtn ? (
-        <AtButton onClick={addPet} circle type="secondary" size="small">
+        <AtButton onClick={addPet} circle type="secondary">
           {' '}
           添加宠物
         </AtButton>
