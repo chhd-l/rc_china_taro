@@ -30,15 +30,15 @@ const ProductItem = ({
           {
             text: '删除',
             style: {
-              backgroundColor: '#FF4949',
+              backgroundColor: '#d33024',
               width: '40px',
             },
           },
         ]}
         autoClose
         onClick={delCartProduct}
-        areaWidth={Taro.getSystemInfoSync().windowWidth}
-        maxDistance={70}
+        areaWidth={Taro.getSystemInfoSync().windowWidth + 40}
+        maxDistance={40}
       >
         <View
           style={{

@@ -11,7 +11,7 @@ const Coupon = () => {
 
   return (
     <View className="bg-white mt-2">
-      <View className="flex flex-row justify-between p-2 items-center">
+      <View className="flex flex-row justify-between items-center">
         <View className="text-30">优惠券</View>
         <View>
           <View>

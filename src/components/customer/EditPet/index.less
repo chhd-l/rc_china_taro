@@ -1,3 +1,24 @@
 .birthday-icon{
     background-image: url('/src/assets/icons/pet/birthday.png');
 }
+.date-item{
+    border:0px;
+    View{
+        &::after{
+            border:0
+        }
+        &::before{
+            border:0
+        }
+        border:0px
+    }
+    .at-list__item::after{
+        border:0px
+    }
+}
+.edit-pet{
+    .py-1{
+        padding-top: 0.3rem;
+        padding-bottom: 0.3rem;
+    }
+}
