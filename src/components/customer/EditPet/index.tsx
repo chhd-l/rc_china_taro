@@ -89,7 +89,12 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           <SingleChoice
             label={
               <View className="col-span-4 flex items-center">
-                <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${typeIcon})` }}></View>
+                <View
+                  className="w-4 h-4 bg-contain"
+                  style={{
+                    backgroundImage: 'url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_type.png)',
+                  }}
+                ></View>
                 <Text className="pl-2 ">宠物类型</Text>
               </View>
             }
