@@ -37,7 +37,7 @@ const Index = () => {
               key: 'current-wechat-address',
               data: JSON.stringify(addressInfo),
               success: function () {
-                Taro.navigateTo({
+                Taro.redirectTo({
                   url: '/pages/packageB/newAddress/index?type=addWechatAddress',
                 })
               },
@@ -59,7 +59,7 @@ const Index = () => {
   }
 
   return (
-    <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 h-screen">
+    <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 min-h-screen">
       {addressList.map((item: Address) => (
         <AddressItem addressInfo={item} delAddressSuccess={() => getAddressList()} />
       ))}
