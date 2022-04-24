@@ -157,7 +157,7 @@ const ChooseSpec = ({
                   onClick={() => {
                     handleChangeSku(el, specification)
                   }}
-                  className={`mr-2 inline-block w-15 text-center text-26  border border-solid  rounded-full defalt
+                  className={`mr-2 inline-block w-15 text-center text-26  border border-solid px-2 rounded-full defalt
                   ${el.able ? '' : 'disabled'}
                   ${selected[specification.id] === el.id ? 'active' : ''}`}
                 >
