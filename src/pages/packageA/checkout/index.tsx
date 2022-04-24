@@ -1,4 +1,4 @@
-import { View } from '@tarojs/components'
+import { ScrollView, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePrice } from '@/components/checkout'
 // import { LineItem } from "@/framework/types/cart";
@@ -131,19 +131,25 @@ const Checkout = () => {
   }, [])
 
   return (
-    <View className="index py-2">
-      <View className="px-4 bg-gray-50 rounded">
-        <Address address={address} />
-        <View className="bg-gray-50 pb-2 mt-2 rounded">
+    <View className="index py-2" style={{ marginBottom: "75rpx" }}>
+      <View className="px-4 bg-white">
+        <view className="bggray pb-2 mt-2 rounded">
+          <Address address={address} />
+        </view>
+        <View className="bggray pb-2 px-2 rounded">
           <TradeItem tradeItems={tradeItems} />
-          <View className="px-2">
+          <View>
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
             <Coupon />
             <Remark changeRemark={changeRemark} />
           </View>
         </View>
-        <TradePrice totalPrice={totalPrice} discountPrice={0} shipPrice={0} />
+        <view>
+          <TradePrice totalPrice={totalPrice} discountPrice={0} shipPrice={0} />
+        </view>
       </View>
+
+
       <View className="fixed bottom-0 w-full">
         <TotalCheck num={totalNum} totalPrice={totalPrice} checkNow={checkNow} loading={loading} />
       </View>

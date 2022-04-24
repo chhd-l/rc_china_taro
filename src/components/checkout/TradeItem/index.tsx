@@ -7,7 +7,7 @@ const ProductItem = ({ product }: { product: any }) => {
   const { image, price, specs, tags, name } = product.localData
 
   return (
-    <View className="flex flex-row justify-between items-center mt-6 p-6 bg-white rounded">
+    <View className="flex flex-row justify-between items-center mt-4 p-2">
       <Image src={image} mode="widthFix" className="border" />
       <View className="w-full pl-2">
         <View className="font-semibold text-32 text-black">{name}</View>

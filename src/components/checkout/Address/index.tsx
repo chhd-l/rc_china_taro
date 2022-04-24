@@ -18,7 +18,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
   }
 
   return (
-    <View className="bg-gray-50 bg-white rounded">
+    <View>
       {receiverName ? (
         <View className="flex flex-row justify-between items-center text-32 items-start">
           <View className=" text-black items-start font-semibold -mt-6">{receiverName}</View>
