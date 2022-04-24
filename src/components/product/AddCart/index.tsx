@@ -28,7 +28,7 @@ const AddCart = ({ handleShowSpec }: Props) => {
           }}
         >
           <AtBadge value={cartNumber} maxValue={99}>
-            <AtIcon value="shopping-cart" size="22" color="#F00"></AtIcon>
+            <AtIcon value="shopping-cart" size="22" color="#d33024"></AtIcon>
           </AtBadge>
           购物车
         </View>

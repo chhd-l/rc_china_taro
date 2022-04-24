@@ -129,7 +129,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
             <AtIcon
               value="chevron-down"
               size="24"
-              color="#F00"
+              color="#d33024"
               className="right-1 absolute"
               customStyle={{ transform: 'translateY(-50%)', top: '50%' }}
             ></AtIcon>
@@ -172,7 +172,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
               <AtIcon
                 value="chevron-down"
                 size="24"
-                color="#F00"
+                color="#d33024"
                 className="right-1 absolute"
                 customStyle={{ transform: 'translateY(-50%)', top: '50%' }}
               ></AtIcon>

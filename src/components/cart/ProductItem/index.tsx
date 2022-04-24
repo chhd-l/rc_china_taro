@@ -30,7 +30,7 @@ const ProductItem = ({
           {
             text: '删除',
             style: {
-              backgroundColor: '#FF4949',
+              backgroundColor: '#d33024',
             },
           },
         ]}
