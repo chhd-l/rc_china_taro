@@ -62,7 +62,9 @@ const Index = () => {
         }),
       )
     }
-    Taro.redirectTo({ url: '/pages/packageB/addressManage/index' })
+    Taro.navigateBack({
+      delta: 1,
+    })
   }
 
   useEffect(() => {

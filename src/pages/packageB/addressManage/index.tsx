@@ -14,16 +14,16 @@ const Index = () => {
     setAddressList(res)
   }
 
-  useEffect(() => {
+  Taro.useDidShow(() => {
     getAddressList()
-  }, [])
+  })
 
   const getWechatAddress = () => {
     Taro.chooseAddress({
       success: async function (res) {
         console.log('微信地址', res)
-        if(res){
-          const addressInfo={
+        if (res) {
+          const addressInfo = {
             receiverName: res.userName,
             phone: res.telNumber,
             province: res.provinceName,
@@ -33,15 +33,15 @@ const Index = () => {
             postcode: res.postalCode,
             isDefault: false,
           }
-            Taro.setStorage({
-              key: 'current-wechat-address',
-              data: JSON.stringify(addressInfo),
-              success: function () {
-                Taro.redirectTo({
-                  url: '/pages/packageB/newAddress/index?type=addWechatAddress',
-                })
-              },
-            })
+          Taro.setStorage({
+            key: 'current-wechat-address',
+            data: JSON.stringify(addressInfo),
+            success: function () {
+              Taro.redirectTo({
+                url: '/pages/packageB/newAddress/index?type=addWechatAddress',
+              })
+            },
+          })
         }
         // await createAddress({
         //   receiverName: res.userName,

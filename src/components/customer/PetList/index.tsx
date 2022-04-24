@@ -16,6 +16,7 @@ import addImg from '@/assets/img/addNew.png'
 import addIcon from '@/assets/img/add.png'
 import femaleIcon from '@/assets/icons/pet/female.png'
 import maleIcon from '@/assets/icons/pet/male.png'
+import './index.less'
 
 const pets = Mock.mock(petLists).list
 const fakePetInfo = { id: '-1' }
@@ -27,42 +28,46 @@ const PetList = () => {
   const handleChange = (current: number) => {
     setCurrentIdx(current)
   }
+
   useEffect(() => {
     console.log(customerInfo, 'customerInfogetList')
     getList()
   }, [customerInfo])
-  useEffect(() => {
-    getList()
-  }, [])
-  useDidShow(() => {
-    // 返回页面不渲染
+
+  Taro.useDidShow(() => {
+    console.log(customerInfo, 'customerInfogetList')
     getList()
   })
+
   const getList = async () => {
     let res = (await getPets()) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
+      console.log('item.age', item.age)
     })
     setPetList(res)
-    let mockPets: any = []
-    if (res.length === 1) {
-      mockPets = [fakePetInfo, ...res, fakePetInfo]
-    } else if (res.length === 2) {
-      mockPets = [...res, fakePetInfo]
+    if (res.length === 2 || res.length === 3) {
+      setFakePet([...res, ...res])
     } else {
-      mockPets = res
+      setFakePet(res)
     }
-    console.info(res)
-    setFakePet(mockPets)
   }
+
+  // const displayMultipleItems = () => {
+  //   if(petList.length <= 1 || petList.length > 3) return petList.length
+  //   if(petList.length === 2) {
+  //     return 2
+  //   } else {
+  //     return 3
+  //   }
+  // }
+
   const toPetList = () => {
     Taro.navigateTo({
       url: `/pages/packageB/petList/index?petNumber=${petList.length}`,
     })
   }
-  useEffect(() => {
-    console.info('currentIdx', currentIdx)
-  }, [currentIdx])
+
   return (
     <View className="py-2 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4" style={{ backgroundImage: `url(${petBg})` }}>
       <View className="flex justify-between">
@@ -74,46 +79,54 @@ const PetList = () => {
         ></View>
         {/* <AtIcon value="edit" onClick={toPetList} size="22" color="#d33024"></AtIcon> */}
       </View>
-      <View className="relative w-full">
-        {petList.length === 1 || petList.length === 2 ? (
-          <View className="absolute right-0 top-8" onClick={toPetList}>
-            <View
-              className="w-6 h-6 m-auto bg-no-repeat bg-contain"
-              style={{ backgroundImage: `url(${addIcon})` }}
-            ></View>
-          </View>
-        ) : null}
-      </View>
       {fakePet.length ? (
-        <View className="mt-4">
-          <Swiper
-            style={{ height: '80px' }}
-            circular
-            displayMultipleItems={3}
-            onChange={({ detail }) => {
-              let current = detail.current < fakePet.length - 1 ? detail.current + 1 : 0
-              handleChange(current)
-            }}
-          >
-            {fakePet.map((pet, idx) => (
-              <SwiperItem>
-                <View className="text-center  h-16">
-                  {pet.id != '-1' ? (
-                    <View className="w-16 bg-white h-16 rounded-full shadow-md flex items-center justify-center">
-                      <Image
-                        src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
-                        // src={pet.image}
-                        className={`w-10 h-10 m-auto ${currentIdx === idx ? '' : 'scale-75 transform '}`}
-                      />
-                    </View>
-                  ) : null}
-                </View>
-              </SwiperItem>
-            ))}
-          </Swiper>
+        <View>
+          <View className="w-full flex item-center">
+            <Swiper
+              style={{ height: '80px' }}
+              className="w-full"
+              circular
+              displayMultipleItems={petList.length}
+              onChange={({ detail }) => {
+                let current = fakePet.length > 1 ? detail.current + 1 : detail.current
+                if (current >= fakePet.length) {
+                  current = 0
+                }
+                console.log(' current', current)
+                handleChange(current)
+              }}
+            >
+              {fakePet.map((pet, idx) => (
+                <SwiperItem key={idx}>
+                  <View className="text-center h-full">
+                    {pet.id != '-1' ? (
+                      <View
+                        className={`w-16 bg-white h-full rounded-full shadow-md flex items-center justify-center  ${
+                          currentIdx === idx ? '' : 'scale-75 transform '
+                        }`}
+                      >
+                        <Image
+                          src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
+                          // src={pet.image}
+                          className="w-10 h-10 m-auto"
+                        />
+                      </View>
+                    ) : null}
+                  </View>
+                </SwiperItem>
+              ))}
+            </Swiper>
+            {(petList.length === 1 || petList.length === 2) && (
+              <View className="w-6 h-6 m-auto" onClick={toPetList}>
+                <View
+                  className="w-full h-full bg-no-repeat bg-contain"
+                  style={{ backgroundImage: `url(${addIcon})` }}
+                ></View>
+              </View>
+            )}
+          </View>
           <View className="text-26 text-center flex justify-center">
             <Text className="text-red-600 font-semibold text-24 mx-2">{fakePet[currentIdx].name}</Text>
-
             <View
               className="w-4 h-4 mr-2"
               style={{

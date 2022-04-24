@@ -55,20 +55,11 @@ export const getAge = (birthdayStr) => {
   let age = today.map((value, index) => {
     return value - birthday[index]
   })
-  // 当天数为负数时，月减 1，天数加上月总天数
-  if (age[2] < 0) {
-    // 简单获取上个月总天数的方法，不会错
-    let lastMonth = new Date(today[0], today[1], 0)
-    age[1]--
-    age[2] += lastMonth.getDate()
+  if (age[0] > 0) {
+    return `${age[0]}年`
+  } else if (age[1] > 0) {
+    return `${age[1]}个月 `
+  } else {
+    return '1个月'
   }
-  // 当月数为负数时，年减 1，月数加上 12
-  if (age[1] < 0) {
-    age[0]--
-    age[1] += 12
-  }
-  let yearStr = age[0] ? `${age[0]}年 ` : ''
-  let monthStr = age[1] ? `${age[1]}月 ` : ''
-  let ageStr = age[0] > 0 ? yearStr : monthStr
-  return ageStr
 }
