@@ -43,12 +43,19 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
 
   //checkout过来勾选地址
   const selectAddress = () => {
-    Taro.setStorage({
-      key: 'select-address',
-      data: JSON.stringify(addressInfo),
-      success: function (res) {
-        console.log(res)
-        Taro.redirectTo({url:'/pages/packageA/checkout/index'})
+    Taro.getStorage({
+      key: 'address-from-checkout',
+      success: function (data) {
+        if (data.data) {
+          Taro.setStorage({
+            key: 'select-address',
+            data: JSON.stringify(addressInfo),
+            success: function (res) {
+              console.log(res)
+              Taro.redirectTo({ url: '/pages/packageA/checkout/index' })
+            },
+          })
+        }
       },
     })
   }

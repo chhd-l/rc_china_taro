@@ -17,6 +17,7 @@ const Checkout = () => {
   const [remark, setRemark] = useState('')
   const [totalNum, setTotalNum] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
+  const [loading, setLoading] = useState(false)
 
   const changeDeliveryDate = (value) => {
     setDeliveryTime(value)
@@ -40,49 +41,58 @@ const Checkout = () => {
   }
 
   const checkNow = async () => {
-    const goodsList = tradeItems.map((el) => {
-      el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
-        num: el.goodsNum,
-        id: el.goodsId || '',
+    try {
+      setLoading(true)
+      const goodsList = tradeItems.map((el) => {
+        el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
+          num: el.goodsNum,
+          id: el.goodsId || '',
+        })
+        el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications.map((item) => {
+          return Object.assign(item, { goodsId: item.id })
+        })
+        return el.skuGoodInfo
       })
-      el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications.map((item) => {
-        return Object.assign(item, { goodsId: item.id })
+      let shoppingCartIds: any[] = []
+      tradeItems.map((el) => {
+        if (el?.id !== null && el.id !== undefined) {
+          shoppingCartIds.push(el.id)
+        }
       })
-      return el.skuGoodInfo
-    })
-    let shoppingCartIds:any[] = []
-    tradeItems.map((el) => {
-      if(el?.id!==null&&el.id!==undefined){
-        shoppingCartIds.push(el.id)
+      const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
+      const params = {
+        goodsList,
+        addressInfo,
+        remark,
+        shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
+        operator: 'test用户001',
+        expectedShippingDate: new Date(deliveryTime).toISOString(),
+        isSubscription: false,
       }
-    })
-    const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
-    const params = {
-      goodsList,
-      addressInfo,
-      remark,
-      // shoppingCartIds,
-      shoppingCartIds:shoppingCartIds.length>0?shoppingCartIds:[''],
-      operator: 'test用户001',
-      expectedShippingDate: new Date(deliveryTime).toISOString(),
-      isSubscription: false,
-    }
-    console.log('create order params', params)
-    const res = await createOrder(params)
-    if (res.createOrder) {
+      console.log('create order params', params)
+      const res = await createOrder(params)
+      if (res.createOrder) {
+        Taro.atMessage({
+          message: '下单成功',
+          type: 'success',
+        })
+        Taro.removeStorage({ key: 'select-product' })
+        Taro.switchTab({
+          url: '/pages/cart/index',
+        })
+      }else{
+        Taro.atMessage({
+          message: '系统繁忙，请稍后再试',
+          type: 'error',
+        })
+      }
+    } catch (e) {
       Taro.atMessage({
-        message: '下单成功',
-        type: 'success',
+        message: '系统繁忙，请稍后再试',
+        type: 'error',
       })
-      // Taro.removeStorage({ key: 'select-product' })
-      Taro.switchTab({
-        url: '/pages/cart/index',
-        success: () => {
-          // const page = Taro.getCurrentPages()[0] //当前页面
-          // if (page === undefined || page === null) return
-          // page.onLoad() //或者其它操作
-        },
-      })
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -123,7 +133,7 @@ const Checkout = () => {
         <TradePrice totalPrice={totalPrice} discountPrice={0} shipPrice={0} />
       </View>
       <View className="fixed bottom-0 w-full">
-        <TotalCheck num={totalNum} totalPrice={totalPrice} checkNow={checkNow} />
+        <TotalCheck num={totalNum} totalPrice={totalPrice} checkNow={checkNow} loading={loading} />
       </View>
       <AtMessage />
     </View>
