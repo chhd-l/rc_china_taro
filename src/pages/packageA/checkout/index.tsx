@@ -120,9 +120,9 @@ const Checkout = () => {
 
   return (
     <View className="index py-2">
-      <View className="px-4">
+      <View className="px-4 bg-gray-50 rounded">
         <Address address={address} />
-        <View className="bg-gray-50 pb-2 mt-2">
+        <View className="bg-gray-50 pb-2 mt-2 rounded">
           <TradeItem tradeItems={tradeItems} />
           <View className="px-2">
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
