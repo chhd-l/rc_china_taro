@@ -46,7 +46,7 @@ const PetList = () => {
     setPetList(cloneDeep(petList))
   }
   return (
-    <View className="pet-list  py-2 h-screen" style={{ backgroundColor: '#eee' }}>
+    <View className="pet-list  py-2" style={{ backgroundColor: '#eee', minHeight: '100vh' }}>
       {petList.map((pet, idx) => {
         return (
           <PetItem
