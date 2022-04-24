@@ -18,7 +18,7 @@ export const editPetButton = [
     text: '编辑',
     style: {
       backgroundColor: 'rgb(254, 202, 202)',
-      width: '40px',
+      width: '30px',
       textAlgin: 'center',
     },
   },
@@ -27,7 +27,7 @@ export const editPetButton = [
     style: {
       backgroundColor: 'rgb(239, 68, 68)',
       textAlgin: 'center',
-      width: '40px',
+      width: '50px',
     },
   },
 ]
