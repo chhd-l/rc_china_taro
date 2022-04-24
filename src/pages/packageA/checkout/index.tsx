@@ -5,9 +5,9 @@ import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePric
 import Taro from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
 import { createOrder } from '@/framework/api/order/order'
-// import { getCustomer } from '@/framework/api/customer/customer'
 import { AtMessage } from 'taro-ui'
 import _ from 'lodash'
+import routers from '@/routers/index'
 import './index.less'
 
 const Checkout = () => {
@@ -78,9 +78,9 @@ const Checkout = () => {
         })
         Taro.removeStorage({ key: 'select-product' })
         Taro.switchTab({
-          url: '/pages/cart/index',
+          url: routers.cart,
         })
-      }else{
+      } else {
         Taro.atMessage({
           message: '系统繁忙，请稍后再试',
           type: 'error',

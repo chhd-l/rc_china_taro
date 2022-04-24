@@ -11,7 +11,9 @@ import { useEffect, useState } from 'react'
 import Mock from 'mockjs'
 import { dataSource } from '@/mock/customer'
 import PetList from '@/components/customer/PetList'
+import routers from '@/routers'
 import './index.less'
+
 
 // interface OrderTypeProps {
 //   label: string;
@@ -77,7 +79,7 @@ const Account = () => {
               size="small"
               onClick={() => {
                 Taro.navigateTo({
-                  url: '/pages/packageB/addressManage/index',
+                  url: routers.addressManage,
                 })
               }}
             >

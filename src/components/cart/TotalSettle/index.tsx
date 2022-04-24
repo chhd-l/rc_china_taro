@@ -4,6 +4,7 @@ import { formatMoney } from '@/utils/utils'
 import { AtButton, AtModal } from 'taro-ui'
 // import { LineItem } from "@/framework/types/cart";
 import Taro from '@tarojs/taro'
+import routers from '@/routers/index'
 import './index.less'
 
 const TotalSettle = ({
@@ -41,7 +42,7 @@ const TotalSettle = ({
       data: JSON.stringify(selectedProduct),
       complete: (respon) => {
         console.log(respon)
-        Taro.navigateTo({ url: '/pages/packageA/checkout/index' })
+        Taro.navigateTo({ url: routers.checkout })
       },
     })
   }

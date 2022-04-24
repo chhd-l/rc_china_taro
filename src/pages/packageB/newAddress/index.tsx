@@ -6,6 +6,7 @@ import RegionPicker from '@/components/common/WePicker/index'
 import { createAddress, updateAddress } from '@/framework/api/customer/address'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { pickForUpdate } from '@/utils/utils'
+import routers from '@/routers'
 import './index.less'
 
 const Index = () => {
@@ -62,7 +63,7 @@ const Index = () => {
         }),
       )
     }
-    Taro.redirectTo({ url: '/pages/packageB/addressManage/index' })
+    Taro.redirectTo({ url: routers.addressManage })
   }
 
   useEffect(() => {
@@ -165,7 +166,11 @@ const Index = () => {
         </View>
       </AtForm>
       <View className="mt-2 flex justify-center">
-        <AtButton className="bg-red-500 rc-button text-white w-24 rounded-3xl" formType="submit" onClick={saveNewAddress}>
+        <AtButton
+          className="bg-red-500 rc-button text-white w-24 rounded-3xl"
+          formType="submit"
+          onClick={saveNewAddress}
+        >
           保存
         </AtButton>
       </View>
