@@ -80,6 +80,20 @@ const Index = () => {
         },
       })
     }
+    if (router?.params.type === 'addWechatAddress') {
+      //编辑
+      Taro.getStorage({
+        key: 'current-wechat-address',
+        success: function (response) {
+          console.log(response)
+          if (response?.data) {
+            const data = JSON.parse(response.data)
+            setAddressInfo(data)
+            setInitData(data)
+          }
+        },
+      })
+    }
   }, [])
 
   return (
