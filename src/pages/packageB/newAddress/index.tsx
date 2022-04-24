@@ -76,12 +76,13 @@ const Index = () => {
             const data = JSON.parse(response.data)
             setAddressInfo(data)
             setInitData(data)
+            setAddress([data.province, data.city, data.region])
           }
         },
       })
     }
     if (router?.params.type === 'addWechatAddress') {
-      //编辑
+      //获取微信地址后填充显示、手动保存
       Taro.getStorage({
         key: 'current-wechat-address',
         success: function (response) {
@@ -90,6 +91,7 @@ const Index = () => {
             const data = JSON.parse(response.data)
             setAddressInfo(data)
             setInitData(data)
+            setAddress([data.province, data.city, data.region])
           }
         },
       })
@@ -163,7 +165,7 @@ const Index = () => {
         </View>
       </AtForm>
       <View className="mt-2 flex justify-center">
-        <AtButton className="bg-red-500 rc-button text-white w-20" formType="submit" onClick={saveNewAddress}>
+        <AtButton className="bg-red-500 rc-button text-white w-24 rounded-3xl" formType="submit" onClick={saveNewAddress}>
           保存
         </AtButton>
       </View>

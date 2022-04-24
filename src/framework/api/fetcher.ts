@@ -1,5 +1,7 @@
 import ClientBuilder from '@/rc-china-commerce/packages/taro/lib'
 
+export const isMock=false
+
 export const baseSetting = {
   customerId: 'test001',
   storeId: '12345678',
