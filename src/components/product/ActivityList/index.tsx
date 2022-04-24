@@ -1,8 +1,8 @@
-import { Swiper, SwiperItem, Image } from "@tarojs/components";
-import { SwiperProps } from "@/framework/types/products";
+import { Swiper, SwiperItem, Image } from '@tarojs/components'
+import { SwiperProps } from '@/framework/types/products'
 
 interface ActivityProps {
-  list: SwiperProps[];
+  list: SwiperProps[]
 }
 const ActivityList = ({ list }: ActivityProps) => {
   return (
@@ -10,18 +10,14 @@ const ActivityList = ({ list }: ActivityProps) => {
       indicatorColor="#999"
       indicatorActiveColor="#333"
       circular
-      indicatorDots
+      // indicatorDots
       autoplay
     >
       {list.map((item) => (
-        <SwiperItem>
-          {item.img ? (
-            <Image src={item.img} mode="widthFix" style="width:100%" />
-          ) : null}
-        </SwiperItem>
+        <SwiperItem>{item.img ? <Image src={item.img} mode="widthFix" style="width:100%" /> : null}</SwiperItem>
       ))}
     </Swiper>
-  );
-};
+  )
+}
 
-export default ActivityList;
+export default ActivityList
