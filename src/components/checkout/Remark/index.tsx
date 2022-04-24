@@ -13,7 +13,7 @@ const Remark = ({ changeRemark }: { changeRemark: Function }) => {
   return (
     <View className="bg-white mt-2">
       <View className="flex flex-row justify-between items-center">
-        <View className="text-30 p-2">备注信息</View>
+        <View className="text-30 ">备注信息</View>
         <View>
           <AtInput
             placeholder="请填写需要备注信息"
