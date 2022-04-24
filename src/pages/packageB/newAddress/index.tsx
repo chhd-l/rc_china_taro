@@ -63,7 +63,9 @@ const Index = () => {
         }),
       )
     }
-    Taro.redirectTo({ url: routers.addressManage })
+    Taro.navigateBack({
+      delta: 1,
+    })
   }
 
   useEffect(() => {

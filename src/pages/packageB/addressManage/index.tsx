@@ -15,9 +15,9 @@ const Index = () => {
     setAddressList(res)
   }
 
-  useEffect(() => {
+  Taro.useDidShow(() => {
     getAddressList()
-  }, [])
+  })
 
   const getWechatAddress = () => {
     Taro.chooseAddress({
