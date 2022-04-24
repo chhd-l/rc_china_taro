@@ -1,10 +1,13 @@
 import { useState } from 'react'
-import { View, Radio, Text } from '@tarojs/components'
-import { AtDivider, AtIcon, AtModal } from 'taro-ui'
+import { View, Radio, Text, Image } from '@tarojs/components'
+import { AtDivider, AtModal } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
-import Taro from '@tarojs/taro'
+import Taro, { useDidHide } from '@tarojs/taro'
 import { deleteAddress, updateAddress } from '@/framework/api/customer/address'
 import './index.less'
+
+const editIcon = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/edit_address.png'
+const deleteIcon = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/remove_address.png'
 
 const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address; delAddressSuccess: Function }) => {
   const [showDelTip, setShowDelTip] = useState(false)
@@ -60,11 +63,15 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
     })
   }
 
+  useDidHide(() => {
+    Taro.removeStorage({ key: 'address-from-checkout' })
+  })
+
   return (
-    <View className="p-2 bg-white address-item text-sm mt-2">
+    <View className="px-2 pt-4 pb-2 bg-white address-item text-sm mt-2 rounded">
       <View onClick={selectAddress}>
         <View className="flex flex-row justify-between">
-          <Text>{receiverName}</Text>
+          <Text className="text-base text-black font-semibold">{receiverName}</Text>
           <Text className="text-gray-400">{phone}</Text>
         </View>
         <View className="mt-2">
@@ -81,26 +88,24 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
           checked={Boolean(isDefault)}
           style={{ transform: 'scale(0.6)' }}
           color="red"
-          className="text-48 -ml-5"
+          className="text-48 -ml-5 text-gray-400"
           onClick={() => setAsDefault()}
         >
           默认地址
         </Radio>
         <View className="flex flex-row items-center">
-          <AtIcon
-            value="file-generic"
-            size="24"
-            color="#D1D5DB"
+          <Image
+            style={{ width: '20px', height: '20px' }}
+            src={editIcon}
             onClick={(e) => {
               console.log(e)
               editAddress()
             }}
           />
-          <View className="h-4 border-r border-t-0 border-b-0 border-l-0 border-solid border-gray-300 mx-1" />
-          <AtIcon
-            value="trash"
-            size="24"
-            color="#D1D5DB"
+          <View className="h-4 border-r border-t-0 border-b-0 border-l-0 border-solid border-gray-300 mx-2" />
+          <Image
+            style={{ width: '18px', height: '18px' }}
+            src={deleteIcon}
             onClick={() => {
               setShowDelTip(true)
             }}
@@ -119,6 +124,7 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
           setShowDelTip(false)
         }}
         onConfirm={() => delAddress()}
+        className="rc_modal"
       />
     </View>
   )

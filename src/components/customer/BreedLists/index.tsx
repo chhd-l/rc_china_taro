@@ -20,7 +20,7 @@ const BreedLists = ({ activeId, list, handleBreed }: Props) => {
                   handleBreed(el)
                 }}
               >
-                <View className="flex px-2 py-2 border-b border-t-0 border-l-0 border-r-0 border-solid border-gray-200 items-center">
+                <View className="flex px-2 py-3 border-b border-t-0 border-l-0 border-r-0 border-solid border-gray-200 items-center">
                   <Image className="w-8 rounded-full" src={el.image} mode="widthFix" />
                   <View className="flex-1 pl-2">{el.name}</View>
                 </View>
