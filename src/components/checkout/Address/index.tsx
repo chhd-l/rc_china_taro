@@ -20,7 +20,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
     <View className="bg-gray-50">
       {receiverName ? (
         <View className="flex flex-row justify-between items-center text-32 items-start">
-          <View className=" text-black items-start font-semibold -mt-4">{receiverName}</View>
+          <View className=" text-black items-start font-semibold -mt-6">{receiverName}</View>
           <View className="">
             <View> {phone}</View>
             <View className="mt-1">

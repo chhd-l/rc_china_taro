@@ -70,7 +70,7 @@ const PetList = () => {
         <View
           className="w-4 h-4"
           onClick={toPetList}
-          style="background:url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_edit.png)"
+          style="background:url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_edit.png);background-size: contain;"
         ></View>
         {/* <AtIcon value="edit" onClick={toPetList} size="22" color="#d33024"></AtIcon> */}
       </View>
