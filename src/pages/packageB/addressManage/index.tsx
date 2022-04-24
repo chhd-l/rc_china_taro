@@ -1,5 +1,5 @@
 import Taro from '@tarojs/taro'
-import { View, Button } from '@tarojs/components'
+import { View, Button, Text } from '@tarojs/components'
 import { AddressItem } from '@/components/customer'
 import { useEffect, useState } from 'react'
 import { Address } from '@/framework/types/customer'
@@ -15,14 +15,6 @@ const Index = () => {
   }
 
   useEffect(() => {
-    // Taro.getStorage({
-    //   key: "addressList",
-    //   success: function (res) {
-    //     const data = JSON.parse(res.data);
-    //     console.log("addressList", data);
-    //     setAddressList(data);
-    //   },
-    // });
     getAddressList()
   }, [])
 
@@ -46,24 +38,26 @@ const Index = () => {
   }
 
   return (
-    <View className="index bg-gray-200 p-2">
+    <View style={{ backgroundColor : "#EFEFEF" }} className="index bg-gray-50 p-2 h-screen">
       {addressList.map((item: Address) => (
         <AddressItem addressInfo={item} delAddressSuccess={() => getAddressList()} />
       ))}
-      <View className="m-0 flex flex-row justify-end mt-2">
-        <Button
-          className="text-xs m-0 h-6 bg-white mr-2 flex items-center text-gray-400"
-          onClick={() => {
-            Taro.navigateTo({
-              url: '/pages/packageB/newAddress/index',
-            })
-          }}
-        >
-          +新增地址
-        </Button>
-        <Button className="text-xs m-0 bg-white flex items-center text-gray-400" onClick={() => getWechatAddress()}>
-          +获取微信收货地址
-        </Button>
+      <View className="m-0 flex flex-row items-center mt-2 h-20">
+        <View className="flex flex-row m-auto border-none">
+          <Button
+            className="text-sm h-8 bg-white mr-3 flex items-center text-gray-400"
+            onClick={() => {
+              Taro.navigateTo({
+                url: '/pages/packageB/newAddress/index',
+              })
+            }}
+          >
+            <Text className="text-xl">+</Text>新增地址
+          </Button>
+          <Button className="text-sm h-8 bg-white flex items-center text-gray-400 border-none" onClick={() => getWechatAddress()}>
+            <Text className="text-xl">+</Text>获取微信收货地址
+          </Button>
+        </View>
       </View>
     </View>
   )

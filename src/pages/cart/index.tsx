@@ -63,16 +63,20 @@ const Cart = () => {
   return (
     <View>
       <Navbar num={productList.length} />
-      <View className="index bg-gray-50 pb-2 pt-4 cart-content">
-        {!loading && productList.length > 0 ? (
-          productList.map((item) => (
-            <ProductItem
-              product={item}
-              key={item.id}
-              changeProduct={changeProduct}
-              delCartSuccess={() => getCartProductList()}
-            />
-          ))
+      <View className="index bg-gray-50 py-2 h-screen">
+        {loading ? (
+          <AtActivityIndicator mode="center" content="加载中..." isOpened={loading} />
+        ) : productList.length > 0 ? (
+          <View>
+            {productList.map((item) => (
+              <ProductItem
+                product={item}
+                key={item.id}
+                changeProduct={changeProduct}
+                delCartSuccess={() => getCartProductList()}
+              />
+            ))}
+          </View>
         ) : (
           <Empty />
         )}
