@@ -1,16 +1,16 @@
-import { View, Text } from "@tarojs/components";
-import { AtIcon, AtModal } from "taro-ui";
-import { useState } from "react";
+import { View, Text } from '@tarojs/components'
+import { AtIcon, AtModal } from 'taro-ui'
+import { useState } from 'react'
 
 const Coupon = () => {
-  const [showNoCoupon, setShowNoCoupon] = useState(false);
+  const [showNoCoupon, setShowNoCoupon] = useState(false)
 
   const selectCoupon = () => {
-    setShowNoCoupon(true);
-  };
+    setShowNoCoupon(true)
+  }
 
   return (
-    <View className="bg-white mt-2">
+    <View className="bg-white mt-2 rounded">
       <View className="flex flex-row justify-between items-center">
         <View className="text-30">优惠券</View>
         <View>
@@ -26,11 +26,11 @@ const Coupon = () => {
         confirmText="确定"
         content="无可用优惠券"
         onClose={() => {
-          setShowNoCoupon(false);
+          setShowNoCoupon(false)
         }}
         onConfirm={() => setShowNoCoupon(false)}
       />
     </View>
-  );
-};
-export default Coupon;
+  )
+}
+export default Coupon

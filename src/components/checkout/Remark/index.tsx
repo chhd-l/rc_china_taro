@@ -1,23 +1,24 @@
-import { View } from "@tarojs/components";
-import { AtInput } from "taro-ui";
-import { useState } from "react";
+import { View } from '@tarojs/components'
+import { AtInput } from 'taro-ui'
+import { useState } from 'react'
 
 const Remark = ({ changeRemark }: { changeRemark: Function }) => {
-  const [remark, setRemark] = useState("");
+  const [remark, setRemark] = useState('')
 
   const onChange = (value) => {
-    setRemark(value);
-    changeRemark && changeRemark(value);
-  };
+    setRemark(value)
+    changeRemark && changeRemark(value)
+  }
 
   return (
-    <View className="bg-white mt-2">
+    <View className="bg-white mt-2 rounded">
       <View className="flex flex-row justify-between items-center">
         <View className="text-30 ">备注信息</View>
         <View>
           <AtInput
             placeholder="请填写需要备注信息"
             name="remark"
+            className="bg-white rounded"
             value={remark}
             onChange={onChange}
             border={false}
@@ -25,6 +26,6 @@ const Remark = ({ changeRemark }: { changeRemark: Function }) => {
         </View>
       </View>
     </View>
-  );
-};
-export default Remark;
+  )
+}
+export default Remark

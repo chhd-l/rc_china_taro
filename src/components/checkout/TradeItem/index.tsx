@@ -1,13 +1,14 @@
 import { View, Text, Image } from '@tarojs/components'
 import { formatMoney } from '@/utils/utils'
+import './index.less'
 
 const ProductItem = ({ product }: { product: any }) => {
   const { goodsNum } = product
   const { image, price, specs, tags, name } = product.localData
 
   return (
-    <View className="flex flex-row justify-between items-center">
-      <Image src={image} mode="widthFix" />
+    <View className="flex flex-row justify-between items-center mt-6 p-6 bg-white rounded">
+      <Image src={image} mode="widthFix" className="border" />
       <View className="w-full pl-2">
         <View className="font-semibold text-32 text-black">{name}</View>
         <View className="font-semibold text-32 text-black mt-1">{specs}</View>
