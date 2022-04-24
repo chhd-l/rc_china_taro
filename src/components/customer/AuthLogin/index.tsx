@@ -4,6 +4,7 @@ import { View, Text, Button } from '@tarojs/components'
 import { useAtom, atom } from 'jotai'
 import { customerAtom } from '@/store/customer'
 import { AtCheckbox, AtFloatLayout, AtToast } from 'taro-ui'
+import BottonSwi from './BottonSwi'
 import './index.less'
 
 export const authLoginOpenedAtom = atom(false)
@@ -20,21 +21,14 @@ const chexOptions = [
   },
 ]
 
-const chexOptionsTwo = [
-  {
-    value: 'chexThree',
-    label: '一键勾选',
-  },
-]
-
 const AuthLogin = () => {
   const [, setCustomer] = useAtom(customerAtom)
   const [chexList, setChexList] = useState<string[]>([])
-  const [chexListTwo, setChexListTwo] = useState<string[]>([])
+  const [isOpen, setIsOpen] = useState(false)
   const [loginButton, setLoginButton] = useState<boolean>(false)
   const [authLoginOpened, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const login = async () => {
-    if (chexListTwo.length) {
+    if (isOpen) {
       const data = await wxLogin().then((res) => {
         setLoginButton(false)
         setAuthLoginOpened(false)
@@ -50,19 +44,20 @@ const AuthLogin = () => {
   const chexChange = (e) => {
     if (e.length === 2) {
       setChexList(e)
-      setChexListTwo(['chexThree'])
+      setIsOpen(true)
     } else {
       setChexList(e)
-      setChexListTwo([])
+      setIsOpen(false)
     }
   }
-  const chexChangeTwo = (e) => {
-    if (e.length) {
-      setChexList(['chexOne', 'chexTwo'])
-    } else {
+  const MainSwitch = () => {
+    if (isOpen) {
+      setIsOpen(false)
       setChexList([])
+    } else {
+      setIsOpen(true)
+      setChexList(['chexOne', 'chexTwo'])
     }
-    setChexListTwo(e)
   }
 
   return (
@@ -84,12 +79,10 @@ const AuthLogin = () => {
           </View>
           <View className="px-5">
             <AtCheckbox className="chexOne" options={chexOptions} selectedList={chexList} onChange={chexChange} />
-            <AtCheckbox
-              className="chexTwo border-0"
-              options={chexOptionsTwo}
-              selectedList={chexListTwo}
-              onChange={chexChangeTwo}
-            />
+            <View className="w-full h-10 flex items-center" onClick={MainSwitch}>
+              <BottonSwi isOpen={isOpen} />
+              一件勾选
+            </View>
             <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
               授权登录
             </Button>

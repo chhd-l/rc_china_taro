@@ -50,6 +50,11 @@ const Account = () => {
                 <View className="flex-col ml-4">
                   <View>
                     <Text className="text-black font-semibold text-32">{customerInfo.nickName}</Text>
+                    {/* <AtAvatar
+                      circle
+                      className="w-4 h-4 img bg-center"
+                      image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
+                    /> */}
                     <Text className="text-24 ml-2">{customerInfo.level}</Text>
                   </View>
                   <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points || 0}</View>

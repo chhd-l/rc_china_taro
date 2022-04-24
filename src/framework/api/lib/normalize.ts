@@ -161,6 +161,7 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
     image: productSkuInfo.goodsVariants[0].defaultImage,
     price: productSkuInfo.goodsVariants[0].marketingPrice,
     tags: normalizeProductForFe(productSkuInfo).skus[0].tags,
+    specs:normalizeProductForFe(productSkuInfo).skus[0].specText
   }
   return cart
 }

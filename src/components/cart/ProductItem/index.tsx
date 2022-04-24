@@ -24,7 +24,7 @@ const ProductItem = ({
   }
 
   return (
-    <View className="mt-2">
+    <View>
       <AtSwipeAction
         options={[
           {
@@ -45,7 +45,7 @@ const ProductItem = ({
             width: Taro.getSystemInfoSync().windowWidth + 'px',
           }}
         >
-          <View className="w-full flex flex-row items-center p-2">
+          <View className="w-full flex flex-row items-center px-2 py-3">
             <Radio
               value="选中"
               checked={select}
@@ -55,7 +55,9 @@ const ProductItem = ({
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />
             <Image
-              className="w-20 h-20"
+              style={{border:'1px solid #f0f0f0'}}
+              className="w-30 h-30"
+              mode="widthFix"
               src={image}
               onClick={() => {
                 Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${product.skuGoodInfo.id}` })
@@ -63,13 +65,13 @@ const ProductItem = ({
             />
             <View className="ml-2 w-full">
               <View className="font-semibold text-32 text-black">{product.skuGoodInfo.goodsName}</View>
-              <View className="mt-1 font-semibold text-black">{specs}</View>
-              <View className="flex flex-row mt-1 text-20">
+              <View className="mt-2 font-semibold text-black">{specs}</View>
+              <View className="flex flex-row text-20 mt-2">
                 {tags.map((el) => (
                   <View className="border border-solid rounded-md border-red-500 mr-2 px-1 text-red-500">{el}</View>
                 ))}
               </View>
-              <View className="flex flex-row mt-1 justify-between items-center">
+              <View className="flex flex-row mt-2 justify-between items-center">
                 <View className="text-red-500 font-medium text-base">{formatMoney(price)}</View>
                 <View style={{ marginRight: '20px' }}>
                   <AtInputNumber

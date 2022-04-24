@@ -67,7 +67,12 @@ const PetList = () => {
     <View className="py-2 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4" style={{ backgroundImage: `url(${petBg})` }}>
       <View className="flex justify-between">
         <View className="font-semibold">我的宠物</View>
-        <AtIcon value="edit" onClick={toPetList} size="22" color="#d33024"></AtIcon>
+        <View
+          className="w-4 h-4"
+          onClick={toPetList}
+          style="background:url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_edit.png);background-size: contain;"
+        ></View>
+        {/* <AtIcon value="edit" onClick={toPetList} size="22" color="#d33024"></AtIcon> */}
       </View>
       <View className="relative w-full">
         {petList.length === 1 || petList.length === 2 ? (
@@ -123,7 +128,7 @@ const PetList = () => {
         <View
           onClick={toPetList}
           className="w-16 h-16 m-auto bg-no-repeat bg-contain mb-3"
-          style={{ backgroundImage: `url(${addImg})` }}
+          style={{ backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_add_2.png)` }}
         ></View>
       )}
     </View>
