@@ -15,7 +15,7 @@ export type Address = {
 export type Customer = {
   id: string
   name: string
-  image: string
+  avatarUrl: string
   nickName: string //昵称
   phone: string
   level: string

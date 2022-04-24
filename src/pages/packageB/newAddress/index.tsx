@@ -79,26 +79,20 @@ const Index = () => {
           }
         },
       })
-    } else {
-      //新增地址不用获取微信地址
-      // Taro.chooseAddress({
-      //   success: function (res) {
-      //     console.log(res)
-      //     if (res?.userName) {
-      //       setAddressInfo({
-      //         ...addressInfo,
-      //         receiverName: res.userName,
-      //         phone: res.telNumber,
-      //         province: res.provinceName,
-      //         city: res.cityName,
-      //         region: res.countyName,
-      //         detail: res.detailInfo,
-      //         postcode: res.postalCode,
-      //       })
-      //       setAddress([res.provinceName, res.cityName, res.countyName])
-      //     }
-      //   },
-      // })
+    }
+    if (router?.params.type === 'addWechatAddress') {
+      //编辑
+      Taro.getStorage({
+        key: 'current-wechat-address',
+        success: function (response) {
+          console.log(response)
+          if (response?.data) {
+            const data = JSON.parse(response.data)
+            setAddressInfo(data)
+            setInitData(data)
+          }
+        },
+      })
     }
   }, [])
 
@@ -113,6 +107,7 @@ const Index = () => {
             placeholder="请输入姓名"
             value={addressInfo['receiverName']}
             onChange={(value) => updateAddressInfo(value, 'receiverName')}
+            className="rc-address-input"
           />
           <AtInput
             name="phone"
@@ -121,15 +116,19 @@ const Index = () => {
             placeholder="请输入联系电话"
             value={addressInfo['phone']}
             onChange={(value) => updateAddressInfo(value, 'phone')}
+            className="rc-address-input"
           />
-          <View className="pl-3 py-2 text-32">
+          <View
+            className="ml-3 py-3 text-32 border-b border-t-0 border-l-0 border-r-0 border-solid"
+            style={{ borderColor: '#d6e4ef' }}
+          >
             <Text>所在地区</Text>
             <Text
               onClick={() => {
                 console.log('WPickerRef', WPickerRef)
                 WPickerRef.show()
               }}
-              className={`${province ? '' : 'text-gray-300'} ml-7`}
+              className={`${province ? '' : 'text-gray-300'} ml-8`}
             >
               {province ? province + ',' + city + ',' + region : '省,市,区'}
             </Text>

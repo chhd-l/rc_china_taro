@@ -1,6 +1,6 @@
 import { ProductDetailProps, SkuItemProps, SpecDetail, SpecProps } from '@/framework/types/products'
 import { View, Image, Text } from '@tarojs/components'
-import { AtFloatLayout, AtInputNumber } from 'taro-ui'
+import { AtFloatLayout, AtInputNumber, AtToast } from 'taro-ui'
 import cloneDeep from 'lodash.cloneDeep'
 import { addToTypeEnum } from '@/framework/types/common'
 import Taro from '@tarojs/taro'
@@ -12,6 +12,8 @@ import { createCart } from '@/framework/api/cart/cart'
 import { getProductBySkuId } from '@/framework/api/product/get-product'
 import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { baseSetting } from '@/framework/api/fetcher'
+import { cartSunccessToastShowAtom } from '@/store/customer'
+import { useAtom } from 'jotai'
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -40,6 +42,7 @@ const ChooseSpec = ({
   buyCount,
 }: ChooseSpecProps) => {
   const [addBtnStatus, setAddBtnStatus] = useState(false)
+  const [, setToastShow] = useAtom(cartSunccessToastShowAtom)
   useEffect(() => {
     let selectedArr = Object.values(selected).filter((el) => el)
     if (selectedArr.length === detailInfo.specifications?.length) {
@@ -93,9 +96,11 @@ const ChooseSpec = ({
       petType: '',
       operator: 'test',
     })
-    Taro.switchTab({
-      url: '/pages/cart/index',
-    })
+    setToastShow(true)
+    // setToastShow(true)
+    // Taro.switchTab({
+    //   url: '/pages/cart/index',
+    // })
   }
 
   const addToCheckout = async () => {
@@ -152,7 +157,7 @@ const ChooseSpec = ({
                   onClick={() => {
                     handleChangeSku(el, specification)
                   }}
-                  className={`mr-2 inline-block w-15 text-center text-26  border border-solid  rounded-full text-gray-400 border-gray-400
+                  className={`mr-2 inline-block w-15 text-center text-26  border border-solid  rounded-full defalt
                   ${el.able ? '' : 'disabled'}
                   ${selected[specification.id] === el.id ? 'active' : ''}`}
                 >

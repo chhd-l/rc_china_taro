@@ -46,7 +46,7 @@ const PetList = () => {
     setPetList(cloneDeep(petList))
   }
   return (
-    <View className="pet-list bg-gray-200 py-2">
+    <View className="pet-list  py-2" style={{ backgroundColor: '#eee', minHeight: '100vh' }}>
       {petList.map((pet, idx) => {
         return (
           <PetItem
@@ -61,7 +61,7 @@ const PetList = () => {
         )
       })}
       {showAddPetBtn ? (
-        <AtButton onClick={addPet} circle type="secondary" size="small">
+        <AtButton className="mx-3 mt-4" onClick={addPet} circle type="secondary">
           {' '}
           添加宠物
         </AtButton>

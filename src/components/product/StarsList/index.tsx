@@ -20,7 +20,13 @@ const StarsList = ({ list }: StarsListProps) => {
             muted={false}
           /> */}
           <View className="flex items-center rounded-b-lg bg-white p-2">
-            <Image style="width:100%" lazyLoad mode="widthFix" src={product.img} />
+            {/* <Image style="width:100%" lazyLoad mode="widthFix" src={product.img} /> */}
+            <Image
+              style="width:100%"
+              lazyLoad
+              mode="widthFix"
+              src={'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1613794160492_Id2TmT.png'}
+            />
             <View className="pl-2">
               <View>{product.name}</View>
               <View className="text-16px pb-2">室内成猫全粮价2kg/袋</View>

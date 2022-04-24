@@ -39,16 +39,16 @@ const Account = () => {
 
   return (
     <View className="index">
-      <Announcement title="添加社群，畅享更多专属福利！" />
+      {/* <Announcement title="添加社群，畅享更多专属福利！" /> */}
       <View className="p-2">
         {/*个人信息和个人管理*/}
         <View className="flex flex-row justify-between px-2 pb-4 items-center">
           <View className="flex flex-row items-center">
-            <AtAvatar circle size="large" openData={{ type: 'userAvatarUrl' }} />
-            <View className="flex-col ml-4">
-              {customerInfo?.id ? (
-                <>
-                  <View className="flex item-center">
+            {customerInfo?.id ? (
+              <>
+                <AtAvatar circle size="large" image={customerInfo?.avatarUrl} />
+                <View className="flex-col ml-4">
+                  <View>
                     <Text className="text-black font-semibold text-32">{customerInfo.nickName}</Text>
                     {/* <AtAvatar
                       circle
@@ -58,13 +58,18 @@ const Account = () => {
                     <Text className="text-24 ml-2">{customerInfo.level}</Text>
                   </View>
                   <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points || 0}</View>
-                </>
-              ) : (
-                <View onClick={() => setAuthLoginOpened(true)}>
-                  <Text className="text-black font-semibold text-32">点击授权</Text>
                 </View>
-              )}
-            </View>
+              </>
+            ) : (
+              <>
+                <AtAvatar circle size="large" openData={{ type: 'userAvatarUrl' }} />
+                <View className="flex-col ml-4">
+                  <View onClick={() => setAuthLoginOpened(true)}>
+                    <Text className="text-black font-semibold text-32">点击授权</Text>
+                  </View>
+                </View>
+              </>
+            )}
           </View>
           <View className="m-0">
             <AtButton
