@@ -24,7 +24,7 @@ const ProductItem = ({
   }
 
   return (
-    <View>
+    <View className="mt-2">
       <AtSwipeAction
         options={[
           {
