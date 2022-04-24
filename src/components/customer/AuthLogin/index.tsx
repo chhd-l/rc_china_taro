@@ -3,7 +3,7 @@ import { wxLogin } from '@/framework/api/customer/customer'
 import { View, Text, Button } from '@tarojs/components'
 import { useAtom, atom } from 'jotai'
 import { customerAtom } from '@/store/customer'
-import { AtCheckbox, AtModal, AtToast } from 'taro-ui'
+import { AtCheckbox, AtFloatLayout, AtToast } from 'taro-ui'
 import './index.less'
 
 export const authLoginOpenedAtom = atom(false)
@@ -67,10 +67,9 @@ const AuthLogin = () => {
 
   return (
     <View className="auth-login">
-      <AtModal
+      <AtFloatLayout
         isOpened={authLoginOpened}
         onClose={() => {
-          console.log('close')
           setAuthLoginOpened(false)
         }}
       >
@@ -84,16 +83,9 @@ const AuthLogin = () => {
             </View>
           </View>
           <View className="px-5">
+            <AtCheckbox className="chexOne" options={chexOptions} selectedList={chexList} onChange={chexChange} />
             <AtCheckbox
-              className="chexOne"
-              customStyle={{ fontSize: '19px !important' }}
-              options={chexOptions}
-              selectedList={chexList}
-              onChange={chexChange}
-            />
-            <AtCheckbox
-              className="chexTwo"
-              customStyle={{ fontSize: '19px !important' }}
+              className="chexTwo border-0"
               options={chexOptionsTwo}
               selectedList={chexListTwo}
               onChange={chexChangeTwo}
@@ -110,7 +102,7 @@ const AuthLogin = () => {
           duration={1200}
           onClose={() => setLoginButton(false)}
         />
-      </AtModal>
+      </AtFloatLayout>
     </View>
   )
 }
