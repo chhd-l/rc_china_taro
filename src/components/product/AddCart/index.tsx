@@ -4,14 +4,18 @@ import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { AtBadge, AtIcon } from 'taro-ui'
+import { cartSunccessToastShowAtom } from '@/store/customer'
+import { useAtom } from 'jotai'
+
 interface Props {
   handleShowSpec: (type: addToTypeEnum) => void
 }
 const AddCart = ({ handleShowSpec }: Props) => {
   const [cartNumber, setCartNumber] = useState(0)
+  const [cartSunccessToastShow] = useAtom(cartSunccessToastShowAtom)
   useEffect(() => {
     getCart()
-  }, [])
+  }, [cartSunccessToastShow])
   const getCart = async () => {
     let data = await getCartNumber()
     setCartNumber(data)
