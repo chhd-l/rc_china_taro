@@ -4,6 +4,7 @@ import { AddressItem } from '@/components/customer'
 import { useEffect, useState } from 'react'
 import { Address } from '@/framework/types/customer'
 import { getAddresses } from '@/framework/api/customer/address'
+import routers from '@/routers'
 import './index.less'
 
 const Index = () => {
@@ -38,7 +39,7 @@ const Index = () => {
             data: JSON.stringify(addressInfo),
             success: function () {
               Taro.redirectTo({
-                url: '/pages/packageB/newAddress/index?type=addWechatAddress',
+                url: `${routers.newAddress}?type=addWechatAddress`,
               })
             },
           })
@@ -69,7 +70,7 @@ const Index = () => {
             className="text-xs h-8 bg-white mr-3 flex items-center text-gray-400"
             onClick={() => {
               Taro.navigateTo({
-                url: '/pages/packageB/newAddress/index',
+                url: routers.newAddress,
               })
             }}
           >

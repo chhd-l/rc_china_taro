@@ -2,6 +2,7 @@ import { View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
 import Taro from '@tarojs/taro'
+import routers from '@/routers'
 
 const AddressInfo = ({ address }: { address: Address | any }) => {
   const { receiverName, phone, province, city, region, detail } = address
@@ -11,7 +12,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
       key: 'address-from-checkout',
       data: JSON.stringify(true),
       success: function () {
-        Taro.navigateTo({ url: '/pages/packageB/addressManage/index' })
+        Taro.navigateTo({ url: routers.addressManage })
       },
     })
   }

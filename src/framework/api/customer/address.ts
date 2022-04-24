@@ -1,10 +1,16 @@
 import { Address } from '@/framework/types/customer'
-import ApiRoot, { baseSetting } from '../fetcher'
+import { addressListMockData } from '@/mock/customer'
+import Mock from 'mockjs'
+import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const getAddresses = async () => {
   try {
-    const addresses = await ApiRoot.addresses().getAddresses({ customerId:baseSetting.customerId })
-    return addresses
+    if (isMock) {
+      return Mock.mock(addressListMockData)
+    } else {
+      const addresses = await ApiRoot.addresses().getAddresses({ customerId: baseSetting.customerId })
+      return addresses
+    }
   } catch (err) {
     console.log(err)
     return []
@@ -14,7 +20,7 @@ export const getAddresses = async () => {
 export const createAddress = async (params: any) => {
   try {
     const addresses = await ApiRoot.addresses().createAddress({
-      body: Object.assign(params, { storeId: baseSetting.storeId,customerId:baseSetting.customerId }),
+      body: Object.assign(params, { storeId: baseSetting.storeId, customerId: baseSetting.customerId }),
     })
     console.log(addresses)
     return addresses
