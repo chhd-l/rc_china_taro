@@ -79,7 +79,7 @@ const TotalSettle = ({
         <AtButton
           type="primary"
           className="total-settle-button w-24"
-          disabled={!selectedProduct.length}
+          // disabled={!selectedProduct.length}
           onClick={() => checkoutProduct()}
         >
           去结算 ({selectedProduct.length})
