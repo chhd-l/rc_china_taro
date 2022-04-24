@@ -3,7 +3,7 @@ import { View, Button, Text } from '@tarojs/components'
 import { AddressItem } from '@/components/customer'
 import { useEffect, useState } from 'react'
 import { Address } from '@/framework/types/customer'
-import { createAddress, getAddresses } from '@/framework/api/customer/address'
+import { getAddresses } from '@/framework/api/customer/address'
 import './index.less'
 
 const Index = () => {
@@ -22,17 +22,38 @@ const Index = () => {
     Taro.chooseAddress({
       success: async function (res) {
         console.log('微信地址', res)
-        await createAddress({
-          receiverName: res.userName,
-          phone: res.telNumber,
-          province: res.provinceName,
-          city: res.cityName,
-          region: res.countyName,
-          detail: res.detailInfo,
-          postcode: res.postalCode,
-          isDefault: false,
-          operator: 'master',
-        })
+        if(res){
+          const addressInfo={
+            receiverName: res.userName,
+            phone: res.telNumber,
+            province: res.provinceName,
+            city: res.cityName,
+            region: res.countyName,
+            detail: res.detailInfo,
+            postcode: res.postalCode,
+            isDefault: false,
+          }
+            Taro.setStorage({
+              key: 'current-wechat-address',
+              data: JSON.stringify(addressInfo),
+              success: function () {
+                Taro.navigateTo({
+                  url: '/pages/packageB/newAddress/index?type=addWechatAddress',
+                })
+              },
+            })
+        }
+        // await createAddress({
+        //   receiverName: res.userName,
+        //   phone: res.telNumber,
+        //   province: res.provinceName,
+        //   city: res.cityName,
+        //   region: res.countyName,
+        //   detail: res.detailInfo,
+        //   postcode: res.postalCode,
+        //   isDefault: false,
+        //   operator: 'master',
+        // })
       },
     })
   }

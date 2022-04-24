@@ -19,7 +19,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
         indicatorColor="#fff"
         indicatorActiveColor="#e2001a"
         circular
-        indicatorDots
+        // indicatorDots
         autoplay
       >
         {choosedSku?.img?.map((el) => (
@@ -36,11 +36,13 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
       </View>
       <View>
         {choosedSku?.tags?.map((tag) => (
-          <Text className="border border-solid border-red-600 px-1 mr-1  text-26 rounded-lg text-red-600">{tag}</Text>
+          <Text className="border border-solid border-primary-red px-1 mr-1  text-26 rounded-lg text-primary-red">
+            {tag}
+          </Text>
         ))}
       </View>
       <View className="py-1">
-        <Text className="text-red-600 pr-4 ">{formatMoney(choosedSku.price)}</Text>
+        <Text className="text-primary-red pr-4 ">{formatMoney(choosedSku.price)}</Text>
         <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
       </View>
       <View className="flex justify-between text-28">
@@ -52,7 +54,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
           onClick={() => {
             handleShowSpec(addToTypeEnum.None)
           }}
-          className="text-red-600 text-40"
+          className="text-primary-red text-40"
         >
           ...
         </View>

@@ -13,9 +13,14 @@ import { getProduct } from '@/framework/api/product/get-product'
 import { getCurrentInstance } from '@tarojs/taro'
 import Taro from '@tarojs/taro'
 import { baseSetting } from '@/framework/api/fetcher'
+import { useAtom } from 'jotai'
+import { cartSunccessToastShowAtom } from '@/store/customer'
+import { AtToast } from 'taro-ui'
+
 export interface SelectedProps {
   [x: string]: string
 }
+
 let flag = true
 // const detailData = Mock.mock(mockDetail)
 // console.info('detailData', detailData)
@@ -27,6 +32,7 @@ const ProductDetail = () => {
   const [selected, setSelected] = useState<SelectedProps>({})
   const [choosedSku, setChoosedSku] = useState<SkuItemProps>({} as SkuItemProps)
   const { router } = getCurrentInstance()
+  const [toastShow, setToastShow] = useAtom(cartSunccessToastShowAtom)
   useEffect(() => {
     getList()
   }, [])
@@ -46,7 +52,7 @@ const ProductDetail = () => {
       })
     }
     let selected = {}
-    detailData.specifications.map((el) => {
+    detailData.specifications?.map((el) => {
       el.children = el.children.map((e, idx) => {
         if (idx == 0) {
           selected[el.id] = e.id
@@ -129,6 +135,13 @@ const ProductDetail = () => {
             setShowSpecs={setShowSpecs}
             setBuyCount={setBuyCount}
             buyCount={buyCount}
+          />
+          <AtToast
+            text="成功加入购物车"
+            icon="check"
+            isOpened={toastShow}
+            duration={1200}
+            onClose={() => setToastShow(false)}
           />
           <View className="h-12"></View>
           <AddCart handleShowSpec={handleShowSpec} />

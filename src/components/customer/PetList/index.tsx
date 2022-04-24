@@ -67,7 +67,7 @@ const PetList = () => {
     <View className="py-2 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4" style={{ backgroundImage: `url(${petBg})` }}>
       <View className="flex justify-between">
         <View className="font-semibold">我的宠物</View>
-        <AtIcon value="edit" onClick={toPetList} size="22" color="#F00"></AtIcon>
+        <AtIcon value="edit" onClick={toPetList} size="22" color="#d33024"></AtIcon>
       </View>
       <View className="relative w-full">
         {petList.length === 1 || petList.length === 2 ? (

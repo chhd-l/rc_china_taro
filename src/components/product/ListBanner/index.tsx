@@ -1,6 +1,7 @@
 import Taro from '@tarojs/taro'
 import { SwiperItem, Image, Swiper } from '@tarojs/components'
 import { SwiperProps } from '@/framework/types/products'
+import './index.less'
 
 interface ListBannerProps {
   bannerList: SwiperProps[]
@@ -10,7 +11,7 @@ const ListBanner = ({ bannerList }: ListBannerProps) => {
     <Swiper
       style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px !important;`}
       indicatorColor="#fff"
-      indicatorActiveColor="#e2001a"
+      indicatorActiveColor="#d33024"
       circular
       indicatorDots
       autoplay
