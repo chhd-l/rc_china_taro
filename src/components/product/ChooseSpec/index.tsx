@@ -14,6 +14,7 @@ import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { baseSetting } from '@/framework/api/fetcher'
 import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
+import routers from '@/routers'
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -111,7 +112,7 @@ const ChooseSpec = ({
       data: JSON.stringify([selectedProduct]),
       complete: (respon) => {
         console.log(respon)
-        Taro.navigateTo({ url: '/pages/packageA/checkout/index' })
+        Taro.navigateTo({ url: routers.checkout })
       },
     })
   }
@@ -157,7 +158,7 @@ const ChooseSpec = ({
                   onClick={() => {
                     handleChangeSku(el, specification)
                   }}
-                  className={`mr-2 inline-block w-15 text-center text-26  border border-solid  rounded-full defalt
+                  className={`mr-2 inline-block text-center text-26  border border-solid px-2 rounded-full defalt
                   ${el.able ? '' : 'disabled'}
                   ${selected[specification.id] === el.id ? 'active' : ''}`}
                 >
