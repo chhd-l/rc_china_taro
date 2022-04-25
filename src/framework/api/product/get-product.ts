@@ -53,7 +53,7 @@ export const getProductBySkuId = async ({ goodsVariantId }: { goodsVariantId: st
 }
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string; categoryId: string }) => {
   try {
-    const res = await ApiRoot.products().getAttrs({
+    const res = await ApiRoot.products().getAttrList({
       storeId,
       categoryId,
     })
