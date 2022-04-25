@@ -9,7 +9,14 @@ export default defineAppConfig({
   subpackages: [
     {
       root: 'pages/packageA',
-      pages: ['search/index', 'moreProducts/index', 'productDetail/index', 'checkout/index'],
+      pages: [
+        'search/index',
+        'moreProducts/index',
+        'productDetail/index',
+        'checkout/index',
+        'orderList/index',
+        'orderDetails/index',
+      ],
     },
     {
       root: 'pages/packageB',
