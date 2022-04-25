@@ -3,10 +3,10 @@ import { AuthLogin } from '@/components/customer'
 import { customerAtom } from '@/store/customer'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { useAtom } from 'jotai'
-import Announcement from '@/components/common/Announcement'
-// import defaultIcon from "@/assets/icons/icon-home.png";
-import { View, Text } from '@tarojs/components'
-import { AtAvatar, AtButton, AtModal } from 'taro-ui'
+// import Announcement from '@/components/common/Announcement'
+import defaultIcon from '@/assets/icons/icon-home.png'
+import { View, Text, Image } from '@tarojs/components'
+import { AtAvatar, AtButton } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import Mock from 'mockjs'
 import { dataSource } from '@/mock/customer'
@@ -14,29 +14,28 @@ import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
 import './index.less'
 
+interface OrderTypeProps {
+  label: string
+  icon: string
+  url: string
+}
 
-// interface OrderTypeProps {
-//   label: string;
-//   icon: string;
-//   url: string;
-// }
-
-// const orderTypeList: OrderTypeProps[] = [
-//   { label: "待付款", icon: defaultIcon, url: "" },
-//   { label: "待发货", icon: defaultIcon, url: "" },
-//   { label: "待收货", icon: defaultIcon, url: "" },
-//   { label: "退货/退款", icon: defaultIcon, url: "" },
-//   { label: "我的卡券", icon: defaultIcon, url: "" },
-// ];
+const orderTypeList: OrderTypeProps[] = [
+  { label: '待付款', icon: defaultIcon, url: '/pages/packageA/orderList/index?index=1' },
+  { label: '待发货', icon: defaultIcon, url: '/pages/packageA/orderList/index?index=2' },
+  { label: '待收货', icon: defaultIcon, url: '/pages/packageA/orderList/index?index=3' },
+  { label: '退货/退款', icon: defaultIcon, url: '' },
+  { label: '我的卡券', icon: defaultIcon, url: '' },
+]
 
 const Account = () => {
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   useEffect(() => {
-    console.log(customerInfo, 'customerInfo')
-  }, [customerInfo])
-  useEffect(() => {
     setCustomerInfo(Mock.mock(dataSource))
+    // Taro.navigateTo({
+    //   url: `/pages/packageA/orderDetails/index`,
+    // })
   }, [])
 
   return (
@@ -88,26 +87,43 @@ const Account = () => {
           </View>
         </View>
         {/*/!*我的订单*!/*/}
-        {/*<View className="p-2 bg-gray-50">*/}
-        {/*  <View className="flex justify-between pb-2 border-b-2 border-l-0 border-r-0 border-t-0 border-solid border-gray-300">*/}
-        {/*    <View>我的订单</View>*/}
-        {/*    <View className="text-xs">查看全部订单&gt;</View>*/}
-        {/*  </View>*/}
-        {/*  <View className="flex flex-row justify-around items-center mt-2">*/}
-        {/*    {orderTypeList.map((item) => (*/}
-        {/*      <View className="flex flex-col items-center">*/}
-        {/*        <Image className="w-6 h-6" src={item.icon} />*/}
-        {/*        <Text className="text-xs">{item.label}</Text>*/}
-        {/*      </View>*/}
-        {/*    ))}*/}
-        {/*  </View>*/}
-        {/*</View>*/}
+        <View className="p-2 bg-gray-50">
+          <View className="flex justify-between pb-2 border-b-2 border-l-0 border-r-0 border-t-0 border-solid border-gray-300">
+            <View>我的订单</View>
+            <View
+              className="text-xs"
+              onClick={() => {
+                Taro.navigateTo({
+                  url: `/pages/packageA/orderList/index?index=0`,
+                })
+              }}
+            >
+              查看全部订单&gt;
+            </View>
+          </View>
+          <View className="flex flex-row justify-around items-center mt-2">
+            {orderTypeList.map((item, idx) => (
+              <View
+                key={idx}
+                className="flex flex-col items-center"
+                onClick={() => {
+                  Taro.navigateTo({
+                    url: item.url,
+                  })
+                }}
+              >
+                <Image className="w-6 h-6" src={item.icon} />
+                <Text className="text-xs">{item.label}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
         {/*/!*官方福利群*!/*/}
-        {/*<View>官方福利群</View>*/}
+        {/* <View>官方福利群</View> */}
         {/*/!*打卡冷知识*!/*/}
-        {/*<View>打卡冷知识</View>*/}
+        {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
-        {/*<View>微信关注</View>*/}
+        {/* <View>微信关注</View> */}
         {/*/!*我的宠物*!/*/}
         <View>
           <PetList />
