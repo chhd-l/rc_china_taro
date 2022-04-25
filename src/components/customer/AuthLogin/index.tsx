@@ -81,7 +81,7 @@ const AuthLogin = () => {
             <AtCheckbox className="chexOne" options={chexOptions} selectedList={chexList} onChange={chexChange} />
             <View className="w-full h-10 flex items-center" onClick={MainSwitch}>
               <BottonSwi isOpen={isOpen} />
-              一件勾选
+              一键勾选
             </View>
             <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
               授权登录
