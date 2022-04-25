@@ -33,9 +33,9 @@ const Account = () => {
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   useEffect(() => {
     setCustomerInfo(Mock.mock(dataSource))
-    Taro.navigateTo({
-      url: `/pages/packageA/orderDetails/index`,
-    })
+    // Taro.navigateTo({
+    //   url: `/pages/packageA/orderDetails/index`,
+    // })
   }, [])
 
   return (
