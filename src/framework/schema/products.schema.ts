@@ -54,6 +54,7 @@ export interface GoodsVariants {
   stock: number
   eanCode: string
   name: string
+  isSupport100: boolean
   // skuType: number
   marketingPrice: number // 当前价格
   listPrice: number // 划线价

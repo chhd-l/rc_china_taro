@@ -34,7 +34,7 @@ const Search = () => {
     getLastList()
   }, [])
   const getList = async () => {
-    let res = await getProducts()
+    let res = await getProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 1 })
     setProductList(res)
   }
   const getHotList = () => {
@@ -94,7 +94,7 @@ const Search = () => {
 
   return (
     <View className="search">
-      {/* <View className=" p-2">
+      <View className=" p-2">
         <AtSearchBar
           showActionButton
           focus
@@ -158,7 +158,7 @@ const Search = () => {
         <View className="text-xs">
           <SearchFilters filterList={filterList.slice(0, 2)} setFilterList={setFilterList} />
         </View>
-      </View> */}
+      </View>
       {productList?.length ? <List list={productList} /> : null}
     </View>
   )
