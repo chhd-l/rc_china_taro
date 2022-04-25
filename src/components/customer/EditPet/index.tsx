@@ -78,7 +78,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
         return
       }
       petList.pop()
-      setPetList(petList)
+      setPetList(cloneDeep(petList))
     }
     setIsEdit(false) //edit
   }
@@ -90,7 +90,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
             label={
               <View className="col-span-4 flex items-center">
                 <View
-                  className="w-4 h-4 bg-contain"
+                  className="w-4 h-4 bg-contain bg-no-repeat"
                   style={{
                     backgroundImage: 'url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_type.png)',
                   }}
@@ -105,7 +105,10 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           />
           <View className="grid grid-cols-12 text-26 py-2">
             <View className="col-span-4 flex items-center">
-              <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${nicknameIcon})` }}></View>
+              <View
+                className="w-4 h-4 bg-contain bg-no-repeat"
+                style={{ backgroundImage: `url(${nicknameIcon})` }}
+              ></View>
               <Text className="pl-2 ">宠物昵称</Text>
             </View>
             <Input
@@ -168,9 +171,13 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
             name="isSterilized"
             pet={petInfo}
           />
-          <View className="date-item">
-            <View className="border-0 col-span-4 flex items-center text-26 relative">
+          <View className="date-item border-0 grid grid-cols-12 text-26 relative">
+            <View className="col-span-4 flex items-center  py-2">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View>
+              <Text className="pl-2 ">宠物生日</Text>
+            </View>
+            {/* <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View> */}
+            <View className="col-span-8 border border-solid h-8 border-gray-300 rounded-lg my-1 px-2">
               <Picker
                 style={{ border: 0 }}
                 mode="date"
@@ -179,17 +186,17 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
                 onChange={handleChangeDate}
               >
                 <AtList>
-                  <AtListItem title="宠物生日" extraText={petInfo.birthday} />
+                  <AtListItem title="" extraText={petInfo.birthday} />
                 </AtList>
               </Picker>
-              <AtIcon
-                value="chevron-down"
-                size="24"
-                color="#d33024"
-                className="right-1 absolute"
-                customStyle={{ transform: 'translateY(-50%)', top: '50%' }}
-              ></AtIcon>
             </View>
+            <AtIcon
+              value="chevron-down"
+              size="24"
+              color="#d33024"
+              className="right-1 absolute"
+              customStyle={{ transform: 'translateY(-50%)', top: '50%' }}
+            ></AtIcon>
           </View>
         </View>
         <View className="text-30 my-4 flex justify-around">
