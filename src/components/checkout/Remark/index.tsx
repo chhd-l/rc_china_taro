@@ -11,7 +11,7 @@ const Remark = ({ changeRemark }: { changeRemark: Function }) => {
   }
 
   return (
-    <View className="bg-white mt-2 rounded">
+    <View className="bg-white mt-2 pl-2 py-2 rounded">
       <View className="flex flex-row justify-between items-center">
         <View className="text-30 ">备注信息</View>
         <View>

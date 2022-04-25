@@ -11,7 +11,9 @@ import { useEffect, useState } from 'react'
 import Mock from 'mockjs'
 import { dataSource } from '@/mock/customer'
 import PetList from '@/components/customer/PetList'
+import routers from '@/routers'
 import './index.less'
+
 
 // interface OrderTypeProps {
 //   label: string;
@@ -48,13 +50,13 @@ const Account = () => {
               <>
                 <AtAvatar circle size="large" image={customerInfo?.avatarUrl} />
                 <View className="flex-col ml-4">
-                  <View>
+                  <View className="flex item-center">
                     <Text className="text-black font-semibold text-32">{customerInfo.nickName}</Text>
-                    {/* <AtAvatar
+                    <AtAvatar
                       circle
-                      className="w-4 h-4 img bg-center"
+                      className="w-4 h-4 leading-none bg-center"
                       image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
-                    /> */}
+                    />
                     <Text className="text-24 ml-2">{customerInfo.level}</Text>
                   </View>
                   <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points || 0}</View>
@@ -77,7 +79,7 @@ const Account = () => {
               size="small"
               onClick={() => {
                 Taro.navigateTo({
-                  url: '/pages/packageB/addressManage/index',
+                  url: routers.addressManage,
                 })
               }}
             >

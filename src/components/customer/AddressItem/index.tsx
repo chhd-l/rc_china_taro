@@ -4,6 +4,7 @@ import { AtDivider, AtModal } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
 import Taro, { useDidHide } from '@tarojs/taro'
 import { deleteAddress, updateAddress } from '@/framework/api/customer/address'
+import routers from '@/routers'
 import './index.less'
 
 const editIcon = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/edit_address.png'
@@ -19,7 +20,7 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
       data: JSON.stringify(addressInfo),
       success: function () {
         Taro.navigateTo({
-          url: '/pages/packageB/newAddress/index?type=edit',
+          url: `${routers.newAddress}?type=edit`,
         })
       },
     })
@@ -55,7 +56,7 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
             data: JSON.stringify(addressInfo),
             success: function (res) {
               console.log(res)
-              Taro.redirectTo({ url: '/pages/packageA/checkout/index' })
+              Taro.redirectTo({ url: routers.checkout })
             },
           })
         }

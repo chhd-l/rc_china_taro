@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react'
 import { AtBadge, AtIcon } from 'taro-ui'
 import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
+import routers from "@/routers";
 
 interface Props {
   handleShowSpec: (type: addToTypeEnum) => void
@@ -27,7 +28,7 @@ const AddCart = ({ handleShowSpec }: Props) => {
           className="flex flex-col justify-center items-center text-26 px-4"
           onClick={() => {
             Taro.switchTab({
-              url: '/pages/cart/index',
+              url: routers.cart,
             })
           }}
         >
