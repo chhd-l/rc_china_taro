@@ -1,7 +1,7 @@
 import Taro from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
 import { AddressItem } from '@/components/customer'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Address } from '@/framework/types/customer'
 import { getAddresses } from '@/framework/api/customer/address'
 import routers from '@/routers'
@@ -44,17 +44,6 @@ const Index = () => {
             },
           })
         }
-        // await createAddress({
-        //   receiverName: res.userName,
-        //   phone: res.telNumber,
-        //   province: res.provinceName,
-        //   city: res.cityName,
-        //   region: res.countyName,
-        //   detail: res.detailInfo,
-        //   postcode: res.postalCode,
-        //   isDefault: false,
-        //   operator: 'master',
-        // })
       },
     })
   }
@@ -62,7 +51,11 @@ const Index = () => {
   return (
     <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 min-h-screen">
       {addressList.map((item: Address) => (
-        <AddressItem addressInfo={item} delAddressSuccess={() => getAddressList()} />
+        <AddressItem
+          addressInfo={item}
+          delAddressSuccess={() => getAddressList()}
+          isDefaultUpdateSuccess={() => getAddressList()}
+        />
       ))}
       <View className="m-0 flex flex-row items-center mt-2 h-20">
         <View className="flex flex-row m-auto border-none">

@@ -12,6 +12,17 @@ export const addressListMockData=[
     isDefault: 0,
     region: Mock.Random.region(), //区
   },
+  {
+    id: Mock.Random.id(),
+    receiverName: Mock.Random.cname(),
+    phone: /\d{11}/,
+    province: Mock.Random.province(), //省
+    city: Mock.Random.city(), //市
+    detail: Mock.Random.county(),
+    postcode: Mock.Random.zip(),
+    isDefault: 1,
+    region: Mock.Random.region(), //区
+  },
 ]
 
 export const dataSource = {

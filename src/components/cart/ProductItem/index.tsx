@@ -14,8 +14,8 @@ const ProductItem = ({
   changeProduct: Function
   delCartSuccess: Function
 }) => {
-  const { select, goodsNum, id } = product
-  const { image, price, specs, tags } = product.localData
+  const { select, goodsNum, id, skuGoodInfo } = product
+  const { image, price, specs, tags, name } = product.localData
 
   const delCartProduct = async () => {
     console.log('333333')
@@ -55,16 +55,15 @@ const ProductItem = ({
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />
             <Image
-              style={{border:'1px solid #f0f0f0'}}
-              className="w-30 h-30"
+              style={{ border: '1px solid #f0f0f0', width: '100px', height: '100px' }}
               mode="widthFix"
               src={image}
               onClick={() => {
-                Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${product.skuGoodInfo.id}` })
+                Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
               }}
             />
             <View className="ml-2 w-full">
-              <View className="font-semibold text-32 text-black">{product.skuGoodInfo.goodsName}</View>
+              <View className="font-semibold text-32 text-black">{name}</View>
               <View className="mt-2 font-semibold text-black">{specs}</View>
               <View className="flex flex-row text-20 mt-2">
                 {tags.map((el) => (
