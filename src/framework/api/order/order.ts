@@ -1,3 +1,5 @@
+import Taro from '@tarojs/taro'
+import { orderDetailMockData, orderListMockData } from '@/mock/order'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const createOrder = async (params: any) => {
@@ -16,11 +18,20 @@ export const createOrder = async (params: any) => {
 
 export const getOrderSetting = async () => {
   try {
-    const res = await ApiRoot.orders().getOrderSetting({
-      storeId: baseSetting.storeId,
-    })
-    console.log('get orderSetting view data', res)
-    return res.orderSettings
+    let orderSettings = Taro.getStorageSync('order-setting')
+    if (orderSettings) {
+      orderSettings = JSON.parse(orderSettings)
+    } else {
+      const res = await ApiRoot.orders().getOrderSetting({
+        storeId: baseSetting.storeId,
+      })
+      console.log('get orderSetting view data', res)
+      if (res.orderSettings) {
+        orderSettings = res.orderSettings
+        Taro.setStorageSync('order-setting', JSON.stringify(res.orderSettings))
+      }
+    }
+    return orderSettings
   } catch (e) {
     console.log(e)
     return []
@@ -30,7 +41,10 @@ export const getOrderSetting = async () => {
 export const getOrderList = async (queryOrderListParams: any) => {
   try {
     if (isMock) {
-      // return Mock.mock(orderListSource('UNPAID')).array
+      return {
+        total: 0,
+        records: orderListMockData,
+      }
     } else {
       console.log('query orders view params', queryOrderListParams)
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
@@ -53,7 +67,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
 export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
   try {
     if (isMock) {
-      // return Mock.mock(orderDetailSource('UNPAID'))
+      return orderDetailMockData
     } else {
       let { getOrder } = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
       console.info('res', getOrder)
