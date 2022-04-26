@@ -15,6 +15,8 @@ import { cartSunccessToastShowAtom } from '@/store/customer'
 import { AtToast } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
+import { AuthLogin } from '@/components/customer'
+import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 
 export interface SelectedProps {
   [x: string]: string
@@ -32,6 +34,7 @@ const ProductDetail = () => {
   const [choosedSku, setChoosedSku] = useState<SkuItemProps>({} as SkuItemProps)
   const { router } = getCurrentInstance()
   const [toastShow, setToastShow] = useAtom(cartSunccessToastShowAtom)
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   useEffect(() => {
     getList()
   }, [])
@@ -73,6 +76,10 @@ const ProductDetail = () => {
     setSelected(cloneDeep(selecteds))
   }
   const handleShowSpec = (type: addToTypeEnum) => {
+    if (!Taro.getStorageSync('wxLoginRes')) {
+      setAuthLoginOpened(true)
+      return
+    }
     setShowSpecs(true)
     setAddToType(type)
   }
@@ -144,6 +151,7 @@ const ProductDetail = () => {
           />
           <View className="h-12"></View>
           <AddCart handleShowSpec={handleShowSpec} />
+          <AuthLogin />
         </View>
       ) : null}
     </>

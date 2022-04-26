@@ -17,24 +17,35 @@ interface WxLoginResult {
   access_token: string
   userInfo: Customer
 }
-export const wxLogin = async (): Promise<Customer> => {
+export const wxRegisterAndLogin = async (): Promise<Customer> => {
   const { userInfo } = await Taro.getUserProfile({
     lang: 'zh_CN',
     desc: '获取授权',
   })
   const loginRes = await Taro.login()
+  const { wxRegisterAndLogin: wxLoginRes }: { wxRegisterAndLogin: WxLoginResult } =
+    await ApiRoot.customers().wxRegisterAndLogin({
+      input: {
+        jsCode: loginRes.code,
+        storeId: '12345678',
+        operator: userInfo.nickName,
+      },
+      userInfo: {
+        avatarUrl: userInfo.avatarUrl,
+        nickName: userInfo.nickName,
+        gender: userInfo.gender + '',
+        operator: userInfo.nickName,
+      },
+    })
+  console.log('wxLoginRes', wxLoginRes)
+  Taro.setStorageSync('wxLoginRes', wxLoginRes)
+  return wxLoginRes.userInfo
+}
+
+export const wxLogin = async () => {
+  console.log(Taro.getStorageSync('wxLoginRes'), 'wxLoginReswxLoginReswxLoginReswxLoginRes')
   const { wxLogin: wxLoginRes }: { wxLogin: WxLoginResult } = await ApiRoot.customers().wxLogin({
-    input: {
-      jsCode: loginRes.code,
-      storeId: '12345678',
-      operator: userInfo.nickName,
-    },
-    userInfo: {
-      avatarUrl: userInfo.avatarUrl,
-      nickName: userInfo.nickName,
-      gender: userInfo.gender + '',
-      operator: userInfo.nickName,
-    },
+    id: Taro.getStorageSync('wxLoginRes').userInfo.id,
   })
   console.log('wxLoginRes', wxLoginRes)
   Taro.setStorageSync('wxLoginRes', wxLoginRes)

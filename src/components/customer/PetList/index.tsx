@@ -9,6 +9,7 @@ import { getPets } from '@/framework/api/pet/get-pets'
 import { customerAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
 import { getAge } from '@/utils/utils'
+import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import defaultCatImg from '@/assets/img/default.png'
 import defaultDogImg from '@/assets/img/defaultdog.png'
 import petBg from '@/assets/img/pet-bg.png'
@@ -25,6 +26,7 @@ const PetList = () => {
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const [fakePet, setFakePet] = useState<any>([])
   const [currentIdx, setCurrentIdx] = useState(1)
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const handleChange = (current: number) => {
     setCurrentIdx(current)
   }
@@ -63,6 +65,10 @@ const PetList = () => {
   // }
 
   const toPetList = () => {
+    if (!Taro.getStorageSync('wxLoginRes')) {
+      setAuthLoginOpened(true)
+      return
+    }
     Taro.navigateTo({
       url: `/pages/packageB/petList/index?petNumber=${petList.length}`,
     })

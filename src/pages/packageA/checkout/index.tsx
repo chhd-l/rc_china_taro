@@ -6,7 +6,7 @@ import Taro, { useDidHide } from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
 import { createOrder, getOrderSetting } from '@/framework/api/order/order'
 import { AtMessage } from 'taro-ui'
-import _ from 'lodash'
+import omit from 'lodash/omit'
 import routers from '@/routers/index'
 import { getAddresses } from '@/framework/api/customer/address'
 import './index.less'
@@ -61,7 +61,7 @@ const Checkout = () => {
           shoppingCartIds.push(el.id)
         }
       })
-      const addressInfo = _.omit(address, ['id', 'customerId', 'storeId'])
+      const addressInfo = omit(address, ['id', 'customerId', 'storeId'])
       const params = {
         goodsList,
         addressInfo,
