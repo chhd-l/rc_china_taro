@@ -2,7 +2,7 @@ import { View, Image, Text } from '@tarojs/components'
 import { AtList, AtListItem, AtCard } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { getCurrentInstance } from '@tarojs/taro'
-import { getOrderDetail } from '@/framework/api/order/order'
+import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import { formatMoney } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
@@ -19,6 +19,7 @@ const orderStatusType = {
 const OrderDetails = () => {
   const [orderId, setOrderId] = useState('')
   const { router } = getCurrentInstance()
+  const [carrierTypes, setCarrierTypes] = useState<any[]>([])
   const [orderDetail, setOrderDetail] = useState<Order>({
     shippingAddress: {
       receiverName: '',
@@ -43,10 +44,21 @@ const OrderDetails = () => {
     setOrderDetail(res)
   }
 
+  const getExpressCompanys = async () => {
+    const res = await getExpressCompanyList()
+    setCarrierTypes(res)
+  }
+
+  const getCarrierType = () => {
+    const carriers = carrierTypes.filter((item) => item?.code === orderDetail?.shippingInfo?.shippingCompany)
+    return carriers.length > 0 ? carriers[0].name : ''
+  }
+
   useEffect(() => {
     if (router?.params?.id) {
       setOrderId(router.params.id)
     }
+    getExpressCompanys()
   }, [])
 
   useEffect(() => {
@@ -66,15 +78,15 @@ const OrderDetails = () => {
             <AtList className="ListBg">
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
-                title="物流公司：申通快递"
-                note="物流编号：2923982938923232"
+                title={`物流公司：${getCarrierType()}`}
+                note={`物流编号： ${orderDetail?.shippingInfo?.trackingId || ''}`}
                 arrow="right"
                 extraText="全部"
                 iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark' }}
               />
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
-                title={`${receiverName} ${phone}`}
+                title={`${receiverName || ''} ${phone}`}
                 note={`${province} ${city} ${region} ${detail}`}
                 iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark' }}
               />

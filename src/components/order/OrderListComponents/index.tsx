@@ -1,9 +1,9 @@
 import { View, Image, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { AtButton } from 'taro-ui'
 import { formatMoney } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
+import OrderAction from '../OrderAction'
 import './index.less'
 
 const orderStatusType = {
@@ -42,7 +42,7 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
                   复制
                 </View>
               </View>
-              <View className="w-12 text-red-500">{orderStatusType[item?.tradeState?.orderState||'']}</View>
+              <View className="w-12 text-red-500">{orderStatusType[item?.tradeState?.orderState || '']}</View>
             </View>
             {(item?.lineItem || []).map((el) => (
               <View className="w-full h-20 flex mb-4">
@@ -69,28 +69,7 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
                 {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
                 <Text className="text-red-500">{formatMoney(item.tradePrice.totalPrice)}</Text>
               </View>
-              <View className="mt-2 flex justify-items-end items-center">
-                <AtButton
-                  className="w-20 border-gray-300"
-                  size="small"
-                  circle
-                  onClick={(e) => {
-                    e.stopPropagation()
-                  }}
-                >
-                  取消订单
-                </AtButton>
-                <AtButton
-                  className="w-20 text-red-500 border-red-500 ml-3"
-                  size="small"
-                  circle
-                  onClick={(e) => {
-                    e.stopPropagation()
-                  }}
-                >
-                  提醒发货
-                </AtButton>
-              </View>
+              <OrderAction orderState={item?.tradeState?.orderState || ''} orderId={item.orderNumber || ''} />
             </View>
           </View>
         )
