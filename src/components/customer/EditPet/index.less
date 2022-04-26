@@ -2,7 +2,15 @@
     background-image: url('/src/assets/icons/pet/birthday.png');
 }
 .date-item{
-    border:0px;
+    // border:0px;
+    .at-list__item-container{
+        position: relative;
+        .at-list__item-extra{
+            position: absolute;
+            left: -2px;
+            top: 1px;
+        }
+    }
     View{
         &::after{
             border:0
@@ -10,10 +18,13 @@
         &::before{
             border:0
         }
-        border:0px
+        // border:0px
     }
-    .at-list__item::after{
-        border:0px
+    .at-list__item{
+        padding: 12px;
+        &::after{
+            border:0px
+        }
     }
 }
 .edit-pet{
