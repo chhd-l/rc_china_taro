@@ -4,7 +4,7 @@ import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePric
 // import { LineItem } from "@/framework/types/cart";
 import Taro, { useDidHide } from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
-import { createOrder } from '@/framework/api/order/order'
+import {createOrder, getOrderSetting} from '@/framework/api/order/order'
 import { AtMessage } from 'taro-ui'
 import _ from 'lodash'
 import routers from '@/routers/index'
@@ -19,6 +19,7 @@ const Checkout = () => {
   const [totalNum, setTotalNum] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
   const [loading, setLoading] = useState(false)
+  const [shippingPrice,setShippingPrice]=useState(0)
 
   const changeDeliveryDate = (value) => {
     setDeliveryTime(value)
@@ -96,6 +97,13 @@ const Checkout = () => {
     }
   }
 
+  const getShippingPrice=async ()=>{
+    const res=await getOrderSetting();
+    const shippingSetting=res.filter((item)=>item.code==="order_运费")[0]
+    const shipPrice=shippingSetting.length>0?shippingSetting[0].context:0
+    setShippingPrice(Number(shipPrice))
+  }
+
   useDidHide(() => {
     console.log('1111111')
     Taro.removeStorageSync('select-address')
@@ -127,6 +135,7 @@ const Checkout = () => {
       },
     })
     getDefaultAddress()
+    getShippingPrice()
   }, [])
 
   return (
@@ -144,7 +153,7 @@ const Checkout = () => {
           </View>
         </View>
         <view>
-          <TradePrice totalPrice={totalPrice} discountPrice={0} shipPrice={0} />
+          <TradePrice totalPrice={totalPrice} discountPrice={0} shipPrice={shippingPrice} />
         </view>
       </View>
       <View className="fixed bottom-0 w-full">
