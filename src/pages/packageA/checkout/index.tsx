@@ -1,4 +1,4 @@
-import { ScrollView, View } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePrice } from '@/components/checkout'
 // import { LineItem } from "@/framework/types/cart";
@@ -66,7 +66,6 @@ const Checkout = () => {
         addressInfo,
         remark,
         shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
-        operator: 'test用户001',
         expectedShippingDate: new Date(deliveryTime).toISOString(),
         isSubscription: false,
       }
@@ -77,6 +76,7 @@ const Checkout = () => {
           message: '下单成功',
           type: 'success',
         })
+        Taro.removeStorageSync('select-product')
         Taro.switchTab({
           url: routers.cart,
         })
@@ -97,15 +97,27 @@ const Checkout = () => {
   }
 
   useDidHide(() => {
-    console.log(1111111)
-    Taro.removeStorage({ key: 'select-product' })
-    Taro.removeStorage({ key: 'select-address' })
+    console.log('1111111')
+    Taro.removeStorageSync('select-address')
   })
 
   useEffect(() => {
     getTotalNum()
     getTotalPrice()
   }, [tradeItems])
+
+  const getDefaultAddress=async ()=>{
+    const selectAddress=Taro.getStorageSync('select-address')
+    if (selectAddress) {
+      setAddress(JSON.parse(selectAddress))
+    } else {
+      const addresses = await getAddresses()
+      const defaultAddress = (addresses || []).filter((item) => item.isDefault)
+      if (defaultAddress.length > 0) {
+        setAddress(defaultAddress[0])
+      }
+    }
+  }
 
   useEffect(() => {
     Taro.getStorage({
@@ -114,24 +126,11 @@ const Checkout = () => {
         setTradeItems(JSON.parse(res.data))
       },
     })
-    Taro.getStorage({
-      key: 'select-address',
-      success: async function (res) {
-        if (res.data) {
-          setAddress(JSON.parse(res.data))
-        } else {
-          const addresses = await getAddresses()
-          const defaultAddress = (addresses || []).filter((item) => item.isDefault)
-          if (defaultAddress.length > 0) {
-            setAddress(defaultAddress[0])
-          }
-        }
-      },
-    })
+    getDefaultAddress()
   }, [])
 
   return (
-    <View className="index py-2" style={{ marginBottom: "75rpx" }}>
+    <View className="index py-2" style={{ marginBottom: '75rpx' }}>
       <View className="px-4 bg-white">
         <view className="bggray pb-2 mt-2 rounded">
           <Address address={address} />
@@ -148,8 +147,6 @@ const Checkout = () => {
           <TradePrice totalPrice={totalPrice} discountPrice={0} shipPrice={0} />
         </view>
       </View>
-
-
       <View className="fixed bottom-0 w-full">
         <TotalCheck num={totalNum} totalPrice={totalPrice} checkNow={checkNow} loading={loading} />
       </View>

@@ -1,7 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
 import { View, RichText, Image } from '@tarojs/components'
-import './index.less'
-import Mock from 'mockjs'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { mockDetail } from '@/mock/product'
 import ChooseSpec from '@/components/product/ChooseSpec'
@@ -10,12 +8,13 @@ import Detail from '@/components/product/Detail'
 import { addToTypeEnum } from '@/framework/types/common'
 import cloneDeep from 'lodash.cloneDeep'
 import { getProduct } from '@/framework/api/product/get-product'
-import { getCurrentInstance } from '@tarojs/taro'
-import Taro from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { baseSetting } from '@/framework/api/fetcher'
 import { useAtom } from 'jotai'
 import { cartSunccessToastShowAtom } from '@/store/customer'
 import { AtToast } from 'taro-ui'
+import Mock from 'mockjs'
+import './index.less'
 
 export interface SelectedProps {
   [x: string]: string
@@ -51,20 +50,20 @@ const ProductDetail = () => {
         sku.img.push(...detailData.img)
       })
     }
-    let selected = {}
+    let selecteds = {}
     detailData.specifications?.map((el) => {
       el.children = el.children.map((e, idx) => {
         if (idx == 0) {
-          selected[el.id] = e.id
+          selecteds[el.id] = e.id
         }
         console.info('.....', el, e)
         // e.able = isAble(e)
-        e.able = isAble(el.id, e.id, selected, detailData.skus)
+        e.able = isAble(el.id, e.id, selecteds, detailData.skus)
         return e
       })
       return el
     })
-    console.info('detailData', detailData)
+
     const selectedArr = Object.values(selected).filter((el) => el)
     const chooseSku =
       detailData.skus.find((item) => selectedArr.every((selectedStr: string) => item.specIds.includes(selectedStr))) ||
@@ -77,13 +76,13 @@ const ProductDetail = () => {
     setShowSpecs(true)
     setAddToType(type)
   }
-  const isAble = (key, value, selected, skudata) => {
+  const isAble = (key, value, selecteds, skudata) => {
     // const isAble = (el) => {
     //只有一层的情况暂做处理
     return (detailInfo.skus?.length ? detailInfo.skus : skudata).find((el) => el.specIds?.[0] === value)
     // let list = detailInfo.skus || skudata
     // // 深拷贝 避免被影响
-    // var copySelectSpec = JSON.parse(JSON.stringify(selected))
+    // var copySelectSpec = JSON.parse(JSON.stringify(selecteds))
     // // 用对象的好处就在这了 直接赋值当前验证项
     // copySelectSpec[key] = value
     // // 用数组的 some 方法 效率高 符合条件直接退出循环 skudata兼容最开始detailinfo没有赋值的情况

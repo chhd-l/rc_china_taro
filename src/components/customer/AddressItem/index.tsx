@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { View, Radio, Text, Image } from '@tarojs/components'
 import { AtDivider, AtModal } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
@@ -10,9 +10,18 @@ import './index.less'
 const editIcon = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/edit_address.png'
 const deleteIcon = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/remove_address.png'
 
-const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address; delAddressSuccess: Function }) => {
+const AddressItem = ({
+  addressInfo,
+  delAddressSuccess,
+  isDefaultUpdateSuccess,
+}: {
+  addressInfo: Address
+  delAddressSuccess: Function
+  isDefaultUpdateSuccess: Function
+}) => {
   const [showDelTip, setShowDelTip] = useState(false)
-  const { receiverName, phone, province, city, region, detail, isDefault } = addressInfo
+  const { receiverName, phone, province, city, region, detail } = addressInfo
+  const [isDefault, setIsDefault] = useState(addressInfo.isDefault)
 
   const editAddress = () => {
     Taro.setStorage({
@@ -43,7 +52,13 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
         receiverName: receiverName,
       },
     })
+    setIsDefault(!isDefault)
+    isDefaultUpdateSuccess && isDefaultUpdateSuccess()
   }
+
+  useEffect(() => {
+    setIsDefault(addressInfo.isDefault)
+  }, [addressInfo])
 
   //checkout过来勾选地址
   const selectAddress = () => {
@@ -59,6 +74,7 @@ const AddressItem = ({ addressInfo, delAddressSuccess }: { addressInfo: Address;
               Taro.redirectTo({ url: routers.checkout })
             },
           })
+          Taro.removeStorageSync('address-from-checkout')
         }
       },
     })

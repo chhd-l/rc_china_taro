@@ -1,18 +1,24 @@
 import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { getProductBySkuId } from '@/framework/api/product/get-product'
-import ApiRoot, { baseSetting } from '../fetcher'
+import { dataSource } from '@/mock/cart'
+import Mock from 'mockjs'
+import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const getCarts = async () => {
   try {
-    const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
-    const carts = res?.carts || []
-    console.log('cart data', carts)
-    for (let i = 0; i < carts.length; i++) {
-      let data = await getProductBySkuId({ goodsVariantId: carts[i].goodsVariantID })
-      carts[i] = normalizeCartData(carts[i], data.productBySkuId)
+    if (isMock) {
+      return Mock.mock(dataSource)
+    } else {
+      const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
+      const carts = res?.carts || []
+      console.log('cart data', carts)
+      for (let i = 0; i < carts.length; i++) {
+        let data = await getProductBySkuId({ goodsVariantId: carts[i].goodsVariantID })
+        carts[i] = normalizeCartData(carts[i], data.productBySkuId)
+      }
+      console.log('cart products data', carts)
+      return carts
     }
-    console.log('cart products data', carts)
-    return carts
   } catch (err) {
     console.log('err', err)
     return []

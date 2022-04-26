@@ -25,10 +25,10 @@ export const getProduct = async ({ storeId, goodsId }) => {
   }
 }
 
-export const getProducts = async () => {
+export const getProducts = async (params: any) => {
   // let list = mockProduct.data.FindGoodsList.records[0]
   try {
-    const { products: list } = await ApiRoot.products().getAllProducts()
+    const { products: list } = await ApiRoot.products().getAllProducts(params)
     console.info('test', list)
     // const pets = await ApiRoot.pets().getProduct({ id: "20220415" });
     const productList = normalizeProductsforFe(list)
@@ -44,6 +44,18 @@ export const getProductBySkuId = async ({ goodsVariantId }: { goodsVariantId: st
   try {
     const res = await ApiRoot.products().getProductBySku({
       goodsVariantId,
+    })
+    console.log('getProductBySkuId view', res)
+    return res
+  } catch (err) {
+    console.log(err, 'err')
+  }
+}
+export const getAttrs = async ({ storeId, categoryId }: { storeId: string; categoryId: string }) => {
+  try {
+    const res = await ApiRoot.products().getAttrList({
+      storeId,
+      categoryId,
     })
     console.log('getProductBySkuId view', res)
     return res
