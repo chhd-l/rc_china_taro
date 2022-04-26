@@ -42,7 +42,7 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
                   复制
                 </View>
               </View>
-              <View className="w-12 text-red-500">{orderStatusType[item?.tradeState?.orderState]}</View>
+              <View className="w-12 text-red-500">{orderStatusType[item?.tradeState?.orderState||'']}</View>
             </View>
             {(item?.lineItem || []).map((el) => (
               <View className="w-full h-20 flex mb-4">
@@ -65,7 +65,7 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
             ))}
             <View className="w-full h-12 footerText flex items-end flex-col">
               <View className="text-right">
-                共{item.lineItem.length}件商品 总价{formatMoney(item.tradePrice.totalPrice)}，优惠
+                共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.totalPrice)}，优惠
                 {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
                 <Text className="text-red-500">{formatMoney(item.tradePrice.totalPrice)}</Text>
               </View>

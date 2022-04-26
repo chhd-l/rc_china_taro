@@ -43,7 +43,7 @@ const OrderList = () => {
   return (
     <AtTabs className="index" current={current} tabList={tabList} onClick={handleClick} swipeable>
       {tabList.map((item, index) => (
-        <AtTabsPane current={current} index={index}>
+        <AtTabsPane current={current} index={index} key={item.title}>
           {orderList.length > 0 ? <OrderListComponents list={orderList} /> : null}
         </AtTabsPane>
       ))}

@@ -1,4 +1,4 @@
-import { PetGender, PetType, Sterilized } from '@/framework/types/customer'
+import { PetGender, PetType } from '@/framework/types/customer'
 import defaultImg from '@/assets/img/default.png'
 export const initNewPet = {
   age: '',
