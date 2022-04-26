@@ -34,7 +34,7 @@ const Account = () => {
   useEffect(() => {
     setCustomerInfo(Mock.mock(dataSource))
     // Taro.navigateTo({
-    //   url: `/pages/packageA/orderDetails/index`,
+    //   url: `/pages/packageA/orderList/index?index=0`,
     // })
   }, [])
 

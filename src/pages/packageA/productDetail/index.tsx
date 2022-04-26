@@ -63,14 +63,14 @@ const ProductDetail = () => {
       })
       return el
     })
-
-    const selectedArr = Object.values(selected).filter((el) => el)
+    // setSelected(selecteds)
+    const selectedArr = Object.values(selecteds).filter((el) => el)
     const chooseSku =
       detailData.skus.find((item) => selectedArr.every((selectedStr: string) => item.specIds.includes(selectedStr))) ||
       detailData.skus[0] //兼容都没有值的情况
     chooseSku && setChoosedSku(chooseSku)
     setDetailInfo(detailData)
-    setSelected(cloneDeep(selected))
+    setSelected(cloneDeep(selecteds))
   }
   const handleShowSpec = (type: addToTypeEnum) => {
     setShowSpecs(true)

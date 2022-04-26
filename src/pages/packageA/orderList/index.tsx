@@ -16,13 +16,16 @@ const OrderList = () => {
   })
 
   const handleClick = (value) => {
+    Taro.setNavigationBarTitle({
+      title: tabList[value].title,
+    })
     setCurrent(value)
   }
 
   return (
     <AtTabs className="index" current={current} tabList={tabList} onClick={handleClick} swipeable>
       <AtTabsPane current={current} index={0}>
-        <OrderListComponents list={['']} />
+        <OrderListComponents list={['', '', '', '', '', '']} />
       </AtTabsPane>
       <AtTabsPane current={current} index={1}>
         <OrderListComponents list={['']} />
