@@ -1,6 +1,6 @@
 import Mock from 'mockjs'
-import Taro from '@tarojs/taro'
-import { useState } from 'react'
+import Taro, { useDidShow } from '@tarojs/taro'
+import { useEffect, useState } from 'react'
 import ActivityList from '@/components/product/ActivityList'
 import { FloorType, SwiperProps } from '@/framework/types/products'
 import StarsList from '@/components/product/StarsList'
@@ -12,6 +12,9 @@ import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
 import { View, ScrollView } from '@tarojs/components'
 import './index.less'
+import { wxLogin } from '@/framework/api/customer/customer'
+import { useAtom } from 'jotai'
+import { customerAtom } from '@/store/customer'
 
 const bannerLists = [
   {
@@ -50,12 +53,22 @@ const ProductList = () => {
   const [productList, setProductList] = useState(productLists)
   const [lifestageList, setLifestageList] = useState(lifestageLists)
   const [floorId, setFloorId] = useState<string>('')
+  const [, setCustomer] = useAtom(customerAtom)
 
   const queryList = (params) => {
     console.info('params', params)
     setProductList(productList)
     //getlist
   }
+  const loginInit = async () => {
+    if (Taro.getStorageSync('wxLoginRes')) {
+      const data = await wxLogin()
+      setCustomer(data)
+    }
+  }
+  useEffect(() => {
+    loginInit()
+  }, [])
 
   console.log('Taro.getSystemInfoSync().screenWidth', Taro.getSystemInfoSync().screenWidth)
 

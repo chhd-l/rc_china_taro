@@ -32,7 +32,7 @@ const Account = () => {
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   useEffect(() => {
-    setCustomerInfo(Mock.mock(dataSource))
+    setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
     // Taro.navigateTo({
     //   url: `/pages/packageA/orderDetails/index`,
     // })
@@ -77,6 +77,10 @@ const Account = () => {
               className="text-xs flex items-center text-gray-400"
               size="small"
               onClick={() => {
+                if (!Taro.getStorageSync('wxLoginRes')) {
+                  setAuthLoginOpened(true)
+                  return
+                }
                 Taro.navigateTo({
                   url: routers.addressManage,
                 })

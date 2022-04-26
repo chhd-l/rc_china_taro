@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { wxLogin } from '@/framework/api/customer/customer'
+import { wxRegisterAndLogin } from '@/framework/api/customer/customer'
 import { View, Text, Button } from '@tarojs/components'
 import { useAtom, atom } from 'jotai'
 import { customerAtom } from '@/store/customer'
@@ -29,7 +29,7 @@ const AuthLogin = () => {
   const [authLoginOpened, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const login = async () => {
     if (isOpen) {
-      const data = await wxLogin().then((res) => {
+      const data = await wxRegisterAndLogin().then((res) => {
         setLoginButton(false)
         setAuthLoginOpened(false)
         return res
