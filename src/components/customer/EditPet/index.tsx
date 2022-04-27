@@ -1,12 +1,9 @@
 import { PetGender, PetListItemProps, PetType } from '@/framework/types/customer'
 import { Form, Input, Picker, Text, View } from '@tarojs/components'
 import { useState } from 'react'
-import cloneDeep from 'lodash.cloneDeep'
-import SingleChoice from '../SingleChoice'
-import { addPet } from '@/framework/api/pet/add-pet'
-import { AtIcon, AtList, AtListItem } from 'taro-ui'
 import Taro from '@tarojs/taro'
-import './index.less'
+import { addPet } from '@/framework/api/pet/add-pet'
+import { AtIcon, AtList, AtListItem, AtToast } from 'taro-ui'
 import moment from 'moment'
 import { updatePet } from '@/framework/api/pet/update-pet'
 import birthdayIcon from '@/assets/icons/pet/birthday.png'
@@ -16,7 +13,10 @@ import genderIcon from '@/assets/icons/pet/gender.png'
 import nicknameIcon from '@/assets/icons/pet/nickname.png'
 import sterilizedIcon from '@/assets/icons/pet/sterilized.png'
 import { petLists } from '@/mock/pet'
-console.info('moment', moment())
+import cloneDeep from 'lodash.cloneDeep'
+import SingleChoice from '../SingleChoice'
+import './index.less'
+
 interface EditPetProps {
   pet: PetListItemProps
   getList: () => void
@@ -39,8 +39,13 @@ const isSterilizedOption = [
 ]
 const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetList }: EditPetProps) => {
   const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet))
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+
   const handleSave = async () => {
-    console.info('est', petInfo)
+    if (!petInfo.name && !petInfo.breed && !petInfo.birthday) {
+      setIsOpen(true)
+      return
+    }
     if (petInfo.id === '-1') {
       await addPet(petInfo)
     } else {
@@ -213,6 +218,13 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
           </View>
         </View>
       </Form>
+      <AtToast
+        isOpened={isOpen}
+        duration={1200}
+        text="请填写宠物完整信息"
+        icon="close"
+        onClose={() => setIsOpen(false)}
+      />
     </View>
   )
 }

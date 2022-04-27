@@ -3,7 +3,7 @@ import { ProductItem, Empty, TotalSettle, Navbar } from '@/components/cart'
 import { useEffect, useState } from 'react'
 import { getCarts, updateCart } from '@/framework/api/cart/cart'
 import { useTabItemTap, useDidShow } from '@tarojs/taro'
-import {getOrderSetting} from "@/framework/api/order/order";
+import { getOrderSetting } from '@/framework/api/order/order'
 import './index.less'
 
 const Cart = () => {
@@ -46,9 +46,9 @@ const Cart = () => {
     setSelectedProduct(productList.filter((item) => item.select))
   }
 
-  const getOrderSettings=async()=>{
-    const res=await getOrderSetting();
-    console.log('orderSetting',res)
+  const getOrderSettings = async () => {
+    const res = await getOrderSetting()
+    console.log('orderSetting', res)
   }
 
   useDidShow(() => {
@@ -72,7 +72,7 @@ const Cart = () => {
         {productList.length > 0 ? (
           <View className="pb-2" style={{ backgroundColor: '#fbfbfb' }}>
             {productList.map((item, index) => (
-              <View className={`${index !== productList.length - 1 ? 'mb-2' : ''}`}>
+              <View key={index} className={`${index !== productList.length - 1 ? 'mb-2' : ''}`}>
                 <ProductItem
                   product={item}
                   key={item.id}
