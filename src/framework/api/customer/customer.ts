@@ -51,3 +51,17 @@ export const wxLogin = async () => {
   Taro.setStorageSync('wxLoginRes', wxLoginRes)
   return wxLoginRes.userInfo
 }
+
+export const wxBindPhone = async (jsCode) => {
+  let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+  if (wxLoginRes) {
+    await ApiRoot.customers().wxBindPhone({
+      input: {
+        jsCode,
+        storeID: '12345678',
+        operator: 'zyq',
+        customerId: wxLoginRes.userInfo.id,
+      },
+    })
+  }
+}

@@ -33,6 +33,7 @@ const Account = () => {
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   useEffect(() => {
     setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
+    setAuthLoginOpened(true)
     // Taro.navigateTo({
     //   url: `/pages/packageA/orderDetails/index`,
     // })

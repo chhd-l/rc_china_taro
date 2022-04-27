@@ -1,11 +1,12 @@
 import { useState } from 'react'
-import { wxRegisterAndLogin } from '@/framework/api/customer/customer'
+import { wxBindPhone, wxRegisterAndLogin } from '@/framework/api/customer/customer'
 import { View, Text, Button } from '@tarojs/components'
 import { useAtom, atom } from 'jotai'
 import { customerAtom } from '@/store/customer'
-import { AtCheckbox, AtFloatLayout, AtToast } from 'taro-ui'
+import { AtButton, AtCheckbox, AtFloatLayout, AtToast } from 'taro-ui'
 import BottonSwi from './BottonSwi'
 import './index.less'
+import Taro from '@tarojs/taro'
 
 export const authLoginOpenedAtom = atom(false)
 
@@ -21,7 +22,24 @@ const chexOptions = [
   },
 ]
 
+enum Tab {
+  Login,
+  BindPhone,
+}
+
+const Tabs = [
+  {
+    label: '1.微信授权登录',
+    value: Tab.Login,
+  },
+  {
+    label: '2.绑定手机号',
+    value: Tab.BindPhone,
+  },
+]
+
 const AuthLogin = () => {
+  const [tabValue, setTabValue] = useState<Tab>(Tab.Login)
   const [, setCustomer] = useAtom(customerAtom)
   const [chexList, setChexList] = useState<string[]>([])
   const [isOpen, setIsOpen] = useState(false)
@@ -30,12 +48,12 @@ const AuthLogin = () => {
   const login = async () => {
     if (isOpen) {
       const data = await wxRegisterAndLogin().then((res) => {
-        setLoginButton(false)
-        setAuthLoginOpened(false)
+        // setLoginButton(false)
+        // setAuthLoginOpened(false)
         return res
       })
       setCustomer(data)
-      setAuthLoginOpened(false)
+      // setAuthLoginOpened(false)
     } else {
       setLoginButton(true)
     }
@@ -60,6 +78,19 @@ const AuthLogin = () => {
     }
   }
 
+  const getTel = (e) => {
+    console.log(e)
+    Taro.checkSession({
+      success: function () {
+        wxBindPhone(e.detail.code)
+        console.log('有效')
+      },
+      fail: function () {
+        console.log('无效')
+      },
+    })
+  }
+
   return (
     <View className="auth-login">
       <AtFloatLayout
@@ -70,23 +101,40 @@ const AuthLogin = () => {
       >
         <View className="bottom-0 w-full bg-white overflow-hidden h-full">
           <View className="flex h-10">
-            <View className="flex-1 flex justify-center items-center text-center h-full border-0 text-xs text-red-600">
-              <Text>1.微信授权登录</Text>
-            </View>
-            <View className="flex-1 flex justify-center items-center text-center text-xs h-full">
-              <Text>2.绑定手机号</Text>
-            </View>
+            {Tabs.map((el) => (
+              <View
+                className={`flex-1 flex justify-center items-center text-center h-full text-xs ${
+                  el.value === tabValue ? 'border-0  text-red-600' : ''
+                }`}
+                onClick={() => {
+                  setTabValue(el.value)
+                }}
+              >
+                <Text>{el.label}</Text>
+              </View>
+            ))}
           </View>
-          <View className="px-5">
-            <AtCheckbox className="chexOne" options={chexOptions} selectedList={chexList} onChange={chexChange} />
-            <View className="w-full h-10 flex items-center" onClick={MainSwitch}>
-              <BottonSwi isOpen={isOpen} />
-              一键勾选
+          {tabValue === Tab.Login ? (
+            <View className="px-5">
+              <AtCheckbox className="chexOne" options={chexOptions} selectedList={chexList} onChange={chexChange} />
+              <View className="w-full h-10 flex items-center" onClick={MainSwitch}>
+                <BottonSwi isOpen={isOpen} />
+                一键勾选
+              </View>
+              <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
+                授权登录
+              </Button>
             </View>
-            <Button className="my-2 bg-red-600 text-white w-40 rounded-3xl" onClick={login}>
-              授权登录
-            </Button>
-          </View>
+          ) : (
+            <View className="px-5 flex justify-center items-center">
+              <View className="mt-20">
+                <AtButton type="primary" openType="getPhoneNumber" onGetPhoneNumber={(e) => getTel(e)}>
+                  绑定手机号
+                </AtButton>
+                <AtButton className="border-0 text-gray">暂不绑定</AtButton>
+              </View>
+            </View>
+          )}
         </View>
         <AtToast
           text="请先勾选条款"
