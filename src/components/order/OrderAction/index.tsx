@@ -1,20 +1,19 @@
 import { View } from '@tarojs/components'
-import { AtButton, AtModal } from 'taro-ui'
+import { AtButton } from 'taro-ui'
 import { cancelOrder, completedOrder } from '@/framework/api/order/order'
-import { useState } from 'react'
 import './index.less'
 
 const OrderAction = ({
   orderState,
   orderId,
   operationSuccess,
+  openModalTip,
 }: {
   orderState: string
   orderId: string
   operationSuccess: Function
+  openModalTip: Function
 }) => {
-  const [showShipModal, setShowShipModal] = useState(true)
-
   const completed = async () => {
     const res = await completedOrder({
       orderNum: orderId,
@@ -36,7 +35,7 @@ const OrderAction = ({
   }
 
   return (
-    <>
+    <View>
       <View className="mt-2 flex justify-items-end items-center">
         {orderState === 'UNPAID' ? (
           <>
@@ -70,8 +69,7 @@ const OrderAction = ({
             circle
             onClick={(e) => {
               e.stopPropagation()
-              console.log('111111')
-              setShowShipModal(true)
+              openModalTip && openModalTip()
             }}
           >
             提醒发货
@@ -91,24 +89,7 @@ const OrderAction = ({
           </AtButton>
         ) : null}
       </View>
-      <AtModal
-        key='sss'
-        isOpened={showShipModal}
-        title="确定删除地址信息？"
-        cancelText="再想想"
-        confirmText="狠心删除"
-        onClose={() => {
-          setShowShipModal(false)
-        }}
-        onCancel={() => {
-          setShowShipModal(false)
-        }}
-        onConfirm={() => {
-          setShowShipModal(false)
-        }}
-        className="rc_modal"
-      />
-    </>
+    </View>
   )
 }
 

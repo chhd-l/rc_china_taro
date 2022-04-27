@@ -61,7 +61,8 @@ const Checkout = () => {
           shoppingCartIds.push(el.id)
         }
       })
-      const addressInfo = omit(address, ['id', 'customerId', 'storeId'])
+      const addressInfo = omit(address, ['id', 'customerId', 'storeId','isDefault'])
+      const user = Taro.getStorageSync('wxLoginRes').userInfo
       const params = {
         goodsList,
         addressInfo,
@@ -69,6 +70,14 @@ const Checkout = () => {
         shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
         expectedShippingDate: new Date(deliveryTime).toISOString(),
         isSubscription: false,
+        customerInfo: {
+          id: user.id,
+          avatarUrl: user.avatarUrl,
+          level: user.level,
+          phone: user.phone,
+          nickName: user.nickName,
+          name: user.name,
+        },
       }
       console.log('create order params', params)
       const res = await createOrder(params)
