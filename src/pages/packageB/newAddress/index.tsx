@@ -6,7 +6,6 @@ import RegionPicker from '@/components/common/WePicker/index'
 import { createAddress, updateAddress } from '@/framework/api/customer/address'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { pickForUpdate } from '@/utils/utils'
-import routers from '@/routers'
 import './index.less'
 
 const Index = () => {

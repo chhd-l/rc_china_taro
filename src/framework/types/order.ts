@@ -1,37 +1,104 @@
-import { CreatedBy, LastModifiedBy, Scalars } from "../schema/common.schema";
-import { LineItem, PromotionItem } from "./cart";
-import { CartOrigin, OrderState, PaymentState, ShipmentState } from "../enum";
-import { Payment } from "./payment";
-import { Address } from "./customer";
+import { Address } from '@/framework/types/customer'
 
-export type Order = {
-  id: string;
-  createdAt?: Scalars["DateTime"];
-  createdBy?: CreatedBy;
-  lastModifiedAt?: Scalars["DateTime"];
-  lastModifiedBy?: LastModifiedBy;
-  completedAt: Scalars["DateTime"];
-  orderNumber: string;
-  customerId: string;
-  customerEmail: string;
-  anonymousId?: string;
-  storeId: String;
-  lineItems: LineItem[];
-  shippingAddress: Address;
-  billingAddress: Address;
-  orderState: OrderState;
-  shipmentState: ShipmentState;
-  paymentState: PaymentState;
-  paymentInfo: Payment[];
-  origin?: CartOrigin; //来源，购物车下单/代客下单
-  totalPrice: number;
-  taxedPrice: number;
-  subscriptionDiscountPrice?: number;
-  subtotalPrice?: number;
-  promotion: PromotionItem[];
-  // discount:Discount[]
-  // shippingInfo:ShippingInfo
-  // returnInfo : ReturnInfo[]
-  // discountCodes : DiscountCodeInfo[]
-  // refusedGifts : CartDiscounts[]
-};
+export interface TradeGoodsAttributeAndValue {
+  attributeName: string
+  attributeNameEn: string
+  attributeValueName: string
+  attributeValueNameEn: string
+  relId: string
+  attributeId: string
+  attributeValueId: string
+  goodsId: string
+}
+
+export interface TradeLineItem {
+  id: string
+  skuNo: string
+  spuNo: string
+  skuName: string
+  spuName: string
+  goodsSpecifications: string
+  pic: string
+  price: string
+  num: string
+  goodsAttributeAndValues: [TradeGoodsAttributeAndValue]
+  feedingDays: number
+}
+
+export interface PayInfo {
+  payWayCode: string
+  payWayOrderID: string
+  amount: string
+  payStartTime: string
+  payFinishTime: string
+  lastModifiedBy: string
+  paymentState: string
+}
+
+export interface TradePrice {
+  goodsPrice: number
+  deliveryPrice: number
+  totalPrice: number
+  discountsPrice: number
+}
+
+export interface TradeState {
+  orderType: string
+  orderState: string
+  storeId: string
+  lastModifiedAt: string
+  lastModifiedBy: string
+  createdAt: string
+  createdBy: string
+}
+
+export interface Logs {
+  id: string
+  status: string
+  createdAt: string
+  createdBy: string
+}
+
+export interface Buyer {
+  isMember: boolean
+  customerId: string
+  customerName: string
+  customerEmail: string
+  customerLevel: string
+  nickName: string
+  phone: string
+}
+
+export interface Order {
+  _id?: string
+  orderNumber?: string
+  version?: string
+  lineItem?: TradeLineItem[]
+  shippingAddress: Address
+  payInfo?: PayInfo
+  isSubscription?: string
+  tradePrice: TradePrice
+  tradeState?: TradeState
+  logs?: Logs
+  remark?: string
+  buyer?: Buyer
+  shippingInfo?: ShippingInfo
+}
+
+export interface ShippingInfo {
+  shippingTime: string
+  expectedShippingDate: string
+  shippingCompany: string
+  trackingId: string
+  isReturn: string
+  status: string
+  deliveries: DeliveryInfo[]|any
+}
+
+export interface DeliveryInfo {
+  time: string
+  context: string
+  areaCode: string
+  areaName: string
+  status: string
+}

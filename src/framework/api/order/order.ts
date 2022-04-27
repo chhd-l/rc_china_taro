@@ -1,3 +1,6 @@
+import Taro from '@tarojs/taro'
+import { orderDetailMockData, orderListMockData } from '@/mock/order'
+import { session } from '@/utils/global'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const createOrder = async (params: any) => {
@@ -16,11 +19,20 @@ export const createOrder = async (params: any) => {
 
 export const getOrderSetting = async () => {
   try {
-    const res = await ApiRoot.orders().getOrderSetting({
-      storeId: baseSetting.storeId,
-    })
-    console.log('get orderSetting view data', res)
-    return res.orderSettings
+    let orderSettings = Taro.getStorageSync('order-setting')
+    if (orderSettings) {
+      orderSettings = JSON.parse(orderSettings)
+    } else {
+      const res = await ApiRoot.orders().getOrderSetting({
+        storeId: baseSetting.storeId,
+      })
+      console.log('get orderSetting view data', res)
+      if (res.orderSettings) {
+        orderSettings = res.orderSettings
+        Taro.setStorageSync('order-setting', JSON.stringify(res.orderSettings))
+      }
+    }
+    return orderSettings
   } catch (e) {
     console.log(e)
     return []
@@ -30,7 +42,10 @@ export const getOrderSetting = async () => {
 export const getOrderList = async (queryOrderListParams: any) => {
   try {
     if (isMock) {
-      // return Mock.mock(orderListSource('UNPAID')).array
+      return {
+        total: 0,
+        records: orderListMockData,
+      }
     } else {
       console.log('query orders view params', queryOrderListParams)
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
@@ -53,7 +68,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
 export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
   try {
     if (isMock) {
-      // return Mock.mock(orderDetailSource('UNPAID'))
+      return orderDetailMockData
     } else {
       let { getOrder } = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
       console.info('res', getOrder)
@@ -62,5 +77,53 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
   } catch (e) {
     console.log(e)
     return {}
+  }
+}
+
+export const getExpressCompanyList = async () => {
+  try {
+    let expressCompanyList = session.get('express-company-list')
+    if (!expressCompanyList) {
+      let res = await ApiRoot.orders().getExpressCompany({ storeId: '12345678' })
+      console.info('get expressCompany data view', res)
+      expressCompanyList = res.expressCompanies || []
+      session.set('express-company-list', expressCompanyList)
+    }
+    return expressCompanyList
+  } catch (e) {
+    console.log(e)
+    return []
+  }
+}
+
+export const shippedOrder = async (params: any) => {
+  try {
+    params = Object.assign(params, {
+      storeId: '12345678',
+      operator: 'zz',
+    })
+    console.info('shipped order view params', params)
+    let res = await ApiRoot.orders().shippedOrder({ body: params })
+    console.info('shipped order data view', res)
+    return res.shippedOrder || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const completedOrder = async (params: any) => {
+  try {
+    params = Object.assign(params, {
+      storeId: '12345678',
+      operator: 'zz',
+    })
+    console.info('completed order view params', params)
+    let res = await ApiRoot.orders().completedOrder({ body: params })
+    console.info('completed order data view', res)
+    return res.completedOrder || false
+  } catch (e) {
+    console.log(e)
+    return false
   }
 }
