@@ -48,7 +48,14 @@ const OrderList = () => {
     <AtTabs className="index" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
       {tabList.map((item, index) => (
         <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
-          {orderList.length > 0 ? <OrderListComponents list={orderList} /> : null}
+          {orderList.length > 0 ? (
+            <OrderListComponents
+              list={orderList}
+              operationSuccess={() => {
+                getOrderLists(current)
+              }}
+            />
+          ) : null}
         </AtTabsPane>
       ))}
     </AtTabs>

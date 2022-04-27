@@ -14,7 +14,7 @@ const orderStatusType = {
   VOID: '已取消',
 }
 
-const OrderListComponents = ({ list }: { list: Order[] }) => {
+const OrderListComponents = ({ list, operationSuccess }: { list: Order[]; operationSuccess: Function }) => {
   const copyText = (orderNumber) => {
     Taro.setClipboardData({
       data: orderNumber,
@@ -69,7 +69,13 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
                 {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
                 <Text className="text-red-500">{formatMoney(item.tradePrice.totalPrice)}</Text>
               </View>
-              <OrderAction orderState={item?.tradeState?.orderState || ''} orderId={item.orderNumber || ''} />
+              <OrderAction
+                orderState={item?.tradeState?.orderState || ''}
+                orderId={item.orderNumber || ''}
+                operationSuccess={() => {
+                  operationSuccess && operationSuccess()
+                }}
+              />
             </View>
           </View>
         )

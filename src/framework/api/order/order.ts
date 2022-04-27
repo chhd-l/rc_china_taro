@@ -127,3 +127,19 @@ export const completedOrder = async (params: any) => {
     return false
   }
 }
+
+export const cancelOrder = async (params: any) => {
+  try {
+    params = Object.assign(params, {
+      storeId: '12345678',
+      operator: 'zz',
+    })
+    console.info('cancel order view params', params)
+    let res = await ApiRoot.orders().cancelOrder({ body: params })
+    console.info('cancel order data view', res)
+    return res.cancelOrder || false
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}

@@ -74,7 +74,7 @@ const ProductItem = ({
                 <View className="text-red-500 font-medium text-base">{formatMoney(price)}</View>
                 <View style={{ marginRight: '20px' }}>
                   <AtInputNumber
-                    min={0}
+                    min={1}
                     max={10}
                     step={1}
                     value={goodsNum}
