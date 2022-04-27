@@ -1,24 +1,13 @@
-(window as any).__ = Object.assign((window as any).__ || {}, {
-  sessionItemRoyal: {
-    set(key, val) {
-      sessionStorage.setItem(JSON.stringify(key), val);
-    },
-    get(key) {
-      return JSON.parse(sessionStorage.getItem(key) || "");
-    },
-    remove(key) {
-      sessionStorage.removeItem(key);
-    },
+import Taro from '@tarojs/taro'
+
+export const session = {
+  set(key: string, val: any) {
+    Taro.setStorageSync(key, JSON.stringify(val))
   },
-  localItemRoyal: {
-    set(key, val) {
-      localStorage.set(JSON.stringify(key), val);
-    },
-    get(key) {
-      return JSON.parse(localStorage.get(key));
-    },
-    remove(key) {
-      localStorage.remove(key);
-    },
+  get(key: string) {
+    return JSON.parse(Taro.getStorageSync(key) || 'null')
   },
-});
+  remove(key: string) {
+    Taro.removeStorageSync(key)
+  },
+}

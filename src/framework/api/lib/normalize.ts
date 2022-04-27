@@ -1,5 +1,5 @@
-import { Goods, GoodsList, GoodsVariants } from '@/framework/schema/products.schema'
-import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
+import { GoodsVariants } from '@/framework/schema/products.schema'
+import { SkuItemProps } from '@/framework/types/products'
 import { dealDatasForApi, formatDateToApi, formatDateToFe } from '@/utils/utils'
 
 export const normalizePetsForApi = (petInfo: any) => {
@@ -161,7 +161,29 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
     image: productSkuInfo.goodsVariants[0].defaultImage,
     price: productSkuInfo.goodsVariants[0].marketingPrice,
     tags: normalizeProductForFe(productSkuInfo).skus[0].tags,
-    specs:normalizeProductForFe(productSkuInfo).skus[0].specText
+    specs: normalizeProductForFe(productSkuInfo).skus[0].specText,
   }
   return cart
+}
+
+export const normalizeTags = (attributeValueRels, feedingDays) => {
+  let tags: string[] = []
+  attributeValueRels?.forEach((attr) => {
+    let tagStr = ''
+    switch (attr.attributeNameEn) {
+      case 'Age':
+        tagStr = `适用年龄:${attr.attributeValueName}`
+        break
+      case 'Technology':
+        let value = attr.attributeValueName == 'WetFood' && '每日一包'
+        value = attr.attributeValueName == 'can' && '两日一罐'
+        tagStr = `建议干湿搭配:${value}`
+        break
+    }
+    if (tagStr !== '') {
+      tags.push(tagStr)
+    }
+  })
+  tags = feedingDays ? [...tags, `建议饲喂天数:${feedingDays}天`] : [...tags]
+  return tags
 }
