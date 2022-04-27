@@ -1,4 +1,4 @@
-import { View, Image, Text } from '@tarojs/components'
+import { View, Image, Text, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { formatMoney } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
@@ -22,11 +22,11 @@ const OrderListComponents = ({ list, operationSuccess }: { list: Order[]; operat
   }
 
   return (
-    <View>
-      {list.map((item: Order, idx: number) => {
+    <ScrollView className="OrderListComponents" scrollY>
+      {list.map((item: any, idx: number) => {
         return (
           <View
-            className="card mb-2"
+            className="card"
             key={idx}
             onClick={(e) => {
               e.stopPropagation()
@@ -44,8 +44,8 @@ const OrderListComponents = ({ list, operationSuccess }: { list: Order[]; operat
               </View>
               <View className="w-12 text-red-500">{orderStatusType[item?.tradeState?.orderState || '']}</View>
             </View>
-            {(item?.lineItem || []).map((el) => (
-              <View className="w-full h-20 flex mb-4">
+            {(item?.lineItem || []).map((el, index) => (
+              <View key={index} className="w-full h-20 flex mb-4">
                 <View className="w-28 h-full">
                   <Image className="w-full h-full" src={el?.pic} />
                 </View>
@@ -80,7 +80,7 @@ const OrderListComponents = ({ list, operationSuccess }: { list: Order[]; operat
           </View>
         )
       })}
-    </View>
+    </ScrollView>
   )
 }
 

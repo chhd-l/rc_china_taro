@@ -11,6 +11,7 @@ import defaultCatImg from '@/assets/img/default.png'
 import defaultDogImg from '@/assets/img/defaultdog.png'
 import addImg from '@/assets/img/addNew.png'
 import petBg from '@/assets/img/pet-bg.png'
+import './index.less'
 
 interface Props {
   pet: PetListItemProps
@@ -46,8 +47,8 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
   const showEdit = (idx) => {
     console.info('...', idx)
     if (!petList[idx].isOpened) {
-      petList.forEach((pet) => {
-        pet.isOpened = false
+      petList.forEach((el) => {
+        el.isOpened = false
       })
     }
     petList[idx].isOpened = !petList[idx].isOpened
@@ -61,6 +62,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
     <View className="my-2 mx-3">
       <View className=" rounded-lg overflow-hidden">
         <AtSwipeAction
+          className="PetItem"
           autoClose
           onClick={(val) => {
             handleClick(val, petIdx)

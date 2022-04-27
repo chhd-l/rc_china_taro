@@ -32,7 +32,7 @@ const Account = () => {
   useEffect(() => {
     setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
     // Taro.navigateTo({
-    //   url: `/pages/packageA/orderDetails/index`,
+    //   url: `/pages/packageA/orderList/index?index=0`,
     // })
   }, [])
 
