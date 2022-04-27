@@ -16,10 +16,11 @@ const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [showAddPetBtn, SetshowAddPetBtn] = useState(true)
   const { router } = getCurrentInstance()
-  console.info('router', router)
+
   let petNumber = router?.params?.petNumber || '0'
   const getList = async () => {
     let res = (await getPets()) || []
+    console.log('res', res)
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
@@ -27,7 +28,6 @@ const PetList = () => {
     SetshowAddPetBtn(true)
   }
   useEffect(() => {
-    console.info('petNumber', petNumber)
     if (Number(petNumber) > 0) {
       getList()
     } else {

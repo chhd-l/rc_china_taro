@@ -19,22 +19,20 @@ import femaleIcon from '@/assets/icons/pet/female.png'
 import maleIcon from '@/assets/icons/pet/male.png'
 import './index.less'
 
-const pets = Mock.mock(petLists).list
-const fakePetInfo = { id: '-1' }
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const [fakePet, setFakePet] = useState<any>([])
-  const [currentIdx, setCurrentIdx] = useState(1)
+  const [currentIdx, setCurrentIdx] = useState(0)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+
   const handleChange = (current: number) => {
     setCurrentIdx(current)
   }
 
   useEffect(() => {
-    console.log(customerInfo, 'customerInfogetList')
     getList()
-  }, [customerInfo])
+  }, [])
 
   Taro.useDidShow(() => {
     console.log(customerInfo, 'customerInfogetList')
@@ -45,12 +43,20 @@ const PetList = () => {
     let res = (await getPets()) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
-      console.log('item.age', item.age)
     })
+    if (res.length > 1) {
+      console.log('res', res)
+      setCurrentIdx(1)
+    } else {
+      console.log('res2', res)
+      setCurrentIdx(0)
+    }
     setPetList(res)
     if (res.length === 2 || res.length === 3) {
+      console.log('res3', res)
       setFakePet([...res, ...res])
     } else {
+      console.log('res4', res)
       setFakePet(res)
     }
   }
@@ -92,7 +98,7 @@ const PetList = () => {
               style={{ height: '80px' }}
               className="w-full"
               circular
-              displayMultipleItems={petList.length}
+              displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
               onChange={({ detail }) => {
                 let current = fakePet.length > 1 ? detail.current + 1 : detail.current
                 if (current >= fakePet.length) {
