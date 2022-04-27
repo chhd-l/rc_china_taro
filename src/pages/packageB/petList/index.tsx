@@ -1,4 +1,3 @@
-import './index.less'
 import { View } from '@tarojs/components'
 import cloneDeep from 'lodash.cloneDeep'
 import { AtButton } from 'taro-ui'
@@ -9,6 +8,8 @@ import PetItem from '@/components/customer/PetItem'
 import { initNewPet } from '@/lib/customer'
 import { getCurrentInstance } from '@tarojs/taro'
 import { getAge } from '@/utils/utils'
+import './index.less'
+
 // const pets = Mock.mock(petLists).list;
 // console.info("petLists", pets);
 const PetList = () => {
@@ -51,6 +52,7 @@ const PetList = () => {
         return (
           <PetItem
             showAddPetBtn={showAddPetBtn}
+            key={idx}
             SetshowAddPetBtn={SetshowAddPetBtn}
             getList={getList}
             pet={pet}

@@ -41,6 +41,9 @@ const OrderList = () => {
   })
 
   const handleClick = (value) => {
+    Taro.setNavigationBarTitle({
+      title: tabList[value].title,
+    })
     setCurrent(value)
   }
 

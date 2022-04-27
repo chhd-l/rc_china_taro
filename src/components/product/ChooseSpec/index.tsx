@@ -1,12 +1,11 @@
 import { ProductDetailProps, SkuItemProps, SpecDetail, SpecProps } from '@/framework/types/products'
 import { View, Image, Text } from '@tarojs/components'
-import { AtFloatLayout, AtInputNumber, AtToast } from 'taro-ui'
+import { AtFloatLayout, AtInputNumber, AtButton, AtIcon } from 'taro-ui'
 import cloneDeep from 'lodash.cloneDeep'
 import { addToTypeEnum } from '@/framework/types/common'
 import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { SelectedProps } from '@/pages/packageA/productDetail'
-import './index.less'
 import { formatMoney } from '@/utils/utils'
 import { createCart } from '@/framework/api/cart/cart'
 import { getProductBySkuId } from '@/framework/api/product/get-product'
@@ -15,6 +14,8 @@ import { baseSetting } from '@/framework/api/fetcher'
 import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
+import './index.less'
+
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -44,6 +45,7 @@ const ChooseSpec = ({
 }: ChooseSpecProps) => {
   const [addBtnStatus, setAddBtnStatus] = useState(false)
   const [, setToastShow] = useAtom(cartSunccessToastShowAtom)
+
   useEffect(() => {
     let selectedArr = Object.values(selected).filter((el) => el)
     if (selectedArr.length === detailInfo.specifications?.length) {
@@ -52,19 +54,17 @@ const ChooseSpec = ({
     } else {
       setAddBtnStatus(false)
     }
+    console.log('selectedArr', selectedArr)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
+
   const handleSku = () => {
     const selectedArr = Object.values(selected).filter((el) => el)
     const chooseSku =
-      detailInfo.skus.find((item) => selectedArr.every((selected) => item.specIds.includes(selected))) ||
+      detailInfo.skus.find((item) => selectedArr.every((selecteds) => item.specIds.includes(selecteds))) ||
       detailInfo.skus[0] //兼容都没有值的情况
     chooseSku && setChoosedSku(chooseSku)
   }
-  // useEffect(() => {
-  //   if (addBtnStatus) {
-
-  //   }
-  // }, [addBtnStatus])
 
   const handleChangeSku = (specDetail: SpecDetail, specification: SpecProps) => {
     if (!specDetail.able) {
@@ -136,33 +136,41 @@ const ChooseSpec = ({
         setShowSpecs(false)
       }}
     >
-      <View className="px-2">
+      <View className="flex justify-end">
+        <AtIcon value="close" size="26" color="#666" onClick={() => setShowSpecs(false)} />
+      </View>
+      <View className="px-2 mt-2">
         <View className="flex">
           <Image className="w-24 h-auto" mode="widthFix" src={choosedSku.img?.[0] || ''} />
-          <View className="pl-1">
-            <View>{choosedSku.name}</View>
-            <View className="pt-1 text-gray-400 text-26">{choosedSku.no}</View>
-            <View className="pt-3">
+          <View className="pl-3">
+            <View className="text-xs font-bold">{choosedSku.name}</View>
+            <View className="pt-1 text-gray-400 text-26">商家编号：{choosedSku.no}</View>
+            <View className="pt-4">
               <Text className="text-red-600 pr-4">{formatMoney(choosedSku.price)}</Text>
               <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
             </View>
           </View>
         </View>
 
-        {detailInfo.specifications?.map((specification) => (
-          <View>
-            <View className="text-28"> {specification.name}</View>
+        {detailInfo.specifications?.map((specification, idx) => (
+          <View key={idx}>
+            <View className="text-28 pb-1"> {specification.name}</View>
             <View className="py-1">
-              {specification.children?.map((el) => (
+              {specification.children?.map((el, index) => (
                 <Text
+                  key={index}
                   onClick={() => {
                     handleChangeSku(el, specification)
                   }}
-                  className={`mr-2 inline-block text-center text-26  border border-solid px-2 rounded-full defalt
+                  className={`mr-2 inline-block text-center text-26  border border-solid px-2 rounded-full defalt border-gray-200 text-gray-400
                   ${el.able ? '' : 'disabled'}
-                  ${selected[specification.id] === el.id ? 'active' : ''}`}
+                  ${selected[specification.id] === el.id ? 'active textWhite' : ''}`}
                 >
                   {el.name}
+                  {console.info('selected', selected)}
+                  {console.info('specification.id', specification.id)}
+                  {console.info('selected[specification.id]', selected[specification.id])}
+                  {console.info('el.id', el.id)}
                 </Text>
               ))}
             </View>
@@ -185,14 +193,14 @@ const ChooseSpec = ({
           </View>
         </View>
       </View>
-      <View
-        className={`text-center rounded-full fixed bottom-0 left-0 right-0 mx-2 my-4 py-2
-         ${addBtnStatus ? 'active' : 'disabled'}
-        `}
+      <AtButton
+        disabled={!addBtnStatus}
+        circle
+        className={`${addBtnStatus ? 'active' : 'disabled'}`}
         onClick={handleComfirm}
       >
         确定
-      </View>
+      </AtButton>
     </AtFloatLayout>
   ) : null
 }
