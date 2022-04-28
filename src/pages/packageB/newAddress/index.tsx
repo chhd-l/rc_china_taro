@@ -1,6 +1,6 @@
 import { Radio, View, Text } from '@tarojs/components'
 import { useEffect, useState } from 'react'
-import { AtForm, AtInput, AtButton, AtTextarea } from 'taro-ui'
+import { AtForm, AtInput, AtButton, AtTextarea, AtToast } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
 import RegionPicker from '@/components/common/WePicker/index'
 import { createAddress, updateAddress } from '@/framework/api/customer/address'
@@ -19,6 +19,9 @@ const Index = () => {
     detail: '',
     isDefault: false,
   })
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpenPhone, setIsOpenPhone] = useState<boolean>(false)
+
   const [address, setAddress] = useState(['浙江省', '杭州市', '滨江区'])
   const { province, city, region } = addressInfo
   const [initData, setInitData] = useState(null)
@@ -50,7 +53,14 @@ const Index = () => {
   }
 
   const saveNewAddress = async () => {
-    if (router?.params.type === 'edit') {
+    console.log('addressInfo', addressInfo)
+    if (!addressInfo.detail && !addressInfo.phone && !addressInfo.province && !addressInfo.receiverName) {
+      setIsOpen(true)
+      return
+    } else if (!/^1[3456789]\d{9}$/.test(addressInfo.phone)) {
+      setIsOpenPhone(true)
+      return
+    } else if (router?.params.type === 'edit') {
       let params = pickForUpdate(addressInfo, initData)
       await updateAddress({
         params: Object.assign(params),
@@ -175,6 +185,20 @@ const Index = () => {
           保存
         </AtButton>
       </View>
+      <AtToast
+        isOpened={isOpen}
+        duration={1200}
+        text="请填写完整地址信息"
+        icon="close"
+        onClose={() => setIsOpen(false)}
+      />
+      <AtToast
+        isOpened={isOpenPhone}
+        duration={1200}
+        text="请填写正确手机号码"
+        icon="close"
+        onClose={() => setIsOpenPhone(false)}
+      />
     </View>
   )
 }
