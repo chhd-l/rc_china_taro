@@ -15,6 +15,7 @@ import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
 import './index.less'
+import {getOrderSetting} from "@/framework/api/order/order";
 
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
@@ -45,6 +46,7 @@ const ChooseSpec = ({
 }: ChooseSpecProps) => {
   const [addBtnStatus, setAddBtnStatus] = useState(false)
   const [, setToastShow] = useAtom(cartSunccessToastShowAtom)
+  const [maxNum, setMaxNum] = useState(5)
 
   useEffect(() => {
     let selectedArr = Object.values(selected).filter((el) => el)
@@ -57,6 +59,18 @@ const ChooseSpec = ({
     console.log('selectedArr', selectedArr)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
+
+  useEffect(()=>{
+    getMaxNum()
+  },[])
+
+  //獲取
+  const getMaxNum = async () => {
+    const res = await getOrderSetting()
+    const maxNumSetting = res.filter((item) => item.code === 'order_最大购买物品')
+    const maxCartNum = maxNumSetting.length > 0 ? Number(maxNumSetting[0].context) : 5
+    setMaxNum(maxCartNum)
+  }
 
   const handleSku = () => {
     const selectedArr = Object.values(selected).filter((el) => el)
@@ -182,7 +196,7 @@ const ChooseSpec = ({
             {' '}
             <AtInputNumber
               min={1}
-              max={99}
+              max={maxNum}
               step={1}
               type="number"
               value={buyCount}
