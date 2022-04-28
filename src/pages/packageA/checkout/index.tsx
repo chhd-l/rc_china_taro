@@ -39,7 +39,7 @@ const Checkout = () => {
     const total = tradeItems.reduce((prev, cur) => {
       return prev + cur.goodsNum * cur.localData.price
     }, 0)
-    setTotalPrice(total)
+    setTotalPrice(total+shippingPrice)
   }
 
   const checkNow = async () => {
@@ -108,9 +108,9 @@ const Checkout = () => {
 
   const getShippingPrice = async () => {
     const res = await getOrderSetting()
-    const shippingSetting = res.filter((item) => item.code === 'order_运费')[0]
-    const shipPrice = shippingSetting.length > 0 ? shippingSetting[0].context : 0
-    setShippingPrice(Number(shipPrice))
+    const shippingSetting = res.filter((item) => item.code === 'order_运费')
+    const shipPrice = shippingSetting.length > 0 ? Number(shippingSetting[0].context) : 0
+    setShippingPrice(shipPrice)
   }
 
   useDidHide(() => {
@@ -121,7 +121,7 @@ const Checkout = () => {
   useEffect(() => {
     getTotalNum()
     getTotalPrice()
-  }, [tradeItems])
+  }, [tradeItems,shippingPrice])
 
   const getDefaultAddress = async () => {
     const selectAddress = Taro.getStorageSync('select-address')
