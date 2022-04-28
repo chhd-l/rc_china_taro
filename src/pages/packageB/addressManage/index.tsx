@@ -11,7 +11,8 @@ const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddressList = async () => {
-    const res = await getAddresses()
+    const customerInfo=Taro.getStorageSync('wxLoginRes').userInfo
+    const res = await getAddresses({customerId:customerInfo.id})
     setAddressList(res)
   }
 
@@ -48,13 +49,25 @@ const Index = () => {
     })
   }
 
+  const updateIsDefault = (address, value) => {
+    const curAddresses = addressList.map((item) => {
+      if (item.id === address.id) {
+        item.isDefault = value
+      } else {
+        item.isDefault = false
+      }
+      return item
+    })
+    setAddressList(curAddresses)
+  }
+
   return (
     <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 min-h-screen">
       {addressList.map((item: Address) => (
         <AddressItem
           addressInfo={item}
           delAddressSuccess={() => getAddressList()}
-          isDefaultUpdateSuccess={() => getAddressList()}
+          isDefaultUpdateSuccess={updateIsDefault}
         />
       ))}
       <View className="m-0 flex flex-row items-center mt-2 h-20">

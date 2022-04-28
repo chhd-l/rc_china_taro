@@ -128,7 +128,8 @@ const Checkout = () => {
     if (selectAddress) {
       setAddress(JSON.parse(selectAddress))
     } else {
-      const addresses = await getAddresses()
+      const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+      const addresses = await getAddresses({customerId:customerInfo.id})
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])

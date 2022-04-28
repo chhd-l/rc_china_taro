@@ -3,12 +3,12 @@ import { addressListMockData } from '@/mock/customer'
 import Mock from 'mockjs'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
-export const getAddresses = async () => {
+export const getAddresses = async ({customerId}:{customerId:string}) => {
   try {
     if (isMock) {
       return Mock.mock(addressListMockData)
     } else {
-      const addresses = await ApiRoot.addresses().getAddresses({ customerId: baseSetting.customerId })
+      const addresses = await ApiRoot.addresses().getAddresses({ customerId })
       return addresses
     }
   } catch (err) {
