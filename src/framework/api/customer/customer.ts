@@ -55,7 +55,7 @@ export const wxLogin = async () => {
 export const wxBindPhone = async (jsCode) => {
   let wxLoginRes = Taro.getStorageSync('wxLoginRes')
   if (wxLoginRes) {
-    await ApiRoot.customers().wxBindPhone({
+    const res = await ApiRoot.customers().wxBindPhone({
       input: {
         jsCode,
         storeID: '12345678',
@@ -63,5 +63,8 @@ export const wxBindPhone = async (jsCode) => {
         customerId: wxLoginRes.userInfo.id,
       },
     })
+    if (res?.wxBindPhoneNumber) {
+      Taro.showToast({ icon: 'success', title: '绑定成功' })
+    }
   }
 }

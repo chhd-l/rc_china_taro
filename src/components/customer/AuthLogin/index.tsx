@@ -48,12 +48,11 @@ const AuthLogin = () => {
   const login = async () => {
     if (isOpen) {
       const data = await wxRegisterAndLogin().then((res) => {
-        // setLoginButton(false)
-        // setAuthLoginOpened(false)
+        setLoginButton(false)
         return res
       })
       setCustomer(data)
-      // setAuthLoginOpened(false)
+      setTabValue(Tab.BindPhone)
     } else {
       setLoginButton(true)
     }
@@ -79,15 +78,12 @@ const AuthLogin = () => {
   }
 
   const getTel = (e) => {
-    console.log(e)
     Taro.checkSession({
       success: function () {
         wxBindPhone(e.detail.code)
-        console.log('有效')
+        setAuthLoginOpened(false)
       },
-      fail: function () {
-        console.log('无效')
-      },
+      fail: function () {},
     })
   }
 
@@ -131,7 +127,9 @@ const AuthLogin = () => {
                 <AtButton type="primary" openType="getPhoneNumber" onGetPhoneNumber={(e) => getTel(e)}>
                   绑定手机号
                 </AtButton>
-                <AtButton className="border-0 text-gray">暂不绑定</AtButton>
+                <AtButton className="border-0 text-gray" onClick={() => setAuthLoginOpened(false)}>
+                  暂不绑定
+                </AtButton>
               </View>
             </View>
           )}
