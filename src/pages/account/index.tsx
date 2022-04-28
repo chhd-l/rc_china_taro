@@ -4,12 +4,13 @@ import { customerAtom } from '@/store/customer'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { useAtom } from 'jotai'
 // import Announcement from '@/components/common/Announcement'
-import defaultIcon from '@/assets/icons/icon-home.png'
+// import defaultIcon from '@/assets/icons/icon-home.png'
 import { View, Text, Image } from '@tarojs/components'
 import { AtAvatar, AtButton } from 'taro-ui'
 import { useEffect } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
+import {UNPAID_ORDER_ICON,TO_SHIP_ORDER_ICON,SHIPPED_ORDER_ICON} from '@/lib/constants'
 import './index.less'
 
 interface OrderTypeProps {
@@ -19,11 +20,11 @@ interface OrderTypeProps {
 }
 
 const orderTypeList: OrderTypeProps[] = [
-  { label: '待付款', icon: defaultIcon, url: `${routers.orderList}?status=UNPAID` },
-  { label: '待发货', icon: defaultIcon, url: `${routers.orderList}?status=TO_SHIP` },
-  { label: '待收货', icon: defaultIcon, url: `${routers.orderList}?status=SHIPPED` },
-  { label: '退货/退款', icon: defaultIcon, url: '' },
-  { label: '我的卡券', icon: defaultIcon, url: '' },
+  { label: '待付款', icon: UNPAID_ORDER_ICON, url: `${routers.orderList}?status=UNPAID` },
+  { label: '待发货', icon: TO_SHIP_ORDER_ICON, url: `${routers.orderList}?status=TO_SHIP` },
+  { label: '待收货', icon: SHIPPED_ORDER_ICON, url: `${routers.orderList}?status=SHIPPED` },
+  // { label: '退货/退款', icon: defaultIcon, url: '' },
+  // { label: '我的卡券', icon: defaultIcon, url: '' },
 ]
 
 const Account = () => {
