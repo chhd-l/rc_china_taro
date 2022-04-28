@@ -14,7 +14,15 @@ const orderStatusType = {
   VOID: '已取消',
 }
 
-const OrderListComponents = ({ list, operationSuccess }: { list: Order[]; operationSuccess: Function }) => {
+const OrderListComponents = ({
+  list,
+  operationSuccess,
+  openModalTip,
+}: {
+  list: Order[]
+  operationSuccess: Function
+  openModalTip: Function
+}) => {
   const copyText = (orderNumber) => {
     Taro.setClipboardData({
       data: orderNumber,
@@ -74,6 +82,9 @@ const OrderListComponents = ({ list, operationSuccess }: { list: Order[]; operat
                 orderId={item.orderNumber || ''}
                 operationSuccess={() => {
                   operationSuccess && operationSuccess()
+                }}
+                openModalTip={()=>{
+                  openModalTip&&openModalTip()
                 }}
               />
             </View>

@@ -3,6 +3,8 @@ import { AtInputNumber, AtSwipeAction } from 'taro-ui'
 import { formatMoney } from '@/utils/utils'
 import { deleteCart } from '@/framework/api/cart/cart'
 import Taro from '@tarojs/taro'
+import { getOrderSetting } from '@/framework/api/order/order'
+import { useEffect, useState } from 'react'
 import './index.less'
 
 const ProductItem = ({
@@ -16,12 +18,24 @@ const ProductItem = ({
 }) => {
   const { select, goodsNum, id, skuGoodInfo } = product
   const { image, price, specs, tags, name } = product.localData
+  const [maxNum, setMaxNum] = useState(5)
 
   const delCartProduct = async () => {
     console.log('333333')
     await deleteCart({ id, operator: '111' })
     delCartSuccess && delCartSuccess()
   }
+
+  const getMaxNum = async () => {
+    const res = await getOrderSetting()
+    const maxNumSetting = res.filter((item) => item.code === 'order_最大购买物品')
+    const maxCartNum = maxNumSetting.length > 0 ? Number(maxNumSetting[0].context) : 5
+    setMaxNum(maxCartNum)
+  }
+
+  useEffect(() => {
+    getMaxNum()
+  }, [])
 
   return (
     <View>
@@ -75,7 +89,7 @@ const ProductItem = ({
                 <View style={{ marginRight: '20px' }}>
                   <AtInputNumber
                     min={1}
-                    max={10}
+                    max={maxNum}
                     step={1}
                     value={goodsNum}
                     onChange={(value) => {
