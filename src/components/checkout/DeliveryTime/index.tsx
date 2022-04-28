@@ -13,7 +13,7 @@ const DeliveryTime = ({ changeDeliveryDate }: { changeDeliveryDate: Function }) 
 
   return (
     <View className="bg-white mt-2 pl-2 py-2 rounded">
-      <Picker mode="date" value={deliveryTime} onChange={onDateChange}>
+      <Picker mode="date" start={deliveryTime} value={deliveryTime} onChange={onDateChange}>
         <View className="flex flex-row justify-between items-center">
           <View className="text-30">发货时间</View>
           <View>

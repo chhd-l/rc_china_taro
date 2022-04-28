@@ -4,7 +4,7 @@ import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePric
 // import { LineItem } from "@/framework/types/cart";
 import Taro, { useDidHide } from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
-import {createOrder, getOrderSetting} from '@/framework/api/order/order'
+import { createOrder, getOrderSetting } from '@/framework/api/order/order'
 import { AtMessage } from 'taro-ui'
 import omit from 'lodash/omit'
 import routers from '@/routers/index'
@@ -19,7 +19,7 @@ const Checkout = () => {
   const [totalNum, setTotalNum] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
   const [loading, setLoading] = useState(false)
-  const [shippingPrice,setShippingPrice]=useState(0)
+  const [shippingPrice, setShippingPrice] = useState(0)
 
   const changeDeliveryDate = (value) => {
     setDeliveryTime(value)
@@ -61,7 +61,8 @@ const Checkout = () => {
           shoppingCartIds.push(el.id)
         }
       })
-      const addressInfo = omit(address, ['id', 'customerId', 'storeId'])
+      const addressInfo = omit(address, ['id', 'customerId', 'storeId','isDefault'])
+      const user = Taro.getStorageSync('wxLoginRes').userInfo
       const params = {
         goodsList,
         addressInfo,
@@ -69,6 +70,14 @@ const Checkout = () => {
         shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
         expectedShippingDate: new Date(deliveryTime).toISOString(),
         isSubscription: false,
+        customerInfo: {
+          id: user.id,
+          avatarUrl: user.avatarUrl,
+          level: user.level,
+          phone: user.phone,
+          nickName: user.nickName,
+          name: user.name,
+        },
       }
       console.log('create order params', params)
       const res = await createOrder(params)
@@ -97,10 +106,10 @@ const Checkout = () => {
     }
   }
 
-  const getShippingPrice=async ()=>{
-    const res=await getOrderSetting();
-    const shippingSetting=res.filter((item)=>item.code==="order_运费")[0]
-    const shipPrice=shippingSetting.length>0?shippingSetting[0].context:0
+  const getShippingPrice = async () => {
+    const res = await getOrderSetting()
+    const shippingSetting = res.filter((item) => item.code === 'order_运费')[0]
+    const shipPrice = shippingSetting.length > 0 ? shippingSetting[0].context : 0
     setShippingPrice(Number(shipPrice))
   }
 
@@ -141,9 +150,9 @@ const Checkout = () => {
   return (
     <View className="index py-2" style={{ marginBottom: '75rpx' }}>
       <View className="px-4 bg-white">
-        <view className="bggray pb-2 mt-2 rounded">
+        <View className="bggray pb-2 mt-2 rounded">
           <Address address={address} />
-        </view>
+        </View>
         <View className="bggray pb-2 px-2 rounded">
           <TradeItem tradeItems={tradeItems} />
           <View>
@@ -152,9 +161,9 @@ const Checkout = () => {
             <Remark changeRemark={changeRemark} />
           </View>
         </View>
-        <view>
+        <View>
           <TradePrice totalPrice={totalPrice} discountPrice={0} shipPrice={shippingPrice} />
-        </view>
+        </View>
       </View>
       <View className="fixed bottom-0 w-full">
         <TotalCheck num={totalNum} totalPrice={totalPrice} checkNow={checkNow} loading={loading} />

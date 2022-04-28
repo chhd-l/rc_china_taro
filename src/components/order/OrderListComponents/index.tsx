@@ -1,4 +1,4 @@
-import { View, Image, Text } from '@tarojs/components'
+import { View, Image, Text, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { formatMoney } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
@@ -14,7 +14,15 @@ const orderStatusType = {
   VOID: '已取消',
 }
 
-const OrderListComponents = ({ list }: { list: Order[] }) => {
+const OrderListComponents = ({
+  list,
+  operationSuccess,
+  openModalTip,
+}: {
+  list: Order[]
+  operationSuccess: Function
+  openModalTip: Function
+}) => {
   const copyText = (orderNumber) => {
     Taro.setClipboardData({
       data: orderNumber,
@@ -22,11 +30,11 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
   }
 
   return (
-    <View>
-      {list.map((item: Order, idx: number) => {
+    <ScrollView className="OrderListComponents" scrollY>
+      {list.map((item: any, idx: number) => {
         return (
           <View
-            className="card mb-2"
+            className="card"
             key={idx}
             onClick={(e) => {
               e.stopPropagation()
@@ -44,8 +52,8 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
               </View>
               <View className="w-12 text-red-500">{orderStatusType[item?.tradeState?.orderState || '']}</View>
             </View>
-            {(item?.lineItem || []).map((el) => (
-              <View className="w-full h-20 flex mb-4">
+            {(item?.lineItem || []).map((el, index) => (
+              <View key={index} className="w-full h-20 flex mb-4">
                 <View className="w-28 h-full">
                   <Image className="w-full h-full" src={el?.pic} />
                 </View>
@@ -69,12 +77,21 @@ const OrderListComponents = ({ list }: { list: Order[] }) => {
                 {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
                 <Text className="text-red-500">{formatMoney(item.tradePrice.totalPrice)}</Text>
               </View>
-              <OrderAction orderState={item?.tradeState?.orderState || ''} orderId={item.orderNumber || ''} />
+              <OrderAction
+                orderState={item?.tradeState?.orderState || ''}
+                orderId={item.orderNumber || ''}
+                operationSuccess={() => {
+                  operationSuccess && operationSuccess()
+                }}
+                openModalTip={()=>{
+                  openModalTip&&openModalTip()
+                }}
+              />
             </View>
           </View>
         )
       })}
-    </View>
+    </ScrollView>
   )
 }
 

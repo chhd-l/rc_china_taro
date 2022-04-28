@@ -1,4 +1,3 @@
-import './index.less'
 import { View } from '@tarojs/components'
 import cloneDeep from 'lodash.cloneDeep'
 import { AtButton } from 'taro-ui'
@@ -9,16 +8,19 @@ import PetItem from '@/components/customer/PetItem'
 import { initNewPet } from '@/lib/customer'
 import { getCurrentInstance } from '@tarojs/taro'
 import { getAge } from '@/utils/utils'
+import './index.less'
+
 // const pets = Mock.mock(petLists).list;
 // console.info("petLists", pets);
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [showAddPetBtn, SetshowAddPetBtn] = useState(true)
   const { router } = getCurrentInstance()
-  console.info('router', router)
+
   let petNumber = router?.params?.petNumber || '0'
   const getList = async () => {
     let res = (await getPets()) || []
+    console.log('res', res)
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
@@ -26,7 +28,6 @@ const PetList = () => {
     SetshowAddPetBtn(true)
   }
   useEffect(() => {
-    console.info('petNumber', petNumber)
     if (Number(petNumber) > 0) {
       getList()
     } else {
@@ -51,6 +52,7 @@ const PetList = () => {
         return (
           <PetItem
             showAddPetBtn={showAddPetBtn}
+            key={idx}
             SetshowAddPetBtn={SetshowAddPetBtn}
             getList={getList}
             pet={pet}

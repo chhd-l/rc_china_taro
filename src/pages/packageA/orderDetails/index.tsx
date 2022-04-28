@@ -6,6 +6,7 @@ import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/ord
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import { formatMoney } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
+import OrderLogistics from '@/components/order/Logistics'
 import './index.less'
 
 const orderStatusType = {
@@ -17,6 +18,7 @@ const orderStatusType = {
 }
 
 const OrderDetails = () => {
+  const [showLogistic, setShowLogistic] = useState(false)
   const [orderId, setOrderId] = useState('')
   const { router } = getCurrentInstance()
   const [carrierTypes, setCarrierTypes] = useState<any[]>([])
@@ -83,7 +85,13 @@ const OrderDetails = () => {
                 arrow="right"
                 extraText="全部"
                 iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark' }}
+                onClick={() => {
+                  setShowLogistic(!showLogistic)
+                }}
               />
+              {showLogistic && orderDetail?.shippingInfo?.deliveries?.length > 0 ? (
+                <OrderLogistics logistics={orderDetail?.shippingInfo?.deliveries} />
+              ) : null}
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
                 title={`${receiverName || ''} ${phone}`}

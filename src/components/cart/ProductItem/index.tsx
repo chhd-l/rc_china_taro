@@ -31,14 +31,14 @@ const ProductItem = ({
             text: '删除',
             style: {
               backgroundColor: '#d33024',
-              width: '40px',
+              width: '140rpx',
             },
           },
         ]}
         autoClose
         onClick={delCartProduct}
-        areaWidth={Taro.getSystemInfoSync().windowWidth + 40}
-        maxDistance={40}
+        areaWidth={Taro.getSystemInfoSync().windowWidth + 35}
+        maxDistance={60}
       >
         <View
           style={{
@@ -74,7 +74,7 @@ const ProductItem = ({
                 <View className="text-red-500 font-medium text-base">{formatMoney(price)}</View>
                 <View style={{ marginRight: '20px' }}>
                   <AtInputNumber
-                    min={0}
+                    min={1}
                     max={10}
                     step={1}
                     value={goodsNum}
