@@ -53,8 +53,7 @@ const Index = () => {
   }
 
   const saveNewAddress = async () => {
-    console.log('addressInfo', addressInfo)
-    if (!addressInfo.detail && !addressInfo.phone && !addressInfo.province && !addressInfo.receiverName) {
+    if (!addressInfo.detail || !addressInfo.phone || !addressInfo.province || !addressInfo.receiverName) {
       setIsOpen(true)
       return
     } else if (!/^1[3456789]\d{9}$/.test(addressInfo.phone)) {
