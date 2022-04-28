@@ -1,8 +1,9 @@
-import { View } from '@tarojs/components'
+import { Image, View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
 import Taro from '@tarojs/taro'
 import routers from '@/routers'
+import { ADDRESS_ORDER_ICON } from '@/lib/constants'
 
 const AddressInfo = ({ address }: { address: Address | any }) => {
   const { receiverName, phone, province, city, region, detail } = address
@@ -34,9 +35,12 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
         </View>
       ) : (
         <View className="flex flex-row justify-between py-2 items-center">
-          <View className="text-32">新增收货地址</View>
+          <View className="text-32 flex flex-row items-center">
+            <Image className="w-6 h-6 mr-2" src={ADDRESS_ORDER_ICON} />
+            新增收货地址
+          </View>
           <View>
-            <AtIcon value="chevron-right" size="24" onClick={() => selectAddress()} />
+            <AtIcon value="chevron-right" size="24" onClick={() => selectAddress()}/>
           </View>
         </View>
       )}

@@ -7,6 +7,7 @@ import { normalizeTags } from '@/framework/api/lib/normalize'
 import { formatMoney } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
 import OrderLogistics from '@/components/order/Logistics'
+import {LOGISTICS_ORDER_ICON,ADDRESS_ORDER_ICON} from '@/lib/constants'
 import './index.less'
 
 const orderStatusType = {
@@ -84,7 +85,7 @@ const OrderDetails = () => {
                 note={`物流编号： ${orderDetail?.shippingInfo?.trackingId || ''}`}
                 arrow="right"
                 extraText="全部"
-                iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark' }}
+                thumb={LOGISTICS_ORDER_ICON}
                 onClick={() => {
                   setShowLogistic(!showLogistic)
                 }}
@@ -96,7 +97,7 @@ const OrderDetails = () => {
                 className="bg-white flex items-center h-14 mt-2"
                 title={`${receiverName || ''} ${phone}`}
                 note={`${province} ${city} ${region} ${detail}`}
-                iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark' }}
+                thumb={ADDRESS_ORDER_ICON}
               />
             </AtList>
             <AtCard className="m-0 mt-2 border-0" title="订单信息">
