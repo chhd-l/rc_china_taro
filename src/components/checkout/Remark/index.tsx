@@ -1,6 +1,7 @@
-import { View } from '@tarojs/components'
+import { Image, View } from '@tarojs/components'
 import { AtInput } from 'taro-ui'
 import { useState } from 'react'
+import { ORDER_COMMENT_ICON } from '@/lib/constants'
 
 const Remark = ({ changeRemark }: { changeRemark: Function }) => {
   const [remark, setRemark] = useState('')
@@ -13,7 +14,10 @@ const Remark = ({ changeRemark }: { changeRemark: Function }) => {
   return (
     <View className="bg-white mt-2 pl-2 py-2 rounded">
       <View className="flex flex-row justify-between items-center">
-        <View className="text-30 ">备注信息</View>
+        <View className="text-30 flex flex-row items-center">
+          <Image className="w-6 h-6 mr-2" src={ORDER_COMMENT_ICON} />
+          备注信息
+        </View>
         <View>
           <AtInput
             placeholder="请填写需要备注信息"

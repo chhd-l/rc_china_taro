@@ -5,10 +5,8 @@ import { Address } from '@/framework/types/customer'
 import Taro, { useDidHide } from '@tarojs/taro'
 import { deleteAddress, updateAddress } from '@/framework/api/customer/address'
 import routers from '@/routers'
+import {EDIT_ADDRESS_ICON,DELETE_ADDRESS_ICON} from '@/lib/constants'
 import './index.less'
-
-const editIcon = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/edit_address.png'
-const deleteIcon = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/remove_address.png'
 
 const AddressItem = ({
   addressInfo,
@@ -113,7 +111,7 @@ const AddressItem = ({
         <View className="flex flex-row items-center">
           <Image
             style={{ width: '20px', height: '20px' }}
-            src={editIcon}
+            src={EDIT_ADDRESS_ICON}
             onClick={(e) => {
               console.log(e)
               editAddress()
@@ -122,7 +120,7 @@ const AddressItem = ({
           <View className="h-4 border-r border-t-0 border-b-0 border-l-0 border-solid border-gray-300 mx-2" />
           <Image
             style={{ width: '18px', height: '18px' }}
-            src={deleteIcon}
+            src={DELETE_ADDRESS_ICON}
             onClick={() => {
               setShowDelTip(true)
             }}
