@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 import { getCurrentInstance } from '@tarojs/taro'
 import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
-import { formatMoney } from '@/utils/utils'
+import { formatMoney, handleReturnTime } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
 import OrderLogistics from '@/components/order/Logistics'
-import {LOGISTICS_ORDER_ICON,ADDRESS_ORDER_ICON} from '@/lib/constants'
+import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
 import './index.less'
 
 const orderStatusType = {
@@ -133,15 +133,15 @@ const OrderDetails = () => {
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>下单时间</Text>
-                <Text>{orderDetail?.tradeState?.createdAt}</Text>
+                <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>支付方式</Text>
-                <Text>{orderDetail?.payInfo?.payWayCode}</Text>
+                <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>发货时间</Text>
-                <Text>{orderDetail?.shippingInfo?.expectedShippingDate}</Text>
+                <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)}</Text>
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>备注</Text>

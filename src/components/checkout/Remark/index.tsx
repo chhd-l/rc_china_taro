@@ -12,7 +12,7 @@ const Remark = ({ changeRemark }: { changeRemark: Function }) => {
   }
 
   return (
-    <View className="bg-white mt-2 pl-2 py-2 rounded">
+    <View className="bg-white mt-2 pl-2 rounded">
       <View className="flex flex-row justify-between items-center">
         <View className="text-30 flex flex-row items-center">
           <Image className="w-6 h-6 mr-2" src={ORDER_COMMENT_ICON} />

@@ -88,7 +88,7 @@ const Checkout = () => {
         })
         Taro.removeStorageSync('select-product')
         Taro.redirectTo({
-          url: `${routers.orderList}?status=ALL`,
+          url: `${routers.orderList}?status=UNPAID`,
         })
       } else {
         Taro.atMessage({
