@@ -19,9 +19,9 @@ interface OrderTypeProps {
 }
 
 const orderTypeList: OrderTypeProps[] = [
-  { label: '待付款', icon: defaultIcon, url: '/pages/packageA/orderList/index?status=UNPAID' },
-  { label: '待发货', icon: defaultIcon, url: '/pages/packageA/orderList/index?status=TO_SHIP' },
-  { label: '待收货', icon: defaultIcon, url: '/pages/packageA/orderList/index?status=SHIPPED' },
+  { label: '待付款', icon: defaultIcon, url: `${routers.orderList}?status=UNPAID` },
+  { label: '待发货', icon: defaultIcon, url: `${routers.orderList}?status=TO_SHIP` },
+  { label: '待收货', icon: defaultIcon, url: `${routers.orderList}?status=SHIPPED` },
   { label: '退货/退款', icon: defaultIcon, url: '' },
   { label: '我的卡券', icon: defaultIcon, url: '' },
 ]
@@ -96,7 +96,7 @@ const Account = () => {
               className="text-xs"
               onClick={() => {
                 Taro.navigateTo({
-                  url: `/pages/packageA/orderList/index?status=ALL`,
+                  url: `${routers.orderList}?status=ALL`,
                 })
               }}
             >

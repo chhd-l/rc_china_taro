@@ -87,8 +87,8 @@ const Checkout = () => {
           type: 'success',
         })
         Taro.removeStorageSync('select-product')
-        Taro.switchTab({
-          url: routers.cart,
+        Taro.redirectTo({
+          url: `${routers.orderList}?status=ALL`,
         })
       } else {
         Taro.atMessage({

@@ -46,7 +46,9 @@ const OrderList = () => {
     Taro.setNavigationBarTitle({
       title: tabList[value].title,
     })
-    setCurrent(value)
+    const cur=Object.values(OrderStatusEnum).filter((item)=>item===value)[0]
+    setCurrent(Object.keys(OrderStatusEnum)[cur])
+    getOrderLists(Object.keys(OrderStatusEnum)[cur])
   }
 
   return (
