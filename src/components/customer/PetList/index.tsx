@@ -15,9 +15,8 @@ import defaultDogImg from '@/assets/img/defaultdog.png'
 import petBg from '@/assets/img/pet-bg.png'
 import addImg from '@/assets/img/addNew.png'
 import addIcon from '@/assets/img/add.png'
-import femaleIcon from '@/assets/icons/pet/female.png'
-import maleIcon from '@/assets/icons/pet/male.png'
 import './index.less'
+import { femaleIcon, maleIcon } from '@/lib/constants'
 
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
@@ -137,15 +136,15 @@ const PetList = () => {
               </View>
             )}
           </View>
-          <View className="text-26 text-center flex justify-center">
-            <Text className="text-red-600 font-semibold text-sm mx-2">{fakePet[currentIdx].name}</Text>
+          <View className="text-28 text-center flex justify-center">
+            <Text className="text-primary-red font-semibold text-sm mx-2">{fakePet[currentIdx].name}</Text>
             <View
               className="w-4 h-4 mr-2"
               style={{
                 backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
               }}
             ></View>
-            <Text className="text-gray-400">
+            <Text className="text-primary-red text-24">
               {fakePet[currentIdx]?.breed}
               {fakePet[currentIdx]?.age}
             </Text>

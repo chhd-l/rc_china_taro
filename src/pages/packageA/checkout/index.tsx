@@ -65,7 +65,7 @@ const Checkout = () => {
       const user = Taro.getStorageSync('wxLoginRes').userInfo
       const params = {
         goodsList,
-        addressInfo,
+        addressInfo: addressInfo.id !== '' ? addressInfo : null,
         remark,
         shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
         expectedShippingDate: new Date(deliveryTime).toISOString(),
@@ -78,7 +78,7 @@ const Checkout = () => {
           nickName: user.nickName,
           name: user.name,
         },
-        operator:user.nickName
+        operator: user.nickName,
       }
       console.log('create order params', params)
       const res = await createOrder(params)
@@ -130,7 +130,7 @@ const Checkout = () => {
       setAddress(JSON.parse(selectAddress))
     } else {
       const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-      const addresses = await getAddresses({customerId:customerInfo.id})
+      const addresses = await getAddresses({ customerId: customerInfo.id })
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])
