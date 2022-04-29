@@ -144,7 +144,7 @@ const OrderDetails = () => {
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>发货时间</Text>
-                <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)}</Text>
+                <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>备注</Text>
