@@ -6,7 +6,7 @@ import { mockList, mocksearchPrams } from '@/mock/product'
 import { filterListArr, largeButtonClass } from '@/lib/product'
 import SearchFloatLayout from '@/components/product/SearchFloatLayout'
 import SearchLastOrHot from '@/components/product/SearchLastOrHot'
-import {getAttrs, getProducts} from '@/framework/api/product/get-product'
+import { getAttrs, getProducts } from '@/framework/api/product/get-product'
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtButton, AtSearchBar, AtIcon } from 'taro-ui'
@@ -26,9 +26,10 @@ const Search = () => {
   const [hotSearchList, setHotSearchList] = useState<OptionProps[]>([])
   const [lastSearchList, setLastSearchList] = useState<OptionProps[]>([])
   const [openSearchMore, setOpenSearchMore] = useState<boolean>(false)
-  const [filterList, setFilterList] = useState<FilterListItemProps[]>(filterListArr)
+  const [filterList, setFilterList] = useState<FilterListItemProps[]>([])
   const [productList, setProductList] = useState<ProductListItemProps[]>()
   useEffect(() => {
+    getCatOrDogAttrs('cat')
     getList()
     getHotList()
     getLastList()
@@ -92,10 +93,10 @@ const Search = () => {
     console.info('seach', value)
   }
 
-  const getCatOrDogAttrs=async (type:string)=>{
+  const getCatOrDogAttrs = async (type: string) => {
     // gou:8 cat:10
-    const res=await getAttrs({ storeId:"12345678", categoryId:type==='cat'?"10":'8' })
-    console.log('get cat Attrs',res)
+    const res = await getAttrs({ storeId: '12345678', categoryId: type === 'cat' ? '10' : '8' })
+    console.log('get cat Attrs', res)
     setFilterList(res)
   }
 
@@ -123,7 +124,7 @@ const Search = () => {
             searchList={lastSearchList}
           />
         ) : null}
-        <SearchLastOrHot
+        {/* <SearchLastOrHot
           handleLastSearch={handleLastSearch}
           titleLeft="热门搜索"
           titleRight={
@@ -132,16 +133,26 @@ const Search = () => {
             </View>
           }
           searchList={hotSearchList}
-        />
+        /> */}
 
         <View className=" pb-2">
           <View className="text-xs font-semibold pb-2">我想搜</View>
           <View className="flex text-xs justify-between">
             <View className="flex-1 flex">
-              <AtButton className={largeButtonClass} onClick={() => {getCatOrDogAttrs('cat')}}>
+              <AtButton
+                className={largeButtonClass}
+                onClick={() => {
+                  getCatOrDogAttrs('cat')
+                }}
+              >
                 猫产品
               </AtButton>
-              <AtButton className={largeButtonClass} onClick={() => {getCatOrDogAttrs('dog')}}>
+              <AtButton
+                className={largeButtonClass}
+                onClick={() => {
+                  getCatOrDogAttrs('dog')
+                }}
+              >
                 狗产品
               </AtButton>
             </View>
