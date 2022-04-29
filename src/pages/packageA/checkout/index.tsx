@@ -78,6 +78,7 @@ const Checkout = () => {
           nickName: user.nickName,
           name: user.name,
         },
+        operator:user.nickName
       }
       console.log('create order params', params)
       const res = await createOrder(params)

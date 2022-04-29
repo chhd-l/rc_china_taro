@@ -5,7 +5,6 @@ import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const createOrder = async (params: any) => {
   try {
-    params = Object.assign(params, { operator: 'test用户001' })
     const res = await ApiRoot.orders().createOrder({
       body: Object.assign(params, { storeId: baseSetting.storeId }),
     })

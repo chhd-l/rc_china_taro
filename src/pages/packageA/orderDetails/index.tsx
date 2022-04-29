@@ -84,7 +84,7 @@ const OrderDetails = () => {
                 title={`物流公司：${getCarrierType()}`}
                 note={`物流编号： ${orderDetail?.shippingInfo?.trackingId || ''}`}
                 arrow="right"
-                extraText="全部"
+                extraText="查看"
                 thumb={LOGISTICS_ORDER_ICON}
                 onClick={() => {
                   setShowLogistic(!showLogistic)
