@@ -37,7 +37,7 @@ export const normalizeProductForFe = (goods: any): any => {
       case 'Technology':
         let value = attr.attributeValueName == 'WetFood' && '每日一包'
         value = attr.attributeValueName == 'can' && '两日一罐'
-        tagStr = `建议干湿搭配:${value}`
+        tagStr = value ? `建议干湿搭配:${value}` : ''
         break
     }
     tags.push(tagStr)
