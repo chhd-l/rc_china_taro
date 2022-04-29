@@ -119,12 +119,13 @@ export const normalizeProductsforFe = (data: any) => {
 }
 export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): string[] => {
   return goodsSpecificationRel?.map((el) => {
+    debugger
     let specObj = goodsSpecifications.find((spec) => spec.id === el.goodsSpecificationId)
-    let specDetailName = specObj.goodsSpecificationDetail?.find(
+    let specDetailName = specObj?.goodsSpecificationDetail?.find(
       (specDetail) => specDetail.id === el.goodsSpecificationDetailId,
     )?.specificationDetailName
     console.info('goodsSpecificationDetailId', specDetailName)
-    return specDetailName
+    return specDetailName || ''
   })
 }
 
