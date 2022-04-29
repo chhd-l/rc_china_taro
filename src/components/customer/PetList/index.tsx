@@ -113,7 +113,7 @@ const PetList = () => {
                   <View className="text-center h-full">
                     {pet.id != '-1' ? (
                       <View
-                        className={`w-16 bg-white h-full rounded-full shadow-md flex items-center justify-center  ${
+                        className={`w-16 h-16 bg-white h-full rounded-full shadow-md flex items-center justify-center  ${
                           currentIdx === idx ? '' : 'scale-75 transform '
                         }`}
                       >
@@ -138,15 +138,17 @@ const PetList = () => {
             )}
           </View>
           <View className="text-26 text-center flex justify-center">
-            <Text className="text-red-600 font-semibold text-24 mx-2">{fakePet[currentIdx].name}</Text>
+            <Text className="text-red-600 font-semibold text-sm mx-2">{fakePet[currentIdx].name}</Text>
             <View
               className="w-4 h-4 mr-2"
               style={{
                 backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
               }}
             ></View>
-            {fakePet[currentIdx]?.breed}
-            {fakePet[currentIdx]?.age}
+            <Text className="text-gray-400">
+              {fakePet[currentIdx]?.breed}
+              {fakePet[currentIdx]?.age}
+            </Text>
           </View>
         </View>
       ) : (

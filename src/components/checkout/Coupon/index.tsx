@@ -1,6 +1,7 @@
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
 import { useState } from 'react'
+import { VOUCHER_ORDER_ICON } from '@/lib/constants'
 
 const Coupon = () => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
@@ -12,7 +13,10 @@ const Coupon = () => {
   return (
     <View className="bg-white mt-2 pl-2 py-2 rounded ">
       <View className="flex flex-row justify-between items-center">
-        <View className="text-30">优惠券</View>
+        <View className="text-30 flex flex-row items-center">
+          <Image className="w-6 h-6 mr-2" src={VOUCHER_ORDER_ICON} />
+          优惠券
+        </View>
         <View>
           <View>
             <Text className="text-xs text-gray-400">无</Text>

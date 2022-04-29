@@ -63,3 +63,12 @@ export const getAge = (birthdayStr) => {
     return '1个月'
   }
 }
+
+export const handleReturnTime = (time: any) => {
+  if (time !== null && time !== undefined && time !== '') {
+    const date = time.split('T')
+    return date[0] + ' ' + date[1].split('.')[0].split('Z')[0]
+  } else {
+    return ''
+  }
+}

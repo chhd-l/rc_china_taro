@@ -78,6 +78,7 @@ const Checkout = () => {
           nickName: user.nickName,
           name: user.name,
         },
+        operator:user.nickName
       }
       console.log('create order params', params)
       const res = await createOrder(params)
@@ -88,7 +89,7 @@ const Checkout = () => {
         })
         Taro.removeStorageSync('select-product')
         Taro.redirectTo({
-          url: `${routers.orderList}?status=ALL`,
+          url: `${routers.orderList}?status=UNPAID`,
         })
       } else {
         Taro.atMessage({
@@ -128,7 +129,8 @@ const Checkout = () => {
     if (selectAddress) {
       setAddress(JSON.parse(selectAddress))
     } else {
-      const addresses = await getAddresses()
+      const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+      const addresses = await getAddresses({customerId:customerInfo.id})
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])

@@ -4,9 +4,10 @@ import { useEffect, useState } from 'react'
 import { getCurrentInstance } from '@tarojs/taro'
 import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
-import { formatMoney } from '@/utils/utils'
+import { formatMoney, handleReturnTime } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
 import OrderLogistics from '@/components/order/Logistics'
+import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
 import './index.less'
 
 const orderStatusType = {
@@ -37,9 +38,14 @@ const OrderDetails = () => {
       totalPrice: 0,
       discountsPrice: 0,
     },
+    shippingInfo: {
+      trackingId: '',
+      deliveries: [],
+    },
   })
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
   const { totalPrice, discountsPrice } = orderDetail?.tradePrice
+  const { trackingId, deliveries } = orderDetail?.shippingInfo
 
   const getOrder = async () => {
     const res = await getOrderDetail({ orderNum: orderId })
@@ -81,22 +87,20 @@ const OrderDetails = () => {
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
                 title={`物流公司：${getCarrierType()}`}
-                note={`物流编号： ${orderDetail?.shippingInfo?.trackingId || ''}`}
-                arrow="right"
-                extraText="全部"
-                iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark' }}
+                note={`物流编号： ${trackingId || ''}`}
+                arrow={trackingId ? 'right' : undefined}
+                extraText={trackingId ? '查看' : ''}
+                thumb={LOGISTICS_ORDER_ICON}
                 onClick={() => {
                   setShowLogistic(!showLogistic)
                 }}
               />
-              {showLogistic && orderDetail?.shippingInfo?.deliveries?.length > 0 ? (
-                <OrderLogistics logistics={orderDetail?.shippingInfo?.deliveries} />
-              ) : null}
+              {showLogistic && deliveries && deliveries?.length > 0 ? <OrderLogistics logistics={deliveries} /> : null}
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
                 title={`${receiverName || ''} ${phone}`}
                 note={`${province} ${city} ${region} ${detail}`}
-                iconInfo={{ size: 25, color: '#FF4949', value: 'bookmark' }}
+                thumb={ADDRESS_ORDER_ICON}
               />
             </AtList>
             <AtCard className="m-0 mt-2 border-0" title="订单信息">
@@ -132,15 +136,15 @@ const OrderDetails = () => {
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>下单时间</Text>
-                <Text>{orderDetail?.tradeState?.createdAt}</Text>
+                <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>支付方式</Text>
-                <Text>{orderDetail?.payInfo?.payWayCode}</Text>
+                <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>发货时间</Text>
-                <Text>{orderDetail?.shippingInfo?.expectedShippingDate}</Text>
+                <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)}</Text>
               </View>
               <View className="flex items-center justify-between h-6 boderTop">
                 <Text>备注</Text>

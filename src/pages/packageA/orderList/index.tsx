@@ -23,13 +23,16 @@ const OrderList = () => {
   const { router } = getCurrentInstance()
 
   const getOrderLists = async (status) => {
+    const customerInfo=Taro.getStorageSync('wxLoginRes').userInfo
     const res = await getOrderList({
       storeId: '12345678',
       operator: 'zz',
       limit: 10,
       offset: 0,
       isNeedTotal: true,
-      sample: Object.assign({}, status !== 'ALL' ? { orderState: status } : {}),
+      sample: Object.assign({
+        customerId:customerInfo.id
+      }, status !== 'ALL' ? { orderState: status } : {}),
     })
     console.log('order list data', res)
     setOrderList(res?.records)
