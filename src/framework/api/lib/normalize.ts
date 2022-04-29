@@ -95,7 +95,7 @@ export const normalizeSkuForFe = (
     tags: tags.filter((el) => el), //筛选有数据的展示
     img: [sku.defaultImage],
     specString: '',
-    specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.filter((el) => el),
+    specText: [normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.filter((el) => el)[0]],
     specIds:
       sku.goodsSpecificationRel?.map((el) => {
         return el.goodsSpecificationDetailId
