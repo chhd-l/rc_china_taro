@@ -41,15 +41,21 @@ const AddressItem = ({
   }
 
   const setAsDefault = async () => {
-    const res = await updateAddress({
-      params: {
-        customerId: addressInfo.customerId,
-        id: addressInfo.id,
-        isDefault: !addressInfo.isDefault,
-      },
-    })
-    if (res) {
-      isDefaultUpdateSuccess && isDefaultUpdateSuccess(addressInfo, !addressInfo.isDefault)
+    const value=!addressInfo.isDefault
+    if(value){
+      const res = await updateAddress({
+        params: {
+          customerId: addressInfo.customerId,
+          id: addressInfo.id,
+          isDefault: !addressInfo.isDefault,
+        },
+      })
+      if (res) {
+        isDefaultUpdateSuccess && isDefaultUpdateSuccess(addressInfo, !addressInfo.isDefault)
+      }
+    }else{
+      //不允许将默认地址设置成非默认地址
+      return false
     }
   }
 
