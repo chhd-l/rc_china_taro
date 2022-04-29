@@ -1,5 +1,5 @@
 import { View, Image, Text } from '@tarojs/components'
-import { AtList, AtListItem, AtCard } from 'taro-ui'
+import { AtList, AtListItem, AtCard, AtCountdown } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { getCurrentInstance } from '@tarojs/taro'
 import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
@@ -79,22 +79,30 @@ const OrderDetails = () => {
     <View className="OrderDetails">
       {orderDetail?.orderNumber ? (
         <>
-          <View className="flex items-center justify-center w-full h-20 bg-red-600 font-bold text-white mb-2">
-            {orderStatusType[orderDetail?.tradeState?.orderState || '']}
+          <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 ">
+            <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
+            {orderDetail?.tradeState?.orderState === 'UNPAID' && (
+              <View>
+                <AtCountdown format={{ hours: ':', minutes: ':', seconds: '' }} minutes={30} seconds={0} />
+                后取消订单
+              </View>
+            )}
           </View>
           <View className="bodyContext">
             <AtList className="ListBg">
-              <AtListItem
-                className="bg-white flex items-center h-14 mt-2"
-                title={`物流公司：${getCarrierType()}`}
-                note={`物流编号： ${trackingId || ''}`}
-                arrow={trackingId ? 'right' : undefined}
-                extraText={trackingId ? '查看' : ''}
-                thumb={LOGISTICS_ORDER_ICON}
-                onClick={() => {
-                  setShowLogistic(!showLogistic)
-                }}
-              />
+              {trackingId ? (
+                <AtListItem
+                  className="bg-white flex items-center h-14 mt-2"
+                  title={`物流公司：${getCarrierType()}`}
+                  note={`物流编号： ${trackingId || ''}`}
+                  arrow="right"
+                  extraText="查看"
+                  thumb={LOGISTICS_ORDER_ICON}
+                  onClick={() => {
+                    setShowLogistic(!showLogistic)
+                  }}
+                />
+              ) : null}
               {showLogistic && deliveries && deliveries?.length > 0 ? <OrderLogistics logistics={deliveries} /> : null}
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
