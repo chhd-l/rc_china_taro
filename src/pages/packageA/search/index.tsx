@@ -6,7 +6,7 @@ import { mockList, mocksearchPrams } from '@/mock/product'
 import { filterListArr, largeButtonClass } from '@/lib/product'
 import SearchFloatLayout from '@/components/product/SearchFloatLayout'
 import SearchLastOrHot from '@/components/product/SearchLastOrHot'
-import { getProducts } from '@/framework/api/product/get-product'
+import {getAttrs, getProducts} from '@/framework/api/product/get-product'
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
 import { AtButton, AtSearchBar, AtIcon } from 'taro-ui'
@@ -92,6 +92,13 @@ const Search = () => {
     console.info('seach', value)
   }
 
+  const getCatOrDogAttrs=async (type:string)=>{
+    // gou:8 cat:10
+    const res=await getAttrs({ storeId:"12345678", categoryId:type==='cat'?"10":'8' })
+    console.log('get cat Attrs',res)
+    setFilterList(res)
+  }
+
   return (
     <View className="search">
       <View className=" p-2">
@@ -131,10 +138,10 @@ const Search = () => {
           <View className="text-xs font-semibold pb-2">我想搜</View>
           <View className="flex text-xs justify-between">
             <View className="flex-1 flex">
-              <AtButton className={largeButtonClass} onClick={() => {}}>
+              <AtButton className={largeButtonClass} onClick={() => {getCatOrDogAttrs('cat')}}>
                 猫产品
               </AtButton>
-              <AtButton className={largeButtonClass} onClick={() => {}}>
+              <AtButton className={largeButtonClass} onClick={() => {getCatOrDogAttrs('dog')}}>
                 狗产品
               </AtButton>
             </View>
