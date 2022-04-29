@@ -119,7 +119,7 @@ export const normalizeProductsforFe = (data: any) => {
 }
 export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): string[] => {
   return goodsSpecificationRel?.map((el) => {
-    debugger
+    // debugger
     let specObj = goodsSpecifications.find((spec) => spec.id === el.goodsSpecificationId)
     let specDetailName = specObj?.goodsSpecificationDetail?.find(
       (specDetail) => specDetail.id === el.goodsSpecificationDetailId,
@@ -187,4 +187,19 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
   })
   tags = feedingDays ? [...tags, `建议饲喂天数:${feedingDays}天`] : [...tags]
   return tags
+}
+
+export const normalizeCatOrDogAttr=(atrrs)=>{
+  return atrrs.map((item)=>{
+    return {
+      key:item.attributeNameEn,
+      label:item.attributeName,
+      list:item.values.map((el)=>{
+        return {
+          value:el.attributeValueNameEn,
+          label:el.attributeValueName
+        }
+      })
+    }
+  })
 }
