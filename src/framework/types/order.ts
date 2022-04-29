@@ -82,17 +82,17 @@ export interface Order {
   logs?: Logs
   remark?: string
   buyer?: Buyer
-  shippingInfo?: ShippingInfo
+  shippingInfo: ShippingInfo
 }
 
 export interface ShippingInfo {
-  shippingTime: string
-  expectedShippingDate: string
-  shippingCompany: string
-  trackingId: string
-  isReturn: string
-  status: string
-  deliveries: DeliveryInfo[]|any
+  shippingTime?: string
+  expectedShippingDate?: string
+  shippingCompany?: string
+  trackingId?: string
+  isReturn?: string
+  status?: string
+  deliveries?: DeliveryInfo[]
 }
 
 export interface DeliveryInfo {

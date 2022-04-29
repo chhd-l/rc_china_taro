@@ -38,9 +38,14 @@ const OrderDetails = () => {
       totalPrice: 0,
       discountsPrice: 0,
     },
+    shippingInfo: {
+      trackingId: '',
+      deliveries: [],
+    },
   })
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
   const { totalPrice, discountsPrice } = orderDetail?.tradePrice
+  const { trackingId, deliveries } = orderDetail?.shippingInfo
 
   const getOrder = async () => {
     const res = await getOrderDetail({ orderNum: orderId })
@@ -82,17 +87,15 @@ const OrderDetails = () => {
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
                 title={`物流公司：${getCarrierType()}`}
-                note={`物流编号： ${orderDetail?.shippingInfo?.trackingId || ''}`}
-                arrow="right"
-                extraText="查看"
+                note={`物流编号： ${trackingId || ''}`}
+                arrow={trackingId ? 'right' : undefined}
+                extraText={trackingId ? '查看' : ''}
                 thumb={LOGISTICS_ORDER_ICON}
                 onClick={() => {
                   setShowLogistic(!showLogistic)
                 }}
               />
-              {showLogistic && orderDetail?.shippingInfo?.deliveries?.length > 0 ? (
-                <OrderLogistics logistics={orderDetail?.shippingInfo?.deliveries} />
-              ) : null}
+              {showLogistic && deliveries && deliveries?.length > 0 ? <OrderLogistics logistics={deliveries} /> : null}
               <AtListItem
                 className="bg-white flex items-center h-14 mt-2"
                 title={`${receiverName || ''} ${phone}`}
