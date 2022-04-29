@@ -57,7 +57,7 @@ export const normalizeProductForFe = (goods: any): any => {
     description: goods.goodsDescription,
     specifications:
       goods.goodsSpecifications
-        .map((spec) => {
+        ?.map((spec) => {
           let item = {
             id: spec.id,
             name: spec.specificationName,
@@ -95,7 +95,7 @@ export const normalizeSkuForFe = (
     tags: tags.filter((el) => el), //筛选有数据的展示
     img: [sku.defaultImage],
     specString: '',
-    specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications).filter((el) => el),
+    specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.filter((el) => el),
     specIds:
       sku.goodsSpecificationRel?.map((el) => {
         return el.goodsSpecificationDetailId
@@ -105,7 +105,7 @@ export const normalizeSkuForFe = (
   return item
 }
 export const normalizeProductsforFe = (data: any) => {
-  let list = data.map((item) => {
+  let list = data?.map((item) => {
     return {
       name: item.cardName,
       img: item.goodsAsserts[0]?.artworkUrl,
@@ -118,9 +118,9 @@ export const normalizeProductsforFe = (data: any) => {
   return list
 }
 export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): string[] => {
-  return goodsSpecificationRel.map((el) => {
+  return goodsSpecificationRel?.map((el) => {
     let specObj = goodsSpecifications.find((spec) => spec.id === el.goodsSpecificationId)
-    let specDetailName = specObj.goodsSpecificationDetail.find(
+    let specDetailName = specObj.goodsSpecificationDetail?.find(
       (specDetail) => specDetail.id === el.goodsSpecificationDetailId,
     )?.specificationDetailName
     console.info('goodsSpecificationDetailId', specDetailName)

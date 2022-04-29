@@ -39,7 +39,7 @@ const Checkout = () => {
     const total = tradeItems.reduce((prev, cur) => {
       return prev + cur.goodsNum * cur.localData.price
     }, 0)
-    setTotalPrice(total+shippingPrice)
+    setTotalPrice(total + shippingPrice)
   }
 
   const checkNow = async () => {
@@ -50,7 +50,7 @@ const Checkout = () => {
           num: el.goodsNum,
           id: el.goodsId || '',
         })
-        el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications.map((item) => {
+        el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications?.map((item) => {
           return Object.assign(item, { goodsId: item.id })
         })
         return el.skuGoodInfo
@@ -61,7 +61,7 @@ const Checkout = () => {
           shoppingCartIds.push(el.id)
         }
       })
-      const addressInfo = omit(address, ['id', 'customerId', 'storeId','isDefault'])
+      const addressInfo = omit(address, ['id', 'customerId', 'storeId', 'isDefault'])
       const user = Taro.getStorageSync('wxLoginRes').userInfo
       const params = {
         goodsList,
@@ -121,7 +121,7 @@ const Checkout = () => {
   useEffect(() => {
     getTotalNum()
     getTotalPrice()
-  }, [tradeItems,shippingPrice])
+  }, [tradeItems, shippingPrice])
 
   const getDefaultAddress = async () => {
     const selectAddress = Taro.getStorageSync('select-address')

@@ -50,7 +50,9 @@ const ProductDetail = () => {
     let detailData = (await getProduct({ storeId: baseSetting.storeId, goodsId })) || detailInfo
     if (detailData?.skus?.length) {
       detailData.skus.forEach((sku) => {
-        sku.img.push(...detailData.img)
+        if (detailData?.img) {
+          sku.img.push(...detailData.img)
+        }
       })
     }
     let selecteds = {}
@@ -127,7 +129,7 @@ const ProductDetail = () => {
               src={detailInfo.description}
               className="w-full"
             />{' '}
-            {/* <RichText nodes={detailInfo.description} /> */}
+            {/* <RichText className="w-full" nodes={detailInfo.description} /> */}
           </View>
           <ChooseSpec
             isAble={isAble}

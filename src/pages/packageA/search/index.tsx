@@ -34,7 +34,7 @@ const Search = () => {
     getLastList()
   }, [])
   const getList = async () => {
-    let res = await getProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 1 })
+    let res = await getProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 0 })
     setProductList(res)
   }
   const getHotList = () => {
