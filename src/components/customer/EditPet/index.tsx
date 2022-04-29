@@ -42,7 +42,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
   const handleSave = async () => {
-    if (!petInfo.name && !petInfo.breed && !petInfo.birthday) {
+    if (!petInfo.name || !petInfo.breed || !petInfo.birthday) {
       setIsOpen(true)
       return
     }

@@ -61,19 +61,53 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
   return (
     <View className="my-2 mx-3">
       <View className=" rounded-lg overflow-hidden">
-        <AtSwipeAction
-          className="PetItem"
-          autoClose
-          onClick={(val) => {
-            handleClick(val, petIdx)
-          }}
-          disabled={petIdx === editActive}
-          isOpened={pet.isOpened}
-          options={editPetButton}
-          maxDistance={134}
-          //   areaWidth={380}
-          areaWidth={Taro.getSystemInfoSync().windowWidth}
-        >
+        {pet.id !== '-1' ? (
+          <AtSwipeAction
+            className="PetItem"
+            autoClose
+            onClick={(val) => {
+              console.log('val', val)
+              handleClick(val, petIdx)
+            }}
+            disabled={petIdx === editActive}
+            isOpened={pet.isOpened}
+            options={editPetButton}
+            maxDistance={134}
+            //   areaWidth={380}
+            areaWidth={Taro.getSystemInfoSync().windowWidth}
+          >
+            <View
+              className="text-center pt-14 pb-2 w-screen"
+              style={{ backgroundImage: `url(${petBg})` }}
+              onClick={() => {
+                showEdit(petIdx)
+              }}
+            >
+              {isEdit ? (
+                <AtImagePicker
+                  className="w-20 h-20 m-auto relative"
+                  length={1}
+                  files={[{ url: addImg || pet.image }]}
+                  onChange={(files) => {
+                    handleImage(files, petIdx)
+                  }}
+                />
+              ) : (
+                <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
+                  <Image src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg} className={`w-12 h-12 m-auto `} />
+                </View>
+              )}
+              {pet.id === '-1' ? null : (
+                <View className="flex justify-center pt-3">
+                  <View className="text-30 text-red-600 pr-3 font-medium">{pet.name}</View>
+                  <View className="text-26">
+                    {pet.breed} {pet.age}
+                  </View>
+                </View>
+              )}
+            </View>
+          </AtSwipeAction>
+        ) : (
           <View
             className="text-center pt-14 pb-2 w-screen"
             style={{ backgroundImage: `url(${petBg})` }}
@@ -81,51 +115,16 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               showEdit(petIdx)
             }}
           >
-            {isEdit ? (
-              <AtImagePicker
-                className="w-20 h-20 m-auto relative"
-                length={1}
-                files={[{ url: addImg || pet.image }]}
-                onChange={(files) => {
-                  console.info('files', files)
-                  // Taro.uploadFile({
-                  //   url: "https://example.weixin.qq.com/upload", //仅为示例，非真实的接口地址
-                  //   filePath: files[files.length - 1].url,
-                  //   name: "file",
-                  //   formData: {
-                  //     user: "test",
-                  //   },
-                  //   success(res) {
-                  //     const data = res.data;
-                  //     console.info("upload", data);
-                  //   },
-                  // });
-                  handleImage(files, petIdx)
-                }}
-              />
-            ) : (
-              <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
-                <Image
-                  src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
-                  // src={pet.image}
-                  className={`w-12 h-12 m-auto `}
-                />
-              </View>
-              // <Image
-              //   className="w-20 h-20 rounded-full m-auto border border-solid border-gray-300"
-              //   src={defaultImg || pet.image}
-              // />
-            )}
-            {pet.id === '-1' ? null : (
-              <View className="flex justify-center pt-3">
-                <View className="text-30 text-red-600 pr-3 font-medium">{pet.name}</View>
-                <View className="text-26">
-                  {pet.breed} {pet.age}
-                </View>
-              </View>
-            )}
+            <AtImagePicker
+              className="w-20 h-20 m-auto relative"
+              length={1}
+              files={[{ url: addImg || pet.image }]}
+              onChange={(files) => {
+                handleImage(files, petIdx)
+              }}
+            />
           </View>
-        </AtSwipeAction>
+        )}
       </View>
       {isEdit ? (
         <EditPet
