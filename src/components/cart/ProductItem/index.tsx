@@ -51,8 +51,8 @@ const ProductItem = ({
         ]}
         autoClose
         onClick={delCartProduct}
-        areaWidth={Taro.getSystemInfoSync().windowWidth + 40}
-        maxDistance={40}
+        areaWidth={Taro.getSystemInfoSync().windowWidth}
+        maxDistance={60}
       >
         <View
           style={{
