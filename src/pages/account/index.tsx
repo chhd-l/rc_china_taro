@@ -10,7 +10,7 @@ import { AtAvatar, AtButton } from 'taro-ui'
 import { useEffect } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
-import {UNPAID_ORDER_ICON,TO_SHIP_ORDER_ICON,SHIPPED_ORDER_ICON} from '@/lib/constants'
+import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON } from '@/lib/constants'
 import './index.less'
 
 interface OrderTypeProps {
@@ -49,13 +49,13 @@ const Account = () => {
                 <AtAvatar circle size="large" image={customerInfo?.avatarUrl} />
                 <View className="flex-col ml-4">
                   <View className="flex item-center">
-                    <Text className="text-black font-semibold text-32">{customerInfo.nickName}</Text>
+                    <Text className="text-black font-semibold text-32  mr-2">{customerInfo.nickName}</Text>
                     <AtAvatar
                       circle
                       className="w-4 h-4 leading-none bg-center"
                       image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
                     />
-                    <Text className="text-24 ml-2">{customerInfo.level}</Text>
+                    <Text className="text-24 ml-1">{customerInfo.level}</Text>
                   </View>
                   <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points || 0}</View>
                 </View>

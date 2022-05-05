@@ -12,11 +12,11 @@ import { getAge } from '@/utils/utils'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import defaultCatImg from '@/assets/img/default.png'
 import defaultDogImg from '@/assets/img/defaultdog.png'
-import petBg from '@/assets/img/pet-bg.png'
+// import petBg from '@/assets/img/pet-bg.png'
 import addImg from '@/assets/img/addNew.png'
 import addIcon from '@/assets/img/add.png'
 import './index.less'
-import { femaleIcon, maleIcon } from '@/lib/constants'
+import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
 
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
@@ -92,7 +92,7 @@ const PetList = () => {
       </View>
       {fakePet.length ? (
         <View>
-          <View className="w-full flex item-center">
+          <View className="w-full flex items-center">
             <Swiper
               style={{ height: '80px' }}
               className="w-full"
@@ -136,10 +136,10 @@ const PetList = () => {
               </View>
             )}
           </View>
-          <View className="text-28 text-center flex justify-center">
+          <View className="text-28 text-center flex justify-center items-center">
             <Text className="text-primary-red font-semibold text-sm mx-2">{fakePet[currentIdx].name}</Text>
             <View
-              className="w-4 h-4 mr-2"
+              className="w-4 h-4 mr-2  bg-contain"
               style={{
                 backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
               }}

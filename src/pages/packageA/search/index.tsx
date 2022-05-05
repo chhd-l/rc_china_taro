@@ -34,7 +34,27 @@ const Search = () => {
     getHotList()
     getLastList()
   }, [])
-  const getList = async () => {
+  const getList = async (categoryId?: string) => {
+    let params: any = {}
+    if (categoryId) {
+      params.categoryId = categoryId
+    }
+    filterList.map((el) => {
+      el.list
+        .filter((cel) => cel.active)
+        .map((val) => {
+          if (!params.attributeIds) {
+            params.attributeIds = []
+          }
+
+          if (!params.attributeIds) {
+            params.attributeIds = []
+          }
+          params.goodsCategoryId = val.categoryId
+          params.attributeIds.push(val.attributeId)
+          params.attributeValueIds.push(val.value)
+        })
+    })
     let res = await getProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 0 })
     setProductList(res)
   }
@@ -95,6 +115,7 @@ const Search = () => {
 
   const getCatOrDogAttrs = async (type: string) => {
     // gou:8 cat:10
+
     const res = await getAttrs({ storeId: '12345678', categoryId: type === 'cat' ? '10' : '8' })
     console.log('get cat Attrs', res)
     setFilterList(res)
@@ -171,10 +192,11 @@ const Search = () => {
           setOpenSearchMore={setOpenSearchMore}
           filterList={filterList}
           setFilterList={setFilterList}
+          getCatOrDogAttrs={getCatOrDogAttrs}
           handleSearch={handleSearch}
         />
         <View className="text-xs">
-          <SearchFilters filterList={filterList.slice(0, 2)} setFilterList={setFilterList} />
+          <SearchFilters isSearchNow={true} filterList={filterList?.slice(0, 2)} setFilterList={setFilterList} />
         </View>
       </View>
       {productList?.length ? <List list={productList} /> : null}

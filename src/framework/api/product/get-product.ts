@@ -4,7 +4,7 @@ import { products } from '@/framework/mock/products'
 import { ProductDetailProps } from '@/framework/types/products'
 // import { ProductDetailProps } from '@/framework/types/products'
 import ApiRoot from '../fetcher'
-import {normalizeCatOrDogAttr, normalizeProductForFe, normalizeProductsforFe} from '../lib/normalize'
+import { normalizeCatOrDogAttr, normalizeProductForFe, normalizeProductsforFe } from '../lib/normalize'
 
 export const getProduct = async ({ storeId, goodsId }) => {
   try {
@@ -58,7 +58,7 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string; categ
       categoryId,
     })
     console.log('getProductBySkuId view', res)
-    return normalizeCatOrDogAttr(res?.getAttributes||[])
+    return normalizeCatOrDogAttr(res?.getAttributes || [], categoryId)
   } catch (err) {
     console.log(err, 'err')
   }
