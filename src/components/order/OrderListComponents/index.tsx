@@ -65,14 +65,14 @@ const OrderListComponents = ({
               <View className="w-full h-full flex flex-col pl-3">
                 <View className="text-xs font-black mb-1">{el?.skuName}</View>
                 <View className="text-red-500 flex ProductIntroduction justify-between items-center">
-                  <View className="flex">
+                  <View className="flex flex-row flex-wrap">
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                      <View className="px-1 border rounded-lg border-solid border-red-500">{tag}</View>
+                      <View className="px-1 border rounded-lg border-solid border-red-500 mr-2 mt-2">{tag}</View>
                     ))}
                   </View>
                   <View>X{el?.num}</View>
                 </View>
-                <View className="mt-8 ProductIntroduction">规格：{el?.goodsSpecifications}</View>
+                <View className=" mt-2 items-end ProductIntroduction">规格：{el?.goodsSpecifications}</View>
               </View>
             </View>
           ))}
