@@ -1,47 +1,60 @@
 .OrderDetails {
-    height: 100vh;
+  height: 100vh;
+  background-color: #efefef;
+
+  .bodyContext {
+    padding: 0 10rpx;
+    .at-card__header {
+      border-bottom: 1px solid rgb(232, 232, 232);
+    }
+  }
+
+  .ListBg {
     background-color: #efefef;
+  }
 
-    .bodyContext {
-        padding: 0 10rpx;
-        .at-card__header {
-            border-bottom: 1px solid rgb(232, 232, 232);
-        }
-    }
+  .at-list__item-container {
+    width: 100%;
+    font-size: 24rpx;
+  }
 
-    .ListBg {
-        background-color: #efefef;
-    }
+  .item-content__info-note {
+    font-size: 24rpx;
+  }
 
-    .at-list__item-container {
-        width: 100%;
-        font-size: 24rpx;
-    }
+  .ProductIntroduction {
+    font-size: 20rpx;
+  }
 
-    .item-content__info-note {
-        font-size: 24rpx;
-    }
-    
-    .ProductIntroduction {
-        font-size: 20rpx ;
-    }
-    
-    .footerText {
-        padding-top: 22rpx;
-        border-top: 1px solid rgb(232, 232, 232);
-        font-size: .6rem;
-    }
+  .footerText {
+    padding-top: 22rpx;
+    border-top: 1px solid rgb(232, 232, 232);
+    font-size: 0.6rem;
+  }
 
-    .boderTop {
-        border-top: 1px solid rgb(232, 232, 232);
-        padding: 0 12rpx;
-        color: #afafaf;
-        font-size: 22rpx;
-    }
+  .boderTop {
+    border-top: 1px solid rgb(232, 232, 232);
+    padding: 0 12rpx;
+    color: #afafaf;
+    font-size: 22rpx;
+  }
 
-    .customerService {
-        position: fixed;
-        right: 5px;
-        bottom: 18vh;
+  .customerService {
+    position: fixed;
+    right: 5px;
+    bottom: 18vh;
+  }
+}
+.at-countdown {
+  .at-countdown__item:first-child {
+    display: none;
+  }
+  .at-countdown__item {
+    .at-countdown__time-box {
+      color: white;
     }
+    .at-countdown__separator {
+      margin-top: -12px;
+    }
+  }
 }
