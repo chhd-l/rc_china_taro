@@ -10,8 +10,8 @@ const Cart = () => {
   const [productList, setProductList] = useState<any[]>([])
   const [selectedProduct, setSelectedProduct] = useState<any[]>([])
 
-  const getCartProductList = async () => {
-    const res = await getCarts()
+  const getCartProductList = async (isNeedReload=false) => {
+    const res = await getCarts(isNeedReload)
     setProductList(res)
   }
 
@@ -22,6 +22,7 @@ const Cart = () => {
         goodsNum: value,
         operator: 'test',
       })
+      await getCartProductList(true)
     }
     setProductList(
       productList.map((item) => {
@@ -77,7 +78,7 @@ const Cart = () => {
                   product={item}
                   key={item.id}
                   changeProduct={changeProduct}
-                  delCartSuccess={() => getCartProductList()}
+                  delCartSuccess={() => getCartProductList(true)}
                 />
               </View>
             ))}

@@ -2,41 +2,39 @@ import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { getProductBySkuId } from '@/framework/api/product/get-product'
 import { dataSource } from '@/mock/cart'
 import Mock from 'mockjs'
+import { session } from '@/utils/global'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
-export const getCarts = async () => {
+export const getCarts = async (isNeedReload = false) => {
   try {
     if (isMock) {
       return Mock.mock(dataSource)
     } else {
-      const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
-      const carts = res?.carts || []
-      console.log('cart data', carts)
-      for (let i = 0; i < carts.length; i++) {
-        let data = await getProductBySkuId({ goodsVariantId: carts[i].goodsVariantID })
-        carts[i] = normalizeCartData(carts[i], data.productBySkuId)
+      let cartProducts = session.get('cart-data')
+      if (!cartProducts || isNeedReload) {
+        const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
+        cartProducts = res?.carts || []
+        console.log('cart data', cartProducts)
+        for (let i = 0; i < cartProducts.length; i++) {
+          let data = await getProductBySkuId({ goodsVariantId: cartProducts[i].goodsVariantID })
+          cartProducts[i] = normalizeCartData(cartProducts[i], data.productBySkuId)
+        }
+        session.set('cart-data', cartProducts)
       }
-      console.log('cart products data', carts)
-      return carts
+      console.log('cart products data', cartProducts)
+      return cartProducts||[]
     }
   } catch (err) {
     console.log('err', err)
     return []
   }
 }
-export const getCartNumber = async () => {
-  try {
-    const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
-    const carts = res?.carts || []
-    console.log('cart data', carts)
-    const cartNumber = carts.reduce((prev, cur) => {
-      return prev + cur.goodsNum
-    }, 0)
-    return cartNumber || 0
-  } catch (err) {
-    console.log('err', err)
-    return 0
-  }
+export const getCartNumber = async (isNeedReload=false) => {
+  const carts = await getCarts(isNeedReload)
+  const cartNumber = carts.reduce((prev, cur) => {
+    return prev + cur.goodsNum
+  }, 0)
+  return cartNumber || 0
 }
 
 export const createCart = async (params: any) => {

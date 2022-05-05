@@ -5,7 +5,7 @@ import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePric
 import Taro, { useDidHide } from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
 import { createOrder, getOrderSetting } from '@/framework/api/order/order'
-import { AtMessage } from 'taro-ui'
+import {AtMessage, AtModal} from 'taro-ui'
 import omit from 'lodash/omit'
 import routers from '@/routers/index'
 import { getAddresses } from '@/framework/api/customer/address'
@@ -20,6 +20,7 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState(0)
   const [loading, setLoading] = useState(false)
   const [shippingPrice, setShippingPrice] = useState(0)
+  const [showNoAddressTip,setShowNoAddressTip]=useState(false)
 
   const changeDeliveryDate = (value) => {
     setDeliveryTime(value)
@@ -44,6 +45,10 @@ const Checkout = () => {
 
   const checkNow = async () => {
     try {
+      if(address.id===''){
+        setShowNoAddressTip(true)
+        return false
+      }
       setLoading(true)
       const goodsList = tradeItems.map((el) => {
         el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
@@ -61,7 +66,7 @@ const Checkout = () => {
           shoppingCartIds.push(el.id)
         }
       })
-      const addressInfo = omit(address, ['id', 'customerId', 'storeId', 'isDefault'])
+      const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
       const user = Taro.getStorageSync('wxLoginRes').userInfo
       const params = {
         goodsList,
@@ -171,6 +176,23 @@ const Checkout = () => {
         <TotalCheck num={totalNum} totalPrice={totalPrice} checkNow={checkNow} loading={loading} />
       </View>
       <AtMessage />
+      <AtModal
+        key="noAddressTip"
+        isOpened={showNoAddressTip}
+        title="提示"
+        content='请填写收货地址'
+        confirmText="确定"
+        onClose={() => {
+          setShowNoAddressTip(false)
+        }}
+        onCancel={() => {
+          setShowNoAddressTip(false)
+        }}
+        onConfirm={() => {
+          setShowNoAddressTip(false)
+        }}
+        className="order-to-ship-modal"
+      />
     </View>
   )
 }

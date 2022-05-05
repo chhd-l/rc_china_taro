@@ -15,10 +15,10 @@ const AddCart = ({ handleShowSpec }: Props) => {
   const [cartNumber, setCartNumber] = useState(0)
   const [cartSunccessToastShow] = useAtom(cartSunccessToastShowAtom)
   useEffect(() => {
-    getCart()
+    getCart(true)
   }, [cartSunccessToastShow])
-  const getCart = async () => {
-    let data = await getCartNumber()
+  const getCart = async (isNeedReload=false) => {
+    let data = await getCartNumber(isNeedReload)
     setCartNumber(data)
   }
   return (
