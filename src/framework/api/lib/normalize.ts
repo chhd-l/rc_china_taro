@@ -108,7 +108,7 @@ export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
     return {
       name: item.cardName,
-      img: item.goodsAsserts[0]?.artworkUrl,
+      img: item.goodsAsserts?.[0]?.artworkUrl,
       originalPrice: item.goodsVariants[0].listPrice,
       price: item.goodsVariants[0].marketingPrice,
       sku: item.goodsVariants[0].id,
@@ -189,17 +189,19 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
   return tags
 }
 
-export const normalizeCatOrDogAttr=(atrrs)=>{
-  return atrrs.map((item)=>{
+export const normalizeCatOrDogAttr = (atrrs, categoryId) => {
+  return atrrs.map((item) => {
     return {
-      key:item.attributeNameEn,
-      label:item.attributeName,
-      list:item.values.map((el)=>{
+      key: item.attributeNameEn,
+      label: item.attributeName,
+      list: item.values.map((el) => {
         return {
-          value:el.attributeValueNameEn,
-          label:el.attributeValueName
+          categoryId,
+          attributeId: el.attributeId,
+          value: el.id,
+          label: el.attributeValueName,
         }
-      })
+      }),
     }
   })
 }

@@ -15,7 +15,7 @@ import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
 import './index.less'
-import {getOrderSetting} from "@/framework/api/order/order";
+import { getOrderSetting } from '@/framework/api/order/order'
 
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
@@ -60,9 +60,9 @@ const ChooseSpec = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
 
-  useEffect(()=>{
+  useEffect(() => {
     getMaxNum()
-  },[])
+  }, [])
 
   //獲取
   const getMaxNum = async () => {
@@ -158,7 +158,7 @@ const ChooseSpec = ({
           <Image className="w-24 h-auto" mode="widthFix" src={choosedSku.img?.[0] || ''} />
           <View className="pl-3">
             <View className="text-xs font-bold">{choosedSku.name}</View>
-            <View className="pt-1 text-gray-400 text-26">商家编号：{choosedSku.no}</View>
+            <View className="pt-1 text-gray-400 text-26">商品编号：{choosedSku.no}</View>
             <View className="pt-4">
               <Text className="text-red-600 pr-4">{formatMoney(choosedSku.price)}</Text>
               <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>

@@ -28,7 +28,6 @@ const BreedList = () => {
   const [keyword, setKeyword] = useState<string>('')
   const [list, setList] = useState<PySortProps[]>([])
   const { router } = getCurrentInstance()
-
   const handleKeyword = (val) => {
     setKeyword(val)
   }
@@ -40,6 +39,7 @@ const BreedList = () => {
     let type = router?.params?.type || 'CAT'
     res = res.filter((el) => el.type == type)
     setBreedList(res)
+
     const lists = cloneDeep(res)
     initData(lists)
   }
@@ -83,6 +83,7 @@ const BreedList = () => {
     let list = breedList.filter((item) => item.name.includes(keyword))
     initData(list)
   }
+
   return (
     <>
       {breedList.length ? (
@@ -118,7 +119,7 @@ const BreedList = () => {
                       handleBreed(breed)
                     }}
                   >
-                    <Image src={breed.image} className="w-full rounded-full" mode="widthFix" />
+                    <Image lazyLoad src={breed.image} className="w-full rounded-full  h-8" mode="widthFix" />
                     <View className="text-24 whitespace-nowrap overflow-hidden overflow-ellipsis">{breed.name}</View>
                   </View>
                 ))}

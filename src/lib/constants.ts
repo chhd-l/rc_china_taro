@@ -22,3 +22,4 @@ export const ORDER_COMMENT_ICON = `${CDNIMGURL}icon_MP_Comments.svg`
 
 export const femaleIcon = `${CDNIMGURL}Icon_MP_F.svg`
 export const maleIcon = `${CDNIMGURL}Icon_MP_M.svg`
+export const petBg = `${CDNIMGURL}pet_backgroud.png`

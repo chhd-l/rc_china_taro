@@ -5,27 +5,37 @@ import cloneDeep from 'lodash.cloneDeep'
 interface SearchFiltersProps {
   filterList: FilterListItemProps[]
   setFilterList: (a: FilterListItemProps[]) => void
+  isSearchNow?: boolean
 }
-const SearchFilters = ({ filterList, setFilterList }: SearchFiltersProps) => {
+const SearchFilters = ({ filterList, setFilterList, isSearchNow }: SearchFiltersProps) => {
   console.info('filterList', filterList)
   const onChangeFilter = (key, index) => {
     filterList.forEach((el) => {
       if (el.key === key) {
-        el.list[index].active = !el.list[index].active
+        el.list[index].activeColor = !el.list[index].activeColor
+        if (isSearchNow) {
+          el.list[index].active = !el.list[index].active
+        }
       }
     })
+    if (isSearchNow) {
+      //搜索
+    }
+
     setFilterList(cloneDeep(filterList))
-    console.info('tets')
+    console.info('tets', filterList)
   }
   return (
     <>
       {filterList.map((filter, idx) => (
-        <View key={idx} className="text-xxs">
-          <View className="px-2 py-1 border border-transparent  border-solid z-10 bg-white absolute">
+        <View key={idx} className="text-xxs relative">
+          <View className="w-12 overflow-hidden text-ellipsis whitespace-nowrap  pb-1 pt-3 py-1 border border-transparent  border-solid z-10 bg-white absolute top-2">
             {filter.label}
           </View>
           <ScrollView className="whitespace-nowrap" scrollX>
-            <Text className="px-2 py-1 text-white mr-1">{filter.label}</Text>
+            <Text className="inline-block mr-1 px-2 py-1 mb-2 text-white w-12 overflow-hidden text-ellipsis whitespace-nowrap">
+              {filter.label}
+            </Text>
             {filter.list.map((item, index) => (
               <Text
                 key={index}
@@ -33,7 +43,7 @@ const SearchFilters = ({ filterList, setFilterList }: SearchFiltersProps) => {
                   onChangeFilter(filter.key, index)
                 }}
                 className={`inline-block py-1 px-2  rounded-sm mr-3 border  border-solid  mb-2 ${
-                  item.active ? 'bg-red-600 border-red-500 text-white' : 'text-gray-400 border-gary-300'
+                  item.activeColor ? 'bg-red-600 border-red-500 text-white' : 'text-gray-400 border-gary-300'
                 }}`}
               >
                 {item.label}

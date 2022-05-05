@@ -74,7 +74,7 @@ export interface ProductListItemProps {
 export interface FilterListItemProps {
   key: string
   label: string
-  list: (OptionProps & { active?: boolean })[]
+  list: (OptionProps & { active?: boolean; attributeId: string; categoryId: string; activeColor?: boolean })[]
 }
 export enum PetType {
   Dog,
