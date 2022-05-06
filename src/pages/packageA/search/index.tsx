@@ -34,16 +34,28 @@ const Search = () => {
     getHotList()
     getLastList()
   }, [])
-  const getList = async ({ categoryId, goodsName }: { categoryId?: string; goodsName?: string }) => {
+  const getList = async ({
+    categoryId,
+    goodsName,
+    flterlist,
+  }: {
+    categoryId?: string
+    goodsName?: string
+    flterlist?: any
+  }) => {
     let params: any = {}
     if (categoryId) {
       params.goodsCategoryId = categoryId
     }
+    debugger
     if (goodsName) {
       params.goodsName = goodsName
     }
-    console.info('filterList', filterList)
-    filterList.map((el) => {
+    ;(flterlist || filterList).map((el) => {
+      console.info(
+        'el.list.filter((cel) => cel.active)',
+        el.list.filter((cel) => cel.active),
+      )
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
@@ -52,8 +64,8 @@ const Search = () => {
             params.attributeIds = []
           }
 
-          if (!params.attributeIds) {
-            params.attributeIds = []
+          if (!params.attributeValueIds) {
+            params.attributeValueIds = []
           }
           params.goodsCategoryId = val.categoryId
           params.attributeIds.push(val.attributeId)
@@ -205,7 +217,12 @@ const Search = () => {
           handleSearch={handleSearch}
         />
         <View className="text-xs">
-          <SearchFilters isSearchNow={true} filterList={filterList?.slice(0, 2)} setFilterList={setFilterList} />
+          <SearchFilters
+            isSearchNow={true}
+            getList={getList}
+            filterList={filterList?.slice(0, 2)}
+            setFilterList={setFilterList}
+          />
         </View>
       </View>
       {productList?.length ? <List list={productList} /> : null}
