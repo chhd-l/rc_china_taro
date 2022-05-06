@@ -39,7 +39,8 @@ const PetList = () => {
   })
 
   const getList = async () => {
-    let res = (await getPets()) || []
+    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+    let res = (await getPets({ customerId: customerInfo.id })) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })

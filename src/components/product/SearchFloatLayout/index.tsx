@@ -6,6 +6,7 @@ import SearchFilters from '../SearchFilters'
 interface SearchFloatLayoutProps {
   getCatOrDogAttrs: Function
   openSearchMore: boolean
+  getList: Function
   setOpenSearchMore: (openSearchMore: boolean) => void
   filterList: FilterListItemProps[]
   setFilterList: (filterList: FilterListItemProps[]) => void
@@ -16,6 +17,7 @@ const SearchFloatLayout = ({
   openSearchMore,
   setOpenSearchMore,
   filterList,
+  getList,
   setFilterList,
   handleSearch,
 }: SearchFloatLayoutProps) => {
@@ -31,6 +33,7 @@ const SearchFloatLayout = ({
           <AtButton
             className={largeButtonClass}
             onClick={() => {
+              getList({ categoryId: '10' })
               getCatOrDogAttrs('cat')
             }}
           >
@@ -39,6 +42,7 @@ const SearchFloatLayout = ({
           <AtButton
             className={largeButtonClass}
             onClick={() => {
+              getList({ categoryId: '8' })
               getCatOrDogAttrs('dog')
             }}
           >

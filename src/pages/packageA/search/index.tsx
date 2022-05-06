@@ -30,19 +30,24 @@ const Search = () => {
   const [productList, setProductList] = useState<ProductListItemProps[]>()
   useEffect(() => {
     getCatOrDogAttrs('cat')
-    getList()
+    getList({})
     getHotList()
     getLastList()
   }, [])
-  const getList = async (categoryId?: string) => {
+  const getList = async ({ categoryId, goodsName }: { categoryId?: string; goodsName?: string }) => {
     let params: any = {}
     if (categoryId) {
-      params.categoryId = categoryId
+      params.goodsCategoryId = categoryId
     }
+    if (goodsName) {
+      params.goodsName = goodsName
+    }
+    console.info('filterList', filterList)
     filterList.map((el) => {
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
+          debugger
           if (!params.attributeIds) {
             params.attributeIds = []
           }
@@ -55,7 +60,8 @@ const Search = () => {
           params.attributeValueIds.push(val.value)
         })
     })
-    let res = await getProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 0 })
+    let res = await getProducts({ limit: 100, sample: params, hasTotal: true, offset: 0 })
+    console.info('res', res)
     setProductList(res)
   }
   const getHotList = () => {
@@ -163,6 +169,7 @@ const Search = () => {
               <AtButton
                 className={largeButtonClass}
                 onClick={() => {
+                  getList({ categoryId: '10' })
                   getCatOrDogAttrs('cat')
                 }}
               >
@@ -171,6 +178,7 @@ const Search = () => {
               <AtButton
                 className={largeButtonClass}
                 onClick={() => {
+                  getList({ categoryId: '8' })
                   getCatOrDogAttrs('dog')
                 }}
               >
@@ -188,6 +196,7 @@ const Search = () => {
           </View>
         </View>
         <SearchFloatLayout
+          getList={getList}
           openSearchMore={openSearchMore}
           setOpenSearchMore={setOpenSearchMore}
           filterList={filterList}
