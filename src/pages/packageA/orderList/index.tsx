@@ -23,16 +23,19 @@ const OrderList = () => {
   const { router } = getCurrentInstance()
 
   const getOrderLists = async (status) => {
-    const customerInfo=Taro.getStorageSync('wxLoginRes').userInfo
+    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
     const res = await getOrderList({
       storeId: '12345678',
       operator: 'zz',
       limit: 10,
       offset: 0,
       isNeedTotal: true,
-      sample: Object.assign({
-        customerId:customerInfo.id
-      }, status !== 'ALL' ? { orderState: status } : {}),
+      sample: Object.assign(
+        {
+          customerId: customerInfo.id,
+        },
+        status !== 'ALL' ? { orderState: status } : {},
+      ),
     })
     console.log('order list data', res)
     setOrderList(res?.records)
@@ -49,7 +52,7 @@ const OrderList = () => {
     Taro.setNavigationBarTitle({
       title: tabList[value].title,
     })
-    const cur=Object.values(OrderStatusEnum).filter((item)=>item===value)[0]
+    const cur = Object.values(OrderStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(OrderStatusEnum)[cur])
     getOrderLists(Object.keys(OrderStatusEnum)[cur])
   }
@@ -59,7 +62,7 @@ const OrderList = () => {
       <AtTabs className="index" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
-            {orderList.length > 0 ? (
+            {orderList?.length > 0 ? (
               <OrderListComponents
                 list={orderList}
                 operationSuccess={() => {
@@ -77,7 +80,7 @@ const OrderList = () => {
         key="orderShipTip"
         isOpened={showShipModal}
         title="提示"
-        content='已提醒发货，请耐心等待'
+        content="已提醒发货，请耐心等待"
         confirmText="确定"
         onClose={() => {
           setShowShipModal(false)

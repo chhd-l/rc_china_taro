@@ -3,7 +3,10 @@ import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { formatMoney } from '@/utils/utils'
 import { Swiper, SwiperItem, View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { AtIcon } from 'taro-ui'
+import { useState } from 'react'
+import { AtFloatLayout, AtIcon } from 'taro-ui'
+import './Style.less'
+
 interface DetailProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
@@ -11,8 +14,10 @@ interface DetailProps {
   handleShowSpec: (type: addToTypeEnum) => void
 }
 const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProps) => {
+  const [isOpened, setIsOpened] = useState(false)
+
   return (
-    <View className="px-2">
+    <View className="px-2 ProductDetali">
       <Swiper
         className=""
         style={{ height: Taro.getSystemInfoSync().windowWidth }}
@@ -22,8 +27,8 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
         // indicatorDots
         autoplay
       >
-        {choosedSku?.img?.map((el) => (
-          <SwiperItem>
+        {choosedSku?.img?.map((el, index) => (
+          <SwiperItem key={index}>
             <View className="demo-text-1">
               <Image className="w-full h-auto" mode="widthFix" src={el} />
             </View>
@@ -35,8 +40,11 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
         <AtIcon prefixClass="fa" value="share" size="30" color="red"></AtIcon>
       </View>
       <View>
-        {choosedSku?.tags?.map((tag) => (
-          <Text className="border border-solid border-primary-red px-1 mr-1  text-26 rounded-lg text-primary-red">
+        {choosedSku?.tags?.map((tag, index) => (
+          <Text
+            key={index}
+            className="border border-solid border-primary-red px-1 mr-1  text-26 rounded-lg text-primary-red"
+          >
             {tag}
           </Text>
         ))}
@@ -59,9 +67,48 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
           ...
         </View>
       </View>
-      <View className="text-26 text-gray-400">
-        <View>正品保障</View>
+      <View className="text-26 text-gray-400 flex items-center text-center">
+        <View className="flex-1">
+          <AtIcon className="mr-1" value="check-circle" size={12} />
+          正品保证
+        </View>
+        <View className="flex-1">
+          <AtIcon className="mr-1" value="check-circle" size={12} />
+          全场免邮
+        </View>
+        <View className="flex-1">
+          <AtIcon className="mr-1" value="check-circle" size={12} />
+          发货须知
+          <AtIcon className="ml-1" value="help" size={12} onClick={() => setIsOpened(true)} />
+        </View>
       </View>
+      <AtFloatLayout className="flex flex-col" isOpened={isOpened} title=" " onClose={() => setIsOpened(false)}>
+        <View className="detailedInformation">
+          <View className="itemOne">
+            <AtIcon className="mr-3" value="help" color="red" size={18} />
+            <Text className="text-xs font-semibold">正品保证</Text>
+          </View>
+          <View className="itemTwo">皇家官方直营，100%正品保障</View>
+        </View>
+        <View className="detailedInformation">
+          <View className="itemOne">
+            <AtIcon className="mr-3" value="help" color="red" size={18} />
+            <Text className="text-xs font-semibold">全场免邮</Text>
+          </View>
+          <View className="itemTwo">全场免邮（港澳台以及海外地区除外）</View>
+        </View>
+        <View className="detailedInformation">
+          <View className="itemOne">
+            <AtIcon className="mr-3" value="help" color="red" size={18} />
+            <Text className="text-xs font-semibold">发货须知</Text>
+          </View>
+          <View className="itemTwo">
+            <View>当天14点前完成付款即日安排发货</View>
+            <View>当天14点后完成付款次日安排发货</View>
+            <View>（周日及国家法定节假日顺延至下一个工作日发货，活动期间发货或有延迟敬请理解）</View>
+          </View>
+        </View>
+      </AtFloatLayout>
     </View>
   )
 }
