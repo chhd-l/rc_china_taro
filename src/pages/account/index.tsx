@@ -38,7 +38,7 @@ const Account = () => {
   }, [])
 
   return (
-    <View className="index">
+    <View className="Account">
       {/* <Announcement title="添加社群，畅享更多专属福利！" /> */}
       <View className="p-2">
         {/*个人信息和个人管理*/}
@@ -52,7 +52,7 @@ const Account = () => {
                     <Text className="text-black font-semibold text-32  mr-2">{customerInfo.nickName}</Text>
                     <AtAvatar
                       circle
-                      className="w-4 h-4 leading-none bg-center"
+                      className="NewbieIcon bg-center"
                       image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
                     />
                     <Text className="text-24 ml-1">{customerInfo.level}</Text>
@@ -73,7 +73,7 @@ const Account = () => {
           </View>
           <View className="m-0">
             <AtButton
-              className="text-xs flex items-center text-gray-400"
+              className="AddressButton p-1 flex items-center text-gray-400"
               size="small"
               onClick={() => {
                 if (!Taro.getStorageSync('wxLoginRes')) {
