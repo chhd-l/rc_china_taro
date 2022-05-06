@@ -10,7 +10,7 @@ interface SearchFloatLayoutProps {
   setOpenSearchMore: (openSearchMore: boolean) => void
   filterList: FilterListItemProps[]
   setFilterList: (filterList: FilterListItemProps[]) => void
-  handleSearch: () => void
+  handleSearch: Function
 }
 const SearchFloatLayout = ({
   getCatOrDogAttrs,
@@ -50,7 +50,7 @@ const SearchFloatLayout = ({
           </AtButton>
         </View>
         <View>
-          <SearchFilters filterList={filterList} setFilterList={setFilterList} />
+          <SearchFilters getList={getList} filterList={filterList} setFilterList={setFilterList} />
         </View>
         <View className=" mt-20 w-full h-1"></View>
         <View className="flex justify-center absolute bottom-0 w-full">
@@ -66,7 +66,12 @@ const SearchFloatLayout = ({
             className="text-xs rounded-full  flex items-center  mx-1 bg-red-600 px-8 py-2 text-white"
             onClick={() => {
               setOpenSearchMore(false)
-              handleSearch()
+              filterList.forEach((el: any) => {
+                el.list.forEach((cel) => {
+                  cel.active = cel.activeColor
+                })
+              })
+              getList({ filterlist: filterList })
             }}
           >
             确定

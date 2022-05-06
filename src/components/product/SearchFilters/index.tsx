@@ -1,13 +1,15 @@
 import { FilterListItemProps } from '@/framework/types/products'
 import { ScrollView, View, Text } from '@tarojs/components'
 import cloneDeep from 'lodash.cloneDeep'
+import { useEffect } from 'react'
 
 interface SearchFiltersProps {
   filterList: FilterListItemProps[]
   setFilterList: (a: FilterListItemProps[]) => void
   isSearchNow?: boolean
+  getList: Function
 }
-const SearchFilters = ({ filterList, setFilterList, isSearchNow }: SearchFiltersProps) => {
+const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: SearchFiltersProps) => {
   console.info('filterList', filterList)
   const onChangeFilter = (key, index) => {
     filterList.forEach((el) => {
@@ -20,8 +22,8 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow }: SearchFilters
     })
     if (isSearchNow) {
       //搜索
+      getList({ flterlist: filterList })
     }
-
     setFilterList(cloneDeep(filterList))
     console.info('tets', filterList)
   }
