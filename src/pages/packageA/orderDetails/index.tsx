@@ -125,7 +125,7 @@ const OrderDetails = () => {
                           <View className="px-1 border rounded-lg border-solid border-red-500 mr-2 mt-2">{tag}</View>
                         ))}
                       </View>
-                      <View>X{el?.num}</View>
+                      <View className="numcolor">X{el?.num}</View>
                     </View>
                     <View className="mt-2 ProductIntroduction">规格：{el?.goodsSpecifications}</View>
                   </View>
