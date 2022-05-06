@@ -1,0 +1,26 @@
+.ProductDetali {
+    .layout-header {
+        height:45rpx !important;
+        background-color: #fff !important;
+        .layout-header__btn-close {
+            &::after {
+                background-color: red;
+            }
+            &::before {
+                background-color: red;
+            }
+        }
+    }
+    .detailedInformation {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        padding: 25rpx;
+        .itemOne {
+            margin-bottom: 5rpx;
+        }
+        .itemTwo {
+            padding-left: 61rpx;
+        }
+    }
+}
