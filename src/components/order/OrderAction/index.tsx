@@ -2,8 +2,14 @@ import { View } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import { cancelOrder, completedOrder } from '@/framework/api/order/order'
 import './index.less'
+import { pay } from '@/framework/api/payment/pay'
+import { useAtom } from 'jotai'
+import { customerAtom } from '@/store/customer'
+import Taro from '@tarojs/taro'
 
 const OrderAction = ({
+  amount,
+  remark,
   orderState,
   orderId,
   operationSuccess,
@@ -13,7 +19,10 @@ const OrderAction = ({
   orderId: string
   operationSuccess: Function
   openModalTip: Function
+  remark: string
+  amount: number
 }) => {
+  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const completed = async () => {
     const res = await completedOrder({
       orderNum: orderId,
@@ -56,6 +65,21 @@ const OrderAction = ({
               circle
               onClick={(e) => {
                 e.stopPropagation()
+                let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+                pay({
+                  params: {
+                    customerId: customerInfo?.id || '',
+                    customerOpenId: wxLoginRes?.customerAccount?.openId,
+                    tradeId: orderId,
+                    tradeNo: orderId,
+                    tradeDescription: '商品',
+                    payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+                    amount,
+                    currency: 'CNY',
+                    storeId: '12345678',
+                    operator: customerInfo?.nickName || '',
+                  },
+                })
               }}
             >
               立即付款
