@@ -161,6 +161,7 @@ const Account = () => {
               onClick={() => {
                 Taro.removeStorageSync('wxLoginRes')
                 setCustomerInfo(null)
+                setSignoutOpend(false)
               }}
             >
               确定
