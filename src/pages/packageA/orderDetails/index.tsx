@@ -112,8 +112,8 @@ const OrderDetails = () => {
               />
             </AtList>
             <AtCard className="m-0 mt-2 border-0" title="订单信息">
-              {(orderDetail?.lineItem || []).map((el) => (
-                <View className="w-full h-20 flex mb-4">
+              {(orderDetail?.lineItem || []).map((el, idx) => (
+                <View key={idx} className="w-full h-20 flex mb-4">
                   <View className="w-28 h-full">
                     <Image className="w-full h-full" src={el?.pic} />
                   </View>
