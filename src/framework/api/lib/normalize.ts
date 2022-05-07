@@ -178,7 +178,7 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
       case 'Technology':
         let value = attr.attributeValueName == 'WetFood' && '每日一包'
         value = attr.attributeValueName == 'can' && '两日一罐'
-        tagStr = `建议干湿搭配:${value}`
+        tagStr = value ? `建议干湿搭配:${value}` : ''
         break
     }
     if (tagStr !== '') {
