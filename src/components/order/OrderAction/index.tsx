@@ -5,6 +5,7 @@ import './index.less'
 import { pay } from '@/framework/api/payment/pay'
 import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
+import Taro from '@tarojs/taro'
 
 const OrderAction = ({
   amount,
@@ -63,19 +64,22 @@ const OrderAction = ({
               size="small"
               circle
               onClick={(e) => {
-                pay({
-                  customerId: customerInfo?.id || '',
-                  customerOpenId: 'ocAZ55Ee1YSt10hODX4x0AwsQMKo',
-                  tradeId: orderId,
-                  tradeNo: orderId,
-                  tradeDescription: remark,
-                  payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
-                  amount,
-                  currency: 'CNY',
-                  storeId: '12345678',
-                  operator: 'zyq',
-                })
                 e.stopPropagation()
+                let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+                pay({
+                  params: {
+                    customerId: customerInfo?.id || '',
+                    customerOpenId: wxLoginRes?.customerAccount?.openId,
+                    tradeId: orderId,
+                    tradeNo: orderId,
+                    tradeDescription: '商品',
+                    payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+                    amount,
+                    currency: 'CNY',
+                    storeId: '12345678',
+                    operator: customerInfo?.nickName || '',
+                  },
+                })
               }}
             >
               立即付款

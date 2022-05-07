@@ -10,8 +10,12 @@ import omit from 'lodash/omit'
 import routers from '@/routers/index'
 import { getAddresses } from '@/framework/api/customer/address'
 import './index.less'
+import { pay } from '@/framework/api/payment/pay'
+import { useAtom } from 'jotai'
+import { customerAtom } from '@/store/customer'
 
 const Checkout = () => {
+  const [customerInfo] = useAtom(customerAtom)
   const [address, setAddress] = useState({ id: '' })
   const [tradeItems, setTradeItems] = useState<any[]>([])
   const [deliveryTime, setDeliveryTime] = useState(formatDate(new Date()))
@@ -88,13 +92,36 @@ const Checkout = () => {
       console.log('create order params', params)
       const res = await createOrder(params)
       if (res.createOrder) {
+        console.log(res, 'ressssss')
         Taro.atMessage({
           message: '下单成功',
           type: 'success',
         })
         Taro.removeStorageSync('select-product')
-        Taro.redirectTo({
-          url: `${routers.orderList}?status=UNPAID`,
+        let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+        pay({
+          params: {
+            customerId: customerInfo?.id || '',
+            customerOpenId: wxLoginRes?.customerAccount?.openId,
+            tradeId: res.createOrder?.orderNumber,
+            tradeNo: res.createOrder?.orderNumber,
+            tradeDescription: '商品',
+            payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+            amount: res.createOrder?.tradePrice.totalPrice * 100,
+            currency: 'CNY',
+            storeId: '12345678',
+            operator: customerInfo?.nickName || '',
+          },
+          success: () => {
+            Taro.redirectTo({
+              url: `${routers.orderList}?status=UNPAID`,
+            })
+          },
+          fail: () => {
+            Taro.redirectTo({
+              url: `${routers.orderList}?status=UNPAID`,
+            })
+          },
         })
       } else {
         Taro.atMessage({

@@ -9,6 +9,7 @@ import { initNewPet } from '@/lib/customer'
 import { getCurrentInstance } from '@tarojs/taro'
 import { getAge } from '@/utils/utils'
 import './index.less'
+import Taro from '@tarojs/taro'
 
 // const pets = Mock.mock(petLists).list;
 // console.info("petLists", pets);
@@ -19,7 +20,8 @@ const PetList = () => {
 
   let petNumber = router?.params?.petNumber || '0'
   const getList = async () => {
-    let res = (await getPets()) || []
+    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+    let res = (await getPets({ customerId: customerInfo.id })) || []
     console.log('res', res)
     res.forEach((item) => {
       item.age = getAge(item.birthday)

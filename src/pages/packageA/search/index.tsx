@@ -30,32 +30,50 @@ const Search = () => {
   const [productList, setProductList] = useState<ProductListItemProps[]>()
   useEffect(() => {
     getCatOrDogAttrs('cat')
-    getList()
+    getList({})
     getHotList()
     getLastList()
   }, [])
-  const getList = async (categoryId?: string) => {
+  const getList = async ({
+    categoryId,
+    goodsName,
+    flterlist,
+  }: {
+    categoryId?: string
+    goodsName?: string
+    flterlist?: any
+  }) => {
     let params: any = {}
     if (categoryId) {
-      params.categoryId = categoryId
+      params.goodsCategoryId = categoryId
     }
-    filterList.map((el) => {
+    debugger
+    if (goodsName) {
+      params.goodsName = goodsName
+    }
+    ;(flterlist || filterList).map((el) => {
+      console.info(
+        'el.list.filter((cel) => cel.active)',
+        el.list.filter((cel) => cel.active),
+      )
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
+          debugger
           if (!params.attributeIds) {
             params.attributeIds = []
           }
 
-          if (!params.attributeIds) {
-            params.attributeIds = []
+          if (!params.attributeValueIds) {
+            params.attributeValueIds = []
           }
           params.goodsCategoryId = val.categoryId
           params.attributeIds.push(val.attributeId)
           params.attributeValueIds.push(val.value)
         })
     })
-    let res = await getProducts({ limit: 100, sample: {}, isNeedTotal: true, operator: 'sss', offset: 0 })
+    let res = await getProducts({ limit: 100, sample: params, hasTotal: true, offset: 0 })
+    console.info('res', res)
     setProductList(res)
   }
   const getHotList = () => {
@@ -163,6 +181,7 @@ const Search = () => {
               <AtButton
                 className={largeButtonClass}
                 onClick={() => {
+                  getList({ categoryId: '10' })
                   getCatOrDogAttrs('cat')
                 }}
               >
@@ -171,6 +190,7 @@ const Search = () => {
               <AtButton
                 className={largeButtonClass}
                 onClick={() => {
+                  getList({ categoryId: '8' })
                   getCatOrDogAttrs('dog')
                 }}
               >
@@ -188,6 +208,7 @@ const Search = () => {
           </View>
         </View>
         <SearchFloatLayout
+          getList={getList}
           openSearchMore={openSearchMore}
           setOpenSearchMore={setOpenSearchMore}
           filterList={filterList}
@@ -196,7 +217,12 @@ const Search = () => {
           handleSearch={handleSearch}
         />
         <View className="text-xs">
-          <SearchFilters isSearchNow={true} filterList={filterList?.slice(0, 2)} setFilterList={setFilterList} />
+          <SearchFilters
+            isSearchNow={true}
+            getList={getList}
+            filterList={filterList?.slice(0, 2)}
+            setFilterList={setFilterList}
+          />
         </View>
       </View>
       {productList?.length ? <List list={productList} /> : null}
