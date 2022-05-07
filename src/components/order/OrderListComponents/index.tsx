@@ -5,6 +5,7 @@ import { Order } from '@/framework/types/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import OrderAction from '../OrderAction'
 import './index.less'
+import { useEffect } from 'react'
 
 const orderStatusType = {
   UNPAID: '待付款',
@@ -28,7 +29,9 @@ const OrderListComponents = ({
       data: orderNumber,
     })
   }
-
+  useEffect(() => {
+    console.log('orderlist', list)
+  }, [])
   return (
     <ScrollView className="OrderListComponents" scrollY>
       {list.map((item: any, idx: number) => (
@@ -83,6 +86,8 @@ const OrderListComponents = ({
               <Text className="text-red-500">{formatMoney(item.tradePrice.totalPrice)}</Text>
             </View>
             <OrderAction
+              amount={item.tradePrice.totalPrice * 100}
+              remark={item.remark}
               orderState={item?.tradeState?.orderState || ''}
               orderId={item.orderNumber || ''}
               operationSuccess={() => {

@@ -5,13 +5,14 @@ import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { useAtom } from 'jotai'
 // import Announcement from '@/components/common/Announcement'
 // import defaultIcon from '@/assets/icons/icon-home.png'
-import { View, Text, Image } from '@tarojs/components'
-import { AtAvatar, AtButton } from 'taro-ui'
-import { useEffect } from 'react'
+import { View, Text, Image, Button } from '@tarojs/components'
+import { AtAvatar, AtButton, AtModal, AtModalAction, AtModalContent, AtModalHeader } from 'taro-ui'
+import { useEffect, useState } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
 import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON } from '@/lib/constants'
 import './index.less'
+import quitIcon from '@/assets/icons/quit.svg'
 
 interface OrderTypeProps {
   label: string
@@ -30,6 +31,7 @@ const orderTypeList: OrderTypeProps[] = [
 const Account = () => {
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const [signoutOpend, setSignoutOpend] = useState(false)
   useEffect(() => {
     setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
     // Taro.navigateTo({
@@ -57,7 +59,16 @@ const Account = () => {
                     />
                     <Text className="text-24 ml-1">{customerInfo.level}</Text>
                   </View>
-                  <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points || 0}</View>
+                  <View className="text-24 my-1 text-red-600">当前积分：{customerInfo.points || 0}</View>
+                  <View
+                    className="flex item-center text-xs text-gray-600"
+                    onClick={() => {
+                      setSignoutOpend(true)
+                    }}
+                  >
+                    <Text className="align-middle mr-1">退出登录 </Text>
+                    <AtAvatar circle className="w-4 h-4 leading-none bg-center align-middle" image={quitIcon} />
+                  </View>
                 </View>
               </>
             ) : (
@@ -131,6 +142,31 @@ const Account = () => {
         <View>
           <PetList />
         </View>
+        <AtModal isOpened={signoutOpend}>
+          <AtModalHeader>
+            <View style={{ height: '100rpx', lineHeight: '100rpx' }}>确定要退出登录？</View>
+          </AtModalHeader>
+          {/* <AtModalContent>
+            <View className="text-center text-base mt-10">确定要退出登录？</View>
+          </AtModalContent> */}
+          <AtModalAction>
+            <Button
+              onClick={() => {
+                setSignoutOpend(false)
+              }}
+            >
+              取消
+            </Button>{' '}
+            <Button
+              onClick={() => {
+                Taro.removeStorageSync('wxLoginRes')
+                setCustomerInfo(null)
+              }}
+            >
+              确定
+            </Button>{' '}
+          </AtModalAction>
+        </AtModal>
       </View>
       <AuthLogin />
     </View>

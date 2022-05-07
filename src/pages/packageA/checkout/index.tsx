@@ -5,7 +5,7 @@ import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePric
 import Taro, { useDidHide } from '@tarojs/taro'
 import { formatDate } from '@/utils/utils'
 import { createOrder, getOrderSetting } from '@/framework/api/order/order'
-import {AtMessage, AtModal} from 'taro-ui'
+import { AtMessage, AtModal } from 'taro-ui'
 import omit from 'lodash/omit'
 import routers from '@/routers/index'
 import { getAddresses } from '@/framework/api/customer/address'
@@ -20,7 +20,7 @@ const Checkout = () => {
   const [totalPrice, setTotalPrice] = useState(0)
   const [loading, setLoading] = useState(false)
   const [shippingPrice, setShippingPrice] = useState(0)
-  const [showNoAddressTip,setShowNoAddressTip]=useState(false)
+  const [showNoAddressTip, setShowNoAddressTip] = useState(false)
 
   const changeDeliveryDate = (value) => {
     setDeliveryTime(value)
@@ -45,7 +45,7 @@ const Checkout = () => {
 
   const checkNow = async () => {
     try {
-      if(address.id===''){
+      if (address.id === '') {
         setShowNoAddressTip(true)
         return false
       }
@@ -180,7 +180,7 @@ const Checkout = () => {
         key="noAddressTip"
         isOpened={showNoAddressTip}
         title="提示"
-        content='请填写收货地址'
+        content="请填写收货地址"
         confirmText="确定"
         onClose={() => {
           setShowNoAddressTip(false)

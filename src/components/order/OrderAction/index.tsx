@@ -2,8 +2,13 @@ import { View } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import { cancelOrder, completedOrder } from '@/framework/api/order/order'
 import './index.less'
+import { pay } from '@/framework/api/payment/pay'
+import { useAtom } from 'jotai'
+import { customerAtom } from '@/store/customer'
 
 const OrderAction = ({
+  amount,
+  remark,
   orderState,
   orderId,
   operationSuccess,
@@ -13,7 +18,10 @@ const OrderAction = ({
   orderId: string
   operationSuccess: Function
   openModalTip: Function
+  remark: string
+  amount: number
 }) => {
+  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const completed = async () => {
     const res = await completedOrder({
       orderNum: orderId,
@@ -55,6 +63,18 @@ const OrderAction = ({
               size="small"
               circle
               onClick={(e) => {
+                pay({
+                  customerId: customerInfo?.id || '',
+                  customerOpenId: 'ocAZ55Ee1YSt10hODX4x0AwsQMKo',
+                  tradeId: orderId,
+                  tradeNo: orderId,
+                  tradeDescription: remark,
+                  payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+                  amount,
+                  currency: 'CNY',
+                  storeId: '12345678',
+                  operator: 'zyq',
+                })
                 e.stopPropagation()
               }}
             >
