@@ -48,14 +48,16 @@ const Account = () => {
               <>
                 <AtAvatar circle size="large" image={customerInfo?.avatarUrl} />
                 <View className="flex-col ml-4">
-                  <View className="flex item-center">
+                  <View className="flex  item-center ">
                     <Text className="text-black font-semibold text-32  mr-2">{customerInfo.nickName}</Text>
-                    <AtAvatar
-                      circle
-                      className="NewbieIcon bg-center"
-                      image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
-                    />
-                    <Text className="text-24 ml-1">{customerInfo.level}</Text>
+                    <View className="flex flex-row items-center justify-items-center">
+                      <AtAvatar
+                        circle
+                        className="NewbieIcon bg-center"
+                        image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
+                      />
+                      <Text className="text-24 ml-1 LevelColor">{customerInfo.level}</Text>
+                    </View>
                   </View>
                   <View className="text-24 mt-2 text-red-600">当前积分：{customerInfo.points || 0}</View>
                 </View>
@@ -73,7 +75,7 @@ const Account = () => {
           </View>
           <View className="m-0">
             <AtButton
-              className="AddressButton p-1 flex items-center text-gray-400"
+              className="AddressButton p-1 flex items-center LevelColor"
               size="small"
               onClick={() => {
                 if (!Taro.getStorageSync('wxLoginRes')) {
@@ -85,7 +87,7 @@ const Account = () => {
                 })
               }}
             >
-              地址管理+
+              地址管理 +
             </AtButton>
           </View>
         </View>
