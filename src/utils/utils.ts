@@ -1,4 +1,5 @@
 import pickBy from 'lodash/pickBy'
+import moment from "moment";
 
 export const getCurrencyCode = () => {
   return '￥'
@@ -66,9 +67,34 @@ export const getAge = (birthdayStr) => {
 
 export const handleReturnTime = (time: any) => {
   if (time !== null && time !== undefined && time !== '') {
-    const date = time.split('T')
-    return date[0] + ' ' + date[1].split('.')[0].split('Z')[0]
+    return moment(new Date(time)).format('YYYY-MM-DD HH:mm:SS')
   } else {
     return ''
+  }
+}
+
+export const getDateDiff=(startTime, endTime)=> {
+  //将日期字符串转换为时间戳
+  let sTime = new Date(startTime).getTime(); //开始时间
+  let eTime = new Date(endTime).getTime();  //结束时间
+  sTime=Number(sTime)
+  eTime=Number(eTime)
+  //作为除数的数字
+  let divNumSecond = 1000;
+  let divNumMinute = 1000 * 60;
+  let divNumHour = 1000 * 3600;
+  let divNumDay = 1000 * 3600 * 24;
+
+  const day = parseInt((eTime - sTime) / parseInt(divNumDay))
+  const hour = parseInt(((eTime - sTime) % parseInt(divNumDay)) / parseInt(divNumHour))
+  const minute = parseInt((parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour))) / parseInt(divNumMinute))
+  const second = ((parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour))) % parseInt(divNumMinute)) / parseInt(divNumSecond)
+  const str = day + '天' + hour + '小时' + minute + '分' + second + '秒'
+  console.log(str)
+  return {
+    day,
+    hour,
+    minute:day>0||hour>0||minute>30?0:30-minute,
+    second:day>0||hour>0||minute>30?0:minute
   }
 }
