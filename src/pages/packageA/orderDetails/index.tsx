@@ -88,7 +88,7 @@ const OrderDetails = () => {
     <View className="OrderDetails">
       {orderDetail?.orderNumber ? (
         <>
-          <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 ">
+          <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 pt-6">
             <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
             {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
               <View>
@@ -101,7 +101,7 @@ const OrderDetails = () => {
             <AtList className="ListBg">
               {trackingId ? (
                 <AtListItem
-                  className="bg-white flex items-center h-14 mt-2"
+                  className="bg-white flex items-center h-16 mt-2"
                   title={`物流公司：${getCarrierType()}`}
                   note={`物流编号： ${trackingId || ''}`}
                   arrow="right"
@@ -114,7 +114,7 @@ const OrderDetails = () => {
               ) : null}
               {showLogistic && deliveries && deliveries?.length > 0 ? <OrderLogistics logistics={deliveries} /> : null}
               <AtListItem
-                className="bg-white flex items-center h-14 mt-2"
+                className="bg-white flex items-center h-16 mt-2"
                 title={`${receiverName || ''} ${phone}`}
                 note={`${province} ${city} ${region} ${detail}`}
                 thumb={ADDRESS_ORDER_ICON}
@@ -147,23 +147,23 @@ const OrderDetails = () => {
                   <Text className="text-red-500">{formatMoney(totalPrice)}</Text>
                 </View>
               </View>
-              <View className="flex items-center justify-between h-6 boderTop">
+              <View className="flex items-center justify-between h-7 boderTop">
                 <Text>订单编号</Text>
                 <Text>{orderDetail.orderNumber}</Text>
               </View>
-              <View className="flex items-center justify-between h-6 boderTop">
+              <View className="flex items-center justify-between h-7 boderTop">
                 <Text>下单时间</Text>
                 <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
               </View>
-              <View className="flex items-center justify-between h-6 boderTop">
+              <View className="flex items-center justify-between h-7 boderTop">
                 <Text>支付方式</Text>
                 <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
               </View>
-              <View className="flex items-center justify-between h-6 boderTop">
+              <View className="flex items-center justify-between h-7 boderTop">
                 <Text>发货时间</Text>
                 <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
               </View>
-              <View className="flex items-center justify-between h-6 boderTop">
+              <View className="flex items-center justify-between h-7 boderTop">
                 <Text>备注</Text>
                 <Text>{orderDetail?.remark}</Text>
               </View>
