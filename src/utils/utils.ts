@@ -1,4 +1,5 @@
 import pickBy from 'lodash/pickBy'
+import moment from "moment";
 
 export const getCurrencyCode = () => {
   return '￥'
@@ -66,8 +67,7 @@ export const getAge = (birthdayStr) => {
 
 export const handleReturnTime = (time: any) => {
   if (time !== null && time !== undefined && time !== '') {
-    const date = time.split('T')
-    return date[0] + ' ' + date[1].split('.')[0].split('Z')[0]
+    return moment(new Date(time)).format('YYYY-MM-DD HH:mm:SS')
   } else {
     return ''
   }
