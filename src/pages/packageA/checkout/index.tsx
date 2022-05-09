@@ -9,10 +9,11 @@ import { AtMessage, AtModal } from 'taro-ui'
 import omit from 'lodash/omit'
 import routers from '@/routers/index'
 import { getAddresses } from '@/framework/api/customer/address'
-import './index.less'
 import { pay } from '@/framework/api/payment/pay'
 import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
+import { session } from '@/utils/global'
+import './index.less'
 
 const Checkout = () => {
   const [customerInfo] = useAtom(customerAtom)
@@ -93,11 +94,21 @@ const Checkout = () => {
       const res = await createOrder(params)
       if (res.createOrder) {
         console.log(res, 'ressssss')
-        Taro.atMessage({
-          message: '下单成功',
-          type: 'success',
-        })
+        // Taro.atMessage({
+        //   message: '下单成功',
+        //   type: 'success',
+        // })
         Taro.removeStorageSync('select-product')
+        //下单成功处理购物车数据
+        // let cartProducts = session.get('cart-data') || []
+        // cartProducts.map((el, index) => {
+        //   tradeItems.map((item) => {
+        //     if (item.id === el.id) {
+        //       cartProducts.splice(index, 1)
+        //     }
+        //   })
+        // })
+        // session.set('cart-data', cartProducts)
         let wxLoginRes = Taro.getStorageSync('wxLoginRes')
         pay({
           params: {
@@ -161,8 +172,8 @@ const Checkout = () => {
     if (selectAddress) {
       setAddress(JSON.parse(selectAddress))
     } else {
-      const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-      const addresses = await getAddresses({ customerId: customerInfo.id })
+      // const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+      const addresses = await getAddresses({ customerId: customerInfo?.id||'' })
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])
