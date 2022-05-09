@@ -28,6 +28,7 @@ const Search = () => {
   const [openSearchMore, setOpenSearchMore] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<FilterListItemProps[]>([])
   const [productList, setProductList] = useState<ProductListItemProps[]>()
+  const [animal, setAnimal] = useState<string>()
   useEffect(() => {
     getCatOrDogAttrs('cat')
     getList({})
@@ -133,10 +134,10 @@ const Search = () => {
 
   const getCatOrDogAttrs = async (type: string) => {
     // gou:8 cat:10
-
     const res = await getAttrs({ storeId: '12345678', categoryId: type === 'cat' ? '10' : '8' })
     console.log('get cat Attrs', res)
     setFilterList(res)
+    setAnimal(type)
   }
 
   return (
@@ -179,7 +180,7 @@ const Search = () => {
           <View className="flex text-xs justify-between">
             <View className="flex-1 flex">
               <AtButton
-                className={largeButtonClass}
+                className={`${animal === 'cat' && 'animal-color'} ${largeButtonClass}`}
                 onClick={() => {
                   getList({ categoryId: '10' })
                   getCatOrDogAttrs('cat')
@@ -188,7 +189,7 @@ const Search = () => {
                 猫产品
               </AtButton>
               <AtButton
-                className={largeButtonClass}
+                className={`${animal === 'dog' && 'animal-color'} ${largeButtonClass}`}
                 onClick={() => {
                   getList({ categoryId: '8' })
                   getCatOrDogAttrs('dog')

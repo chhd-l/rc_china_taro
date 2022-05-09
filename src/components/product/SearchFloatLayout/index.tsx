@@ -1,8 +1,10 @@
 import { FilterListItemProps } from '@/framework/types/products'
 import { largeButtonClass } from '@/lib/product'
 import { View } from '@tarojs/components'
+import { useState } from 'react'
 import { AtButton, AtFloatLayout } from 'taro-ui'
 import SearchFilters from '../SearchFilters'
+import './index.less'
 
 interface SearchFloatLayoutProps {
   getCatOrDogAttrs: Function
@@ -22,6 +24,7 @@ const SearchFloatLayout = ({
   setFilterList,
   handleSearch,
 }: SearchFloatLayoutProps) => {
+  const [animal, setAnimal] = useState<String>()
   return (
     <AtFloatLayout
       isOpened={openSearchMore}
@@ -32,19 +35,22 @@ const SearchFloatLayout = ({
       <View>
         <View className="flex">
           <AtButton
-            className={largeButtonClass}
+            className={`${animal === 'cat' && 'animal-color'} ${largeButtonClass}`}
             onClick={() => {
               getList({ categoryId: '10' })
               getCatOrDogAttrs('cat')
+              setAnimal('cat')
             }}
           >
+            <View className="at-icon at-icon-trash"></View>
             猫产品
           </AtButton>
           <AtButton
-            className={largeButtonClass}
+            className={`${animal === 'dog' && 'animal-color'} ${largeButtonClass}`}
             onClick={() => {
               getList({ categoryId: '8' })
               getCatOrDogAttrs('dog')
+              setAnimal('dog')
             }}
           >
             狗产品
