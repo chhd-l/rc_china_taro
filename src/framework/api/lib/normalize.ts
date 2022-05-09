@@ -32,7 +32,7 @@ export const normalizeProductForFe = (goods: any): any => {
     let tagStr = ''
     switch (attr.attributeNameEn) {
       case 'Age':
-        tagStr = `适用年龄:${attr.attributeValueName}`
+        tagStr = `适用年龄:${attr.attributeValueNameEn}` //显示中文
         break
       case 'Technology':
         let value = attr.attributeValueName == 'WetFood' && '每日一包'
@@ -106,12 +106,18 @@ export const normalizeSkuForFe = (
 }
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
+    let minItem = item.goodsVariants[0]
+    item.goodsVariants.forEach((variant) => {
+      if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
+        minItem = variant
+      }
+    })
     return {
-      name: item.cardName,
+      name: item.cardName || item.goodsName,
       img: item.goodsAsserts?.[0]?.artworkUrl,
-      originalPrice: item.goodsVariants[0].listPrice,
-      price: item.goodsVariants[0].marketingPrice,
-      sku: item.goodsVariants[0].id,
+      originalPrice: minItem.listPrice,
+      price: minItem.marketingPrice,
+      sku: minItem.id,
       spu: item.id,
     }
   })
