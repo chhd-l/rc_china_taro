@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { getCurrentInstance } from '@tarojs/taro'
 import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
-import { formatMoney, handleReturnTime } from '@/utils/utils'
+import { formatMoney, getDateDiff, handleReturnTime } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
 import OrderLogistics from '@/components/order/Logistics'
 import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
@@ -46,10 +46,24 @@ const OrderDetails = () => {
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
   const { totalPrice, discountsPrice } = orderDetail?.tradePrice
   const { trackingId, deliveries } = orderDetail?.shippingInfo
+  const [minutes, setMinutes] = useState(0)
+  const [seconds, setSeconds] = useState(0)
 
-  const getOrder = async () => {
-    const res = await getOrderDetail({ orderNum: orderId })
+  const getTimeCount=()=>{
+    const time = getDateDiff(orderDetail?.tradeState?.createdAt, new Date())
+    return {
+      minutes:Number(time.minute.toFixed(0)),
+      seconds:Number(time.second.toFixed(0))
+    }
+  }
+
+  const getOrder = async (id = orderId) => {
+    const res = await getOrderDetail({ orderNum: id })
     setOrderDetail(res)
+    const time = getDateDiff(res?.tradeState?.createdAt, new Date())
+    setMinutes(Number(time.minute))
+    setSeconds(Number(time.second.toFixed(0)))
+    console.log(Number(time.minute),Number(time.second.toFixed(0)))
   }
 
   const getExpressCompanys = async () => {
@@ -65,15 +79,10 @@ const OrderDetails = () => {
   useEffect(() => {
     if (router?.params?.id) {
       setOrderId(router.params.id)
+      getOrder(router.params.id)
     }
     getExpressCompanys()
   }, [])
-
-  useEffect(() => {
-    if (orderId !== '') {
-      getOrder()
-    }
-  }, [orderId])
 
   return (
     <View className="OrderDetails">
@@ -81,12 +90,12 @@ const OrderDetails = () => {
         <>
           <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 ">
             <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
-            {orderDetail?.tradeState?.orderState === 'UNPAID' && (
+            {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
               <View>
-                <AtCountdown format={{ hours: ':', minutes: ':', seconds: '' }} minutes={30} seconds={0} />
+                <AtCountdown format={{ hours: ':', minutes: ':', seconds: '' }} minutes={getTimeCount().minutes} seconds={getTimeCount().seconds} />
                 后取消订单
               </View>
-            )}
+            ) : null}
           </View>
           <View className="bodyContext">
             <AtList className="ListBg">
