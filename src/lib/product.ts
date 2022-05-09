@@ -1,6 +1,7 @@
 import { FloorListProps, FloorType } from '@/framework/types/products'
 import Mock from 'mockjs'
 import { mocksearchPrams } from '@/mock/product'
+
 export const filterListArr = [
   {
     key: 'specialarea',
@@ -115,4 +116,4 @@ export const floorList: FloorListProps[] = [
 ]
 
 export const largeButtonClass =
-  'items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-gary-400 border-solid rounded-sm mr-3  mb-2'
+  'ClickButton items-center h-8 flex-1 text-sm px-3 text-gray-400 border border-solid rounded-sm mr-3  mb-2'

@@ -218,7 +218,7 @@ const Search = () => {
         />
         <View className="text-xs">
           <SearchFilters
-            isSearchNow={true}
+            isSearchNow
             getList={getList}
             filterList={filterList?.slice(0, 2)}
             setFilterList={setFilterList}
