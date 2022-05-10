@@ -2,6 +2,7 @@ import { FilterListItemProps } from '@/framework/types/products'
 import { ScrollView, View, Text } from '@tarojs/components'
 import cloneDeep from 'lodash.cloneDeep'
 import { useEffect } from 'react'
+import './index.less'
 
 interface SearchFiltersProps {
   filterList: FilterListItemProps[]
@@ -30,11 +31,11 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: Sear
   return (
     <>
       {filterList.map((filter, idx) => (
-        <View key={idx} className="text-xxs relative">
+        <View key={idx} className="text-xxs relative scorll-view-filter">
           <View className="w-12 overflow-hidden text-ellipsis whitespace-nowrap  pb-1 pt-3 py-1 border border-transparent  border-solid z-10 bg-white absolute top-2">
             {filter.label}
           </View>
-          <ScrollView className="whitespace-nowrap" scrollX>
+          <ScrollView className="whitespace-nowrap " scrollX>
             <Text className="inline-block mr-1 px-2 py-1 mb-2 text-white w-12 overflow-hidden text-ellipsis whitespace-nowrap">
               {filter.label}
             </Text>
