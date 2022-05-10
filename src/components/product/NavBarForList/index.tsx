@@ -4,8 +4,9 @@ import { AtSearchBar } from 'taro-ui'
 import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import './index.less'
+
 const NavBarForList = () => {
-  const [keyword, setKeyword] = useState('猫奶罐')
+  const [keyword, setKeyword] = useState('')
   const handleClick = () => {
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
   }
@@ -15,9 +16,10 @@ const NavBarForList = () => {
         <View className="font-medium">商城</View>
         <View className="flex-1 text-28" onClick={handleClick}>
           <AtSearchBar
+            className="cat-milk-cans"
             value={keyword}
             disabled
-            placeholder={keyword}
+            placeholder="猫奶罐"
             onChange={(value) => {
               console.info('value', value)
               setKeyword(value)
