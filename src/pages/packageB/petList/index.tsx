@@ -1,3 +1,4 @@
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { View } from '@tarojs/components'
 import cloneDeep from 'lodash.cloneDeep'
 import { AtButton } from 'taro-ui'
@@ -6,10 +7,8 @@ import { useEffect, useState } from 'react'
 import { getPets } from '@/framework/api/pet/get-pets'
 import PetItem from '@/components/customer/PetItem'
 import { initNewPet } from '@/lib/customer'
-import { getCurrentInstance } from '@tarojs/taro'
 import { getAge } from '@/utils/utils'
 import './index.less'
-import Taro from '@tarojs/taro'
 
 // const pets = Mock.mock(petLists).list;
 // console.info("petLists", pets);
