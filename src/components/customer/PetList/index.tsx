@@ -5,6 +5,7 @@ import Mock from 'mockjs'
 import { PetGender, PetListItemProps } from '@/framework/types/customer'
 import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
+import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
 import { getPets } from '@/framework/api/pet/get-pets'
 import { customerAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
@@ -15,8 +16,8 @@ import defaultDogImg from '@/assets/img/defaultdog.png'
 // import petBg from '@/assets/img/pet-bg.png'
 import addImg from '@/assets/img/addNew.png'
 import addIcon from '@/assets/img/add.png'
+
 import './index.less'
-import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
 
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
@@ -39,8 +40,11 @@ const PetList = () => {
   })
 
   const getList = async () => {
-    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-    let res = (await getPets({ customerId: customerInfo.id })) || []
+    const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
+    if (!customerInfos.id) {
+      return
+    }
+    let res = (await getPets({ customerId: customerInfos.id })) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
@@ -128,26 +132,32 @@ const PetList = () => {
                 </SwiperItem>
               ))}
             </Swiper>
-            {(petList.length === 1 || petList.length === 2) && (
+            {/* {(petList.length === 1 || petList.length === 2) && (
               <View className="w-6 h-6 m-auto" onClick={toPetList}>
                 <View
                   className="w-full h-full bg-no-repeat bg-contain"
                   style={{ backgroundImage: `url(${addIcon})` }}
                 ></View>
               </View>
-            )}
+            )} */}
+            <View className="w-6 h-6 m-auto" onClick={toPetList}>
+              <View
+                className="w-full h-full bg-no-repeat bg-contain"
+                style={{ backgroundImage: `url(${addIcon})` }}
+              ></View>
+            </View>
           </View>
           <View className="text-28 text-center flex justify-center items-center">
             <Text className="text-primary-red font-semibold text-sm mx-2">{fakePet[currentIdx].name}</Text>
             <View
-              className="w-4 h-4 mr-2  bg-contain"
+              className="w-3 h-3 mr-4  bg-contain"
               style={{
                 backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
               }}
             ></View>
-            <Text className="text-primary-red text-24">
+            <Text className=" text-22 bg-white">
               {fakePet[currentIdx]?.breed}
-              {fakePet[currentIdx]?.age}
+              <Text className=" ml-1">{` ${fakePet[currentIdx]?.age}`}</Text>
             </Text>
           </View>
         </View>

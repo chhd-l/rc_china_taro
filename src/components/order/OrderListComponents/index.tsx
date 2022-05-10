@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { View, Image, Text, ScrollView } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { formatMoney } from '@/utils/utils'
@@ -5,7 +6,6 @@ import { Order } from '@/framework/types/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import OrderAction from '../OrderAction'
 import './index.less'
-import { useEffect } from 'react'
 
 const orderStatusType = {
   UNPAID: '待付款',
