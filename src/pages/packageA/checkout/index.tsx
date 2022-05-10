@@ -108,15 +108,15 @@ const Checkout = () => {
         // })
         Taro.removeStorageSync('select-product')
         //下单成功处理购物车数据
-        // let cartProducts = session.get('cart-data') || []
-        // cartProducts.map((el, index) => {
-        //   tradeItems.map((item) => {
-        //     if (item.id === el.id) {
-        //       cartProducts.splice(index, 1)
-        //     }
-        //   })
-        // })
-        // session.set('cart-data', cartProducts)
+        let cartProducts = session.get('cart-data') || []
+        cartProducts.map((el, index) => {
+          tradeItems.map((item) => {
+            if (item.id === el.id) {
+              cartProducts.splice(index, 1)
+            }
+          })
+        })
+        session.set('cart-data', cartProducts)
         pay({
           params: {
             customerId: customerInfo?.id || '',
