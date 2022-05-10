@@ -9,7 +9,7 @@ import SearchLastOrHot from '@/components/product/SearchLastOrHot'
 import { getAttrs, getProducts } from '@/framework/api/product/get-product'
 import Taro from '@tarojs/taro'
 import { View, Text } from '@tarojs/components'
-import { AtButton, AtSearchBar, AtIcon } from 'taro-ui'
+import { AtButton, AtSearchBar, AtIcon, AtAvatar } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
 
@@ -147,6 +147,7 @@ const Search = () => {
           showActionButton
           focus
           value={keyword}
+          className="search-bar"
           onChange={(value) => {
             setKeyword(value)
           }}
@@ -176,9 +177,9 @@ const Search = () => {
         /> */}
 
         <View className=" pb-2">
-          <View className="text-xs font-semibold pb-2">我想搜</View>
+          <View className="text-md font-semibold pb-2 pt-2">我想搜</View>
           <View className="flex text-xs justify-between">
-            <View className="flex-1 flex">
+            <View className="flex-1 flex items-center">
               <AtButton
                 className={`${animal === 'cat' && 'animal-color'} ${largeButtonClass}`}
                 onClick={() => {
@@ -186,7 +187,15 @@ const Search = () => {
                   getCatOrDogAttrs('cat')
                 }}
               >
-                猫产品
+                {/* 猫图标切换 */}
+                <AtAvatar
+                  // circle
+                  className="w-4 h-4 leading-none bg-center align-middle mr-1 "
+                  image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
+                    animal === 'cat' ? '_selected' : ''
+                  }.svg`}
+                />
+                <Text>猫产品</Text>
               </AtButton>
               <AtButton
                 className={`${animal === 'dog' && 'animal-color'} ${largeButtonClass}`}
@@ -195,11 +204,22 @@ const Search = () => {
                   getCatOrDogAttrs('dog')
                 }}
               >
-                狗产品
+                <AtAvatar
+                  // circle
+                  className="w-4 h-4 leading-none bg-center align-middle mr-1"
+                  image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
+                    animal === 'dog' ? '_selected' : ''
+                  }.svg`}
+                />
+                <Text>狗产品</Text>
               </AtButton>
             </View>
+            <AtAvatar
+              className="w-4 h-4 leading-none bg-center align-middle mt-2 mr-1"
+              image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_MP.svg"
+            />
             <Text
-              // className="text-sm"
+              className="pt-1 text-gray-400 text-sm"
               onClick={() => {
                 setOpenSearchMore(true)
               }}

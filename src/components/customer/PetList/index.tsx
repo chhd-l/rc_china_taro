@@ -1,9 +1,6 @@
 import { Swiper, SwiperItem, View, Image, Text } from '@tarojs/components'
 import { useEffect, useState } from 'react'
-import { petLists } from '@/mock/pet'
-import Mock from 'mockjs'
 import { PetGender, PetListItemProps } from '@/framework/types/customer'
-import { AtIcon } from 'taro-ui'
 import Taro from '@tarojs/taro'
 import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
 import { getPets } from '@/framework/api/pet/get-pets'
@@ -13,8 +10,6 @@ import { getAge } from '@/utils/utils'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import defaultCatImg from '@/assets/img/default.png'
 import defaultDogImg from '@/assets/img/defaultdog.png'
-// import petBg from '@/assets/img/pet-bg.png'
-import addImg from '@/assets/img/addNew.png'
 import addIcon from '@/assets/img/add.png'
 
 import './index.less'
@@ -86,81 +81,117 @@ const PetList = () => {
 
   return (
     <View className="py-2 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4" style={{ backgroundImage: `url(${petBg})` }}>
-      <View className="flex justify-between">
+      <View className="flex justify-between mb-1">
         <View className="font-semibold">我的宠物</View>
         <View
           className="w-4 h-4"
           onClick={toPetList}
           style="background:url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_edit.png);background-size: contain;"
         ></View>
-        {/* <AtIcon value="edit" onClick={toPetList} size="22" color="#d33024"></AtIcon> */}
       </View>
       {fakePet.length ? (
-        <View>
-          <View className="w-full flex items-center">
-            <Swiper
-              style={{ height: '80px' }}
-              className="w-full"
-              circular
-              displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
-              onChange={({ detail }) => {
-                let current = fakePet.length > 1 ? detail.current + 1 : detail.current
-                if (current >= fakePet.length) {
-                  current = 0
-                }
-                console.log(' current', current)
-                handleChange(current)
-              }}
-            >
-              {fakePet.map((pet, idx) => (
-                <SwiperItem key={idx}>
-                  <View className="text-center h-full">
-                    {pet.id != '-1' ? (
-                      <View
-                        className={`w-16 h-16 bg-white h-full rounded-full shadow-md flex items-center justify-center  ${
-                          currentIdx === idx ? '' : 'scale-75 transform '
-                        }`}
-                      >
-                        <Image
-                          src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
-                          // src={pet.image}
-                          className="w-10 h-10 m-auto"
-                        />
-                      </View>
-                    ) : null}
-                  </View>
-                </SwiperItem>
-              ))}
-            </Swiper>
-            {/* {(petList.length === 1 || petList.length === 2) && (
+        fakePet.length === 1 ? (
+          <View>
+            <View className="w-full flex mb-1">
+              <View className="text-center h-full w-full flex items-center">
+                <View className="m-auto w-16 h-16 flex items-center bg-white rounded-full shadow-md">
+                  <Image
+                    src={fakePet[0].type === 'DOG' ? defaultDogImg : defaultCatImg}
+                    // src={pet.image}
+                    className="w-10 h-10 m-auto"
+                  />
+                </View>
+              </View>
               <View className="w-6 h-6 m-auto" onClick={toPetList}>
                 <View
                   className="w-full h-full bg-no-repeat bg-contain"
-                  style={{ backgroundImage: `url(${addIcon})` }}
-                ></View>
+                  style={{
+                    backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
+                    backgroundColor: '#fff',
+                    borderRadius: '50%',
+                    boxShadow: '-0.5px 0.5px 22px 0px #666',
+                  }}
+                />
               </View>
-            )} */}
-            <View className="w-6 h-6 m-auto" onClick={toPetList}>
+            </View>
+            <View className="text-center flex justify-center items-center">
+              <Text className="text-primary-red font-semibold text-lg mx-2">{fakePet[currentIdx]?.name}</Text>
               <View
-                className="w-full h-full bg-no-repeat bg-contain"
-                style={{ backgroundImage: `url(${addIcon})` }}
+                className="w-3 h-3 mr-4  bg-contain"
+                style={{
+                  backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
+                }}
               ></View>
+              <Text className=" text-22 bg-white">
+                {fakePet[currentIdx]?.breed}
+                <Text className=" ml-1">{` ${fakePet[currentIdx]?.age}`}</Text>
+              </Text>
             </View>
           </View>
-          <View className="text-28 text-center flex justify-center items-center">
-            <Text className="text-primary-red font-semibold text-sm mx-2">{fakePet[currentIdx].name}</Text>
-            <View
-              className="w-3 h-3 mr-4  bg-contain"
-              style={{
-                backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
-              }}
-            ></View>
-            <Text className=" text-22 bg-white">
-              {fakePet[currentIdx]?.breed}
-              <Text className=" ml-1">{` ${fakePet[currentIdx]?.age}`}</Text>
-            </Text>
+        ) : (
+          <View>
+            <View className="w-full flex items-center">
+              <Swiper
+                style={{ height: '80px' }}
+                className="w-full flex items-center"
+                circular
+                displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
+                onChange={({ detail }) => {
+                  let current = fakePet.length > 1 ? detail.current + 1 : detail.current
+                  if (current >= fakePet.length) {
+                    current = 0
+                  }
+                  console.log(' current', current)
+                  handleChange(current)
+                }}
+              >
+                {fakePet.map((pet, idx) => (
+                  <SwiperItem key={idx}>
+                    <View className="text-center h-full flex items-center">
+                      {pet.id != '-1' ? (
+                        <View
+                          className={`w-16 h-16 bg-white h-full rounded-full shadow-md flex items-center justify-center  ${
+                            currentIdx === idx ? '' : 'scale-75 transform '
+                          }`}
+                        >
+                          <Image
+                            src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
+                            // src={pet.image}
+                            className="w-10 h-10 m-auto"
+                          />
+                        </View>
+                      ) : null}
+                    </View>
+                  </SwiperItem>
+                ))}
+              </Swiper>
+              <View className="w-6 h-6 m-auto" onClick={toPetList}>
+                <View
+                  className="w-full h-full bg-no-repeat bg-contain"
+                  style={{
+                    backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
+                    backgroundColor: '#fff',
+                    borderRadius: '50%',
+                    boxShadow: '-0.5px 0.5px 22px 0px #666',
+                  }}
+                />
+              </View>
+            </View>
+            <View className="text-center flex justify-center items-center">
+              <Text className="text-primary-red font-semibold text-lg mx-2">{fakePet[currentIdx]?.name}</Text>
+              <View
+                className="w-3 h-3 mr-4  bg-contain"
+                style={{
+                  backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
+                }}
+              ></View>
+              <Text className=" text-22 bg-white">
+                {fakePet[currentIdx]?.breed}
+                <Text className=" ml-1">{` ${fakePet[currentIdx]?.age}`}</Text>
+              </Text>
+            </View>
           </View>
-        </View>
+        )
       ) : (
         <View
           onClick={toPetList}
