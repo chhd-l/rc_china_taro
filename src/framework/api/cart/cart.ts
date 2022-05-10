@@ -16,8 +16,14 @@ export const getCarts = async (isNeedReload = false) => {
         cartProducts = res?.carts || []
         console.log('cart data', cartProducts)
         for (let i = 0; i < cartProducts.length; i++) {
+          //查询商品信息
           let data = await getProductBySkuId({ goodsVariantId: cartProducts[i].goodsVariantID })
-          cartProducts[i] = normalizeCartData(cartProducts[i], data.productBySkuId)
+          //todo 商品被删除之后的处理方案
+          if(!data?.productBySkuId){
+            cartProducts.splice(i,1)
+          }else{
+            cartProducts[i] = normalizeCartData(cartProducts[i], data?.productBySkuId)
+          }
         }
         session.set('cart-data', cartProducts)
       }

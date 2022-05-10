@@ -56,10 +56,12 @@ const Checkout = () => {
       }
       setLoading(true)
       const goodsList = tradeItems.map((el) => {
-        el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
-          num: el.goodsNum,
-          id: el.goodsId || '',
-        })
+        if(el.skuGoodInfo.goodsVariants?.length>0){
+          el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
+            num: el.goodsNum,
+            id: el.goodsId || '',
+          })
+        }
         el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications?.map((item) => {
           return Object.assign(item, { goodsId: item.id })
         })
@@ -73,6 +75,7 @@ const Checkout = () => {
       })
       const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
       const user = Taro.getStorageSync('wxLoginRes').userInfo
+      let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const params = {
         goodsList,
         addressInfo: addressInfo.id !== '' ? addressInfo : null,
@@ -89,6 +92,11 @@ const Checkout = () => {
           name: user.name,
         },
         operator: user.nickName,
+        wxUserInfo:{
+          nickName: user.nickName,
+          unionId:wxLoginRes?.customerAccount?.unionId,
+          openId:wxLoginRes?.customerAccount?.openId
+        }
       }
       console.log('create order params', params)
       const res = await createOrder(params)
@@ -100,16 +108,15 @@ const Checkout = () => {
         // })
         Taro.removeStorageSync('select-product')
         //下单成功处理购物车数据
-        // let cartProducts = session.get('cart-data') || []
-        // cartProducts.map((el, index) => {
-        //   tradeItems.map((item) => {
-        //     if (item.id === el.id) {
-        //       cartProducts.splice(index, 1)
-        //     }
-        //   })
-        // })
-        // session.set('cart-data', cartProducts)
-        let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+        let cartProducts = session.get('cart-data') || []
+        cartProducts.map((el, index) => {
+          tradeItems.map((item) => {
+            if (item.id === el.id) {
+              cartProducts.splice(index, 1)
+            }
+          })
+        })
+        session.set('cart-data', cartProducts)
         pay({
           params: {
             customerId: customerInfo?.id || '',
@@ -141,6 +148,7 @@ const Checkout = () => {
         })
       }
     } catch (e) {
+      console.log('create order err',e)
       Taro.atMessage({
         message: '系统繁忙，请稍后再试',
         type: 'error',
