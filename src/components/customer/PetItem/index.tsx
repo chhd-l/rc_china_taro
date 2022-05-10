@@ -1,5 +1,6 @@
 import { View, Image, Button } from '@tarojs/components'
 import { AtImagePicker, AtModal, AtModalAction, AtModalContent, AtSwipeAction } from 'taro-ui'
+import { petBg } from '@/lib/constants'
 import Taro from '@tarojs/taro'
 import cloneDeep from 'lodash.cloneDeep'
 import { useEffect, useState } from 'react'
@@ -12,7 +13,6 @@ import defaultDogImg from '@/assets/img/defaultdog.png'
 import addImg from '@/assets/img/addNew.png'
 // import petBg from '@/assets/img/pet-bg.png'
 import './index.less'
-import { petBg } from '@/lib/constants'
 
 interface Props {
   pet: PetListItemProps
@@ -100,9 +100,10 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               )}
               {pet.id === '-1' ? null : (
                 <View className="flex justify-center pt-3">
-                  <View className="text-30 text-red-600 pr-3 font-medium">{pet.name}</View>
-                  <View className="text-26">
-                    {pet.breed} {pet.age}
+                  <View className="text-lg text-red-600 pr-3 font-medium">{pet.name}</View>
+                  <View className="text-xs flex items-center">
+                    <View className="mr-1">{pet.breed}</View>
+                    <View>{pet.age}</View>
                   </View>
                 </View>
               )}
