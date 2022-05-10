@@ -1,6 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { View, RichText, Image } from '@tarojs/components'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
+import { AuthLogin } from '@/components/customer'
+import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { mockDetail } from '@/mock/product'
 import ChooseSpec from '@/components/product/ChooseSpec'
 import AddCart from '@/components/product/AddCart'
@@ -15,8 +17,6 @@ import { cartSunccessToastShowAtom } from '@/store/customer'
 import { AtToast } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
-import { AuthLogin } from '@/components/customer'
-import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 
 export interface SelectedProps {
   [x: string]: string
