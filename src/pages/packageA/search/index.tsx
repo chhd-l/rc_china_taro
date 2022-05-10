@@ -152,7 +152,7 @@ const Search = () => {
           }}
           onActionClick={handleSearch}
         />
-        {lastSearchList.length > 0 ? (
+        {/* {lastSearchList.length > 0 ? (
           <SearchLastOrHot
             handleLastSearch={handleLastSearch}
             titleLeft="最近搜索"
@@ -163,7 +163,7 @@ const Search = () => {
             }
             searchList={lastSearchList}
           />
-        ) : null}
+        ) : null} */}
         {/* <SearchLastOrHot
           handleLastSearch={handleLastSearch}
           titleLeft="热门搜索"

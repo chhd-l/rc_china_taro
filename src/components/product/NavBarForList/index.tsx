@@ -5,7 +5,8 @@ import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import './index.less'
 const NavBarForList = () => {
-  const [keyword, setKeyword] = useState('猫奶罐')
+  const [keyword, setKeyword] = useState('')
+  // const [keyword, setKeyword] = useState('猫奶罐')
   const handleClick = () => {
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
   }

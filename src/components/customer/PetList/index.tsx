@@ -16,6 +16,7 @@ import defaultDogImg from '@/assets/img/defaultdog.png'
 // import petBg from '@/assets/img/pet-bg.png'
 import addImg from '@/assets/img/addNew.png'
 import addIcon from '@/assets/img/add.png'
+
 import './index.less'
 
 const PetList = () => {
@@ -40,6 +41,9 @@ const PetList = () => {
 
   const getList = async () => {
     const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
+    if (!customerInfos.id) {
+      return
+    }
     let res = (await getPets({ customerId: customerInfos.id })) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
@@ -146,14 +150,14 @@ const PetList = () => {
           <View className="text-28 text-center flex justify-center items-center">
             <Text className="text-primary-red font-semibold text-sm mx-2">{fakePet[currentIdx].name}</Text>
             <View
-              className="w-4 h-4 mr-2  bg-contain"
+              className="w-3 h-3 mr-4  bg-contain"
               style={{
                 backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
               }}
             ></View>
-            <Text className="text-primary-red text-24">
+            <Text className=" text-22 bg-white">
               {fakePet[currentIdx]?.breed}
-              {fakePet[currentIdx]?.age}
+              <Text className=" ml-1">{` ${fakePet[currentIdx]?.age}`}</Text>
             </Text>
           </View>
         </View>
