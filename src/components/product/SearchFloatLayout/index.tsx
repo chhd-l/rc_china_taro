@@ -1,8 +1,8 @@
 import { FilterListItemProps } from '@/framework/types/products'
 import { largeButtonClass } from '@/lib/product'
-import { View } from '@tarojs/components'
+import { Text, View } from '@tarojs/components'
 import { useState } from 'react'
-import { AtButton, AtFloatLayout } from 'taro-ui'
+import { AtAvatar, AtButton, AtFloatLayout } from 'taro-ui'
 import SearchFilters from '../SearchFilters'
 import './index.less'
 
@@ -33,7 +33,7 @@ const SearchFloatLayout = ({
       }}
     >
       <View>
-        <View className="flex">
+        <View className="flex searchfloatlayout">
           <AtButton
             className={`${animal === 'cat' && 'animal-color'} ${largeButtonClass}`}
             onClick={() => {
@@ -42,8 +42,14 @@ const SearchFloatLayout = ({
               setAnimal('cat')
             }}
           >
-            <View className="at-icon at-icon-trash"></View>
-            猫产品
+            {/* 猫图标切换 */}
+            <AtAvatar
+              className="w-4 h-4 leading-none bg-center align-middle mr-1"
+              image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
+                animal === 'cat' ? '_selected' : ''
+              }.svg`}
+            />
+            <Text>猫产品</Text>
           </AtButton>
           <AtButton
             className={`${animal === 'dog' && 'animal-color'} ${largeButtonClass}`}
@@ -53,7 +59,14 @@ const SearchFloatLayout = ({
               setAnimal('dog')
             }}
           >
-            狗产品
+            <AtAvatar
+              // circle
+              className="w-4 h-4 leading-none bg-center align-middle mr-1"
+              image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
+                animal === 'dog' ? '_selected' : ''
+              }.svg`}
+            />
+            <Text>狗产品</Text>
           </AtButton>
         </View>
         <View>
