@@ -196,18 +196,30 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
 }
 
 export const normalizeCatOrDogAttr = (atrrs, categoryId) => {
-  return atrrs.map((item) => {
-    return {
-      key: item.attributeNameEn,
-      label: item.attributeName,
-      list: item.values.map((el) => {
-        return {
-          categoryId,
-          attributeId: el.attributeId,
-          value: el.id,
-          label: el.attributeValueName,
-        }
-      }),
-    }
+  let keyLable = ['专区', '年龄', '功能', '品种']
+  // if (categoryId == '8') {
+  //   //狗的时候，年龄展示lifestage
+  //   let keyLable = ['专区', '年龄', '功能', '品种']
+  // }
+  let newArr: any = []
+  keyLable.forEach((el) => {
+    atrrs.find((item) => {
+      let data = {
+        key: item.attributeNameEn,
+        label: item.attributeName,
+        list: item.values.map((el) => {
+          return {
+            categoryId,
+            attributeId: el.attributeId,
+            value: el.id,
+            label: el.attributeValueName,
+          }
+        }),
+      }
+      if (el === item.attributeName) {
+        newArr.push(data)
+      }
+    })
   })
+  return newArr
 }
