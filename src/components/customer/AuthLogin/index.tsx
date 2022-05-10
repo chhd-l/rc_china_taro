@@ -124,7 +124,12 @@ const AuthLogin = () => {
           ) : (
             <View className="px-5 flex justify-center items-center">
               <View className="mt-20">
-                <AtButton type="primary" openType="getPhoneNumber" onGetPhoneNumber={(e) => getTel(e)}>
+                <AtButton
+                  className="h-10 leading-10"
+                  type="primary"
+                  openType="getPhoneNumber"
+                  onGetPhoneNumber={(e) => getTel(e)}
+                >
                   绑定手机号
                 </AtButton>
                 <AtButton className="border-0 text-gray" onClick={() => setAuthLoginOpened(false)}>

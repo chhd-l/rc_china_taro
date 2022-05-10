@@ -69,7 +69,8 @@ const Account = () => {
                     }}
                   >
                     <Text className="align-middle mr-1">退出登录 </Text>
-                    <AtAvatar circle className="w-4 h-4 leading-none bg-center align-middle" image={quitIcon} />
+                    <Image className="w-4 h-4 leading-none bg-center align-middle" src={quitIcon} />
+                    {/* <AtAvatar circle className="w-4 h-4 leading-none bg-center align-middle" image={quitIcon} /> */}
                   </View>
                 </View>
               </>
@@ -164,6 +165,9 @@ const Account = () => {
                 Taro.removeStorageSync('wxLoginRes')
                 setCustomerInfo(null)
                 setSignoutOpend(false)
+                const pages = Taro.getCurrentPages()
+                const perpage = pages[pages.length - 1]
+                perpage.onLoad()
               }}
             >
               确定
