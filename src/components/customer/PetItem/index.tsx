@@ -25,6 +25,8 @@ interface Props {
 }
 const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPetBtn, getList }: Props) => {
   const [editActive, setEditActive] = useState<number>(-1)
+  const [imgUrl, setImgUrl] = useState<string>('')
+  const [item, setItem] = useState<any>(pet)
   const [showDelModal, setShowDelModal] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
   useEffect(() => {
@@ -56,8 +58,30 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
     setPetList(cloneDeep(petList))
   }
   const handleImage = (files, idx) => {
-    petList[idx].image = files[files.length - 1].url
-    setPetList(cloneDeep(petList))
+    Taro.chooseImage({
+      count: 1, // 默认9
+      sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
+      sourceType: ['album', 'camera'], // 可以指定来源是相册还是相机，默认二者都有
+      success: function (res) {
+        // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
+        const tempFilePaths = res.tempFilePaths
+        Taro.uploadFile({
+          url: 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/upload', //仅为示例，非真实的接口地址
+          filePath: tempFilePaths[0],
+          header: { 'Content-Type': 'multipart/form-data' },
+          name: 'file',
+          success(vla: any) {
+            const { url } = JSON.parse(vla.data)
+            setItem({
+              ...item,
+              image: url,
+            })
+            setImgUrl(url)
+            //do something
+          },
+        })
+      },
+    })
   }
   return (
     <View className="my-2 mx-3">
@@ -88,14 +112,17 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                 <AtImagePicker
                   className="w-20 h-20 m-auto relative"
                   length={1}
-                  files={[{ url: addImg || pet.image }]}
+                  files={[{ url: pet.image || addImg }]}
                   onChange={(files) => {
                     handleImage(files, petIdx)
                   }}
                 />
               ) : (
                 <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
-                  <Image src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg} className={`w-12 h-12 m-auto `} />
+                  <Image
+                    src={pet.image || (pet.type === 'DOG' ? defaultDogImg : defaultCatImg)}
+                    className={`w-12 h-12 m-auto `}
+                  />
                 </View>
               )}
               {pet.id === '-1' ? null : (
@@ -120,7 +147,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
             <AtImagePicker
               className="w-20 h-20 m-auto relative"
               length={1}
-              files={[{ url: addImg || pet.image }]}
+              files={[{ url: imgUrl || addImg || pet.image }]}
               onChange={(files) => {
                 handleImage(files, petIdx)
               }}
@@ -135,7 +162,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
           setIsEdit={setIsEdit}
           SetshowAddPetBtn={SetshowAddPetBtn}
           getList={getList}
-          pet={pet}
+          pet={item}
         />
       ) : null}
       <AtModal isOpened={showDelModal}>
