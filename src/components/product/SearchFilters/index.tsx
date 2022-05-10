@@ -35,7 +35,7 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: Sear
           <View className="w-12 overflow-hidden text-ellipsis whitespace-nowrap  pb-1 pt-3 py-1 border border-transparent  border-solid z-10 bg-white absolute top-2">
             {filter.label}
           </View>
-          <ScrollView className="whitespace-nowrap " scrollX>
+          <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
             <Text className="inline-block mr-1 px-2 py-1 mb-2 text-white w-12 overflow-hidden text-ellipsis whitespace-nowrap">
               {filter.label}
             </Text>
