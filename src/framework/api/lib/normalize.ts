@@ -32,11 +32,11 @@ export const normalizeProductForFe = (goods: any): any => {
     let tagStr = ''
     switch (attr.attributeNameEn) {
       case 'Age':
-        tagStr = `适用年龄:${attr.attributeValueNameEn}` //显示中文
+        tagStr = `适用年龄:${attr.attributeValueName}` //显示中文
         break
       case 'Technology':
-        let value = attr.attributeValueName == 'WetFood' && '每日一包'
-        value = attr.attributeValueName == 'can' && '两日一罐'
+        let value = attr.attributeValueNameEn == 'WetFood' && '每日一包'
+        value = attr.attributeValueNameEn == 'can' && '两日一罐'
         tagStr = value ? `建议干湿搭配:${value}` : ''
         break
     }
@@ -113,7 +113,7 @@ export const normalizeProductsforFe = (data: any) => {
       }
     })
     return {
-      name: item.cardName || item.goodsName,
+      name: item.goodsName,
       img: item.goodsAsserts?.[0]?.artworkUrl,
       originalPrice: minItem.listPrice,
       price: minItem.marketingPrice,
@@ -196,18 +196,30 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
 }
 
 export const normalizeCatOrDogAttr = (atrrs, categoryId) => {
-  return atrrs.map((item) => {
-    return {
-      key: item.attributeNameEn,
-      label: item.attributeName,
-      list: item.values.map((el) => {
-        return {
-          categoryId,
-          attributeId: el.attributeId,
-          value: el.id,
-          label: el.attributeValueName,
-        }
-      }),
-    }
+  let keyLable = ['专区', '年龄', '功能', '品种']
+  // if (categoryId == '8') {
+  //   //狗的时候，年龄展示lifestage
+  //   let keyLable = ['专区', '年龄', '功能', '品种']
+  // }
+  let newArr: any = []
+  keyLable.forEach((el) => {
+    atrrs.find((item) => {
+      let data = {
+        key: item.attributeNameEn,
+        label: item.attributeName,
+        list: item.values.map((el) => {
+          return {
+            categoryId,
+            attributeId: el.attributeId,
+            value: el.id,
+            label: el.attributeValueName,
+          }
+        }),
+      }
+      if (el === item.attributeName) {
+        newArr.push(data)
+      }
+    })
   })
+  return newArr
 }
