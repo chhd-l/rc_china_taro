@@ -45,7 +45,7 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: Sear
                 onClick={() => {
                   onChangeFilter(filter.key, index)
                 }}
-                className={`inline-block py-1 px-2 text-center w-13 search-filter-round mr-2 border border-solid  mb-2 ${
+                className={`inline-block py-1 px-2 text-center w-16 search-filter-round mr-2 border border-solid  mb-2 ${
                   item.activeColor ? 'bg-red-600 border-red-500 text-white' : 'text-gray-400 border-gary-300'
                 }}`}
               >

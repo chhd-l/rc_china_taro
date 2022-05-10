@@ -190,7 +190,7 @@ const Search = () => {
                 {/* 猫图标切换 */}
                 <AtAvatar
                   // circle
-                  className="w-4 h-4 leading-none bg-center align-middle mr-1 "
+                  className="w-4 h-4 line-height bg-center align-middle mr-1"
                   image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
                     animal === 'cat' ? '_selected' : ''
                   }.svg`}
@@ -206,7 +206,7 @@ const Search = () => {
               >
                 <AtAvatar
                   // circle
-                  className="w-4 h-4 leading-none bg-center align-middle mr-1"
+                  className="w-4 h-4 line-height bg-center align-middle mr-1"
                   image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
                     animal === 'dog' ? '_selected' : ''
                   }.svg`}
@@ -215,7 +215,7 @@ const Search = () => {
               </AtButton>
             </View>
             <AtAvatar
-              className="w-4 h-4 leading-none bg-center align-middle mt-2 mr-1"
+              className="w-4 h-4 line-height bg-center align-middle mt-2 mr-1"
               image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_MP.svg"
             />
             <Text
