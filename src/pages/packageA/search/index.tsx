@@ -8,7 +8,7 @@ import SearchFloatLayout from '@/components/product/SearchFloatLayout'
 import SearchLastOrHot from '@/components/product/SearchLastOrHot'
 import { getAttrs, getProducts } from '@/framework/api/product/get-product'
 import Taro from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Image } from '@tarojs/components'
 import { AtButton, AtSearchBar, AtIcon, AtAvatar } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
@@ -48,7 +48,6 @@ const Search = () => {
     if (categoryId) {
       params.goodsCategoryId = categoryId
     }
-    debugger
     if (goodsName) {
       params.goodsName = goodsName
     }
@@ -60,7 +59,6 @@ const Search = () => {
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
-          debugger
           if (!params.attributeIds) {
             params.attributeIds = []
           }
@@ -137,7 +135,7 @@ const Search = () => {
     const res = await getAttrs({ storeId: '12345678', categoryId: type === 'cat' ? '10' : '8' })
     console.log('get cat Attrs', res)
     setFilterList(res)
-    setAnimal(type)
+    // setAnimal(type)
   }
 
   return (
@@ -145,12 +143,13 @@ const Search = () => {
       <View className=" p-2">
         <AtSearchBar
           showActionButton
-          focus
+          // focus
           value={keyword}
           className="search-bar"
           onChange={(value) => {
             setKeyword(value)
           }}
+          placeholder="猫奶罐"
           onActionClick={handleSearch}
         />
         {/* {lastSearchList.length > 0 ? (
@@ -176,8 +175,8 @@ const Search = () => {
           searchList={hotSearchList}
         /> */}
 
-        <View className=" pb-2">
-          <View className="text-md font-semibold pb-2 pt-2">我想搜</View>
+        <View className="border-0">
+          <View className="text-md font-semibold pb-4 pt-2">我想搜</View>
           <View className="flex text-xs justify-between">
             <View className="flex-1 flex items-center">
               <AtButton
@@ -185,14 +184,14 @@ const Search = () => {
                 onClick={() => {
                   getList({ categoryId: '10' })
                   getCatOrDogAttrs('cat')
+                  setAnimal('cat')
                 }}
               >
                 {/* 猫图标切换 */}
-                <AtAvatar
-                  // circle
-                  className="w-4 h-4 line-height bg-center align-middle mr-1"
-                  image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
-                    animal === 'cat' ? '_selected' : ''
+                <Image
+                  className="w-7 h-8 line-height bg-center align-middle mr-1"
+                  src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
+                    animal === 'cat' ? '_selected_1' : '_1'
                   }.svg`}
                 />
                 <Text>猫产品</Text>
@@ -202,24 +201,24 @@ const Search = () => {
                 onClick={() => {
                   getList({ categoryId: '8' })
                   getCatOrDogAttrs('dog')
+                  setAnimal('dog')
                 }}
               >
-                <AtAvatar
-                  // circle
-                  className="w-4 h-4 line-height bg-center align-middle mr-1"
-                  image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
-                    animal === 'dog' ? '_selected' : ''
+                <Image
+                  className="w-7 h-8 line-height bg-center align-middle mr-1"
+                  src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
+                    animal === 'dog' ? '_selected_1' : '_1'
                   }.svg`}
                 />
                 <Text>狗产品</Text>
               </AtButton>
             </View>
-            <AtAvatar
-              className="w-4 h-4 line-height bg-center align-middle mt-2 mr-1"
-              image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_MP.svg"
+            <Image
+              className="w-5 h-5 line-height bg-center align-middle moreIcon mr-1"
+              src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_MP_1.svg"
             />
             <Text
-              className="pt-1 text-gray-400 text-sm"
+              className="more text-gray-400 text-base align-middle cursor-pointer"
               onClick={() => {
                 setOpenSearchMore(true)
               }}
@@ -239,9 +238,10 @@ const Search = () => {
         />
         <View className="text-xs">
           <SearchFilters
+            isShowAll={false}
             isSearchNow
             getList={getList}
-            filterList={filterList?.slice(0, 2)}
+            filterList={filterList}
             setFilterList={setFilterList}
           />
         </View>

@@ -56,7 +56,7 @@ const Checkout = () => {
       }
       setLoading(true)
       const goodsList = tradeItems.map((el) => {
-        if(el.skuGoodInfo.goodsVariants?.length>0){
+        if (el.skuGoodInfo.goodsVariants?.length > 0) {
           el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
             num: el.goodsNum,
             id: el.goodsId || '',
@@ -92,11 +92,11 @@ const Checkout = () => {
           name: user.name,
         },
         operator: user.nickName,
-        wxUserInfo:{
+        wxUserInfo: {
           nickName: user.nickName,
-          unionId:wxLoginRes?.customerAccount?.unionId,
-          openId:wxLoginRes?.customerAccount?.openId
-        }
+          unionId: wxLoginRes?.customerAccount?.unionId,
+          openId: wxLoginRes?.customerAccount?.openId,
+        },
       }
       console.log('create order params', params)
       const res = await createOrder(params)
@@ -132,7 +132,7 @@ const Checkout = () => {
           },
           success: () => {
             Taro.redirectTo({
-              url: `${routers.orderList}?status=UNPAID`,
+              url: `${routers.orderList}?status=TO_SHIP`,
             })
           },
           fail: () => {
@@ -148,7 +148,7 @@ const Checkout = () => {
         })
       }
     } catch (e) {
-      console.log('create order err',e)
+      console.log('create order err', e)
       Taro.atMessage({
         message: '系统繁忙，请稍后再试',
         type: 'error',
@@ -181,7 +181,7 @@ const Checkout = () => {
       setAddress(JSON.parse(selectAddress))
     } else {
       // const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-      const addresses = await getAddresses({ customerId: customerInfo?.id||'' })
+      const addresses = await getAddresses({ customerId: customerInfo?.id || '' })
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])

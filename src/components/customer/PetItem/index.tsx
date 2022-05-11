@@ -1,5 +1,5 @@
 import { View, Image, Button } from '@tarojs/components'
-import { AtImagePicker, AtModal, AtModalAction, AtModalContent, AtSwipeAction } from 'taro-ui'
+import { AtModal, AtModalAction, AtModalContent, AtSwipeAction } from 'taro-ui'
 import { petBg } from '@/lib/constants'
 import Taro from '@tarojs/taro'
 import cloneDeep from 'lodash.cloneDeep'
@@ -8,10 +8,8 @@ import EditPet from '@/components/customer/EditPet'
 import { editPetButton } from '@/lib/customer'
 import { deletePet } from '@/framework/api/pet/delete-pet'
 import { PetListItemProps } from '@/framework/types/customer'
-import defaultCatImg from '@/assets/img/default.png'
-import defaultDogImg from '@/assets/img/defaultdog.png'
 import addImg from '@/assets/img/addNew.png'
-// import petBg from '@/assets/img/pet-bg.png'
+import { Dog, Cat } from '@/utils/global'
 import './index.less'
 
 interface Props {
@@ -31,8 +29,9 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
   const [isEdit, setIsEdit] = useState<boolean>(false)
   useEffect(() => {
     //add 的时候编辑启用
+    console.log('pet', pet)
     !showAddPetBtn && petIdx === petList.length - 1 && setIsEdit(true)
-  }, [showAddPetBtn])
+  }, [showAddPetBtn, isEdit])
   const handleClick = (option, idx) => {
     if (option.text == '编辑') {
       setIsEdit(true)
@@ -109,19 +108,21 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               }}
             >
               {isEdit ? (
-                <AtImagePicker
+                <Image
                   className="w-20 h-20 m-auto relative"
-                  length={1}
-                  files={[{ url: pet.image || addImg }]}
-                  onChange={(files) => {
+                  src={imgUrl || pet.type === 'DOG' ? Dog : Cat}
+                  style={{ borderRadius: '50%' }}
+                  onClick={(files) => {
                     handleImage(files, petIdx)
                   }}
                 />
               ) : (
+                // 宠物列表
                 <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
                   <Image
-                    src={pet.image || (pet.type === 'DOG' ? defaultDogImg : defaultCatImg)}
-                    className={`w-12 h-12 m-auto `}
+                    src={pet.type === 'DOG' ? Dog : Cat}
+                    style={{ borderRadius: '50%' }}
+                    className="w-20 h-20 m-auto Petpictureshadow"
                   />
                 </View>
               )}
@@ -137,6 +138,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
             </View>
           </AtSwipeAction>
         ) : (
+          // 新增
           <View
             className="text-center pt-14 pb-2 w-screen"
             style={{ backgroundImage: `url(${petBg})` }}
@@ -144,11 +146,11 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               showEdit(petIdx)
             }}
           >
-            <AtImagePicker
+            <Image
               className="w-20 h-20 m-auto relative"
-              length={1}
-              files={[{ url: imgUrl || addImg || pet.image }]}
-              onChange={(files) => {
+              style={{ borderRadius: '50%' }}
+              src={imgUrl || 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_add_2.png'}
+              onClick={(files) => {
                 handleImage(files, petIdx)
               }}
             />

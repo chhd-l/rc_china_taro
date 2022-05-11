@@ -11,3 +11,6 @@ export const session = {
     Taro.removeStorageSync(key)
   },
 }
+
+export const Dog = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_dog.svg'
+export const Cat = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_cat.svg'

@@ -108,7 +108,7 @@ export const normalizeSkuForFe = (
 }
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
-    let minItem = item.goodsVariants[0] || {}
+    let minItem = item.goodsVariants ? item.goodsVariants[0] : null
     // item.goodsVariants.forEach((variant) => {
     //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
     //     minItem = variant
@@ -116,10 +116,10 @@ export const normalizeProductsforFe = (data: any) => {
     // })
     return {
       name: item.goodsName,
-      img: minItem.defaultImage,
-      originalPrice: minItem.listPrice,
-      price: minItem.marketingPrice,
-      sku: minItem.id,
+      img: minItem?.defaultImage,
+      originalPrice: minItem?.listPrice,
+      price: minItem?.marketingPrice,
+      sku: minItem?.id,
       spu: item.id,
     }
   })
@@ -186,8 +186,8 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
         tagStr = `适用年龄:${attr.attributeValueName}`
         break
       case 'Technology':
-        let value = attr.attributeValueName == 'WetFood' && '每日一包'
-        value = attr.attributeValueName == 'can' && '两日一罐'
+        let value = attr.attributeValueName == '湿粮' && '每日一包'
+        value = attr.attributeValueName == '其他' && '2日一罐'
         tagStr = value ? `建议干湿搭配:${value}` : ''
         break
     }
