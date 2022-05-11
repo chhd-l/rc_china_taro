@@ -116,6 +116,7 @@ const BreedList = () => {
                 .map((breed) => (
                   <View
                     onClick={() => {
+                      console.info('breedbreed', breed)
                       handleBreed(breed)
                     }}
                   >
