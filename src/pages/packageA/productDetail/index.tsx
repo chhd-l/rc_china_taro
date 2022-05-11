@@ -126,7 +126,7 @@ const ProductDetail = () => {
             <Image
               mode="widthFix"
               // style={{ height: Taro.getSystemInfoSync().windowWidth }}
-              src={detailInfo.description}
+              src={detailInfo.description?.split('"')?.[1].split('"')[0]}
               className="w-full"
             />{' '}
             {/* <RichText className="w-full" nodes={detailInfo.description} /> */}
