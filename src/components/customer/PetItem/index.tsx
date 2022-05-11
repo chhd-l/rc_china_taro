@@ -11,7 +11,6 @@ import { PetListItemProps } from '@/framework/types/customer'
 import defaultCatImg from '@/assets/img/default.png'
 import defaultDogImg from '@/assets/img/defaultdog.png'
 import addImg from '@/assets/img/addNew.png'
-// import petBg from '@/assets/img/pet-bg.png'
 import './index.less'
 
 interface Props {

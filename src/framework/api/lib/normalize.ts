@@ -1,6 +1,7 @@
 import { GoodsVariants } from '@/framework/schema/products.schema'
 import { SkuItemProps } from '@/framework/types/products'
 import { dealDatasForApi, formatDateToApi, formatDateToFe } from '@/utils/utils'
+import moment from 'moment'
 
 export const normalizePetsForApi = (petInfo: any) => {
   let data: any = dealDatasForApi(petInfo, petItemApiArr, petItemFeArr)
@@ -10,6 +11,7 @@ export const normalizePetsForApi = (petInfo: any) => {
   }
   data.operator = ''
   if (data.birthday) {
+    debugger
     //处理日期
     data.birthday = formatDateToApi(data.birthday)
   }
@@ -20,9 +22,9 @@ export const normalizePetsForFe = (petInfo: any) => {
   let data: any = dealDatasForApi(petInfo, petItemFeArr, petItemApiArr)
   if (data.birthday) {
     //处理日期
-    data.birthday = formatDateToFe(data.birthday)
+    // data.birthday = formatDateToFe(data.birthday)
+    data.birthday = moment(petInfo.birthday).format('YYYY-MM-DD')
   }
-  // data.birthday = moment(petInfo.birthday).format("YYYY-MM-DD");
   return data
 }
 
@@ -106,18 +108,18 @@ export const normalizeSkuForFe = (
 }
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
-    let minItem = item.goodsVariants[0]
-    item.goodsVariants.forEach((variant) => {
-      if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
-        minItem = variant
-      }
-    })
+    let minItem = item.goodsVariants ? item.goodsVariants[0] : null
+    // item.goodsVariants.forEach((variant) => {
+    //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
+    //     minItem = variant
+    //   }
+    // })
     return {
       name: item.goodsName,
-      img: item.goodsAsserts?.[0]?.artworkUrl,
-      originalPrice: minItem.listPrice,
-      price: minItem.marketingPrice,
-      sku: minItem.id,
+      img: minItem?.defaultImage,
+      originalPrice: minItem?.listPrice,
+      price: minItem?.marketingPrice,
+      sku: minItem?.id,
       spu: item.id,
     }
   })
@@ -140,6 +142,7 @@ const petItemApiArr = [
   'gender',
   'type',
   'breedCode',
+  'breedName',
   'image',
   'isSterilized',
   'birthday',
@@ -151,6 +154,7 @@ const petItemFeArr = [
   'name',
   'gender',
   'type',
+  'code',
   'breed',
   'image',
   'isSterilized',

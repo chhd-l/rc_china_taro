@@ -31,12 +31,12 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: Sear
   return (
     <>
       {filterList.map((filter, idx) => (
-        <View key={idx} className="text-xxs relative scorll-view-filter">
-          <View className="w-8 overflow-hidden text-ellipsis whitespace-nowrap  pb-1 pt-3 py-1 border border-transparent  border-solid z-10 bg-white absolute top-2">
+        <View key={idx} className="text-xxs relative scorll-view-filter filterItem">
+          <View className="w-8 overflow-hidden text-ellipsis whitespace-nowrap border border-transparent  border-solid z-10 bg-white absolute attributeTitle">
             {filter.label}
           </View>
           <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
-            <Text className="inline-block pr-1 py-1 mb-2 text-white w-8 overflow-hidden text-ellipsis whitespace-nowrap">
+            <Text className="inline-block pr-1 py-2 mb-2 text-white w-8 overflow-hidden text-ellipsis whitespace-nowrap">
               {filter.label}
             </Text>
             {filter.list.map((item, index) => (
@@ -45,7 +45,7 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: Sear
                 onClick={() => {
                   onChangeFilter(filter.key, index)
                 }}
-                className={`inline-block py-1 px-2 text-center w-16 search-filter-round mr-2 border border-solid  mb-2 ${
+                className={`inline-block py-2 px-2 text-center attributeItem search-filter-round mr-2 border border-solid  mb-2 ${
                   item.activeColor ? 'bg-red-600 border-red-500 text-white' : 'text-gray-400 border-gary-300'
                 }}`}
               >
