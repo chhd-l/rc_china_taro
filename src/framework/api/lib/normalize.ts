@@ -107,14 +107,14 @@ export const normalizeSkuForFe = (
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
     let minItem = item.goodsVariants[0]
-    item.goodsVariants.forEach((variant) => {
-      if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
-        minItem = variant
-      }
-    })
+    // item.goodsVariants.forEach((variant) => {
+    //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
+    //     minItem = variant
+    //   }
+    // })
     return {
       name: item.goodsName,
-      img: item.goodsAsserts?.[0]?.artworkUrl,
+      img: minItem.defaultImage,
       originalPrice: minItem.listPrice,
       price: minItem.marketingPrice,
       sku: minItem.id,

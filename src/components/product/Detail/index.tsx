@@ -36,7 +36,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
         ))}
       </Swiper>
       <View className="py-1">
-        <View className="text-28 font-medium">{detailInfo.name}</View>
+        <View className="text-28 font-medium">{choosedSku?.name}</View>
         <AtIcon prefixClass="fa" value="share" size="30" color="red"></AtIcon>
       </View>
       <View>
