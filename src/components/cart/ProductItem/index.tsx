@@ -59,13 +59,13 @@ const ProductItem = ({
             width: Taro.getSystemInfoSync().windowWidth + 'px',
           }}
         >
-          <View className="w-full flex flex-row justify-start items-stretch px-2 py-3">
+          <View className="w-full flex flex-row items-stretch px-2 py-3">
             <Radio
               value="选中"
               checked={select}
               style={{ transform: 'scale(0.6)' }}
               color="red"
-              className="text-48"
+              className="text-48 flex items-center"
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />
             <Image
