@@ -9,8 +9,9 @@ interface SearchFiltersProps {
   setFilterList: (a: FilterListItemProps[]) => void
   isSearchNow?: boolean
   getList: Function
+  isShowAll?: boolean
 }
-const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: SearchFiltersProps) => {
+const SearchFilters = ({ isShowAll = true, filterList, setFilterList, isSearchNow, getList }: SearchFiltersProps) => {
   console.info('filterList', filterList)
   const onChangeFilter = (key, index) => {
     filterList.forEach((el) => {
@@ -26,11 +27,10 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: Sear
       getList({ flterlist: filterList })
     }
     setFilterList(cloneDeep(filterList))
-    console.info('tets', filterList)
   }
   return (
     <>
-      {filterList?.map((filter, idx) => (
+      {(isShowAll ? filterList : filterList?.slice(0, 2))?.map((filter, idx) => (
         <View key={idx} className="text-xxs relative scorll-view-filter filterItem">
           <View className="w-8 overflow-hidden text-ellipsis whitespace-nowrap border border-transparent  border-solid z-10 bg-white absolute attributeTitle">
             {filter.label}

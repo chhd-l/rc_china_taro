@@ -238,9 +238,10 @@ const Search = () => {
         />
         <View className="text-xs">
           <SearchFilters
+            isShowAll={false}
             isSearchNow
             getList={getList}
-            filterList={filterList?.slice(0, 2)}
+            filterList={filterList}
             setFilterList={setFilterList}
           />
         </View>
