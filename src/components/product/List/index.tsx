@@ -15,7 +15,7 @@ const List = ({ list }: ListProps) => {
   console.info('productList', list)
   return (
     <View className="px-1 product-list">
-      <View className="grid grid-cols-2 gap-2 px-2">
+      <View className="product-list-box grid grid-cols-2 gap-2 px-2">
         {list.map((product) => (
           <View
             className="col-span-1"

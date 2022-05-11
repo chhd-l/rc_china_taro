@@ -116,10 +116,10 @@ export const normalizeProductsforFe = (data: any) => {
     // })
     return {
       name: item.goodsName,
-      img: minItem.defaultImage,
-      originalPrice: minItem.listPrice,
-      price: minItem.marketingPrice,
-      sku: minItem.id,
+      img: minItem?.defaultImage,
+      originalPrice: minItem?.listPrice,
+      price: minItem?.marketingPrice,
+      sku: minItem?.id,
       spu: item.id,
     }
   })
