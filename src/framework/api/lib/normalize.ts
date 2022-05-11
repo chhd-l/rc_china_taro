@@ -108,7 +108,7 @@ export const normalizeSkuForFe = (
 }
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
-    let minItem = item.goodsVariants[0]
+    let minItem = item.goodsVariants ? item.goodsVariants[0] : null
     // item.goodsVariants.forEach((variant) => {
     //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
     //     minItem = variant
