@@ -48,7 +48,6 @@ const Search = () => {
     if (categoryId) {
       params.goodsCategoryId = categoryId
     }
-    debugger
     if (goodsName) {
       params.goodsName = goodsName
     }
@@ -60,7 +59,6 @@ const Search = () => {
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
-          debugger
           if (!params.attributeIds) {
             params.attributeIds = []
           }
@@ -145,12 +143,13 @@ const Search = () => {
       <View className=" p-2">
         <AtSearchBar
           showActionButton
-          focus
+          // focus
           value={keyword}
           className="search-bar"
           onChange={(value) => {
             setKeyword(value)
           }}
+          placeholder="猫奶罐"
           onActionClick={handleSearch}
         />
         {/* {lastSearchList.length > 0 ? (
@@ -176,8 +175,8 @@ const Search = () => {
           searchList={hotSearchList}
         /> */}
 
-        <View className=" pb-2">
-          <View className="text-md font-semibold pb-2 pt-2">我想搜</View>
+        <View className="">
+          <View className="text-md font-semibold pb-4 pt-2">我想搜</View>
           <View className="flex text-xs justify-between">
             <View className="flex-1 flex items-center">
               <AtButton
@@ -190,7 +189,7 @@ const Search = () => {
                 {/* 猫图标切换 */}
                 <AtAvatar
                   // circle
-                  className="w-4 h-4 line-height bg-center align-middle mr-1"
+                  className="w-7 h-8 line-height bg-center align-middle mr-1"
                   image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
                     animal === 'cat' ? '_selected' : ''
                   }.svg`}
@@ -206,7 +205,7 @@ const Search = () => {
               >
                 <AtAvatar
                   // circle
-                  className="w-4 h-4 line-height bg-center align-middle mr-1"
+                  className="w-7 h-8 line-height bg-center align-middle mr-1"
                   image={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
                     animal === 'dog' ? '_selected' : ''
                   }.svg`}
@@ -215,11 +214,11 @@ const Search = () => {
               </AtButton>
             </View>
             <AtAvatar
-              className="w-4 h-4 line-height bg-center align-middle mt-2 mr-1"
+              className="w-5 h-5 line-height bg-center align-middle moreIcon mr-1"
               image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_MP.svg"
             />
             <Text
-              className="pt-1 text-gray-400 text-sm"
+              className="more text-gray-400 text-base align-middle"
               onClick={() => {
                 setOpenSearchMore(true)
               }}
