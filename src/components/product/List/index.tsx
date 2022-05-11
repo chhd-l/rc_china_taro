@@ -25,7 +25,7 @@ const List = ({ list }: ListProps) => {
           >
             <View className="border border-solid border-gray-300 rounded-sm pb-2 mb-2 text-center">
               <Image className="mx-auto" style="width:334rpx; height: 334rpx;" lazyLoad src={product.img} />
-              <View className="text-xs px-2 text-left h-8 text-overflow">{product.name}</View>
+              <View className="text-xs px-2 text-left  text-overflow">{product.name}dddddddddddddddddddd</View>
               <View className="flex justify-between px-2 items-center">
                 <View>
                   <View className="origin-price line-through text-gray-400">原价：{product.originalPrice}</View>
