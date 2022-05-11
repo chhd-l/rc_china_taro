@@ -10,8 +10,16 @@ interface SearchFiltersProps {
   isSearchNow?: boolean
   getList: Function
   isShowAll?: boolean
+  attributeChooseCallback?: Function
 }
-const SearchFilters = ({ isShowAll = true, filterList, setFilterList, isSearchNow, getList }: SearchFiltersProps) => {
+const SearchFilters = ({
+  isShowAll = true,
+  filterList,
+  setFilterList,
+  isSearchNow,
+  getList,
+  attributeChooseCallback,
+}: SearchFiltersProps) => {
   console.info('filterList', filterList)
   const onChangeFilter = (key, index) => {
     filterList.forEach((el) => {
@@ -27,6 +35,7 @@ const SearchFilters = ({ isShowAll = true, filterList, setFilterList, isSearchNo
       getList({ flterlist: filterList })
     }
     setFilterList(cloneDeep(filterList))
+    attributeChooseCallback && attributeChooseCallback()
   }
   return (
     <>

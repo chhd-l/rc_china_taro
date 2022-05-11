@@ -52,10 +52,6 @@ const Search = () => {
       params.goodsName = goodsName
     }
     ;(flterlist || filterList).map((el) => {
-      console.info(
-        'el.list.filter((cel) => cel.active)',
-        el.list.filter((cel) => cel.active),
-      )
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
@@ -72,7 +68,6 @@ const Search = () => {
         })
     })
     let res = await getProducts({ limit: 100, sample: params, hasTotal: true, offset: 0 })
-    console.info('res', res)
     setProductList(res)
   }
   const getHotList = () => {
@@ -126,8 +121,8 @@ const Search = () => {
       key: 'lastSearchList',
       data: newLastSearchList,
     })
+    getList({ goodsName: value })
     setKeyword(value)
-    console.info('seach', value)
   }
 
   const getCatOrDogAttrs = async (type: string) => {
@@ -243,6 +238,11 @@ const Search = () => {
             getList={getList}
             filterList={filterList}
             setFilterList={setFilterList}
+            attributeChooseCallback={() => {
+              if (!animal) {
+                setAnimal('cat')
+              }
+            }}
           />
         </View>
       </View>
