@@ -108,6 +108,7 @@ export const normalizeSkuForFe = (
 }
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
+    console.log('item-------------', item)
     let minItem = item.goodsVariants ? item.goodsVariants[0] : null
     // item.goodsVariants.forEach((variant) => {
     //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
@@ -116,7 +117,7 @@ export const normalizeProductsforFe = (data: any) => {
     // })
     return {
       name: item.goodsName,
-      img: minItem?.defaultImage,
+      img: minItem?.defaultImage || (item.goodsAsserts ? item.goodsAsserts[0]?.artworkUrl : null),
       originalPrice: minItem?.listPrice,
       price: minItem?.marketingPrice,
       sku: minItem?.id,
@@ -169,10 +170,10 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
   cart.select = false
   cart.localData = {
     name: productSkuInfo.goodsName,
-    image: productSkuInfo.goodsVariants[0].defaultImage,
-    price: productSkuInfo.goodsVariants[0].marketingPrice,
-    tags: normalizeProductForFe(productSkuInfo).skus[0].tags,
-    specs: normalizeProductForFe(productSkuInfo).skus[0].specText,
+    image: productSkuInfo.goodsVariants[0]?.defaultImage,
+    price: productSkuInfo.goodsVariants[0]?.marketingPrice,
+    tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
+    specs: normalizeProductForFe(productSkuInfo)?.skus[0].specText,
   }
   return cart
 }
@@ -186,8 +187,8 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
         tagStr = `适用年龄:${attr.attributeValueName}`
         break
       case 'Technology':
-        let value = attr.attributeValueName == 'WetFood' && '每日一包'
-        value = attr.attributeValueName == 'can' && '两日一罐'
+        let value = attr.attributeValueName == '湿粮' && '每日一包'
+        value = attr.attributeValueName == '其他' && '2日一罐'
         tagStr = value ? `建议干湿搭配:${value}` : ''
         break
     }
