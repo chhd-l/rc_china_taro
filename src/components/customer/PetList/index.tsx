@@ -10,7 +10,6 @@ import { getAge } from '@/utils/utils'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import defaultCatImg from '@/assets/img/default.png'
 import defaultDogImg from '@/assets/img/defaultdog.png'
-import addIcon from '@/assets/img/add.png'
 
 import './index.less'
 
