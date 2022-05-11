@@ -45,6 +45,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
     setPetInfo(pet)
   }, [pet])
   const handleSave = async () => {
+    console.info('petInfo', petInfo)
     if (!petInfo.name || !petInfo.breed || !petInfo.birthday) {
       setIsOpen(true)
       return
@@ -72,7 +73,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
       url: `/pages/packageB/breedList/index?type=${petInfo.type}`,
       events: {
         seachBreed: function ({ breed, code }) {
-          console.log('返回的数据---', breed)
+          console.log('返回的数据---', breed, code)
           let newPetInfo = Object.assign({}, petInfo, { breed, code })
           setPetInfo(newPetInfo)
         },

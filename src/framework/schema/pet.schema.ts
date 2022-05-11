@@ -3,6 +3,7 @@ export interface PetItemSchema {
   gender: string
   type: string
   breedCode: string
+  breedName: string
   image: string
   isSterilized: boolean
   birthday: string
