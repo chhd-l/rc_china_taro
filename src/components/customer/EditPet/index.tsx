@@ -1,6 +1,6 @@
 import { PetGender, PetListItemProps, PetType } from '@/framework/types/customer'
 import { Form, Input, Picker, Text, View } from '@tarojs/components'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import { addPet } from '@/framework/api/pet/add-pet'
 import { AtIcon, AtList, AtListItem, AtToast } from 'taro-ui'
@@ -38,9 +38,6 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
   const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet))
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  useEffect(() => {
-    setPetInfo(pet)
-  }, [pet])
   const handleSave = async () => {
     console.info('petInfo', petInfo)
     if (!petInfo.name || !petInfo.breed || !petInfo.birthday) {
