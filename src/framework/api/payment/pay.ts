@@ -23,7 +23,7 @@ export const pay = async ({ params, success, fail }: { params: PayInput; success
           params.amount = 1
           const { pay: data } = await ApiRoot.orders().pay({ body: params })
           if (data.success) {
-            const { wxPaymentRequest } = data
+            const { wxPaymentRequest, payInfo } = data
             Taro.requestPayment({
               // 时间戳
               timeStamp: wxPaymentRequest.timeStamp,
@@ -36,7 +36,14 @@ export const pay = async ({ params, success, fail }: { params: PayInput; success
               // 签名
               paySign: wxPaymentRequest.paySign,
               // 调用成功回调
-              success() {
+              async success() {
+                await ApiRoot.orders().syncOrder({
+                  input: {
+                    payInfoId: payInfo.id,
+                    storeId: '12345678',
+                    operator: 'zyq',
+                  },
+                })
                 success && success()
               },
               // 失败回调
