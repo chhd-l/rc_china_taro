@@ -109,11 +109,11 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               }}
             >
               {isEdit ? (
-                <AtImagePicker
+                <Image
                   className="w-20 h-20 m-auto relative"
-                  length={1}
-                  files={[{ url: pet.image || addImg }]}
-                  onChange={(files) => {
+                  src={pet.image || addImg}
+                  style={{ borderRadius: '50%' }}
+                  onClick={(files) => {
                     handleImage(files, petIdx)
                   }}
                 />
@@ -121,6 +121,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                 <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
                   <Image
                     src={pet.image || (pet.type === 'DOG' ? defaultDogImg : defaultCatImg)}
+                    style={{ borderRadius: '50%' }}
                     className={`w-12 h-12 m-auto `}
                   />
                 </View>
@@ -144,11 +145,12 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               showEdit(petIdx)
             }}
           >
-            <AtImagePicker
+            <Image
               className="w-20 h-20 m-auto relative"
-              length={1}
-              files={[{ url: imgUrl || addImg || pet.image }]}
-              onChange={(files) => {
+              style={{ borderRadius: '50%' }}
+              // length={1}
+              src={imgUrl || addImg || pet.image}
+              onClick={(files) => {
                 handleImage(files, petIdx)
               }}
             />

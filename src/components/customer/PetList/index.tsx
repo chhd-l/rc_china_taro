@@ -10,7 +10,7 @@ import { getAge } from '@/utils/utils'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import defaultCatImg from '@/assets/img/default.png'
 import defaultDogImg from '@/assets/img/defaultdog.png'
-import addIcon from '@/assets/img/add.png'
+import { AtIcon } from 'taro-ui'
 
 import './index.less'
 
@@ -98,6 +98,7 @@ const PetList = () => {
                   <Image
                     src={fakePet[0].type === 'DOG' ? defaultDogImg : defaultCatImg}
                     // src={pet.image}
+                    style={{ borderRadius: '50%' }}
                     className="w-10 h-10 m-auto"
                   />
                 </View>
@@ -109,7 +110,7 @@ const PetList = () => {
                     backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
                     backgroundColor: '#fff',
                     borderRadius: '50%',
-                    boxShadow: '-0.5px 0.5px 22px 0px #666',
+                    boxShadow: '-0.5px 0.5px 22px 0px #999',
                   }}
                 />
               </View>
@@ -155,7 +156,8 @@ const PetList = () => {
                           }`}
                         >
                           <Image
-                            src={pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
+                            src={pet.image ? pet.image : pet.type === 'DOG' ? defaultDogImg : defaultCatImg}
+                            style={{ borderRadius: '50%' }}
                             // src={pet.image}
                             className="w-10 h-10 m-auto"
                           />
@@ -172,7 +174,7 @@ const PetList = () => {
                     backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
                     backgroundColor: '#fff',
                     borderRadius: '50%',
-                    boxShadow: '-0.5px 0.5px 22px 0px #666',
+                    boxShadow: '-0.5px 0.5px 22px 0px #999',
                   }}
                 />
               </View>
@@ -195,9 +197,12 @@ const PetList = () => {
       ) : (
         <View
           onClick={toPetList}
-          className="w-16 h-16 m-auto bg-no-repeat bg-contain mb-3"
-          style={{ backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_add_2.png)` }}
-        ></View>
+          className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center shadow-lg text-gray-300 mt-2"
+          style={{ borderRadius: '50%' }}
+          // src={pet.image}
+        >
+          <AtIcon value="add" size={16} />
+        </View>
       )}
     </View>
   )
