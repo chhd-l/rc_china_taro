@@ -5,6 +5,7 @@ import { pay } from '@/framework/api/payment/pay'
 import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
 import Taro from '@tarojs/taro'
+import routers from '@/routers/index'
 import './index.less'
 
 const OrderAction = ({
@@ -79,6 +80,11 @@ const OrderAction = ({
                     currency: 'CNY',
                     storeId: '12345678',
                     operator: customerInfo?.nickName || '',
+                  },
+                  success: function () {
+                    Taro.redirectTo({
+                      url: `${routers.orderList}?status=TO_SHIP`,
+                    })
                   },
                 })
               }}

@@ -116,4 +116,4 @@ export const floorList: FloorListProps[] = [
 ]
 
 export const largeButtonClass =
-  'ClickButton items-center flex h-10 flex-1 px-3 text-gray-400 border search-filter-round1 border-solid mr-3 mb-2 cateClickButton'
+  'ClickButton items-center flex h-10 flex-1 px-3 text-gray-400 search-filter-round1 border-solid mr-3 mb-2 cateClickButton'

@@ -30,7 +30,7 @@ const SearchFilters = ({ filterList, setFilterList, isSearchNow, getList }: Sear
   }
   return (
     <>
-      {filterList.map((filter, idx) => (
+      {filterList?.map((filter, idx) => (
         <View key={idx} className="text-xxs relative scorll-view-filter filterItem">
           <View className="w-8 overflow-hidden text-ellipsis whitespace-nowrap border border-transparent  border-solid z-10 bg-white absolute attributeTitle">
             {filter.label}
