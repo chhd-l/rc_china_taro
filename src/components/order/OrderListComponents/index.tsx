@@ -45,8 +45,8 @@ const OrderListComponents = ({
             })
           }}
         >
-          <View className="h-6 flex items-center headerText">
-            <View className="w-full flex items-center">
+          <View className="h-6 flex justify-between items-center headerText">
+            <View className="flex items-center">
               订单编号: {item.orderNumber}
               <View
                 className="ml-2 copy"
@@ -58,7 +58,7 @@ const OrderListComponents = ({
                 复制
               </View>
             </View>
-            <View className="w-12 text-red-500">{orderStatusType[item?.tradeState?.orderState || '']}</View>
+            <View className="text-red-500">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
           {(item?.lineItem || []).map((el, index) => (
             <View key={index} className="w-full h-20 flex mb-4">
@@ -79,11 +79,11 @@ const OrderListComponents = ({
               </View>
             </View>
           ))}
-          <View className="w-full h-12 footerText flex items-end flex-col">
+          <View className="w-full footerText flex items-end flex-col">
             <View className="text-right">
               共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.totalPrice)}，优惠
               {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
-              <Text className="text-red-500">{formatMoney(item.tradePrice.totalPrice)}</Text>
+              <Text className="text-red-500 text-24">{formatMoney(item.tradePrice.totalPrice)}</Text>
             </View>
             <OrderAction
               amount={item.tradePrice.totalPrice * 100}

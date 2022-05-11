@@ -1,11 +1,11 @@
 import { View } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import { cancelOrder, completedOrder } from '@/framework/api/order/order'
-import './index.less'
 import { pay } from '@/framework/api/payment/pay'
 import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
 import Taro from '@tarojs/taro'
+import './index.less'
 
 const OrderAction = ({
   amount,
@@ -23,6 +23,7 @@ const OrderAction = ({
   amount: number
 }) => {
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+
   const completed = async () => {
     const res = await completedOrder({
       orderNum: orderId,
