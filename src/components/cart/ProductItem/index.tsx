@@ -59,7 +59,7 @@ const ProductItem = ({
             width: Taro.getSystemInfoSync().windowWidth + 'px',
           }}
         >
-          <View className="w-full flex flex-row items-center items-stretch px-2 py-3">
+          <View className="w-full flex flex-row justify-start items-stretch px-2 py-3">
             <Radio
               value="选中"
               checked={select}
@@ -69,7 +69,6 @@ const ProductItem = ({
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />
             <Image
-              className="mx-auto"
               mode='aspectFit'
               style="width:240rpx; height: 240rpx;border: 1px solid #f0f0f0"
               lazyLoad
@@ -78,7 +77,7 @@ const ProductItem = ({
                 Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
               }}
             />
-            <View className="ml-2 flex flex-col justify-between">
+            <View className="ml-2 flex flex-col justify-between flex-grow">
               <View>
                 <View className="font-semibold text-30 text-black">{name}</View>
                 <View className="mt-2 font-semibold text-black">{specs}</View>
