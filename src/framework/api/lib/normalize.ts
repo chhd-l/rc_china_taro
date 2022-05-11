@@ -108,7 +108,7 @@ export const normalizeSkuForFe = (
 }
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
-    let minItem = item.goodsVariants[0]
+    let minItem = item.goodsVariants[0] || {}
     // item.goodsVariants.forEach((variant) => {
     //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
     //     minItem = variant
@@ -169,10 +169,10 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
   cart.select = false
   cart.localData = {
     name: productSkuInfo.goodsName,
-    image: productSkuInfo.goodsVariants[0].defaultImage,
-    price: productSkuInfo.goodsVariants[0].marketingPrice,
-    tags: normalizeProductForFe(productSkuInfo).skus[0].tags,
-    specs: normalizeProductForFe(productSkuInfo).skus[0].specText,
+    image: productSkuInfo.goodsVariants[0]?.defaultImage,
+    price: productSkuInfo.goodsVariants[0]?.marketingPrice,
+    tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
+    specs: normalizeProductForFe(productSkuInfo)?.skus[0].specText,
   }
   return cart
 }
