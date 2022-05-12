@@ -138,7 +138,7 @@ const ProductDetail = () => {
                 <Image
                   mode="widthFix"
                   // style={{ height: Taro.getSystemInfoSync().windowWidth }}
-                  src={detailInfo.description?.split('"')?.[1].split('"')[0]}
+                  src={detailInfo.description?.split('"')?.[1]?.split('"')[0]}
                   className="w-full"
                 />
               )
