@@ -162,7 +162,7 @@ const PetList = () => {
                           }`}
                         >
                           <Image
-                            src={pet.image || pet.type === 'DOG' ? Dog : Cat}
+                            src={pet.image || (pet.type === 'DOG' ? Dog : Cat)}
                             style={{ borderRadius: '50%' }}
                             // src={pet.image}
                             className="w-full h-full m-auto Petpictureshadow"

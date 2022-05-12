@@ -7,7 +7,7 @@ import { normalizePetsForApi } from '../lib/normalize'
 export const updatePet = async (petInfo, primaryData) => {
   let data: PetItemSchema = normalizePetsForApi(petInfo)
   let primaryForApi: PetItemSchema = normalizePetsForApi(primaryData)
-  let params = pickForUpdate(data, primaryForApi)
+  let params = { ...pickForUpdate(data, primaryForApi), id: primaryData.id }
   console.info('updatePet params', params)
   // mockPetlist.forEach((el) => {
   //   debugger

@@ -71,6 +71,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
           name: 'file',
           success(vla: any) {
             const { url } = JSON.parse(vla.data)
+            console.log('url', url)
             setItem({
               ...item,
               image: url,
@@ -86,20 +87,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
     <View className="my-2 mx-3">
       <View className=" rounded-lg overflow-hidden">
         {pet.id !== '-1' ? (
-          <AtSwipeAction
-            className="PetItem"
-            autoClose
-            onClick={(val) => {
-              console.log('val', val)
-              handleClick(val, petIdx)
-            }}
-            disabled={petIdx === editActive}
-            isOpened={pet.isOpened}
-            options={editPetButton}
-            maxDistance={134}
-            //   areaWidth={380}
-            areaWidth={Taro.getSystemInfoSync().windowWidth}
-          >
+          isEdit ? (
             <View
               className="text-center pt-14 pb-2 w-screen"
               style={{ backgroundImage: `url(${petBg})` }}
@@ -107,26 +95,45 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                 showEdit(petIdx)
               }}
             >
-              {isEdit ? (
-                <Image
-                  className="w-20 h-20 m-auto relative"
-                  src={imgUrl || pet.type === 'DOG' ? Dog : Cat}
-                  style={{ borderRadius: '50%' }}
-                  onClick={(files) => {
-                    handleImage(files, petIdx)
-                  }}
-                />
-              ) : (
-                // 宠物列表
+              <Image
+                className="w-20 h-20 m-auto relative"
+                src={imgUrl || pet.image || (pet.type === 'DOG' ? Dog : Cat)}
+                style={{ borderRadius: '50%' }}
+                onClick={(files) => {
+                  handleImage(files, petIdx)
+                }}
+              />
+            </View>
+          ) : (
+            // 宠物列表
+            <AtSwipeAction
+              className="PetItem"
+              autoClose
+              onClick={(val) => {
+                console.log('val', val)
+                handleClick(val, petIdx)
+              }}
+              disabled={isEdit}
+              isOpened={pet.isOpened}
+              options={editPetButton}
+              maxDistance={134}
+              //   areaWidth={380}
+              areaWidth={Taro.getSystemInfoSync().windowWidth}
+            >
+              <View
+                className="text-center pt-14 pb-2 w-screen"
+                style={{ backgroundImage: `url(${petBg})` }}
+                onClick={() => {
+                  showEdit(petIdx)
+                }}
+              >
                 <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
                   <Image
-                    src={pet.type === 'DOG' ? Dog : Cat}
+                    src={pet.image || (pet.type === 'DOG' ? Dog : Cat)}
                     style={{ borderRadius: '50%' }}
                     className="w-20 h-20 m-auto Petpictureshadow"
                   />
                 </View>
-              )}
-              {pet.id === '-1' ? null : (
                 <View className="flex justify-center pt-3">
                   <View className="text-lg text-red-600 pr-3 font-medium">{pet.name}</View>
                   <View className="text-xs flex items-center">
@@ -134,9 +141,9 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                     <View>{pet.age}</View>
                   </View>
                 </View>
-              )}
-            </View>
-          </AtSwipeAction>
+              </View>
+            </AtSwipeAction>
+          )
         ) : (
           // 新增
           <View
@@ -164,7 +171,8 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
           setIsEdit={setIsEdit}
           SetshowAddPetBtn={SetshowAddPetBtn}
           getList={getList}
-          pet={item}
+          petItem={item}
+          pet={pet}
         />
       ) : null}
       <AtModal isOpened={showDelModal}>
