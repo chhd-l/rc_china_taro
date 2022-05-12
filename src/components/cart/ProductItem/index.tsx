@@ -74,15 +74,16 @@ const ProductItem = ({
               className="text-48 flex items-center"
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />
-            <Image
-              mode="aspectFit"
-              style="width:240rpx; height: 240rpx;border: 1px solid #f0f0f0"
-              lazyLoad
-              src={image}
-              onClick={() => {
-                Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
-              }}
-            />
+            <View style={{width:'240rpx',height:'240rpx'}}>
+              <Image
+                style="width:240rpx; height: 240rpx;border: 1px solid #f0f0f0"
+                lazyLoad
+                src={image}
+                onClick={() => {
+                  Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
+                }}
+              />
+            </View>
             <View className="ml-2 flex flex-col justify-between flex-grow">
               <View>
                 <View className="font-semibold text-30 text-black">{name}</View>
