@@ -58,7 +58,7 @@ const OrderListComponents = ({
                 复制
               </View>
             </View>
-            <View className="text-red-500">{orderStatusType[item?.tradeState?.orderState || '']}</View>
+            <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
           {(item?.lineItem || []).map((el, index) => (
             <View key={index} className="w-full h-20 flex mb-4">
@@ -67,10 +67,10 @@ const OrderListComponents = ({
               </View>
               <View className="w-full h-full flex flex-col pl-3">
                 <View className="text-xs font-black mb-1">{el?.skuName}</View>
-                <View className="text-red-500 flex ProductIntroduction justify-between items-center">
+                <View className="text-primary-red flex ProductIntroduction justify-between items-center">
                   <View className="flex flex-row flex-wrap">
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                      <View className="px-1 border rounded-lg border-solid border-red-500 mr-2 mt-2">{tag}</View>
+                      <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
                     ))}
                   </View>
                   <View className="numcolor">X{el?.num}</View>
@@ -83,7 +83,7 @@ const OrderListComponents = ({
             <View className="text-right">
               共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.totalPrice)}，优惠
               {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
-              <Text className="text-red-500 text-24">{formatMoney(item.tradePrice.totalPrice)}</Text>
+              <Text className="text-primary-red text-24">{formatMoney(item.tradePrice.totalPrice)}</Text>
             </View>
             <OrderAction
               amount={item.tradePrice.totalPrice * 100}

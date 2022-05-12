@@ -38,6 +38,9 @@ const ProductDetail = () => {
   useEffect(() => {
     getList()
   }, [])
+  useEffect(() => {
+    console.log('detailInfo', detailInfo)
+  }, [detailInfo.id])
   const getList = async () => {
     console.info('router.params', router?.params)
     let goodsId = router?.params?.id || ''
@@ -123,11 +126,11 @@ const ProductDetail = () => {
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
           <View>
-            {detailInfo.description?.split('"')?.[1]?.split('"')[0] ? (
+            {detailInfo.description?.split('"')?.[1]?.split('"')[0] || detailInfo.description ? (
               <Image
                 mode="widthFix"
                 // style={{ height: Taro.getSystemInfoSync().windowWidth }}
-                src={detailInfo.description?.split('"')?.[1].split('"')[0]}
+                src={detailInfo.description?.split('"')?.[1].split('"')[0] || detailInfo.description}
                 className="w-full"
               />
             ) : null}

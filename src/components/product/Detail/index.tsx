@@ -15,27 +15,35 @@ interface DetailProps {
 }
 const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProps) => {
   const [isOpened, setIsOpened] = useState(false)
+  const [currentSwiperPage, setCurrentSwiperPage] = useState(1)
 
   return (
     <View className="ProductDetali">
       <View className="px-2">
-        <Swiper
-          className=""
-          style={{ height: Taro.getSystemInfoSync().windowWidth }}
-          indicatorColor="#fff"
-          indicatorActiveColor="#e2001a"
-          circular
-          // indicatorDots
-          autoplay
-        >
-          {choosedSku?.img?.map((el, index) => (
-            <SwiperItem key={index}>
-              <View className="demo-text-1">
-                <Image className="w-full h-auto" mode="widthFix" src={el} />
-              </View>
-            </SwiperItem>
-          ))}
-        </Swiper>
+        <View className="swiper-box relative">
+          <Swiper
+            style={{ height: Taro.getSystemInfoSync().windowWidth }}
+            indicatorColor="#fff"
+            indicatorActiveColor="#e2001a"
+            circular
+            onChange={(e) => {
+              setCurrentSwiperPage(e.detail.current + 1)
+            }}
+            // indicatorDots
+            autoplay
+          >
+            {choosedSku?.img?.map((el, index) => (
+              <SwiperItem key={index}>
+                <View className="demo-text-1">
+                  <Image className="w-full h-auto" mode="widthFix" src={el} />
+                </View>
+              </SwiperItem>
+            ))}
+          </Swiper>
+          <View className="swiperPage absolute bottom-0 right-0 px-1 text-xs w-6 text-center text-white">
+            {currentSwiperPage}/{choosedSku?.img.length}
+          </View>
+        </View>
         <View className="py-1">
           <View className="text-28 font-medium">{choosedSku?.name}</View>
           <AtIcon prefixClass="fa" value="share" size="30" color="red"></AtIcon>

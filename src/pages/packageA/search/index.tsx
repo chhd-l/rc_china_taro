@@ -145,6 +145,7 @@ const Search = () => {
             setKeyword(value)
           }}
           placeholder="猫奶罐"
+          onConfirm={handleSearch}
           onActionClick={handleSearch}
         />
         {/* {lastSearchList.length > 0 ? (

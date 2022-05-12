@@ -37,7 +37,6 @@ export const getProducts = async (params: any) => {
     return productList
   } catch (err) {
     console.info('err', err)
-    // debuggerdebugger
     return []
   }
 }

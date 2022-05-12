@@ -16,7 +16,7 @@ const ProductItem = ({ product }: { product: any }) => {
           <View className="text-24 text-gray-400 mt-1">{el}</View>
         ))}
         <View className="flex flex-row justify-between pr-4 mt-1">
-          <Text className="text-red-500">{formatMoney(price)}</Text>
+          <Text className="text-primary-red">{formatMoney(price)}</Text>
           <Text className="text-xs text-gray-400">x {goodsNum}</Text>
         </View>
       </View>

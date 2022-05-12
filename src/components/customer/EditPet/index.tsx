@@ -45,14 +45,11 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
       setIsOpen(true)
       return
     }
-    debugger
     if (petInfo.id === '-1') {
       await addPet(petInfo)
     } else {
       await updatePet(petItem, petInfo)
     }
-    debugger
-
     getList()
     handleCancel()
   }
