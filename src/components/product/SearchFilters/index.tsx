@@ -40,21 +40,18 @@ const SearchFilters = ({
   return (
     <>
       {(isShowAll ? filterList : filterList?.slice(0, 2))?.map((filter, idx) => (
-        <View key={idx} className="text-xxs relative scorll-view-filter filterItem">
-          <View className="w-8 overflow-hidden text-ellipsis whitespace-nowrap border border-transparent  border-solid z-10 bg-white absolute attributeTitle">
+        <View key={idx} className="text-xxs relative scorll-view-filter filterItem flex items-center">
+          <View className="flex-none w-8 overflow-hidden text-ellipsis whitespace-nowrap border border-transparent  border-solid z-10 bg-white attributeTitle">
             {filter.label}
           </View>
           <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
-            <Text className="inline-block pr-1 py-2 mb-2 text-white w-8 overflow-hidden text-ellipsis whitespace-nowrap">
-              {filter.label}
-            </Text>
             {filter.list.map((item, index) => (
               <Text
                 key={index}
                 onClick={() => {
                   onChangeFilter(filter.key, index)
                 }}
-                className={`inline-block py-2 px-2 text-center attributeItem search-filter-round mr-2 border border-solid  mb-2 ${
+                className={`inline-block py-2 px-2 text-center attributeItem search-filter-round mr-2 border border-solid ${
                   item.activeColor ? 'bg-red-600 border-red-500 text-white' : 'text-gray-400 border-gary-300'
                 }}`}
               >
