@@ -1,5 +1,5 @@
 import { View, Image, Button } from '@tarojs/components'
-import { AtModal, AtModalAction, AtModalContent, AtSwipeAction } from 'taro-ui'
+import { AtIcon, AtModal, AtModalAction, AtModalContent, AtSwipeAction } from 'taro-ui'
 import { petBg } from '@/lib/constants'
 import Taro from '@tarojs/taro'
 import cloneDeep from 'lodash.cloneDeep'
@@ -153,14 +153,13 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               showEdit(petIdx)
             }}
           >
-            <Image
-              className="w-20 h-20 m-auto relative"
+            <View
+              className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
               style={{ borderRadius: '50%' }}
-              src={imgUrl || 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_add_2.png'}
-              onClick={(files) => {
-                handleImage(files, petIdx)
-              }}
-            />
+              // src={pet.image}
+            >
+              <AtIcon value="add" size={16} />
+            </View>
           </View>
         )}
       </View>
