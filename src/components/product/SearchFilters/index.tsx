@@ -40,11 +40,11 @@ const SearchFilters = ({
   return (
     <>
       {(isShowAll ? filterList : filterList?.slice(0, 2))?.map((filter, idx) => (
-        <View key={idx} className="flex items-center text-xxs relative scorll-view-filter filterItem mt-2">
-          <View className="whitespace-nowrap flex items-center border border-transparent border-solid z-10 bg-white">
+        <View key={idx} className="text-xxs relative scorll-view-filter filterItem flex items-center">
+          <View className="flex-none w-8 overflow-hidden text-ellipsis whitespace-nowrap border border-transparent  border-solid z-10 bg-white attributeTitle">
             {filter.label}
           </View>
-          <ScrollView className="whitespace-nowrap ml-2" scrollX overflow-anchor={false}>
+          <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
             {filter.list.map((item, index) => (
               <Text
                 key={index}

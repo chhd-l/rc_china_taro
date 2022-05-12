@@ -21,7 +21,6 @@ const ProductItem = ({
   const [maxNum, setMaxNum] = useState(5)
 
   const delCartProduct = async () => {
-    console.log('333333')
     await deleteCart({ id, operator: '111' })
     delCartSuccess && delCartSuccess()
   }
@@ -40,19 +39,26 @@ const ProductItem = ({
   return (
     <View>
       <AtSwipeAction
+        className="rc-swiper-action"
         options={[
           {
             text: '删除',
             style: {
-              backgroundColor: '#d33024',
-              width: '40rpx',
+              // backgroundColor: '#d33024',
+              backgroundColor: '#DF6E66',
+              width: '80rpx',
+              // opacity:'0.9',
+              textAlign: 'center',
+              borderTopRightRadius: '6%',
+              borderBottomRightRadius: '6%',
+              marginRight: '10px',
             },
           },
         ]}
         autoClose
         onClick={delCartProduct}
         areaWidth={Taro.getSystemInfoSync().windowWidth}
-        maxDistance={60}
+        maxDistance={92}
       >
         <View
           style={{
@@ -68,22 +74,25 @@ const ProductItem = ({
               className="text-48 flex items-center"
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />
-            <Image
-              mode='aspectFit'
-              style="width:240rpx; height: 240rpx;border: 1px solid #f0f0f0"
-              lazyLoad
-              src={image}
-              onClick={() => {
-                Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
-              }}
-            />
+            <View style={{width:'240rpx',height:'240rpx'}}>
+              <Image
+                style="width:240rpx; height: 240rpx;border: 1px solid #f0f0f0"
+                lazyLoad
+                src={image}
+                onClick={() => {
+                  Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
+                }}
+              />
+            </View>
             <View className="ml-2 flex flex-col justify-between flex-grow">
               <View>
                 <View className="font-semibold text-30 text-black">{name}</View>
                 <View className="mt-2 font-semibold text-black">{specs}</View>
                 <View className="flex flex-row flex-wrap text-20">
                   {tags.map((el) => (
-                    <View className="mt-2 border border-solid rounded-md border-red mr-2 px-1 text-primary-red">{el}</View>
+                    <View className="mt-2 border border-solid rounded-md border-red mr-2 px-1 text-primary-red">
+                      {el}
+                    </View>
                   ))}
                 </View>
               </View>
