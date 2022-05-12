@@ -21,6 +21,7 @@ interface EditPetProps {
   setIsEdit: (val: boolean) => void
   petList: PetListItemProps[]
   setPetList: (val: PetListItemProps[]) => void
+  petItem: PetListItemProps
 }
 const typeOption = [
   { label: '喵星人', value: PetType.Cat },
@@ -34,7 +35,7 @@ const isSterilizedOption = [
   { label: '是', value: true },
   { label: '否', value: false },
 ]
-const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetList }: EditPetProps) => {
+const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, setPetList }: EditPetProps) => {
   const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet))
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -48,7 +49,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
     if (petInfo.id === '-1') {
       await addPet(petInfo)
     } else {
-      await updatePet(petInfo, pet)
+      await updatePet(petItem, petInfo)
     }
     debugger
 
@@ -187,7 +188,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
               <Picker
                 style={{ border: 0 }}
                 mode="date"
-                className="flex-1"
+                className="flex-1 PickerItem"
                 end={new Date().toLocaleString().split(' ')[0].replace(/\//g, '-')}
                 onChange={handleChangeDate}
               >
