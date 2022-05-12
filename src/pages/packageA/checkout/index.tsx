@@ -59,12 +59,8 @@ const Checkout = () => {
         if (el.skuGoodInfo.goodsVariants?.length > 0) {
           el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
             num: el.goodsNum,
-            id: el.goodsId || '',
           })
         }
-        el.skuGoodInfo.goodsSpecifications = el.skuGoodInfo.goodsSpecifications?.map((item) => {
-          return Object.assign(item, { goodsId: item.id })
-        })
         return el.skuGoodInfo
       })
       let shoppingCartIds: any[] = []
