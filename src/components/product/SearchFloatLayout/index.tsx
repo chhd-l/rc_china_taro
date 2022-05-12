@@ -70,7 +70,16 @@ const SearchFloatLayout = ({
           </AtButton>
         </View>
         <View className="text-xs">
-          <SearchFilters getList={getList} filterList={filterList} setFilterList={setFilterList} />
+          <SearchFilters
+            getList={getList}
+            filterList={filterList}
+            setFilterList={setFilterList}
+            attributeChooseCallback={() => {
+              if (!animal) {
+                setAnimal('cat')
+              }
+            }}
+          />
         </View>
         <View className=" mt-20 w-full h-1"></View>
         <View className="flex justify-center absolute bottom-10 w-full">
