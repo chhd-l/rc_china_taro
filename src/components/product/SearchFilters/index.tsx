@@ -44,6 +44,7 @@ const SearchFilters = ({
           <View className="flex-none w-8 overflow-hidden text-ellipsis whitespace-nowrap border border-transparent  border-solid z-10 bg-white attributeTitle">
             {filter.label}
           </View>
+          {/* <View className="flex-1"> */}
           <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
             {filter.list.map((item, index) => (
               <Text
@@ -59,6 +60,7 @@ const SearchFilters = ({
               </Text>
             ))}
           </ScrollView>
+          {/* </View> */}
         </View>
       ))}
     </>
