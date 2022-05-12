@@ -6,7 +6,8 @@ import { useEffect, useState } from 'react'
 import { AtBadge, AtIcon } from 'taro-ui'
 import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
-import routers from "@/routers";
+import routers from '@/routers'
+import './index.less'
 
 interface Props {
   handleShowSpec: (type: addToTypeEnum) => void
@@ -17,12 +18,12 @@ const AddCart = ({ handleShowSpec }: Props) => {
   useEffect(() => {
     getCart(true)
   }, [cartSunccessToastShow])
-  const getCart = async (isNeedReload=false) => {
+  const getCart = async (isNeedReload = false) => {
     let data = await getCartNumber(isNeedReload)
     setCartNumber(data)
   }
   return (
-    <View className="fixed bg-white bottom-0 left-0 right-0 z-10">
+    <View className="addCartBox fixed bg-white bottom-0 left-0 right-0 z-10">
       <View className="text-30 flex h-12">
         <View
           className="flex flex-col justify-center items-center text-26 px-4"
