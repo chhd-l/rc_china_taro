@@ -14,6 +14,8 @@ interface SearchFloatLayoutProps {
   filterList: FilterListItemProps[]
   setFilterList: (filterList: FilterListItemProps[]) => void
   handleSearch: Function
+  animal: string
+  setAnimal: Function
 }
 const SearchFloatLayout = ({
   getCatOrDogAttrs,
@@ -23,8 +25,10 @@ const SearchFloatLayout = ({
   getList,
   setFilterList,
   handleSearch,
+  animal,
+  setAnimal,
 }: SearchFloatLayoutProps) => {
-  const [animal, setAnimal] = useState<String>()
+  // const [animal, setAnimal] = useState<String>()
   return (
     <AtFloatLayout
       isOpened={openSearchMore}

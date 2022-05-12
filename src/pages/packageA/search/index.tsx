@@ -28,7 +28,7 @@ const Search = () => {
   const [openSearchMore, setOpenSearchMore] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<FilterListItemProps[]>([])
   const [productList, setProductList] = useState<ProductListItemProps[]>()
-  const [animal, setAnimal] = useState<string>()
+  const [animal, setAnimal] = useState<string>('')
   useEffect(() => {
     getCatOrDogAttrs('cat')
     getList({})
@@ -224,6 +224,8 @@ const Search = () => {
           </View>
         </View>
         <SearchFloatLayout
+          animal={animal}
+          setAnimal={setAnimal}
           getList={getList}
           openSearchMore={openSearchMore}
           setOpenSearchMore={setOpenSearchMore}
@@ -232,7 +234,7 @@ const Search = () => {
           getCatOrDogAttrs={getCatOrDogAttrs}
           handleSearch={handleSearch}
         />
-        <View className="text-xs">
+        <View className="text-xs mt-2">
           <SearchFilters
             isShowAll={false}
             isSearchNow
