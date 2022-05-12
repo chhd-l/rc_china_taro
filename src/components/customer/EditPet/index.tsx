@@ -1,6 +1,6 @@
 import { PetGender, PetListItemProps, PetType } from '@/framework/types/customer'
 import { Form, Input, Picker, Text, View } from '@tarojs/components'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import { addPet } from '@/framework/api/pet/add-pet'
 import { AtIcon, AtList, AtListItem, AtToast } from 'taro-ui'
@@ -21,6 +21,7 @@ interface EditPetProps {
   setIsEdit: (val: boolean) => void
   petList: PetListItemProps[]
   setPetList: (val: PetListItemProps[]) => void
+  petItem: PetListItemProps
 }
 const typeOption = [
   { label: '喵星人', value: PetType.Cat },
@@ -34,13 +35,10 @@ const isSterilizedOption = [
   { label: '是', value: true },
   { label: '否', value: false },
 ]
-const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetList }: EditPetProps) => {
+const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, setPetList }: EditPetProps) => {
   const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet))
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  useEffect(() => {
-    setPetInfo(pet)
-  }, [pet])
   const handleSave = async () => {
     console.info('petInfo', petInfo)
     if (!petInfo.name || !petInfo.breed || !petInfo.birthday) {
@@ -50,7 +48,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
     if (petInfo.id === '-1') {
       await addPet(petInfo)
     } else {
-      await updatePet(petInfo, pet)
+      await updatePet(petItem, petInfo)
     }
     getList()
     handleCancel()
@@ -187,7 +185,7 @@ const EditPet = ({ pet, getList, SetshowAddPetBtn, setIsEdit, petList, setPetLis
               <Picker
                 style={{ border: 0 }}
                 mode="date"
-                className="flex-1"
+                className="flex-1 PickerItem"
                 end={new Date().toLocaleString().split(' ')[0].replace(/\//g, '-')}
                 onChange={handleChangeDate}
               >
