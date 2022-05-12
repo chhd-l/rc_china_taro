@@ -11,7 +11,6 @@ export const normalizePetsForApi = (petInfo: any) => {
   }
   data.operator = ''
   if (data.birthday) {
-    debugger
     //处理日期
     data.birthday = formatDateToApi(data.birthday)
   }
@@ -37,7 +36,6 @@ export const normalizeProductForFe = (goods: any): any => {
         tagStr = `适用年龄:${attr.attributeValueName}` //显示中文
         break
       case 'Technology':
-        debugger
         let value =
           (attr.attributeValueName == '湿粮' && '每日一包') || (attr.attributeValueName == '其他' && '2日一罐')
         tagStr = value ? `建议干湿搭配:${value}` : ''
@@ -129,7 +127,6 @@ export const normalizeProductsforFe = (data: any) => {
 }
 export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): string[] => {
   return goodsSpecificationRel?.map((el) => {
-    // debugger
     let specObj = goodsSpecifications.find((spec) => spec.id === el.goodsSpecificationId)
     let specDetailName = specObj?.goodsSpecificationDetail?.find(
       (specDetail) => specDetail.id === el.goodsSpecificationDetailId,
@@ -193,7 +190,6 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
         tagStr = value ? `建议干湿搭配:${value}` : ''
         break
     }
-    debugger
     if (tagStr !== '') {
       tags.push(tagStr)
     }
