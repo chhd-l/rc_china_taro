@@ -128,10 +128,10 @@ const OrderDetails = () => {
                   </View>
                   <View className="w-full h-full flex flex-col pl-3">
                     <View className="text-xs font-black mb-1">{el?.skuName}</View>
-                    <View className="text-red-500 flex ProductIntroduction justify-between items-center">
+                    <View className="text-primary-red flex ProductIntroduction justify-between items-center">
                       <View className="flex flex-row flex-wrap">
                         {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                          <View className="px-1 border rounded-lg border-solid border-red-500 mr-2 mt-2">{tag}</View>
+                          <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
                         ))}
                       </View>
                       <View className="numcolor">X{el?.num}</View>
@@ -144,7 +144,7 @@ const OrderDetails = () => {
                 <View className="text-right">
                   共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(totalPrice)}，优惠
                   {formatMoney(discountsPrice)}，实付款
-                  <Text className="text-red-500">{formatMoney(totalPrice)}</Text>
+                  <Text className="text-primary-red text-24">{formatMoney(totalPrice)}</Text>
                 </View>
               </View>
               <View className="flex items-center justify-between h-7 boderTop">
