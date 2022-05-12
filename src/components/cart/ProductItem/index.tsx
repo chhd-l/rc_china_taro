@@ -83,12 +83,12 @@ const ProductItem = ({
                 <View className="mt-2 font-semibold text-black">{specs}</View>
                 <View className="flex flex-row flex-wrap text-20">
                   {tags.map((el) => (
-                    <View className="mt-2 border border-solid rounded-md border-red-500 mr-2 px-1 text-red-500">{el}</View>
+                    <View className="mt-2 border border-solid rounded-md border-red mr-2 px-1 text-primary-red">{el}</View>
                   ))}
                 </View>
               </View>
               <View className="flex flex-row mt-2 justify-between items-center">
-                <View className="text-red-500 font-medium text-base">{formatMoney(price)}</View>
+                <View className="text-primary-red font-medium text-base">{formatMoney(price)}</View>
                 <View style={{ marginRight: '20px' }}>
                   <AtInputNumber
                     min={1}

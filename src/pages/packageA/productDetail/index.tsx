@@ -123,12 +123,14 @@ const ProductDetail = () => {
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
           <View>
-            <Image
-              mode="widthFix"
-              // style={{ height: Taro.getSystemInfoSync().windowWidth }}
-              src={detailInfo.description}
-              className="w-full"
-            />{' '}
+            {detailInfo.description?.split('"')?.[1]?.split('"')[0] ? (
+              <Image
+                mode="widthFix"
+                // style={{ height: Taro.getSystemInfoSync().windowWidth }}
+                src={detailInfo.description?.split('"')?.[1].split('"')[0]}
+                className="w-full"
+              />
+            ) : null}
             {/* <RichText className="w-full" nodes={detailInfo.description} /> */}
           </View>
           <ChooseSpec
