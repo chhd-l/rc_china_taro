@@ -103,12 +103,13 @@ const Checkout = () => {
         //   type: 'success',
         // })
         Taro.removeStorageSync('select-product')
-        //下单成功处理购物车数据
+        //下单成功处理删除购物车数据
         let cartProducts = session.get('cart-data') || []
-        cartProducts.map((el, index) => {
-          tradeItems.map((item) => {
+        tradeItems.map((item) => {
+          cartProducts.map((el) => {
             if (item.id === el.id) {
-              cartProducts.splice(index, 1)
+              const delIndex=cartProducts.findIndex(data=>data.id===item.id)
+              cartProducts.splice(delIndex, 1)
             }
           })
         })
