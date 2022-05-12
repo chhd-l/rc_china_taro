@@ -62,7 +62,7 @@ const OrderAction = ({
               取消订单
             </AtButton>
             <AtButton
-              className="w-20 text-red-500 border-red-500 ml-3"
+              className="w-20 text-primary-red border-red ml-3"
               size="small"
               circle
               onClick={(e) => {
@@ -95,7 +95,7 @@ const OrderAction = ({
         ) : null}
         {orderState === 'TO_SHIP' ? (
           <AtButton
-            className="w-20 text-red-500 border-red-500 ml-3"
+            className="w-20 text-primary-red border-red ml-3"
             size="small"
             circle
             onClick={(e) => {
@@ -108,7 +108,7 @@ const OrderAction = ({
         ) : null}
         {orderState === 'SHIPPED' ? (
           <AtButton
-            className="w-20 text-red-500 border-red-500 ml-3"
+            className="w-20 text-primary-red border-red ml-3"
             size="small"
             circle
             onClick={(e) => {
