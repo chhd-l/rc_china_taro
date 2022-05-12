@@ -1,4 +1,4 @@
-import { View, Image, Text } from '@tarojs/components'
+import { View, Image, Text, ScrollView } from '@tarojs/components'
 import { AtList, AtListItem, AtCard, AtCountdown } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { getCurrentInstance } from '@tarojs/taro'
@@ -49,11 +49,11 @@ const OrderDetails = () => {
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
 
-  const getTimeCount=()=>{
+  const getTimeCount = () => {
     const time = getDateDiff(orderDetail?.tradeState?.createdAt, new Date())
     return {
-      minutes:Number(time.minute.toFixed(0)),
-      seconds:Number(time.second.toFixed(0))
+      minutes: Number(time.minute.toFixed(0)),
+      seconds: Number(time.second.toFixed(0)),
     }
   }
 
@@ -63,7 +63,7 @@ const OrderDetails = () => {
     const time = getDateDiff(res?.tradeState?.createdAt, new Date())
     setMinutes(Number(time.minute))
     setSeconds(Number(time.second.toFixed(0)))
-    console.log(Number(time.minute),Number(time.second.toFixed(0)))
+    console.log(Number(time.minute), Number(time.second.toFixed(0)))
   }
 
   const getExpressCompanys = async () => {
@@ -85,93 +85,101 @@ const OrderDetails = () => {
   }, [])
 
   return (
-    <View className="OrderDetails">
-      {orderDetail?.orderNumber ? (
-        <>
-          <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 pt-6">
-            <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
-            {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
-              <View>
-                <AtCountdown format={{ hours: ':', minutes: ':', seconds: '' }} minutes={getTimeCount().minutes} seconds={getTimeCount().seconds} />
-                后取消订单
-              </View>
-            ) : null}
-          </View>
-          <View className="bodyContext">
-            <AtList className="ListBg">
-              {trackingId ? (
+    <ScrollView scrollY overflow-anchor={false}>
+      <View className="OrderDetails">
+        {orderDetail?.orderNumber ? (
+          <>
+            <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 pt-6">
+              <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
+              {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
+                <View>
+                  <AtCountdown
+                    format={{ hours: ':', minutes: ':', seconds: '' }}
+                    minutes={getTimeCount().minutes}
+                    seconds={getTimeCount().seconds}
+                  />
+                  后取消订单
+                </View>
+              ) : null}
+            </View>
+            <View className="bodyContext">
+              <AtList className="ListBg">
+                {trackingId ? (
+                  <AtListItem
+                    className="bg-white flex items-center h-16 mt-2"
+                    title={`物流公司：${getCarrierType()}`}
+                    note={`物流编号： ${trackingId || ''}`}
+                    arrow="right"
+                    extraText="查看"
+                    thumb={LOGISTICS_ORDER_ICON}
+                    onClick={() => {
+                      setShowLogistic(!showLogistic)
+                    }}
+                  />
+                ) : null}
+                {showLogistic && deliveries && deliveries?.length > 0 ? (
+                  <OrderLogistics logistics={deliveries} />
+                ) : null}
                 <AtListItem
                   className="bg-white flex items-center h-16 mt-2"
-                  title={`物流公司：${getCarrierType()}`}
-                  note={`物流编号： ${trackingId || ''}`}
-                  arrow="right"
-                  extraText="查看"
-                  thumb={LOGISTICS_ORDER_ICON}
-                  onClick={() => {
-                    setShowLogistic(!showLogistic)
-                  }}
+                  title={`${receiverName || ''} ${phone}`}
+                  note={`${province} ${city} ${region} ${detail}`}
+                  thumb={ADDRESS_ORDER_ICON}
                 />
-              ) : null}
-              {showLogistic && deliveries && deliveries?.length > 0 ? <OrderLogistics logistics={deliveries} /> : null}
-              <AtListItem
-                className="bg-white flex items-center h-16 mt-2"
-                title={`${receiverName || ''} ${phone}`}
-                note={`${province} ${city} ${region} ${detail}`}
-                thumb={ADDRESS_ORDER_ICON}
-              />
-            </AtList>
-            <AtCard className="m-0 mt-2 border-0" title="订单信息">
-              {(orderDetail?.lineItem || []).map((el, idx) => (
-                <View key={idx} className="w-full h-20 flex mb-4">
-                  <View className="w-28 h-full">
-                    <Image className="w-full h-full" src={el?.pic} />
-                  </View>
-                  <View className="w-full h-full flex flex-col pl-3">
-                    <View className="text-xs font-black mb-1">{el?.skuName}</View>
-                    <View className="text-primary-red flex ProductIntroduction justify-between items-center">
-                      <View className="flex flex-row flex-wrap">
-                        {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                          <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
-                        ))}
-                      </View>
-                      <View className="numcolor">X{el?.num}</View>
+              </AtList>
+              <AtCard className="m-0 mt-2 border-0" title="订单信息">
+                {(orderDetail?.lineItem || []).map((el, idx) => (
+                  <View key={idx} className="w-full h-20 flex mb-4">
+                    <View className="w-28 h-full">
+                      <Image className="w-full h-full" src={el?.pic} />
                     </View>
-                    <View className="mt-2 ProductIntroduction">规格：{el?.goodsSpecifications}</View>
+                    <View className="w-full h-full flex flex-col pl-3">
+                      <View className="text-xs font-black mb-1">{el?.skuName}</View>
+                      <View className="text-primary-red flex ProductIntroduction justify-between items-center">
+                        <View className="flex flex-row flex-wrap">
+                          {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                            <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
+                          ))}
+                        </View>
+                        <View className="numcolor">X{el?.num}</View>
+                      </View>
+                      <View className="mt-2 ProductIntroduction">规格：{el?.goodsSpecifications}</View>
+                    </View>
+                  </View>
+                ))}
+                <View className="w-full h-8 footerText flex items-end flex-col">
+                  <View className="text-right">
+                    共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(totalPrice)}，优惠
+                    {formatMoney(discountsPrice)}，实付款
+                    <Text className="text-primary-red text-24">{formatMoney(totalPrice)}</Text>
                   </View>
                 </View>
-              ))}
-              <View className="w-full h-8 footerText flex items-end flex-col">
-                <View className="text-right">
-                  共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(totalPrice)}，优惠
-                  {formatMoney(discountsPrice)}，实付款
-                  <Text className="text-primary-red text-24">{formatMoney(totalPrice)}</Text>
+                <View className="flex items-center justify-between boderTop">
+                  <Text>订单编号</Text>
+                  <Text>{orderDetail.orderNumber}</Text>
                 </View>
-              </View>
-              <View className="flex items-center justify-between h-7 boderTop">
-                <Text>订单编号</Text>
-                <Text>{orderDetail.orderNumber}</Text>
-              </View>
-              <View className="flex items-center justify-between h-7 boderTop">
-                <Text>下单时间</Text>
-                <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
-              </View>
-              <View className="flex items-center justify-between h-7 boderTop">
-                <Text>支付方式</Text>
-                <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
-              </View>
-              <View className="flex items-center justify-between h-7 boderTop">
-                <Text>发货时间</Text>
-                <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
-              </View>
-              <View className="flex items-center justify-between h-7 boderTop">
-                <Text>备注</Text>
-                <Text>{orderDetail?.remark}</Text>
-              </View>
-            </AtCard>
-          </View>
-        </>
-      ) : null}
-    </View>
+                <View className="flex items-center justify-between boderTop">
+                  <Text>下单时间</Text>
+                  <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
+                </View>
+                <View className="flex items-center justify-between boderTop">
+                  <Text>支付方式</Text>
+                  <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
+                </View>
+                <View className="flex items-center justify-between boderTop">
+                  <Text>发货时间</Text>
+                  <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
+                </View>
+                <View className="flex items-center justify-between boderTop break-words">
+                  <Text>备注</Text>
+                  <Text style={{ wordWrap: 'break-word', width: '70%' }}>{orderDetail?.remark}</Text>
+                </View>
+              </AtCard>
+            </View>
+          </>
+        ) : null}
+      </View>
+    </ScrollView>
   )
 }
 
