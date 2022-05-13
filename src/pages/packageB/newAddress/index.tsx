@@ -7,6 +7,7 @@ import { createAddress, updateAddress } from '@/framework/api/customer/address'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { pickForUpdate } from '@/utils/utils'
 import './index.less'
+import routers from "@/routers";
 
 const Index = () => {
   const { router } = getCurrentInstance()
@@ -62,7 +63,7 @@ const Index = () => {
     } else if (router?.params.type === 'edit') {
       let params = pickForUpdate(addressInfo, initData)
       await updateAddress({
-        params: Object.assign(params),
+        params: Object.assign(params,{id:addressInfo.id}),
       })
     } else {
       await createAddress(
@@ -71,8 +72,11 @@ const Index = () => {
         }),
       )
     }
-    Taro.navigateBack({
-      delta: 1,
+    // Taro.navigateBack({
+    //   delta: 1,
+    // })
+    Taro.redirectTo({
+      url: routers.addressManage,
     })
   }
 
