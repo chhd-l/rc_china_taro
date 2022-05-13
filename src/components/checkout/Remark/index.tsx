@@ -18,11 +18,11 @@ const Remark = ({ changeRemark }: { changeRemark: Function }) => {
           <Image className="w-6 h-6 mr-2" src={ORDER_COMMENT_ICON} />
           备注信息
         </View>
-        <View>
+        <View className="z-0">
           <AtInput
             placeholder="请填写需要备注信息"
             name="remark"
-            className="bg-white rounded"
+            className="rounded"
             value={remark}
             onChange={onChange}
             border={false}

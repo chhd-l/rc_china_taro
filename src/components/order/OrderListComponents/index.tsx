@@ -83,7 +83,7 @@ const OrderListComponents = ({
             <View className="text-right">
               共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.totalPrice)}，优惠
               {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
-              <Text className="text-primary-red text-24">{formatMoney(item.tradePrice.totalPrice)}</Text>
+              <Text className="text-primary-red text-28">{formatMoney(item.tradePrice.totalPrice)}</Text>
             </View>
             <OrderAction
               amount={item.tradePrice.totalPrice * 100}

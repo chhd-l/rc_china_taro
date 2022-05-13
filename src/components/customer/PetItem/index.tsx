@@ -8,7 +8,6 @@ import EditPet from '@/components/customer/EditPet'
 import { editPetButton } from '@/lib/customer'
 import { deletePet } from '@/framework/api/pet/delete-pet'
 import { PetListItemProps } from '@/framework/types/customer'
-import addImg from '@/assets/img/addNew.png'
 import { Dog, Cat } from '@/utils/global'
 import './index.less'
 
@@ -88,10 +87,6 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
       },
     })
   }
-
-  useEffect(() => {
-    console.log('pet', pet)
-  }, [pet.image])
 
   return (
     <View className="my-2 mx-3">

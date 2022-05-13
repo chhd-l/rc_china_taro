@@ -22,7 +22,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
     <View onClick={() => selectAddress()}>
       {receiverName ? (
         <View className="flex flex-row justify-between items-start text-30 items-start px-4 py-2">
-          <View className=" text-black font-semibold" style={{ wordBreak: 'keep-all' }}>
+          <View className="text-black font-semibold" style={{ wordBreak: 'keep-all' }}>
             {receiverName}
           </View>
           <View className="ml-2 text-xs">
@@ -32,7 +32,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
             </View>
           </View>
           <View className="self-center">
-            <AtIcon value="chevron-right" size="24" />
+            <AtIcon value="chevron-right" size="24" color='#666666'/>
           </View>
         </View>
       ) : (
@@ -42,7 +42,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
             新增收货地址
           </View>
           <View>
-            <AtIcon value="chevron-right" size="24" />
+            <AtIcon value="chevron-right" size="24" color='#666666'/>
           </View>
         </View>
       )}

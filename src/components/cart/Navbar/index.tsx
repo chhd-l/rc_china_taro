@@ -14,7 +14,7 @@ const NarBar = ({ num }: { num: number }) => {
   }, [])
 
   return (
-    <View className="w-full" style={{ paddingTop: paddingTop + 'px', position: 'fixed', top: '0' }}>
+    <View className="w-full z-10 bg-white" style={{ paddingTop: paddingTop + 'px', position: 'fixed', top: '0' }}>
       <View className="mt-2 mb-2 text-center">购物车{num > 0 ? <Text>({num})</Text> : null}</View>
     </View>
   )

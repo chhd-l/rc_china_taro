@@ -87,18 +87,14 @@ export const getDateDiff = (startTime, endTime) => {
 
   const day = parseInt((eTime - sTime) / parseInt(divNumDay))
   const hour = parseInt(((eTime - sTime) % parseInt(divNumDay)) / parseInt(divNumHour))
-  const minute = parseInt(
-    parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour)) / parseInt(divNumMinute),
-  )
-  const second =
-    (parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour)) % parseInt(divNumMinute)) /
-    parseInt(divNumSecond)
+  const minute = parseInt((parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour))) / parseInt(divNumMinute))
+  const second = ((parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour))) % parseInt(divNumMinute)) / parseInt(divNumSecond)
   const str = day + '天' + hour + '小时' + minute + '分' + second + '秒'
   console.log(str)
   return {
     day,
     hour,
     minute: day > 0 || hour > 0 || minute > 30 ? 0 : 30 - minute,
-    second: day > 0 || hour > 0 || minute > 30 ? 0 : minute,
+    second: day > 0 || hour > 0 || minute > 30 ? 0 : second,
   }
 }
