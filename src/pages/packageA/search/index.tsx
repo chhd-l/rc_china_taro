@@ -234,7 +234,7 @@ const Search = () => {
           getCatOrDogAttrs={getCatOrDogAttrs}
           handleSearch={handleSearch}
         />
-        <View className="text-xs mt-2">
+        <View className="text-xs mt-2 w-full overflow-hidden">
           <SearchFilters
             isShowAll={false}
             isSearchNow
