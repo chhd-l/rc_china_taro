@@ -8,7 +8,13 @@ const ProductItem = ({ product }: { product: any }) => {
 
   return (
     <View className="flex flex-row justify-between items-center mt-4 p-2">
-      <Image src={image} mode="widthFix" className="border" style={{ width: '100px', height: '100px' }} />
+      <View style={{width:'200rpx',height:'200rpx'}}>
+        <Image
+          style="width:200rpx; height: 200rpx;border: 1px solid #f0f0f0"
+          lazyLoad
+          src={image}
+        />
+      </View>
       <View className="w-full pl-2">
         <View className="font-semibold text-32 text-black">{name}</View>
         <View className="font-semibold text-32 text-black mt-1">{specs}</View>

@@ -23,7 +23,7 @@ const DeliveryTime = ({ changeDeliveryDate }: { changeDeliveryDate: Function }) 
           <View>
             <View>
               <Text className="text-xs text-gray-400">{deliveryTime}</Text>
-              <AtIcon value="chevron-right" size="24" />
+              <AtIcon value="chevron-right" size="24" color='#666666'/>
             </View>
           </View>
         </View>
