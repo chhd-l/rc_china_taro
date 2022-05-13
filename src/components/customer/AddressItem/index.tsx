@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { View, Radio, Text, Image } from '@tarojs/components'
 import { AtDivider, AtModal } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
-import Taro from '@tarojs/taro'
+import Taro, { getCurrentPages } from '@tarojs/taro'
 import { deleteAddress, updateAddress } from '@/framework/api/customer/address'
 import routers from '@/routers'
 import { EDIT_ADDRESS_ICON, DELETE_ADDRESS_ICON } from '@/lib/constants'
@@ -41,8 +41,8 @@ const AddressItem = ({
   }
 
   const setAsDefault = async () => {
-    const value=!addressInfo.isDefault
-    if(value){
+    const value = !addressInfo.isDefault
+    if (value) {
       const res = await updateAddress({
         params: {
           customerId: addressInfo.customerId,
@@ -53,7 +53,7 @@ const AddressItem = ({
       if (res) {
         isDefaultUpdateSuccess && isDefaultUpdateSuccess(addressInfo, !addressInfo.isDefault)
       }
-    }else{
+    } else {
       //不允许将默认地址设置成非默认地址
       return false
     }
@@ -61,22 +61,26 @@ const AddressItem = ({
 
   //checkout过来勾选地址
   const selectAddress = () => {
-    Taro.getStorage({
-      key: 'address-from-checkout',
-      success: function (data) {
-        if (data.data) {
-          Taro.setStorage({
-            key: 'select-address',
-            data: JSON.stringify(addressInfo),
-            success: function (res) {
-              console.log(res)
-              Taro.redirectTo({ url: routers.checkout })
-            },
-          })
-          Taro.removeStorageSync('address-from-checkout')
-        }
-      },
-    })
+    console.log('getCurrentPages ', getCurrentPages())
+    const findCheckoutIndex = getCurrentPages().findIndex((el) => el.route === routers.checkout)
+    if (findCheckoutIndex > -1) {
+      Taro.getStorage({
+        key: 'address-from-checkout',
+        success: function (data) {
+          if (data.data) {
+            Taro.setStorage({
+              key: 'select-address',
+              data: JSON.stringify(addressInfo),
+              success: function (res) {
+                console.log(res)
+                Taro.redirectTo({ url: routers.checkout })
+              },
+            })
+            Taro.removeStorageSync('address-from-checkout')
+          }
+        },
+      })
+    }
   }
 
   return (

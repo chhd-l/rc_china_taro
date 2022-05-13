@@ -7,7 +7,6 @@ import { createAddress, updateAddress } from '@/framework/api/customer/address'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { pickForUpdate } from '@/utils/utils'
 import './index.less'
-import routers from "@/routers";
 
 const Index = () => {
   const { router } = getCurrentInstance()
@@ -72,11 +71,8 @@ const Index = () => {
         }),
       )
     }
-    // Taro.navigateBack({
-    //   delta: 1,
-    // })
-    Taro.redirectTo({
-      url: routers.addressManage,
+    Taro.navigateBack({
+      delta: 1,
     })
   }
 
