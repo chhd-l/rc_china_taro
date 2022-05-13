@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { View, RichText, Image } from '@tarojs/components'
+import { View, Text, RichText, Image } from '@tarojs/components'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { AuthLogin } from '@/components/customer'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
@@ -126,6 +126,12 @@ const ProductDetail = () => {
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
           <View>
+            <View className="text-center text-28 flex items-center justify-center">
+              {' '}
+              <View className="w-1 h-1 rounded-full bg-red-600"></View>
+              <View className="px-1">商品详情</View>
+              <View className="w-1 h-1 rounded-full bg-red-600"></View>
+            </View>
             {detailInfo.description ? (
               /^(http(s)?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/.test(detailInfo.description) ? (
                 <Image
@@ -138,7 +144,7 @@ const ProductDetail = () => {
                 <Image
                   mode="widthFix"
                   // style={{ height: Taro.getSystemInfoSync().windowWidth }}
-                  src={detailInfo.description?.split('"')?.[1].split('"')[0]}
+                  src={detailInfo.description?.split('"')?.[1]?.split('"')[0]}
                   className="w-full"
                 />
               )
