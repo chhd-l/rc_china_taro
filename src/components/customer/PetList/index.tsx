@@ -25,8 +25,10 @@ const PetList = () => {
   }
 
   useEffect(() => {
-    getList()
-  }, [])
+    if (customerInfo?.id) {
+      getList()
+    }
+  }, [customerInfo])
 
   Taro.useDidShow(() => {
     console.log(customerInfo, 'customerInfogetList')
