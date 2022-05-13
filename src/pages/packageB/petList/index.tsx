@@ -53,7 +53,7 @@ const PetList = () => {
         return (
           <PetItem
             showAddPetBtn={showAddPetBtn}
-            key={idx}
+            key={pet.id}
             SetshowAddPetBtn={SetshowAddPetBtn}
             getList={getList}
             pet={pet}
