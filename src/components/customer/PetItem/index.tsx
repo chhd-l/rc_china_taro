@@ -23,15 +23,17 @@ interface Props {
 }
 const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPetBtn, getList }: Props) => {
   const [editActive, setEditActive] = useState<number>(-1)
-  const [imgUrl, setImgUrl] = useState<string>('')
+  const [imgUrl, setImgUrl] = useState<string>(pet.image)
   const [item, setItem] = useState<any>(pet)
   const [showDelModal, setShowDelModal] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
+
   useEffect(() => {
     //add 的时候编辑启用
     console.log('pet', pet)
     !showAddPetBtn && petIdx === petList.length - 1 && setIsEdit(true)
   }, [showAddPetBtn, isEdit])
+
   const handleClick = (option, idx) => {
     if (option.text == '编辑') {
       setIsEdit(true)
@@ -40,12 +42,14 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
     }
     setEditActive(idx)
   }
+
   const comfirmDel = async () => {
     let { id } = petList[editActive]
     await deletePet({ id })
     setShowDelModal(false)
     getList()
   }
+
   const showEdit = (idx) => {
     console.info('...', idx)
     if (!petList[idx].isOpened) {
@@ -56,6 +60,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
     petList[idx].isOpened = !petList[idx].isOpened
     setPetList(cloneDeep(petList))
   }
+
   const handleImage = (files, idx) => {
     Taro.chooseImage({
       count: 1, // 默认9
@@ -83,6 +88,11 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
       },
     })
   }
+
+  useEffect(() => {
+    console.log('pet', pet)
+  }, [pet.image])
+
   return (
     <View className="my-2 mx-3">
       <View className=" rounded-lg overflow-hidden">
