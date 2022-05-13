@@ -61,7 +61,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
     setPetList(cloneDeep(petList))
   }
 
-  const handleImage = (files, idx) => {
+  const handleImage = () => {
     Taro.chooseImage({
       count: 1, // 默认9
       sizeType: ['original', 'compressed'], // 可以指定是原图还是压缩图，默认二者都有
@@ -109,8 +109,8 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                 className="w-20 h-20 m-auto relative"
                 src={imgUrl || pet.image || (pet.type === 'DOG' ? Dog : Cat)}
                 style={{ borderRadius: '50%' }}
-                onClick={(files) => {
-                  handleImage(files, petIdx)
+                onClick={() => {
+                  handleImage()
                 }}
               />
             </View>
@@ -163,13 +163,42 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               showEdit(petIdx)
             }}
           >
+            {imgUrl ? (
+              <Image
+                className="w-20 h-20 m-auto relative"
+                src={imgUrl}
+                style={{ borderRadius: '50%' }}
+                onClick={() => {
+                  handleImage()
+                }}
+              />
+            ) : (
+              <View
+                className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
+                style={{ borderRadius: '50%' }}
+                // src={pet.image}
+                onClick={() => {
+                  handleImage()
+                }}
+              >
+                <AtIcon value="add" size={16} />
+              </View>
+            )}
+            {/* <Image
+              className="w-20 h-20 m-auto relative"
+              src={imgUrl}
+              style={{ borderRadius: '50%' }}
+              onClick={(files) => {
+                handleImage(files, petIdx)
+              }}
+            />
             <View
               className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
               style={{ borderRadius: '50%' }}
-              // src={pet.image}
+            // src={pet.image}
             >
               <AtIcon value="add" size={16} />
-            </View>
+            </View> */}
           </View>
         )}
       </View>

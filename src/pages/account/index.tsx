@@ -3,7 +3,6 @@ import { AuthLogin } from '@/components/customer'
 import { customerAtom } from '@/store/customer'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { useAtom } from 'jotai'
-import quitIcon from '@/assets/icons/quit.svg'
 // import Announcement from '@/components/common/Announcement'
 // import defaultIcon from '@/assets/icons/icon-home.png'
 import { View, Text, Image, Button } from '@tarojs/components'
@@ -11,6 +10,7 @@ import { AtAvatar, AtButton, AtModal, AtModalAction, AtModalContent, AtModalHead
 import { useEffect, useState } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
+import quitIcon from '@/assets/icons/quit.svg'
 import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON } from '@/lib/constants'
 import './index.less'
 
@@ -142,7 +142,9 @@ const Account = () => {
         {/*/!*微信关注*!/*/}
         {/* <View>微信关注</View> */}
         {/*/!*我的宠物*!/*/}
-        <PetList />
+        <View>
+          <PetList />
+        </View>
         <AtModal isOpened={signoutOpend}>
           <AtModalHeader>
             <View style={{ height: '100rpx', lineHeight: '100rpx' }}>确定要退出登录？</View>

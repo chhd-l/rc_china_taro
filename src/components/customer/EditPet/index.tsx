@@ -46,7 +46,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
       return
     }
     if (petInfo.id === '-1') {
-      await addPet(petInfo)
+      await addPet({ ...petInfo, image: petItem.image })
     } else {
       await updatePet(petInfo, petItem)
     }
