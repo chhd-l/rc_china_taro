@@ -151,7 +151,7 @@ const OrderDetails = () => {
                   <View className="text-right">
                     共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(totalPrice)}，优惠
                     {formatMoney(discountsPrice)}，实付款
-                    <Text className="text-primary-red text-24">{formatMoney(totalPrice)}</Text>
+                    <Text className="text-primary-red text-28">{formatMoney(totalPrice)}</Text>
                   </View>
                 </View>
                 <View className="flex items-center justify-between boderTop">
