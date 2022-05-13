@@ -52,7 +52,8 @@ export const normalizeProductForFe = (goods: any): any => {
     id: goods.id,
     no: goods.spuNo,
     tags: [''], //逻辑处理
-    img: goods.goodsAsserts?.map((el) => el.artworkUrl),
+    img: goods.goodsAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),
+    video: goods.goodsAsserts?.filter((el) => el.type === 'video')[0]?.artworkUrl,
     skus: goods.goodsVariants?.map((sku, index) => normalizeSkuForFe(sku, index, tags, goods.goodsSpecifications)),
     type: goods.type,
     description: goods.goodsDescription,
@@ -109,6 +110,7 @@ export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
     console.log('item-------------', item)
     let minItem = item.goodsVariants ? item.goodsVariants[0] : null
+    let images = item.goodsAsserts?.filter((el) => el.type === 'image')
     // item.goodsVariants.forEach((variant) => {
     //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
     //     minItem = variant
@@ -116,7 +118,7 @@ export const normalizeProductsforFe = (data: any) => {
     // })
     return {
       name: item.goodsName,
-      img: minItem?.defaultImage || (item.goodsAsserts ? item.goodsAsserts[0]?.artworkUrl : null),
+      img: minItem?.defaultImage || (images ? images[0]?.artworkUrl : null),
       originalPrice: minItem?.listPrice,
       price: minItem?.marketingPrice,
       sku: minItem?.id,

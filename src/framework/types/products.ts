@@ -9,6 +9,7 @@ export interface ProductBaseProps {
   no: string
   tags: string[]
   img: string[] /*  */
+  video?: string
 }
 
 export interface SpecIdProps {
