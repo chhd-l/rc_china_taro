@@ -80,21 +80,19 @@ const PetList = () => {
 
   return (
     <View
-      className="py-2 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
-      style={{ backgroundImage: `url(${petBg})` }}
+      className="box-border px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
+      style={{
+        backgroundImage: `url(${petBg})`,
+      }}
     >
-      <View className="flex justify-between mb-1">
+      <View className="flex justify-between">
         <View className="font-semibold">我的宠物</View>
-        <View
-          className="w-4 h-4"
-          onClick={toPetList}
-          style="background:url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_edit.png);background-size: contain;"
-        ></View>
+        <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {fakePet.length ? (
         fakePet.length === 1 ? (
-          <View>
-            <View className="w-full flex mb-3 mt-2 relative">
+          <View className="box-border">
+            <View className="w-full flex relative">
               <View className="text-center h-full w-full flex items-center">
                 <View className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md">
                   <Image
@@ -136,8 +134,8 @@ const PetList = () => {
             </View>
           </View>
         ) : (
-          <View>
-            <View className="w-full flex items-center">
+          <View className="box-border">
+            <View className="w-full flex items-center my-2">
               <Swiper
                 style={{ height: '80px' }}
                 className="w-full flex items-center"
