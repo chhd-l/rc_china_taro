@@ -39,7 +39,7 @@ const Index = () => {
             key: 'current-wechat-address',
             data: JSON.stringify(addressInfo),
             success: function () {
-              Taro.redirectTo({
+              Taro.navigateTo({
                 url: `${routers.newAddress}?type=addWechatAddress`,
               })
             },
