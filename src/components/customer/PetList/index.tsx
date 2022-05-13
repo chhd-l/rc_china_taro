@@ -80,7 +80,7 @@ const PetList = () => {
 
   return (
     <View
-      className="box-border px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
+      className="box-border py-3 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
       style={{
         backgroundImage: `url(${petBg})`,
       }}
@@ -92,11 +92,11 @@ const PetList = () => {
       {fakePet.length ? (
         fakePet.length === 1 ? (
           <View className="box-border">
-            <View className="w-full flex relative">
+            <View className="w-full flex relative mb-2">
               <View className="text-center h-full w-full flex items-center">
                 <View className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md">
                   <Image
-                    src={fakePet[0].image || fakePet[0].type === 'DOG' ? Dog : Cat}
+                    src={fakePet[0].image || (fakePet[0].type === 'DOG' ? Dog : Cat)}
                     // src={pet.image}
                     style={{ borderRadius: '50%' }}
                     className="w-full h-full m-auto Petpictureshadow"
@@ -135,7 +135,7 @@ const PetList = () => {
           </View>
         ) : (
           <View className="box-border">
-            <View className="w-full flex items-center my-2">
+            <View className="w-full flex items-center mb-2">
               <Swiper
                 style={{ height: '80px' }}
                 className="w-full flex items-center"
