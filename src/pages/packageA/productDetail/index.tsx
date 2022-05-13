@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
-import { View, Text, RichText, Image } from '@tarojs/components'
+import { View, Text, RichText, Image, Video } from '@tarojs/components'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { AuthLogin } from '@/components/customer'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
@@ -76,6 +76,8 @@ const ProductDetail = () => {
     const chooseSku =
       detailData.skus.find((item) => selectedArr.every((selectedStr: string) => item.specIds.includes(selectedStr))) ||
       detailData.skus[0] //兼容都没有值的情况
+    chooseSku.video = detailData.video
+    console.log('chooseSku', chooseSku)
     chooseSku && setChoosedSku(chooseSku)
     setDetailInfo(detailData)
     setSelected(cloneDeep(selecteds))
@@ -132,6 +134,7 @@ const ProductDetail = () => {
               <View className="px-1">商品详情</View>
               <View className="w-1 h-1 rounded-full bg-red-600"></View>
             </View>
+            {choosedSku?.video ? <Video className="w-full" src={choosedSku.video} /> : null}
             {detailInfo.description ? (
               /^(http(s)?:\/\/)?([\w-]+\.)+[\w-]+(\/[\w- .\/?%&=]*)?/.test(detailInfo.description) ? (
                 <Image
