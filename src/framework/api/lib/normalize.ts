@@ -31,11 +31,11 @@ export const normalizeProductForFe = (goods: any): any => {
   let tags: string[] = []
   goods.goodsAttributeValueRel?.forEach((attr) => {
     let tagStr = ''
-    switch (attr.attributeNameEn) {
-      case 'Age':
+    switch (attr.attributeName) {
+      case '年龄':
         tagStr = `适用年龄:${attr.attributeValueName}` //显示中文
         break
-      case 'Technology':
+      case '干/湿':
         let value =
           (attr.attributeValueName == '湿粮' && '每日一包') || (attr.attributeValueName == '其他' && '2日一罐')
         tagStr = value ? `建议干湿搭配:${value}` : ''
@@ -182,11 +182,11 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
   let tags: string[] = []
   attributeValueRels?.forEach((attr) => {
     let tagStr = ''
-    switch (attr.attributeNameEn) {
-      case 'Age':
-        tagStr = `适用年龄:${attr.attributeValueName}`
+    switch (attr.attributeName) {
+      case '年龄':
+        tagStr = `适用年龄:${attr.attributeValueName}` //显示中文
         break
-      case 'Technology':
+      case '干/湿':
         let value =
           (attr.attributeValueName == '湿粮' && '每日一包') || (attr.attributeValueName == '其他' && '2日一罐')
         tagStr = value ? `建议干湿搭配:${value}` : ''
