@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { View, Radio, Text, Image } from '@tarojs/components'
 import { AtDivider, AtModal } from 'taro-ui'
 import { Address } from '@/framework/types/customer'
-import Taro, { useDidHide } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { deleteAddress, updateAddress } from '@/framework/api/customer/address'
 import routers from '@/routers'
 import { EDIT_ADDRESS_ICON, DELETE_ADDRESS_ICON } from '@/lib/constants'
@@ -78,10 +78,6 @@ const AddressItem = ({
       },
     })
   }
-
-  useDidHide(() => {
-    Taro.removeStorage({ key: 'address-from-checkout' })
-  })
 
   return (
     <View className="px-2 pt-4 pb-2 bg-white address-item text-sm mt-2 rounded">
