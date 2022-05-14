@@ -57,7 +57,7 @@ export const getAge = (birthdayStr) => {
     return value - birthday[index]
   })
   if (age[0] > 0) {
-    return `${age[0]}年`
+    return `${age[0]}岁`
   } else if (age[1] > 0) {
     return `${age[1]}个月 `
   } else {
@@ -87,8 +87,12 @@ export const getDateDiff = (startTime, endTime) => {
 
   const day = parseInt((eTime - sTime) / parseInt(divNumDay))
   const hour = parseInt(((eTime - sTime) % parseInt(divNumDay)) / parseInt(divNumHour))
-  const minute = parseInt((parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour))) / parseInt(divNumMinute))
-  const second = ((parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour))) % parseInt(divNumMinute)) / parseInt(divNumSecond)
+  const minute = parseInt(
+    parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour)) / parseInt(divNumMinute),
+  )
+  const second =
+    (parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour)) % parseInt(divNumMinute)) /
+    parseInt(divNumSecond)
   const str = day + '天' + hour + '小时' + minute + '分' + second + '秒'
   console.log(str)
   return {

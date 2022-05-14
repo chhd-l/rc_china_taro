@@ -28,21 +28,20 @@ export const normalizePetsForFe = (petInfo: any) => {
 }
 
 export const normalizeProductForFe = (goods: any): any => {
-  let tags: string[] = []
-  goods.goodsAttributeValueRel?.forEach((attr) => {
-    let tagStr = ''
-    switch (attr.attributeName) {
-      case '年龄':
-        tagStr = `适用年龄:${attr.attributeValueName}` //显示中文
-        break
-      case '干/湿':
-        let value =
-          (attr.attributeValueName == '湿粮' && '每日一包') || (attr.attributeValueName == '其他' && '2日一罐')
-        tagStr = value ? `建议干湿搭配:${value}` : ''
-        break
-    }
-    tags.push(tagStr)
-  })
+  // goods.goodsAttributeValueRel?.forEach((attr) => {
+  //   let tagStr = ''
+  //   switch (attr.attributeName) {
+  //     case '年龄':
+  //       tagStr = `适用年龄:${attr.attributeValueName}` //显示中文
+  //       break
+  //     case '干/湿':
+  //       let value =
+  //         (attr.attributeValueName == '湿粮' && '每日一包') || (attr.attributeValueName == '其他' && '2日一罐')
+  //       tagStr = value ? `建议干湿搭配:${value}` : ''
+  //       break
+  //   }
+  //   tags.push(tagStr)
+  // })
   let spu = {
     // specs: string
     name: goods.goodsName,
@@ -54,7 +53,9 @@ export const normalizeProductForFe = (goods: any): any => {
     tags: [''], //逻辑处理
     img: goods.goodsAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),
     video: goods.goodsAsserts?.filter((el) => el.type === 'video')[0]?.artworkUrl,
-    skus: goods.goodsVariants?.map((sku, index) => normalizeSkuForFe(sku, index, tags, goods.goodsSpecifications)),
+    skus: goods.goodsVariants?.map((sku, index) =>
+      normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goods.goodsSpecifications),
+    ),
     type: goods.type,
     description: goods.goodsDescription,
     specifications:
@@ -81,10 +82,11 @@ export const normalizeProductForFe = (goods: any): any => {
 export const normalizeSkuForFe = (
   sku: GoodsVariants,
   index: number,
-  spuTags: string[],
+  goodsAttributeValueRel: any,
   goodsSpecifications,
 ): SkuItemProps => {
-  let tags = sku.feedingDays ? [...spuTags, `建议饲喂天数:${sku.feedingDays}天`] : [...spuTags]
+  let tags: string[] = normalizeTags(goodsAttributeValueRel, sku.feedingDays)
+  // let tags = sku.feedingDays ? [...spuTags, `建议饲喂天数:${sku.feedingDays}天`] : [...spuTags]
   let item = {
     // specs: string
     name: sku.name,
@@ -92,7 +94,7 @@ export const normalizeSkuForFe = (
     price: sku.marketingPrice,
     originalPrice: sku.listPrice,
     id: sku.id,
-    feedingDays: '',
+    feedingDays: sku.feedingDays,
     no: sku.skuNo,
     tags: tags.filter((el) => el), //筛选有数据的展示
     img: [sku.defaultImage],
@@ -181,23 +183,22 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
 export const normalizeTags = (attributeValueRels, feedingDays) => {
   let tags: string[] = []
   attributeValueRels?.forEach((attr) => {
-    let tagStr = ''
     switch (attr.attributeName) {
       case '年龄':
-        tagStr = `适用年龄:${attr.attributeValueName}` //显示中文
+        tags[0] = `适用年龄:${attr.attributeValueName}` //显示中文
         break
       case '干/湿':
         let value =
-          (attr.attributeValueName == '湿粮' && '每日一包') || (attr.attributeValueName == '其他' && '2日一罐')
-        tagStr = value ? `建议干湿搭配:${value}` : ''
+          (attr.attributeValueName == '湿粮' && '每日一包') ||
+          (attr.attributeValueName == '其他' && '2日一罐') ||
+          (attr.attributeValueName == '干粮' && feedingDays && `建议饲喂天数:${feedingDays}天`)
+
+        tags[1] = value ? `建议干湿搭配:${value}` : ''
         break
     }
-    if (tagStr !== '') {
-      tags.push(tagStr)
-    }
   })
-  tags = feedingDays ? [...tags, `建议饲喂天数:${feedingDays}天`] : [...tags]
-  return tags
+  let tagsArr = tags.filter((el) => el)
+  return tagsArr
 }
 
 export const normalizeCatOrDogAttr = (atrrs, categoryId) => {

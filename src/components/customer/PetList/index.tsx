@@ -159,6 +159,10 @@ const PetList = () => {
                         <View
                           className={`w-16 h-16 bg-white h-full rounded-full shadow-md flex items-center justify-center  ${
                             currentIdx === idx ? '' : 'scale-75 transform '
+                          } ${
+                            petList?.length === 2 && (currentIdx === idx - 1 || (currentIdx === 3 && idx === 0))
+                              ? 'hidden'
+                              : ''
                           }`}
                         >
                           <Image
@@ -167,6 +171,10 @@ const PetList = () => {
                             // src={pet.image}
                             className="w-full h-full m-auto Petpictureshadow"
                           />
+                          <View className="hidden">
+                            idx:{idx}
+                            currentIdx:{currentIdx}
+                          </View>
                         </View>
                       ) : null}
                     </View>
