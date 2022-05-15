@@ -42,6 +42,18 @@ export const normalizeProductForFe = (goods: any): any => {
   //   }
   //   tags.push(tagStr)
   // })
+  // 单独处理一个规格的情况，下架商品不可见
+  let { goodsSpecifications, goodsVariants } = goods
+  if (goodsSpecifications?.length === 1) {
+    let goodsSpecificationDetailIdArr = goodsVariants.map(
+      (el) => el.goodsSpecificationRel[0].goodsSpecificationDetailId,
+    )
+    console.info('goodsSpecificationDetailIdArr', goodsSpecificationDetailIdArr)
+    goodsSpecifications[0].goodsSpecificationDetail = goodsSpecifications[0]?.goodsSpecificationDetail.filter((el) =>
+      goodsSpecificationDetailIdArr.find((cel) => el.id === cel),
+    )
+    console.info('goodsSpecifications', goodsSpecifications)
+  }
   let spu = {
     // specs: string
     name: goods.goodsName,
@@ -54,12 +66,12 @@ export const normalizeProductForFe = (goods: any): any => {
     img: goods.goodsAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),
     video: goods.goodsAsserts?.filter((el) => el.type === 'video')[0]?.artworkUrl,
     skus: goods.goodsVariants?.map((sku, index) =>
-      normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goods.goodsSpecifications),
+      normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goodsSpecifications),
     ),
     type: goods.type,
     description: goods.goodsDescription,
     specifications:
-      goods.goodsSpecifications
+      goodsSpecifications
         ?.map((spec) => {
           let item = {
             id: spec.id,
