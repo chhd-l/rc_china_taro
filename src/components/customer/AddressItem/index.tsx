@@ -67,7 +67,6 @@ const AddressItem = ({
       console.log(el.route);
      return el.route === routers.checkout.replace('/','')
     })
-    debugger
     console.log(findCheckoutIndex)
     if (findCheckoutIndex > -1) {
       Taro.getStorage({
