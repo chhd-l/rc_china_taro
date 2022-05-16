@@ -84,16 +84,20 @@ const ChooseSpec = ({
     if (!specDetail.able) {
       return
     }
+    debugger
     console.info('selected', selected)
     selected[specification.id] = selected[specification.id] === specDetail.id ? '' : specDetail.id
     setSelected(cloneDeep(selected))
-    detailInfo.specifications.forEach((item) => {
-      item.children.forEach((its) => {
-        its.able = isAble(item.id, its.id, selected)
-        // its.able = isAble(its)
-        // console.log(its.id, its.able)
+    //排除当前点击选项处理isalbe
+    detailInfo.specifications
+      ?.filter((el) => specification.id !== el.id)
+      .forEach((item) => {
+        item.children.forEach((its) => {
+          its.able = isAble(specDetail.id, its.id, selected)
+          // its.able = isAble(its)
+          // console.log(its.id, its.able)
+        })
       })
-    })
   }
 
   const addToCart = async () => {

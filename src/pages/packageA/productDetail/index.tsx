@@ -51,6 +51,7 @@ const ProductDetail = () => {
     //   return
     // }
     let detailData = (await getProduct({ storeId: baseSetting.storeId, goodsId })) || detailInfo
+    debugger
     if (detailData?.skus?.length) {
       detailData.skus.forEach((sku) => {
         if (detailData?.img) {
@@ -59,23 +60,24 @@ const ProductDetail = () => {
       })
     }
     let selecteds = {}
+    detailData.skus[0].goodsSpecificationRel.map((el) => {
+      selecteds[el.goodsSpecificationId] = el.goodsSpecificationDetailId
+    })
     detailData.specifications?.map((el) => {
       el.children = el.children.map((e, idx) => {
-        if (idx == 0) {
-          selecteds[el.id] = e.id
-        }
-        console.info('.....', el, e)
         // e.able = isAble(e)
-        e.able = isAble(el.id, e.id, selecteds, detailData.skus)
+        // e.able = isAble(el.id, e.id, selecteds, detailData.skus)
+        e.able = true
         return e
       })
       return el
     })
     // setSelected(selecteds)
     const selectedArr = Object.values(selecteds).filter((el) => el)
-    const chooseSku =
-      detailData.skus.find((item) => selectedArr.every((selectedStr: string) => item.specIds.includes(selectedStr))) ||
-      detailData.skus[0] //兼容都没有值的情况
+    const chooseSku = detailData.skus[0] //默认选择第一个sku
+    // const chooseSku =
+    //   detailData.skus.find((item) => selectedArr.every((selectedStr: string) => item.specIds.includes(selectedStr))) ||
+    //   detailData.skus[0] //兼容都没有值的情况
     chooseSku.video = detailData.video
     console.log('chooseSku', chooseSku)
     chooseSku && setChoosedSku(chooseSku)
@@ -91,35 +93,19 @@ const ProductDetail = () => {
     setAddToType(type)
   }
   const isAble = (key, value, selecteds, skudata) => {
+    //key 当前选中的detailid; value:循环规格带的detailid
     // const isAble = (el) => {
+    let list = detailInfo.skus?.length ? detailInfo.skus : skudata
     //只有一层的情况暂做处理
-    return (detailInfo.skus?.length ? detailInfo.skus : skudata).find((el) => el.specIds?.[0] === value)
-    // let list = detailInfo.skus || skudata
-    // // 深拷贝 避免被影响
-    // var copySelectSpec = JSON.parse(JSON.stringify(selecteds))
-    // // 用对象的好处就在这了 直接赋值当前验证项
-    // copySelectSpec[key] = value
-    // // 用数组的 some 方法 效率高 符合条件直接退出循环 skudata兼容最开始detailinfo没有赋值的情况
-    // let flag = list.some((item) => {
-    //   // 条件判断 核心逻辑判断
-    //   // console.log(item)
-    //   var i = 0
-    //   // 这个for in 循环的逻辑就对底子不深的人来说就看不懂了 原理就是循环已经选中的 和 正在当前对比的数据 和 所有的sku对比 只有当前验证的所有项满足sku中的规格或者其他规格为空时 即满足条件 稍微有点复杂 把注释的调试代码打开就调试下就可以看懂了
-    //   for (let k in copySelectSpec) {
-    //     //  console.log(copySelectSpec[k])  // 注释的调试看逻辑代码
-    //     if (copySelectSpec[k] != '' && item.specIds.includes(copySelectSpec[k])) {
-    //       // console.log(item)
-    //       i++
-    //     } else if (copySelectSpec[k] == '') {
-    //       i++
-    //     }
-    //   }
-    //   // 符合下面条件就退出了 不符合会一直循环知道循环结束没有符合的条件就 return false 了
-    //   // console.log(i) // 注释的调试看逻辑代码
-    //   return i == list.length
-    // })
-    // // console.log(flag)
-    // return flag
+    if (list[0].specIds?.length === 1) {
+      return list.find((el) => el.specIds?.[0] === key)
+      // } else {
+      //   return true
+    }
+    // 用数组的 some 方法 效率高 符合条件直接退出循环 skudata兼容最开始detailinfo没有赋值的情况
+    let hasChoosedData = list.filter((el) => el.specIds.find((cel) => cel === key))
+    debugger
+    return hasChoosedData.find((el) => el.specIds.find((cel) => cel === value))
   }
   console.info('Taro.getSystemInfoSync().windowWidth', Taro.getSystemInfoSync().windowWidth)
   return (

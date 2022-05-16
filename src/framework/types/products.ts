@@ -28,6 +28,7 @@ export interface SkuItemProps extends ProductBaseProps {
   specIds: string[]
   specText: string[]
   originalPrice: number
+  goodsSpecificationRel: any
 }
 export interface SpecProps {
   id: string
