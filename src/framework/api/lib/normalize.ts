@@ -65,9 +65,9 @@ export const normalizeProductForFe = (goods: any): any => {
     tags: [''], //逻辑处理
     img: goods.goodsAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),
     video: goods.goodsAsserts?.filter((el) => el.type === 'video')[0]?.artworkUrl,
-    skus: goods.goodsVariants?.map((sku, index) =>
-      normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goodsSpecifications),
-    ),
+    skus: goods.goodsVariants
+      ?.filter((el) => el.stock)
+      ?.map((sku, index) => normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goodsSpecifications)), //处理无库存情况也需要置灰
     type: goods.type,
     description: goods.goodsDescription,
     specifications:
