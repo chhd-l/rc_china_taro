@@ -63,15 +63,21 @@ const ProductDetail = () => {
     detailData.skus[0].goodsSpecificationRel.map((el) => {
       selecteds[el.goodsSpecificationId] = el.goodsSpecificationDetailId
     })
-    detailData.specifications?.map((el) => {
-      el.children = el.children.map((e, idx) => {
-        // e.able = isAble(e)
-        // e.able = isAble(el.id, e.id, selecteds, detailData.skus)
-        e.able = true
-        return e
-      })
-      return el
+    //默认选规格
+    detailData.skus[0]?.goodsSpecificationRel?.forEach((specification) => {
+      detailData.specifications
+        ?.filter((el) => el.id !== specification?.goodsSpecificationId)
+        ?.map((el) => {
+          el.children = el.children.map((e, idx) => {
+            // e.able = isAble(e)
+            e.able = isAble(specification?.goodsSpecificationDetailId, e.id, selecteds, detailData.skus)
+            // e.able = true
+            return e
+          })
+          return el
+        })
     })
+
     // setSelected(selecteds)
     const selectedArr = Object.values(selecteds).filter((el) => el)
     const chooseSku = detailData.skus[0] //默认选择第一个sku
@@ -94,17 +100,12 @@ const ProductDetail = () => {
   }
   const isAble = (key, value, selecteds, skudata) => {
     //key 当前选中的detailid; value:循环规格带的detailid
-    // const isAble = (el) => {
     let list = detailInfo.skus?.length ? detailInfo.skus : skudata
     //只有一层的情况暂做处理
     if (list[0].specIds?.length === 1) {
       return list.find((el) => el.specIds?.[0] === key)
-      // } else {
-      //   return true
     }
-    // 用数组的 some 方法 效率高 符合条件直接退出循环 skudata兼容最开始detailinfo没有赋值的情况
     let hasChoosedData = list.filter((el) => el.specIds.find((cel) => cel === key))
-    debugger
     return hasChoosedData.find((el) => el.specIds.find((cel) => cel === value))
   }
   console.info('Taro.getSystemInfoSync().windowWidth', Taro.getSystemInfoSync().windowWidth)

@@ -8,6 +8,7 @@ import { normalizeCatOrDogAttr, normalizeProductForFe, normalizeProductsforFe } 
 
 export const getProduct = async ({ storeId, goodsId }) => {
   try {
+    // const { productBySpuId: data } = mockProduct.data
     const { productBySpuId: data } = await ApiRoot.products().getProductBySpu({
       storeId,
       goodsId,
@@ -17,7 +18,6 @@ export const getProduct = async ({ storeId, goodsId }) => {
     // console.info('listlistlistlist......', data)
     // let data = mockProduct.data.FindGoodsList.records[0]
     const detail = normalizeProductForFe(data)
-    console.info('productListproductList', detail)
     return detail
     // return detail.map((pet) => normalizeProductForFe(pet))
   } catch (err) {
