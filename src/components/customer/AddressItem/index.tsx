@@ -62,7 +62,12 @@ const AddressItem = ({
   //checkout过来勾选地址
   const selectAddress = () => {
     console.log('getCurrentPages ', getCurrentPages())
-    const findCheckoutIndex = getCurrentPages().findIndex((el) => el.route === routers.checkout)
+    console.log(routers.checkout.replace('/',''))
+    const findCheckoutIndex = getCurrentPages().findIndex((el) => {
+      console.log(el.route);
+     return el.route === routers.checkout.replace('/','')
+    })
+    console.log(findCheckoutIndex)
     if (findCheckoutIndex > -1) {
       Taro.getStorage({
         key: 'address-from-checkout',
