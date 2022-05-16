@@ -112,7 +112,7 @@ export const normalizeSkuForFe = (
     img: [sku.defaultImage],
     specString: '',
     goodsSpecificationRel: sku.goodsSpecificationRel,
-    specText: [normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.filter((el) => el)[0]],
+    specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.filter((el) => el),
     specIds:
       sku.goodsSpecificationRel?.map((el) => {
         return el.goodsSpecificationDetailId
