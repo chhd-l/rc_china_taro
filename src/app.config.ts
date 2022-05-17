@@ -20,7 +20,13 @@ export default defineAppConfig({
     },
     {
       root: 'pages/packageB',
-      pages: ['addressManage/index', 'breedList/index', 'newAddress/index', 'petList/index'],
+      pages: [
+        'addressManage/index',
+        'breedList/index',
+        'newAddress/index',
+        'petList/index',
+        'createSubscription/index',
+      ],
     },
   ],
   window: {
