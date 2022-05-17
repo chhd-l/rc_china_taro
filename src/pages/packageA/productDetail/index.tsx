@@ -60,7 +60,7 @@ const ProductDetail = () => {
       })
     }
     let selecteds = {}
-    detailData.skus[0].goodsSpecificationRel.map((el) => {
+    detailData.skus[0]?.goodsSpecificationRel?.map((el) => {
       selecteds[el.goodsSpecificationId] = el.goodsSpecificationDetailId
     })
     //默认选规格
