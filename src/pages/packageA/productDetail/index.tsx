@@ -51,7 +51,7 @@ const ProductDetail = () => {
     //   return
     // }
     let detailData = (await getProduct({ storeId: baseSetting.storeId, goodsId })) || detailInfo
-    debugger
+    // debugger
     if (detailData?.skus?.length) {
       detailData.skus.forEach((sku) => {
         if (detailData?.img) {

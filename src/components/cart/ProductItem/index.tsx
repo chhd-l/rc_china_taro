@@ -17,7 +17,7 @@ const ProductItem = ({
   delCartSuccess: Function
 }) => {
   const { select, goodsNum, id, skuGoodInfo } = product
-  const { image, price, specs, tags, name } = product.localData
+  const { image, price, specs, tags, name, stock } = product.localData
   const [maxNum, setMaxNum] = useState(5)
 
   const delCartProduct = async () => {
@@ -74,7 +74,7 @@ const ProductItem = ({
               className="text-48 flex items-center"
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />
-            <View style={{width:'240rpx',height:'240rpx'}}>
+            <View style={{ width: '240rpx', height: '240rpx' }}>
               <Image
                 style="width:240rpx; height: 240rpx;border: 1px solid #f0f0f0"
                 lazyLoad
@@ -96,6 +96,11 @@ const ProductItem = ({
                   ))}
                 </View>
               </View>
+              {goodsNum > stock ? (
+                <View className="text-primary-red font-medium flex justify-end text-22" style={{ marginRight: '20px' }}>
+                  库存紧张
+                </View>
+              ) : null}
               <View className="flex flex-row mt-2 justify-between items-center">
                 <View className="text-primary-red font-medium text-base">{formatMoney(price)}</View>
                 <View style={{ marginRight: '20px' }}>

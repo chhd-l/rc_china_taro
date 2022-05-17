@@ -4,15 +4,27 @@ import { useEffect, useState } from 'react'
 import { getCarts, updateCart } from '@/framework/api/cart/cart'
 import { useTabItemTap, useDidShow } from '@tarojs/taro'
 import { getOrderSetting } from '@/framework/api/order/order'
+import InvalidProductList from '@/components/cart/InvalidProductList'
 import './index.less'
 
 const Cart = () => {
   const [productList, setProductList] = useState<any[]>([])
   const [selectedProduct, setSelectedProduct] = useState<any[]>([])
+  const [invalidProducts, setInvalidProducts] = useState<any[]>([])
 
-  const getCartProductList = async (isNeedReload=false) => {
+  const getCartProductList = async (isNeedReload = false) => {
     const res = await getCarts(isNeedReload)
-    setProductList(res)
+    let validProductList: any[] = []
+    let invalidProductList: any[] = []
+    res.map((el) => {
+      if (el.localData.stock === 0 || !el.localData.shelvesStatus) {
+        invalidProductList.push(el)
+      } else {
+        validProductList.push(el)
+      }
+    })
+    setInvalidProducts(invalidProductList)
+    setProductList(validProductList)
   }
 
   const changeProduct = async (id, name, value) => {
@@ -67,21 +79,24 @@ const Cart = () => {
 
   return (
     <View>
-      <Navbar num={productList.length} />
+      <Navbar num={productList.length + invalidProducts.length} />
       <View className="index cart-content">
         <View className="h-2" style={{ backgroundColor: '#fbfbfb' }} />
-        {productList.length > 0 ? (
-          <View className="pb-2" style={{ backgroundColor: '#fbfbfb' }}>
-            {productList.map((item, index) => (
-              <View key={index} className={`${index !== productList.length - 1 ? 'mb-2' : ''}`}>
-                <ProductItem
-                  product={item}
-                  key={item.id}
-                  changeProduct={changeProduct}
-                  delCartSuccess={() => getCartProductList(true)}
-                />
-              </View>
-            ))}
+        {productList.length > 0 || invalidProducts.length > 0 ? (
+          <View className="mb-8">
+            <View className="pb-2" style={{ backgroundColor: '#fbfbfb' }}>
+              {productList.map((item, index) => (
+                <View key={index} className={`${index !== productList.length - 1 ? 'mb-2' : ''}`}>
+                  <ProductItem
+                    product={item}
+                    key={item.id}
+                    changeProduct={changeProduct}
+                    delCartSuccess={() => getCartProductList(true)}
+                  />
+                </View>
+              ))}
+            </View>
+            <InvalidProductList productList={invalidProducts} delCartSuccess={() => getCartProductList(true)} />
           </View>
         ) : (
           <Empty />

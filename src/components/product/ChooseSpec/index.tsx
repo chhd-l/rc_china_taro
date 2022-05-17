@@ -1,6 +1,6 @@
 import { ProductDetailProps, SkuItemProps, SpecDetail, SpecProps } from '@/framework/types/products'
 import { View, Image, Text } from '@tarojs/components'
-import { AtFloatLayout, AtInputNumber, AtButton, AtIcon } from 'taro-ui'
+import { AtFloatLayout, AtInputNumber, AtButton, AtIcon, AtModal } from 'taro-ui'
 import cloneDeep from 'lodash.cloneDeep'
 import { addToTypeEnum } from '@/framework/types/common'
 import Taro from '@tarojs/taro'
@@ -14,8 +14,8 @@ import { baseSetting } from '@/framework/api/fetcher'
 import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
-import './index.less'
 import { getOrderSetting } from '@/framework/api/order/order'
+import './index.less'
 
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
@@ -47,6 +47,7 @@ const ChooseSpec = ({
   const [addBtnStatus, setAddBtnStatus] = useState(false)
   const [, setToastShow] = useAtom(cartSunccessToastShowAtom)
   const [maxNum, setMaxNum] = useState(5)
+  const [showOutStockTip,setShowOutStockTip]=useState(false)
 
   useEffect(() => {
     let selectedArr = Object.values(selected).filter((el) => el)
@@ -205,6 +206,7 @@ const ChooseSpec = ({
               type="number"
               value={buyCount}
               onChange={(value) => {
+                setShowOutStockTip(true)
                 setBuyCount(value)
               }}
             />
@@ -219,6 +221,23 @@ const ChooseSpec = ({
       >
         确定
       </AtButton>
+      <AtModal
+        key="orderShipTip"
+        isOpened={showOutStockTip}
+        title="提示"
+        content="亲，该宝贝加购已达库存上线哦"
+        confirmText="确定"
+        onClose={() => {
+          setShowOutStockTip(false)
+        }}
+        onCancel={() => {
+          setShowOutStockTip(false)
+        }}
+        onConfirm={() => {
+          setShowOutStockTip(false)
+        }}
+        className="out-stock-tip-modal"
+      />
     </AtFloatLayout>
   ) : null
 }
