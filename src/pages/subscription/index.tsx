@@ -7,6 +7,7 @@ const Subscription = () => {
     <View className="index">
       <Text>Subscription</Text>
       <PetList />
+      <View>立即订阅</View>
     </View>
   )
 }
