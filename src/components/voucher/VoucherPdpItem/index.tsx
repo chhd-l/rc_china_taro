@@ -23,13 +23,13 @@ const VoucherItem = ({
         backgroundSize: 'cover',
       }}
     >
-      <View className="flex flex-col pl-6 items-center">
-        <View className="text-primary-red text-48">{formatMoney(voucherPrice)}</View>
-        <View className="text-primary-red">{voucherName}</View>
+      <View className="flex flex-col pl-3 items-center text-primary-red">
+        <View className="text-48">{formatMoney(voucherPrice)}</View>
+        <View>{voucherName}</View>
       </View>
-      <View className="flex flex-col px-8 flex-grow">
+      <View className="flex flex-col pl-8 flex-grow">
         <View className="text-primary-red">{voucherDescription}</View>
-        <View className="text-gray-400 text-24">{isReceived ? '失效时间' : '领券时间'}</View>
+        <View className="text-gray-400 text-24">{isReceived ? '失效时间' : '有效期'}</View>
         <View className="text-gray-400">{expiredTime}</View>
         <View className="mt-2 flex justify-end">
           {isReceived ? (

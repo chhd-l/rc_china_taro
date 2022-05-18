@@ -5,7 +5,7 @@ import { Swiper, SwiperItem, View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { AtFloatLayout, AtIcon } from 'taro-ui'
-import VoucherModal from '@/components/voucher/voucherModal'
+import VoucherModal from '@/components/voucher/ProductVoucherModal'
 import './Style.less'
 
 interface DetailProps {

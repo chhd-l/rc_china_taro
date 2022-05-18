@@ -2,11 +2,12 @@ import { View, Text } from '@tarojs/components'
 import { AtFloatLayout, AtIcon } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { Voucher } from '@/framework/types/voucher'
-import VoucherItem from '@/components/voucher/voucherItem'
+import VoucherItem from '@/components/voucher/VoucherItem'
 import { getVouchers } from '@/framework/api/voucher/voucher'
+import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
 import './index.less'
 
-const VoucherModal = () => {
+const ProductVoucherModal = () => {
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [showReceiveVoucher, setShowReceiveVoucher] = useState(false)
 
@@ -64,7 +65,7 @@ const VoucherModal = () => {
         scrollY
       >
         <View>
-          <View className="flex">
+          <View className="flex mb-2">
             <View className="m-auto">本店活动</View>
             <View className="flex justify-end">
               <AtIcon value="close" size="20" color="#666" onClick={() => setShowReceiveVoucher(false)} />
@@ -78,6 +79,9 @@ const VoucherModal = () => {
                   setShowReceiveVoucher(false)
                 }}
                 receiveVoucher={receiveVoucher}
+                showApplyBtn={item.isReceived}
+                showReceiveBtn={!item.isReceived}
+                backgroundImageUrl={item.isReceived ? VOUCHER_RECEIVED : VOUCHER_NO_RECEIVED}
               />
             ))}
           </View>
@@ -87,4 +91,4 @@ const VoucherModal = () => {
   )
 }
 
-export default VoucherModal
+export default ProductVoucherModal

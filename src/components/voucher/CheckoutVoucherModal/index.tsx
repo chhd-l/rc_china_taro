@@ -1,52 +1,10 @@
-import { View, Radio } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { AtFloatLayout } from 'taro-ui'
 import { Voucher } from '@/framework/types/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_INVALID } from '@/lib/constants'
-import { formatMoney } from '@/utils/utils'
 import { useState } from 'react'
+import VoucherItem from '@/components/voucher/VoucherItem'
 import './index.less'
-
-const VoucherItem = ({ voucher, changeSelected }: { voucher: Voucher; changeSelected: Function }) => {
-  const { isSelect, voucherPrice, voucherName, voucherDescription, expiredTime, isExpired } = voucher
-  const [selected, setSelected] = useState(voucher.isSelect)
-
-  return (
-    <View
-      className="flex flex-col justify-center w-full h-32"
-      style={{
-        backgroundImage: `url(${isExpired ? VOUCHER_INVALID : VOUCHER_NO_RECEIVED})`,
-        backgroundSize: 'cover',
-      }}
-    >
-      {!isExpired ? (
-        <View className="flex justify-end px-8 pb-2">
-          <Radio
-            value=""
-            checked={selected}
-            style={{ transform: 'scale(0.6)' }}
-            color="#d33024"
-            className="text-48 flex items-center"
-            onClick={() => {
-              setSelected(!selected)
-              changeSelected && changeSelected(voucher, !isSelect)
-            }}
-          />
-        </View>
-      ) : null}
-      <View className="flex flex-row items-center">
-        <View className="flex flex-col pl-6 items-center">
-          <View className="text-primary-red text-48">{formatMoney(voucherPrice)}</View>
-          <View className="text-primary-red">{voucherName}</View>
-        </View>
-        <View className="flex flex-col px-8 flex-grow">
-          <View className="text-primary-red">{voucherDescription}</View>
-          <View className="text-gray-400 text-24">有效期</View>
-          <View className="text-gray-400">{expiredTime}</View>
-        </View>
-      </View>
-    </View>
-  )
-}
 
 const VoucherModal = ({
   showVoucherModal,
@@ -79,9 +37,8 @@ const VoucherModal = ({
       scrollY
     >
       <View>
-        <View className="flex justify-between">
+        <View className="flex justify-between mb-2">
           <View
-            className=""
             onClick={() => {
               closeVoucherModal && closeVoucherModal()
             }}
@@ -99,7 +56,14 @@ const VoucherModal = ({
         </View>
         <View>
           {vouchers.map((item) => (
-            <VoucherItem voucher={item} changeSelected={changeSelected} />
+            <VoucherItem
+              voucher={item}
+              changeSelected={changeSelected}
+              backgroundImageUrl={item.isExpired ? VOUCHER_INVALID : VOUCHER_NO_RECEIVED}
+              showRadioSelect={!item.isExpired}
+              priceClass={item.isExpired ? 'text-white' : 'text-primary-red'}
+              expiredTimeClass={item.isExpired ? 'text-white' : 'text-gray-400'}
+            />
           ))}
         </View>
       </View>

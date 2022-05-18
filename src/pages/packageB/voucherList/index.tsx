@@ -2,9 +2,10 @@ import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useState } from 'react'
 import { AtTabs, AtTabsPane } from 'taro-ui'
 import { ScrollView, View } from '@tarojs/components'
-import VoucherListItem from '@/components/voucher/VoucherListItem'
 import { Voucher } from '@/framework/types/voucher'
 import { getListVouchers } from '@/framework/api/voucher/voucher'
+import VoucherItem from '@/components/voucher/VoucherItem'
+import { VOUCHER_EXPIRED, VOUCHER_NO_RECEIVED, VOUCHER_USED } from '@/lib/constants'
 import './index.less'
 
 const tabList = [{ title: '未使用' }, { title: '已使用' }, { title: '已过期' }]
@@ -46,9 +47,28 @@ const VoucherList = () => {
       <AtTabs className="index" current={VoucherStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
         {tabList.map((item, index) => (
           <AtTabsPane current={VoucherStatusEnum[current]} index={index} key={item.title}>
-            <ScrollView className="voucher-list px-2" scrollY>
+            <ScrollView className="voucher-list p-2" scrollY>
               {voucherList?.length > 0
-                ? voucherList.map((el) => <VoucherListItem voucher={el} type={current} />)
+                ? voucherList.map((el) => (
+                    <VoucherItem
+                      voucher={el}
+                      backgroundImageUrl={
+                        current === 'EXPIRED'
+                          ? VOUCHER_EXPIRED
+                          : current === 'NOT_USED'
+                          ? VOUCHER_NO_RECEIVED
+                          : VOUCHER_USED
+                      }
+                      priceClass={current !== 'NOT_USED' ? 'text-white' : 'text-primary-red'}
+                      expiredTimeClass={current !== 'NOT_USED' ? 'text-white' : 'text-gray-400'}
+                      showApplyBtn={current === 'NOT_USED'}
+                      applyVoucher={() => {
+                        Taro.switchTab({
+                          url: '/pages/productList/index',
+                        })
+                      }}
+                    />
+                  ))
                 : null}
             </ScrollView>
           </AtTabsPane>
