@@ -34,9 +34,6 @@ const Account = () => {
   const [signoutOpend, setSignoutOpend] = useState(false)
   useEffect(() => {
     setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
-    // Taro.navigateTo({
-    //   url: `/pages/packageA/orderList/index?index=0`,
-    // })
   }, [])
 
   return (

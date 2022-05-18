@@ -4,6 +4,7 @@ import Taro from '@tarojs/taro'
 import { formatMoney } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
+import routers from '@/routers'
 import OrderAction from '../OrderAction'
 import './index.less'
 
@@ -32,6 +33,7 @@ const OrderListComponents = ({
   useEffect(() => {
     console.log('orderlist', list)
   }, [])
+
   return (
     <ScrollView className="OrderListComponents" scrollY>
       {list.map((item: any, idx: number) => (
@@ -41,7 +43,7 @@ const OrderListComponents = ({
           onClick={(e) => {
             e.stopPropagation()
             Taro.navigateTo({
-              url: '/pages/packageA/orderDetails/index?id=' + item.orderNumber,
+              url: `${routers.orderDetails}?id=${item.orderNumber}`,
             })
           }}
         >

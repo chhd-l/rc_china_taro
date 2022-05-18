@@ -1,10 +1,12 @@
 import { Radio, View, Image } from '@tarojs/components'
 import { AtSwipeAction } from 'taro-ui'
 import Taro from '@tarojs/taro'
+import { deleteCart } from '@/framework/api/cart/cart'
 import './index.less'
 
 const ProductItem = ({ productList, delCartSuccess }: { productList: any[]; delCartSuccess: Function }) => {
-  const delCartProduct = async () => {
+  const delCartProduct = async (id) => {
+    await deleteCart({ id, operator: '111' })
     delCartSuccess && delCartSuccess()
   }
 
@@ -37,7 +39,7 @@ const ProductItem = ({ productList, delCartSuccess }: { productList: any[]; delC
                 },
               ]}
               autoClose
-              onClick={delCartProduct}
+              onClick={() => delCartProduct(item.id)}
               areaWidth={Taro.getSystemInfoSync().windowWidth}
               maxDistance={92}
             >
