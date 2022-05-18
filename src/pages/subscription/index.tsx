@@ -11,7 +11,9 @@ const Subscription = () => {
   return (
     <View className="index">
       <Text>Subscription</Text>
-      <PetList />
+      <View clasName="px-2">
+        <PetList />
+      </View>
       <View onClick={toSub}>立即订阅</View>
       <SubList />
     </View>
