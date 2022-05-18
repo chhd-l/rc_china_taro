@@ -19,17 +19,19 @@ const VoucherItem = ({ voucher, changeSelected }: { voucher: Voucher; changeSele
       }}
     >
       <View className="flex justify-end px-8 pt-4 pb-2">
-        <Radio
-          value=""
-          checked={selected}
-          style={{ transform: 'scale(0.6)' }}
-          color="#d33024"
-          className="text-48 flex items-center"
-          onClick={() => {
-            setSelected(!selected)
-            changeSelected && changeSelected(voucher, !isSelect)
-          }}
-        />
+        {!isExpired ? (
+          <Radio
+            value=""
+            checked={selected}
+            style={{ transform: 'scale(0.6)' }}
+            color="#d33024"
+            className="text-48 flex items-center"
+            onClick={() => {
+              setSelected(!selected)
+              changeSelected && changeSelected(voucher, !isSelect)
+            }}
+          />
+        ) : null}
       </View>
       <View className="flex flex-row items-center">
         <View className="flex flex-col pl-6 items-center">

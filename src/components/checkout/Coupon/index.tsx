@@ -12,6 +12,7 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [selectedVoucher, setSelectedVoucher] = useState<any>(null)
 
+  //有可使用的优惠券时默认显示最高价值的优惠券
   const handleDefaultVoucher = () => {
     const canUsedVoucher = vouchers.filter((el) => !el.isExpired)
     canUsedVoucher
@@ -24,18 +25,12 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
       })
   }
 
-  useEffect(() => {
-    handleDefaultVoucher()
-  }, [totalPrice, vouchers])
-
+  //获取优惠券列表
   const getVoucherList = async () => {
-    const res = await getVouchers()
+    let res = await getVouchers()
+    res = res.sort((a, b) => a.isExpired - b.isExpired)
     setVouchers(res)
   }
-
-  useEffect(() => {
-    getVoucherList()
-  }, [])
 
   //打开优惠券选择弹框或者提示无可用优惠券
   const selectCoupon = () => {
@@ -46,6 +41,7 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
     }
   }
 
+  //手动选择优惠券
   const selectVoucher = (value) => {
     setShowVoucherModal(false)
     setSelectedVoucher(value)
@@ -57,6 +53,14 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
     )
   }
 
+  useEffect(() => {
+    handleDefaultVoucher()
+  }, [totalPrice, vouchers])
+
+  useEffect(() => {
+    getVoucherList()
+  }, [])
+
   return (
     <View className="bg-white mt-2 pl-2 py-2 rounded ">
       <View className="flex flex-row justify-between items-center">
@@ -67,7 +71,7 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
         <View>
           <View>
             <Text className="text-xs text-gray-400">
-              {selectedVoucher ? `已选${selectedVoucher.voucherPrice}元优惠券` : '无'}
+              {selectedVoucher ? `已选${selectedVoucher.voucherPrice}元优惠券` : '请使用优惠券'}
             </Text>
             <AtIcon value="chevron-right" size="24" onClick={selectCoupon} color="#666666" />
           </View>

@@ -47,7 +47,10 @@ const VoucherModal = () => {
             {handleVoucherName()}
           </View>
         </View>
-        <View className="text-primary-red flex items-center justify-end text-end w-full" onClick={() => setShowReceiveVoucher(true)}>
+        <View
+          className="text-primary-red flex items-center justify-end text-end w-full"
+          onClick={() => setShowReceiveVoucher(true)}
+        >
           <Text>领券</Text>
           <AtIcon value="chevron-right" size="20" color="#d33024" />
         </View>

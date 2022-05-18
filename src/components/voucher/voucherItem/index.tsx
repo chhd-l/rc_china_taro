@@ -2,8 +2,7 @@ import { View } from '@tarojs/components'
 import { formatMoney } from '@/utils/utils'
 import { Voucher } from '@/framework/types/voucher'
 import { AtButton } from 'taro-ui'
-import VoucherNoReceive from '@/assets/img/voucher-no-receive.png'
-import VoucherReceived from '@/assets/img/voucher-received.png'
+import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
 import './index.less'
 
 const VoucherItem = ({
@@ -20,7 +19,7 @@ const VoucherItem = ({
     <View
       className="flex flex-row items-center w-full h-32"
       style={{
-        backgroundImage: `url(${isReceived ? VoucherReceived : VoucherNoReceive})`,
+        backgroundImage: `url(${isReceived ? VOUCHER_RECEIVED : VOUCHER_NO_RECEIVED})`,
         backgroundSize: 'cover',
       }}
     >
