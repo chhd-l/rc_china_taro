@@ -34,4 +34,4 @@ export const VOUCHER_INVALID=`${CDNIMGURL}Icon_MP_Checkoutinvalid_new.svg`
 
 export const VOUCHER_EXPIRED=`${CDNIMGURL}Icon_MP_Expired.svg`
 
-export const VOUCHER_USED=`${CDNIMGURL}Icon_MP_Expired.svg`
+export const VOUCHER_USED=`${CDNIMGURL}Icon_MP_Used.svg`
