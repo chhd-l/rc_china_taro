@@ -25,3 +25,7 @@ export const maleIcon = `${CDNIMGURL}Icon_MP_M.svg`
 export const petBg = `${CDNIMGURL}pet_backgroud.png`
 
 export const CART_NO_DATA_ICON=`${CDNIMGURL}MP-Cart-No product.svg`
+
+export const VOUCHER_NO_RECEIVED=`${CDNIMGURL}Icon-MP-Vouchers.png`
+
+export const VOUCHER_RECEIVED=`${CDNIMGURL}Icon-MP-ReceivedVouchers.png`

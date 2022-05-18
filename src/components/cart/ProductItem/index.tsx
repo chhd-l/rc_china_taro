@@ -70,7 +70,7 @@ const ProductItem = ({
               value="选中"
               checked={select}
               style={{ transform: 'scale(0.6)' }}
-              color="red"
+              color="#d33024"
               className="text-48 flex items-center"
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
             />

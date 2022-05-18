@@ -1,13 +1,60 @@
 import { View, Text, Image } from '@tarojs/components'
 import { AtIcon, AtModal } from 'taro-ui'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { VOUCHER_ORDER_ICON } from '@/lib/constants'
+import CheckoutVoucherModal from '@/components/voucher/CheckoutVoucherModal'
+import { Voucher } from '@/framework/types/voucher'
+import { getVouchers } from '@/framework/api/voucher/voucher'
 
-const Coupon = () => {
+const Coupon = ({ totalPrice }: { totalPrice: number }) => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
+  const [showVoucherModal, setShowVoucherModal] = useState(false)
+  const [vouchers, setVouchers] = useState<Voucher[]>([])
+  const [selectedVoucher, setSelectedVoucher] = useState<any>(null)
 
+  const handleDefaultVoucher = () => {
+    const canUsedVoucher = vouchers.filter((el) => !el.isExpired)
+    canUsedVoucher
+      .sort((a, b) => a.voucherPrice - b.voucherPrice)
+      .map((el) => {
+        if (totalPrice > el.voucherUsePrice && !selectedVoucher) {
+          setSelectedVoucher(el)
+        }
+        return
+      })
+  }
+
+  useEffect(() => {
+    handleDefaultVoucher()
+  }, [totalPrice, vouchers])
+
+  const getVoucherList = async () => {
+    const res = await getVouchers()
+    setVouchers(res)
+  }
+
+  useEffect(() => {
+    getVoucherList()
+  }, [])
+
+  //打开优惠券选择弹框或者提示无可用优惠券
   const selectCoupon = () => {
-    setShowNoCoupon(true)
+    if (vouchers.length === 0) {
+      setShowNoCoupon(true)
+    } else {
+      setShowVoucherModal(true)
+    }
+  }
+
+  const selectVoucher = (value) => {
+    setShowVoucherModal(false)
+    setSelectedVoucher(value)
+    setVouchers(
+      vouchers.map((el) => {
+        el.isSelect = el.id === value?.id
+        return el
+      }),
+    )
   }
 
   return (
@@ -19,11 +66,19 @@ const Coupon = () => {
         </View>
         <View>
           <View>
-            <Text className="text-xs text-gray-400">无</Text>
-            <AtIcon value="chevron-right" size="24" onClick={selectCoupon} color='#666666'/>
+            <Text className="text-xs text-gray-400">
+              {selectedVoucher ? `已选${selectedVoucher.voucherPrice}元优惠券` : '无'}
+            </Text>
+            <AtIcon value="chevron-right" size="24" onClick={selectCoupon} color="#666666" />
           </View>
         </View>
       </View>
+      <CheckoutVoucherModal
+        showVoucherModal={showVoucherModal}
+        closeVoucherModal={() => setShowVoucherModal(false)}
+        selectVoucher={selectVoucher}
+        vouchers={vouchers}
+      />
       <AtModal
         isOpened={showNoCoupon}
         title="提示"

@@ -15,24 +15,25 @@ const VoucherItem = ({
   receiveVoucher: Function
   applyVoucher: Function
 }) => {
+  const { isReceived, voucherPrice, voucherName, voucherDescription, expiredTime } = voucher
   return (
     <View
       className="flex flex-row items-center w-full h-32"
       style={{
-        backgroundImage: `url(${voucher.isReceived ? VoucherReceived : VoucherNoReceive})`,
+        backgroundImage: `url(${isReceived ? VoucherReceived : VoucherNoReceive})`,
         backgroundSize: 'cover',
       }}
     >
       <View className="flex flex-col pl-6 items-center">
-        <View className="text-primary-red text-48">{formatMoney(voucher.voucherPrice)}</View>
-        <View className="text-primary-red">{voucher.voucherName}</View>
+        <View className="text-primary-red text-48">{formatMoney(voucherPrice)}</View>
+        <View className="text-primary-red">{voucherName}</View>
       </View>
       <View className="flex flex-col px-8 flex-grow">
-        <View className="text-primary-red">{voucher.voucherDescription}</View>
-        <View className="text-gray-400 text-24">{voucher.isReceived ? '失效时间' : '领券时间'}</View>
-        <View className="text-gray-400">{voucher.expiredTime}</View>
+        <View className="text-primary-red">{voucherDescription}</View>
+        <View className="text-gray-400 text-24">{isReceived ? '失效时间' : '领券时间'}</View>
+        <View className="text-gray-400">{expiredTime}</View>
         <View className="mt-2 flex justify-end">
-          {voucher.isReceived ? (
+          {isReceived ? (
             <AtButton
               className="rc-received-voucher-button flex justify-end items-center"
               onClick={() => {
