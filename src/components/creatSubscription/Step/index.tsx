@@ -49,7 +49,7 @@ const nextStepView = {
   2: <Purchased />
 }
 const Step = () => {
-  const [current, setCurrent] = useState(2)
+  const [current, setCurrent] = useState(0)
   const [, setStepCount] = useAtom(currentStepAtom)
   // const [petInfo, setPetInfo] = useState<any>({})
   // const handleCheckedPet = (pet) => {

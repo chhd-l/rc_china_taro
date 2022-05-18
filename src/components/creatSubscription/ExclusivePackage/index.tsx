@@ -18,16 +18,17 @@ const ExclusivePackage = () => {
     <View className="font-bold text-base ">胖胖的专属套餐</View>
     <View className="borderLine" />
     <View className="p-6">
-      <View className="w-full bg-red-400 h-60" />
+      <View className="w-full bg-primary-red h-60" />
       <View className="font-bold text-sm my-2">皇家 英国短毛猫成猫全价粮2KG</View>
       <View className="flex direction-row items-center">
-        <AtTag type='primary' className="bg-red-700 text-white" size='small'><AtIcon value='clock' size='10' color='#ffff'></AtIcon>商城价</AtTag>
-        <view className="text-red-700 font-bold text-sm">￥183/包</view>
+        <AtTag type='primary' className="bg-primary-red text-white" size='small'><AtIcon value='clock' size='10' color='#ffff'></AtIcon>商城价</AtTag>
+        <view className="text-primary-red font-bold text-sm">￥183/包</view>
         <View className="line-through text-gray-400 text-xs ml-2">￥286</View>
       </View>
     </View>
     <View className="flex direction-row items-center">
       <View className='at-icon at-icon-settings text-sm'>新鲜度</View>
+      <View>2234342</View>
       <AtCheckbox
         className="FreshnessBox"
         options={checkboxOption}

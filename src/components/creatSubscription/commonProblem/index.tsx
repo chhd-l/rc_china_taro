@@ -10,7 +10,7 @@ const CommonProblem = () => {
     </View>
     <View>
       <View className="flex flex-row">
-        <View className="w-5 h-5 bg-red-600 rounded-full text-white text-center mr-2">1</View>
+        <View className="w-5 h-5 bg-primary-red rounded-full text-white text-center mr-2">1</View>
         <Text>什么是订阅?</Text>
       </View>
       <View className="p-5 text-sm">
@@ -19,24 +19,24 @@ const CommonProblem = () => {
     </View>
     <View className="mb-5">
       <View className="flex flex-row">
-        <View className="w-5 h-5 bg-red-600 rounded-full text-white text-center mr-2">2</View>
+        <View className="w-5 h-5 bg-primary-red rounded-full text-white text-center mr-2">2</View>
         <Text>订阅有什么好处?</Text>
       </View>
       <View className="p-5 text-sm" >
-        <View className="text-red-600 font-bold ">周期订阅享超值价:</View>
+        <View className="text-primary-red font-bold ">周期订阅享超值价:</View>
         <View>一次订阅，全年享受大促价</View>
       </View>
       <View className="px-5 text-sm" >
-        <View className="text-red-600 font-bold ">爱宠专属的饲喂方案:</View>
+        <View className="text-primary-red font-bold ">爱宠专属的饲喂方案:</View>
         <View>针对每一只宠物量身定制饲喂方案，消除你的选粮烦恼</View>
       </View>
       <View className="px-5 pt-5 text-sm" >
-        <View className="text-red-600 font-bold ">按月发货不屯粮不断粮:</View>
+        <View className="text-primary-red font-bold ">按月发货不屯粮不断粮:</View>
         <View>按月逐包发货，确保不屯粮不断粮，还可灵活地修改发货周期，保证宠粮新鲜度100%</View>
       </View>
     </View>
     <View className="flex flex-row">
-      <View className="w-5 h-5 bg-red-600 rounded-full text-white text-center mr-2">3</View>
+      <View className="w-5 h-5 bg-primary-red rounded-full text-white text-center mr-2">3</View>
       <Text>新鲜购的宠粮是根据什么定制的?</Text>
     </View>
     <View className="p-5 text-sm">
