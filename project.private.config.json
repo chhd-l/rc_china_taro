@@ -7,18 +7,5 @@
     "preloadBackgroundData": false,
     "useIsolateContext": true
   },
-  "projectname": "rc_china_taro",
-  "condition": {
-    "miniprogram": {
-      "list": [
-        {
-          "name": "",
-          "pathName": "pages/packageB/createSubscription/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        }
-      ]
-    }
-  }
+  "projectname": "rc_china_taro"
 }

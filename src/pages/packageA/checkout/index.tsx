@@ -14,6 +14,7 @@ import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
 import { session } from '@/utils/global'
 import './index.less'
+import GiftItem from '@/components/checkout/GiftItem'
 
 const Checkout = () => {
   const [customerInfo] = useAtom(customerAtom)
@@ -108,7 +109,7 @@ const Checkout = () => {
         tradeItems.map((item) => {
           cartProducts.map((el) => {
             if (item.id === el.id) {
-              const delIndex=cartProducts.findIndex(data=>data.id===item.id)
+              const delIndex = cartProducts.findIndex(data => data.id === item.id)
               cartProducts.splice(delIndex, 1)
             }
           })
@@ -205,6 +206,10 @@ const Checkout = () => {
         </View>
         <View className="bggray pb-2 px-2 rounded">
           <TradeItem tradeItems={tradeItems} />
+          {tradeItems.map((item) => (
+            <GiftItem product={item} />
+          ))}
+
           <View>
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
             <Coupon />

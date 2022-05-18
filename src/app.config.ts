@@ -1,7 +1,7 @@
 export default defineAppConfig({
   pages: [
     // 'pages/index/index',
-    // 'pages/subscription/index',
+    'pages/subscription/index',
     'pages/productList/index',
     'pages/account/index',
     'pages/cart/index',
@@ -52,12 +52,12 @@ export default defineAppConfig({
         iconPath: 'assets/icons/icon-mall.png',
         selectedIconPath: 'assets/icons/icon-mall-selected.png',
       },
-      // {
-      //   pagePath: 'pages/subscription/index',
-      //   text: '订阅',
-      //   iconPath: 'assets/icons/icon-subscription.png',
-      //   selectedIconPath: 'assets/icons/icon-subscription-selected.png',
-      // },
+      {
+        pagePath: 'pages/subscription/index',
+        text: '订阅',
+        iconPath: 'assets/icons/icon-subscription.png',
+        selectedIconPath: 'assets/icons/icon-subscription-selected.png',
+      },
       {
         pagePath: 'pages/cart/index',
         text: '购物车',
