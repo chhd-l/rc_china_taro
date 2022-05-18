@@ -64,7 +64,9 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
             <Text className="text-primary-red pr-4 ">{formatMoney(choosedSku.price)}</Text>
             <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
           </View>
-          <Text className="text-primary-red text-24 flex justify-end">仅剩2件</Text>
+          {buyCount > choosedSku.stock ? (
+            <Text className="text-primary-red text-24 flex justify-end">仅剩{choosedSku.stock}件</Text>
+          ) : null}
         </View>
         {/*店铺优惠活动*/}
         <VoucherModal />

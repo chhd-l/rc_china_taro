@@ -206,8 +206,11 @@ const ChooseSpec = ({
               type="number"
               value={buyCount}
               onChange={(value) => {
-                setShowOutStockTip(true)
-                setBuyCount(value)
+                if(value>choosedSku.stock){
+                  setShowOutStockTip(true)
+                }else{
+                  setBuyCount(value)
+                }
               }}
             />
           </View>
