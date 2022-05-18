@@ -28,7 +28,6 @@ const ExclusivePackage = () => {
     </View>
     <View className="flex direction-row items-center">
       <View className='at-icon at-icon-settings text-sm'>新鲜度</View>
-      <View>2234342</View>
       <AtCheckbox
         className="FreshnessBox"
         options={checkboxOption}
