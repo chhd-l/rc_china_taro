@@ -82,6 +82,7 @@ const ProductVoucherModal = () => {
                 showApplyBtn={item.isReceived}
                 showReceiveBtn={!item.isReceived}
                 backgroundImageUrl={item.isReceived ? VOUCHER_RECEIVED : VOUCHER_NO_RECEIVED}
+                expiredTimeText={item.isReceived ? '有效期' : '领券时间'}
               />
             ))}
           </View>
