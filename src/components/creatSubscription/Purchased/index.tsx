@@ -25,19 +25,26 @@ const Purchased = () => {
         </View>
       </View>
     </view>
-    <View className="">
-      <View className="w-30 h-20 bg-red-400" />
-      <View>
+    <View className="flex flex-row">
+      <View className="w-30 h-20 bg-red-400 mr-2 " />
+      <View className="flex-1">
         <View className="font-bold title">皇家 猫粮混粮随机口味</View>
         <View>
-          <View>赠品</View>
-          <Text>发货发货发货</Text>
+          <View className='at-icon at-icon-settings bg-red-600 rounded-sm text-white title h-4 leading-4 mr-2'>赠品</View>
+          <Text className="text-white bg-gray-500 w-26 descSize rounded-sm h-4 leading-4">逐包随单发货</Text>
         </View>
-        <View>
-          <Text>适用年龄</Text>
+        <View className="text-gray-500 descSize my-1">
+          <Text>适用年龄:</Text>
           <Text>0</Text>
         </View>
-        <View></View>
+        <View className="flex justify-between">
+          <View className="text-red-700">
+            <Text className="descSize">￥</Text>
+            <Text>0</Text>
+            <Text className="descSize">.00</Text>
+          </View>
+          <View className="descSize">x3</View>
+        </View>
       </View>
     </View>
   </View>

@@ -1,12 +1,13 @@
 
+import PetList from '@/components/customer/PetList'
+import { useAtom } from 'jotai'
+import { currentStepAtom } from '@/store/createSubscription'
 import { AtButton, AtSteps } from 'taro-ui'
 import { useState } from 'react'
 import { Text, View } from '@tarojs/components'
 import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
-import PetList from '@/components/customer/PetList'
-import { useAtom } from 'jotai'
-import { currentStepAtom } from '@/store/createSubscription'
+
 import Purchased from '../Purchased'
 
 const items = [
@@ -50,6 +51,11 @@ const nextStepView = {
 const Step = () => {
   const [current, setCurrent] = useState(2)
   const [, setStepCount] = useAtom(currentStepAtom)
+  // const [petInfo, setPetInfo] = useState<any>({})
+  // const handleCheckedPet = (pet) => {
+  //   console.info('///////', pet)
+  //   setPetInfo(pet)
+  // }
   return <View><AtSteps
     items={items}
     current={current}
@@ -71,10 +77,7 @@ const Step = () => {
         }}>下一步</AtButton>
       }
       {
-        current === 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
-          setCurrent(current + 1)
-          setStepCount(current + 1)
-        }}>确认套餐</AtButton>
+        current === 2 && <AtButton type='primary' size='small' circle className="stepButton" >确认套餐</AtButton>
       }
     </View>
   </View>

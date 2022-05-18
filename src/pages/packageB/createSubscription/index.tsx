@@ -8,20 +8,16 @@ import { useAtom } from 'jotai'
 import './index.less'
 
 const index = () => {
-  const [stepCount] = useAtom(currentStepAtom)
-  // const [petInfo, setPetInfo] = useState<any>({})
-  // const handleCheckedPet = (pet) => {
-  //   console.info('///////', pet)
-  //   setPetInfo(pet)
-  // }
+  // const [stepCount] = useAtom(currentStepAtom)
+
   return (
     <View className="px-2 relative">
       <View className="border-gray-50 bg-red-400 w-full h-50 my-3" />
       <Step />
       <CommonProblem />
-      {
+      {/* {
         stepCount === 1 && <PriceFooter />
-      }
+      } */}
 
     </View>
   )
