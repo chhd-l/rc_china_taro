@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
 import quitIcon from '@/assets/icons/quit.svg'
-import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON } from '@/lib/constants'
+import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON,VOUCHER_ORDER_ICON } from '@/lib/constants'
 import './index.less'
 
 interface OrderTypeProps {
@@ -25,7 +25,7 @@ const orderTypeList: OrderTypeProps[] = [
   { label: '待发货', icon: TO_SHIP_ORDER_ICON, url: `${routers.orderList}?status=TO_SHIP` },
   { label: '待收货', icon: SHIPPED_ORDER_ICON, url: `${routers.orderList}?status=SHIPPED` },
   // { label: '退货/退款', icon: defaultIcon, url: '' },
-  // { label: '我的卡券', icon: defaultIcon, url: '' },
+  { label: '我的卡券', icon: VOUCHER_ORDER_ICON, url: `${routers.voucherList}?status=NOT_USED` },
 ]
 
 const Account = () => {
@@ -34,9 +34,6 @@ const Account = () => {
   const [signoutOpend, setSignoutOpend] = useState(false)
   useEffect(() => {
     setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
-    // Taro.navigateTo({
-    //   url: `/pages/packageA/orderList/index?index=0`,
-    // })
   }, [])
 
   return (

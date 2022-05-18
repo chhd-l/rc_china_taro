@@ -207,7 +207,7 @@ const Checkout = () => {
           <TradeItem tradeItems={tradeItems} />
           <View>
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
-            <Coupon />
+            <Coupon totalPrice={totalPrice}/>
             <Remark changeRemark={changeRemark} />
           </View>
         </View>

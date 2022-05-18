@@ -189,6 +189,8 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
     price: productSkuInfo.goodsVariants[0]?.marketingPrice,
     tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
     specs: normalizeProductForFe(productSkuInfo)?.skus[0].specText,
+    stock:productSkuInfo.goodsVariants[0]?.stock||0,
+    shelvesStatus:productSkuInfo.goodsVariants[0]?.shelvesStatus||false
   }
   return cart
 }
