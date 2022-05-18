@@ -13,10 +13,15 @@ import { AtIcon } from 'taro-ui'
 
 import './index.less'
 
-const PetList = () => {
+interface Props {
+  showCheckBox?: boolean
+  handleCheckedPet?: Function
+}
+const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const [fakePet, setFakePet] = useState<any>([])
+  const [checkedArr, setCheckedArr] = useState<string[]>([])
   const [currentIdx, setCurrentIdx] = useState(0)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
 
@@ -37,7 +42,7 @@ const PetList = () => {
 
   const getList = async () => {
     const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
-    if (!customerInfos.id) {
+    if (!customerInfos?.id) {
       return
     }
     let res = (await getPets({ customerId: customerInfos.id })) || []
@@ -60,6 +65,12 @@ const PetList = () => {
       setFakePet(res)
     }
   }
+  const handleChecked = (value) => {
+    setCheckedArr([value])
+    let pet = petList.find(el => el.id === value)
+    props.handleCheckedPet?.(pet)
+    console.info('value', value)
+  }
 
   // const displayMultipleItems = () => {
   //   if(petList.length <= 1 || petList.length > 3) return petList.length
@@ -79,7 +90,12 @@ const PetList = () => {
       url: `/pages/packageB/petList/index?petNumber=${petList.length}`,
     })
   }
-
+  console.info('checkedArrcheckedArrcheckedArr', checkedArr)
+  const CheckBoxItem = ({ id, idx }: { id: string, idx?: number }) => {
+    return props.showCheckBox ? <View className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${checkedArr.includes(id) ? 'bg-primary-red' : ''}`} onClick={() => { handleChecked(id) }}>
+      <AtIcon value='check' color=' #fff'></AtIcon>
+    </View> : null
+  }
   return (
     <View
       className="box-border py-3 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
@@ -96,13 +112,14 @@ const PetList = () => {
           <View className="box-border">
             <View className="w-full flex relative mb-2">
               <View className="text-center h-full w-full flex items-center">
-                <View className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md">
+                <View className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md relative">
                   <Image
                     src={fakePet[0].image || (fakePet[0].type === 'DOG' ? Dog : Cat)}
                     // src={pet.image}
                     style={{ borderRadius: '50%' }}
                     className="w-full h-full m-auto Petpictureshadow"
                   />
+                  <CheckBoxItem id={fakePet[0].id} idx={0} />
                 </View>
               </View>
               <View
@@ -152,18 +169,16 @@ const PetList = () => {
                   handleChange(current)
                 }}
               >
-                {fakePet.map((pet, idx) => (
+                {fakePet.map((pet, idx: number) => (
                   <SwiperItem key={idx}>
                     <View className="text-center h-full flex items-center">
                       {pet.id != '-1' ? (
                         <View
-                          className={`w-16 h-16 bg-white h-full rounded-full shadow-md flex items-center justify-center  ${
-                            currentIdx === idx ? '' : 'scale-75 transform '
-                          } ${
-                            petList?.length === 2 && (currentIdx === idx - 1 || (currentIdx === 3 && idx === 0))
+                          className={`w-16 h-16 bg-white h-full rounded-full shadow-md flex items-center justify-center relative ${currentIdx === idx ? '' : 'scale-75 transform '
+                            } ${petList?.length === 2 && (currentIdx === idx - 1 || (currentIdx === 3 && idx === 0))
                               ? 'hidden'
                               : ''
-                          }`}
+                            }`}
                         >
                           <Image
                             src={pet.image || (pet.type === 'DOG' ? Dog : Cat)}
@@ -171,6 +186,7 @@ const PetList = () => {
                             // src={pet.image}
                             className="w-full h-full m-auto Petpictureshadow"
                           />
+                          <CheckBoxItem id={pet.id} idx={idx} />
                           <View className="hidden">
                             idx:{idx}
                             currentIdx:{currentIdx}
@@ -211,14 +227,16 @@ const PetList = () => {
       ) : (
         <View
           onClick={toPetList}
-          className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
+          className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2 relative"
           style={{ borderRadius: '50%' }}
-          // src={pet.image}
+        // src={pet.image}
         >
           <AtIcon value="add" size={16} />
+
         </View>
-      )}
-    </View>
+      )
+      }
+    </View >
   )
 }
 

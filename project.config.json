@@ -2,14 +2,14 @@
   "miniprogramRoot": "dist/",
   "projectname": "rc_china_taro",
   "description": "项目配置文件，详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
-  "appid": "wx32db0e23e7616213",
+  "appid": "wx97d97284ca910819",
   "setting": {
     "urlCheck": false,
     "es6": false,
     "enhance": false,
     "postcss": false,
     "preloadBackgroundData": false,
-    "minified": false,
+    "minified": true,
     "newFeature": false,
     "coverView": true,
     "nodeModules": false,
@@ -34,12 +34,12 @@
     "userConfirmedBundleSwitch": false,
     "packNpmManually": false,
     "packNpmRelationList": [],
-    "minifyWXSS": false,
+    "minifyWXSS": true,
     "disableUseStrict": false,
-    "minifyWXML": false,
+    "minifyWXML": true,
     "showES6CompileOption": false,
     "useCompilerPlugins": false,
-    "ignoreUploadUnusedFiles": false,
+    "ignoreUploadUnusedFiles": true,
     "useStaticServer": true
   },
   "compileType": "miniprogram",
@@ -53,5 +53,17 @@
     "tabIndent": "insertSpaces",
     "tabSize": 2
   },
-  "condition": {}
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "",
+          "pathName": "pages/packageB/createSubscription/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
 }
