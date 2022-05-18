@@ -4,7 +4,7 @@ import './index.less'
 
 const CommonProblem = () => {
 
-  return <View className="m-5">
+  return <View className="m-5 pb-14">
     <View className="my-2">
       <View className="text-center w-full font-bold">常见问题</View>
     </View>
@@ -19,7 +19,7 @@ const CommonProblem = () => {
     </View>
     <View className="mb-5">
       <View className="flex flex-row">
-        <View className="w-5 h-5 bg-red-600 rounded-full text-white text-center mr-2">1</View>
+        <View className="w-5 h-5 bg-red-600 rounded-full text-white text-center mr-2">2</View>
         <Text>订阅有什么好处?</Text>
       </View>
       <View className="p-5 text-sm" >
@@ -36,7 +36,7 @@ const CommonProblem = () => {
       </View>
     </View>
     <View className="flex flex-row">
-      <View className="w-5 h-5 bg-red-600 rounded-full text-white text-center mr-2">1</View>
+      <View className="w-5 h-5 bg-red-600 rounded-full text-white text-center mr-2">3</View>
       <Text>新鲜购的宠粮是根据什么定制的?</Text>
     </View>
     <View className="p-5 text-sm">

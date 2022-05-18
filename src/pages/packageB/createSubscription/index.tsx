@@ -1,18 +1,23 @@
-import CommonProblem from '@/components/creatSubscription/commonProblem'
+import CommonProblem from '@/components/creatSubscription/CommonProblem'
+import PriceFooter from '@/components/creatSubscription/PriceFooter'
 import Step from '@/components/creatSubscription/Step'
-import PetList from '@/components/customer/PetList'
+import { currentStepAtom } from '@/store/createSubscription'
 import { View } from '@tarojs/components'
+import { useAtom } from 'jotai'
 
 import './index.less'
 
 const index = () => {
+  const [stepCount] = useAtom(currentStepAtom)
   return (
-    <View className="px-2">
+    <View className="px-2 relative">
       <View className="border-gray-50 bg-red-400 w-full h-50 my-3" />
-      <View>
-        <Step><PetList /></Step>
-      </View>
+      <Step />
       <CommonProblem />
+      {
+        stepCount === 1 && <PriceFooter />
+      }
+
     </View>
   )
 }

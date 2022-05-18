@@ -3,6 +3,12 @@ import { AtButton, AtSteps } from 'taro-ui'
 import { useState } from 'react'
 import { Text, View } from '@tarojs/components'
 import './index.less'
+import ExclusivePackage from '../ExclusivePackage'
+import PetList from '@/components/customer/PetList'
+import { useAtom } from 'jotai'
+import { currentStepAtom } from '@/store/createSubscription'
+import Purchased from '../Purchased'
+
 const items = [
   {
     'title': '第一步',
@@ -35,23 +41,43 @@ const items = [
     }
   }
 ]
-const Step = ({ children }) => {
-  const [current, setCurrent] = useState(0)
-  return <><AtSteps
+
+const nextStepView = {
+  0: <PetList />,
+  1: <ExclusivePackage />,
+  2: <Purchased />
+}
+const Step = () => {
+  const [current, setCurrent] = useState(2)
+  const [, setStepCount] = useAtom(currentStepAtom)
+  return <View><AtSteps
     items={items}
     current={current}
     // onChange={setCurrent}
     className={`step${current}`}
   />
-    {children}
+
+    {nextStepView[current]}
     <View className="flex flex-row justify-center">
       {
-        current > 0 && <AtButton type='secondary' size='small' circle className="stepButton" onClick={() => setCurrent(current - 1)}>上一步</AtButton>}
+        current > 0 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
+          setCurrent(current - 1)
+          setStepCount(current - 1)
+        }}>上一步</AtButton>}
       {
-        current < 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => setCurrent(current + 1)}>下一步</AtButton>
+        current < 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
+          setCurrent(current + 1)
+          setStepCount(current + 1)
+        }}>下一步</AtButton>
+      }
+      {
+        current === 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
+          setCurrent(current + 1)
+          setStepCount(current + 1)
+        }}>确认套餐</AtButton>
       }
     </View>
-  </>
+  </View>
 }
 
 export default Step
