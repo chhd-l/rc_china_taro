@@ -1,7 +1,7 @@
 import { View, Radio } from '@tarojs/components'
 import { AtFloatLayout } from 'taro-ui'
 import { Voucher } from '@/framework/types/voucher'
-import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
+import { VOUCHER_NO_RECEIVED, VOUCHER_INVALID } from '@/lib/constants'
 import { formatMoney } from '@/utils/utils'
 import { useState } from 'react'
 import './index.less'
@@ -12,14 +12,14 @@ const VoucherItem = ({ voucher, changeSelected }: { voucher: Voucher; changeSele
 
   return (
     <View
-      className="flex flex-col w-full h-32"
+      className="flex flex-col justify-center w-full h-32"
       style={{
-        backgroundImage: `url(${isExpired ? VOUCHER_RECEIVED : VOUCHER_NO_RECEIVED})`,
+        backgroundImage: `url(${isExpired ? VOUCHER_INVALID : VOUCHER_NO_RECEIVED})`,
         backgroundSize: 'cover',
       }}
     >
-      <View className="flex justify-end px-8 pt-4 pb-2">
-        {!isExpired ? (
+      {!isExpired ? (
+        <View className="flex justify-end px-8 pb-2">
           <Radio
             value=""
             checked={selected}
@@ -31,8 +31,8 @@ const VoucherItem = ({ voucher, changeSelected }: { voucher: Voucher; changeSele
               changeSelected && changeSelected(voucher, !isSelect)
             }}
           />
-        ) : null}
-      </View>
+        </View>
+      ) : null}
       <View className="flex flex-row items-center">
         <View className="flex flex-col pl-6 items-center">
           <View className="text-primary-red text-48">{formatMoney(voucherPrice)}</View>

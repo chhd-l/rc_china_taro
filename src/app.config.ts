@@ -15,12 +15,12 @@ export default defineAppConfig({
         'productDetail/index',
         'checkout/index',
         'orderList/index',
-        'orderDetails/index',
+        'orderDetail/index',
       ],
     },
     {
       root: 'pages/packageB',
-      pages: ['addressManage/index', 'breedList/index', 'newAddress/index', 'petList/index'],
+      pages: ['addressManage/index', 'breedList/index', 'newAddress/index', 'petList/index', 'voucherList/index'],
     },
   ],
   window: {

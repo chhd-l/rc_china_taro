@@ -26,6 +26,12 @@ export const petBg = `${CDNIMGURL}pet_backgroud.png`
 
 export const CART_NO_DATA_ICON=`${CDNIMGURL}MP-Cart-No product.svg`
 
-export const VOUCHER_NO_RECEIVED=`${CDNIMGURL}Icon-MP-Vouchers.png`
+export const VOUCHER_NO_RECEIVED=`${CDNIMGURL}Icon_MP_Checkoutactive.svg.svg`
 
-export const VOUCHER_RECEIVED=`${CDNIMGURL}Icon-MP-ReceivedVouchers.png`
+export const VOUCHER_RECEIVED=`${CDNIMGURL}Icon_MP_Received.svg`
+
+export const VOUCHER_INVALID=`${CDNIMGURL}Icon_MP_Checkoutinvalid.svg`
+
+export const VOUCHER_EXPIRED=`${CDNIMGURL}Icon_MP_Expired.svg`
+
+export const VOUCHER_USED=`${CDNIMGURL}Icon_MP_Expired.svg`

@@ -17,7 +17,7 @@ const VoucherItem = ({
   const { isReceived, voucherPrice, voucherName, voucherDescription, expiredTime } = voucher
   return (
     <View
-      className="flex flex-row items-center w-full h-32"
+      className="flex flex-row items-center w-full h-32 mb-2"
       style={{
         backgroundImage: `url(${isReceived ? VOUCHER_RECEIVED : VOUCHER_NO_RECEIVED})`,
         backgroundSize: 'cover',

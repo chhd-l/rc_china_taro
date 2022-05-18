@@ -43,7 +43,7 @@ const OrderListComponents = ({
           onClick={(e) => {
             e.stopPropagation()
             Taro.navigateTo({
-              url: `${routers.orderDetails}?id=${item.orderNumber}`,
+              url: `${routers.orderDetail}?id=${item.orderNumber}`,
             })
           }}
         >

@@ -9,4 +9,5 @@ export type Voucher = {
   isExpired: boolean //是否已失效
   isSelect?: boolean //是否在checkout页面已选择
   voucherUsePrice: number //达到多少钱可使用优惠券
+  isUsed: boolean //是否已使用
 }

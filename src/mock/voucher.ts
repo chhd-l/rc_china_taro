@@ -9,6 +9,7 @@ export const dataSource = [
     isExpired: true,
     isSelect: false,
     voucherUsePrice: 68,
+    isUsed:false
   },
   {
     id: '222',
@@ -20,6 +21,7 @@ export const dataSource = [
     isExpired: false,
     isSelect: false,
     voucherUsePrice: 68,
+    isUsed:true
   },
   {
     id: '333',
@@ -31,6 +33,7 @@ export const dataSource = [
     isExpired: true,
     isSelect: false,
     voucherUsePrice: 68,
+    isUsed:true
   },
   {
     id: '4444',
@@ -42,5 +45,6 @@ export const dataSource = [
     isExpired: false,
     isSelect: false,
     voucherUsePrice: 68,
+    isUsed:true
   },
 ]
