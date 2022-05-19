@@ -1,7 +1,7 @@
 
 import PetList from '@/components/customer/PetList'
 import { useAtom } from 'jotai'
-import { currentStepAtom } from '@/store/createSubscription'
+import { currentStepAtom } from '@/store/subscription'
 import { AtButton, AtSteps } from 'taro-ui'
 import { useState } from 'react'
 import { Text, View } from '@tarojs/components'

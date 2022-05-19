@@ -1,5 +1,7 @@
+import { priceAtom } from "@/store/subscription"
 import { Text, View } from "@tarojs/components"
-import { useState } from "react"
+import { useAtom } from "jotai"
+import { useEffect, useState } from "react"
 import { AtIcon, AtTag } from "taro-ui"
 import './index.less'
 
@@ -9,12 +11,21 @@ const CardTypeList = [
   { value: 2, title: '年卡', desc: '低至3.9元/天', count: 10, price: 1298, day: 380, line: 1730 }]
 const Card = () => {
   const [cardType, setCardType] = useState(0)
+  const [, setPrice] = useAtom(priceAtom)
+
+  useEffect(() => {
+    setPrice({ discountPrice: CardTypeList[0].price, originalPrice: CardTypeList[0].line })
+
+  }, [])
 
   return <View className="my-4 mx-1 titleBorder">
     <View className="flex flex-row ">
       {
         CardTypeList.map((item, index) => (
-          <View className={` flex-1 pt-2 cardBox ${cardType === index && 'cardBox_checked'}`} onClick={() => setCardType(index)}>
+          <View key={item.value} className={` flex-1 pt-2 cardBox ${cardType === index && 'cardBox_checked'}`} onClick={() => {
+            setCardType(index)
+            setPrice({ discountPrice: item.price, originalPrice: item.line })
+          }}>
             <View className='at-icon at-icon-settings text-xl font-bold'>{item.title}</View>
             <View className="lowAsDay">{item.desc}</View>
           </View>
@@ -25,7 +36,10 @@ const Card = () => {
     <View className="flex flex-row py-4 px-3 cardContentBorder">
       {
         CardTypeList.map((item, index) => (
-          <View className="flex-1 rounded-md cardChild" onClick={() => setCardType(index)}>
+          <View key={item.value} className="flex-1 rounded-md cardChild" onClick={() => {
+            setCardType(index)
+            setPrice({ discountPrice: item.price, originalPrice: item.line })
+          }}>
             <View className={` pt-2 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
               <AtIcon value='check-circle' size='12' color='#ffff'></AtIcon>
               <View className={` items-center  flex flex-col`}>
