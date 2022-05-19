@@ -2,46 +2,18 @@
 import PetList from '@/components/customer/PetList'
 import { useAtom } from 'jotai'
 import { currentStepAtom } from '@/store/subscription'
-import { AtButton, AtSteps } from 'taro-ui'
+import { AtButton } from 'taro-ui'
 import { useState } from 'react'
-import { Text, View } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
-
 import Purchased from '../Purchased'
+import MyStep from '../MyStep'
 
 const items = [
-  {
-    'title': '第一步',
-    'desc': <Text className="text-black">选择宠物</Text>,
-    'icon': {
-      value: 'sound',
-      activeColor: '#fff',
-      inactiveColor: '#78A4FA',
-      size: '40',
-    }
-  },
-  {
-    'title': '第二步',
-    'desc': <Text className="text-black">定制套餐</Text>,
-    'icon': {
-      value: 'shopping-cart',
-      activeColor: '#fff',
-      inactiveColor: '#78A4FA',
-      size: '40',
-    }
-  },
-  {
-    'title': '第三步',
-    'desc': <Text className="text-black">确认套餐</Text>,
-    'icon': {
-      value: 'camera',
-      activeColor: '#fff',
-      inactiveColor: '#78A4FA',
-      size: '40',
-    }
-  }
-]
+  { checked: 'xuanzechongwu', unchecked: 'xuanzechongwu0', title: '第一步', desc: '选择宠物' },
+  { checked: 'dingzhitaocan', unchecked: 'dingzhitaocan0', title: '第二步', desc: '定制套餐' },
+  { checked: 'querentaocan', unchecked: 'querentaocan0', title: '第三步', desc: '确认套餐' }]
 
 const nextStepView = {
   0: <PetList />,
@@ -51,18 +23,9 @@ const nextStepView = {
 const Step = () => {
   const [current, setCurrent] = useState(0)
   const [, setStepCount] = useAtom(currentStepAtom)
-  // const [petInfo, setPetInfo] = useState<any>({})
-  // const handleCheckedPet = (pet) => {
-  //   console.info('///////', pet)
-  //   setPetInfo(pet)
-  // }
-  return <View><AtSteps
-    items={items}
-    current={current}
-    // onChange={setCurrent}
-    className={`step${current}`}
-  />
 
+  return <View>
+    <MyStep current={current} items={items} />
     {nextStepView[current]}
     <View className="flex flex-row justify-center">
       {
