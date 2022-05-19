@@ -19,7 +19,8 @@ module.exports = {
         'primary-red': '#d33024',
       },
       backgroundColor:{
-        'gray-eee':"#eeeeee"
+        'gray-eee':"#eeeeee",
+        'gray-fb':"#fbfbfb"
       }
     },
   },

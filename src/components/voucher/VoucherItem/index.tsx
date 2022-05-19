@@ -1,5 +1,5 @@
-import { Radio, View } from '@tarojs/components'
-import { formatMoney } from '@/utils/utils'
+import { Radio, View, Text } from '@tarojs/components'
+import { getCurrencyCode } from '@/utils/utils'
 import { Voucher } from '@/framework/types/voucher'
 import { AtButton } from 'taro-ui'
 import { useState } from 'react'
@@ -40,7 +40,8 @@ const VoucherItem = ({
       className={`${!showRadioSelect ? 'justify-center' : ''} flex flex-col w-full h-32 mb-2`}
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
-        backgroundSize: 'cover',
+        backgroundSize: 'contain',
+        backgroundRepeat: 'no-repeat',
       }}
     >
       {showRadioSelect ? (
@@ -60,7 +61,10 @@ const VoucherItem = ({
       ) : null}
       <View className="flex flex-row items-center">
         <View className={`${priceClass} flex flex-col pl-3 items-center`}>
-          <View className="text-48">{formatMoney(voucherPrice)}</View>
+          <View >
+            <Text className="text-42">{getCurrencyCode()}</Text>
+            <Text className="text-5xl font-medium">{voucherPrice}</Text>
+          </View>
           <View>{voucherName}</View>
         </View>
         <View className="flex flex-col pl-8 flex-grow">
