@@ -29,7 +29,9 @@ const Card = () => {
 
           }}>
             <View className='flex flex-row text-xl font-bold items-center'>
-              <IconFont name={item.iconName} size={50} />{item.title}</View>
+              <IconFont name={item.iconName} size={50} />
+              <Text>{item.title}</Text>
+            </View>
             <View className="lowAsDay">{item.desc}</View>
           </View>
         ))
@@ -44,9 +46,12 @@ const Card = () => {
             setPetInfo({ ...petInfo, discountPrice: item.price, originalPrice: item.line })
 
           }}>
-            <View className={` pt-2 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
-              <IconFont name="bannianka" />
-              33
+            <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
+
+              <View className="h-4 confirmIcon">{
+                index == cardType && <IconFont name="xingzhuangjiehe" size={40} />}
+              </View>
+
               <View className={` items-center  flex flex-col`}>
                 <AtTag type='primary' circle className={`mx-1 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.count}包订阅价</AtTag>
                 <View>
