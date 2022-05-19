@@ -1,5 +1,6 @@
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import PetList from '@/components/customer/PetList'
+import IconFont from '@/iconfont'
 import { View, Image, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { AtButton } from 'taro-ui'
@@ -33,15 +34,13 @@ const DeliveryManagement = () => {
             </View>
             <CommonTitle title="发货驿站" />
             <View>
-                <View>
-                    <View>
-
-                    </View>
+                <View className="flex justify-between items-center">
+                    <IconFont name="fahuoyizhan" size={80} />
                     <View className="text-24 text-right">
                         下一包将在2022-03-18发货，请注意查收!
                     </View>
                 </View>
-                <View className="flex mt-3">
+                <View className="flex">
                     <View className="w-36"></View>
                     <View className="flex-1 flex  px-3 w-full">
                         <AtButton
@@ -50,7 +49,7 @@ const DeliveryManagement = () => {
                             circle
                             type='primary'
                             onClick={() => {
-                                Taro.redirectTo({ url: `/pages/packageB/deliveryProgress/index` })
+                                Taro.navigateTo({ url: `/pages/packageB/deliveryProgress/index` })
 
                             }}
                         >
