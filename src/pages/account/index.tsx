@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
 import quitIcon from '@/assets/icons/quit.svg'
-import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON } from '@/lib/constants'
+import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON,VOUCHER_ORDER_ICON } from '@/lib/constants'
 import './index.less'
 
 interface OrderTypeProps {
@@ -25,19 +25,43 @@ const orderTypeList: OrderTypeProps[] = [
   { label: '待发货', icon: TO_SHIP_ORDER_ICON, url: `${routers.orderList}?status=TO_SHIP` },
   { label: '待收货', icon: SHIPPED_ORDER_ICON, url: `${routers.orderList}?status=SHIPPED` },
   // { label: '退货/退款', icon: defaultIcon, url: '' },
-  // { label: '我的卡券', icon: defaultIcon, url: '' },
+  { label: '我的卡券', icon: VOUCHER_ORDER_ICON, url: `${routers.voucherList}?status=NOT_USED` },
 ]
 
 const Account = () => {
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const [signoutOpend, setSignoutOpend] = useState(false)
+
   useEffect(() => {
     setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
-    // Taro.navigateTo({
-    //   url: `/pages/packageA/orderList/index?index=0`,
-    // })
   }, [])
+
+  const navigateToOrderList=(item)=>{
+    if(item.label!=='我的卡券'){
+      Taro.navigateTo({
+        url: item.url,
+      })
+    }else{
+      Taro.requestSubscribeMessage({
+        tmplIds: ['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc', 'b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk'],
+        success: async (res) => {
+          if (res['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc'] && res['b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk']) {
+            Taro.navigateTo({
+              url: item.url,
+            })
+          }
+        },
+        fail: (res) => {
+          console.log(res)
+          Taro.navigateTo({
+            url: item.url,
+          })
+        },
+      })
+    }
+
+  }
 
   return (
     <View className="Account">
@@ -123,11 +147,7 @@ const Account = () => {
               <View
                 key={idx}
                 className="flex flex-col items-center"
-                onClick={() => {
-                  Taro.navigateTo({
-                    url: item.url,
-                  })
-                }}
+                onClick={() => navigateToOrderList(item)}
               >
                 <Image className="w-6 h-6" src={item.icon} />
                 <Text className="text-xs">{item.label}</Text>

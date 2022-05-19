@@ -10,7 +10,7 @@ import { floorList } from '@/lib/product'
 import FloorNav from '@/components/product/FloorNav'
 import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
-import { View, ScrollView } from '@tarojs/components'
+import { View, ScrollView, Button } from '@tarojs/components'
 import './index.less'
 import { wxLogin } from '@/framework/api/customer/customer'
 import { useAtom } from 'jotai'
@@ -71,11 +71,19 @@ const ProductList = () => {
   }, [])
 
   console.log('Taro.getSystemInfoSync().screenWidth', Taro.getSystemInfoSync().screenWidth)
-
   return (
     <View className="product-list">
       <NavBarForList />
       <ScrollView style="height:100vh" className="scrollview mt-0" scrollIntoView={floorId} scrollY scrollWithAnimation>
+        <Button
+          onClick={() => {
+            Taro.navigateTo({
+              url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=5`,
+            })
+          }}
+        >
+          直播跳转
+        </Button>
         <ListBanner bannerList={bannerList} />
         <FloorNav setFloorId={setFloorId} />
         <View>
