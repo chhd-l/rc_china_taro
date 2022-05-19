@@ -25,7 +25,7 @@ const Card = () => {
     <View className="flex flex-row py-4 px-3 cardContentBorder">
       {
         CardTypeList.map((item, index) => (
-          <View className="flex-1 rounded-md cardChild">
+          <View className="flex-1 rounded-md cardChild" onClick={() => setCardType(index)}>
             <View className={` pt-2 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
               <AtIcon value='check-circle' size='12' color='#ffff'></AtIcon>
               <View className={` items-center  flex flex-col`}>
@@ -42,8 +42,8 @@ const Card = () => {
               </View>
 
             </View>
-            <View className="text-gray-400 edibleBorder">
-              <Text className="textSize ">可食用：</Text>
+            <View className="text-gray-400 edibleBorder text-center">
+              <Text className="textSize ">可食用:</Text>
               <Text className={`font-bold text-sm ${index == cardType && 'edibleDay'}`}>{item.day}天</Text>
             </View>
           </View>
