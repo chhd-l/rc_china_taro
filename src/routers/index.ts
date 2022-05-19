@@ -4,6 +4,7 @@ const routers = {
   newAddress: '/pages/packageB/newAddress/index',
   addressManage: '/pages/packageB/addressManage/index',
   orderList: '/pages/packageA/orderList/index',
-  orderDetails: '/pages/packageA/orderDetails/index',
+  orderDetail: '/pages/packageA/orderDetail/index',
+  voucherList: '/pages/packageB/voucherList/index',
 }
 export default routers

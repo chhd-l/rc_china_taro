@@ -51,7 +51,7 @@ const ProductDetail = () => {
     //   return
     // }
     let detailData = (await getProduct({ storeId: baseSetting.storeId, goodsId })) || detailInfo
-    debugger
+    // debugger
     if (detailData?.skus?.length) {
       detailData.skus.forEach((sku) => {
         if (detailData?.img) {
@@ -60,7 +60,7 @@ const ProductDetail = () => {
       })
     }
     let selecteds = {}
-    detailData.skus[0].goodsSpecificationRel.map((el) => {
+    detailData.skus[0]?.goodsSpecificationRel?.map((el) => {
       selecteds[el.goodsSpecificationId] = el.goodsSpecificationDetailId
     })
     //默认选规格

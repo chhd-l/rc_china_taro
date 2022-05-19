@@ -7,7 +7,7 @@ const SubList = () => {
 
     }
     return <View className="px-2 sub-list">
-        <View style="background:#f8f8f8" className="px-2 pb-2">
+        <View style="background:#f8f8f8" className="px-2 pb-2 rounded-sm">
             <View className="flex justify-between items-center h-8" >
                 <View clssName="h-full">
                     <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
@@ -38,7 +38,7 @@ const SubList = () => {
                                 <View className="bg-primary-red  w-3 h-3 rounded-full flex justify-center items-center">
                                     <View className="bg-primary-red rounded-full border-1 border-solid border-white w-2 h-2"></View>
                                 </View>
-                                <View className="text-primary-red font-bold text-xs">剩余：3包</View>
+                                <View className="text-primary-red font-bold text-xs ml-2">剩余：3包</View>
                             </View>
                         </View>
                     </View>

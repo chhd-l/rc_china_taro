@@ -3,11 +3,17 @@ import { useGlobalIconFont } from './iconfont/helper';
 export default defineAppConfig({
   pages: [
     // 'pages/index/index',
-    'pages/subscription/index',
     'pages/productList/index',
+    'pages/subscription/index',
     'pages/account/index',
     'pages/cart/index',
   ],
+  plugins: {
+    'live-player-plugin': {
+      version: '1.3.0',
+      provider: 'wx2b03c6e691cd7370',
+    },
+  },
   subpackages: [
     {
       root: 'pages/packageA',
@@ -17,7 +23,7 @@ export default defineAppConfig({
         'productDetail/index',
         'checkout/index',
         'orderList/index',
-        'orderDetails/index',
+        'orderDetail/index',
       ],
     },
     {
@@ -28,6 +34,7 @@ export default defineAppConfig({
         'newAddress/index',
         'petList/index',
         'createSubscription/index',
+        'voucherList/index'
       ],
     },
   ],

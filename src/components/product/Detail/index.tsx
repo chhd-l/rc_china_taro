@@ -5,6 +5,7 @@ import { Swiper, SwiperItem, View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { AtFloatLayout, AtIcon } from 'taro-ui'
+import VoucherModal from '@/components/voucher/ProductVoucherModal'
 import './Style.less'
 
 interface DetailProps {
@@ -22,7 +23,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
       <View className="px-2">
         <View className="swiper-box relative">
           <Swiper
-            style={{ height: Taro.getSystemInfoSync().windowWidth }}
+            style={{ height: Taro.getSystemInfoSync().windowWidth + 'px' }}
             indicatorColor="#fff"
             indicatorActiveColor="#e2001a"
             circular
@@ -46,7 +47,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
         </View>
         <View className="py-1">
           <View className="text-28 font-medium">{choosedSku?.name}</View>
-          <AtIcon prefixClass="fa" value="share" size="30" color="red"></AtIcon>
+          <AtIcon prefixClass="fa" value="share" size="30" color="red" />
         </View>
         <View>
           {choosedSku?.tags?.map((tag, index) => (
@@ -58,10 +59,17 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
             </Text>
           ))}
         </View>
-        <View className="py-1">
-          <Text className="text-primary-red pr-4 ">{formatMoney(choosedSku.price)}</Text>
-          <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
+        <View className="py-1 flex justify-between">
+          <View>
+            <Text className="text-primary-red pr-4 ">{formatMoney(choosedSku.price)}</Text>
+            <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
+          </View>
+          {buyCount > choosedSku.stock ? (
+            <Text className="text-primary-red text-24 flex justify-end">仅剩{choosedSku.stock}件</Text>
+          ) : null}
         </View>
+        {/*店铺优惠活动*/}
+        <VoucherModal />
         <View className="flex justify-between text-28">
           <View>
             已选
