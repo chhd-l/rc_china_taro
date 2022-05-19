@@ -47,6 +47,7 @@
     "rc_china_commerce": "^1.0.3",
     "react": "^17.0.0",
     "react-dom": "^17.0.0",
+    "semver": "^7.3.7",
     "taro-plugin-tailwind": "^1.2.8",
     "taro-ui": "3.0.0-alpha.9"
   },
