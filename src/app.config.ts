@@ -6,6 +6,12 @@ export default defineAppConfig({
     'pages/account/index',
     'pages/cart/index',
   ],
+  plugins: {
+    'live-player-plugin': {
+      version: '1.3.0',
+      provider: 'wx2b03c6e691cd7370',
+    },
+  },
   subpackages: [
     {
       root: 'pages/packageA',
