@@ -18,7 +18,9 @@ const ExclusivePackage = () => {
     <View className="font-bold text-base ">胖胖的专属套餐</View>
     <View className="borderLine" />
     <View className="p-6">
-      <View className="w-full bg-primary-red h-60" />
+      <View className="w-full bg-primary-red h-60 relative" >
+        <View className="absolute h-6 w-24 bg-white bottom-4">x10包</View>
+      </View>
       <View className="font-bold text-sm my-2">皇家 英国短毛猫成猫全价粮2KG</View>
       <View className="flex direction-row items-center">
         <AtTag type='primary' className="bg-primary-red text-white" size='small'><AtIcon value='clock' size='10' color='#ffff'></AtIcon>商城价</AtTag>
