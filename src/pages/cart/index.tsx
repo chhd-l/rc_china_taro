@@ -3,7 +3,7 @@ import { ProductItem, Empty, TotalSettle, Navbar } from '@/components/cart'
 import { useEffect, useState } from 'react'
 import { getCarts, updateCart } from '@/framework/api/cart/cart'
 import { useTabItemTap, useDidShow } from '@tarojs/taro'
-import { getOrderSetting } from '@/framework/api/order/order'
+import { session } from '@/utils/global'
 import InvalidProductList from '@/components/cart/InvalidProductList'
 import './index.less'
 
@@ -12,8 +12,14 @@ const Cart = () => {
   const [selectedProduct, setSelectedProduct] = useState<any[]>([])
   const [invalidProducts, setInvalidProducts] = useState<any[]>([])
 
-  const getCartProductList = async (isNeedReload = false) => {
-    const res = await getCarts(isNeedReload)
+  //获取购物车商品列表
+  const getCartProductList = async () => {
+    const res = await getCarts(true)
+    handleIsValidProduct(res)
+  }
+
+  //过滤出失效商品（已删除、已下架、不可售、无库存）
+  const handleIsValidProduct = (res) => {
     let validProductList: any[] = []
     let invalidProductList: any[] = []
     res.map((el) => {
@@ -27,25 +33,38 @@ const Cart = () => {
     setProductList(validProductList)
   }
 
+  //勾选商品或者更改商品购买数量
   const changeProduct = async (id, name, value) => {
     if (name === 'goodsNum') {
-      await updateCart({
+      const res = await updateCart({
         id: id,
         goodsNum: value,
         operator: 'test',
       })
-      await getCartProductList(true)
+      if (res) {
+        session.set(
+          'cart-data',
+          productList.map((item) => {
+            if (item.id === id) {
+              item[name] = value
+            }
+            return item
+          }),
+        )
+      }
+    }else{
+      setProductList(
+        productList.map((item) => {
+          if (item.id === id) {
+            item[name] = value
+          }
+          return item
+        }),
+      )
     }
-    setProductList(
-      productList.map((item) => {
-        if (item.id === id) {
-          item[name] = value
-        }
-        return item
-      }),
-    )
   }
 
+  //全选按钮点击事件
   const changeAllSelect = (isAllSelect) => {
     setProductList(
       productList.map((item) => {
@@ -55,18 +74,24 @@ const Cart = () => {
     )
   }
 
+  //实时获取当前选择的商品
   const getSelectProduct = () => {
     setSelectedProduct(productList.filter((item) => item.select))
   }
 
-  const getOrderSettings = async () => {
-    const res = await getOrderSetting()
-    console.log('orderSetting', res)
+  //删除商品成功处理本地购物车数据
+  const delCartSuccess = (ids) => {
+    const tempProductList = productList.concat(invalidProducts)
+    ids.map((item) => {
+      const delIndex = tempProductList.findIndex((data) => data.id === item)
+      tempProductList.splice(delIndex, 1)
+    })
+    session.set('cart-data', tempProductList)
+    handleIsValidProduct(tempProductList)
   }
 
   useDidShow(() => {
     getCartProductList()
-    getOrderSettings()
   })
 
   useTabItemTap(() => {
@@ -91,12 +116,12 @@ const Cart = () => {
                     product={item}
                     key={item.id}
                     changeProduct={changeProduct}
-                    delCartSuccess={() => getCartProductList(true)}
+                    delCartSuccess={delCartSuccess}
                   />
                 </View>
               ))}
             </View>
-            <InvalidProductList productList={invalidProducts} delCartSuccess={() => getCartProductList(true)} />
+            <InvalidProductList productList={invalidProducts} delCartSuccess={delCartSuccess} />
           </View>
         ) : (
           <Empty />

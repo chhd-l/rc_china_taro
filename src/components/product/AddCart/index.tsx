@@ -15,11 +15,17 @@ interface Props {
 const AddCart = ({ handleShowSpec }: Props) => {
   const [cartNumber, setCartNumber] = useState(0)
   const [cartSunccessToastShow] = useAtom(cartSunccessToastShowAtom)
+
   useEffect(() => {
-    getCart(true)
+    getCart()
   }, [cartSunccessToastShow])
-  const getCart = async (isNeedReload = false) => {
-    let data = await getCartNumber(isNeedReload)
+
+  useEffect(()=>{
+    getCart()
+  },[])
+
+  const getCart = async () => {
+    let data = await getCartNumber()
     setCartNumber(data)
   }
   return (
@@ -34,7 +40,7 @@ const AddCart = ({ handleShowSpec }: Props) => {
           }}
         >
           <AtBadge value={cartNumber} maxValue={99}>
-            <AtIcon value="shopping-cart" size="22" color="#d33024"></AtIcon>
+            <AtIcon value="shopping-cart" size="22" color="#d33024" />
           </AtBadge>
           购物车
         </View>

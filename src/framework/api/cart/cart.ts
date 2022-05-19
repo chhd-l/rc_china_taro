@@ -19,25 +19,25 @@ export const getCarts = async (isNeedReload = false) => {
           //查询商品信息
           let data = await getProductBySkuId({ goodsVariantId: cartProducts[i].goodsVariantID })
           //todo 商品被删除之后的处理方案
-          if(!data?.productBySkuId){
-            cartProducts.splice(i,1)
-          }else{
+          if (!data?.productBySkuId) {
+            cartProducts.splice(i, 1)
+          } else {
             cartProducts[i] = normalizeCartData(cartProducts[i], data?.productBySkuId)
           }
         }
         session.set('cart-data', cartProducts)
       }
       console.log('cart products data', cartProducts)
-      return cartProducts||[]
+      return cartProducts || []
     }
   } catch (err) {
     console.log('err', err)
     return []
   }
 }
-export const getCartNumber = async (isNeedReload=false) => {
-  const carts = await getCarts(isNeedReload)
-  const cartNumber = carts.reduce((prev, cur) => {
+export const getCartNumber = async () => {
+  const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
+  const cartNumber = (res?.carts || []).reduce((prev, cur) => {
     return prev + cur.goodsNum
   }, 0)
   return cartNumber || 0
@@ -62,10 +62,24 @@ export const deleteCart = async ({ id, operator }: { id: string; operator: strin
       body: { id, operator },
     })
     console.log('delete cart view', data)
-    return data
+    return data?.deleteCart || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
+  }
+}
+
+export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator: string }) => {
+  try {
+    const data = await ApiRoot.carts().batchDeleteCart({
+      ids,
+      operator,
+    })
+    console.log('batch delete cart view', data)
+    return data || false
+  } catch (e) {
+    console.log(e)
+    return false
   }
 }
 
