@@ -3,9 +3,10 @@ import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { formatMoney } from '@/utils/utils'
 import { Swiper, SwiperItem, View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import { AtFloatLayout, AtIcon } from 'taro-ui'
 import VoucherModal from '@/components/voucher/ProductVoucherModal'
+import {getOrderSetting} from "@/framework/api/order/order";
 import './Style.less'
 
 interface DetailProps {
@@ -17,6 +18,19 @@ interface DetailProps {
 const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProps) => {
   const [isOpened, setIsOpened] = useState(false)
   const [currentSwiperPage, setCurrentSwiperPage] = useState(1)
+  const [maxNum, setMaxNum] = useState(5)
+
+  //获取最大可购买数量
+  const getMaxNum = async () => {
+    const res = await getOrderSetting()
+    const maxNumSetting = res.filter((item) => item.code === 'order_最大购买物品')
+    const maxCartNum = maxNumSetting.length > 0 ? Number(maxNumSetting[0].context) : 5
+    setMaxNum(maxCartNum)
+  }
+
+  useEffect(() => {
+    getMaxNum()
+  }, [])
 
   return (
     <View className="ProductDetali">
@@ -64,7 +78,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
             <Text className="text-primary-red pr-4 ">{formatMoney(choosedSku.price)}</Text>
             <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
           </View>
-          {buyCount > choosedSku.stock ? (
+          {maxNum > choosedSku.stock ? (
             <Text className="text-primary-red text-24 flex justify-end">仅剩{choosedSku.stock}件</Text>
           ) : null}
         </View>
