@@ -1,5 +1,6 @@
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import { Text, View, Image } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { AtButton, AtIcon, AtProgress } from 'taro-ui'
 import './index.less'
 const SubList = () => {
@@ -13,7 +14,9 @@ const SubList = () => {
                     <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
                     <Text className="px-4 rounded-md text-white text-28" style={{ background: 'rgb(229,195,118)' }}>季卡</Text>
                 </View>
-                <View className="text-28 flex-1 border-t-0 border-r-0 border-l-0 border-b justify-end text-right border-solid border-gray-200 h-full flex items-center">
+                <View className="text-28 flex-1 border-t-0 border-r-0 border-l-0 border-b justify-end text-right border-solid border-gray-200 h-full flex items-center" onClick={() => {
+                    Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index` })
+                }}>
                     发货管理<AtIcon value="chevron-right" size="20" color='#666666' />
                 </View>
             </View>

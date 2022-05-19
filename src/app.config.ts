@@ -1,3 +1,5 @@
+import { useGlobalIconFont } from './iconfont/helper';
+
 export default defineAppConfig({
   pages: [
     // 'pages/index/index',
@@ -32,7 +34,9 @@ export default defineAppConfig({
         'newAddress/index',
         'petList/index',
         'createSubscription/index',
-        'voucherList/index'
+        'voucherList/index',
+        'deliveryManagement/index',
+        'deliveryProgress/index'
       ],
     },
   ],
@@ -81,4 +85,7 @@ export default defineAppConfig({
     position: 'bottom',
   },
   lazyCodeLoading: 'requiredComponents',
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  usingComponents: Object.assign(useGlobalIconFont()),
 })
+

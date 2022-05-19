@@ -48,7 +48,11 @@
 .border-red{
   border-color:#d33024!important;
 }
-
+.rc-content-bg{
+  min-height: 100vh;
+  background-color: #eee;
+  padding: 0.75rem 0.5rem;
+}
 .rc-button.at-button{
   margin: 0;
 }
@@ -59,4 +63,21 @@
   width:0;
   height:0;
   color:transparent;
+}
+.error-tips-modal{
+  .at-modal__content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .content-simple{
+      text-align: center;
+    }
+  }
+  .at-modal__footer {
+    .at-modal__action{
+      button{
+        color:rgb(96,109,150)
+      }
+    }
+  }
 }
