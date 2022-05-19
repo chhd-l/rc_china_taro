@@ -18,6 +18,7 @@ const Subscription = () => {
       <View clasName="px-2">
         <PetList />
       </View>
+      <SubList />
       <Image className="w-full" onClick={toSub} src={CREATE_SUBSCRIPTION_ENTRY} mode="widthFix" />
       <View className="relative">
         <View onClick={() => {
@@ -46,7 +47,6 @@ const Subscription = () => {
           </View>)}
         </View>
       </AtFloatLayout>
-      <SubList />
     </View >
   )
 }
