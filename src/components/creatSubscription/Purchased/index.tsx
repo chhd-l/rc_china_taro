@@ -9,7 +9,9 @@ const Purchased = () => {
     <View className="font-bold text-base ">您已购买</View>
     <View className="borderLine" />
     <view className="h-45 w-full flex flex-row my-4">
-      <View className="bg-primary-red w-38 mr-2" />
+      <View className="bg-primary-red w-38 mr-2 relative" >
+        <View className="absolute w-15  h-8 bg-white bottom-6 text-center leading-8">x10包</View>
+      </View>
       <View className="flex-1 h-30 pt-15">
         <View className="font-bold title">皇家 英国短毛猫成猫全价粮</View>
         <View className="bg-gray-500 text-white descSize w-20 text-center my-2">逐包随机发货</View>
@@ -26,7 +28,9 @@ const Purchased = () => {
       </View>
     </view>
     <View className="flex flex-row">
-      <View className="w-30 h-20 bg-primary-red mr-2 " />
+      <View className="w-30 h-20 bg-primary-red mr-2 relative">
+        <View className="absolute w-15  h-8 bg-white bottom-3 text-center leading-8">x10包</View>
+      </View>
       <View className="flex-1">
         <View className="font-bold title">皇家 猫粮混粮随机口味</View>
         <View>
