@@ -1,8 +1,8 @@
 export default defineAppConfig({
   pages: [
     // 'pages/index/index',
-    // 'pages/subscription/index',
     'pages/productList/index',
+    'pages/subscription/index',
     'pages/account/index',
     'pages/cart/index',
   ],
@@ -26,7 +26,14 @@ export default defineAppConfig({
     },
     {
       root: 'pages/packageB',
-      pages: ['addressManage/index', 'breedList/index', 'newAddress/index', 'petList/index', 'voucherList/index'],
+      pages: [
+        'addressManage/index',
+        'breedList/index',
+        'newAddress/index',
+        'petList/index',
+        'createSubscription/index',
+        'voucherList/index'
+      ],
     },
   ],
   window: {
@@ -52,12 +59,12 @@ export default defineAppConfig({
         iconPath: 'assets/icons/icon-mall.png',
         selectedIconPath: 'assets/icons/icon-mall-selected.png',
       },
-      // {
-      //   pagePath: 'pages/subscription/index',
-      //   text: '订阅',
-      //   iconPath: 'assets/icons/icon-subscription.png',
-      //   selectedIconPath: 'assets/icons/icon-subscription-selected.png',
-      // },
+      {
+        pagePath: 'pages/subscription/index',
+        text: '订阅',
+        iconPath: 'assets/icons/icon-subscription.png',
+        selectedIconPath: 'assets/icons/icon-subscription-selected.png',
+      },
       {
         pagePath: 'pages/cart/index',
         text: '购物车',

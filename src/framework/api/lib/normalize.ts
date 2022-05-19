@@ -54,6 +54,12 @@ export const normalizeProductForFe = (goods: any): any => {
     )
     console.info('goodsSpecifications', goodsSpecifications)
   }
+  debugger
+  if (goodsSpecifications?.length > 1) {
+    debugger
+    //多个规格的情况，需要处理无库存的时候置灰
+    goodsVariants = goodsVariants.filter(el => el.stock)
+  }
   let spu = {
     // specs: string
     name: goods.goodsName,
@@ -65,9 +71,8 @@ export const normalizeProductForFe = (goods: any): any => {
     tags: [''], //逻辑处理
     img: goods.goodsAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),
     video: goods.goodsAsserts?.filter((el) => el.type === 'video')[0]?.artworkUrl,
-    skus: goods.goodsVariants
-      ?.filter((el) => el.stock)
-      ?.map((sku, index) => normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goodsSpecifications)), //处理无库存情况也需要置灰
+    skus: goodsVariants
+      ?.map((sku, index) => normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goodsSpecifications)),
     type: goods.type,
     description: goods.goodsDescription,
     specifications:
@@ -97,6 +102,7 @@ export const normalizeSkuForFe = (
   goodsAttributeValueRel: any,
   goodsSpecifications,
 ): SkuItemProps => {
+  debugger
   let tags: string[] = normalizeTags(goodsAttributeValueRel, sku.feedingDays)
   // let tags = sku.feedingDays ? [...spuTags, `建议饲喂天数:${sku.feedingDays}天`] : [...spuTags]
   let item = {
@@ -189,8 +195,8 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
     price: productSkuInfo.goodsVariants[0]?.marketingPrice,
     tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
     specs: normalizeProductForFe(productSkuInfo)?.skus[0].specText,
-    stock:productSkuInfo.goodsVariants[0]?.stock||0,
-    shelvesStatus:productSkuInfo.goodsVariants[0]?.shelvesStatus||false
+    stock: productSkuInfo.goodsVariants[0]?.stock || 0,
+    shelvesStatus: productSkuInfo.goodsVariants[0]?.shelvesStatus || false
   }
   return cart
 }

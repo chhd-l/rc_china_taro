@@ -77,7 +77,31 @@ const OrderListComponents = ({
                   </View>
                   <View className="numcolor">X{el?.num}</View>
                 </View>
-                <View className=" mt-2 items-end ProductIntroduction">规格：{el?.goodsSpecifications}</View>
+                <View className=" mt-2 items-end ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+              </View>
+            </View>
+          ))}
+          {(item?.lineItem || []).map((el, index) => (
+            <View key={index} className="w-full h-16 flex mb-4">
+              <View className="w-16 h-full">
+                <Image className="w-full h-full" src={el?.pic} />
+              </View>
+              <View className="w-full h-full flex flex-col pl-3">
+                <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-28 font-normal bg-primary-red text-white ml-1">赠品</Text></View>
+                <View className="flex ProductIntroduction justify-between items-center">
+                  <View>
+                    {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((el) => (
+                      <View className="ProductIntroduction numcolor  mt-1">{el}</View>
+                    ))}
+                  </View>
+                  {/* <View className="flex flex-row flex-wrap">
+                    {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                      <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
+                    ))}
+                  </View> */}
+                  <View className="numcolor">X{el?.num}</View>
+                </View>
+                <View className=" mt-2 items-end ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
               </View>
             </View>
           ))}
@@ -101,8 +125,9 @@ const OrderListComponents = ({
             />
           </View>
         </View>
-      ))}
-    </ScrollView>
+      ))
+      }
+    </ScrollView >
   )
 }
 
