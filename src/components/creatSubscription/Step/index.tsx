@@ -5,6 +5,7 @@ import { currentStepAtom } from '@/store/subscription'
 import { AtButton } from 'taro-ui'
 import { useState } from 'react'
 import { View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
@@ -27,7 +28,7 @@ const Step = () => {
   return <View>
     <MyStep current={current} items={items} />
     {nextStepView[current]}
-    <View className="flex flex-row justify-center">
+    <View className="flex flex-row justify-center px-6">
       {
         current > 0 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
           setCurrent(current - 1)
@@ -40,7 +41,9 @@ const Step = () => {
         }}>下一步</AtButton>
       }
       {
-        current === 2 && <AtButton type='primary' size='small' circle className="stepButton" >确认套餐</AtButton>
+        current === 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => Taro.navigateTo({
+          url: ``,
+        })}>确认套餐</AtButton>
       }
     </View>
   </View>
