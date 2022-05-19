@@ -1,3 +1,4 @@
+import IconFont from "@/iconfont"
 import { View } from "@tarojs/components"
 import { useState } from "react"
 import { AtCheckbox, AtIcon, AtTag } from "taro-ui"
@@ -18,8 +19,9 @@ const ExclusivePackage = () => {
     <View className="font-bold text-base ">胖胖的专属套餐</View>
     <View className="borderLine" />
     <View className="p-6">
-      <View className="w-full bg-primary-red h-60 relative" >
-        <View className="absolute h-6 w-24 bg-white bottom-4">x10包</View>
+      <View className="w-full bg-yellow-400 h-60 relative" >
+        {/* <IconFont name="jiagebiaoqian" size={100} className="absolute bottom-4" /> */}
+        {/* <View className="absolute h-6 w-24 bg-white bottom-4">x10包</View> */}
       </View>
       <View className="font-bold text-sm my-2">皇家 英国短毛猫成猫全价粮2KG</View>
       <View className="flex direction-row items-center">
