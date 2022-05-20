@@ -16,6 +16,7 @@ import { useAtom } from 'jotai'
 import routers from '@/routers'
 import { getOrderSetting } from '@/framework/api/order/order'
 import './index.less'
+import { currentNumberAtom } from '@/store/product'
 
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
@@ -47,8 +48,9 @@ const ChooseSpec = ({
   const [addBtnStatus, setAddBtnStatus] = useState(false)
   const [, setToastShow] = useAtom(cartSunccessToastShowAtom)
   const [maxNum, setMaxNum] = useState(5)
-  const [showOutStockTip,setShowOutStockTip]=useState(false)
-
+  const [showOutStockTip, setShowOutStockTip] = useState(false)
+  const [outStockMsg, setOutStockMsg] = useState('')
+  const [currentNumber, setCurrentNumber] = useAtom(currentNumberAtom)
   useEffect(() => {
     let selectedArr = Object.values(selected).filter((el) => el)
     if (selectedArr.length === detailInfo.specifications?.length) {
@@ -138,6 +140,16 @@ const ChooseSpec = ({
 
   const handleComfirm = async () => {
     console.info(choosedSku, 'test add cart')
+    if (!choosedSku.stock) {
+      setOutStockMsg("库存不足")
+      setShowOutStockTip(true)
+      return
+    }
+    if (currentNumber + buyCount > choosedSku.stock) {
+      setOutStockMsg("亲，该宝贝加购已达库存上限哦")
+      setShowOutStockTip(true)
+      return
+    }
     switch (addToType) {
       case addToTypeEnum.Cart:
         await addToCart()
@@ -206,9 +218,10 @@ const ChooseSpec = ({
               type="number"
               value={buyCount}
               onChange={(value) => {
-                if(value>choosedSku.stock){
+                if (value > choosedSku.stock) {
+                  setOutStockMsg("亲，该宝贝加购已达库存上限哦")
                   setShowOutStockTip(true)
-                }else{
+                } else {
                   setBuyCount(value)
                 }
               }}
@@ -228,7 +241,7 @@ const ChooseSpec = ({
         key="orderShipTip"
         isOpened={showOutStockTip}
         title="提示"
-        content="亲，该宝贝加购已达库存上线哦"
+        content={outStockMsg}
         confirmText="确定"
         onClose={() => {
           setShowOutStockTip(false)

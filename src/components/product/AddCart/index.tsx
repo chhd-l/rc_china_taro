@@ -8,19 +8,25 @@ import { cartSunccessToastShowAtom } from '@/store/customer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
 import './index.less'
+import { SkuItemProps } from '@/framework/types/products'
+import { currentNumberAtom } from '@/store/product'
 
 interface Props {
   handleShowSpec: (type: addToTypeEnum) => void
+  choosedSku: SkuItemProps
 }
-const AddCart = ({ handleShowSpec }: Props) => {
+const AddCart = ({ handleShowSpec, choosedSku }: Props) => {
   const [cartNumber, setCartNumber] = useState(0)
-  const [cartSunccessToastShow] = useAtom(cartSunccessToastShowAtom)
+  const [cartSunccessToastShow] = useAtom
+    (cartSunccessToastShowAtom)
+  const [currentNumber, setCurrentNumber] = useAtom(currentNumberAtom)
   useEffect(() => {
     getCart(true)
   }, [cartSunccessToastShow])
   const getCart = async (isNeedReload = false) => {
-    let data = await getCartNumber(isNeedReload)
-    setCartNumber(data)
+    let data = await getCartNumber(isNeedReload, choosedSku.id)
+    setCurrentNumber(data.currentNumber)
+    setCartNumber(data.cartNumber)
   }
   return (
     <View className="addCartBox fixed bg-white bottom-0 left-0 right-0 z-10">

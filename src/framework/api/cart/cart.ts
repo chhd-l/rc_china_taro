@@ -19,28 +19,32 @@ export const getCarts = async (isNeedReload = false) => {
           //查询商品信息
           let data = await getProductBySkuId({ goodsVariantId: cartProducts[i].goodsVariantID })
           //todo 商品被删除之后的处理方案
-          if(!data?.productBySkuId){
-            cartProducts.splice(i,1)
-          }else{
+          if (!data?.productBySkuId) {
+            cartProducts.splice(i, 1)
+          } else {
             cartProducts[i] = normalizeCartData(cartProducts[i], data?.productBySkuId)
           }
         }
         session.set('cart-data', cartProducts)
       }
       console.log('cart products data', cartProducts)
-      return cartProducts||[]
+      return cartProducts || []
     }
   } catch (err) {
     console.log('err', err)
     return []
   }
 }
-export const getCartNumber = async (isNeedReload=false) => {
+export const getCartNumber = async (isNeedReload = false, currentVariantId) => {
   const carts = await getCarts(isNeedReload)
+  let currentNumber = carts.find(el => el.goodsVariantID === currentVariantId)?.goodsNum || 0
   const cartNumber = carts.reduce((prev, cur) => {
     return prev + cur.goodsNum
   }, 0)
-  return cartNumber || 0
+  return {
+    cartNumber: cartNumber || 0,
+    currentNumber
+  }
 }
 
 export const createCart = async (params: any) => {
