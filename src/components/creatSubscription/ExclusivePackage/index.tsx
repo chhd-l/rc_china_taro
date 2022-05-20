@@ -25,7 +25,7 @@ const ExclusivePackage = () => {
         <View className="w-full bg-yellow-400 h-60 relative" >
           <CountTag count={10} />
         </View>
-        <View className="border border-rc_ECECEC border-solid text-rc16 text-textGray h-rc38 leading-rc38 mt-1 flex items-center justify-center" >
+        <View className="border border-rcECECEC border-solid text-rc16 text-textGray h-rc38 leading-rc38 mt-1 flex items-center justify-center" >
           <IconFont name="dingzhitaocan0" size={30} />
           更多套餐选择备份  {'>'}</View>
         <View className="font-bold text-sm my-2">皇家 英国短毛猫成猫全价粮2KG</View>
@@ -36,7 +36,7 @@ const ExclusivePackage = () => {
           <View className="line-through text-textGray text-xs ml-2">￥286</View>
         </View>
       </View>
-      <AtDivider lineColor='#EBEBEB' />
+      <View className="divider" />
       <View className="flex flex-row items-center">
         <View className=' text-textGray text-rc22 line-through flex items-center'>
           <IconFont name="wenhao01" size={20} />
