@@ -154,7 +154,7 @@ export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): s
     let specDetailName = specObj?.goodsSpecificationDetail?.find(
       (specDetail) => specDetail.id === el.goodsSpecificationDetailId,
     )?.specificationDetailName
-    console.info('goodsSpecificationDetailId', specDetailName)
+    // console.info('goodsSpecificationDetailId', specDetailName)
     return specDetailName || ''
   })
 }

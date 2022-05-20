@@ -65,8 +65,14 @@ const ProductDetail = () => {
     })
     //默认选规格
     detailData.skus[0]?.goodsSpecificationRel?.forEach((specification) => {
+
       detailData.specifications
-        ?.filter((el) => el.id !== specification?.goodsSpecificationId)
+        ?.filter((el) => {
+          // console.info('el.id !== specification?.goodsSpecificationId', el.id, specification?.goodsSpecificationId)
+          // 如果有多个规格，要筛选当前选择的不做置灰处理，处理其他规格
+          // return detailData.specifications?.length > 1 ? el.id !== specification?.goodsSpecificationId : el.id
+          return el.id !== specification?.goodsSpecificationId
+        })
         ?.map((el) => {
           el.children = el.children.map((e, idx) => {
             // e.able = isAble(e)
@@ -103,12 +109,11 @@ const ProductDetail = () => {
     let list = detailInfo.skus?.length ? detailInfo.skus : skudata
     //只有一层的情况暂做处理
     if (list[0].specIds?.length === 1) {
-      return list.find((el) => el.specIds?.[0] === key)
+      return list.find((el) => el.specIds?.[0] === key)?.stock
     }
     let hasChoosedData = list.filter((el) => el.specIds.find((cel) => cel === key))
-    return hasChoosedData.find((el) => el.specIds.find((cel) => cel === value))
+    return hasChoosedData.find((el) => el.specIds.find((cel) => cel === value))?.stock
   }
-  console.info('Taro.getSystemInfoSync().windowWidth', Taro.getSystemInfoSync().windowWidth)
   return (
     <>
       {choosedSku.id ? (
@@ -162,9 +167,9 @@ const ProductDetail = () => {
             onClose={() => setToastShow(false)}
           />
           <View className="h-12"></View>
-          <AddCart handleShowSpec={handleShowSpec} 
-            choosedSku={choosedSku}
-            />
+          <AddCart handleShowSpec={handleShowSpec}
+            detailInfo={detailInfo}
+          />
           <AuthLogin />
         </View>
       ) : null}

@@ -4,7 +4,7 @@ import { AtFloatLayout, AtInputNumber, AtButton, AtIcon, AtModal } from 'taro-ui
 import cloneDeep from 'lodash.cloneDeep'
 import { addToTypeEnum } from '@/framework/types/common'
 import Taro from '@tarojs/taro'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { SelectedProps } from '@/pages/packageA/productDetail'
 import { formatMoney } from '@/utils/utils'
 import { createCart } from '@/framework/api/cart/cart'
@@ -16,7 +16,7 @@ import { useAtom } from 'jotai'
 import routers from '@/routers'
 import { getOrderSetting } from '@/framework/api/order/order'
 import './index.less'
-import { currentNumberAtom } from '@/store/product'
+import { currentCartSpuAtom } from '@/store/product'
 
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
@@ -50,7 +50,8 @@ const ChooseSpec = ({
   const [maxNum, setMaxNum] = useState(5)
   const [showOutStockTip, setShowOutStockTip] = useState(false)
   const [outStockMsg, setOutStockMsg] = useState('')
-  const [currentNumber, setCurrentNumber] = useAtom(currentNumberAtom)
+  const [currentCartSpu, setCurrentCartSpu] = useAtom(currentCartSpuAtom)
+
   useEffect(() => {
     let selectedArr = Object.values(selected).filter((el) => el)
     if (selectedArr.length === detailInfo.specifications?.length) {
@@ -62,6 +63,8 @@ const ChooseSpec = ({
     console.log('selectedArr', selectedArr)
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
+
+  const currentNumber = useMemo(() => currentCartSpu?.find(el => el.goodsVariantID == choosedSku.id)?.goodsNum || 0, [currentCartSpu])
 
   useEffect(() => {
     getMaxNum()
@@ -87,7 +90,6 @@ const ChooseSpec = ({
     if (!specDetail.able) {
       return
     }
-    debugger
     console.info('selected', selected)
     selected[specification.id] = selected[specification.id] === specDetail.id ? '' : specDetail.id
     setSelected(cloneDeep(selected))
@@ -101,6 +103,7 @@ const ChooseSpec = ({
           // console.log(its.id, its.able)
         })
       })
+    setBuyCount(1)
   }
 
   const addToCart = async () => {
@@ -198,10 +201,10 @@ const ChooseSpec = ({
                   ${selected[specification.id] === el.id ? 'active textWhite' : ''}`}
                 >
                   {el.name}
-                  {console.info('selected', selected)}
+                  {/* {console.info('selected', selected)}
                   {console.info('specification.id', specification.id)}
                   {console.info('selected[specification.id]', selected[specification.id])}
-                  {console.info('el.id', el.id)}
+                  {console.info('el.id', el.id)} */}
                 </Text>
               ))}
             </View>
@@ -218,7 +221,7 @@ const ChooseSpec = ({
               type="number"
               value={buyCount}
               onChange={(value) => {
-                if (value > choosedSku.stock) {
+                if (value + currentNumber > choosedSku.stock) {
                   setOutStockMsg("亲，该宝贝加购已达库存上限哦")
                   setShowOutStockTip(true)
                 } else {
