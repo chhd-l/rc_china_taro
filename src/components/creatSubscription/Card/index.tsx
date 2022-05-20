@@ -2,7 +2,7 @@ import { petInfoAtom } from "@/store/subscription"
 import { Text, View } from "@tarojs/components"
 import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
-import { AtTag } from "taro-ui"
+import { AtDivider, AtTag } from "taro-ui"
 import IconFont from '@/iconfont';
 import './index.less'
 
@@ -28,54 +28,65 @@ const Card = () => {
             setPetInfo({ ...petInfo, discountPrice: item.price, originalPrice: item.line })
 
           }}>
-            <View className='flex flex-row text-xl font-bold items-center text-titleGray bg-gray-card'>
-              <IconFont name={item.iconName} size={50} />
-              <Text>{item.title}</Text>
+            <View className='flex flex-row  font-bold items-center  bg-gray-card'>
+              <View className={`${cardType === index && "icon"}`}><IconFont name={item.iconName} size={50} /></View>
+              <Text className="text-titleGray text-rc30">{item.title}</Text>
             </View>
             <View className="lowAsDay">{item.desc}</View>
           </View>
         ))
       }
-
     </View>
-    <View className="flex flex-row py-4 px-3 cardContentBorder">
-      {
-        CardTypeList.map((item, index) => (
-          <View key={item.value} className="flex-1 rounded-md cardChild" onClick={() => {
-            setCardType(index)
-            setPetInfo({ ...petInfo, discountPrice: item.price, originalPrice: item.line })
+    <View className=" py-4 px-3 cardContentBorder ">
+      <View className="flex flex-row ">
+        {
+          CardTypeList.map((item, index) => (
+            <View key={item.value} className="flex-1 rounded-md cardChild" onClick={() => {
+              setCardType(index)
+              setPetInfo({ ...petInfo, discountPrice: item.price, originalPrice: item.line })
 
-          }}>
-            <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
+            }}>
+              <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
 
-              <View className="h-3 confirmIcon">{
-                index == cardType && <IconFont name="xuanzhong" size={20} />}
-              </View>
-
-              <View className={` items-center  flex flex-col`}>
-                <AtTag type='primary' circle className={`mx-1 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.count}包订阅价</AtTag>
-                <View>
-                  <Text>￥</Text>
-                  <Text className="text-xl font-bold ">{item.price}</Text>
-                </View>
-                <View className="line-through textSize">
-                  <Text>￥</Text>
-                  <Text >{item.line}</Text>
+                <View className="h-3 confirmIcon flex relative">
+                  {
+                    index == cardType && <IconFont name="xuanzhong" size={30} />
+                  }
+                  {index === CardTypeList.length - 1 && <View className="absolute right-0" style={{ top: '-12px' }}><IconFont name="tuijian" size={70} /></View>}
                 </View>
 
+                <View className={` items-center  flex flex-col`}>
+                  <View className={`mx-1 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.count}包订阅价</View>
+                  <View>
+                    <Text>￥</Text>
+                    <Text className="text-rc30 font-bold">{item.price}</Text>
+                  </View>
+                  <View className="line-through text-rc22">
+                    <Text>￥</Text>
+                    <Text >{item.line}</Text>
+                  </View>
+
+                </View>
+
               </View>
-
+              <View className=" edibleBorder text-center">
+                <Text className="text-rc20 ">可食用:</Text>
+                <Text className={`font-bold rc28 ${index == cardType && 'text-primary-red'}`}>{item.day}天</Text>
+              </View>
+              {/* <AtDivider content='没有更多了' fontColor='#ed3f14' lineColor='#ed3f14' /> */}
             </View>
-            <View className="text-gray-400 edibleBorder text-center">
-              <Text className="textSize ">可食用:</Text>
-              <Text className={`font-bold text-sm ${index == cardType && 'edibleDay'}`}>{item.day}天</Text>
-            </View>
-          </View>
 
-        ))
-      }
-
+          ))
+        }
+      </View>
+      <AtDivider lineColor="#EBEBEB">
+        {/* <IconFont name="" /> */}
+        <Text className="text-primary-red text-rc26">订阅期间保价</Text>
+        <IconFont name="wenhao01" />
+      </AtDivider>
     </View>
+
+
   </View>
 }
 

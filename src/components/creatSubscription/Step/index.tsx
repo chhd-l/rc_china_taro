@@ -28,16 +28,16 @@ const Step = () => {
     {nextStepView[stepCount]}
     <View className="flex flex-row justify-center px-6">
       {
-        stepCount > 0 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
+        stepCount > 0 && <AtButton type='primary' className="stepButton" onClick={() => {
           setStepCount(stepCount - 1)
         }}>上一步</AtButton>}
       {
-        stepCount < 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
+        stepCount < 2 && <AtButton type='primary' className="stepButton" onClick={() => {
           setStepCount(stepCount + 1)
         }}>下一步</AtButton>
       }
       {
-        stepCount === 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => Taro.navigateTo({
+        stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => Taro.navigateTo({
           url: ``,
         })}>确认套餐</AtButton>
       }

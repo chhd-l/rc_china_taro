@@ -9,29 +9,33 @@ import { useAtom } from 'jotai'
 import routers from '@/routers'
 import './index.less'
 import { SkuItemProps } from '@/framework/types/products'
-import { currentNumberAtom } from '@/store/product'
+import { currentCartSpuAtom } from '@/store/product'
 
 interface Props {
   handleShowSpec: (type: addToTypeEnum) => void
-  choosedSku: SkuItemProps
+  detailInfo?: any
 }
-const AddCart = ({ handleShowSpec, choosedSku }: Props) => {
+const AddCart = ({ handleShowSpec, detailInfo }: Props) => {
   const [cartNumber, setCartNumber] = useState(0)
   const [cartSunccessToastShow] = useAtom
     (cartSunccessToastShowAtom)
-  const [currentNumber, setCurrentNumber] = useAtom(currentNumberAtom)
+  const [currentCartSpu, setCurrentCartSpu] = useAtom(currentCartSpuAtom)
   useEffect(() => {
     getCart()
   }, [cartSunccessToastShow])
 
   useEffect(() => {
     getCart()
-  }, [])
+  }, [detailInfo?.id])
 
   const getCart = async () => {
-    let data = await getCartNumber(choosedSku.id)
-    setCurrentNumber(data.currentNumber)
-    setCartNumber(data.cartNumber)
+    if (detailInfo?.id) {
+      let data = await getCartNumber(detailInfo.id)
+      debugger
+      console.info('detailInfo.iddetailInfo.id', detailInfo.id)
+      setCurrentCartSpu(data.currentCartSpu)
+      setCartNumber(data.cartNumber)
+    }
   }
   return (
     <View className="addCartBox fixed bg-white bottom-0 left-0 right-0 z-10">
