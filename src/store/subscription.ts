@@ -6,7 +6,7 @@ type PetInfoType = {
   petInfo: any[]
 }
 // 季卡0 半年卡1 年卡2
-export const currentStepAtom = atom(0)
+export const currentStepAtom = atom(2)
 
 //宠物信息
 export const petInfoAtom = atom<PetInfoType>({

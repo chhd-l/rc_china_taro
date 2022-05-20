@@ -2,7 +2,6 @@ import { petInfoAtom } from "@/store/subscription"
 import { Text, View } from "@tarojs/components"
 import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
-import { AtDivider, AtTag } from "taro-ui"
 import IconFont from '@/iconfont';
 import './index.less'
 
@@ -58,8 +57,8 @@ const Card = () => {
                 <View className={` items-center  flex flex-col`}>
                   <View className={`mx-1 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.count}包订阅价</View>
                   <View>
-                    <Text>￥</Text>
-                    <Text className="text-rc30 font-bold">{item.price}</Text>
+                    <Text className="text-rc30">￥</Text>
+                    <Text className="text-rc48 font-bold">{item.price}</Text>
                   </View>
                   <View className="line-through text-rc22">
                     <Text>￥</Text>
@@ -79,11 +78,13 @@ const Card = () => {
           ))
         }
       </View>
-      <AtDivider lineColor="#EBEBEB">
-        {/* <IconFont name="" /> */}
-        <Text className="text-primary-red text-rc26">订阅期间保价</Text>
-        <IconFont name="wenhao01" />
-      </AtDivider>
+      <View className="flex flex-row justify-center items-center mt-6">
+        <View className="divider_side" />
+        <View className="text-primary-red text-rc26 mx-1">订阅期间保价</View>
+        <IconFont name="wenhao01" size={20} />
+        <View className="divider_side" />
+      </View>
+
     </View>
 
 
