@@ -20,6 +20,10 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
       .map((el) => {
         if (totalPrice > el.voucherUsePrice && !selectedVoucher) {
           setSelectedVoucher(el)
+          setVouchers(vouchers.map((item)=>{
+            item.isSelect=item.id===el.id
+            return item
+          }))
         }
         return
       })
@@ -63,7 +67,7 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
 
   return (
     <View className="bg-white mt-2 pl-2 py-2 rounded ">
-      <View className="flex flex-row justify-between items-center">
+      <View className="flex flex-row justify-between items-center" onClick={selectCoupon}>
         <View className="text-30 flex flex-row items-center">
           <Image className="w-6 h-6 mr-2" src={VOUCHER_ORDER_ICON} />
           优惠券
@@ -73,7 +77,7 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
             <Text className="text-xs text-gray-400">
               {selectedVoucher ? `已选${selectedVoucher.voucherPrice}元优惠券` : '请使用优惠券'}
             </Text>
-            <AtIcon value="chevron-right" size="24" onClick={selectCoupon} color="#666666" />
+            <AtIcon value="chevron-right" size="24" color="#666666" />
           </View>
         </View>
       </View>
