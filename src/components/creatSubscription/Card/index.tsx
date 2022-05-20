@@ -28,9 +28,9 @@ const Card = () => {
             setPetInfo({ ...petInfo, discountPrice: item.price, originalPrice: item.line })
 
           }}>
-            <View className='flex flex-row text-xl font-bold items-center text-titleGray bg-gray-card'>
-              <IconFont name={item.iconName} size={50} />
-              <Text>{item.title}</Text>
+            <View className='flex flex-row  font-bold items-center  bg-gray-card'>
+              <View className={`${cardType === index && "icon"}`}><IconFont name={item.iconName} size={50} /></View>
+              <Text className="text-titleGray text-rc30">{item.title}</Text>
             </View>
             <View className="lowAsDay">{item.desc}</View>
           </View>
@@ -53,12 +53,12 @@ const Card = () => {
               </View>
 
               <View className={` items-center  flex flex-col`}>
-                <AtTag type='primary' circle className={`mx-1 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.count}包订阅价</AtTag>
+                <View className={`mx-1 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.count}包订阅价</View>
                 <View>
                   <Text>￥</Text>
-                  <Text className="text-xl font-bold ">{item.price}</Text>
+                  <Text className="text-rc30 font-bold">{item.price}</Text>
                 </View>
-                <View className="line-through textSize">
+                <View className="line-through text-rc22">
                   <Text>￥</Text>
                   <Text >{item.line}</Text>
                 </View>
@@ -66,9 +66,9 @@ const Card = () => {
               </View>
 
             </View>
-            <View className="text-gray-400 edibleBorder text-center">
-              <Text className="textSize ">可食用:</Text>
-              <Text className={`font-bold text-sm ${index == cardType && 'edibleDay'}`}>{item.day}天</Text>
+            <View className=" edibleBorder text-center">
+              <Text className="text-rc20 ">可食用:</Text>
+              <Text className={`font-bold rc28 ${index == cardType && 'text-primary-red'}`}>{item.day}天</Text>
             </View>
           </View>
 

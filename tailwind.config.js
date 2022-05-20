@@ -21,7 +21,7 @@ module.exports = {
       backgroundColor: {
         'gray-eee': '#eeeeee',
         'gray-fb': '#fbfbfb',
-        'gray-card': '#FBFBFB',
+        'gray-card': '#FFFFFF',
       },
       textColor: {
         titleGray: '#A7A7A7',
@@ -29,7 +29,10 @@ module.exports = {
         borderGray: '#EEEEEE',
       },
       fontSize: {
+        rc20: '20px',
         rc22: '22px',
+        rc28: '28px',
+        rc30: '30px',
       },
     },
   },
