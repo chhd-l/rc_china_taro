@@ -1,22 +1,39 @@
 import { Radio, View, Image } from '@tarojs/components'
 import { AtSwipeAction } from 'taro-ui'
 import Taro from '@tarojs/taro'
-import { deleteCart } from '@/framework/api/cart/cart'
+import { batchDeleteCart, deleteCart } from '@/framework/api/cart/cart'
+import { useAtom } from 'jotai'
+import { customerAtom } from '@/store/customer'
 import './index.less'
 
 const ProductItem = ({ productList, delCartSuccess }: { productList: any[]; delCartSuccess: Function }) => {
+  const [customerInfo] = useAtom(customerAtom)
+
   const delCartProduct = async (id) => {
-    await deleteCart({ id, operator: '111' })
-    delCartSuccess && delCartSuccess()
+    const res = await deleteCart({ id, operator: customerInfo?.nickName || 'system' })
+    if (res) {
+      delCartSuccess && delCartSuccess([id])
+    }
   }
 
-  const clearInvalidProduct = () => {}
+  const clearInvalidProduct = async () => {
+    const ids = productList.map((el) => {
+      return el.id
+    })
+    const res = await batchDeleteCart({
+      ids,
+      operator: customerInfo?.nickName || 'system',
+    })
+    if (res) {
+      delCartSuccess && delCartSuccess(ids)
+    }
+  }
 
   return productList.length > 0 ? (
     <View>
       <View className="flex justify-between py-2 px-4">
         <View>失效商品{productList.length}件</View>
-        <View className="text-primary-red" onClick={() => clearInvalidProduct}>
+        <View className="text-primary-red" onClick={() => clearInvalidProduct()}>
           清空失效商品
         </View>
       </View>

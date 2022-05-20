@@ -35,12 +35,12 @@ export const getCarts = async (isNeedReload = false) => {
     return []
   }
 }
-export const getCartNumber = async (isNeedReload = false, currentVariantId) => {
-  const carts = await getCarts(isNeedReload)
-  let currentNumber = carts.find(el => el.goodsVariantID === currentVariantId)?.goodsNum || 0
-  const cartNumber = carts.reduce((prev, cur) => {
+export const getCartNumber = async (currentVariantId) => {
+  const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
+  const cartNumber = (res?.carts || []).reduce((prev, cur) => {
     return prev + cur.goodsNum
   }, 0)
+  let currentNumber = (res?.carts || []).find(el => el.goodsVariantID === currentVariantId)?.goodsNum || 0
   return {
     cartNumber: cartNumber || 0,
     currentNumber
@@ -66,10 +66,24 @@ export const deleteCart = async ({ id, operator }: { id: string; operator: strin
       body: { id, operator },
     })
     console.log('delete cart view', data)
-    return data
+    return data?.deleteCart || false
   } catch (e) {
     console.log(e)
-    return []
+    return false
+  }
+}
+
+export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator: string }) => {
+  try {
+    const data = await ApiRoot.carts().batchDeleteCart({
+      ids,
+      operator,
+    })
+    console.log('batch delete cart view', data)
+    return data || false
+  } catch (e) {
+    console.log(e)
+    return false
   }
 }
 

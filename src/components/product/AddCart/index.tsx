@@ -21,10 +21,15 @@ const AddCart = ({ handleShowSpec, choosedSku }: Props) => {
     (cartSunccessToastShowAtom)
   const [currentNumber, setCurrentNumber] = useAtom(currentNumberAtom)
   useEffect(() => {
-    getCart(true)
+    getCart()
   }, [cartSunccessToastShow])
-  const getCart = async (isNeedReload = false) => {
-    let data = await getCartNumber(isNeedReload, choosedSku.id)
+
+  useEffect(() => {
+    getCart()
+  }, [])
+
+  const getCart = async () => {
+    let data = await getCartNumber(choosedSku.id)
     setCurrentNumber(data.currentNumber)
     setCartNumber(data.cartNumber)
   }
@@ -40,7 +45,7 @@ const AddCart = ({ handleShowSpec, choosedSku }: Props) => {
           }}
         >
           <AtBadge value={cartNumber} maxValue={99}>
-            <AtIcon value="shopping-cart" size="22" color="#d33024"></AtIcon>
+            <AtIcon value="shopping-cart" size="22" color="#d33024" />
           </AtBadge>
           购物车
         </View>

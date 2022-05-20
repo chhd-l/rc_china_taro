@@ -21,8 +21,10 @@ const ProductItem = ({
   const [maxNum, setMaxNum] = useState(5)
 
   const delCartProduct = async () => {
-    await deleteCart({ id, operator: '111' })
-    delCartSuccess && delCartSuccess()
+    const res = await deleteCart({ id, operator: '111' })
+    if (res) {
+      delCartSuccess && delCartSuccess([id])
+    }
   }
 
   const getMaxNum = async () => {

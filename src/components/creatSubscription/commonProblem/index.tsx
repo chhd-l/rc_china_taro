@@ -1,4 +1,5 @@
 
+import IconFont from '@/iconfont'
 import { Text, View } from '@tarojs/components'
 import './index.less'
 
@@ -6,7 +7,8 @@ const CommonProblem = () => {
 
   return <View className="m-5 pb-14">
     <View className="my-2">
-      <View className="text-center w-full font-bold">常见问题</View>
+
+      <View className="flex items-center justify-center w-full font-bold"><IconFont name="changjianwenti" size={50} /> 常见问题</View>
     </View>
     <View>
       <View className="flex flex-row">
