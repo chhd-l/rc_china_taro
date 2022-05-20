@@ -2,7 +2,6 @@ import { Radio, View, Text } from '@tarojs/components'
 import { getCurrencyCode } from '@/utils/utils'
 import { Voucher } from '@/framework/types/voucher'
 import { AtButton } from 'taro-ui'
-import { useState } from 'react'
 import './index.less'
 
 interface VoucherItemProps {
@@ -32,8 +31,7 @@ const VoucherItem = ({
   expiredTimeClass = 'text-gray-400',
   expiredTimeText = '有效期',
 }: VoucherItemProps) => {
-  const { voucherPrice, voucherName, voucherDescription, expiredTime } = voucher
-  const [selected, setSelected] = useState(voucher.isSelect)
+  const { voucherPrice, voucherName, voucherDescription, expiredTime,isSelect } = voucher
 
   return (
     <View
@@ -48,13 +46,12 @@ const VoucherItem = ({
         <View className="flex justify-end pr-2 py-2">
           <Radio
             value=""
-            checked={selected}
+            checked={isSelect}
             style={{ transform: 'scale(0.6)' }}
             color="#d33024"
             className="text-48 flex items-center"
             onClick={() => {
-              setSelected(!selected)
-              changeSelected && changeSelected(voucher, !selected)
+              changeSelected && changeSelected(voucher, !isSelect)
             }}
           />
         </View>

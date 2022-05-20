@@ -2,7 +2,7 @@ import { View } from '@tarojs/components'
 import { AtFloatLayout } from 'taro-ui'
 import { Voucher } from '@/framework/types/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_INVALID } from '@/lib/constants'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import VoucherItem from '@/components/voucher/VoucherItem'
 import './index.less'
 
@@ -18,14 +18,31 @@ const VoucherModal = ({
   vouchers: Voucher[]
 }) => {
   const [selectedVoucher, setSelectedVoucher] = useState<any>(null)
+  const [voucherList, setVoucherList] = useState<Voucher[]>([])
 
   const changeSelected = (value, isSelect) => {
     if (isSelect) {
       setSelectedVoucher(value)
+      setVoucherList(
+        voucherList.map((el) => {
+          el.isSelect = el.id === value.id
+          return el
+        }),
+      )
     } else {
       setSelectedVoucher(null)
+      setVoucherList(
+        voucherList.map((el) => {
+          el.isSelect = false
+          return el
+        }),
+      )
     }
   }
+
+  useEffect(() => {
+    setVoucherList(vouchers)
+  }, [vouchers])
 
   return (
     <AtFloatLayout
@@ -55,7 +72,7 @@ const VoucherModal = ({
           </View>
         </View>
         <View>
-          {vouchers.map((item) => (
+          {voucherList.map((item) => (
             <VoucherItem
               voucher={item}
               changeSelected={changeSelected}
