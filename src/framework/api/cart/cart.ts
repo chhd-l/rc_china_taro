@@ -35,12 +35,16 @@ export const getCarts = async (isNeedReload = false) => {
     return []
   }
 }
-export const getCartNumber = async () => {
+export const getCartNumber = async (currentVariantId) => {
   const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
   const cartNumber = (res?.carts || []).reduce((prev, cur) => {
     return prev + cur.goodsNum
   }, 0)
-  return cartNumber || 0
+  let currentNumber = (res?.carts || []).find(el => el.goodsVariantID === currentVariantId)?.goodsNum || 0
+  return {
+    cartNumber: cartNumber || 0,
+    currentNumber
+  }
 }
 
 export const createCart = async (params: any) => {

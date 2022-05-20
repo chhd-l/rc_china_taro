@@ -162,7 +162,9 @@ const ProductDetail = () => {
             onClose={() => setToastShow(false)}
           />
           <View className="h-12"></View>
-          <AddCart handleShowSpec={handleShowSpec} />
+          <AddCart handleShowSpec={handleShowSpec} 
+            choosedSku={choosedSku}
+            />
           <AuthLogin />
         </View>
       ) : null}
