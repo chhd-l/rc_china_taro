@@ -23,7 +23,7 @@ const Cart = () => {
     let validProductList: any[] = []
     let invalidProductList: any[] = []
     res.map((el) => {
-      if (el.localData.stock === 0 || !el.localData.shelvesStatus) {
+      if (el?.localData?.stock === 0 || !el?.localData?.shelvesStatus) {
         invalidProductList.push(el)
       } else {
         validProductList.push(el)
