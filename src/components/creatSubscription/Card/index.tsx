@@ -28,7 +28,7 @@ const Card = () => {
             setPetInfo({ ...petInfo, discountPrice: item.price, originalPrice: item.line })
 
           }}>
-            <View className='flex flex-row text-xl font-bold items-center'>
+            <View className='flex flex-row text-xl font-bold items-center text-titleGray bg-gray-card'>
               <IconFont name={item.iconName} size={50} />
               <Text>{item.title}</Text>
             </View>

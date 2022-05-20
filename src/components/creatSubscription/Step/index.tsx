@@ -3,13 +3,12 @@ import PetList from '@/components/customer/PetList'
 import { useAtom } from 'jotai'
 import { currentStepAtom } from '@/store/subscription'
 import { AtButton } from 'taro-ui'
-import { useState } from 'react'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
-import MyStep from '../MyStep'
+import AtMyStep from '../components/AtMyStep'
 
 const items = [
   { checked: 'xuanzechongwu', unchecked: 'xuanzechongwu0', title: '第一步', desc: '选择宠物' },
@@ -22,26 +21,23 @@ const nextStepView = {
   2: <Purchased />
 }
 const Step = () => {
-  const [current, setCurrent] = useState(0)
-  const [, setStepCount] = useAtom(currentStepAtom)
+  const [stepCount, setStepCount] = useAtom(currentStepAtom)
 
   return <View>
-    <MyStep current={current} items={items} />
-    {nextStepView[current]}
+    <AtMyStep current={stepCount} items={items} />
+    {nextStepView[stepCount]}
     <View className="flex flex-row justify-center px-6">
       {
-        current > 0 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
-          setCurrent(current - 1)
-          setStepCount(current - 1)
+        stepCount > 0 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
+          setStepCount(stepCount - 1)
         }}>上一步</AtButton>}
       {
-        current < 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
-          setCurrent(current + 1)
-          setStepCount(current + 1)
+        stepCount < 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => {
+          setStepCount(stepCount + 1)
         }}>下一步</AtButton>
       }
       {
-        current === 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => Taro.navigateTo({
+        stepCount === 2 && <AtButton type='primary' size='small' circle className="stepButton" onClick={() => Taro.navigateTo({
           url: ``,
         })}>确认套餐</AtButton>
       }
