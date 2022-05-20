@@ -1,4 +1,5 @@
-import { View } from "@tarojs/components"
+import IconFont from "@/iconfont"
+import { Text, View } from "@tarojs/components"
 import { useState } from "react"
 import { AtIcon, AtTag } from "taro-ui"
 import Card from "../Card"
@@ -25,15 +26,18 @@ const ExclusivePackage = () => {
       </View>
       <View className="font-bold text-sm my-2">皇家 英国短毛猫成猫全价粮2KG</View>
       <View className="flex direction-row items-center">
-        <AtTag type='primary' className="bg-primary-red text-white" size='small'><AtIcon value='clock' size='10' color='#ffff'></AtIcon>商城价</AtTag>
+        <AtTag type='primary' className="bg-primary-red text-white" size='small'>
+          <AtIcon value='clock' size='10' color='#ffff'></AtIcon>商城价</AtTag>
         <view className="text-primary-red font-bold text-sm">￥183/包</view>
         <View className="line-through text-textGray text-xs ml-2">￥286</View>
       </View>
     </View>
-    <View className="flex direction-row items-center">
-      <View className=' text-textGray text-rc22'>新鲜度</View>
+    <View className="flex flex-row items-center">
+      <View className=' text-textGray text-rc22 line-through flex items-center'>
+        <IconFont name="wenhao01" size={20} />
+        <Text className="ml-1">新鲜度</Text>
+      </View>
       <AtMyRadio options={checkboxOption} value={current} onClick={(val) => setCurrent(val)} />
-
     </View>
   </View>
     <Card />

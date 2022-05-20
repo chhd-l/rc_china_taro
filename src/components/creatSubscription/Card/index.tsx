@@ -48,8 +48,11 @@ const Card = () => {
           }}>
             <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
 
-              <View className="h-3 confirmIcon">{
-                index == cardType && <IconFont name="xuanzhong" size={20} />}
+              <View className="h-3 confirmIcon flex relative">
+                {
+                  index == cardType && <IconFont name="xuanzhong" size={30} />
+                }
+                {index === CardTypeList.length - 1 && <View className="absolute right-0" style={{ top: '-12px' }}><IconFont name="tuijian" size={70} /></View>}
               </View>
 
               <View className={` items-center  flex flex-col`}>
