@@ -1,8 +1,8 @@
 .cardBox_checked {
   color: #d33024 !important;
-  border-top: 1px solid gray;
+  border-top: 2px solid #EBEBEB;
   margin-top: -15px;
-  border-right: 1px solid gray;
+  border-right: 2px solid #EBEBEB;
   background-color: #fff;
   padding-top: 30px;
   border-bottom: none !important;
@@ -10,42 +10,45 @@
   border-top-right-radius: 20px;
 
   view:first-child {
-    margin-top: 12px;
+    view{
+      margin-top: 2px;
+      margin-right: 10px;
+    }
+    text{
+      margin-top: 18px;
+    }
   }
-
-
+  view:last-child{
+   margin-top: 8px;
+  }
 }
-
-
-
-
-
 
 .cardBox {
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 15px 0;
-  border-bottom: 1px solid gray;
-  border-left: 1px solid gray;
-  color: gray;
+ border: 2px solid #EBEBEB;
+  border-left: 2px solid #EBEBEB;
+  color: #EEEEEE;
 }
 
 
-
-
 .cardBox:nth-child(3) {
-  border-right: 1px solid gray;
+  border-right: 2px solid #EBEBEB;
 }
 
 
 
 .lowAsDay {
-  font-size: 20px;
+  font-size: 18px;
+  font-weight: 400;
+color: #999999;
+line-height: 25px;
 }
 
 .titleBorder {
-  border-top: 1px solid gray;
+  border-top: 2px solid #EBEBEB;
 }
 
 
@@ -55,7 +58,7 @@
 }
 
 .cardContent {
-  border: 1px solid gray;
+  border: 2px solid #EBEBEB;
   color: rgb(118, 124, 118);
   border-bottom: none;
   border-top-left-radius: 20px;
@@ -63,19 +66,24 @@
 }
 
 .cardTag {
-  border: 1px solid gray;
-  color: gray;
-  font-size: 19px;
+  border: 1px solid #EBEBEB;
+  color: #CCCCCC;
+  font-size: 18px;
+  background-color: #FBFBFB;
+  border-radius: 14px;
+  line-height: 25px;
+  height: 25px;
+  font-weight: 400;
 }
 
 .cardTag_checked {
   background-color: #d33024;
-  border: 1px solid #fff;
-  color: #fff;
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
 }
 
 .cardContentBorder {
-  border: 1px solid gray;
+  border: 2px solid #EBEBEB;
   border-top: none;
 }
 
@@ -83,21 +91,24 @@
   margin: 0 18px;
 }
 
-.textSize {
-  font-size: 20px;
-}
 
-.edibleDay {
-  color: #d33024;
-}
+
+
 
 .edibleBorder {
-  border: 1px solid gray;
+  border: 2px solid #EBEBEB;
   border-top: none;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
+  color: #CCCCCC;
 }
 .confirmIcon{
   padding-left: 10px;
   padding-top: 5px;
+}
+
+.icon{
+  margin-right: 15px;
+  width: 40px;
+  height: 40px;
 }

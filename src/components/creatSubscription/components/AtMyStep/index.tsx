@@ -3,7 +3,7 @@ import { Text, View } from "@tarojs/components"
 import './index.less'
 
 
-const MyStep = ({ current, items }) => {
+const AtMyStep = ({ current, items }) => {
 
   return <View className="flex flex-row items-center justify-center">
     {
@@ -26,4 +26,4 @@ const MyStep = ({ current, items }) => {
   </View>
 }
 
-export default MyStep
+export default AtMyStep
