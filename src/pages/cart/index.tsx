@@ -35,8 +35,9 @@ const Cart = () => {
 
   //勾选商品或者更改商品购买数量
   const changeProduct = async (id, name, value) => {
+    let res=true
     if (name === 'goodsNum') {
-      const res = await updateCart({
+      res = await updateCart({
         id: id,
         goodsNum: value,
         operator: 'test',
@@ -52,7 +53,8 @@ const Cart = () => {
           }),
         )
       }
-    }else{
+    }
+    if(res){
       setProductList(
         productList.map((item) => {
           if (item.id === id) {
@@ -94,9 +96,9 @@ const Cart = () => {
     getCartProductList()
   })
 
-  useTabItemTap(() => {
-    getCartProductList()
-  })
+  // useTabItemTap(() => {
+  //   getCartProductList()
+  // })
 
   useEffect(() => {
     getSelectProduct()
