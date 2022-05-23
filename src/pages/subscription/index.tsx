@@ -5,13 +5,27 @@ import Taro from '@tarojs/taro'
 import './index.less'
 import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION, SUBSCRIPTION_HELP_ICON, WHAT_IS_SUBSCRIPTION } from '@/lib/subscription'
 import { AtFloatLayout } from 'taro-ui'
-import { useState } from 'react'
-
+import { useEffect, useState } from 'react'
+import { getSubscriptionSimpleRecommend } from '@/framework/api/subscription/subscription'
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
   const toSub = () => {
     Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })
   }
+  const test = async () => {
+    let params = {
+      subscriptionType: 'FRESH_BUY',
+      petType: 'CAT',
+      petBreedCode: "10001",
+      isPetSterilized: true,
+      petBirthday: "2021-01-09T00:00:00.000Z"
+    }
+    let data = await getSubscriptionSimpleRecommend(params)
+    console.info('data', data)
+  }
+  useEffect(() => {
+    test()
+  }, [])
   return (
     <View className="subscription-intrduce">
       <Image className="w-full" src={WHAT_IS_SUBSCRIPTION} mode="widthFix" />
