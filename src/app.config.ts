@@ -36,7 +36,8 @@ export default defineAppConfig({
         'createSubscription/index',
         'voucherList/index',
         'deliveryManagement/index',
-        'deliveryProgress/index'
+        'deliveryProgress/index',
+        'recommendationList/index',
       ],
     },
   ],

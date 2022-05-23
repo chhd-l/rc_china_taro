@@ -32,7 +32,8 @@ const ExclusivePackage = () => {
         <View className="flex direction-row items-center">
           <AtTag type='primary' className="bg-primary-red text-white" size='small'>
             <AtIcon value='clock' size='10' color='#ffff'></AtIcon>商城价</AtTag>
-          <view className="text-primary-red font-bold text-sm">￥183/包</view>
+          {/* marketingPrice */}
+          <view className="text-primary-red font-bold text-sm">￥199/包</view>
           <View className="line-through text-textGray text-xs ml-2">￥286</View>
         </View>
       </View>

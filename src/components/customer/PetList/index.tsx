@@ -171,7 +171,7 @@ const PetList = (props: Props) => {
               >
                 {fakePet.map((pet, idx: number) => (
                   <SwiperItem key={idx}>
-                    <View className="text-center h-full flex items-center">
+                    <View className="text-center h-full flex items-center justify-center">
                       {pet.id != '-1' ? (
                         <View
                           className={`w-16 h-16 bg-white h-full rounded-full shadow-md flex items-center justify-center relative ${currentIdx === idx ? '' : 'scale-75 transform '

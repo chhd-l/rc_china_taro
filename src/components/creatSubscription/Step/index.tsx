@@ -16,7 +16,7 @@ const items = [
   { checked: 'querentaocan', unchecked: 'querentaocan0', title: '第三步', desc: '确认套餐' }]
 
 const nextStepView = {
-  0: <PetList />,
+  0: <PetList showCheckBox />,
   1: <ExclusivePackage />,
   2: <Purchased />
 }

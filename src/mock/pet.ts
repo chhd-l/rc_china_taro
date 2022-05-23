@@ -1,4 +1,5 @@
 import Mock from 'mockjs'
+
 export const petLists = {
   'list|4': [
     {
