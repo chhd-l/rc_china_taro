@@ -24,6 +24,7 @@ module.exports = {
         'gray-card': '#FFFFFF',
         rc_9B9C9D: '#9B9C9D',
         rc_FAFBFC: '#FAFBFC',
+        rc_EAEAEA: '#EAEAEA',
       },
       textColor: {
         titleGray: '#A7A7A7',
@@ -31,6 +32,7 @@ module.exports = {
         borderGray: '#EEEEEE',
         rc_ECECEC: '#ECECEC',
         rc_222222: '#222222',
+        rc_666666: '#666666',
       },
       fontSize: {
         rc16: '16px',
@@ -40,6 +42,7 @@ module.exports = {
         rc26: '26px',
         rc28: '28px',
         rc30: '30px',
+        rc33: '33px',
         rc48: '48px',
         rc54: '54px',
         rc64: '64px',
@@ -48,18 +51,24 @@ module.exports = {
         'rc3-10': '30%',
         rc190: '190px',
         rc124: '124px',
+        rc61: '61px',
+        rc163: '163px',
       },
       height: {
         rc22: '22px',
         rc26: '26px',
         rc38: '38px',
-        rc190: '190px',
+        rc33: '33px',
+        rc72: '72px',
         rc96: '96px',
+        rc169: '169px',
+        rc190: '190px',
       },
       lineHeight: {
         rc22: '22px',
         rc26: '26px',
         rc38: '38px',
+        rc72: '72px',
         rc96: '96px',
       },
       margin: {
@@ -68,6 +77,9 @@ module.exports = {
       padding: {
         rc150: '150px',
         rc120: '120px',
+      },
+      borderColor: {
+        rc_E2E2E2: '#E2E2E2',
       },
     },
   },

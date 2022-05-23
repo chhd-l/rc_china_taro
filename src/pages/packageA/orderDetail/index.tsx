@@ -1,7 +1,7 @@
 import { View, Image, Text, ScrollView } from '@tarojs/components'
 import { AtList, AtListItem, AtCard, AtCountdown } from 'taro-ui'
 import { useEffect, useState } from 'react'
-import { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import { formatMoney, getDateDiff, handleReturnTime } from '@/utils/utils'
@@ -157,6 +157,10 @@ const OrderDetails = () => {
                 <View className="flex items-center justify-between boderTop">
                   <Text>订单编号</Text>
                   <Text>{orderDetail.orderNumber}</Text>
+                </View>
+                <View className="flex items-center justify-between boderTop">
+                  <Text>订阅编号</Text>
+                  <Text className='numLink' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>12324657687874{'>'}</Text>
                 </View>
                 <View className="flex items-center justify-between boderTop">
                   <Text>下单时间</Text>

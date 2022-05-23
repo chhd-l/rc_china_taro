@@ -1,8 +1,9 @@
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import { View, Picker } from '@tarojs/components'
 import { useState } from 'react'
-import { AtButton, AtList, AtListItem, AtModal } from 'taro-ui'
+import { AtList, AtListItem, AtModal } from 'taro-ui'
 import './index.less'
+
 const DeliveryProgress = () => {
     const [errorTips, setErrorTips] = useState(false)
     const handleDate = (e) => {
@@ -33,7 +34,34 @@ const DeliveryProgress = () => {
 
             <CommonTitle title="发货记录" />
             <View className='text-26 mt-3'>
-                暂无发货记录
+                <View className='my-2 record '>
+                    <View className='flex flex-row py-2 justify-between  px-2'>
+                        <View className='flex flex-row  '>
+                            <View className='text-rc22 text-textGray'>订单编号:201852750697</View>
+                            <View className='bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1'>复制</View>
+                        </View>
+                        <View className='text-primary-red text-rc22'>第3包</View>
+                    </View>
+                    <View className='Descborder p-2'>
+                        <View className='flex  border-red-400'>
+                            <View className='h-rc169 w-rc163 bg-primary-red' />
+                            <View className='flex-1'>
+                                <View className='text-rc33 text-rc_222222 mt-2 ml-1'>皇家口腔护理成猫全价粮</View>
+                                <View className='flex flex-row justify-between my-2'>
+                                    <View className='flex flex-row '>
+                                        <View className='age mx-1'>适用年龄:4-12月</View>
+                                        <View className='age '>适用年龄:4-12月</View>
+                                    </View>
+                                    <View className='text-rc22 text-textGray mr-1'>x1</View>
+                                </View>
+                                <View className='text-rc26 text-textGray ml-1'>规格:2kg</View>
+                            </View>
+                        </View>
+                    </View>
+                    <View className='text-rc24 text-rc_666666 leading-rc72 text-right pr-2'>
+                        发货日期:2022-08-23
+                    </View>
+                </View>
             </View>
         </View>
         <AtModal

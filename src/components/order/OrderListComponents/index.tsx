@@ -7,6 +7,7 @@ import { normalizeTags } from '@/framework/api/lib/normalize'
 import routers from '@/routers'
 import OrderAction from '../OrderAction'
 import './index.less'
+import IconFont from '@/iconfont'
 
 const orderStatusType = {
   UNPAID: '待付款',
@@ -49,6 +50,7 @@ const OrderListComponents = ({
         >
           <View className="h-6 flex justify-between items-center headerText">
             <View className="flex items-center">
+              <IconFont name='Frame1' size={23} />
               订单编号: {item.orderNumber}
               <View
                 className="ml-2 copy"
