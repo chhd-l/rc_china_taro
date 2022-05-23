@@ -72,7 +72,6 @@ const Card = () => {
                 <Text className="text-rc20 ">可食用:</Text>
                 <Text className={`font-bold rc28 ${index == cardType && 'text-primary-red'}`}>{item.day}天</Text>
               </View>
-              {/* <AtDivider content='没有更多了' fontColor='#ed3f14' lineColor='#ed3f14' /> */}
             </View>
 
           ))
@@ -80,8 +79,9 @@ const Card = () => {
       </View>
       <View className="flex flex-row justify-center items-center mt-6">
         <View className="divider_side" />
+        <IconFont name="a-bao3" size={34} />
         <View className="text-primary-red text-rc26 mx-1">订阅期间保价</View>
-        <IconFont name="wenhao01" size={20} />
+        <IconFont name="wenhao01" size={30} />
         <View className="divider_side" />
       </View>
 
