@@ -7,7 +7,7 @@ const AtMyStep = ({ current, items }) => {
 
   return <View className="flex flex-row items-center justify-center">
     {
-      items.map((item, index) => (
+      items.map((item: any, index: number) => (
         <View className="flex flex-col" key={item.title}>
           <View className="flex flex-row" key={item.step}>
             <View className="flex flex-col">
@@ -22,7 +22,6 @@ const AtMyStep = ({ current, items }) => {
         </View>
       ))
     }
-
   </View>
 }
 

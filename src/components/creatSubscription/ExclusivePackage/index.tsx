@@ -1,7 +1,7 @@
 import IconFont from "@/iconfont"
 import { Text, View } from "@tarojs/components"
 import { useState } from "react"
-import { AtDivider, AtIcon, AtTag } from "taro-ui"
+import { AtIcon, AtTag } from "taro-ui"
 import Card from "../Card"
 import AtMyRadio from "../components/AtMyRadio"
 import CountTag from "../components/CountTag"

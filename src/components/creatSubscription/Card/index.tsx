@@ -51,7 +51,7 @@ const Card = () => {
                   {
                     index == cardType && <IconFont name="xuanzhong" size={30} />
                   }
-                  {index === CardTypeList.length - 1 && <View className="absolute right-0" style={{ top: '-12px' }}><IconFont name="tuijian" size={70} /></View>}
+                  {index === CardTypeList.length - 1 && <View className="absolute right-0" style={{ top: '-14px' }}><IconFont name="tuijian" size={70} /></View>}
                 </View>
 
                 <View className={` items-center  flex flex-col`}>
@@ -81,7 +81,7 @@ const Card = () => {
         <View className="divider_side" />
         <IconFont name="a-bao3" size={34} />
         <View className="text-primary-red text-rc26 mx-1">订阅期间保价</View>
-        <IconFont name="wenhao01" size={30} />
+        <IconFont name="wenhao01" size={20} />
         <View className="divider_side" />
       </View>
 

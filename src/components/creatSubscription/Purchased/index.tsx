@@ -38,9 +38,9 @@ const Purchased = () => {
       </View>
       <View className="flex-1">
         <View className="font-bold text-rc26 text-rc_222222">皇家 猫粮混粮随机口味</View>
+        <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View>
         <View className="flex flex-row items-center" >
           <IconFont name="a-Frame1" size={73} />
-          {/* <View className='at-icon at-icon-settings bg-primary-red rounded-sm text-white title h-4 leading-4 mr-2'>赠品</View> */}
           <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">逐包随单发货</Text>
         </View>
         <View className="text-textGray text-rc22 my-1">
