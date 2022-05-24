@@ -3,16 +3,17 @@ import { AtFloatLayout, AtIcon } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { Voucher } from '@/framework/types/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
-import { getVouchers } from '@/framework/api/voucher/voucher'
+import { getPdpVouchers } from '@/framework/api/voucher/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
 import './index.less'
 
-const ProductVoucherModal = () => {
+const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [showReceiveVoucher, setShowReceiveVoucher] = useState(false)
 
   const getVoucherList = async () => {
-    const res = await getVouchers()
+    console.log('aaaaaaa', goodsId)
+    const res = await getPdpVouchers({ goodsId })
     setVouchers(res)
   }
 
@@ -34,8 +35,10 @@ const ProductVoucherModal = () => {
   }
 
   useEffect(() => {
-    getVoucherList()
-  }, [])
+    if (goodsId) {
+      getVoucherList()
+    }
+  }, [goodsId])
 
   return (
     <>

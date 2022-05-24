@@ -83,7 +83,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
           ) : null}
         </View>
         {/*店铺优惠活动*/}
-        <VoucherModal />
+        <VoucherModal goodsId={detailInfo.id}/>
         <View className="flex justify-between text-28">
           <View>
             已选
