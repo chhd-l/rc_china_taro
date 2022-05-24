@@ -12,15 +12,14 @@ const List = ({ list }: ListProps) => {
       url: `/pages/packageA/productDetail/index?id=${spu}`,
     })
   }
-  console.info('productList', list)
   return (
     <View className="px-1 product-list">
       <View className="product-list-box grid grid-cols-2 gap-2 px-2">
-        {list.map((product) => (
+        {list?.map((product) => (
           <View
             key={product.name}
             className="col-span-1"
-
+            onClick={() => { }}
           >
             <View className="border border-solid border-gray-300 rounded-sm pb-2 mb-2 text-center">
               <Image className="mx-auto" style="width:334rpx; height: 334rpx;" lazyLoad src={product.img} />

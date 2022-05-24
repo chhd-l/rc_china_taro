@@ -1,5 +1,4 @@
 import CommonProblem from '@/components/creatSubscription/CommonProblem'
-import ConfirmPackageFoot from '@/components/creatSubscription/ConfirmPackageFoot'
 import PriceFooter from '@/components/creatSubscription/PriceFooter'
 import Step from '@/components/creatSubscription/Step'
 import { currentStepAtom } from '@/store/subscription'
@@ -19,9 +18,6 @@ const Index = () => {
       {
         priceFooter
       }
-
-
-
     </View>
   )
 }
