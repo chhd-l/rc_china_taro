@@ -1,7 +1,9 @@
 import IconFont from "@/iconfont"
+import { petInfoAtom } from "@/store/subscription"
 import { Text, View } from "@tarojs/components"
+import Taro from "@tarojs/taro"
+import { useAtom } from "jotai"
 import { useState } from "react"
-import { AtIcon, AtTag } from "taro-ui"
 import Card from "../Card"
 import AtMyRadio from "../components/AtMyRadio"
 import CountTag from "../components/CountTag"
@@ -17,6 +19,10 @@ const checkboxOption = [{
 },]
 const ExclusivePackage = () => {
   const [current, setCurrent] = useState('1')
+  const [petInfo] = useAtom(petInfoAtom)
+  const [recommInfo, setRecommInfo] = useState(petInfo.goodsList[0])
+
+  console.log('recommInfo', recommInfo)
   return <View>
     <View className="m-4">
       <View className="font-bold text-base ">胖胖的专属套餐</View>
@@ -25,16 +31,17 @@ const ExclusivePackage = () => {
         <View className="w-full bg-yellow-400 h-60 relative" >
           <CountTag count={10} />
         </View>
-        <View className="border border-rc_ECECEC border-solid text-rc16 text-textGray h-rc38 leading-rc38 mt-1 flex items-center justify-center" >
+        <View onClick={() => Taro.navigateTo({ url: '/pages/packageB/recommendationList/index' })}
+          className="border border-rc_ECECEC border-solid text-rc16 text-textGray h-rc38 leading-rc38 mt-1 flex items-center justify-center" >
           <IconFont name="dingzhitaocan0" size={30} />
           更多套餐选择备份  {'>'}</View>
-        <View className="font-bold text-sm my-2">皇家 英国短毛猫成猫全价粮2KG</View>
+        <View className="font-bold text-rc26 my-2">皇家 英国短毛猫成猫全价粮2KG</View>
         <View className="flex direction-row items-center">
-          <AtTag type='primary' className="bg-primary-red text-white" size='small'>
-            <AtIcon value='clock' size='10' color='#ffff'></AtIcon>商城价</AtTag>
+          <View className="bg-primary-red text-white text-rc20 w-rc98 h-rc26 flex flex-row items-center justify-center">
+            <IconFont name="shangdianjia" size={24} />商城价</View>
           {/* marketingPrice */}
-          <view className="text-primary-red font-bold text-sm">￥199/包</view>
-          <View className="line-through text-textGray text-xs ml-2">￥286</View>
+          <View className="text-primary-red font-bold text-rc28">￥199/包</View>
+          <View className="line-through text-textGray text-rc22 ml-2">￥286</View>
         </View>
       </View>
       <View className="divider" />

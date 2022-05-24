@@ -1,12 +1,15 @@
-import PetList from '@/components/customer/PetList'
-import SubList from '@/components/creatSubscription/SubList'
-import { View, Text, Image } from '@tarojs/components'
-import Taro from '@tarojs/taro'
-import './index.less'
-import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION, SUBSCRIPTION_HELP_ICON, WHAT_IS_SUBSCRIPTION } from '@/lib/subscription'
 import { AtFloatLayout } from 'taro-ui'
 import { useEffect, useState } from 'react'
+import PetList from '@/components/customer/PetList'
+import SubList from '@/components/creatSubscription/SubList'
+import { View, Image } from '@tarojs/components'
 import { getSubscriptionSimpleRecommend } from '@/framework/api/subscription/subscription'
+import Taro from '@tarojs/taro'
+import './index.less'
+
+import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION, SUBSCRIPTION_HELP_ICON, WHAT_IS_SUBSCRIPTION } from '@/lib/subscription'
+
+
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
   const toSub = () => {
@@ -29,7 +32,7 @@ const Subscription = () => {
   return (
     <View className="subscription-intrduce">
       <Image className="w-full" src={WHAT_IS_SUBSCRIPTION} mode="widthFix" />
-      <View clasName="px-2">
+      <View className="px-2">
         <PetList />
       </View>
       <SubList />
@@ -55,7 +58,7 @@ const Subscription = () => {
             }} className="w-3 h-3 bg-contain bg-primary-red bg-no-repeat mt-2 " style={{ background: `url(${SUBSCRIPTION_HELP_ICON})` }}></View>
             {/* <Image   className="w-full" src={SUBSCRIPTION_HELP_ICON} mode="widthFix" /> */}
             八大权益</View>
-          {subscriptionRights.map(el => <View className=" pl-3">
+          {subscriptionRights.map(el => <View className=" pl-3" key={el.title}>
             <View className="text-24 text-primary-red mt-1">{el.title}</View>
             <View className="text-24 mt-1">{el.des}</View>
           </View>)}
