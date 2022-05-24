@@ -39,7 +39,7 @@ const TotalSettle = ({
     // }
     Taro.setStorage({
       key: 'select-product',
-      data: JSON.stringify(selectedProduct),
+      data: JSON.stringify({ goodsList: selectedProduct }),
       complete: (respon) => {
         console.log(respon)
         Taro.navigateTo({ url: routers.checkout })

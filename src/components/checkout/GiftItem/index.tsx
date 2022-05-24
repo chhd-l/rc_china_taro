@@ -14,7 +14,7 @@ const GiftItem = ({ product }: { product: any }) => {
                 />
             </View>
             <View className="w-full pl-2">
-                <View className="font-semibold text-32 text-black">{name}<Text className="px-1 text-28 font-normal bg-primary-red text-white ml-1">赠品</Text></View>
+                <View className="font-semibold text-32 text-black">{name}<Text className="px-1 text-24 font-normal bg-primary-red text-white ml-1">赠品</Text></View>
                 <View>
                     {tags.map((el) => (
                         <View className="text-24 text-gray-400 mt-1">{el}</View>

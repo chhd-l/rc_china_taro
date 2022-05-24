@@ -11,3 +11,15 @@ export const getSubscriptionSimpleRecommend = async (params: any) => {
         return {}
     }
 }
+
+
+export const subscriptionCreateAndPay = async (params?: any) => {
+    try {
+        const { subscriptionCreateAndPay } = await ApiRoot.subscriptions().subscriptionCreateAndPay({ body: params })
+        // const breeds = mockPetlist;
+        console.info('subscriptionCreateAndPay', subscriptionCreateAndPay)
+        return subscriptionCreateAndPay
+    } catch (err) {
+        return {}
+    }
+}
