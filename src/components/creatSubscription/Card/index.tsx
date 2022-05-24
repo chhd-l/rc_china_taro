@@ -24,7 +24,7 @@ const Card = () => {
           <View key={item.cycle} className={` flex-1 pt-2 cardBox ${cardType === index && 'cardBox_checked'}`} onClick={() => {
             setCardType(index)
             setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-            setRecommendProduct({ ...recommendProduct, quantity: item.quantity })
+            setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item.cycle })
           }}>
             <View className='flex flex-row  font-bold items-center  bg-gray-card'>
               <View className={`${cardType === index && "icon"}`}><IconFont name={cardInfo[item.cycle].icon} size={50} /></View>
@@ -42,7 +42,7 @@ const Card = () => {
             <View key={item.value} className="flex-1 rounded-md cardChild" onClick={() => {
               setCardType(index)
               setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-              setRecommendProduct({ ...recommendProduct, quantity: item.quantity })
+              setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item.cycle })
             }}>
               <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
 

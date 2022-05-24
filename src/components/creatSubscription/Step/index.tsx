@@ -44,10 +44,10 @@ const Step = () => {
 
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
-      const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
+      const { discountPrice, originalPrice, quantity, cycle } = goodsList[0].cycleList[0]
       const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item.id))
       setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
-      setRecommendProduct({ ...goodsList[0], quantity, giftList: gift })
+      setRecommendProduct({ ...goodsList[0], quantity, cycle, giftList: gift })
     } else {
 
     }

@@ -14,6 +14,7 @@ export type RecommendProductType = {
   cycleList?: any[],
   quantity?: number,
   giftList?: any[]
+  cycle?: string
 }
 // 季卡0 半年卡1 年卡2
 export const currentStepAtom = atom(0)
