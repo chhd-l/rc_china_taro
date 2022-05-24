@@ -31,7 +31,7 @@ const VoucherItem = ({
   expiredTimeClass = 'text-gray-400',
   expiredTimeText = '有效期',
 }: VoucherItemProps) => {
-  const { voucherPrice, voucherName, voucherDescription, expiredTime,isSelect } = voucher
+  const { voucherPrice, voucherName, voucherDescription, expiredTime, isSelect } = voucher
 
   return (
     <View
@@ -40,6 +40,11 @@ const VoucherItem = ({
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'contain',
         backgroundRepeat: 'no-repeat',
+      }}
+      onClick={() => {
+        if (showRadioSelect) {
+          changeSelected && changeSelected(voucher, !isSelect)
+        }
       }}
     >
       {showRadioSelect ? (
@@ -58,7 +63,7 @@ const VoucherItem = ({
       ) : null}
       <View className="flex flex-row items-center">
         <View className={`${priceClass} flex flex-col pl-3 items-center`}>
-          <View >
+          <View>
             <Text className="text-42">{getCurrencyCode()}</Text>
             <Text className="text-5xl font-medium">{voucherPrice}</Text>
           </View>

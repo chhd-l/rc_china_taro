@@ -32,6 +32,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   //领取优惠券
   const receiveVoucher = (voucher: Voucher) => {
     console.log('received voucher', voucher)
+    setShowReceiveVoucher(false)
   }
 
   useEffect(() => {
