@@ -86,10 +86,12 @@ const OrderListComponents = ({
           {(item?.lineItem || []).map((el, index) => (
             <View key={index} className="w-full h-16 flex mb-4">
               <View className="w-16 h-full">
-                <Image className="w-full h-full" src={el?.pic} />
+                <Image className="w-full"
+                  mode="widthFix"
+                  src={el?.pic} />
               </View>
               <View className="w-full h-full flex flex-col pl-3">
-                <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-28 font-normal bg-primary-red text-white ml-1">赠品</Text></View>
+                <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1">赠品</Text></View>
                 <View className="flex ProductIntroduction justify-between items-center">
                   <View>
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((el) => (
