@@ -11,6 +11,8 @@ import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
 import AtMyStep from '../components/AtMyStep'
+import { normalizeCartData } from '@/framework/api/lib/normalize'
+import routers from '@/routers'
 
 
 
@@ -45,7 +47,11 @@ const Step = () => {
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
       const { discountPrice, originalPrice, quantity, cycle } = goodsList[0].cycleList[0]
-      const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item.id))
+      const gift = giftList.filter(item => {
+        console.info('goodsList[0].giftIdList', goodsList[0].giftIdList, item?.goodsVariants?.[0]?.id)
+        debugger
+        return goodsList[0].giftIdList.includes(item?.goodsVariants?.[0]?.id)
+      })
       setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
       setRecommendProduct({ ...goodsList[0], quantity, cycle, giftList: gift })
     } else {
@@ -71,6 +77,29 @@ const Step = () => {
             ...recommenProduct,
             pet: recommendInfo.recommPetInfo
           }
+          let { birthday, breedCode, breedName, gender, id, image, name, type } = params.pet
+          let goodsList = [params.goodsVariantInfo]
+          let giftList = params.giftList || []
+          Taro.setStorage({
+            key: 'select-product',
+            data: JSON.stringify({
+              type: 'FRESH_BUY',
+              cycle: params.cycle,
+              freshType: 'FRESH_NORMAL',
+              pet: {
+                birthday, breedCode, breedName, gender, id, image, name, type
+              },
+              // address: SubscriptionAddressInput!
+              goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el)),
+              isSubscription: true,
+              giftList: giftList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el)),
+              couponList: [],
+            }),
+            complete: (respon) => {
+              console.log(respon)
+              Taro.navigateTo({ url: routers.checkout })
+            },
+          })
           console.log('params', params)
         }}>确认套餐</AtButton>
       }
