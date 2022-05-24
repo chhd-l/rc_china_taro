@@ -12,10 +12,7 @@ import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
 import AtMyStep from '../components/AtMyStep'
 
-const items = [
-  { checked: 'xuanzechongwu', unchecked: 'xuanzechongwu0', title: '第一步', desc: '选择宠物' },
-  { checked: 'dingzhitaocan', unchecked: 'dingzhitaocan0', title: '第二步', desc: '定制套餐' },
-  { checked: 'querentaocan', unchecked: 'querentaocan0', title: '第三步', desc: '确认套餐' }]
+
 
 const nextStepView = {
   0: <PetList showCheckBox />,
@@ -25,7 +22,7 @@ const nextStepView = {
 const Step = () => {
   const [stepCount, setStepCount] = useAtom(currentStepAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
-  const [, setRecommendProduct] = useAtom(recommendProductAtom)
+  const [recommenProduct, setRecommendProduct] = useAtom(recommendProductAtom)
 
   // const [petInfo, setPetInfo] = useAtom(recommendInfoAtom)
   const goNextStep = async () => {
@@ -47,8 +44,10 @@ const Step = () => {
 
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
-      setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList })
-      setRecommendProduct(goodsList[0])
+      const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
+      const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item.id))
+      setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
+      setRecommendProduct({ ...goodsList[0], quantity, giftList: gift })
     } else {
 
     }
@@ -56,7 +55,7 @@ const Step = () => {
   }
 
   return <View>
-    <AtMyStep current={stepCount} items={items} />
+    <AtMyStep current={stepCount} />
     {nextStepView[stepCount]}
     <View className="flex flex-row justify-center px-6">
       {
@@ -67,9 +66,13 @@ const Step = () => {
         stepCount < 2 && <AtButton type='primary' className="stepButton" onClick={goNextStep}>下一步</AtButton>
       }
       {
-        stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => Taro.navigateTo({
-          url: ``,
-        })}>确认套餐</AtButton>
+        stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => {
+          const params = {
+            ...recommenProduct,
+            pet: recommendInfo.recommPetInfo
+          }
+          console.log('params', params)
+        }}>确认套餐</AtButton>
       }
     </View>
   </View>

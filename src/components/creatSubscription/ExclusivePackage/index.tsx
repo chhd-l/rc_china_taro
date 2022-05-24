@@ -1,7 +1,7 @@
 import IconFont from "@/iconfont"
 import { recommendProductAtom } from "@/store/subscription"
-import { Text, View } from "@tarojs/components"
-import Taro, { render } from "@tarojs/taro"
+import { Image, Text, View } from "@tarojs/components"
+import Taro from "@tarojs/taro"
 import { useAtom } from "jotai"
 import { useState } from "react"
 import Card from "../Card"
@@ -26,8 +26,9 @@ const ExclusivePackage = () => {
       <View className="font-bold text-base ">胖胖的专属套餐</View>
       <View className="borderLine" />
       <View className="px-rc120 pt-rc120" >
-        <View className="w-full bg-yellow-400 h-60 relative" >
-          <CountTag count={10} />
+        <View className="w-full  h-60 relative" >
+          <Image className="w-full h-full" src={goodsVariants[0].defaultImage} />
+          <CountTag count={recommendProduct.quantity} />
         </View>
         <View onClick={() => Taro.navigateTo({ url: '/pages/packageB/recommendationList/index' })}
           className="border border-rc_ECECEC border-solid text-rc16 text-textGray h-rc38 leading-rc38 mt-1 flex items-center justify-center" >

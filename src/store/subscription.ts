@@ -1,16 +1,19 @@
 import { atom } from 'jotai'
 
 type RecommendInfoType = {
-  discountPrice: number | string,
-  originalPrice: number | string,
-  recommPetInfo: any,
-  couponList: any[],
-  goodsList: any[],
+  discountPrice: number | string;
+  originalPrice: number | string;
+  recommPetInfo: any;
+  couponList: any[];
+  goodsList: any[];
   giftList: any[]
 }
 
-type RecommendProductType = {
-  goodsVariantInfo?: any
+export type RecommendProductType = {
+  goodsVariantInfo?: any;
+  cycleList?: any[],
+  quantity?: number,
+  giftList?: any[]
 }
 // 季卡0 半年卡1 年卡2
 export const currentStepAtom = atom(0)
