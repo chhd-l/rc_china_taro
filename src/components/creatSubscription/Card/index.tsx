@@ -1,4 +1,4 @@
-import { petInfoAtom } from "@/store/subscription"
+import { recommendInfoAtom, recommendProductAtom } from "@/store/subscription"
 import { Text, View } from "@tarojs/components"
 import { useAtom } from "jotai"
 import { useEffect, useState } from "react"
@@ -11,9 +11,14 @@ const CardTypeList = [
   { value: 2, title: '年卡', desc: '低至3.9元/天', count: 10, price: 1298, day: 380, line: 1730, iconName: 'nianka' }]
 const Card = () => {
   const [cardType, setCardType] = useState(0)
-  const [petInfo, setPetInfo] = useAtom(petInfoAtom)
+  const [petInfo, setPetInfo] = useAtom(recommendInfoAtom)
+  const [recommendProduct] = useAtom(recommendProductAtom)
+  const { goodsVariantInfo: { goodsVariants } } = recommendProduct
 
   useEffect(() => {
+    goodsVariants.map(item => {
+
+    })
     setPetInfo({ ...petInfo, discountPrice: CardTypeList[0].price, originalPrice: CardTypeList[0].line })
 
   }, [])
@@ -31,7 +36,7 @@ const Card = () => {
               <View className={`${cardType === index && "icon"}`}><IconFont name={item.iconName} size={50} /></View>
               <Text className="text-titleGray text-rc30">{item.title}</Text>
             </View>
-            <View className="lowAsDay">{item.desc}</View>
+            <View className="lowAsDay">低至{item.desc}元/天</View>
           </View>
         ))
       }

@@ -1,5 +1,5 @@
 import IconFont from "@/iconfont"
-import { petInfoAtom } from "@/store/subscription"
+import { recommendInfoAtom } from "@/store/subscription"
 import { View, Text } from "@tarojs/components"
 import { useAtom } from "jotai"
 import CountTag from "../components/CountTag"
@@ -7,7 +7,7 @@ import './index.less'
 
 
 const Purchased = () => {
-  const [petInfo] = useAtom(petInfoAtom)
+  const [petInfo] = useAtom(recommendInfoAtom)
 
 
   return <View className="m-4">

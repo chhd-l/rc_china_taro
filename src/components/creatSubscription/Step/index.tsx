@@ -2,7 +2,7 @@
 import moment from 'moment'
 import PetList from '@/components/customer/PetList'
 import { useAtom } from 'jotai'
-import { currentStepAtom, petInfoAtom } from '@/store/subscription'
+import { currentStepAtom, recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
 import { AtButton } from 'taro-ui'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
@@ -24,7 +24,10 @@ const nextStepView = {
 }
 const Step = () => {
   const [stepCount, setStepCount] = useAtom(currentStepAtom)
-  const [petInfo, setPetInfo] = useAtom(petInfoAtom)
+  const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
+  const [, setRecommendProduct] = useAtom(recommendProductAtom)
+
+  // const [petInfo, setPetInfo] = useAtom(recommendInfoAtom)
   const goNextStep = async () => {
     // const { type, code, birthday, isSterilized } = petInfo.recommPetInfo
     // const params = {
@@ -43,9 +46,9 @@ const Step = () => {
     }
 
     if (stepCount === 0) {
-      const res = await getSubscriptionSimpleRecommend(params)
-      console.log('res', res)
-      // setPetInfo({ ...petInfo, ...subscriptionSimpleRecommend })
+      const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
+      setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList })
+      setRecommendProduct(goodsList[0])
     } else {
 
     }
