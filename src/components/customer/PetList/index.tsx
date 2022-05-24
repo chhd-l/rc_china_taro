@@ -12,6 +12,7 @@ import { Dog, Cat } from '@/utils/global'
 import { AtIcon } from 'taro-ui'
 
 import './index.less'
+import { petInfoAtom } from '@/store/subscription'
 
 interface Props {
   showCheckBox?: boolean
@@ -24,6 +25,7 @@ const PetList = (props: Props) => {
   const [checkedArr, setCheckedArr] = useState<string[]>([])
   const [currentIdx, setCurrentIdx] = useState(0)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+  const [petInfo, setPetInfo] = useAtom(petInfoAtom)
 
   const handleChange = (current: number) => {
     setCurrentIdx(current)
@@ -69,7 +71,8 @@ const PetList = (props: Props) => {
     setCheckedArr([value])
     let pet = petList.find(el => el.id === value)
     props.handleCheckedPet?.(pet)
-    console.info('value', value)
+    // console.info('value', value, pet)
+    setPetInfo({ ...petInfo, recommPetInfo: pet })
   }
 
   // const displayMultipleItems = () => {

@@ -49,10 +49,11 @@ module.exports = {
       },
       width: {
         'rc3-10': '30%',
-        rc190: '190px',
-        rc124: '124px',
         rc61: '61px',
+        rc98: '98px',
+        rc124: '124px',
         rc163: '163px',
+        rc190: '190px',
       },
       height: {
         rc22: '22px',
