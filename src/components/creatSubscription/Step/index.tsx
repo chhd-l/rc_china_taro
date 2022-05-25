@@ -1,4 +1,4 @@
-
+import moment from 'moment'
 import PetList from '@/components/customer/PetList'
 import { useAtom } from 'jotai'
 import { currentStepAtom, recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
@@ -27,21 +27,22 @@ const Step = () => {
   const [recommenProduct, setRecommendProduct] = useAtom(recommendProductAtom)
 
   const goNextStep = async () => {
-    // const { type, code, birthday, isSterilized } = recommendInfo.recommPetInfo
-    // const params = {
-    //   subscriptionType: 'FRESH_BUY',
-    //   petType: type,
-    //   petBreedCode: code,
-    //   isPetSterilized: isSterilized,
-    //   petBirthday: moment(birthday)
-    // }
+    const { type, code, birthday, isSterilized } = recommendInfo.recommPetInfo
     const params = {
       subscriptionType: 'FRESH_BUY',
-      petType: 'CAT',
-      petBreedCode: "10001",
-      isPetSterilized: true,
-      petBirthday: "2021-01-09T00:00:00.000Z"
+      petType: type,
+      petBreedCode: code,
+      isPetSterilized: isSterilized,
+      petBirthday: moment(birthday)
     }
+
+    // const params = {
+    //   subscriptionType: 'FRESH_BUY',
+    //   petType: 'CAT',
+    //   petBreedCode: "10001",
+    //   isPetSterilized: true,
+    //   petBirthday: "2021-01-09T00:00:00.000Z"
+    // }
 
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
@@ -50,6 +51,7 @@ const Step = () => {
       setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
       setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
     }
+
     setStepCount(stepCount + 1)
   }
 
@@ -62,11 +64,12 @@ const Step = () => {
           setStepCount(stepCount - 1)
         }}>上一步</AtButton>}
       {
-        stepCount < 2 && <AtButton type='primary' className="stepButton" onClick={goNextStep}>下一步</AtButton>
+        stepCount < 2 && <AtButton type='primary' className="stepButton" onClick={goNextStep}
+          disabled={Object.keys(recommendInfo.recommPetInfo).length === 0}>下一步</AtButton>
       }
       {
         stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => {
-          console.log('recommenProduct', recommenProduct)
+          // console.log('recommenProduct', recommenProduct)
           const { freshType, cycle, goodsVariantInfo, giftList } = recommenProduct
           const { recommPetInfo: pet } = recommendInfo
           let goodsList = [goodsVariantInfo]
@@ -77,7 +80,6 @@ const Step = () => {
               cycle,
               freshType,
               pet,
-              // address: SubscriptionAddressInput!
               goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el)),
               isSubscription: true,
               giftList: giftList?.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el)) || [],
@@ -88,7 +90,6 @@ const Step = () => {
               Taro.navigateTo({ url: routers.checkout })
             },
           })
-          console.log('params', goodsList)
         }}>确认套餐</AtButton>
       }
     </View>
