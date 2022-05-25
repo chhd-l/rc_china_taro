@@ -7,6 +7,8 @@ type RecommendInfoType = {
   couponList: any[];
   goodsList: any[];
   giftList: any[]
+  currentIdx: number,
+  checkedArr: string[]
 }
 
 type RecommendProductType = {
@@ -32,7 +34,9 @@ export const recommendInfoAtom = atom<RecommendInfoType>({
   recommPetInfo: {},
   couponList: [],
   goodsList: [],
-  giftList: []
+  giftList: [],
+  currentIdx: 0,
+  checkedArr: []
 })
 
 // 当前推荐商品

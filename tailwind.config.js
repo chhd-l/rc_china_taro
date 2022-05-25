@@ -64,6 +64,7 @@ module.exports = {
         rc96: '96px',
         rc169: '169px',
         rc190: '190px',
+        rc560: '560px',
       },
       lineHeight: {
         rc22: '22px',

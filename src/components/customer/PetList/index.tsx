@@ -21,12 +21,11 @@ const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const [fakePet, setFakePet] = useState<any>([])
-  const [checkedArr, setCheckedArr] = useState<string[]>([])
-  const [currentIdx, setCurrentIdx] = useState(0)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
+  const { currentIdx, checkedArr } = recommendInfo
   const handleChange = (current: number) => {
-    setCurrentIdx(current)
+    setRecommendInfo({ ...recommendInfo, currentIdx: current })
   }
 
   useEffect(() => {
@@ -51,10 +50,10 @@ const PetList = (props: Props) => {
     })
     if (res.length > 1) {
       console.log('res', res)
-      setCurrentIdx(1)
+      setRecommendInfo({ ...recommendInfo, currentIdx: 1 })
     } else {
       console.log('res2', res)
-      setCurrentIdx(0)
+      setRecommendInfo({ ...recommendInfo, currentIdx: 0 })
     }
     setPetList(res)
     if (res.length === 2 || res.length === 3) {
@@ -65,12 +64,12 @@ const PetList = (props: Props) => {
       setFakePet(res)
     }
   }
-  const handleChecked = (value) => {
-    setCheckedArr([value])
+  const handleChecked = (value, index) => {
+    console.log('index', index)
+    // setCheckedArr([value])
     let pet = petList.find(el => el.id === value)
     props.handleCheckedPet?.(pet)
-    // console.info('value', value, pet)
-    setRecommendInfo({ ...recommendInfo, recommPetInfo: pet })
+    setRecommendInfo({ ...recommendInfo, recommPetInfo: pet, checkedArr: [value], currentIdx: index })
   }
 
   // const displayMultipleItems = () => {
@@ -92,10 +91,10 @@ const PetList = (props: Props) => {
     })
   }
   console.info('checkedArrcheckedArrcheckedArr', checkedArr)
-  const CheckBoxItem = ({ id }: { id: string, idx?: number }) => {
+  const CheckBoxItem = ({ id, idx }: { id: string, idx?: number }) => {
     return props.showCheckBox ? <View
       className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${checkedArr.includes(id) && 'bg-primary-red'}`}
-      onClick={() => { handleChecked(id) }}>
+      onClick={() => { handleChecked(id, idx) }}>
       <AtIcon value='check' color=' #fff'></AtIcon>
     </View> : null
   }
@@ -117,7 +116,7 @@ const PetList = (props: Props) => {
               <View className="w-full flex relative mb-2">
                 <View className="text-center h-full w-full flex items-center">
                   <View className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md relative"
-                    onClick={() => { handleChecked(fakePet[0].id) }}>
+                    onClick={() => { handleChecked(fakePet[0].id, 0) }}>
                     <Image
                       src={fakePet[0].image || (fakePet[0].type === 'DOG' ? Dog : Cat)}
                       // src={pet.image}
@@ -167,14 +166,14 @@ const PetList = (props: Props) => {
                   className="w-full flex items-center"
                   circular
                   displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
+                  current={currentIdx}
                   onChange={({ detail }) => {
-
-                    let current = fakePet.length > 1 ? detail.current + 1 : detail.current
-                    if (current >= fakePet.length) {
-                      current = 0
-                    }
-                    console.log(' current', current, detail, fakePet)
-                    handleChange(current)
+                    // let current = fakePet.length > 1 ? detail.current + 1 : detail.current
+                    // if (current >= fakePet.length) {
+                    //   current = 0
+                    // }
+                    console.log(' current', detail.current, currentIdx)
+                    handleChange(detail.current)
                   }}
                 >
                   {fakePet.map((pet, idx: number) => (
@@ -184,9 +183,9 @@ const PetList = (props: Props) => {
                           <View
                             className={`w-16  bg-white h-16 rounded-full shadow-md flex items-center justify-center relative 
                             ${currentIdx !== idx && 'scale-75 transform'} 
-                            ${(petList?.length === 2 && (currentIdx === idx - 1 || (currentIdx === 3 && idx === 0))) && 'hidden'
+                            ${(petList?.length === 2 && (currentIdx === idx || (currentIdx === 2 && idx === 0))) && 'hidden'
                               }`}
-                            onClick={() => { handleChecked(pet.id) }}
+                            onClick={() => { handleChecked(pet.id, idx) }}
                           >
                             <Image
                               src={pet.image || (pet.type === 'DOG' ? Dog : Cat)}
