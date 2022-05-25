@@ -76,10 +76,10 @@ const VoucherModal = ({
             <VoucherItem
               voucher={item}
               changeSelected={changeSelected}
-              backgroundImageUrl={item.isExpired ? VOUCHER_INVALID : VOUCHER_NO_RECEIVED}
-              showRadioSelect={!item.isExpired}
-              priceClass={item.isExpired ? 'text-white' : 'text-primary-red'}
-              expiredTimeClass={item.isExpired ? 'text-white' : 'text-gray-400'}
+              backgroundImageUrl={!item?.isCanUsed ? VOUCHER_INVALID : VOUCHER_NO_RECEIVED}
+              showRadioSelect={item?.isCanUsed}
+              priceClass={!item?.isCanUsed ? 'text-white' : 'text-primary-red'}
+              expiredTimeClass={!item?.isCanUsed ? 'text-white' : 'text-gray-400'}
             />
           ))}
         </View>
