@@ -6,6 +6,7 @@ export const CREATE_SUBSCRIPTION_ENTRY = `${CDNIMGURL}MP_Subacription_02.png`
 export const SUBSCRIPTION_DESCRIPTION = `${CDNIMGURL}MP_Subacription_03.png`
 export const SUBSCRIPTION_HELP_ICON = `${CDNIMGURL}Icon_MP_Help.svg`
 export const SUBSCRIPTION_TAG_ICON = `${CDNIMGURL}Icon_MP_Pricetag.png`
+export const SUBSCRIPTION_IMG = `${CDNIMGURL}MP-Subscription.png`
 
 // export const SAMRAT_SUBSCRIPTION = `${CDNIMGURL}MP_Subacription_04.png`
 

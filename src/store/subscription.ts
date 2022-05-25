@@ -9,7 +9,7 @@ type RecommendInfoType = {
   giftList: any[]
 }
 
-export type RecommendProductType = {
+type RecommendProductType = {
   goodsVariantInfo?: any;
   cycleList?: any[];
   quantity?: number;
@@ -18,6 +18,10 @@ export type RecommendProductType = {
   freshType: string;
   couponList: any[]
 }
+
+// type PetInfoType={
+
+// }
 // 季卡0 半年卡1 年卡2
 export const currentStepAtom = atom(0)
 
