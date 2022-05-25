@@ -62,12 +62,13 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     voucherUsageBeginningOfTime,
     voucherUsageEndOfTime,
     discountType,
+    voucherType,
   } = voucher
   return {
     id: origin === 'pdp' ? id : voucher.voucherId,
     voucherPrice:
       discountType === 'PERCENTAGE' && Number(discountValue) < 1
-        ? Number(discountValue) * Number(minimumBasketPrice)
+        ? Number(discountValue || 0) * Number(minimumBasketPrice || 0)
         : Number(discountValue || 0), //优惠价格
     voucherName: voucherName, //优惠券name
     voucherDescription: voucherDescription, //优惠券描述
@@ -80,6 +81,9 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     isSelect: false, //是否在checkout页面已选择
     voucherUsePrice: Number(minimumBasketPrice || 0), //达到多少钱可使用优惠券
     isUsed: origin === 'pdp' ? false : voucherStatus === '1', //是否已使用
+    voucherType: voucherType,
+    isCanUsed: false,
+    goodsInfoIds: origin === 'pdp' ? [] : voucher?.goodsInfoIds || [],
   }
 }
 
