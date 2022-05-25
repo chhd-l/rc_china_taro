@@ -210,10 +210,11 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
       case '干/湿':
         let value =
           (attr.attributeValueName == '湿粮' && '每日一包') ||
-          (attr.attributeValueName == '其他' && '2日一罐') ||
-          (attr.attributeValueName == '干粮' && feedingDays && `建议饲喂天数:${feedingDays}天`)
+          (attr.attributeValueName == '其他' && '2日一罐')
+        let dryVal = attr.attributeValueName == '干粮' && feedingDays && `建议饲喂天数:${feedingDays}天`
 
         tags[1] = value ? `建议干湿搭配:${value}` : ''
+        tags[2] = dryVal || ''
         break
     }
   })
