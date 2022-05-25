@@ -184,7 +184,9 @@ const petItemFeArr = [
 ]
 
 export const normalizeCartData = (cart: any, productSkuInfo: any) => {
-  cart.skuGoodInfo = productSkuInfo
+  const productSku = { ...productSkuInfo }
+  delete productSku.goodsAsserts
+  cart.skuGoodInfo = productSku
   cart.select = false
   cart.localData = {
     name: productSkuInfo.goodsName,
