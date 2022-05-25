@@ -39,7 +39,7 @@ const List = () => {
                   <View className="font-medium text-primary-red">¥{product.marketingPrice}</View>
                 </View>
                 <View onClick={() => {
-                  toDetail(item.goodsVariantInfo.spuNo)
+                  toDetail(item.goodsVariantInfo.id)
                 }}
                   className="buy-button px-2 py-1 bg-white text-primary-red border border-solid border-primary-red rounded-full">
                   查看详情
