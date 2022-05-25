@@ -9,9 +9,24 @@ export const getBreedList = async () => {
   try {
     const { breeds } = await ApiRoot.pets().getBreeds({ body: params })
     // const breeds = mockPetlist;
-    console.info('breedsbreedsbreedsbreeds', breeds)
     return breeds
   } catch (err) {
     return []
   }
 }
+
+export const getSortedBreeds = async ({ type }) => {
+  let params: any = { storeId: baseSetting.storeId }
+  if (type) {
+    params.type = type
+  }
+  try {
+    const { breedsSortedByPy } = await ApiRoot.pets().getSortedBreeds({ body: params })
+    // const breeds = mockPetlist;
+    console.info('breedsSortedByPy', breedsSortedByPy)
+    return breedsSortedByPy || []
+  } catch (err) {
+    return []
+  }
+}
+

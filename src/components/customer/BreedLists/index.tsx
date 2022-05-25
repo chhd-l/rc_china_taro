@@ -7,13 +7,14 @@ interface Props {
   handleBreed: (option: BreedListItemProps) => void
 }
 const BreedLists = ({ activeId, list, handleBreed }: Props) => {
+  console.info('list', list)
   return (
     <ScrollView className="scrollview" style={{ height: '100vh' }} scrollY scrollIntoView={activeId}>
-      {list.map((item) => (
+      {list?.filter(el => el?.data?.length)?.map((item) => (
         <View id={`item-${item.letter}`}>
           <View className="title px-4 py-2">{item.letter.toUpperCase()}</View>
           <View>
-            {item.data.map((el) => (
+            {item?.data?.map((el) => (
               <View
                 className="bg-white px-6"
                 onClick={() => {

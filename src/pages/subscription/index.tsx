@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import PetList from '@/components/customer/PetList'
 import SubList from '@/components/creatSubscription/SubList'
 import { View, Image } from '@tarojs/components'
-import { getSubscriptionSimpleRecommend } from '@/framework/api/subscription/subscription'
+import { getSubscriptionSimpleRecommend, subscriptionDetail, subscriptionFindByCustomerId, subscriptionScheduleNextDelivery } from '@/framework/api/subscription/subscription'
 import Taro from '@tarojs/taro'
 import './index.less'
 
@@ -15,16 +15,15 @@ const Subscription = () => {
   const toSub = () => {
     Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })
   }
-  const test = async () => {
-    let params = {
-      subscriptionType: 'FRESH_BUY',
-      petType: 'CAT',
-      petBreedCode: "10001",
-      isPetSterilized: true,
-      petBirthday: "2021-01-09T00:00:00.000Z"
-    }
-    let data = await getSubscriptionSimpleRecommend(params)
-    console.info('data', data)
+  const test = () => {
+    // subscriptionDetail("73117cde-28be-f382-b910-8d169efd48e5")
+    // subscriptionFindByCustomerId("25a96973-c23b-e6b6-2e8d-3c8a85922b1e")
+    // let params = {
+    //   id: "73117cde-28be-f382-b910-8d169efd48e5",
+    //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
+    //   operator: "ss"
+    // }
+    // subscriptionScheduleNextDelivery(params)
   }
   useEffect(() => {
     test()

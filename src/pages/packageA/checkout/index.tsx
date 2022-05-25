@@ -175,12 +175,12 @@ const Checkout = () => {
           },
           success: () => {
             // 订阅支付成功需要跳转subscription
-            Taro.switchTab({
-              url: '/pages/subscription/index',
-            })
-            // Taro.redirectTo({
-            //   url: `${routers.orderList}?status=TO_SHIP`,
+            // Taro.switchTab({
+            //   url: '/pages/subscription/index',
             // })
+            Taro.redirectTo({
+              url: `${routers.orderList}?status=TO_SHIP`,
+            })
           },
           fail: () => {
             Taro.redirectTo({
