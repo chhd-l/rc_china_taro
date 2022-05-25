@@ -10,7 +10,7 @@ import './index.less'
 const Purchased = () => {
   const [recommendInfo] = useAtom(recommendInfoAtom)
   const [recommendProduct] = useAtom(recommendProductAtom)
-  const { goodsVariantInfo: { goodsVariants, goodsAttributeValueRel }, giftList } = recommendProduct
+  const { goodsVariantInfo: { goodsVariants, goodsAttributeValueRel, goodsAsserts, goodsName }, giftList } = recommendProduct
 
 
 
@@ -19,11 +19,11 @@ const Purchased = () => {
     <View className="borderLine" />
     <View className="h-45 w-full flex flex-row my-4">
       <View className=" w-38 mr-2 relative" >
-        <Image className="w-full h-full" src={goodsVariants[0].defaultImage} />
+        <Image className="w-full h-full" src={goodsVariants[0]?.defaultImage || goodsAsserts?.[0]?.artworkUrl} />
         <CountTag count={recommendProduct.quantity} />
       </View>
       <View className="flex-1 h-30 pt-15">
-        <View className="font-bold text-rc26 text-rc_222222">{goodsVariants[0].name}</View>
+        <View className="font-bold text-rc26 text-rc_222222">{goodsVariants[0]?.name || goodsName}</View>
         <View className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center my-2">逐包随单发货</View>
         {
           normalizeTags(goodsAttributeValueRel, goodsVariants[0].feedingDays).map(item => (
@@ -45,11 +45,11 @@ const Purchased = () => {
         <View className="flex flex-col" key={list.id}>
           <View className="flex flex-row">
             <View className="w-rc190 h-rc190  mr-2 relative">
-              <Image className="w-full h-full" src={list.defaultImage} />
+              <Image className="w-full h-full" src={list.goodsVariants[0]?.defaultImage || list.goodsAsserts?.[0]?.artworkUrl} />
               <CountTag count={10} />
             </View>
             <View className="flex-1">
-              <View className="font-bold text-rc26 text-rc_222222">{list.goodsName}</View>
+              <View className="font-bold text-rc26 text-rc_222222">{list.goodsVariants[0]?.name || list.goodsName}</View>
               <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View>
               <View className="flex flex-row items-center" >
                 <IconFont name="a-Frame1" size={73} />

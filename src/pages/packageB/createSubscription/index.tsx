@@ -13,8 +13,8 @@ const Index = () => {
   const priceFooter = stepCount === 1 && <PriceFooter />
   return (
     <View className="px-2 relative">
-      <View className="border-gray-50  w-full h-rc560 my-3">
-        <Image src={SUBSCRIPTION_IMG} className="w-full h-full" />
+      <View className="border-gray-50  w-full my-3">
+        <Image src={SUBSCRIPTION_IMG} mode="widthFix" className="w-full" />
       </View>
       <Step />
       <CommonProblem />
