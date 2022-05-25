@@ -71,7 +71,9 @@ const Step = () => {
         stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => {
           // console.log('recommenProduct', recommenProduct)
           const { freshType, cycle, goodsVariantInfo, giftList } = recommenProduct
-          const { recommPetInfo: pet } = recommendInfo
+          const { recommPetInfo } = recommendInfo
+          let { birthday, code: breedCode, breed: breedName, gender, id, image, name, type } = recommPetInfo
+          birthday = moment(birthday)
           let goodsList = [goodsVariantInfo]
           Taro.setStorage({
             key: 'select-product',
@@ -79,7 +81,9 @@ const Step = () => {
               type: 'FRESH_BUY',
               cycle,
               freshType,
-              pet,
+              pet: {
+                birthday, breedCode, breedName, gender, id, image, name, type
+              },
               goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el)),
               isSubscription: true,
               giftList: giftList?.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el)) || [],
@@ -93,7 +97,7 @@ const Step = () => {
         }}>确认套餐</AtButton>
       }
     </View>
-  </View>
+  </View >
 }
 
 export default Step
