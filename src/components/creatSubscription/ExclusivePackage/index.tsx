@@ -26,6 +26,7 @@ const ExclusivePackage = () => {
         setRecommendProduct({ ...recommendProduct, ...good, freshType: val })
       }
     } else {
+      // 切换到普通 默认显示推荐第一条商品
       setRecommendProduct({ ...recommendProduct, ...goodsList[0], freshType: val })
     }
     setCurrent(val)
