@@ -131,6 +131,7 @@ const Checkout = () => {
         benefits,
         couponList: [],
         remark,
+        totalDeliveryTimes: subscriptionInfo.cycleObj.quantity//配送次数
       }
       let params = {
         input: subscriptionInput,
@@ -349,7 +350,7 @@ const Checkout = () => {
           let { giftList, couponList } = data
           let subInfo = {
             cycleObj: data.cycle,
-            freshType: data.freshType,
+            freshType: data.freshType || 'FRESH_NORMAL',
             type: data.type,
             pet: data.pet
           }
