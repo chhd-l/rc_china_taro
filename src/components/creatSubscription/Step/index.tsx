@@ -1,4 +1,4 @@
-
+import moment from 'moment'
 import PetList from '@/components/customer/PetList'
 import { useAtom } from 'jotai'
 import { currentStepAtom, recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
@@ -12,7 +12,6 @@ import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
 import AtMyStep from '../components/AtMyStep'
-import { useState } from 'react'
 
 
 
@@ -28,22 +27,22 @@ const Step = () => {
   const [recommenProduct, setRecommendProduct] = useAtom(recommendProductAtom)
 
   const goNextStep = async () => {
-    // const { type, code, birthday, isSterilized } = recommendInfo.recommPetInfo
-    // const params = {
-    //   subscriptionType: 'FRESH_BUY',
-    //   petType: type,
-    //   petBreedCode: code,
-    //   isPetSterilized: isSterilized,
-    //   petBirthday: moment(birthday)
-    // }
-
+    const { type, code, birthday, isSterilized } = recommendInfo.recommPetInfo
     const params = {
       subscriptionType: 'FRESH_BUY',
-      petType: 'CAT',
-      petBreedCode: "10001",
-      isPetSterilized: true,
-      petBirthday: "2021-01-09T00:00:00.000Z"
+      petType: type,
+      petBreedCode: code,
+      isPetSterilized: isSterilized,
+      petBirthday: moment(birthday)
     }
+
+    // const params = {
+    //   subscriptionType: 'FRESH_BUY',
+    //   petType: 'CAT',
+    //   petBreedCode: "10001",
+    //   isPetSterilized: true,
+    //   petBirthday: "2021-01-09T00:00:00.000Z"
+    // }
 
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
@@ -70,7 +69,7 @@ const Step = () => {
       }
       {
         stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => {
-          console.log('recommenProduct', recommenProduct)
+          // console.log('recommenProduct', recommenProduct)
           const { freshType, cycle, goodsVariantInfo, giftList } = recommenProduct
           const { recommPetInfo: pet } = recommendInfo
           let goodsList = [goodsVariantInfo]
@@ -91,7 +90,6 @@ const Step = () => {
               Taro.navigateTo({ url: routers.checkout })
             },
           })
-          console.log('params', goodsList)
         }}>确认套餐</AtButton>
       }
     </View>
