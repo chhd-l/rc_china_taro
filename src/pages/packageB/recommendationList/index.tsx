@@ -1,4 +1,3 @@
-import { ProductListItemProps } from '@/framework/types/products'
 import { recommendInfoAtom } from '@/store/subscription'
 import { View, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'

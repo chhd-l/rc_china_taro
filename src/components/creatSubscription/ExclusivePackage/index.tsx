@@ -1,5 +1,5 @@
 import IconFont from "@/iconfont"
-import { recommendProductAtom } from "@/store/subscription"
+import { recommendInfoAtom, recommendProductAtom } from "@/store/subscription"
 import { Image, Text, View } from "@tarojs/components"
 import Taro from "@tarojs/taro"
 import { useAtom } from "jotai"
@@ -12,11 +12,12 @@ import './index.less'
 
 const ExclusivePackage = () => {
   const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
+  const [recommendInfo] = useAtom(recommendInfoAtom)
   const { goodsVariantInfo: { goodsVariants } } = recommendProduct
   const [current, setCurrent] = useState('FRESH_NORMAL')
   return <View>
     <View className="m-4">
-      <View className="font-bold text-base ">胖胖的专属套餐</View>
+      <View className="font-bold text-base ">{recommendInfo?.recommPetInfo?.name}的专属套餐</View>
       <View className="borderLine" />
       <View className="px-rc120 pt-rc120" >
         <View className="w-full  h-60 relative" >

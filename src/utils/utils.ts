@@ -102,3 +102,8 @@ export const getDateDiff = (startTime, endTime) => {
     second: day > 0 || hour > 0 || minute > 30 ? 0 : second,
   }
 }
+
+
+export const getRecommendProduct = () => {
+
+}
