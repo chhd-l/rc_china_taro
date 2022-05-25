@@ -9,10 +9,12 @@ const List = () => {
   const [goodsList] = useAtom(recommendInfoAtom)
   const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
 
-  const toDetail = (spu) => {
+  const toDetail = (e, spu) => {
     Taro.navigateTo({
       url: `/pages/packageA/productDetail/index?id=${spu}`,
     })
+    e.stopPropagation()
+
   }
   const chooseRecommendProduct = (good) => {
     setRecommendProduct({ ...recommendProduct, ...good })
@@ -38,8 +40,8 @@ const List = () => {
                   <View className="origin-price line-through text-gray-400">原价：¥{product.listPrice}</View>
                   <View className="font-medium text-primary-red">¥{product.marketingPrice}</View>
                 </View>
-                <View onClick={() => {
-                  toDetail(item.goodsVariantInfo.id)
+                <View onClick={(e) => {
+                  toDetail(e, item.goodsVariantInfo.id)
                 }}
                   className="buy-button px-2 py-1 bg-white text-primary-red border border-solid border-primary-red rounded-full">
                   查看详情

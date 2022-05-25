@@ -19,28 +19,29 @@ interface Props {
 }
 const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
-  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const [fakePet, setFakePet] = useState<any>([])
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const { currentIdx, checkedArr } = recommendInfo
+  const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
+
   const handleChange = (current: number) => {
     setRecommendInfo({ ...recommendInfo, currentIdx: current })
   }
 
   useEffect(() => {
-    if (customerInfo?.id) {
+    if (customerInfos?.id) {
       getList()
     }
-  }, [customerInfo])
+  }, [])
 
   Taro.useDidShow(() => {
-    console.log(customerInfo, 'customerInfogetList')
+    console.log(customerInfos, 'customerInfogetList')
     getList()
   })
 
   const getList = async () => {
-    const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
+    console.log('customerInfos', customerInfos)
     if (!customerInfos?.id) {
       return
     }
@@ -65,7 +66,7 @@ const PetList = (props: Props) => {
     }
   }
   const handleChecked = (value, index) => {
-    console.log('index', index)
+    console.log('index', index, petList.length)
     // setCheckedArr([value])
     let pet = petList.find(el => el.id === value)
     props.handleCheckedPet?.(pet)
@@ -90,7 +91,6 @@ const PetList = (props: Props) => {
       url: `/pages/packageB/petList/index?petNumber=${petList.length}`,
     })
   }
-  console.info('checkedArrcheckedArrcheckedArr', checkedArr)
   const CheckBoxItem = ({ id, idx }: { id: string, idx?: number }) => {
     return props.showCheckBox ? <View
       className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${checkedArr.includes(id) && 'bg-primary-red'}`}
@@ -172,7 +172,7 @@ const PetList = (props: Props) => {
                     // if (current >= fakePet.length) {
                     //   current = 0
                     // }
-                    console.log(' current', detail.current, currentIdx)
+                    // console.log(' current', detail.current, currentIdx)
                     handleChange(detail.current)
                   }}
                 >
@@ -182,7 +182,7 @@ const PetList = (props: Props) => {
                         {pet.id != '-1' ? (
                           <View
                             className={`w-16  bg-white h-16 rounded-full shadow-md flex items-center justify-center relative 
-                            ${currentIdx !== idx && 'scale-75 transform'} 
+                            ${currentIdx !== idx - 1 && 'scale-75 transform'} 
                             ${(petList?.length === 2 && (currentIdx === idx || (currentIdx === 2 && idx === 0))) && 'hidden'
                               }`}
                             onClick={() => { handleChecked(pet.id, idx) }}

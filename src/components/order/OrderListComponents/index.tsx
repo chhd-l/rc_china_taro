@@ -50,7 +50,7 @@ const OrderListComponents = ({
         >
           <View className="h-6 flex justify-between items-center headerText">
             <View className="flex items-center">
-              <IconFont name='a-Group201' size={23} />
+              {item.isSubscription ? <IconFont name='a-Group201' size={28} /> : null}
               订单编号: {item.orderNumber}
               <View
                 className="ml-2 copy"
