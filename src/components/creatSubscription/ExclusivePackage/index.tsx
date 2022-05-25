@@ -19,8 +19,8 @@ const ExclusivePackage = () => {
       <View className="font-bold text-base ">胖胖的专属套餐</View>
       <View className="borderLine" />
       <View className="px-rc120 pt-rc120" >
-        <View className="w-full  h-60 relative" >
-          <Image className="w-full h-full" src={goodsVariants[0].defaultImage} />
+        <View className="w-full relative" >
+          <Image className="w-full " mode="widthFix" src={goodsVariants[0].defaultImage} />
           <CountTag count={recommendProduct.quantity} />
         </View>
         <View onClick={() => Taro.navigateTo({ url: '/pages/packageB/recommendationList/index' })}
