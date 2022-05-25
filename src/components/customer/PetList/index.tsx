@@ -165,25 +165,22 @@ const PetList = (props: Props) => {
                   style={{ height: '80px' }}
                   className="w-full flex items-center"
                   circular
-                  displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
+                  // displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
+                  nextMargin='200rpx'
+                  previousMargin='200rpx'
                   current={currentIdx}
-                  onChange={({ detail }) => {
-                    // let current = fakePet.length > 1 ? detail.current + 1 : detail.current
-                    // if (current >= fakePet.length) {
-                    //   current = 0
-                    // }
-                    // console.log(' current', detail.current, currentIdx)
-                    handleChange(detail.current)
-                  }}
+                  onChange={({ detail }) => handleChange(detail.current)}
                 >
-                  {fakePet.map((pet, idx: number) => (
-                    <SwiperItem key={idx}>
+                  {fakePet.map((pet, idx: number) => {
+
+
+                    return <SwiperItem key={idx}>
                       <View className="text-center h-full flex items-center justify-center">
                         {pet.id != '-1' ? (
                           <View
                             className={`w-16  bg-white h-16 rounded-full shadow-md flex items-center justify-center relative 
-                            ${currentIdx !== idx - 1 && 'scale-75 transform'} 
-                            ${(petList?.length === 2 && (currentIdx === idx || (currentIdx === 2 && idx === 0))) && 'hidden'
+                          ${currentIdx !== idx && 'scale-75 transform'} 
+        ${(petList?.length === 2 && (currentIdx === idx || (currentIdx === 2 && idx === 0))) && 'hidden'
                               }`}
                             onClick={() => { handleChecked(pet.id, idx) }}
                           >
@@ -202,7 +199,9 @@ const PetList = (props: Props) => {
                         ) : null}
                       </View>
                     </SwiperItem>
-                  ))}
+                  }
+
+                  )}
                 </Swiper>
                 <View className="w-6 h-6 m-auto" onClick={toPetList}>
                   <View

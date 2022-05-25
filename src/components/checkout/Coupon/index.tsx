@@ -5,37 +5,64 @@ import { VOUCHER_ORDER_ICON } from '@/lib/constants'
 import CheckoutVoucherModal from '@/components/voucher/CheckoutVoucherModal'
 import { Voucher } from '@/framework/types/voucher'
 import { getListVouchers } from '@/framework/api/voucher/voucher'
+import cloneDeep from 'lodash.cloneDeep'
 
-const Coupon = ({ totalPrice }: { totalPrice: number }) => {
+const Coupon = ({ totalPrice, tradeItems }: { totalPrice: number; tradeItems: any[] }) => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
   const [showVoucherModal, setShowVoucherModal] = useState(false)
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [selectedVoucher, setSelectedVoucher] = useState<any>(null)
+  const [initVouchers, setInitVouvhers] = useState<Voucher[]>([])
 
   //有可使用的优惠券时默认显示最高价值的优惠券
   const handleDefaultVoucher = () => {
-    const canUsedVoucher = vouchers.filter((el) => !el.isExpired)
-    canUsedVoucher
-      .sort((a, b) => a.voucherPrice - b.voucherPrice)
-      .map((el) => {
-        if (totalPrice > el.voucherUsePrice && !selectedVoucher) {
-          setSelectedVoucher(el)
-          setVouchers(
-            vouchers.map((item) => {
-              item.isSelect = item.id === el.id
-              return item
-            }),
-          )
+    //1、未使用优惠券列表
+    //2、店铺型优惠券满足满减金额
+    //3、商品型优惠券，所下单商品内有可用该优惠券且满足满减金额
+    const records = cloneDeep(vouchers)
+      .map((el: Voucher) => {
+        if (el.voucherType === 'SHOP_VOUCHER' && totalPrice >= el.voucherUsePrice) {
+          el.isCanUsed = true
         }
-        return
+        if (el.voucherType === 'PRODUCT_VOUCHER') {
+          let canUsedProduct: any[] = []
+          el.goodsInfoIds.map((goodsInfoId) => {
+            const item = tradeItems.find((orderProduct) => goodsInfoId === orderProduct?.skuGoodInfo?.id)
+            if (item) {
+              canUsedProduct.push(item)
+            }
+          })
+          const totalDiscountPrice = canUsedProduct.reduce((prev, cur) => {
+            return prev + cur?.goodsVariants[0].marketingPrice
+          }, 0)
+          el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
+        }
+        return el
       })
+      .sort((a, b) => Number(a.isCanUsed) - Number(b.isCanUsed))
+      .reverse()
+    console.log('1111111', records)
+    const maxVoucher = cloneDeep(records)
+      .filter((el) => el?.isCanUsed)
+      ?.sort((a, b) => a.voucherPrice - b.voucherPrice)
+    if (!selectedVoucher && maxVoucher.length > 0) {
+      setSelectedVoucher(maxVoucher[0])
+      setVouchers(
+        records.map((item) => {
+          item.isSelect = item.id === maxVoucher[0].id
+          return item
+        }),
+      )
+    } else {
+      setVouchers(records)
+    }
   }
 
   //获取优惠券列表
   const getVoucherList = async () => {
     let res = await getListVouchers()
-    const records = res.notUsedVouchers.sort((a, b) => a.isExpired - b.isExpired)
-    setVouchers(records)
+    setVouchers(res.notUsedVouchers)
+    setInitVouvhers(res.notUsedVouchers)
   }
 
   //打开优惠券选择弹框或者提示无可用优惠券
@@ -49,6 +76,7 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
 
   //手动选择优惠券
   const selectVoucher = (value) => {
+    console.log(222222)
     setShowVoucherModal(false)
     setSelectedVoucher(value)
     setVouchers(
@@ -60,8 +88,10 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
   }
 
   useEffect(() => {
-    handleDefaultVoucher()
-  }, [totalPrice, vouchers])
+    if (tradeItems.length > 0 && initVouchers.length > 0 && totalPrice > 0) {
+      handleDefaultVoucher()
+    }
+  }, [totalPrice, initVouchers, tradeItems])
 
   useEffect(() => {
     getVoucherList()

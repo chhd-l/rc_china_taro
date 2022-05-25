@@ -387,7 +387,7 @@ const Checkout = () => {
 
           <View>
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
-            <Coupon totalPrice={totalPrice} />
+            <Coupon totalPrice={totalPrice} tradeItems={tradeItems}/>
             <Remark changeRemark={changeRemark} />
           </View>
         </View>

@@ -9,7 +9,10 @@ export const dataSource = [
     isExpired: true,
     isSelect: false,
     voucherUsePrice: 68,
-    isUsed:false
+    isUsed:false,
+    voucherType: 'SHOP_VOUCHER', //优惠券类型，店铺通用优惠券/商品型优惠券
+    isCanUsed: false, //checkout时是否可用
+    goodsInfoIds:[]
   },
   {
     id: '222',
@@ -21,7 +24,10 @@ export const dataSource = [
     isExpired: false,
     isSelect: false,
     voucherUsePrice: 68,
-    isUsed:true
+    isUsed:true,
+    voucherType: 'SHOP_VOUCHER', //优惠券类型，店铺通用优惠券/商品型优惠券
+    isCanUsed: false, //checkout时是否可用
+    goodsInfoIds:[]
   },
   {
     id: '333',
@@ -33,7 +39,10 @@ export const dataSource = [
     isExpired: true,
     isSelect: false,
     voucherUsePrice: 68,
-    isUsed:true
+    isUsed:true,
+    voucherType: 'SHOP_VOUCHER', //优惠券类型，店铺通用优惠券/商品型优惠券
+    isCanUsed: false, //checkout时是否可用
+    goodsInfoIds:[]
   },
   {
     id: '4444',
@@ -45,6 +54,9 @@ export const dataSource = [
     isExpired: false,
     isSelect: false,
     voucherUsePrice: 68,
-    isUsed:true
+    isUsed:true,
+    voucherType: 'PRODUCT_VOUCHER', //优惠券类型，店铺通用优惠券/商品型优惠券
+    isCanUsed: false, //checkout时是否可用
+    goodsInfoIds:['0eb20d9f-511f-8150-4909-db08ba5c1438']
   },
 ]
