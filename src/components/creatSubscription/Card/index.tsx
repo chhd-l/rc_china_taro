@@ -39,11 +39,12 @@ const Card = () => {
       <View className="flex flex-row ">
         {
           cycleList?.map((item, index) => (
-            <View key={item.value} className="flex-1 rounded-md cardChild" onClick={() => {
-              setCardType(index)
-              setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-              setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item })
-            }}>
+            <View key={item.value} className="flex-1 rounded-md cardChild"
+              onClick={() => {
+                setCardType(index)
+                setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
+                setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item })
+              }}>
               <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
 
                 <View className="h-3 confirmIcon flex relative">

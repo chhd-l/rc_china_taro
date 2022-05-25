@@ -48,7 +48,7 @@ const Step = () => {
       const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
       const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item?.goodsVariants?.[0]?.id))
       setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
-      setRecommendProduct({ ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
+      setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
     }
     setStepCount(stepCount + 1)
   }
