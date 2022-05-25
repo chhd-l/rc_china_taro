@@ -77,6 +77,7 @@ export interface Order {
   shippingAddress: Address
   payInfo?: PayInfo
   isSubscription?: string
+  subscriptionId?: string
   tradePrice: TradePrice
   tradeState?: TradeState
   logs?: Logs

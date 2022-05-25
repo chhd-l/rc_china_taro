@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { VOUCHER_ORDER_ICON } from '@/lib/constants'
 import CheckoutVoucherModal from '@/components/voucher/CheckoutVoucherModal'
 import { Voucher } from '@/framework/types/voucher'
-import { getVouchers } from '@/framework/api/voucher/voucher'
+import { getListVouchers } from '@/framework/api/voucher/voucher'
 
 const Coupon = ({ totalPrice }: { totalPrice: number }) => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
@@ -33,9 +33,9 @@ const Coupon = ({ totalPrice }: { totalPrice: number }) => {
 
   //获取优惠券列表
   const getVoucherList = async () => {
-    let res = await getVouchers()
-    res = res.sort((a, b) => a.isExpired - b.isExpired)
-    setVouchers(res)
+    let res = await getListVouchers()
+    const records = res.notUsedVouchers.sort((a, b) => a.isExpired - b.isExpired)
+    setVouchers(records)
   }
 
   //打开优惠券选择弹框或者提示无可用优惠券

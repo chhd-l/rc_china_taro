@@ -8,8 +8,6 @@ import VoucherItem from '@/components/voucher/VoucherItem'
 import { VOUCHER_EXPIRED, VOUCHER_NO_RECEIVED, VOUCHER_USED } from '@/lib/constants'
 import './index.less'
 
-const tabList = [{ title: '未使用' }, { title: '已使用' }, { title: '已过期' }]
-
 const VoucherStatusEnum = {
   NOT_USED: 0,
   USED: 1,
@@ -20,26 +18,39 @@ const VoucherList = () => {
   const [current, setCurrent] = useState('NOT_USED')
   const [voucherList, setVoucherList] = useState<Voucher[]>([])
   const { router } = getCurrentInstance()
+  const [voucherObj, setVoucherObj] = useState({
+    notUsedVouchers: [],
+    usedVouchers: [],
+    expiredVouchers: [],
+  })
+  const [tabList, setTableList] = useState([{ title: '未使用' }, { title: '已使用' }, { title: '已过期' }])
 
-  const getVoucherList = async (status) => {
-    const res = await getListVouchers({ status })
-    setVoucherList(res?.records)
+  const getVoucherList = async () => {
+    const res = await getListVouchers()
+    setVoucherObj(res)
+    setVoucherList(res.notUsedVouchers)
+    setTableList([
+      { title: res.notUsedVouchers.length > 0 ? `未使用(${res.notUsedVouchers.length})` : '未使用' },
+      { title: res.usedVouchers.length > 0 ? `已使用(${res.usedVouchers.length})` : '已使用' },
+      { title: res.expiredVouchers.length > 0 ? `已过期(${res.expiredVouchers.length})` : '已过期' },
+    ])
   }
 
   Taro.useDidShow(() => {
     const status = router?.params?.status || 'NOT_USED'
-    console.log('status', status)
     setCurrent(status)
-    getVoucherList(status)
+    getVoucherList()
   })
 
   const handleClick = (value) => {
-    Taro.setNavigationBarTitle({
-      title: tabList[value].title,
-    })
+    // Taro.setNavigationBarTitle({
+    //   title: tabList[value].title,
+    // })
     const cur = Object.values(VoucherStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(VoucherStatusEnum)[cur])
-    getVoucherList(Object.keys(VoucherStatusEnum)[cur])
+    setVoucherList(
+      value === 0 ? voucherObj.notUsedVouchers : value === 1 ? voucherObj.usedVouchers : voucherObj.expiredVouchers,
+    )
   }
 
   return (

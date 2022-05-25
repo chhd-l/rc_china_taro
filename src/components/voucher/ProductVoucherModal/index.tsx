@@ -3,7 +3,7 @@ import { AtFloatLayout, AtIcon } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { Voucher } from '@/framework/types/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
-import { getPdpVouchers } from '@/framework/api/voucher/voucher'
+import { getPdpVouchers, receiveVoucher } from '@/framework/api/voucher/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
 import './index.less'
 
@@ -29,9 +29,12 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
     return voucherNames
   }
 
-  //领取优惠券
-  const receiveVoucher = (voucher: Voucher) => {
+  //用户领取商品优惠券
+  const customerReceiveVoucher = async (voucher: Voucher) => {
     console.log('received voucher', voucher)
+    await receiveVoucher({
+      voucherId: voucher.id,
+    })
     setShowReceiveVoucher(false)
   }
 
@@ -82,7 +85,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
                 applyVoucher={() => {
                   setShowReceiveVoucher(false)
                 }}
-                receiveVoucher={receiveVoucher}
+                receiveVoucher={customerReceiveVoucher}
                 showApplyBtn={item.isReceived}
                 showReceiveBtn={!item.isReceived}
                 backgroundImageUrl={item.isReceived ? VOUCHER_RECEIVED : VOUCHER_NO_RECEIVED}
