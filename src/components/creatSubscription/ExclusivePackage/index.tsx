@@ -9,18 +9,11 @@ import AtMyRadio from "../components/AtMyRadio"
 import CountTag from "../components/CountTag"
 import './index.less'
 
-const checkboxOption = [{
-  value: '1',
-  label: '普通',
 
-}, {
-  value: '2',
-  label: '100天'
-},]
 const ExclusivePackage = () => {
-  const [recommendProduct] = useAtom(recommendProductAtom)
+  const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
   const { goodsVariantInfo: { goodsVariants } } = recommendProduct
-  const [current, setCurrent] = useState('1')
+  const [current, setCurrent] = useState('FRESH_NORMAL')
   return <View>
     <View className="m-4">
       <View className="font-bold text-base ">胖胖的专属套餐</View>
@@ -38,7 +31,6 @@ const ExclusivePackage = () => {
         <View className="flex direction-row items-center">
           <View className="bg-primary-red text-white text-rc20 w-rc98 h-rc26 flex flex-row items-center justify-center">
             <IconFont name="shangdianjia" size={24} />商城价</View>
-          {/* marketingPrice */}
           <View className="text-primary-red font-bold text-rc28">￥{goodsVariants[0].marketingPrice}/包</View>
           <View className="line-through text-textGray text-rc22 ml-2">￥{goodsVariants[0].listPrice}</View>
         </View>
@@ -49,7 +41,10 @@ const ExclusivePackage = () => {
           <IconFont name="wenhao01" size={20} />
           <Text className="ml-1">新鲜度</Text>
         </View>
-        <AtMyRadio options={checkboxOption} value={current} onClick={(val) => setCurrent(val)} />
+        <AtMyRadio value={current} onClick={(val) => {
+          setCurrent(val)
+          setRecommendProduct({ ...recommendProduct, freshType: val })
+        }} />
       </View>
     </View>
     <Card />

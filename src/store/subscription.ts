@@ -11,10 +11,12 @@ type RecommendInfoType = {
 
 export type RecommendProductType = {
   goodsVariantInfo?: any;
-  cycleList?: any[],
-  quantity?: number,
-  giftList?: any[]
-  cycle?: string
+  cycleList?: any[];
+  quantity?: number;
+  giftList: any[];
+  cycle?: string;
+  freshType: string;
+  couponList: any[]
 }
 // 季卡0 半年卡1 年卡2
 export const currentStepAtom = atom(0)
@@ -30,5 +32,9 @@ export const recommendInfoAtom = atom<RecommendInfoType>({
 })
 
 // 当前推荐商品
-export const recommendProductAtom = atom<RecommendProductType>({})
+export const recommendProductAtom = atom<RecommendProductType>({
+  giftList: [],
+  couponList: [],
+  freshType: 'FRESH_NORMAL'
+})
 

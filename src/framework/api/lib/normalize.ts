@@ -54,9 +54,7 @@ export const normalizeProductForFe = (goods: any): any => {
     )
     console.info('goodsSpecifications', goodsSpecifications)
   }
-  debugger
   if (goodsSpecifications?.length > 1) {
-    debugger
     //多个规格的情况，需要处理无库存的时候置灰
     goodsVariants = goodsVariants.filter(el => el.stock)
   }
@@ -102,7 +100,6 @@ export const normalizeSkuForFe = (
   goodsAttributeValueRel: any,
   goodsSpecifications,
 ): SkuItemProps => {
-  debugger
   let tags: string[] = normalizeTags(goodsAttributeValueRel, sku.feedingDays)
   // let tags = sku.feedingDays ? [...spuTags, `建议饲喂天数:${sku.feedingDays}天`] : [...spuTags]
   let item = {
