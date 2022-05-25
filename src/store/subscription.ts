@@ -14,7 +14,7 @@ type RecommendProductType = {
   cycleList?: any[];
   quantity?: number;
   giftList: any[];
-  cycle?: string;
+  cycle?: any;
   freshType: string;
   couponList: any[]
 }

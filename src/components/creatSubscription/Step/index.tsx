@@ -80,7 +80,7 @@ const Step = () => {
               // address: SubscriptionAddressInput!
               goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el)),
               isSubscription: true,
-              giftList: giftList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el)),
+              giftList: giftList?.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el)) || [],
               couponList: [],
             }),
             complete: (respon) => {
