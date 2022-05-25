@@ -18,14 +18,16 @@ const ExclusivePackage = () => {
 
   const changeFreshType = (val: string) => {
     const { goodsList } = recommendInfo
-    console.log('recommendInfo', recommendInfo, val)
-
-    if (!goodsVariants[0].isSupport100) {
-
+    if (val === 'FRESH_100_DAYS') {
+      if (!goodsVariants[0].isSupport100) {
+        // 新鲜度不存在100天 筛选存在100天的第一条数据
+        const good = goodsList.filter(item => item.goodsVariantInfo.goodsVariants[0].isSupport100)[0]
+        setRecommendProduct({ ...recommendProduct, ...good, freshType: val })
+      }
+    } else {
+      setRecommendProduct({ ...recommendProduct, ...goodsList[0], freshType: val })
     }
     setCurrent(val)
-    setRecommendProduct({ ...recommendProduct, freshType: val })
-    console.log('recommendProduct', recommendProduct)
   }
   return <View>
     <View className="m-4">

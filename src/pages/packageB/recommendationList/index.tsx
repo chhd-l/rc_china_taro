@@ -1,4 +1,4 @@
-import { recommendInfoAtom } from '@/store/subscription'
+import { recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
 import { View, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
@@ -7,12 +7,19 @@ import './index.less'
 
 const List = () => {
   const [goodsList] = useAtom(recommendInfoAtom)
+  const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
+
   const toDetail = (spu) => {
     Taro.navigateTo({
       url: `/pages/packageA/productDetail/index?id=${spu}`,
     })
   }
-  console.log('goodsList', goodsList)
+  const chooseRecommendProduct = (good) => {
+    setRecommendProduct({ ...recommendProduct, ...good })
+    Taro.navigateBack({
+      delta: 1
+    })
+  }
   return (
     <View className="px-1 product-list">
       <View className="product-list-box grid grid-cols-2 gap-2 px-2">
@@ -21,7 +28,7 @@ const List = () => {
           return <View
             key={product.name}
             className="col-span-1"
-            onClick={() => { }}
+            onClick={() => chooseRecommendProduct(item)}
           >
             <View className="border border-solid border-gray-300 rounded-sm pb-2 mb-2 text-center">
               <Image className="mx-auto" style="width:334rpx; height: 334rpx;" lazyLoad src={product.defaultImage} />
