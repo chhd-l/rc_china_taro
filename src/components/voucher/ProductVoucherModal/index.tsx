@@ -32,9 +32,12 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   //用户领取商品优惠券
   const customerReceiveVoucher = async (voucher: Voucher) => {
     console.log('received voucher', voucher)
-    await receiveVoucher({
+    const res = await receiveVoucher({
       voucherId: voucher.id,
     })
+    if (res) {
+      await getVoucherList()
+    }
     setShowReceiveVoucher(false)
   }
 
@@ -57,7 +60,9 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
         </View>
         <View
           className="text-primary-red flex items-center justify-end text-end w-full"
-          onClick={() => setShowReceiveVoucher(true)}
+          onClick={() => {
+            setShowReceiveVoucher(true)
+          }}
         >
           <Text>领券</Text>
           <AtIcon value="chevron-right" size="20" color="#d33024" />
