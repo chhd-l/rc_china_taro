@@ -18,7 +18,6 @@ const ExclusivePackage = () => {
 
   const changeFreshType = (val: string) => {
     const { goodsList } = recommendInfo
-    debugger
     if (val === 'FRESH_100_DAYS') {
       if (!goodsVariants[0].isSupport100) {
         // 新鲜度不存在100天 筛选存在100天的第一条数据

@@ -12,6 +12,7 @@ import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
 import AtMyStep from '../components/AtMyStep'
+import { useState } from 'react'
 
 
 
@@ -35,6 +36,7 @@ const Step = () => {
     //   isPetSterilized: isSterilized,
     //   petBirthday: moment(birthday)
     // }
+
     const params = {
       subscriptionType: 'FRESH_BUY',
       petType: 'CAT',
@@ -50,6 +52,7 @@ const Step = () => {
       setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
       setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
     }
+
     setStepCount(stepCount + 1)
   }
 
@@ -62,7 +65,8 @@ const Step = () => {
           setStepCount(stepCount - 1)
         }}>上一步</AtButton>}
       {
-        stepCount < 2 && <AtButton type='primary' className="stepButton" onClick={goNextStep}>下一步</AtButton>
+        stepCount < 2 && <AtButton type='primary' className="stepButton" onClick={goNextStep}
+          disabled={Object.keys(recommendInfo.recommPetInfo).length === 0}>下一步</AtButton>
       }
       {
         stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => {

@@ -9,10 +9,9 @@ import { useAtom } from 'jotai'
 import { getAge } from '@/utils/utils'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { Dog, Cat } from '@/utils/global'
-import { AtIcon } from 'taro-ui'
-
-import './index.less'
 import { recommendInfoAtom } from '@/store/subscription'
+import { AtIcon } from 'taro-ui'
+import './index.less'
 
 interface Props {
   showCheckBox?: boolean
@@ -95,7 +94,8 @@ const PetList = (props: Props) => {
   }
   console.info('checkedArrcheckedArrcheckedArr', checkedArr)
   const CheckBoxItem = ({ id, idx }: { id: string, idx?: number }) => {
-    return props.showCheckBox ? <View className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${checkedArr.includes(id) ? 'bg-primary-red' : ''}`} onClick={() => { handleChecked(id) }}>
+    return props.showCheckBox ? <View className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${checkedArr.includes(id) ? 'bg-primary-red' : ''}`}
+      onClick={() => { handleChecked(id) }}>
       <AtIcon value='check' color=' #fff'></AtIcon>
     </View> : null
   }
@@ -115,12 +115,14 @@ const PetList = (props: Props) => {
           <View className="box-border">
             <View className="w-full flex relative mb-2">
               <View className="text-center h-full w-full flex items-center">
-                <View className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md relative">
+                <View className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md relative"
+                  onClick={() => { handleChecked(fakePet[0].id) }}>
                   <Image
                     src={fakePet[0].image || (fakePet[0].type === 'DOG' ? Dog : Cat)}
                     // src={pet.image}
                     style={{ borderRadius: '50%' }}
                     className="w-full h-full m-auto Petpictureshadow"
+
                   />
                   <CheckBoxItem id={fakePet[0].id} idx={0} />
                 </View>
@@ -182,6 +184,7 @@ const PetList = (props: Props) => {
                               ? 'hidden'
                               : ''
                             }`}
+                          onClick={() => { handleChecked(pet.id) }}
                         >
                           <Image
                             src={pet.image || (pet.type === 'DOG' ? Dog : Cat)}
