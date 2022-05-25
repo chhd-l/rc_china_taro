@@ -15,6 +15,18 @@ const ExclusivePackage = () => {
   const [recommendInfo] = useAtom(recommendInfoAtom)
   const { goodsVariantInfo: { goodsVariants } } = recommendProduct
   const [current, setCurrent] = useState('FRESH_NORMAL')
+
+  const changeFreshType = (val: string) => {
+    const { goodsList } = recommendInfo
+    console.log('recommendInfo', recommendInfo, val)
+
+    if (!goodsVariants[0].isSupport100) {
+
+    }
+    setCurrent(val)
+    setRecommendProduct({ ...recommendProduct, freshType: val })
+    console.log('recommendProduct', recommendProduct)
+  }
   return <View>
     <View className="m-4">
       <View className="font-bold text-base ">{recommendInfo?.recommPetInfo?.name}的专属套餐</View>
@@ -42,10 +54,7 @@ const ExclusivePackage = () => {
           <IconFont name="wenhao01" size={20} />
           <Text className="ml-1">新鲜度</Text>
         </View>
-        <AtMyRadio value={current} onClick={(val) => {
-          setCurrent(val)
-          setRecommendProduct({ ...recommendProduct, freshType: val })
-        }} />
+        <AtMyRadio value={current} onClick={changeFreshType} />
       </View>
     </View>
     <Card />
