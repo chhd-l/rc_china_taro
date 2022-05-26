@@ -20,7 +20,7 @@ const Purchased = () => {
     <View className="h-45 w-full flex flex-row my-4 items-center">
       <View className=" w-38 mr-2 relative" >
         <Image className="w-full " mode="widthFix" src={goodsVariants[0]?.defaultImage || goodsAsserts?.[0]?.artworkUrl} />
-        <CountTag count={recommendProduct.quantity} />
+        <CountTag type="center">{recommendProduct.quantity!}</CountTag>
       </View>
       <View className="flex-1">
         <View className="font-bold text-rc26 text-rc_222222">{goodsVariants[0]?.name || goodsName}</View>
@@ -47,7 +47,7 @@ const Purchased = () => {
           <View className="flex flex-row items-center">
             <View className="w-rc190 h-rc190  mr-2 relative">
               <Image className="w-full" mode="widthFix" src={list.goodsVariants[0]?.defaultImage || list.goodsAsserts?.[0]?.artworkUrl} />
-              <CountTag count={recommendProduct.quantity! * 2} />
+              <CountTag type="center" >{recommendProduct.quantity! * 2}</CountTag>
             </View>
             <View className="flex-1">
               <View className="font-bold text-rc26 text-rc_222222">{list.goodsVariants[0]?.name || list.goodsName}</View>

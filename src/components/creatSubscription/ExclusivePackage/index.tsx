@@ -37,12 +37,12 @@ const ExclusivePackage = () => {
       <View className="px-rc120 pt-rc50" >
         <View className="w-full relative" >
           <Image className="w-full " mode="widthFix" src={goodsVariants[0].defaultImage} />
-          <CountTag count={recommendProduct.quantity!} />
+          <CountTag >{recommendProduct.quantity!}包</CountTag>
         </View>
         <View onClick={() => Taro.navigateTo({ url: '/pages/packageB/recommendationList/index' })}
           className="border border-rc_ECECEC border-solid text-rc16 text-textGray h-rc38 leading-rc38 mt-1 flex items-center justify-center" >
           <IconFont name="dingzhitaocan0" size={30} />
-          更多套餐选择备份  {'>'}</View>
+          更多套餐选择  {'>'}</View>
         <View className="font-bold text-rc23 my-2">{goodsVariants[0].name}</View>
         <View className="flex direction-row items-center">
           <View className="bg-primary-red text-white text-rc20 w-rc98 h-rc26 flex flex-row items-center justify-center">
