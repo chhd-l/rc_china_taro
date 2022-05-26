@@ -40,9 +40,8 @@ const VoucherItem = ({
       className={`${!showRadioSelect ? 'justify-center' : ''} flex flex-col w-full h-28 mb-2 bg-center`}
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
-        backgroundSize: 'contain',
+        backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
-        backgroundPositionX: 'center',
       }}
       onClick={() => {
         if (showRadioSelect) {
