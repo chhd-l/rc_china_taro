@@ -5,6 +5,7 @@ import IconFont from '@/iconfont'
 import { View, Image, Text } from '@tarojs/components'
 import Taro, { Current } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
+import moment from 'moment'
 import { useEffect } from 'react'
 import { AtButton } from 'taro-ui'
 import './index.less'
@@ -50,7 +51,7 @@ const DeliveryManagement = () => {
                 <View className="flex justify-between items-center">
                     <IconFont name="fahuoyizhan" size={80} />
                     <View className="text-24 text-right">
-                        下一包将在2022-03-18发货，请注意查收!
+                        下一包将在{moment(data?.nextDeliveryTime).format('YYYY-MM-DD')}发货，请注意查收!
                     </View>
                 </View>
                 <View className="flex">
