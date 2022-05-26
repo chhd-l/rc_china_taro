@@ -6,7 +6,6 @@ import { View, Image, Text } from '@tarojs/components'
 import Taro, { Current } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
 import moment from 'moment'
-import { useEffect } from 'react'
 import { AtButton } from 'taro-ui'
 import './index.less'
 

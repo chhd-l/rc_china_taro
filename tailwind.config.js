@@ -78,6 +78,10 @@ module.exports = {
         rc150: '150px',
       },
       padding: {
+        rc2: '2px',
+        rc4: '4px',
+        rc8: '8px',
+        rc10: '10px',
         rc50: '50px',
         rc80: '80px',
         rc100: '100px',

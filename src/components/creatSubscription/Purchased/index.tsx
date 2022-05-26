@@ -34,7 +34,6 @@ const Purchased = () => {
           <View className="my-2">
             <Text className="text-rc20 text-primary-red">￥</Text>
             <Text className="font-bold text-primary-red text-rc28">{goodsVariants[0].marketingPrice}</Text>
-            {/* <Text className="text-primary-red text-rc20">.00</Text> */}
           </View>
           <View className="text-textGray text-rc22">x{recommendProduct.quantity}</View>
         </View>
@@ -56,13 +55,13 @@ const Purchased = () => {
                 <IconFont name="a-Frame1" size={73} />
                 <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">逐包随单发货</Text>
               </View>
-              {
+              {/* {
                 normalizeTags(list.goodsAttributeValueRel, list.goodsVariants[0].feedingDays).map(tag => (
                   <View className="text-textGray text-rc22 my-1" key={tag}>
                     {tag}
                   </View>
                 ))
-              }
+              } */}
 
               <View className="flex justify-between">
                 <View className="text-primary-red">

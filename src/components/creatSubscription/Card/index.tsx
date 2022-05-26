@@ -47,15 +47,15 @@ const Card = () => {
               }}>
               <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
 
-                <View className="h-3 confirmIcon flex relative">
+                <View className="h-3 confirmIcon flex relative" >
                   {
                     index == cardType && <IconFont name="xuanzhong" size={30} />
                   }
-                  {index === cycleList.length - 1 && <View className="absolute right-0" style={{ top: '-14px' }}><IconFont name="tuijian" size={70} /></View>}
+                  {index === cycleList.length - 1 && <View className="absolute right-0" style={{ top: '-12px' }}><IconFont name="tuijian" size={70} /></View>}
                 </View>
 
                 <View className={` items-center  flex flex-col`}>
-                  <View className={`mx-1 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.quantity}包订阅价</View>
+                  <View className={`mx-1 py-rc8 px-rc10 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.quantity}包订阅价</View>
                   <View>
                     <Text className="text-rc30">￥</Text>
                     <Text className="text-rc48 font-bold">{item.discountPrice}</Text>
