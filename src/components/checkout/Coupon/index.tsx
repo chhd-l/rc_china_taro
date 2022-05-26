@@ -120,6 +120,7 @@ const Coupon = ({ totalPrice, tradeItems }: { totalPrice: number; tradeItems: an
         vouchers={vouchers}
       />
       <AtModal
+        className="rc-error-tips-modal-one"
         isOpened={showNoCoupon}
         title="提示"
         confirmText="确定"
