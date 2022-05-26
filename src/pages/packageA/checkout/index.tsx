@@ -65,10 +65,10 @@ const Checkout = () => {
     switch (orderType) {
       case 'FRESH_BUY':
         subscriptionCheckNow()
-        break;
+        break
       case 'normal':
         generalCheckNow()
-        break;
+        break
     }
   }
 
@@ -122,8 +122,8 @@ const Checkout = () => {
           points: user.points,
           account: {
             unionId: customerAccount.unionId,
-            openId: customerAccount.openId
-          }
+            openId: customerAccount.openId,
+          },
         },
         pet: subscriptionInfo.pet,
         address: addressInfo.id !== '' ? addressInfo : null,
@@ -131,14 +131,13 @@ const Checkout = () => {
         benefits,
         couponList: [],
         remark,
-        totalDeliveryTimes: subscriptionInfo.cycleObj.quantity//配送次数
+        totalDeliveryTimes: subscriptionInfo.cycleObj.quantity, //配送次数
       }
       let params = {
         input: subscriptionInput,
         payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
         storeId: '12345678',
         operator: customerInfo?.nickName || '',
-
       }
       console.log('create order params', params)
       const res = await subscriptionCreateAndPay(params)
@@ -187,7 +186,7 @@ const Checkout = () => {
               url: `${routers.orderList}?status=UNPAID`,
             })
           },
-          paymentRequest: res.payment
+          paymentRequest: res.payment,
         })
       } else {
         Taro.atMessage({
@@ -265,7 +264,7 @@ const Checkout = () => {
         tradeItems.map((item) => {
           cartProducts.map((el) => {
             if (item.id === el.id) {
-              const delIndex = cartProducts.findIndex(data => data.id === item.id)
+              const delIndex = cartProducts.findIndex((data) => data.id === item.id)
               cartProducts.splice(delIndex, 1)
             }
           })
@@ -356,7 +355,7 @@ const Checkout = () => {
             cycleObj: data.cycle,
             freshType: data.freshType || 'FRESH_NORMAL',
             type: data.type,
-            pet: data.pet
+            pet: data.pet,
           }
           setSubscriptionInfo(subInfo)
           setGiftItems(giftList)
@@ -387,7 +386,14 @@ const Checkout = () => {
 
           <View>
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
-            <Coupon totalPrice={totalPrice} tradeItems={tradeItems}/>
+            <Coupon
+              totalPrice={totalPrice}
+              tradeItems={tradeItems}
+              changeMaxDiscount={(maxDiscountPrice) => {
+                console.log('maxDiscountPrice',maxDiscountPrice)
+                setDiscountPrice(maxDiscountPrice)
+              }}
+            />
             <Remark changeRemark={changeRemark} />
           </View>
         </View>

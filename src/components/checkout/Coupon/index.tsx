@@ -7,7 +7,15 @@ import { Voucher } from '@/framework/types/voucher'
 import { getListVouchers } from '@/framework/api/voucher/voucher'
 import cloneDeep from 'lodash.cloneDeep'
 
-const Coupon = ({ totalPrice, tradeItems }: { totalPrice: number; tradeItems: any[] }) => {
+const Coupon = ({
+  totalPrice,
+  tradeItems,
+  changeMaxDiscount,
+}: {
+  totalPrice: number
+  tradeItems: any[]
+  changeMaxDiscount: Function
+}) => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
   const [showVoucherModal, setShowVoucherModal] = useState(false)
   const [vouchers, setVouchers] = useState<Voucher[]>([])
@@ -46,6 +54,7 @@ const Coupon = ({ totalPrice, tradeItems }: { totalPrice: number; tradeItems: an
       .filter((el) => el?.isCanUsed)
       ?.sort((a, b) => a.voucherPrice - b.voucherPrice)
     if (!selectedVoucher && maxVoucher.length > 0) {
+      changeMaxDiscount && changeMaxDiscount(handleMaxDiscount(maxVoucher[0]))
       setSelectedVoucher(maxVoucher[0])
       setVouchers(
         records.map((item) => {
@@ -56,6 +65,29 @@ const Coupon = ({ totalPrice, tradeItems }: { totalPrice: number; tradeItems: an
     } else {
       setVouchers(records)
     }
+  }
+
+  //计算当前优惠券可优惠最大金额
+  const handleMaxDiscount = (voucher) => {
+    if (voucher?.voucherType === 'SHOP_VOUCHER') {
+      return voucher.recurrence ? (totalPrice / voucher.voucherUsePrice) * voucher.voucherPrice : voucher.voucherPrice
+    }
+    if (voucher?.voucherType === 'PRODUCT_VOUCHER') {
+      let canUsedProduct: any[] = []
+      voucher.goodsInfoIds.map((goodsInfoId) => {
+        const item = tradeItems.find((orderProduct) => goodsInfoId === orderProduct?.skuGoodInfo?.id)
+        if (item) {
+          canUsedProduct.push(item)
+        }
+      })
+      const totalDiscountPrice = canUsedProduct.reduce((prev, cur) => {
+        return prev + cur?.goodsVariants[0].marketingPrice
+      }, 0)
+      return voucher.recurrence
+        ? (totalDiscountPrice / voucher.voucherUsePrice) * voucher.voucherPrice
+        : voucher.voucherPrice
+    }
+    return 0
   }
 
   //获取优惠券列表
@@ -79,6 +111,7 @@ const Coupon = ({ totalPrice, tradeItems }: { totalPrice: number; tradeItems: an
     console.log(222222)
     setShowVoucherModal(false)
     setSelectedVoucher(value)
+    changeMaxDiscount && changeMaxDiscount(handleMaxDiscount(value) || 0)
     setVouchers(
       vouchers.map((el) => {
         el.isSelect = el.id === value?.id
