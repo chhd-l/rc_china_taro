@@ -65,7 +65,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     voucherType,
   } = voucher
   return {
-    id: origin === 'pdp' ? id : voucher.voucherId,
+    id: id,
     voucherPrice:
       discountType === 'PERCENTAGE' && Number(discountValue) < 1
         ? Number(discountValue || 0) * Number(minimumBasketPrice || 0)
@@ -84,6 +84,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     voucherType: voucherType,
     isCanUsed: false,
     goodsInfoIds: origin === 'pdp' ? [] : voucher?.goodsInfoIds || [],
+    recurrence:voucher?.recurrence
   }
 }
 

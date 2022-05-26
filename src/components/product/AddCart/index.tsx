@@ -31,7 +31,7 @@ const AddCart = ({ handleShowSpec, detailInfo }: Props) => {
   const getCart = async () => {
     if (detailInfo?.id) {
       let data = await getCartNumber(detailInfo.id)
-      debugger
+      // debugger
       console.info('detailInfo.iddetailInfo.id', detailInfo.id)
       setCurrentCartSpu(data.currentCartSpu)
       setCartNumber(data.cartNumber)
