@@ -11,6 +11,7 @@ export const getCarts = async (isNeedReload = false) => {
       return Mock.mock(dataSource)
     } else {
       let cartProducts = session.get('cart-data')
+      let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
         const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
         cartProducts = res?.carts || []
@@ -18,17 +19,16 @@ export const getCarts = async (isNeedReload = false) => {
         for (let i = 0; i < cartProducts.length; i++) {
           //查询商品信息
           let data = await getProductBySkuId({ goodsVariantId: cartProducts[i].goodsVariantID })
-          //todo 商品被删除之后的处理方案
-          if (!data?.productBySkuId) {
-            cartProducts.splice(i, 1)
-          } else {
-            cartProducts[i] = normalizeCartData(cartProducts[i], data?.productBySkuId)
+          if (data?.productBySkuId) {
+            finallyCartDatas.push(normalizeCartData(cartProducts[i], data?.productBySkuId))
           }
         }
-        session.set('cart-data', cartProducts)
+        session.set('cart-data', finallyCartDatas)
+      } else {
+        finallyCartDatas = cartProducts
       }
-      console.log('cart products data', cartProducts)
-      return cartProducts || []
+      console.log('cart products data', finallyCartDatas)
+      return finallyCartDatas || []
     }
   } catch (err) {
     console.log('err', err)
@@ -40,11 +40,11 @@ export const getCartNumber = async (goodsId) => {
   const cartNumber = (res?.carts || []).reduce((prev, cur) => {
     return prev + cur.goodsNum
   }, 0)
-  let currentCartSpu = (res?.carts || []).filter(el => el.goodsId === goodsId)
+  let currentCartSpu = (res?.carts || []).filter((el) => el.goodsId === goodsId)
 
   return {
     cartNumber: cartNumber || 0,
-    currentCartSpu
+    currentCartSpu,
   }
 }
 

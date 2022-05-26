@@ -14,7 +14,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   const getVoucherList = async () => {
     console.log('aaaaaaa', goodsId)
     const res = await getPdpVouchers({ goodsId })
-    setVouchers(res)
+    setVouchers(res.sort((a, b) => a.isReceived - b.isReceived))
   }
 
   const handleVoucherName = () => {
@@ -49,25 +49,27 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
 
   return (
     <>
-      <View className="flex flex-row bg-gray-fb py-2 text-26">
-        <View className="flex flex-row" style={{ width: '80%' }}>
-          <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2">
-            本店活动
-          </Text>
-          <View className="px-2 truncate text-gray-400" style={{ width: '60%' }}>
-            {handleVoucherName()}
+      {vouchers.length > 0 ? (
+        <View className="flex flex-row bg-gray-fb py-2 text-26">
+          <View className="flex flex-row" style={{ width: '80%' }}>
+            <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2">
+              本店活动
+            </Text>
+            <View className="px-2 truncate text-gray-400" style={{ width: '60%' }}>
+              {handleVoucherName()}
+            </View>
+          </View>
+          <View
+            className="text-primary-red flex items-center justify-end text-end w-full"
+            onClick={() => {
+              setShowReceiveVoucher(true)
+            }}
+          >
+            <Text>领券</Text>
+            <AtIcon value="chevron-right" size="20" color="#d33024" />
           </View>
         </View>
-        <View
-          className="text-primary-red flex items-center justify-end text-end w-full"
-          onClick={() => {
-            setShowReceiveVoucher(true)
-          }}
-        >
-          <Text>领券</Text>
-          <AtIcon value="chevron-right" size="20" color="#d33024" />
-        </View>
-      </View>
+      ) : null}
       <AtFloatLayout
         isOpened={showReceiveVoucher}
         onClose={() => {

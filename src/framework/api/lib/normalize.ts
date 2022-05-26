@@ -191,13 +191,14 @@ export const normalizeCartData = (cart: any, productSkuInfo: any) => {
   cart.skuGoodInfo = productSku
   cart.select = false
   cart.localData = {
-    name: productSkuInfo.goodsName,
-    image: productSkuInfo.goodsVariants[0]?.defaultImage || spuimage,
-    price: productSkuInfo.goodsVariants[0]?.marketingPrice,
+    name: productSkuInfo?.goodsName,
+    image: productSkuInfo?.goodsVariants[0]?.defaultImage || spuimage,
+    price: productSkuInfo?.goodsVariants[0]?.marketingPrice,
     tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
     specs: normalizeProductForFe(productSkuInfo)?.skus[0].specText,
-    stock: productSkuInfo.goodsVariants[0]?.stock || 0,
-    shelvesStatus: productSkuInfo.goodsVariants[0]?.shelvesStatus || false
+    stock: productSkuInfo?.goodsVariants[0]?.stock || 0,//库存
+    shelvesStatus: productSkuInfo?.goodsVariants[0]?.shelvesStatus || false,//上下架状态
+    salesStatus:productSkuInfo?.salesStatus || false//可售状态
   }
   return cart
 }
