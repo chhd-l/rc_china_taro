@@ -64,7 +64,7 @@ const OrderListComponents = ({
             </View>
             <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
-          {(item?.lineItem || []).map((el, index) => (
+          {(item?.lineItem?.filter(el => !el.isGift) || []).map((el, index) => (
             <View key={index} className="w-full flex items-center" style={{ marginBottom: '18rpx' }}>
               <View className="w-32 h-full">
                 <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
@@ -84,7 +84,7 @@ const OrderListComponents = ({
             </View>
           ))}
           <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View>
-          {(item?.lineItem || []).map((el, index) => (
+          {(item?.lineItem?.filter(el => el.isGift) || []).map((el, index) => (
             <View key={index} className="w-full flex items-center" style={{ marginBottom: '18rpx' }}>
               <View className="w-16 h-full">
                 <Image className="w-full"
@@ -92,7 +92,7 @@ const OrderListComponents = ({
                   src={el?.pic} />
               </View>
               <View className="w-full h-full flex flex-col pl-3">
-                <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1">赠品</Text></View>
+                <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">赠品</Text></View>
 
                 <View className=" flex ProductIntroduction justify-between items-center">
                   <View className="flex flex-row flex-wrap">
