@@ -80,14 +80,15 @@ const Coupon = ({
 
   //计算当前优惠券可优惠最大金额
   const handleMaxDiscount = (voucher) => {
-    if (voucher?.voucherType === 'SHOP_VOUCHER') {
-      return voucher.recurrence ? (totalPrice / voucher.voucherUsePrice) * voucher.voucherPrice : voucher.voucherPrice
-    }
-    if (voucher?.voucherType === 'PRODUCT_VOUCHER') {
-      const totalDiscountPrice = handleProductVoucherPrice(voucher)
-      return voucher.recurrence
-        ? (totalDiscountPrice / voucher.voucherUsePrice) * voucher.voucherPrice
-        : voucher.voucherPrice
+    if (voucher) {
+      const { voucherType, recurrence, voucherUsePrice, voucherPrice } = voucher
+      if (voucherType === 'SHOP_VOUCHER') {
+        return recurrence ? (totalPrice / voucherUsePrice) * voucherPrice : voucherPrice
+      }
+      if (voucherType === 'PRODUCT_VOUCHER') {
+        const totalDiscountPrice = handleProductVoucherPrice(voucher)
+        return recurrence ? (totalDiscountPrice / voucherUsePrice) * voucherPrice : voucherPrice
+      }
     }
     return 0
   }
