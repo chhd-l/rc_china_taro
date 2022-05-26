@@ -111,7 +111,7 @@ const OrderListComponents = ({
           ))}
           <View className="w-full footerText flex items-end flex-col">
             <View className="text-right">
-              共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.totalPrice)}，优惠
+              共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.goodsPrice)}，优惠
               {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
               <Text className="text-primary-red text-28">{formatMoney(item.tradePrice.totalPrice)}</Text>
             </View>

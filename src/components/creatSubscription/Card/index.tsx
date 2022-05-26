@@ -30,7 +30,7 @@ const Card = () => {
               <View className={`${cardType === index && "icon"}`}><IconFont name={cardInfo[item.cycle].icon} size={50} /></View>
               <Text className="text-titleGray text-rc30">{cardInfo[item.cycle].card}</Text>
             </View>
-            <View className="lowAsDay">低至元/天</View>
+            <View className="lowAsDay">低至{item.dailyExpenses}元/天</View>
           </View>
         ))
       }

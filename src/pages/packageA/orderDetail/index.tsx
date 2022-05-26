@@ -160,7 +160,7 @@ const OrderDetails = () => {
                 </View>
                 {orderDetail.isSubscription ? <View className="flex items-center justify-between boderTop">
                   <Text>订阅编号</Text>
-                  <Text className='numLink' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionId}{'>'}</Text>
+                  <Text className='numLink' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}{'>'}</Text>
                 </View> : null}
                 <View className="flex items-center justify-between boderTop">
                   <Text>下单时间</Text>

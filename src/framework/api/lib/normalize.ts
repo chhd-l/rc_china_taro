@@ -184,13 +184,15 @@ const petItemFeArr = [
 ]
 
 export const normalizeCartData = (cart: any, productSkuInfo: any) => {
+  let spuimage = productSkuInfo.goodsAsserts?.[0]?.artworkUrl
   const productSku = { ...productSkuInfo }
+  productSku.defaultImage = spuimage
   delete productSku.goodsAsserts
   cart.skuGoodInfo = productSku
   cart.select = false
   cart.localData = {
     name: productSkuInfo.goodsName,
-    image: productSkuInfo.goodsVariants[0]?.defaultImage,
+    image: productSkuInfo.goodsVariants[0]?.defaultImage || spuimage,
     price: productSkuInfo.goodsVariants[0]?.marketingPrice,
     tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
     specs: normalizeProductForFe(productSkuInfo)?.skus[0].specText,
