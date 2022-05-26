@@ -54,17 +54,22 @@ const Coupon = ({
       .filter((el) => el?.isCanUsed)
       ?.sort((a, b) => a.voucherPrice - b.voucherPrice)
     if (!selectedVoucher && maxVoucher.length > 0) {
-      changeMaxDiscount && changeMaxDiscount(handleMaxDiscount(maxVoucher[0]))
-      setSelectedVoucher(maxVoucher[0])
-      setVouchers(
-        records.map((item) => {
-          item.isSelect = item.id === maxVoucher[0].id
-          return item
-        }),
-      )
+      changeSelectVoucher(maxVoucher[0], records)
     } else {
       setVouchers(records)
     }
+  }
+
+  //处理selectVoucher改变后最大优惠券金额和当前vouchers值
+  const changeSelectVoucher = (value, voucherList) => {
+    changeMaxDiscount && changeMaxDiscount(handleMaxDiscount(value))
+    setSelectedVoucher(value)
+    setVouchers(
+      voucherList.map((item) => {
+        item.isSelect = item.id === value?.id
+        return item
+      }),
+    )
   }
 
   //计算当前优惠券可优惠最大金额
@@ -110,14 +115,7 @@ const Coupon = ({
   const selectVoucher = (value) => {
     console.log(222222)
     setShowVoucherModal(false)
-    setSelectedVoucher(value)
-    changeMaxDiscount && changeMaxDiscount(handleMaxDiscount(value) || 0)
-    setVouchers(
-      vouchers.map((el) => {
-        el.isSelect = el.id === value?.id
-        return el
-      }),
-    )
+    changeSelectVoucher(value, vouchers)
   }
 
   useEffect(() => {
