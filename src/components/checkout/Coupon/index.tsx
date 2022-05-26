@@ -136,7 +136,7 @@ const Coupon = ({
         <View>
           <View>
             <Text className="text-xs text-gray-400">
-              {selectedVoucher ? `已选${selectedVoucher.voucherPrice}元优惠券` : '请使用优惠券'}
+              {selectedVoucher ? `已选${selectedVoucher.voucherPrice}元优惠券` : '请选择优惠券'}
             </Text>
             <AtIcon value="chevron-right" size="24" color="#666666" />
           </View>
