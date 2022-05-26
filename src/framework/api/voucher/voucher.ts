@@ -84,6 +84,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     voucherType: voucherType,
     isCanUsed: false,
     goodsInfoIds: origin === 'pdp' ? [] : voucher?.goodsInfoIds || [],
+    recurrence:voucher?.recurrence
   }
 }
 

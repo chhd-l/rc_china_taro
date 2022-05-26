@@ -3,10 +3,10 @@ import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
 import { formatMoney } from '@/utils/utils'
 import { Swiper, SwiperItem, View, Text, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import {useEffect, useState} from 'react'
+import { useEffect, useState } from 'react'
 import { AtFloatLayout, AtIcon } from 'taro-ui'
 import VoucherModal from '@/components/voucher/ProductVoucherModal'
-import {getOrderSetting} from "@/framework/api/order/order";
+import { getOrderSetting } from "@/framework/api/order/order";
 import './Style.less'
 
 interface DetailProps {
@@ -78,12 +78,12 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
             <Text className="text-primary-red pr-4 ">{formatMoney(choosedSku.price)}</Text>
             <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
           </View>
-          {maxNum > choosedSku.stock ? (
+          {maxNum > choosedSku.stock && choosedSku.stock ? (
             <Text className="text-primary-red text-24 flex justify-end">仅剩{choosedSku.stock}件</Text>
           ) : null}
         </View>
         {/*店铺优惠活动*/}
-        <VoucherModal goodsId={detailInfo.id}/>
+        <VoucherModal goodsId={detailInfo.id} />
         <View className="flex justify-between text-28">
           <View>
             已选
