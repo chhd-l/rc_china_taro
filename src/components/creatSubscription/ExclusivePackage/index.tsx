@@ -34,16 +34,16 @@ const ExclusivePackage = () => {
     <View className="m-4">
       <View className="font-bold text-base ">{recommendInfo?.recommPetInfo?.name}的专属套餐</View>
       <View className="borderLine" />
-      <View className="px-rc120 pt-rc120" >
+      <View className="px-rc120 pt-rc50" >
         <View className="w-full relative" >
           <Image className="w-full " mode="widthFix" src={goodsVariants[0].defaultImage} />
-          <CountTag count={recommendProduct.quantity} />
+          <CountTag count={recommendProduct.quantity!} />
         </View>
         <View onClick={() => Taro.navigateTo({ url: '/pages/packageB/recommendationList/index' })}
           className="border border-rc_ECECEC border-solid text-rc16 text-textGray h-rc38 leading-rc38 mt-1 flex items-center justify-center" >
           <IconFont name="dingzhitaocan0" size={30} />
           更多套餐选择备份  {'>'}</View>
-        <View className="font-bold text-rc26 my-2">{goodsVariants[0].name}</View>
+        <View className="font-bold text-rc23 my-2">{goodsVariants[0].name}</View>
         <View className="flex direction-row items-center">
           <View className="bg-primary-red text-white text-rc20 w-rc98 h-rc26 flex flex-row items-center justify-center">
             <IconFont name="shangdianjia" size={24} />商城价</View>
@@ -52,9 +52,8 @@ const ExclusivePackage = () => {
         </View>
       </View>
       <View className="divider" />
-      <View className="flex flex-row items-center">
-        <View className=' text-textGray text-rc22 line-through flex items-center'>
-          <IconFont name="wenhao01" size={20} />
+      <View className="flex flex-row items-center justify-center">
+        <View className=' text-textGray text-rc22  flex items-center'>
           <Text className="ml-1">新鲜度</Text>
         </View>
         <AtMyRadio value={current} onClick={changeFreshType} />

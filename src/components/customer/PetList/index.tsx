@@ -73,15 +73,6 @@ const PetList = (props: Props) => {
     setRecommendInfo({ ...recommendInfo, recommPetInfo: pet, checkedArr: [value], currentIdx: index })
   }
 
-  // const displayMultipleItems = () => {
-  //   if(petList.length <= 1 || petList.length > 3) return petList.length
-  //   if(petList.length === 2) {
-  //     return 2
-  //   } else {
-  //     return 3
-  //   }
-  // }
-
   const toPetList = () => {
     if (!Taro.getStorageSync('wxLoginRes')) {
       setAuthLoginOpened(true)
