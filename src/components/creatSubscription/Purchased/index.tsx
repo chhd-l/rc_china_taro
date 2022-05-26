@@ -33,7 +33,7 @@ const Purchased = () => {
         <View className="flex flex-row items-center justify-between">
           <View className="my-2">
             <Text className="text-rc20 text-primary-red">￥</Text>
-            <Text className="font-bold text-primary-red text-rc28">{goodsVariants[0].marketingPrice}</Text>
+            <Text className="font-bold text-primary-red text-rc28">{goodsVariants[0].subscriptionPrice}</Text>
             {/* <Text className="text-primary-red text-rc20">.00</Text> */}
           </View>
           <View className="text-textGray text-rc22">x{recommendProduct.quantity}</View>

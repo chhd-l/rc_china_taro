@@ -84,9 +84,9 @@ const Step = () => {
               pet: {
                 birthday, breedCode, breedName, gender, id, image, name, type
               },
-              goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el)),
+              goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el, true)),
               isSubscription: true,
-              giftList: giftList?.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el)) || [],
+              giftList: giftList?.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el, true)) || [],
               couponList: [],
             }),
             complete: (respon) => {
