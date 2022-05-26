@@ -1,82 +1,110 @@
-.text-16{
+.text-16 {
   font-size: 16px;
 }
-.text-20{
+.text-20 {
   font-size: 20px;
 }
-.text-22{
+.text-22 {
   font-size: 22px;
 }
-.text-24{
+.text-24 {
   font-size: 24px;
 }
-.text-26{
+.text-26 {
   font-size: 26px;
 }
-.text-28{
+.text-28 {
   font-size: 28px;
 }
-.text-30{
+.text-30 {
   font-size: 30px;
 }
-.text-32{
+.text-32 {
   font-size: 32px;
 }
-.text-34{
+.text-34 {
   font-size: 34px;
 }
-.text-36{
+.text-36 {
   font-size: 36px;
 }
-.text-38{
+.text-38 {
   font-size: 38px;
 }
-.text-40{
+.text-40 {
   font-size: 40px;
 }
-.text-42{
+.text-42 {
   font-size: 42px;
 }
-.text-48{
+.text-48 {
   font-size: 48px;
 }
 
-.text-red{
-  color:#d33024;
+.text-red {
+  color: #d33024;
 }
 
-.border-red{
-  border-color:#d33024!important;
+.border-red {
+  border-color: #d33024 !important;
 }
-.rc-content-bg{
+.rc-content-bg {
   min-height: 100vh;
   background-color: #eee;
   padding: 0.75rem 0.5rem;
 }
-.rc-button.at-button{
+.rc-button.at-button {
   margin: 0;
 }
-.at-search-bar__placeholder-wrap{
+.at-search-bar__placeholder-wrap {
   justify-content: left;
 }
-::-webkit-scrollbar{
-  width:0;
-  height:0;
-  color:transparent;
+::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+  color: transparent;
 }
-.error-tips-modal{
-  .at-modal__content{
+.error-tips-modal {
+  .at-modal__content {
     display: flex;
     justify-content: center;
     align-items: center;
-    .content-simple{
+    .content-simple {
       text-align: center;
     }
   }
   .at-modal__footer {
-    .at-modal__action{
-      button{
-        color:rgb(96,109,150)
+    .at-modal__action {
+      button {
+        color: rgb(96, 109, 150);
+      }
+    }
+  }
+}
+
+.rc-error-tips-modal-one {
+  .at-modal__header {
+    font-weight: bold;
+    padding: 18px 24px 0 24px;
+    &:after {
+      border-bottom: none;
+    }
+  }
+  .at-modal__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0;
+    .content-simple {
+      color: #666;
+      text-align: center;
+    }
+  }
+  .at-modal__footer {
+    .at-modal__action {
+      button {
+        font-weight: bold;
+        color: rgb(96, 109, 150);
       }
     }
   }
