@@ -37,7 +37,7 @@ const VoucherItem = ({
 
   return (
     <View
-      className={`${!showRadioSelect ? 'justify-center' : ''} flex flex-col w-full h-28 mb-2`}
+      className={`${!showRadioSelect ? 'justify-center' : ''} flex flex-col w-full h-28 mb-2 bg-center`}
       style={{
         backgroundImage: `url(${backgroundImageUrl})`,
         backgroundSize: 'contain',
