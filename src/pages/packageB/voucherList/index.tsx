@@ -78,6 +78,7 @@ const VoucherList = () => {
                           url: '/pages/productList/index',
                         })
                       }}
+                      applyBtnClass="rc-no-receive-voucher-button"
                     />
                   ))
                 : null}
