@@ -1,15 +1,18 @@
 import { Text, View } from "@tarojs/components"
+import { PropsWithChildren } from "@tarojs/taro"
+import classNames from 'classNames'
 import './index.less'
 
-type CountTagProps = {
-  count: number
-}
+type CountTagProps = PropsWithChildren<{
+  type?: 'center'
+}>
 
-const CountTag = ({ count }: CountTagProps) => {
+const CountTag = ({ children, type }: CountTagProps) => {
 
+  const childrenClassNames = classNames({ 'ml-2': type !== 'center', 'mr-1': type === 'center' })
 
-  return <View className="countTag">
-    <Text className="ml-2">X{count}包</Text>
+  return <View className={`countTag ${type !== 'center' ? 'text-left' : 'text-center'} `}>
+    <Text className={childrenClassNames}>X{children}</Text>
   </View>
 }
 
