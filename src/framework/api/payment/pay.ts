@@ -20,7 +20,6 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
       tmplIds: ['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ', 'xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc'],
       success: async (res) => {
         if (res['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ'] && res['xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc']) {
-          params.amount = 1
           let payInfoId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = ''
           if (paymentRequest?.success) {
             console.info('.....paymentRequest,isSubscription', paymentRequest)
