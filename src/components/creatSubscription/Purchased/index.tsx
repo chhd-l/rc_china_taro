@@ -40,13 +40,14 @@ const Purchased = () => {
         </View>
       </View>
     </View>
+    <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View>
     {
       giftList?.map(list => (
         <View className="flex flex-col" key={list.id}>
           <View className="flex flex-row items-center">
             <View className="w-rc190 h-rc190  mr-2 relative">
               <Image className="w-full" mode="widthFix" src={list.goodsVariants[0]?.defaultImage || list.goodsAsserts?.[0]?.artworkUrl} />
-              <CountTag count={10} />
+              <CountTag count={recommendProduct.quantity! * 2} />
             </View>
             <View className="flex-1">
               <View className="font-bold text-rc26 text-rc_222222">{list.goodsVariants[0]?.name || list.goodsName}</View>
@@ -69,7 +70,7 @@ const Purchased = () => {
                   <Text className="text-rc28">0</Text>
                   <Text className="text-rc20">.00</Text>
                 </View>
-                <View className="text-textGray text-rc22">{recommendProduct.quantity! * 2}</View>
+                <View className="text-textGray text-rc22">x{recommendProduct.quantity! * 2}</View>
               </View>
             </View>
 
@@ -80,7 +81,7 @@ const Purchased = () => {
 
 
     <View className="mt-8 flex flex-row justify-end items-center">
-      <Text className="line-through text-rc_222222 leading-16 text-rc22">原价￥{recommendInfo.originalPrice}，套餐折后价</Text>
+      <Text className=" text-rc_222222 leading-16 text-rc22"><Text className="line-through">原价￥{recommendInfo.originalPrice}</Text>，套餐折后价</Text>
       <Text className="text-primary-red font-bold text-rc54 mr-4 ml-2">￥{recommendInfo.discountPrice}</Text>
     </View>
   </View>

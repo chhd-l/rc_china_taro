@@ -9,6 +9,7 @@ import { Order } from '@/framework/types/order'
 import OrderLogistics from '@/components/order/Logistics'
 import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
 import './index.less'
+import IconFont from '@/iconfont'
 
 const orderStatusType = {
   UNPAID: '交易待付款',
@@ -127,7 +128,9 @@ const OrderDetails = () => {
                   thumb={ADDRESS_ORDER_ICON}
                 />
               </AtList>
-              <AtCard className="m-0 mt-2 border-0" title="订单信息">
+              <AtCard className="m-0 mt-2 border-0" title="订单信息" renderIcon=
+                {orderDetail.isSubscription ? <View className="mr-2"><IconFont name='a-Group201' size={44} /></View> : <View></View>}
+              >
                 {(orderDetail?.lineItem || []).map((el, idx) => (
                   <View key={idx} className="w-full h-20 flex mb-4">
                     <View className="w-28 h-full">
@@ -158,10 +161,10 @@ const OrderDetails = () => {
                   <Text>订单编号</Text>
                   <Text>{orderDetail.orderNumber}</Text>
                 </View>
-                {orderDetail.isSubscription ? <View className="flex items-center justify-between boderTop">
+                {orderDetail.isSubscription && <View className="flex items-center justify-between boderTop">
                   <Text>订阅编号</Text>
                   <Text className='numLink' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}{'>'}</Text>
-                </View> : null}
+                </View>}
                 <View className="flex items-center justify-between boderTop">
                   <Text>下单时间</Text>
                   <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
@@ -181,9 +184,10 @@ const OrderDetails = () => {
               </AtCard>
             </View>
           </>
-        ) : null}
-      </View>
-    </ScrollView>
+        ) : null
+        }
+      </View >
+    </ScrollView >
   )
 }
 

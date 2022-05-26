@@ -1,14 +1,16 @@
-import { View } from "@tarojs/components"
+import { Text, View } from "@tarojs/components"
 import './index.less'
 
+type CountTagProps = {
+  count: number
+}
 
-
-const CountTag = ({ count }) => {
+const CountTag = ({ count }: CountTagProps) => {
 
 
   return <View className="countTag">
-    X{count}包
-</View>
+    <Text className="ml-2">X{count}包</Text>
+  </View>
 }
 
 
