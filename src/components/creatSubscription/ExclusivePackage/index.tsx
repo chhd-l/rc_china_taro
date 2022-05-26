@@ -46,9 +46,9 @@ const ExclusivePackage = () => {
         <View className="font-bold text-rc23 my-2">{goodsVariants[0].name}</View>
         <View className="flex direction-row items-center">
           <View className="bg-primary-red text-white text-rc20 w-rc98 h-rc26 flex flex-row items-center justify-center">
-            <IconFont name="shangdianjia" size={24} />商城价</View>
+            <IconFont name="shangdianjia" size={20} /><Text className="m-px"> 商城价</Text></View>
           <View className="text-primary-red font-bold text-rc28">￥{goodsVariants[0].marketingPrice}/包</View>
-          <View className="line-through text-textGray text-rc22 ml-2">￥{goodsVariants[0].listPrice}</View>
+          <View className="line-through text-textGray text-rc16 ml-2">￥{goodsVariants[0].listPrice}</View>
         </View>
       </View>
       <View className="divider" />
