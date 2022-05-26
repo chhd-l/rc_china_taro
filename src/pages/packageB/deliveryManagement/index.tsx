@@ -1,39 +1,50 @@
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import PetList from '@/components/customer/PetList'
+import { getSubscriptionDetail } from '@/framework/api/subscription/subscription'
 import IconFont from '@/iconfont'
 import { View, Image, Text } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { Current } from '@tarojs/taro'
+import { useRequest } from 'ahooks'
+import { useEffect } from 'react'
 import { AtButton } from 'taro-ui'
 import './index.less'
 
 const DeliveryManagement = () => {
+
+    const { data } = useRequest(async () => {
+        const res = await getSubscriptionDetail(Current?.router?.params?.id)
+        return res
+    })
     const handleClick = () => {
 
     }
     return <View className="delivery-management rc-content-bg">
         <PetList />
-        {/* <View className="px-3 bg-white  rounded-md">
-            <PetList />
-        </View> */}
         <View className="px-3 mt-3 bg-white pb-3  rounded-md">
             <CommonTitle title="发货管理" />
-            <View className="h-36 flex">
-                <View className="w-36 h-full">
-                    <Image src="" className="w-full h-full" />
-                </View>
-                <View className="flex-1 px-3 flex-col flex items-center w-full justify-center">
-                    <View className="text-28 text-center mb-3 font-bold">您的宠物还剩余<Text className="text-primary-red">3</Text>包</View>
-                    <AtButton
-                        size="small"
-                        className="w-full"
-                        circle
-                        type='primary'
-                        onClick={handleClick}
-                    >
-                        一键续订
-                    </AtButton>
-                </View>
-            </View>
+            {
+                data?.goodsList?.map(item => {
+                    const { goodsVariants } = item
+                    return <View className="h-36 flex" key={item.id}>
+                        <View className="w-36 h-full">
+                            <Image src={goodsVariants.defaultImage} className="w-full h-full" />
+                        </View>
+                        <View className="flex-1 px-3 flex-col flex items-center w-full justify-center">
+                            <View className="text-28 text-center mb-3 font-bold">您的宠物还剩余<Text className="text-primary-red">3</Text>包</View>
+                            <AtButton
+                                size="small"
+                                className="w-full"
+                                circle
+                                type='primary'
+                                onClick={handleClick}
+                            >
+                                一键续订
+                            </AtButton>
+                        </View>
+                    </View>
+                })
+            }
+
             <CommonTitle title="发货驿站" />
             <View>
                 <View className="flex justify-between items-center">

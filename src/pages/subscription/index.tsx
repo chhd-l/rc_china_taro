@@ -14,21 +14,19 @@ import './index.less'
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
   const { data } = useRequest(async () => {
-    const params = {
-      id: "73117cde-28be-f382-b910-8d169efd48e5",
-      nextDeliveryDate: "2022-06-13T16:00:00.000Z",
-      operator: "ss"
-    }
-    const [Detail, CustomerId, Delivery] = await Promise.all([
-      getSubscriptionDetail("73117cde-28be-f382-b910-8d169efd48e5"),
-      getSubscriptionFindByCustomerId("25a96973-c23b-e6b6-2e8d-3c8a85922b1e"),
-      getSubscriptionScheduleNextDelivery(params)
-    ])
-    console.log('getSubscriptionScheduleNextDelivery', Detail, CustomerId, Delivery)
+    // const params = {
+    //   id: "73117cde-28be-f382-b910-8d169efd48e5",
+    //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
+    //   operator: "ss"
+    // }
+    const res = await getSubscriptionFindByCustomerId("25a96973-c23b-e6b6-2e8d-3c8a85922b1e")
+    console.log('getSubscriptionScheduleNextDelivery', res)
+    return res
   })
   const toSub = () => {
     Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })
   }
+  console.log('data', data)
 
   return (
     <View className="subscription-intrduce">
@@ -36,7 +34,12 @@ const Subscription = () => {
       <View className="px-2">
         <PetList />
       </View>
-      <SubList />
+      {
+        data?.map((item) => (
+          <SubList key={item.id}>{item}</SubList>
+        ))
+      }
+
       <Image className="w-full" onClick={toSub} src={CREATE_SUBSCRIPTION_ENTRY} mode="widthFix" />
       <View className="relative">
         <View onClick={() => {
