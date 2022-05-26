@@ -161,10 +161,10 @@ const OrderDetails = () => {
                   <Text>订单编号</Text>
                   <Text>{orderDetail.orderNumber}</Text>
                 </View>
-                {orderDetail.isSubscription ? <View className="flex items-center justify-between boderTop">
+                {orderDetail.isSubscription && <View className="flex items-center justify-between boderTop">
                   <Text>订阅编号</Text>
                   <Text className='numLink' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}{'>'}</Text>
-                </View> : null}
+                </View>}
                 <View className="flex items-center justify-between boderTop">
                   <Text>下单时间</Text>
                   <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>

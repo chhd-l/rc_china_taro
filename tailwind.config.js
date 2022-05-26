@@ -39,6 +39,7 @@ module.exports = {
         rc18: '18px',
         rc20: '20px',
         rc22: '22px',
+        rc23: '23px',
         rc26: '26px',
         rc28: '28px',
         rc30: '30px',
@@ -77,8 +78,11 @@ module.exports = {
         rc150: '150px',
       },
       padding: {
-        rc150: '150px',
+        rc50: '50px',
+        rc80: '80px',
+        rc100: '100px',
         rc120: '120px',
+        rc150: '150px',
       },
       borderColor: {
         rc_E2E2E2: '#E2E2E2',
