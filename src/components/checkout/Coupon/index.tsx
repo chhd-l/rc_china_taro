@@ -33,16 +33,7 @@ const Coupon = ({
           el.isCanUsed = true
         }
         if (el.voucherType === 'PRODUCT_VOUCHER') {
-          let canUsedProduct: any[] = []
-          el.goodsInfoIds.map((goodsInfoId) => {
-            const item = tradeItems.find((orderProduct) => goodsInfoId === orderProduct?.skuGoodInfo?.id)
-            if (item) {
-              canUsedProduct.push(item)
-            }
-          })
-          const totalDiscountPrice = canUsedProduct.reduce((prev, cur) => {
-            return prev + cur?.goodsVariants[0].marketingPrice
-          }, 0)
+          const totalDiscountPrice = handleProductVoucherPrice(el)
           el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
         }
         return el
@@ -58,6 +49,21 @@ const Coupon = ({
     } else {
       setVouchers(records)
     }
+  }
+
+  //获取产品型优惠券针对当前所要购买的商品的最大优惠价格
+  const handleProductVoucherPrice = (voucher) => {
+    let canUsedProduct: any[] = []
+    voucher.goodsInfoIds.map((goodsInfoId) => {
+      const item = tradeItems.find((orderProduct) => goodsInfoId === orderProduct?.skuGoodInfo?.id)
+      if (item) {
+        canUsedProduct.push(item)
+      }
+    })
+    const totalDiscountPrice = canUsedProduct.reduce((prev, cur) => {
+      return prev + cur?.goodsVariants[0].marketingPrice
+    }, 0)
+    return totalDiscountPrice
   }
 
   //处理selectVoucher改变后最大优惠券金额和当前vouchers值
@@ -78,16 +84,7 @@ const Coupon = ({
       return voucher.recurrence ? (totalPrice / voucher.voucherUsePrice) * voucher.voucherPrice : voucher.voucherPrice
     }
     if (voucher?.voucherType === 'PRODUCT_VOUCHER') {
-      let canUsedProduct: any[] = []
-      voucher.goodsInfoIds.map((goodsInfoId) => {
-        const item = tradeItems.find((orderProduct) => goodsInfoId === orderProduct?.skuGoodInfo?.id)
-        if (item) {
-          canUsedProduct.push(item)
-        }
-      })
-      const totalDiscountPrice = canUsedProduct.reduce((prev, cur) => {
-        return prev + cur?.goodsVariants[0].marketingPrice
-      }, 0)
+      const totalDiscountPrice = handleProductVoucherPrice(voucher)
       return voucher.recurrence
         ? (totalDiscountPrice / voucher.voucherUsePrice) * voucher.voucherPrice
         : voucher.voucherPrice
