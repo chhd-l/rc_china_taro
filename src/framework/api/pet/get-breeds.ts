@@ -15,10 +15,10 @@ export const getBreedList = async () => {
   }
 }
 
-export const getSortedBreeds = async ({ type }) => {
+export const getSortedBreeds = async (param?: any) => {
   let params: any = { storeId: baseSetting.storeId }
-  if (type) {
-    params.type = type
+  if (param?.type) {
+    params.type = param.type
   }
   try {
     const { breedsSortedByPy } = await ApiRoot.pets().getSortedBreeds({ body: params })

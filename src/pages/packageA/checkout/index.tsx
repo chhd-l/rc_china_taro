@@ -129,7 +129,7 @@ const Checkout = () => {
         address: addressInfo.id !== '' ? addressInfo : null,
         goodsList,
         benefits,
-        couponList: [],
+        coupons: [],
         remark,
         totalDeliveryTimes: subscriptionInfo.cycleObj.quantity, //配送次数
       }
@@ -390,7 +390,7 @@ const Checkout = () => {
               totalPrice={totalPrice}
               tradeItems={tradeItems}
               changeMaxDiscount={(maxDiscountPrice) => {
-                console.log('maxDiscountPrice',maxDiscountPrice)
+                console.log('maxDiscountPrice', maxDiscountPrice)
                 setDiscountPrice(maxDiscountPrice)
               }}
             />

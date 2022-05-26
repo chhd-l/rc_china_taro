@@ -65,9 +65,9 @@ const OrderListComponents = ({
             <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
           {(item?.lineItem || []).map((el, index) => (
-            <View key={index} className="w-full h-20 flex" style={{ marginBottom: '18rpx' }}>
-              <View className="w-28 h-full">
-                <Image className="w-full h-full" src={el?.pic} />
+            <View key={index} className="w-full flex items-center" style={{ marginBottom: '18rpx' }}>
+              <View className="w-32 h-full">
+                <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
               </View>
               <View className="w-full h-full flex flex-col pl-3">
                 <View className="text-xs font-black mb-1">{el?.skuName}</View>
@@ -85,7 +85,7 @@ const OrderListComponents = ({
           ))}
           <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View>
           {(item?.lineItem || []).map((el, index) => (
-            <View key={index} className="w-full h-16 flex mb-4">
+            <View key={index} className="w-full flex items-center" style={{ marginBottom: '18rpx' }}>
               <View className="w-16 h-full">
                 <Image className="w-full"
                   mode="widthFix"
@@ -93,19 +93,16 @@ const OrderListComponents = ({
               </View>
               <View className="w-full h-full flex flex-col pl-3">
                 <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1">赠品</Text></View>
-                <View className="flex ProductIntroduction justify-between items-center">
-                  <View>
-                    {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((el) => (
-                      <View className="ProductIntroduction numcolor  mt-1">{el}</View>
+
+                <View className=" flex ProductIntroduction justify-between items-center">
+                  <View className="flex flex-row flex-wrap">
+                    {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                      <View className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2" style={{ borderColor: '#e8e8e8' }}>{tag}</View>
                     ))}
                   </View>
-                  {/* <View className="flex flex-row flex-wrap">
-                    {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                      <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
-                    ))}
-                  </View> */}
                   <View className="numcolor">X{el?.num}</View>
                 </View>
+
                 <View className=" mt-2 items-end ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
               </View>
             </View>

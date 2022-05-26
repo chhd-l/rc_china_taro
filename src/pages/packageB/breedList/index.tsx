@@ -5,9 +5,9 @@ import { AtSearchBar } from 'taro-ui'
 import cloneDeep from 'lodash.cloneDeep'
 import Mock from 'mockjs'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
-import { pySegSort } from '@/utils/utils'
 import BreedLists from '@/components/customer/BreedLists'
-import { getBreedList, getSortedBreeds } from '@/framework/api/pet/get-breeds'
+import { getBreedList } from '@/framework/api/pet/get-breeds'
+import { pySegSort } from '@/utils/pinyin'
 // const breedLists = Mock.mock(breedListMock).list
 // console.info('breedLists', breedLists)
 export interface BreedListItemProps {
@@ -18,15 +18,11 @@ export interface BreedListItemProps {
   isHot: boolean
   image: string
 }
-export interface PySortProps {
-  letter: string
-  data: BreedListItemProps[]
-}
 const BreedList = () => {
-  const [breedList, setBreedList] = useState<any>([])
+  const [breedList, setBreedList] = useState<BreedListItemProps[]>([])
   const [activeId, setActiveId] = useState<string>('')
   const [keyword, setKeyword] = useState<string>('')
-  const [list, setList] = useState<PySortProps[]>([])
+  const [list, setList] = useState<any[]>([])
   const { router } = getCurrentInstance()
   const handleKeyword = (val) => {
     setKeyword(val)
@@ -35,14 +31,13 @@ const BreedList = () => {
     getList()
   }, [])
   const getList = async () => {
+    let res = await getBreedList()
     let type = router?.params?.type || 'CAT'
-
-    let res = await getSortedBreeds({ type })
+    res = res.filter((el) => el.type == type)
     setBreedList(res)
-    const lists = cloneDeep(res).filter(el => el.letter !== 'hot')
-    setList(lists)
 
-    // initData(lists)
+    const lists = cloneDeep(res)
+    initData(lists)
   }
 
   const handleBreed = ({ name, code }) => {
@@ -52,34 +47,13 @@ const BreedList = () => {
     eventChannel.emit('seachBreed', { breed: name, code })
     Taro.navigateBack()
   }
-  // const initData = (data: BreedListItemProps[]) => {
-  //   let newList: PySortProps[] = pySegSort(data)
-  //   console.info('newList', newList)
-  //   setList(newList)
-  // }
+  const initData = (data: BreedListItemProps[]) => {
+    let newList: any = pySegSort(data)
+    setList(newList)
+  }
   const handleSearch = () => {
-    let searchedList: any = []
-    breedList.filter(el => el.letter !== 'hot').map(el => {
-      el.data.forEach(breed => {
-        if (breed?.name?.indexOf(keyword) > -1) {
-          let idx = searchedList.findIndex(item => item?.letter === el.letter)
-          if (idx > -1) {
-            if (!searchedList[idx]) {
-              searchedList[idx] = { letter: el.letter, data: [] }
-            }
-            if (!searchedList[idx]?.data) {
-              searchedList[idx].data = []
-            }
-            searchedList[idx].data.push(breed)
-          } else {
-            searchedList.push({ letter: el.letter, data: [breed] })
-          }
-        }
-      })
-    })
-    setList(searchedList)
-    // let list = breedList.filter((item) => item.name.includes(keyword))
-    // initData(list)
+    let list = breedList.filter((item) => item.name.includes(keyword))
+    initData(list)
   }
 
   return (
@@ -109,7 +83,9 @@ const BreedList = () => {
             <View className="text-30 py-3">热门品种</View>
             <View className="grid grid-cols-5 gap-6 px-4">
               {breedList
-                .filter((el) => el.letter === 'hot')?.[0]?.data?.map((breed) => (
+                .filter((el) => el.isHot)
+                .filter((el, idx) => idx < 10)
+                .map((breed) => (
                   <View
                     onClick={() => {
                       console.info('breedbreed', breed)

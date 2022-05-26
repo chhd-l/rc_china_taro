@@ -37,6 +37,10 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       voucherId: voucher.id,
     })
     if (res) {
+      Taro.atMessage({
+        message: '优惠券领券成功',
+        type: 'success',
+      })
       await getVoucherList()
     } else {
       Taro.atMessage({
