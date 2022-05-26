@@ -14,6 +14,8 @@ const Cart = () => {
 
   //获取购物车商品列表
   const getCartProductList = async () => {
+    setProductList([])
+    setInvalidProducts([])
     const res = await getCarts(true)
     handleIsValidProduct(res)
   }
