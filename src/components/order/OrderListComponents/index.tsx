@@ -50,7 +50,7 @@ const OrderListComponents = ({
         >
           <View className="h-6 flex justify-between items-center headerText">
             <View className="flex items-center">
-              {item.isSubscription ? <IconFont name='a-Group201' size={28} /> : null}
+              {item.isSubscription ? <View className="mr-2"><IconFont name='a-Group201' size={32} /></View> : null}
               订单编号: {item.orderNumber}
               <View
                 className="ml-2 copy"
@@ -65,7 +65,7 @@ const OrderListComponents = ({
             <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
           {(item?.lineItem || []).map((el, index) => (
-            <View key={index} className="w-full h-20 flex mb-4">
+            <View key={index} className="w-full h-20 flex" style={{ marginBottom: '18rpx' }}>
               <View className="w-28 h-full">
                 <Image className="w-full h-full" src={el?.pic} />
               </View>
@@ -83,6 +83,7 @@ const OrderListComponents = ({
               </View>
             </View>
           ))}
+          <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View>
           {(item?.lineItem || []).map((el, index) => (
             <View key={index} className="w-full h-16 flex mb-4">
               <View className="w-16 h-full">

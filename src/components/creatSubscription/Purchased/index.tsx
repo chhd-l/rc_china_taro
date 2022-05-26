@@ -40,6 +40,7 @@ const Purchased = () => {
         </View>
       </View>
     </View>
+    <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View>
     {
       giftList?.map(list => (
         <View className="flex flex-col" key={list.id}>
