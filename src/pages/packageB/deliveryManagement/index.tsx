@@ -5,14 +5,16 @@ import { View, Image, Text } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { AtButton } from 'taro-ui'
 import './index.less'
+
 const DeliveryManagement = () => {
     const handleClick = () => {
 
     }
     return <View className="delivery-management rc-content-bg">
-        <View className="px-3 bg-white  rounded-md">
+        <PetList />
+        {/* <View className="px-3 bg-white  rounded-md">
             <PetList />
-        </View>
+        </View> */}
         <View className="px-3 mt-3 bg-white pb-3  rounded-md">
             <CommonTitle title="发货管理" />
             <View className="h-36 flex">

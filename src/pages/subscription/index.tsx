@@ -1,33 +1,35 @@
 import { AtFloatLayout } from 'taro-ui'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useRequest } from 'ahooks'
 import PetList from '@/components/customer/PetList'
 import SubList from '@/components/creatSubscription/SubList'
 import { View, Image } from '@tarojs/components'
-import { getSubscriptionSimpleRecommend, subscriptionDetail, subscriptionFindByCustomerId, subscriptionScheduleNextDelivery } from '@/framework/api/subscription/subscription'
+import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION, SUBSCRIPTION_HELP_ICON, WHAT_IS_SUBSCRIPTION } from '@/lib/subscription'
+import { getSubscriptionScheduleNextDelivery, getSubscriptionDetail, getSubscriptionFindByCustomerId } from '@/framework/api/subscription/subscription'
 import Taro from '@tarojs/taro'
 import './index.less'
 
-import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION, SUBSCRIPTION_HELP_ICON, WHAT_IS_SUBSCRIPTION } from '@/lib/subscription'
 
 
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
+  const { data } = useRequest(async () => {
+    const params = {
+      id: "73117cde-28be-f382-b910-8d169efd48e5",
+      nextDeliveryDate: "2022-06-13T16:00:00.000Z",
+      operator: "ss"
+    }
+    const [Detail, CustomerId, Delivery] = await Promise.all([
+      getSubscriptionDetail("73117cde-28be-f382-b910-8d169efd48e5"),
+      getSubscriptionFindByCustomerId("25a96973-c23b-e6b6-2e8d-3c8a85922b1e"),
+      getSubscriptionScheduleNextDelivery(params)
+    ])
+    console.log('getSubscriptionScheduleNextDelivery', Detail, CustomerId, Delivery)
+  })
   const toSub = () => {
     Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })
   }
-  const test = () => {
-    // subscriptionDetail("73117cde-28be-f382-b910-8d169efd48e5")
-    // subscriptionFindByCustomerId("25a96973-c23b-e6b6-2e8d-3c8a85922b1e")
-    // let params = {
-    //   id: "73117cde-28be-f382-b910-8d169efd48e5",
-    //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
-    //   operator: "ss"
-    // }
-    // subscriptionScheduleNextDelivery(params)
-  }
-  useEffect(() => {
-    test()
-  }, [])
+
   return (
     <View className="subscription-intrduce">
       <Image className="w-full" src={WHAT_IS_SUBSCRIPTION} mode="widthFix" />

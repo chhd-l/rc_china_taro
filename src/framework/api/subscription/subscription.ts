@@ -21,10 +21,9 @@ export const subscriptionCreateAndPay = async (params?: any) => {
 }
 
 
-export const subscriptionFindByCustomerId = async (customerId: string) => {
+export const getSubscriptionFindByCustomerId = async (customerId: string) => {
     try {
         const { subscriptionFindByCustomerId } = await ApiRoot.subscriptions().subscriptionFindByCustomerId({ customerId })
-        console.info('subscriptionFindByCustomerId', subscriptionFindByCustomerId)
         return subscriptionFindByCustomerId
     } catch (err) {
         return {}
@@ -32,10 +31,9 @@ export const subscriptionFindByCustomerId = async (customerId: string) => {
 }
 
 
-export const subscriptionDetail = async (id: any) => {
+export const getSubscriptionDetail = async (id: any) => {
     try {
         const { subscriptionDetail } = await ApiRoot.subscriptions().subscriptionDetail({ id })
-        console.info('subscriptionDetail', subscriptionDetail)
         return subscriptionDetail
     } catch (err) {
         return {}
@@ -43,10 +41,9 @@ export const subscriptionDetail = async (id: any) => {
 }
 
 
-export const subscriptionScheduleNextDelivery = async (params: any) => {
+export const getSubscriptionScheduleNextDelivery = async (params: any) => {
     try {
         const { subscriptionScheduleNextDelivery } = await ApiRoot.subscriptions().subscriptionScheduleNextDelivery({ body: params })
-        console.info('subscriptionScheduleNextDelivery', subscriptionScheduleNextDelivery)
         return subscriptionScheduleNextDelivery
     } catch (err) {
         return {}
