@@ -64,7 +64,14 @@ const ChooseSpec = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selected])
 
-  const currentNumber = useMemo(() => currentCartSpu?.find(el => el.goodsVariantID == choosedSku.id)?.goodsNum || 0, [currentCartSpu])
+  const currentNumber = useMemo(
+    () =>
+      currentCartSpu?.find((el) => {
+        console.log(el.goodsVariantID, choosedSku.id, el.goodsVariantID === choosedSku.id)
+        return el.goodsVariantID === choosedSku.id
+      })?.goodsNum || 0,
+    [choosedSku],
+  )
 
   useEffect(() => {
     getMaxNum()
@@ -144,12 +151,13 @@ const ChooseSpec = ({
   const handleComfirm = async () => {
     console.info(choosedSku, 'test add cart')
     if (!choosedSku.stock) {
-      setOutStockMsg("库存不足")
+      setOutStockMsg('库存不足')
       setShowOutStockTip(true)
       return
     }
     if (currentNumber + buyCount > choosedSku.stock) {
-      setOutStockMsg("亲，该宝贝加购已达库存上限哦")
+      console.log('currentNumber', currentNumber)
+      setOutStockMsg('亲，该宝贝加购已达库存上限哦')
       setShowOutStockTip(true)
       return
     }
@@ -222,7 +230,7 @@ const ChooseSpec = ({
               value={buyCount}
               onChange={(value) => {
                 if (value + currentNumber > choosedSku.stock) {
-                  setOutStockMsg("亲，该宝贝加购已达库存上限哦")
+                  setOutStockMsg('亲，该宝贝加购已达库存上限哦')
                   setShowOutStockTip(true)
                 } else {
                   setBuyCount(value)
