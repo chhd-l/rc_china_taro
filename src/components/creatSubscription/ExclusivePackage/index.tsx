@@ -25,8 +25,9 @@ const ExclusivePackage = () => {
         setRecommendProduct({ ...recommendProduct, ...good, freshType: val })
       }
     } else {
+      setRecommendProduct({ ...recommendProduct, freshType: val })
       // 切换到普通 默认显示推荐第一条商品
-      setRecommendProduct({ ...recommendProduct, ...goodsList[0], freshType: val })
+      // setRecommendProduct({ ...recommendProduct, ...goodsList[0], freshType: val })
     }
     setCurrent(val)
   }
@@ -48,7 +49,8 @@ const ExclusivePackage = () => {
           <View className="bg-primary-red text-white text-rc20 w-rc98 h-rc26 flex flex-row items-center justify-center">
             <IconFont name="shangdianjia" size={20} /><Text className="m-px"> 商城价</Text></View>
           <View className="text-primary-red font-bold text-rc28">￥{goodsVariants[0].marketingPrice}/包</View>
-          <View className="line-through text-textGray text-rc16 ml-2">￥{goodsVariants[0].listPrice}</View>
+          {/* <View className="line-through text-textGray text-rc16 ml-2">￥{goodsVariants[0].listPrice}</View> */}
+          <View className="line-through text-textGray text-rc16 ml-2 self-end margin-bottom-4rpx">￥{goodsVariants[0].listPrice}</View>
         </View>
       </View>
       <View className="divider" />

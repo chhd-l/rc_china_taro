@@ -1,5 +1,5 @@
 import Taro, { getCurrentInstance } from '@tarojs/taro'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AtModal, AtTabs, AtTabsPane } from 'taro-ui'
 import OrderListComponents from '@/components/order/OrderListComponents'
 import { getOrderList } from '@/framework/api/order/order'
@@ -21,7 +21,7 @@ const OrderList = () => {
   const [orderList, setOrderList] = useState<Order[]>([])
   const [showShipModal, setShowShipModal] = useState(false)
   const { router } = getCurrentInstance()
-
+  const [isFromSubscription, setIsFromSubscription] = useState(false)
   const getOrderLists = async (status) => {
     const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
     const res = await getOrderList({
@@ -43,10 +43,19 @@ const OrderList = () => {
 
   Taro.useDidShow(() => {
     const status = router?.params?.status || 'ALL'
+    const isFromSubscription = router?.params?.isFromSubscription
     console.log('status', status)
+    console.log('isFromSubscription', isFromSubscription)
+    setIsFromSubscription(!!isFromSubscription)
     setCurrent(status)
     getOrderLists(status)
   })
+  // useEffect(() => {
+  //   // 测试执行函数
+  //   return () => {
+  //     isFromSubscription && Taro.navigateBack({ delta: 2 })
+  //   }
+  // }, [])
 
   const handleClick = (value) => {
     Taro.setNavigationBarTitle({

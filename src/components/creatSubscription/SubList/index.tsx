@@ -1,4 +1,5 @@
-import { normalizeTags } from '@/framework/api/lib/normalize'
+import { normalizeCartData, normalizeTags } from '@/framework/api/lib/normalize'
+import routers from '@/routers'
 import { Text, View, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import moment from 'moment'
@@ -7,7 +8,34 @@ import './index.less'
 
 const SubList = ({ children }) => {
     console.log('children', children)
-    const handleClick = () => { }
+    const handleClick = () => {
+        let buyInfo = { ...children }
+        let {
+            birthday, breedCode, breedName, gender, id, image, name, type
+        } = buyInfo.pet
+        let { cycle, type: subType, freshType, goodsList, benefits: giftList } = buyInfo
+        const checkoutData = {
+            type: subType,
+            cycle: { cycle, quantity: goodsList[0].goodsVariants?.[0]?.num },
+            freshType,
+            pet: {
+                birthday, breedCode, breedName, gender, id, image, name, type
+            },
+            goodsList: goodsList.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)),
+            isSubscription: true,
+            giftList: giftList?.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)) || [],
+            couponList: [],
+        }
+        console.info('.....', checkoutData)
+        Taro.setStorage({
+            key: 'select-product',
+            data: JSON.stringify(checkoutData),
+            complete: (respon) => {
+                console.log(respon)
+                Taro.navigateTo({ url: routers.checkout })
+            },
+        })
+    }
     return <View className="px-2 sub-list">
         <View style="background:#f8f8f8" className="px-2 pb-2 rounded-sm">
             <View className="flex justify-between items-center h-8" >
@@ -15,9 +43,10 @@ const SubList = ({ children }) => {
                     <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
                     <Text className="px-4 rounded-md text-white text-28" style={{ background: 'rgb(229,195,118)' }}>季卡</Text>
                 </View>
-                <View className="text-28 flex-1 border-t-0 border-r-0 border-l-0 border-b justify-end text-right border-solid border-gray-200 h-full flex items-center" onClick={() => {
-                    Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${children?.id}` })
-                }}>
+                <View className="text-28 flex-1 border-t-0 border-r-0 border-l-0 border-b justify-end text-right border-solid border-gray-200 h-full flex items-center"
+                    onClick={() => {
+                        Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${children?.id}` })
+                    }}>
                     发货管理<AtIcon value="chevron-right" size="20" color='#666666' />
                 </View>
             </View>
@@ -26,7 +55,7 @@ const SubList = ({ children }) => {
                     const { goodsVariants } = el
                     return <View key={el.spuNo} >
                         <View key={index} className="w-full h-20 flex mb-4">
-                            <View className="w-28 h-full">
+                            <View className="w-rc163 h-rc163">
                                 <Image className="w-full h-full" src={goodsVariants?.defaultImage} />
                             </View>
                             <View className="w-full h-full flex flex-col pl-3 justify-between">

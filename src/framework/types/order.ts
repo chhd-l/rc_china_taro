@@ -23,6 +23,7 @@ export interface TradeLineItem {
   num: string
   goodsAttributeAndValues: [TradeGoodsAttributeAndValue]
   feedingDays: number
+  isGift?: boolean
 }
 
 export interface PayInfo {

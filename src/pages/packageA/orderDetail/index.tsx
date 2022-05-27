@@ -1,5 +1,5 @@
 import { View, Image, Text, ScrollView } from '@tarojs/components'
-import { AtList, AtListItem, AtCard, AtCountdown } from 'taro-ui'
+import { AtList, AtListItem, AtCard, AtCountdown, AtIcon } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
@@ -131,7 +131,7 @@ const OrderDetails = () => {
               <AtCard className="m-0 mt-2 border-0" title="订单信息" renderIcon=
                 {orderDetail.isSubscription ? <View className="mr-2"><IconFont name='a-Group201' size={44} /></View> : <View></View>}
               >
-                {(orderDetail?.lineItem || []).map((el, idx) => (
+                {(orderDetail?.lineItem?.filter(el => !el.isGift) || []).map((el, idx) => (
                   <View key={idx} className="w-full h-20 flex mb-4">
                     <View className="w-28 h-full">
                       <Image className="w-full h-full" src={el?.pic} />
@@ -146,7 +146,27 @@ const OrderDetails = () => {
                         </View>
                         <View className="numcolor">X{el?.num}</View>
                       </View>
-                      <View className="mt-2 ProductIntroduction">规格：{el?.goodsSpecifications}</View>
+                      <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                    </View>
+                  </View>
+                ))}
+                {(orderDetail?.lineItem?.filter(el => el.isGift) || []).map((el, idx) => (
+                  <View key={idx} className="w-full h-20 flex mb-4">
+                    <View className="w-20 h-full">
+                      <Image className="w-full" mode="widthFix" src={el?.pic} />
+                    </View>
+                    <View className="w-full h-full flex flex-col pl-3">
+
+                      <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">赠品</Text></View>
+                      <View className="flex ProductIntroduction justify-between items-center">
+                        <View className="flex flex-row flex-wrap">
+                          {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                            <View style={{ borderColor: '#e8e8e8' }} className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2">{tag}</View>
+                          ))}
+                        </View>
+                        <View className="numcolor">X{el?.num}</View>
+                      </View>
+                      <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
                     </View>
                   </View>
                 ))}
@@ -163,7 +183,7 @@ const OrderDetails = () => {
                 </View>
                 {orderDetail.isSubscription && <View className="flex items-center justify-between boderTop">
                   <Text>订阅编号</Text>
-                  <Text className='numLink' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}{'>'}</Text>
+                  <Text className='text-rc22 arrow' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}<AtIcon value='chevron-right' size='14' ></AtIcon></Text>
                 </View>}
                 <View className="flex items-center justify-between boderTop">
                   <Text>下单时间</Text>
