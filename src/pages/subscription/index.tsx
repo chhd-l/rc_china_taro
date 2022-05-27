@@ -27,7 +27,7 @@ const Subscription = () => {
     const res = await getSubscriptionFindByCustomerId(customerInfos?.id)
     console.log('getSubscriptionScheduleNextDelivery', res)
     return res
-  })
+  }, { refreshDeps: [customerInfos?.id] })
   const toSub = () => {
     Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })
   }
