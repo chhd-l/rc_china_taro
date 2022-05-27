@@ -73,7 +73,6 @@ export const handleReturnTime = (time: any) => {
   }
 }
 
-//不要格式化这里的代码，不然就算错误了
 export const getDateDiff = (startTime, endTime) => {
   //将日期字符串转换为时间戳
   let sTime = new Date(startTime).getTime() //开始时间
@@ -86,14 +85,18 @@ export const getDateDiff = (startTime, endTime) => {
   let divNumHour = 1000 * 3600
   let divNumDay = 1000 * 3600 * 24
 
-  const day = parseInt((eTime - sTime) / parseInt(divNumDay))
-  const hour = parseInt(((eTime - sTime) % parseInt(divNumDay)) / parseInt(divNumHour))
+  const day = parseInt(String((eTime - sTime) / parseInt(String(divNumDay))))
+  const hour = parseInt(String(((eTime - sTime) % parseInt(String(divNumDay))) / parseInt(String(divNumHour))))
   const minute = parseInt(
-    parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour)) / parseInt(divNumMinute),
+    String(
+      parseInt(String(((eTime - sTime) % parseInt(String(divNumDay))) % parseInt(String(divNumHour)))) /
+        parseInt(String(divNumMinute)),
+    ),
   )
   const second =
-    (parseInt(((eTime - sTime) % parseInt(divNumDay)) % parseInt(divNumHour)) % parseInt(divNumMinute)) /
-    parseInt(divNumSecond)
+    (parseInt(String(((eTime - sTime) % parseInt(String(divNumDay))) % parseInt(String(divNumHour)))) %
+      parseInt(String(divNumMinute))) /
+    parseInt(String(divNumSecond))
   const str = day + '天' + hour + '小时' + minute + '分' + second + '秒'
   console.log(str)
   return {
