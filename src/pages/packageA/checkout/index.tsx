@@ -13,16 +13,15 @@ import { pay } from '@/framework/api/payment/pay'
 import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
 import { session } from '@/utils/global'
-import './index.less'
 import GiftItem from '@/components/checkout/GiftItem'
-import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { subscriptionCreateAndPay } from '@/framework/api/subscription/subscription'
+import './index.less'
 
 const Checkout = () => {
   const [customerInfo] = useAtom(customerAtom)
   const [address, setAddress] = useState({ id: '' })
   const [tradeItems, setTradeItems] = useState<any[]>([])
-  const [gitfItems, setGiftItems] = useState<any[]>([])
+  const [giftItems, setGiftItems] = useState<any[]>([])
   const [couponItems, setCouponItems] = useState<any[]>([])
   const [orderType, setOrderType] = useState<string>('normal')
   const [subscriptionInfo, setSubscriptionInfo] = useState<any>({})
@@ -31,7 +30,6 @@ const Checkout = () => {
   const [totalNum, setTotalNum] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
   const [discountPrice, setDiscountPrice] = useState(0)
-  // const [payPrice, setPayPrice] = useState(0)
   const [loading, setLoading] = useState(false)
   const [shippingPrice, setShippingPrice] = useState(0)
   const [showNoAddressTip, setShowNoAddressTip] = useState(false)
@@ -50,6 +48,7 @@ const Checkout = () => {
     }, 0)
     setTotalNum(total)
   }
+
   const getTotalPrice = () => {
     const total = tradeItems.reduce((prev, cur) => {
       return prev + cur.goodsNum * cur.localData.price
@@ -61,6 +60,7 @@ const Checkout = () => {
     }
     setTotalPrice(normalTotal)
   }
+
   const checkNow = async () => {
     switch (orderType) {
       case 'FRESH_BUY':
@@ -87,7 +87,7 @@ const Checkout = () => {
         }
         return el.skuGoodInfo
       })
-      const benefits = gitfItems.map((el) => {
+      const benefits = giftItems.map((el) => {
         if (el.skuGoodInfo.goodsVariants?.length > 0) {
           el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
             num: el.goodsNum,
@@ -204,6 +204,7 @@ const Checkout = () => {
       setLoading(false)
     }
   }
+
   const generalCheckNow = async () => {
     try {
       if (address.id === '') {
@@ -253,11 +254,6 @@ const Checkout = () => {
       console.log('create order params', params)
       const res = await createOrder(params)
       if (res.createOrder) {
-        console.log(res, 'ressssss')
-        // Taro.atMessage({
-        //   message: '下单成功',
-        //   type: 'success',
-        // })
         Taro.removeStorageSync('select-product')
         //下单成功处理删除购物车数据
         let cartProducts = session.get('cart-data') || []
@@ -333,8 +329,8 @@ const Checkout = () => {
     if (selectAddress) {
       setAddress(JSON.parse(selectAddress))
     } else {
-      // const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-      const addresses = await getAddresses({ customerId: customerInfo?.id || '' })
+      const { userInfo } = Taro.getStorageSync('wxLoginRes')
+      const addresses = await getAddresses({ customerId: userInfo?.id })
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])
@@ -364,6 +360,7 @@ const Checkout = () => {
           setSubscriptionInfo(subInfo)
           setGiftItems(giftList)
           setCouponItems(couponList)
+          console.log(couponItems)
           // 订阅折扣价合并优惠券价格
           let discount = subInfo.cycleObj.originalPrice - subInfo.cycleObj.discountPrice + discountPrice
           setDiscountPrice(discount)
@@ -374,8 +371,11 @@ const Checkout = () => {
     getDefaultAddress()
     getShippingPrice()
   }, [])
+
   const payPrice = useMemo(() => totalPrice - discountPrice, [totalPrice, discountPrice])
+
   console.info('tradeItems', tradeItems)
+
   return (
     <View className="index py-2" style={{ marginBottom: '75rpx' }}>
       <View className="px-4 bg-white">
@@ -384,10 +384,9 @@ const Checkout = () => {
         </View>
         <View className="bggray pb-2 px-2 rounded">
           <TradeItem tradeItems={tradeItems} />
-          {gitfItems?.map((item) => (
+          {giftItems?.map((item) => (
             <GiftItem product={item} />
           ))}
-
           <View>
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
             <Coupon
@@ -397,6 +396,7 @@ const Checkout = () => {
                 console.log('maxDiscountPrice', maxDiscountPrice)
                 setDiscountPrice(maxDiscountPrice)
               }}
+              orderType={orderType}
             />
             <Remark changeRemark={changeRemark} />
           </View>

@@ -12,7 +12,7 @@ const cardInfo = {
 }
 
 const Card = () => {
-  const [cardType, setCardType] = useState(0)
+  // const [cardType, setCardType] = useState(0)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
   const { cycleList } = recommendProduct
@@ -21,13 +21,12 @@ const Card = () => {
     <View className="flex flex-row ">
       {
         cycleList?.map((item, index) => (
-          <View key={item.cycle} className={` flex-1 pt-2 cardBox ${cardType === index && 'cardBox_checked'}`} onClick={() => {
-            setCardType(index)
+          <View key={item.cycle} className={` flex-1 pt-2 cardBox ${recommendProduct.cardType === index && 'cardBox_checked'}`} onClick={() => {
             setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-            setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item })
+            setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index })
           }}>
             <View className='flex flex-row  font-bold items-center  bg-gray-card'>
-              <View className={`${cardType === index && "icon"}`}><IconFont name={cardInfo[item.cycle].icon} size={50} /></View>
+              <View className={`${recommendProduct.cardType === index && "icon"}`}><IconFont name={cardInfo[item.cycle].icon} size={50} /></View>
               <Text className="text-titleGray text-rc30">{cardInfo[item.cycle].card}</Text>
             </View>
             <View className="lowAsDay">低至{item.dailyExpenses}元/天</View>
@@ -41,21 +40,20 @@ const Card = () => {
           cycleList?.map((item, index) => (
             <View key={item.value} className="flex-1 rounded-md cardChild"
               onClick={() => {
-                setCardType(index)
                 setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-                setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item })
+                setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index })
               }}>
-              <View className={` pt-1 pb-4 cardContent ${index == cardType && 'cardContent_checked'}`}>
+              <View className={` pt-1 pb-4 cardContent ${index == recommendProduct.cardType && 'cardContent_checked'}`}>
 
                 <View className="h-3 confirmIcon flex relative" >
                   {
-                    index == cardType && <IconFont name="xuanzhong" size={30} />
+                    index == recommendProduct.cardType && <IconFont name="xuanzhong" size={30} />
                   }
-                  {index === cycleList.length - 1 && <View className="absolute right-0" style={{ top: '-12px' }}><IconFont name="tuijian" size={70} /></View>}
+                  {index === cycleList.length - 1 && <View className="absolute right-0" style={{ top: '-14px' }}><IconFont name="tuijian" size={70} /></View>}
                 </View>
 
                 <View className={` items-center  flex flex-col`}>
-                  <View className={`mx-1 py-rc8 px-rc10 cardTag ${index == cardType && 'cardTag_checked'} `}>{item.quantity}包订阅价</View>
+                  <View className={`mx-1 py-rc8 px-rc10 cardTag ${index == recommendProduct.cardType && 'cardTag_checked'} `}>{item.quantity}包订阅价</View>
                   <View>
                     <Text className="text-rc30">￥</Text>
                     <Text className="text-rc48 font-bold">{item.discountPrice}</Text>
@@ -70,7 +68,7 @@ const Card = () => {
               </View>
               <View className=" edibleBorder text-center">
                 <Text className="text-rc20 ">可食用:</Text>
-                <Text className={`font-bold rc28 ${index == cardType && 'text-primary-red'}`}>{item.feedingDays}天</Text>
+                <Text className={`font-bold rc28 ${index == recommendProduct.cardType && 'text-primary-red'}`}>{item.feedingDays}天</Text>
               </View>
             </View>
 

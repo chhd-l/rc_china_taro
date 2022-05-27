@@ -81,9 +81,9 @@ const Purchased = () => {
     }
 
 
-    <View className="mt-8 flex flex-row justify-end items-center">
-      <Text className=" text-rc_222222 leading-16 text-rc22"><Text className="line-through">原价￥{recommendInfo.originalPrice}</Text>，套餐折后价</Text>
-      <Text className="text-primary-red font-bold text-rc54 mr-4 ml-2">￥{recommendInfo.discountPrice}</Text>
+    <View className="mt-8 flex flex-row justify-end items-end">
+      <Text className=" text-rc_222222 mb-1 text-rc22"><Text className="line-through">原价￥{recommendInfo.originalPrice}</Text>，套餐折后价</Text>
+      <Text className="text-primary-red font-bold text-rc54 mr-4 ml-1">￥{recommendInfo.discountPrice}</Text>
     </View>
   </View>
 }

@@ -2,17 +2,21 @@ import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import PetList from '@/components/customer/PetList'
 import { getSubscriptionDetail } from '@/framework/api/subscription/subscription'
 import IconFont from '@/iconfont'
+import { deliveryDetailAtom } from '@/store/subscription'
 import { View, Image, Text } from '@tarojs/components'
 import Taro, { Current } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
+import { useAtom } from 'jotai'
 import moment from 'moment'
 import { AtButton } from 'taro-ui'
 import './index.less'
 
 const DeliveryManagement = () => {
+    const [, setDeliveryDetail] = useAtom(deliveryDetailAtom)
 
     const { data } = useRequest(async () => {
         const res = await getSubscriptionDetail(Current?.router?.params?.id)
+        setDeliveryDetail(res)
         return res
     })
     const handleClick = () => {
@@ -22,7 +26,7 @@ const DeliveryManagement = () => {
     return <View className="delivery-management rc-content-bg">
         <PetList />
         <View className="px-3 mt-3 bg-white pb-3  rounded-md">
-            <CommonTitle title="发货管理"><Text>订阅编号:{ }</Text></CommonTitle>
+            <CommonTitle title="发货管理"><Text className='text-rc22 text-rc_666666'>订阅编号:{data?.no}</Text></CommonTitle>
             {
                 data?.goodsList?.map(item => {
                     const { goodsVariants } = item

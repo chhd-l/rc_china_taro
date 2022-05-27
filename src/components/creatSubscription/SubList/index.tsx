@@ -50,9 +50,9 @@ const SubList = ({ children }) => {
     return <View className="px-2 sub-list">
         <View style="background:#f8f8f8" className="px-2 pb-2 rounded-sm">
             <View className="flex justify-between items-center h-8" >
-                <View className="h-full">
+                <View className="h-full flex flex-row items-center">
                     <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
-                    <Text className="px-4 rounded-md text-white text-28" style={{ background: 'rgb(229,195,118)' }}>季卡</Text>
+                    <Text className="card">季卡</Text>
                 </View>
                 <View className="text-28 flex-1 justify-end text-right  h-full flex items-center"
                     onClick={() => {
@@ -80,7 +80,7 @@ const SubList = ({ children }) => {
                                         </View>
                                     </View>
                                 </View>
-                                <View className="flex flex-row items-center">
+                                <View className="flex flex-row items-center mt-3">
                                     <IconFont name='shengyushu' size={20} />
                                     <View className="text-primary-red font-bold text-rc22 ml-2">剩余：{children.totalDeliveryTimes - children.currentDeliverySequence}包</View>
                                 </View>
@@ -91,7 +91,7 @@ const SubList = ({ children }) => {
                             <View>下一包将在{moment(children?.nextDeliveryTime).format('YYYY-MM-DD')}发货</View>
                         </View>
                         <View className="">
-                            <View className=" my-2" >
+                            <View className=" my-2 px-1" >
                                 <AtProgress percent={75} strokeWidth={16} isHidePercent color="#d33024" />
                             </View>
                             <AtButton
