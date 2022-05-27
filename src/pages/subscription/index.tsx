@@ -6,7 +6,7 @@ import PetList from '@/components/customer/PetList'
 import SubList from '@/components/creatSubscription/SubList'
 import { View, Image } from '@tarojs/components'
 import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION, SUBSCRIPTION_HELP_ICON, WHAT_IS_SUBSCRIPTION } from '@/lib/subscription'
-import { getSubscriptionScheduleNextDelivery, getSubscriptionDetail, getSubscriptionFindByCustomerId } from '@/framework/api/subscription/subscription'
+import { getSubscriptionFindByCustomerId } from '@/framework/api/subscription/subscription'
 import Taro from '@tarojs/taro'
 import './index.less'
 

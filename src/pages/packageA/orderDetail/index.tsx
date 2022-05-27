@@ -1,5 +1,5 @@
 import { View, Image, Text, ScrollView } from '@tarojs/components'
-import { AtList, AtListItem, AtCard, AtCountdown } from 'taro-ui'
+import { AtList, AtListItem, AtCard, AtCountdown, AtIcon } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
@@ -163,7 +163,7 @@ const OrderDetails = () => {
                 </View>
                 {orderDetail.isSubscription && <View className="flex items-center justify-between boderTop">
                   <Text>订阅编号</Text>
-                  <Text className='numLink' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}{'>'}</Text>
+                  <Text className='text-rc22 arrow' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}<AtIcon value='chevron-right' size='14' ></AtIcon></Text>
                 </View>}
                 <View className="flex items-center justify-between boderTop">
                   <Text>下单时间</Text>

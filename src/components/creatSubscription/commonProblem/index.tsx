@@ -41,7 +41,7 @@ const CommonProblem = () => {
       <View className="w-5 h-5 bg-primary-red rounded-full text-white text-center mr-2 leading-5">3</View>
       <Text>新鲜购的宠粮是根据什么定制的?</Text>
     </View>
-    <View className="pl-7 py-5 pr-5 text-sm">
+    <View className="pl-7 pt-5 pb-6 pr-5 text-sm">
       新鲜购根据爱宠的品种、年龄和体型精准推荐。如果您想选择特定的某款产品，也可以在页面中进行粮食自由搭配哦。
     </View>
   </View>

@@ -15,9 +15,10 @@ const SubList = ({ children }) => {
                     <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
                     <Text className="px-4 rounded-md text-white text-28" style={{ background: 'rgb(229,195,118)' }}>季卡</Text>
                 </View>
-                <View className="text-28 flex-1 border-t-0 border-r-0 border-l-0 border-b justify-end text-right border-solid border-gray-200 h-full flex items-center" onClick={() => {
-                    Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${children?.id}` })
-                }}>
+                <View className="text-28 flex-1 border-t-0 border-r-0 border-l-0 border-b justify-end text-right border-solid border-gray-200 h-full flex items-center"
+                    onClick={() => {
+                        Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${children?.id}` })
+                    }}>
                     发货管理<AtIcon value="chevron-right" size="20" color='#666666' />
                 </View>
             </View>
@@ -26,7 +27,7 @@ const SubList = ({ children }) => {
                     const { goodsVariants } = el
                     return <View key={el.spuNo} >
                         <View key={index} className="w-full h-20 flex mb-4">
-                            <View className="w-28 h-full">
+                            <View className="w-rc163 h-rc163">
                                 <Image className="w-full h-full" src={goodsVariants?.defaultImage} />
                             </View>
                             <View className="w-full h-full flex flex-col pl-3 justify-between">
