@@ -83,8 +83,9 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     isUsed: origin === 'pdp' ? false : voucherStatus === '1', //是否已使用
     voucherType: voucherType,
     isCanUsed: false,
-    goodsInfoIds: origin === 'pdp' ? [] : voucher?.goodsInfoIds || [],
-    recurrence:voucher?.recurrence
+    voucherGoodsRelated: origin === 'pdp' ? [] : voucher?.voucherGoodsRelated || [],
+    recurrence: voucher?.recurrence || false,
+    orderType: voucher?.orderType || 'ALL',
   }
 }
 

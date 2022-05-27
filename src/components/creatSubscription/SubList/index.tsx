@@ -72,7 +72,7 @@ const SubList = ({ children }) => {
                                 </View>
                                 <View className="flex flex-row items-center mt-3">
                                     <IconFont name='shengyushu' size={20} />
-                                    <View className="text-primary-red font-bold text-rc22 ml-2">剩余：3包</View>
+                                    <View className="text-primary-red font-bold text-rc22 ml-2">剩余：{children.totalDeliveryTimes - children.currentDeliverySequence}包</View>
                                 </View>
                             </View>
                         </View>

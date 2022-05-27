@@ -20,6 +20,7 @@ type RecommendProductType = {
   freshType: string;
   couponList: any[];
   cardType: number
+  subscriptionRecommendRuleId?: string
 }
 
 type DeliveryDetailType = {
