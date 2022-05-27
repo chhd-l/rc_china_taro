@@ -63,8 +63,8 @@ const Coupon = ({
   //获取产品型优惠券针对当前所要购买的商品的最大优惠价格
   const handleProductVoucherPrice = (voucher) => {
     let canUsedProduct: any[] = []
-    voucher.voucherGoodsRelated.map((goodsInfoId) => {
-      const item = tradeItems.find((orderProduct) => goodsInfoId === orderProduct?.skuGoodInfo?.id)
+    voucher.voucherGoodsRelated.map((el) => {
+      const item = tradeItems.find((orderProduct) => el?.goodsId === orderProduct?.skuGoodInfo?.id)
       if (item) {
         canUsedProduct.push(item)
       }
