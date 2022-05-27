@@ -26,7 +26,8 @@ const PetList = (props: Props) => {
   const { currentIdx, checkedArr = [] } = recommendInfo
   const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
   const { system } = Taro.getSystemInfoSync()
-  console.log('getSystemInfoSync', system)
+  console.log('getSystemInfoSync', system, system.indexOf('Android'))
+  const systemType = system.indexOf('Android') > -1
   const handleChange = (current: number) => {
     setRecommendInfo({ ...recommendInfo, currentIdx: current })
   }
@@ -161,8 +162,8 @@ const PetList = (props: Props) => {
             style={{ height: '80px' }}
             className="w-72 flex items-center"
             circular
-            nextMargin={system.indexOf('Android') ? "180rpx" : "140rpx"}
-            previousMargin={system.indexOf('Android') ? "160rpx" : "200rpx"}
+            nextMargin={systemType ? "180rpx" : "70rpx"}
+            previousMargin={systemType ? "160rpx" : "200rpx"}
             current={currentIdx}
             onChange={({ detail }) => handleChange(detail.current)}
           >
