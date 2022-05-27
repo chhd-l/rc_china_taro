@@ -150,6 +150,7 @@ const OrderDetails = () => {
                     </View>
                   </View>
                 ))}
+                {orderDetail?.lineItem?.filter(el => el.isGift)?.length ? <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View> : null}
                 {(orderDetail?.lineItem?.filter(el => el.isGift) || []).map((el, idx) => (
                   <View key={idx} className="w-full h-20 flex mb-4">
                     <View className="w-20 h-full">
@@ -160,13 +161,14 @@ const OrderDetails = () => {
                       <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">赠品</Text></View>
                       <View className="flex ProductIntroduction justify-between items-center">
                         <View className="flex flex-row flex-wrap">
-                          {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                          {/* {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
                             <View style={{ borderColor: '#e8e8e8' }} className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2">{tag}</View>
-                          ))}
+                          ))} */}
                         </View>
                         <View className="numcolor">X{el?.num}</View>
                       </View>
-                      <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                      {el?.goodsSpecifications ? <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View> : null}
+
                     </View>
                   </View>
                 ))}

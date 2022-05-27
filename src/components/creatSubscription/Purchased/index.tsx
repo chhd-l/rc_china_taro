@@ -55,7 +55,7 @@ const Purchased = () => {
               <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View>
               <View className="flex flex-row items-center" >
                 <IconFont name="a-Frame1" size={73} />
-                {list.quantityRule !== 'FIRST_DELIVERY_FIXED_NUMBER' ? <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">逐包随单发货</Text> : null}
+                <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">  {list.quantityRule !== 'FIRST_DELIVERY_FIXED_NUMBER' ? '逐包随单发货' : '一次性发货'}</Text>
               </View>
               {/* {
                 normalizeTags(list.goodsAttributeValueRel, list.goodsVariants[0].feedingDays).map(tag => (

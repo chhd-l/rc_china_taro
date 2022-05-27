@@ -351,6 +351,10 @@ const Checkout = () => {
         if (data.isSubscription) {
           setOrderType('FRESH_BUY')
           let { giftList, couponList } = data
+          // 生日为空删除
+          if (!data.pet?.birthday) {
+            delete data.pet?.birthday
+          }
           let subInfo = {
             cycleObj: data.cycle,
             freshType: data.freshType || 'FRESH_NORMAL',
