@@ -50,7 +50,7 @@ const SubList = ({ children }) => {
     return children?.goodsList?.map((el) => {
         const { goodsVariants } = el
         return <View className="px-2 sub-list " key={el.spuNo} style={{ margin: '20px 0' }}>
-            <View style={{ background: 'yellow' }} className="px-2 pb-2 rounded-sm">
+            <View style={{ background: '#f8f8f8' }} className="px-2 pb-2 rounded-sm">
                 <View className="flex justify-between items-center h-8" >
                     <View className="h-full flex flex-row items-center">
                         <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
@@ -93,7 +93,7 @@ const SubList = ({ children }) => {
                         <View className=" my-2 px-1" >
                             <AtProgress percent={75} strokeWidth={6} isHidePercent color="#d33024" />
                         </View>
-                        <View className='text-right'>
+                        <View className='flex justify-end'>
                             <View className='RenewButton' onClick={handleClick}>一键续订</View>
                         </View>
 
