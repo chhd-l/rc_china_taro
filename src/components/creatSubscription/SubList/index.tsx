@@ -91,7 +91,7 @@ const SubList = ({ children }) => {
                             <View>下一包将在{moment(children?.nextDeliveryTime).format('YYYY-MM-DD')}发货</View>
                         </View>
                         <View className=" my-2 px-1" >
-                            <AtProgress percent={75} strokeWidth={6} isHidePercent color="#d33024" />
+                            <AtProgress percent={Math.ceil(children.currentDeliverySequence * 100 / children.totalDeliveryTimes)} strokeWidth={6} isHidePercent color="#d33024" />
                         </View>
                         <View className='flex justify-end'>
                             <View className='RenewButton' onClick={handleClick}>一键续订</View>

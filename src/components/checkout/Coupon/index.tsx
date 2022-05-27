@@ -26,9 +26,11 @@ const Coupon = ({
 
   //有可使用的优惠券时默认显示最高价值的优惠券
   const handleDefaultVoucher = () => {
-    //1、未使用优惠券列表
-    //2、店铺型优惠券满足满减金额
-    //3、商品型优惠券，所下单商品内有可用该优惠券且满足满减金额
+    //1、用户未使用的优惠券列表
+    //2、优惠券可用订单类型：ALL：所有订单可用 SING_ORDER：普通订单可用 NORMAL_SUBSCRIPTION：订阅订单可用
+    //3、店铺型优惠券：有门槛/无门槛FIX_AMOUNT：订单总金额（不包括运费）大于等于优惠券满减金额 无门槛PERCENTAGE：直接打折
+    //4、商品型优惠券：所下单商品内有该优惠券绑定的商品，有门槛/无门槛FIX_AMOUNT：所有可用该优惠券的商品的总价大于等于优惠券满减金额 无门槛PERCENTAGE：直接打折
+    //5、有可用优惠券时，默认选中最高折扣的优惠券
     const records = cloneDeep(vouchers)
       .map((el: Voucher) => {
         if (
