@@ -9,14 +9,41 @@ import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION
 import { getSubscriptionFindByCustomerId } from '@/framework/api/subscription/subscription'
 import Taro from '@tarojs/taro'
 import './index.less'
+import { useAtom } from 'jotai'
+import { currentStepAtom, recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
 
 
 
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
+  const [, setRecommendInfoAtom] = useAtom(recommendInfoAtom)
+  const [, setRecommendProductAtom] = useAtom(recommendProductAtom)
+  const [, setCurrentStep] = useAtom(currentStepAtom)
+
   const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
 
+
   const { data } = useRequest(async () => {
+    setRecommendInfoAtom({
+      recommPetInfo: {},
+      couponList: [],
+      goodsList: [],
+      giftList: [],
+      currentIdx: 0,
+      checkedArr: []
+    });
+    setRecommendProductAtom({
+      giftList: [],
+      couponList: [],
+      cardType: 0,
+      freshType: 'FRESH_NORMAL',
+      discountPrice: '',
+      originalPrice: '',
+      goodsVariantInfo: {
+        goodsVariants: {}, goodsAttributeValueRel: [], goodsAsserts: {}, goodsName: ''
+      }
+    })
+    setCurrentStep(0)
     // const params = {
     //   id: "73117cde-28be-f382-b910-8d169efd48e5",
     //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
@@ -28,6 +55,8 @@ const Subscription = () => {
     const res = await getSubscriptionFindByCustomerId(customerInfos?.id)
     console.log('getSubscriptionScheduleNextDelivery', res)
     return res
+  }, {
+    refreshDeps: [customerInfos?.id]
   })
   const toSub = () => {
     Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })

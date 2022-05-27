@@ -4,10 +4,10 @@ import routers from '@/routers'
 import { Text, View, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import moment from 'moment'
-import { AtButton, AtIcon, AtProgress } from 'taro-ui'
-import './index.less'
 import cloneDeep from 'lodash.cloneDeep'
 import { getCycleItem } from '@/utils/utils'
+import { AtIcon, AtProgress } from 'taro-ui'
+import './index.less'
 
 const SubList = ({ children }) => {
     console.log('children', children)
@@ -48,7 +48,7 @@ const SubList = ({ children }) => {
         })
     }
     return children?.goodsList?.map((el) => {
-        const { goodsVariants } = el
+        const { goodsVariants = {} } = el
         return <View className="px-2 sub-list " key={el.spuNo} style={{ margin: '20px 0' }}>
             <View style={{ background: '#f8f8f8' }} className="px-2 pb-2 rounded-sm">
                 <View className="flex justify-between items-center h-8" >

@@ -23,9 +23,10 @@ const PetList = (props: Props) => {
   const [fakePet, setFakePet] = useState<any>([])
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
-  const { currentIdx, checkedArr } = recommendInfo
+  const { currentIdx, checkedArr = [] } = recommendInfo
   const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
   const res = Taro.getSystemInfoSync()
+  console.log('checkedArr', checkedArr)
   console.log('customerInfos', customerInfos, res)
   const handleChange = (current: number) => {
     setRecommendInfo({ ...recommendInfo, currentIdx: current })

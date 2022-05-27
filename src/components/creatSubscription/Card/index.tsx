@@ -22,7 +22,7 @@ const Card = () => {
       {
         cycleList?.map((item, index) => (
           <View key={item.cycle} className={` flex-1 pt-2 cardBox ${recommendProduct.cardType === index && 'cardBox_checked'}`} onClick={() => {
-            setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
+            setRecommendInfo({ ...recommendInfo })
             setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
           }}>
             <View className='flex flex-row  font-bold items-center  bg-gray-card'>
@@ -40,7 +40,7 @@ const Card = () => {
           cycleList?.map((item, index) => (
             <View key={item.value} className="flex-1 rounded-md cardChild"
               onClick={() => {
-                setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
+                setRecommendInfo({ ...recommendInfo })
                 setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
               }}>
               <View className={` pt-1 pb-4 cardContent ${index == recommendProduct.cardType && 'cardContent_checked'}`}>
@@ -79,7 +79,7 @@ const Card = () => {
         <View className="divider_side" />
         <IconFont name="a-bao3" size={34} />
         <View className="text-primary-red text-rc26 mx-1">订阅期间保价</View>
-        <IconFont name="wenhao01" size={20} />
+        {/* <IconFont name="wenhao01" size={20} /> */}
         <View className="divider_side" />
       </View>
 
