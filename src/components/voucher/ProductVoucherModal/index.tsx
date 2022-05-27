@@ -66,7 +66,8 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
               本店活动
             </Text>
             <View className="px-2 truncate text-gray-400" style={{ width: '60%' }}>
-              {handleVoucherName()}
+              {/*{handleVoucherName()}*/}
+              {vouchers[0]?.voucherName}...
             </View>
           </View>
           <View
