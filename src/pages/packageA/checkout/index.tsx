@@ -129,7 +129,7 @@ const Checkout = () => {
         address: addressInfo.id !== '' ? addressInfo : null,
         goodsList,
         benefits,
-        coupons: [],
+        // coupons: [],
         remark,
         totalDeliveryTimes: subscriptionInfo.cycleObj.quantity, //配送次数
       }
@@ -178,12 +178,12 @@ const Checkout = () => {
             //   url: '/pages/subscription/index',
             // })
             Taro.redirectTo({
-              url: `${routers.orderList}?status=TO_SHIP`,
+              url: `${routers.orderList}?status=TO_SHIP&isFromSubscription=true`,
             })
           },
           fail: () => {
             Taro.redirectTo({
-              url: `${routers.orderList}?status=UNPAID`,
+              url: `${routers.orderList}?status=UNPAID&isFromSubscription=true`,
             })
           },
           paymentRequest: res.payment,

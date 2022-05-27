@@ -1,4 +1,5 @@
-import { normalizeTags } from '@/framework/api/lib/normalize'
+import { normalizeCartData, normalizeTags } from '@/framework/api/lib/normalize'
+import routers from '@/routers'
 import { Text, View, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import moment from 'moment'
@@ -7,7 +8,34 @@ import './index.less'
 
 const SubList = ({ children }) => {
     console.log('children', children)
-    const handleClick = () => { }
+    const handleClick = () => {
+        let buyInfo = { ...children }
+        let {
+            birthday, breedCode, breedName, gender, id, image, name, type
+        } = buyInfo.pet
+        let { cycle, type: subType, freshType, goodsList, benefits: giftList } = buyInfo
+        const checkoutData = {
+            type: subType,
+            cycle: { cycle, quantity: goodsList[0].goodsVariants?.[0]?.num },
+            freshType,
+            pet: {
+                birthday, breedCode, breedName, gender, id, image, name, type
+            },
+            goodsList: goodsList.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)),
+            isSubscription: true,
+            giftList: giftList?.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)) || [],
+            couponList: [],
+        }
+        console.info('.....', checkoutData)
+        Taro.setStorage({
+            key: 'select-product',
+            data: JSON.stringify(checkoutData),
+            complete: (respon) => {
+                console.log(respon)
+                Taro.navigateTo({ url: routers.checkout })
+            },
+        })
+    }
     return <View className="px-2 sub-list">
         <View style="background:#f8f8f8" className="px-2 pb-2 rounded-sm">
             <View className="flex justify-between items-center h-8" >
