@@ -48,10 +48,10 @@ const Step = () => {
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
       const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
-      let allGiftList = cloneDeep(giftList)
+
       // const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item?.goodsVariants?.[0]?.id))
       const gift = goodsList[0].giftIdList.map(el => {
-        let goodsVariants = allGiftList.find(gift => gift?.goodsVariants?.[0]?.id === el.giftId)
+        let goodsVariants = giftList.find(gift => gift?.goodsVariants?.[0]?.id === el.giftId)
         let data: any = {}
         if (goodsVariants && el) {
           data = { ...goodsVariants, subscriptionRecommendRuleId: el.subscriptionRecommendRuleId, quantityRule: el.quantityRule, quantity: el.quantity }

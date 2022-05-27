@@ -16,7 +16,7 @@ import './index.less'
 interface Props {
   showCheckBox?: boolean
   handleCheckedPet?: Function
-  petInfoId?: string
+  siglePetInfo?: any
 }
 const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
@@ -50,9 +50,13 @@ const PetList = (props: Props) => {
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
-    if (props.petInfoId) {
-      res = res.filter(el => el.petId === props.petInfoId)
-      debugger
+    if (props.siglePetInfo) {
+      res = res.filter(el => el.petId === props.siglePetInfo?.id)
+      if (!res.length) {
+        debugger
+        res = [props.siglePetInfo]
+        res.age = getAge(res.birthday)
+      }
     }
     if (res.length > 1) {
       console.log('res', res)
@@ -149,7 +153,7 @@ const PetList = (props: Props) => {
         ></View>
         <Text className=" text-22 bg-white">
           {fakePet[currentIdx]?.breed}
-          <Text className=" ml-1">{` ${fakePet[currentIdx]?.age}`}</Text>
+          <Text className=" ml-1">{fakePet[currentIdx]?.age ? ` ${fakePet[currentIdx]?.age}` : ''}</Text>
         </Text>
       </View>
     </View>
