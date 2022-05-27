@@ -63,6 +63,7 @@ module.exports = {
         rc33: '33px',
         rc72: '72px',
         rc96: '96px',
+        rc163: '163px',
         rc169: '169px',
         rc190: '190px',
         rc560: '560px',
