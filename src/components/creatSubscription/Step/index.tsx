@@ -57,7 +57,7 @@ const Step = () => {
           switch (data.quantityRule) {
             case 'FIRST_DELIVERY_FIXED_NUMBER':
               // data.quantity = recommenProduct.quantity
-              data.quantity = 1;
+              data.quantity = data.quantity
               break;
 
             case 'CALCULATE_BY_FEEDING_DAY':
@@ -105,11 +105,11 @@ const Step = () => {
       {
         stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => {
           // console.log('recommenProduct', recommenProduct)
-          const { freshType, cycle, goodsVariantInfo, giftList } = recommenProduct
+          const { freshType, cycle, goodsVariantInfo, giftList, subscriptionRecommendRuleId } = recommenProduct
           const { recommPetInfo } = recommendInfo
           let { birthday, code: breedCode, breed: breedName, gender, id, image, name, type } = recommPetInfo
           birthday = moment(birthday)
-          let goodsList = [goodsVariantInfo]
+          let goodsList = [{ ...goodsVariantInfo, subscriptionRecommendRuleId }]
           Taro.setStorage({
             key: 'select-product',
             data: JSON.stringify({
@@ -123,6 +123,7 @@ const Step = () => {
               isSubscription: true,
               giftList: giftList?.map(el => {
                 let goodsNum = el.quantity
+                // el.subscriptionRecommendRuleId=goodsList
                 return normalizeCartData({ goodsNum }, el, true)
               }) || [],
               couponList: [],

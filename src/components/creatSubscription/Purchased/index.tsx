@@ -71,7 +71,7 @@ const Purchased = () => {
                   <Text className="text-rc28">0</Text>
                   <Text className="text-rc20">.00</Text>
                 </View>
-                <View className="text-textGray text-rc22">x{recommendProduct.quantity! * 2}</View>
+                <View className="text-textGray text-rc22">x{list.quantity}</View>
               </View>
             </View>
 

@@ -72,7 +72,7 @@ const SubList = ({ children }) => {
                                     <View className="bg-primary-red  w-3 h-3 rounded-full flex justify-center items-center">
                                         <View className="bg-primary-red rounded-full border-1 border-solid border-white w-2 h-2"></View>
                                     </View>
-                                    <View className="text-primary-red font-bold text-rc22 ml-2">剩余：3包</View>
+                                    <View className="text-primary-red font-bold text-rc22 ml-2">剩余：{children.totalDeliveryTimes - children.currentDeliverySequence}包</View>
                                 </View>
                             </View>
                         </View>

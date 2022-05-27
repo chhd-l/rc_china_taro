@@ -30,7 +30,7 @@ const DeliveryManagement = () => {
                             <Image src={goodsVariants.defaultImage} className="w-full h-full" />
                         </View>
                         <View className="flex-1 px-3 flex-col flex items-center w-full justify-center">
-                            <View className="text-28 text-center mb-3 font-bold">您的宠物还剩余<Text className="text-primary-red">3</Text>包</View>
+                            <View className="text-28 text-center mb-3 font-bold">您的宠物还剩余<Text className="text-primary-red">{item.totalDeliveryTimes - item.currentDeliverySequence}</Text>包</View>
                             <AtButton
                                 size="small"
                                 className="w-full"
