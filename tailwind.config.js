@@ -53,8 +53,10 @@ module.exports = {
         rc61: '61px',
         rc98: '98px',
         rc124: '124px',
+        rc205: '205px',
         rc163: '163px',
         rc190: '190px',
+        rc300: '300px',
       },
       height: {
         rc22: '22px',
