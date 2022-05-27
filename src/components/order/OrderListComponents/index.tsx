@@ -65,9 +65,9 @@ const OrderListComponents = ({
             <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
           {(item?.lineItem?.filter(el => !el.isGift) || []).map((el, index) => (
-            <View key={index} className="w-full flex items-center" style={{ marginBottom: '18rpx' }}>
+            <View key={index} className="w-full flex items-center max-h-20 " style={{ marginBottom: '18rpx' }}>
               <View className="w-32 h-full">
-                <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
+                {el?.pic ? <Image className="w-full h-full" mode="widthFix" src={el?.pic} /> : <Image className="w-full h-20" mode="widthFix" src={el?.pic} />}
               </View>
               <View className="w-full h-full flex flex-col pl-3">
                 <View className="text-xs font-black mb-1">{el?.skuName}</View>
@@ -87,9 +87,7 @@ const OrderListComponents = ({
           {(item?.lineItem?.filter(el => el.isGift) || []).map((el, index) => (
             <View key={index} className="w-full flex items-center" style={{ marginBottom: '18rpx' }}>
               <View className="w-16 h-full">
-                <Image className="w-full"
-                  mode="widthFix"
-                  src={el?.pic} />
+                {el?.pic ? <Image className="w-full h-full" mode="widthFix" src={el?.pic} /> : <Image className="w-full h-20" mode="widthFix" src={el?.pic} />}
               </View>
               <View className="w-full h-full flex flex-col pl-3">
                 <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">赠品</Text></View>

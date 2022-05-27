@@ -19,6 +19,7 @@ type RecommendProductType = {
   cycle?: any;
   freshType: string;
   couponList: any[];
+  subscriptionRecommendRuleId?: string
 }
 
 // type PetInfoType={
@@ -43,6 +44,6 @@ export const recommendInfoAtom = atom<RecommendInfoType>({
 export const recommendProductAtom = atom<RecommendProductType>({
   giftList: [],
   couponList: [],
-  freshType: 'FRESH_NORMAL',
+  freshType: 'FRESH_NORMAL'
 })
 
