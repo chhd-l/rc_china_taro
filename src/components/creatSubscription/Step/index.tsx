@@ -12,6 +12,7 @@ import './index.less'
 import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
 import AtMyStep from '../components/AtMyStep'
+import { useState } from 'react'
 
 
 
@@ -25,7 +26,7 @@ const Step = () => {
   const [stepCount, setStepCount] = useAtom(currentStepAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [recommenProduct, setRecommendProduct] = useAtom(recommendProductAtom)
-
+  const [allGiftList, setAllGiftList] = useState([])
   const goNextStep = async () => {
     const { type, code, birthday, isSterilized } = recommendInfo.recommPetInfo
     const params = {
@@ -47,14 +48,48 @@ const Step = () => {
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
       const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
-      const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item?.goodsVariants?.[0]?.id))
+      // const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item?.goodsVariants?.[0]?.id))
+      const gift = goodsList[0].giftIdList.map(el => {
+        let goodsVariants = giftList.find(gift => gift?.goodsVariants?.[0]?.id === el.giftId)
+        let data: any = {}
+        if (goodsVariants && el) {
+          data = { ...goodsVariants, subscriptionRecommendRuleId: el.subscriptionRecommendRuleId, quantityRule: el.quantityRule, quantity: el.quantity }
+          switch (data.quantityRule) {
+            case 'FIRST_DELIVERY_FIXED_NUMBER':
+              // data.quantity = recommenProduct.quantity
+              data.quantity = 1;
+              break;
+
+            case 'CALCULATE_BY_FEEDING_DAY':
+              data.quantity = quantity;
+              break;
+
+            case 'FIXED_NUMBER':
+              data.quantity = data.quantity;
+              break;
+
+            case 'DOUBLE_OF_SKU_NUMBER':
+              data.quantity = quantity * 2;
+              break;
+          }
+        }
+        return data
+      })
+      console.info('giftgift', gift)
       setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
       setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
+    }
+    if (stepCount === 1) {
+      // 切换商品总价和赠品没有改变
+      // const { goodsList, giftList } = recommendInfo
+      // const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
+      // const gift = getGifts(goodsList[0].giftIdList, giftList)
+      // setRecommendInfo({ ...recommendInfo, discountPrice, originalPrice })
+      // setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
     }
 
     setStepCount(stepCount + 1)
   }
-
   return <View>
     <AtMyStep current={stepCount} />
     {nextStepView[stepCount]}
@@ -84,9 +119,12 @@ const Step = () => {
               pet: {
                 birthday, breedCode, breedName, gender, id, image, name, type
               },
-              goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el)),
+              goodsList: goodsList.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity }, el, true)),
               isSubscription: true,
-              giftList: giftList?.map(el => normalizeCartData({ goodsNum: recommenProduct.quantity! * 2 }, el)) || [],
+              giftList: giftList?.map(el => {
+                let goodsNum = el.quantity
+                return normalizeCartData({ goodsNum }, el, true)
+              }) || [],
               couponList: [],
             }),
             complete: (respon) => {

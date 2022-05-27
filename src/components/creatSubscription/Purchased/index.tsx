@@ -33,7 +33,8 @@ const Purchased = () => {
         <View className="flex flex-row items-center justify-between">
           <View className="my-2">
             <Text className="text-rc20 text-primary-red">￥</Text>
-            <Text className="font-bold text-primary-red text-rc28">{goodsVariants[0].marketingPrice}</Text>
+            <Text className="font-bold text-primary-red text-rc28">{goodsVariants[0].subscriptionPrice}</Text>
+            {/* <Text className="text-primary-red text-rc20">.00</Text> */}
           </View>
           <View className="text-textGray text-rc22">x{recommendProduct.quantity}</View>
         </View>
@@ -46,14 +47,15 @@ const Purchased = () => {
           <View className="flex flex-row items-center">
             <View className="w-rc190 h-rc190  mr-2 relative">
               <Image className="w-full" mode="widthFix" src={list.goodsVariants[0]?.defaultImage || list.goodsAsserts?.[0]?.artworkUrl} />
-              <CountTag type="center" >{recommendProduct.quantity! * 2}</CountTag>
+              {/* <CountTag type="center" >{list.quantityRule === 'DOUBLE_OF_SKU_NUMBER' ? recommendProduct.quantity! * 2 : list.quantity}</CountTag> */}
+              <CountTag type="center" >{list.quantity}</CountTag>
             </View>
             <View className="flex-1">
               <View className="font-bold text-rc26 text-rc_222222">{list.goodsVariants[0]?.name || list.goodsName}</View>
               <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View>
               <View className="flex flex-row items-center" >
                 <IconFont name="a-Frame1" size={73} />
-                <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">逐包随单发货</Text>
+                {list.quantityRule !== 'FIRST_DELIVERY_FIXED_NUMBER' ? <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">逐包随单发货</Text> : null}
               </View>
               {/* {
                 normalizeTags(list.goodsAttributeValueRel, list.goodsVariants[0].feedingDays).map(tag => (

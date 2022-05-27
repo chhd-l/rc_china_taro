@@ -26,7 +26,7 @@ export const getSubscriptionFindByCustomerId = async (customerId: string) => {
         const { subscriptionFindByCustomerId } = await ApiRoot.subscriptions().subscriptionFindByCustomerId({ customerId })
         return subscriptionFindByCustomerId
     } catch (err) {
-        return {}
+        return []
     }
 }
 
