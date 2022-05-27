@@ -76,8 +76,8 @@ const Step = () => {
         return data
       })
       console.info('giftgift', gift)
-      setRecommendInfo({ ...recommendInfo, couponList, goodsList, giftList, discountPrice, originalPrice })
-      setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
+      setRecommendInfo({ ...recommendInfo, goodsList, couponList })
+      setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift, discountPrice, originalPrice })
     }
     if (stepCount === 1) {
       // 切换商品总价和赠品没有改变
