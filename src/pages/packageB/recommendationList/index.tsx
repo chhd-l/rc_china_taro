@@ -19,9 +19,44 @@ const List = () => {
   }
   const chooseRecommendProduct = (good) => {
     console.log('good', good)
+    console.info('recommendProductrecommendProduct', recommendProduct)
+    // recommendProduct.cycle.cycle
     const { cycleList } = good;
+    let currentCycle = cycleList[0]
+    // let currentCycle = cycleList.find(el => recommendProduct.cycle.cycle === el.cycle)
+    let { quantity } = currentCycle
+    const { giftList } = goodsList
+    const gift = good.giftIdList.map(el => {
+      let goodsVariants = giftList.find(gift => gift?.goodsVariants?.[0]?.id === el.giftId)
+      let data: any = {}
+      if (goodsVariants && el) {
+        data = { ...goodsVariants, subscriptionRecommendRuleId: el.subscriptionRecommendRuleId, quantityRule: el.quantityRule, quantity: el.quantity }
+        switch (data.quantityRule) {
+          case 'FIRST_DELIVERY_FIXED_NUMBER':
+            // data.quantity = recommenProduct.quantity
+            data.quantity = data.quantity
+            break;
+
+          case 'CALCULATE_BY_FEEDING_DAY':
+            data.quantity = quantity;
+            break;
+
+          case 'FIXED_NUMBER':
+            data.quantity = data.quantity;
+            break;
+
+          case 'DOUBLE_OF_SKU_NUMBER':
+            data.quantity = quantity * 2;
+            break;
+        }
+      }
+      return data
+    })
     setRecommendProduct({
       ...recommendProduct, ...good, discountPrice: cycleList[0].discountPrice,
+      giftList: gift,
+      cycle: currentCycle,
+      quantity,
       originalPrice: cycleList[0].originalPrice,
       cardType: 0
     })
