@@ -1,5 +1,5 @@
 import { View, Text } from '@tarojs/components'
-import {AtFloatLayout, AtIcon, AtMessage} from 'taro-ui'
+import {AtFloatLayout, AtIcon, AtMessage, AtModal} from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { Voucher } from '@/framework/types/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
@@ -11,6 +11,7 @@ import './index.less'
 const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [showReceiveVoucher, setShowReceiveVoucher] = useState(false)
+  const [showSuccessReceive,setShowSuccessReceive]=useState(false)
 
   const getVoucherList = async () => {
     console.log('aaaaaaa', goodsId)
@@ -37,11 +38,22 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       voucherId: voucher.id,
     })
     if (res) {
-      Taro.atMessage({
-        message: '优惠券领券成功',
-        type: 'success',
-      })
-      await getVoucherList()
+      // Taro.atMessage({
+      //   message: '优惠券领券成功',
+      //   type: 'success',
+      // })
+      // await getVoucherList()
+      setShowSuccessReceive(true)
+      setVouchers(
+        vouchers
+          .map((el) => {
+            if (el.id === voucher.id) {
+              el.isReceived = true
+            }
+            return el
+          })
+          .sort((a, b) => Number(a.isReceived) - Number(b.isReceived)),
+      )
     } else {
       Taro.atMessage({
         message: '系统繁忙，请稍后再试',
@@ -61,13 +73,13 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
     <>
       {vouchers.length > 0 ? (
         <View className="flex flex-row bg-gray-fb py-2 text-26">
-          <View className="flex flex-row" style={{ width: '80%' }}>
-            <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2 break-all">
+          <View className="flex flex-row w-full" style={{wordBreak:'keep-all'}}>
+            <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2">
               本店活动
             </Text>
             <View className="px-2 text-gray-400">
               {/*{handleVoucherName()}*/}
-              {vouchers[0]?.voucherName} {vouchers.length>1?'...':''}
+              {vouchers[0]?.voucherName} {vouchers.length > 1 ? '...' : ''}
             </View>
           </View>
           <View
@@ -114,6 +126,17 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
         </View>
       </AtFloatLayout>
       <AtMessage />
+      <AtModal
+        className="rc-error-tips-modal-one"
+        isOpened={showSuccessReceive}
+        title="提示"
+        confirmText="确定"
+        content="领取成功"
+        onClose={() => {
+          setShowSuccessReceive(false)
+        }}
+        onConfirm={() => setShowSuccessReceive(false)}
+      />
     </>
   )
 }
