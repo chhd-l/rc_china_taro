@@ -57,13 +57,13 @@ const Purchased = () => {
                 <IconFont name="a-Frame1" size={73} />
                 {list.quantityRule !== 'FIRST_DELIVERY_FIXED_NUMBER' ? <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">逐包随单发货</Text> : null}
               </View>
-              {
+              {/* {
                 normalizeTags(list.goodsAttributeValueRel, list.goodsVariants[0].feedingDays).map(tag => (
                   <View className="text-textGray text-rc22 my-1" key={tag}>
                     {tag}
                   </View>
                 ))
-              }
+              } */}
 
               <View className="flex justify-between">
                 <View className="text-primary-red">

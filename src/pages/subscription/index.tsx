@@ -1,3 +1,4 @@
+
 import { AtFloatLayout } from 'taro-ui'
 import { useState } from 'react'
 import { useRequest } from 'ahooks'
@@ -13,13 +14,15 @@ import './index.less'
 
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
+  const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
+
   const { data } = useRequest(async () => {
     // const params = {
     //   id: "73117cde-28be-f382-b910-8d169efd48e5",
     //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
     //   operator: "ss"
     // }
-    const res = await getSubscriptionFindByCustomerId("25a96973-c23b-e6b6-2e8d-3c8a85922b1e")
+    const res = await getSubscriptionFindByCustomerId(customerInfos?.id)
     console.log('getSubscriptionScheduleNextDelivery', res)
     return res
   })
