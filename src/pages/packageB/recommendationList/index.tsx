@@ -9,6 +9,7 @@ const List = () => {
   const [goodsList] = useAtom(recommendInfoAtom)
   const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
 
+  console.log('goodsList', goodsList)
   const toDetail = (e, spu) => {
     Taro.navigateTo({
       url: `/pages/packageA/productDetail/index?id=${spu}`,
@@ -17,7 +18,13 @@ const List = () => {
 
   }
   const chooseRecommendProduct = (good) => {
-    setRecommendProduct({ ...recommendProduct, ...good })
+    console.log('good', good)
+    const { cycleList } = good;
+    setRecommendProduct({
+      ...recommendProduct, ...good, discountPrice: cycleList[0].discountPrice,
+      originalPrice: cycleList[0].originalPrice,
+      cardType: 0
+    })
     Taro.navigateBack({
       delta: 1
     })

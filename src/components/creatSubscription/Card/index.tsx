@@ -23,7 +23,7 @@ const Card = () => {
         cycleList?.map((item, index) => (
           <View key={item.cycle} className={` flex-1 pt-2 cardBox ${recommendProduct.cardType === index && 'cardBox_checked'}`} onClick={() => {
             setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-            setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index })
+            setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
           }}>
             <View className='flex flex-row  font-bold items-center  bg-gray-card'>
               <View className={`${recommendProduct.cardType === index && "icon"}`}><IconFont name={cardInfo[item.cycle].icon} size={50} /></View>
@@ -41,7 +41,7 @@ const Card = () => {
             <View key={item.value} className="flex-1 rounded-md cardChild"
               onClick={() => {
                 setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-                setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index })
+                setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
               }}>
               <View className={` pt-1 pb-4 cardContent ${index == recommendProduct.cardType && 'cardContent_checked'}`}>
 

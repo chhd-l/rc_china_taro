@@ -20,7 +20,9 @@ type RecommendProductType = {
   freshType: string;
   couponList: any[];
   cardType: number
-  subscriptionRecommendRuleId?: string
+  subscriptionRecommendRuleId?: string;
+  discountPrice: number | string;
+  originalPrice: number | string;
 }
 
 type DeliveryDetailType = {
@@ -48,6 +50,8 @@ export const recommendProductAtom = atom<RecommendProductType>({
   couponList: [],
   cardType: 0,
   freshType: 'FRESH_NORMAL',
+  discountPrice: '',
+  originalPrice: '',
 })
 
 export const deliveryDetailAtom = atom<DeliveryDetailType>({
