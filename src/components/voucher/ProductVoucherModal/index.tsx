@@ -67,7 +67,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
             </Text>
             <View className="px-2 truncate text-gray-400">
               {/*{handleVoucherName()}*/}
-              {vouchers[0]?.voucherName}...
+              {vouchers[0]?.voucherName} {vouchers.length>1?'...':''}
             </View>
           </View>
           <View
