@@ -26,8 +26,6 @@ const PetList = (props: Props) => {
   const { currentIdx, checkedArr = [] } = recommendInfo
   const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
   const res = Taro.getSystemInfoSync()
-  console.log('checkedArr', checkedArr)
-  console.log('customerInfos', customerInfos, res)
   const handleChange = (current: number) => {
     setRecommendInfo({ ...recommendInfo, currentIdx: current })
   }
@@ -39,12 +37,10 @@ const PetList = (props: Props) => {
   }, [customerInfos?.id])
 
   Taro.useDidShow(() => {
-    console.log(customerInfos, 'customerInfogetList')
     getList()
   })
 
   const getList = async () => {
-    console.log('customerInfos', customerInfos)
     if (!customerInfos?.id) {
       return
     }
@@ -61,18 +57,14 @@ const PetList = (props: Props) => {
       }
     }
     if (res.length > 1) {
-      console.log('res', res)
-      setRecommendInfo({ ...recommendInfo, currentIdx: 1 })
+      setRecommendInfo({ ...recommendInfo, currentIdx: 1, checkedArr: [] })
     } else {
-      console.log('res2', res)
-      setRecommendInfo({ ...recommendInfo, currentIdx: 0 })
+      setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     }
     setPetList(res)
     setFakePet(res)
   }
   const handleChecked = (value, index) => {
-    console.log('index', index, petList.length)
-    // setCheckedArr([value])
     let pet = petList.find((el) => el.id === value)
     props.handleCheckedPet?.(pet)
     setRecommendInfo({ ...recommendInfo, recommPetInfo: pet, checkedArr: [value], currentIdx: index })
@@ -305,7 +297,6 @@ const PetList = (props: Props) => {
     )
   }
   const renderPetContent = () => {
-    console.log('fakePet.length ', fakePet.length)
     if (!fakePet.length) return renderNoPet()
     if (fakePet.length === 1) return renderOnePet()
     if (fakePet.length === 2) return renderTwoPet()

@@ -22,7 +22,6 @@ const Subscription = () => {
 
   const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
 
-
   const { data } = useRequest(async () => {
     setRecommendInfoAtom({
       recommPetInfo: {},
@@ -44,6 +43,7 @@ const Subscription = () => {
       }
     })
     setCurrentStep(0)
+
     // const params = {
     //   id: "73117cde-28be-f382-b910-8d169efd48e5",
     //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
@@ -53,7 +53,6 @@ const Subscription = () => {
       return []
     }
     const res = await getSubscriptionFindByCustomerId(customerInfos?.id)
-    console.log('getSubscriptionScheduleNextDelivery', res)
     return res
   }, {
     refreshDeps: [customerInfos?.id]
@@ -61,7 +60,6 @@ const Subscription = () => {
   const toSub = () => {
     Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })
   }
-  console.log('data', data)
 
   return (
     <View className="subscription-intrduce">
