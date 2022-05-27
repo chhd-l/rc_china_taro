@@ -12,6 +12,7 @@ export type Voucher = {
   isUsed: boolean //是否已使用
   voucherType: string //优惠券类型，店铺通用优惠券/商品型优惠券
   isCanUsed: boolean //checkout时是否可用
-  goodsInfoIds: string[]
+  voucherGoodsRelated: string[] //商品型优惠券对哪些商品可用
   recurrence: boolean //是否可叠加折扣
+  orderType:string //优惠券可用于哪种订单类型
 }

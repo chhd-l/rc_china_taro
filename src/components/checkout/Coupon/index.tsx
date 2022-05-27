@@ -11,16 +11,18 @@ const Coupon = ({
   totalPrice,
   tradeItems,
   changeMaxDiscount,
+  orderType,
 }: {
   totalPrice: number
   tradeItems: any[]
   changeMaxDiscount: Function
+  orderType: string
 }) => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
   const [showVoucherModal, setShowVoucherModal] = useState(false)
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [selectedVoucher, setSelectedVoucher] = useState<any>(null)
-  const [initVouchers, setInitVouvhers] = useState<Voucher[]>([])
+  const [initVouchers, setInitVouchers] = useState<Voucher[]>([])
 
   //有可使用的优惠券时默认显示最高价值的优惠券
   const handleDefaultVoucher = () => {
@@ -29,12 +31,19 @@ const Coupon = ({
     //3、商品型优惠券，所下单商品内有可用该优惠券且满足满减金额
     const records = cloneDeep(vouchers)
       .map((el: Voucher) => {
-        if (el.voucherType === 'SHOP_VOUCHER' && totalPrice >= el.voucherUsePrice) {
-          el.isCanUsed = true
-        }
-        if (el.voucherType === 'PRODUCT_VOUCHER') {
-          const totalDiscountPrice = handleProductVoucherPrice(el)
-          el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
+        if (
+          (orderType === 'FRESH_BUY' && el.orderType === 'SING_ORDER') ||
+          (orderType === 'normal' && el.orderType === 'NORMAL_SUBSCRIPTION')
+        ) {
+          el.isCanUsed = false
+        } else {
+          if (el.voucherType === 'SHOP_VOUCHER' && totalPrice >= el.voucherUsePrice) {
+            el.isCanUsed = true
+          }
+          if (el.voucherType === 'PRODUCT_VOUCHER') {
+            const totalDiscountPrice = handleProductVoucherPrice(el)
+            el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
+          }
         }
         return el
       })
@@ -54,16 +63,15 @@ const Coupon = ({
   //获取产品型优惠券针对当前所要购买的商品的最大优惠价格
   const handleProductVoucherPrice = (voucher) => {
     let canUsedProduct: any[] = []
-    voucher.goodsInfoIds.map((goodsInfoId) => {
+    voucher.voucherGoodsRelated.map((goodsInfoId) => {
       const item = tradeItems.find((orderProduct) => goodsInfoId === orderProduct?.skuGoodInfo?.id)
       if (item) {
         canUsedProduct.push(item)
       }
     })
-    const totalDiscountPrice = canUsedProduct.reduce((prev, cur) => {
+    return canUsedProduct.reduce((prev, cur) => {
       return prev + cur?.goodsVariants[0].marketingPrice
     }, 0)
-    return totalDiscountPrice
   }
 
   //处理selectVoucher改变后最大优惠券金额和当前vouchers值
@@ -97,7 +105,7 @@ const Coupon = ({
   const getVoucherList = async () => {
     let res = await getListVouchers()
     setVouchers(res.notUsedVouchers)
-    setInitVouvhers(res.notUsedVouchers)
+    setInitVouchers(res.notUsedVouchers)
   }
 
   //打开优惠券选择弹框或者提示无可用优惠券
@@ -120,7 +128,7 @@ const Coupon = ({
     if (tradeItems.length > 0 && initVouchers.length > 0 && totalPrice > 0) {
       handleDefaultVoucher()
     }
-  }, [totalPrice, initVouchers, tradeItems])
+  }, [totalPrice, initVouchers, tradeItems, orderType])
 
   useEffect(() => {
     getVoucherList()

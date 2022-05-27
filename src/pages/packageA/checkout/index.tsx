@@ -393,6 +393,7 @@ const Checkout = () => {
                 console.log('maxDiscountPrice', maxDiscountPrice)
                 setDiscountPrice(maxDiscountPrice)
               }}
+              orderType={orderType}
             />
             <Remark changeRemark={changeRemark} />
           </View>
