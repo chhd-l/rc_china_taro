@@ -18,10 +18,11 @@ const DeliveryManagement = () => {
     const handleClick = () => {
 
     }
+    console.log('data', data)
     return <View className="delivery-management rc-content-bg">
         <PetList />
         <View className="px-3 mt-3 bg-white pb-3  rounded-md">
-            <CommonTitle title="发货管理" />
+            <CommonTitle title="发货管理"><Text>订阅编号:{ }</Text></CommonTitle>
             {
                 data?.goodsList?.map(item => {
                     const { goodsVariants } = item
