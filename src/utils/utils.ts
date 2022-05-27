@@ -73,6 +73,7 @@ export const handleReturnTime = (time: any) => {
   }
 }
 
+//不要格式化这里的代码，不然就算错误了
 export const getDateDiff = (startTime, endTime) => {
   //将日期字符串转换为时间戳
   let sTime = new Date(startTime).getTime() //开始时间
@@ -98,12 +99,14 @@ export const getDateDiff = (startTime, endTime) => {
   return {
     day,
     hour,
-    minute: day > 0 || hour > 0 || minute > 30 ? 0 : 30 - minute,
-    second: day > 0 || hour > 0 || minute > 30 ? 0 : second,
+    minute:
+      day > 0 || hour > 0 || minute >= 30
+        ? 0
+        : second > 0
+        ? 29 - Number(minute.toFixed(0))
+        : 30 - Number(minute.toFixed(0)),
+    second: day > 0 || hour > 0 || minute >= 30 ? 0 : 60 - Number(second.toFixed(0)),
   }
 }
 
-
-export const getRecommendProduct = () => {
-
-}
+export const getRecommendProduct = () => {}
