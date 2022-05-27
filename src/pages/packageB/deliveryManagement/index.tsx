@@ -24,7 +24,7 @@ const DeliveryManagement = () => {
     }
     console.log('data', data, data?.pet?.id)
     return <View className="delivery-management rc-content-bg">
-        <PetList petInfoId={data?.pet?.id} />
+        {data?.pet?.id ? <PetList siglePetInfo={data?.pet} /> : null}
         <View className="px-3 mt-3 bg-white pb-3  rounded-md">
             <CommonTitle title="发货管理"><Text className='text-rc22 text-rc_666666'>订阅编号:{data?.no}</Text></CommonTitle>
             {
