@@ -62,10 +62,10 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       {vouchers.length > 0 ? (
         <View className="flex flex-row bg-gray-fb py-2 text-26">
           <View className="flex flex-row" style={{ width: '80%' }}>
-            <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2">
+            <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2 w-auto">
               本店活动
             </Text>
-            <View className="px-2 truncate text-gray-400" style={{ width: '60%' }}>
+            <View className="px-2 truncate text-gray-400">
               {/*{handleVoucherName()}*/}
               {vouchers[0]?.voucherName}...
             </View>

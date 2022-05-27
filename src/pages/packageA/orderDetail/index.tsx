@@ -2,14 +2,14 @@ import { View, Image, Text, ScrollView } from '@tarojs/components'
 import { AtList, AtListItem, AtCard, AtCountdown, AtIcon } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
-import { getExpressCompanyList, getOrderDetail } from '@/framework/api/order/order'
+import { getExpressCompanyList, getOrderDetail, getOrderSetting } from '@/framework/api/order/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import { formatMoney, getDateDiff, handleReturnTime } from '@/utils/utils'
 import { Order } from '@/framework/types/order'
 import OrderLogistics from '@/components/order/Logistics'
 import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
-import './index.less'
 import IconFont from '@/iconfont'
+import './index.less'
 
 const orderStatusType = {
   UNPAID: '交易待付款',
@@ -49,19 +49,29 @@ const OrderDetails = () => {
   const { trackingId, deliveries } = orderDetail?.shippingInfo
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
+  const [orderCancelMinute, setOrderCancelMinute] = useState(30)
 
   const getTimeCount = () => {
-    const time = getDateDiff(orderDetail?.tradeState?.createdAt, new Date())
+    const time = getDateDiff(orderDetail?.tradeState?.createdAt, new Date(), orderCancelMinute)
     return {
       minutes: Number(time.minute.toFixed(0)),
       seconds: Number(time.second.toFixed(0)),
     }
   }
 
+  const getOrderCancelTime = async () => {
+    const res = await getOrderSetting()
+    const orderCancelSetting = res.filter((item) => item.code === 'order_超时时间')
+    const orderCancelTime = orderCancelSetting.length > 0 ? Number(orderCancelSetting[0].context) : 30
+    setOrderCancelMinute(orderCancelTime)
+    return orderCancelTime
+  }
+
   const getOrder = async (id = orderId) => {
     const res = await getOrderDetail({ orderNum: id })
     setOrderDetail(res)
-    const time = getDateDiff(res?.tradeState?.createdAt, new Date())
+    const orderCancelTime=await getOrderCancelTime()
+    const time = getDateDiff(res?.tradeState?.createdAt, new Date(), orderCancelTime)
     setMinutes(Number(time.minute))
     setSeconds(Number(time.second.toFixed(0)))
     console.log(Number(time.minute), Number(time.second.toFixed(0)))
@@ -128,10 +138,20 @@ const OrderDetails = () => {
                   thumb={ADDRESS_ORDER_ICON}
                 />
               </AtList>
-              <AtCard className="m-0 mt-2 border-0" title="订单信息" renderIcon=
-                {orderDetail.isSubscription ? <View className="mr-2"><IconFont name='a-Group201' size={44} /></View> : <View></View>}
+              <AtCard
+                className="m-0 mt-2 border-0"
+                title="订单信息"
+                renderIcon={
+                  orderDetail.isSubscription ? (
+                    <View className="mr-2">
+                      <IconFont name="a-Group201" size={44} />
+                    </View>
+                  ) : (
+                    <View></View>
+                  )
+                }
               >
-                {(orderDetail?.lineItem?.filter(el => !el.isGift) || []).map((el, idx) => (
+                {(orderDetail?.lineItem?.filter((el) => !el.isGift) || []).map((el, idx) => (
                   <View key={idx} className="w-full h-20 flex mb-4">
                     <View className="w-28 h-full">
                       <Image className="w-full h-full" src={el?.pic} />
@@ -150,6 +170,7 @@ const OrderDetails = () => {
                     </View>
                   </View>
                 ))}
+                {orderDetail?.lineItem?.filter(el => el.isGift)?.length ? <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View> : null}
                 {(orderDetail?.lineItem?.filter(el => el.isGift) || []).map((el, idx) => (
                   <View key={idx} className="w-full h-20 flex mb-4">
                     <View className="w-20 h-full">
@@ -160,13 +181,14 @@ const OrderDetails = () => {
                       <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">赠品</Text></View>
                       <View className="flex ProductIntroduction justify-between items-center">
                         <View className="flex flex-row flex-wrap">
-                          {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                          {/* {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
                             <View style={{ borderColor: '#e8e8e8' }} className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2">{tag}</View>
-                          ))}
+                          ))} */}
                         </View>
                         <View className="numcolor">X{el?.num}</View>
                       </View>
-                      <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                      {el?.goodsSpecifications ? <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View> : null}
+
                     </View>
                   </View>
                 ))}
@@ -181,10 +203,18 @@ const OrderDetails = () => {
                   <Text>订单编号</Text>
                   <Text>{orderDetail.orderNumber}</Text>
                 </View>
-                {orderDetail.isSubscription && <View className="flex items-center justify-between boderTop">
-                  <Text>订阅编号</Text>
-                  <Text className='text-rc22 arrow' onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}>{orderDetail.subscriptionNo}<AtIcon value='chevron-right' size='14' ></AtIcon></Text>
-                </View>}
+                {orderDetail.isSubscription && (
+                  <View className="flex items-center justify-between boderTop">
+                    <Text>订阅编号</Text>
+                    <Text
+                      className="text-rc22 arrow"
+                      onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}
+                    >
+                      {orderDetail.subscriptionNo}
+                      <AtIcon value="chevron-right" size="14"></AtIcon>
+                    </Text>
+                  </View>
+                )}
                 <View className="flex items-center justify-between boderTop">
                   <Text>下单时间</Text>
                   <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
@@ -204,10 +234,9 @@ const OrderDetails = () => {
               </AtCard>
             </View>
           </>
-        ) : null
-        }
-      </View >
-    </ScrollView >
+        ) : null}
+      </View>
+    </ScrollView>
   )
 }
 

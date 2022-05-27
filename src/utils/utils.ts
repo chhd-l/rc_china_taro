@@ -17,6 +17,29 @@ export const formatMoney = (price: number) => {
   return getCurrencyCode() + (price || 0).toFixed(2)
 }
 
+export const getCycleItem = (sku, cycle) => {
+  let discount = 1;
+  switch (cycle) {
+    case 'QUARTER':
+      discount = 0.85;
+      break;
+    case 'HALF_YEAR':
+      discount = 0.8;
+      break;
+    case 'YEAR':
+      discount = 0.75;
+      break;
+  }
+  let originalPrice = sku.subscriptionPrice * sku.num;
+  let quarterCycle = {
+    cycle,
+    originalPrice: originalPrice,
+    discountPrice: Math.ceil(originalPrice * discount),
+    feedingDays: sku.feedingDays * sku.num,
+  };
+  return quarterCycle;
+};
+
 export const formatDate = (date) => {
   const year = date.getFullYear()
   const month = date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth()
@@ -73,7 +96,7 @@ export const handleReturnTime = (time: any) => {
   }
 }
 
-export const getDateDiff = (startTime, endTime) => {
+export const getDateDiff = (startTime, endTime,orderCancelMinute) => {
   //将日期字符串转换为时间戳
   let sTime = new Date(startTime).getTime() //开始时间
   let eTime = new Date(endTime).getTime() //结束时间
@@ -103,12 +126,12 @@ export const getDateDiff = (startTime, endTime) => {
     day,
     hour,
     minute:
-      day > 0 || hour > 0 || minute >= 30
+      day > 0 || hour > 0 || minute >= orderCancelMinute
         ? 0
         : second > 0
-        ? 29 - Number(minute.toFixed(0))
-        : 30 - Number(minute.toFixed(0)),
-    second: day > 0 || hour > 0 || minute >= 30 ? 0 : 60 - Number(second.toFixed(0)),
+        ? orderCancelMinute - 1 - Number(minute.toFixed(0))
+        : orderCancelMinute - Number(minute.toFixed(0)),
+    second: day > 0 || hour > 0 || minute >= orderCancelMinute ? 0 : 60 - Number(second.toFixed(0)),
   }
 }
 
