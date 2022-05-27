@@ -22,9 +22,9 @@ const DeliveryManagement = () => {
     const handleClick = () => {
 
     }
-    console.log('data', data)
+    console.log('data', data, data?.pet?.id)
     return <View className="delivery-management rc-content-bg">
-        <PetList />
+        <PetList petInfoId={data?.pet?.id} />
         <View className="px-3 mt-3 bg-white pb-3  rounded-md">
             <CommonTitle title="发货管理"><Text className='text-rc22 text-rc_666666'>订阅编号:{data?.no}</Text></CommonTitle>
             {
@@ -35,7 +35,7 @@ const DeliveryManagement = () => {
                             <Image src={goodsVariants.defaultImage} className="w-full h-full" />
                         </View>
                         <View className="flex-1 px-3 flex-col flex items-center w-full justify-center">
-                            <View className="text-28 text-center mb-3 font-bold">您的宠物还剩余<Text className="text-primary-red">{item.totalDeliveryTimes - item.currentDeliverySequence}</Text>包</View>
+                            <View className="text-28 text-center mb-3 font-bold">您的宠物还剩余<Text className="text-primary-red">{data.totalDeliveryTimes - data.currentDeliverySequence}</Text>包</View>
                             <AtButton
                                 size="small"
                                 className="w-full"

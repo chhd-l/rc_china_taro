@@ -52,19 +52,11 @@ const Purchased = () => {
             </View>
             <View className="flex-1">
               <View className="font-bold text-rc26 text-rc_222222">{list.goodsVariants[0]?.name || list.goodsName}</View>
-              <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View>
+              {/* <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View> */}
               <View className="flex flex-row items-center" >
                 <IconFont name="a-Frame1" size={73} />
                 <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">  {list.quantityRule !== 'FIRST_DELIVERY_FIXED_NUMBER' ? '逐包随单发货' : '一次性发货'}</Text>
               </View>
-              {/* {
-                normalizeTags(list.goodsAttributeValueRel, list.goodsVariants[0].feedingDays).map(tag => (
-                  <View className="text-textGray text-rc22 my-1" key={tag}>
-                    {tag}
-                  </View>
-                ))
-              } */}
-
               <View className="flex justify-between">
                 <View className="text-primary-red">
                   <Text className="text-rc20 text-primary-red">￥</Text>
