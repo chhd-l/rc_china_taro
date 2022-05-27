@@ -70,7 +70,7 @@ const OrderDetails = () => {
   const getOrder = async (id = orderId) => {
     const res = await getOrderDetail({ orderNum: id })
     setOrderDetail(res)
-    const orderCancelTime=await getOrderCancelTime()
+    const orderCancelTime = await getOrderCancelTime()
     const time = getDateDiff(res?.tradeState?.createdAt, new Date(), orderCancelTime)
     setMinutes(Number(time.minute))
     setSeconds(Number(time.second.toFixed(0)))
@@ -208,7 +208,7 @@ const OrderDetails = () => {
                     <Text>订阅编号</Text>
                     <Text
                       className="text-rc22 arrow"
-                      onClick={() => Taro.navigateTo({ url: '/pages/packageB/deliveryManagement/index' })}
+                      onClick={() => Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${orderDetail?.subscriptionId}` })}
                     >
                       {orderDetail.subscriptionNo}
                       <AtIcon value="chevron-right" size="14"></AtIcon>
