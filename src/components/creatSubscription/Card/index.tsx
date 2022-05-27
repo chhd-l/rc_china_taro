@@ -11,19 +11,45 @@ const cardInfo = {
   YEAR: { card: '年卡', icon: 'nianka' }
 }
 
+
 const Card = () => {
   // const [cardType, setCardType] = useState(0)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
   const { cycleList } = recommendProduct
+  const handleCycle = (item, index) => {
+    let currentCycle = item
+    let { quantity } = currentCycle
+    const { giftList } = recommendProduct
+    giftList.forEach(el => {
+      switch (el.quantityRule) {
+        case 'FIRST_DELIVERY_FIXED_NUMBER':
+          // el.quantity = recommenProduct.quantity
+          el.quantity = el.quantity
+          break;
 
+        case 'CALCULATE_BY_FEEDING_DAY':
+          el.quantity = quantity;
+          break;
+
+        case 'FIXED_NUMBER':
+          el.quantity = el.quantity;
+          break;
+
+        case 'DOUBLE_OF_SKU_NUMBER':
+          el.quantity = quantity * 2;
+          break;
+      }
+    })
+    setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
+    setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index, discountPrice: item.discountPrice, originalPrice: item.originalPrice, giftList })
+  }
   return <View className="my-4 mx-1 titleBorder">
     <View className="flex flex-row ">
       {
         cycleList?.map((item, index) => (
           <View key={item.cycle} className={` flex-1 pt-2 cardBox ${recommendProduct.cardType === index && 'cardBox_checked'}`} onClick={() => {
-            setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-            setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
+            handleCycle(item, index)
           }}>
             <View className='flex flex-row  font-bold items-center  bg-gray-card'>
               <View className={`${recommendProduct.cardType === index && "icon"}`}><IconFont name={cardInfo[item.cycle].icon} size={50} /></View>
@@ -40,8 +66,7 @@ const Card = () => {
           cycleList?.map((item, index) => (
             <View key={item.value} className="flex-1 rounded-md cardChild"
               onClick={() => {
-                setRecommendInfo({ ...recommendInfo, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
-                setRecommendProduct({ ...recommendProduct, quantity: item.quantity, cycle: item, cardType: index, discountPrice: item.discountPrice, originalPrice: item.originalPrice })
+                handleCycle(item, index)
               }}>
               <View className={` pt-1 pb-4 cardContent ${index == recommendProduct.cardType && 'cardContent_checked'}`}>
 

@@ -9,8 +9,7 @@ import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION
 import { getSubscriptionFindByCustomerId } from '@/framework/api/subscription/subscription'
 import Taro from '@tarojs/taro'
 import './index.less'
-
-
+import NavBar from '@/components/common/Navbar'
 
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
@@ -36,6 +35,9 @@ const Subscription = () => {
 
   return (
     <View className="subscription-intrduce">
+      {/* <NavBar>
+        <View className="mt-2 mb-2 text-center">订阅</View>
+      </NavBar> */}
       <Image lazyLoad className="w-full" src={WHAT_IS_SUBSCRIPTION} mode="widthFix" />
       <View className="px-2">
         <PetList />
