@@ -22,6 +22,9 @@ const Subscription = () => {
     //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
     //   operator: "ss"
     // }
+    if (!customerInfos?.id) {
+      return []
+    }
     const res = await getSubscriptionFindByCustomerId(customerInfos?.id)
     console.log('getSubscriptionScheduleNextDelivery', res)
     return res

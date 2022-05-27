@@ -120,11 +120,11 @@ const ProductDetail = () => {
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
           <View>
-            <View className="text-center text-28 flex items-center justify-center">
+            <View className="text-center text-28 flex items-center justify-center py-4">
               {' '}
-              <View className="w-1 h-1 rounded-full bg-red-600"></View>
+              <View className="w-1 h-1 rounded-full bg-red-600"/>
               <View className="px-1">商品详情</View>
-              <View className="w-1 h-1 rounded-full bg-red-600"></View>
+              <View className="w-1 h-1 rounded-full bg-red-600"/>
             </View>
             {choosedSku?.video ? <Video className="w-full" src={choosedSku.video} /> : null}
             {detailInfo.description ? (

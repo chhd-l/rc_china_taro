@@ -13,6 +13,7 @@ import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
 import AtMyStep from '../components/AtMyStep'
 import { useState } from 'react'
+import cloneDeep from 'lodash.cloneDeep'
 
 
 
@@ -26,7 +27,6 @@ const Step = () => {
   const [stepCount, setStepCount] = useAtom(currentStepAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [recommenProduct, setRecommendProduct] = useAtom(recommendProductAtom)
-  const [allGiftList, setAllGiftList] = useState([])
   const goNextStep = async () => {
     const { type, code, birthday, isSterilized } = recommendInfo.recommPetInfo
     const params = {
@@ -48,6 +48,7 @@ const Step = () => {
     if (stepCount === 0) {
       const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
       const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
+
       // const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item?.goodsVariants?.[0]?.id))
       const gift = goodsList[0].giftIdList.map(el => {
         let goodsVariants = giftList.find(gift => gift?.goodsVariants?.[0]?.id === el.giftId)
@@ -76,7 +77,7 @@ const Step = () => {
         return data
       })
       console.info('giftgift', gift)
-      setRecommendInfo({ ...recommendInfo, goodsList, couponList })
+      setRecommendInfo({ ...recommendInfo, goodsList, couponList, giftList })
       setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift, discountPrice, originalPrice })
     }
     if (stepCount === 1) {
