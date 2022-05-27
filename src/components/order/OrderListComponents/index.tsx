@@ -83,7 +83,7 @@ const OrderListComponents = ({
               </View>
             </View>
           ))}
-          <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View>
+          {item?.lineItem?.filter(el => el.isGift)?.length ? <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View> : null}
           {(item?.lineItem?.filter(el => el.isGift) || []).map((el, index) => (
             <View key={index} className="w-full flex items-center" style={{ marginBottom: '18rpx' }}>
               <View className="w-16 h-full">
@@ -94,14 +94,13 @@ const OrderListComponents = ({
 
                 <View className=" flex ProductIntroduction justify-between items-center">
                   <View className="flex flex-row flex-wrap">
-                    {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                    {/* {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
                       <View className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2" style={{ borderColor: '#e8e8e8' }}>{tag}</View>
-                    ))}
+                    ))} */}
                   </View>
                   <View className="numcolor">X{el?.num}</View>
                 </View>
-
-                <View className=" mt-2 items-end ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                {el?.goodsSpecifications ? <View className=" mt-2 items-end ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View> : null}
               </View>
             </View>
           ))}

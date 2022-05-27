@@ -17,6 +17,29 @@ export const formatMoney = (price: number) => {
   return getCurrencyCode() + (price || 0).toFixed(2)
 }
 
+export const getCycleItem = (sku, cycle) => {
+  let discount = 1;
+  switch (cycle) {
+    case 'QUARTER':
+      discount = 0.85;
+      break;
+    case 'HALF_YEAR':
+      discount = 0.8;
+      break;
+    case 'YEAR':
+      discount = 0.75;
+      break;
+  }
+  let originalPrice = sku.subscriptionPrice * sku.num;
+  let quarterCycle = {
+    cycle,
+    originalPrice: originalPrice,
+    discountPrice: Math.ceil(originalPrice * discount),
+    feedingDays: sku.feedingDays * sku.num,
+  };
+  return quarterCycle;
+};
+
 export const formatDate = (date) => {
   const year = date.getFullYear()
   const month = date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth()
