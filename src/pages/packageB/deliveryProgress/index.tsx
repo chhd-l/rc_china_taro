@@ -46,7 +46,7 @@ const DeliveryProgress = () => {
                 <View className="bg-primary-red py-1 px-4 ml-4 rounded-full"
                     onClick={immediateDelivery}>立即发货</View>
                 <View className="bg-primary-red py-1 px-4 ml-4 rounded-full relative">选择日期
-                    <Picker className="absolute left-0 right-0 bottom-0 top-0" mode='date' onChange={handleDate}>
+                    <Picker className="absolute left-0 right-0 bottom-0 top-0" mode='date' onChange={handleDate} start={moment().format("YYYY-MM-DD")}>
                         <AtList>
                             <AtListItem />
                         </AtList>

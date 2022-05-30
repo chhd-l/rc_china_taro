@@ -53,7 +53,7 @@ const PetList = (props: Props) => {
     if (props.siglePetInfo) {
       res = res.filter(el => el.petId === props.siglePetInfo?.id)
       if (!res.length) {
-        debugger
+        // debugger
         res = [props.siglePetInfo]
         res.age = getAge(res.birthday)
       }
