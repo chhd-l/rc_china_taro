@@ -1,8 +1,8 @@
 import { View } from '@tarojs/components'
 import { ProductItem, Empty, TotalSettle, Navbar } from '@/components/cart'
 import { useEffect, useState } from 'react'
-import { getCarts, updateCart } from '@/framework/api/cart/cart'
-import { useTabItemTap, useDidShow } from '@tarojs/taro'
+import { getCartAndProducts, updateCart } from '@/framework/api/cart/cart'
+import { useDidShow } from '@tarojs/taro'
 import { session } from '@/utils/global'
 import InvalidProductList from '@/components/cart/InvalidProductList'
 import './index.less'
@@ -16,16 +16,23 @@ const Cart = () => {
   const getCartProductList = async () => {
     setProductList([])
     setInvalidProducts([])
-    const res = await getCarts(true)
+    const res = await getCartAndProducts(true)
     handleIsValidProduct(res)
   }
 
-  //过滤出失效商品（已删除、已下架、不可售、无库存）
+  //过滤出失效商品（整个spu已删除、已下架、不可售,单个sku已删除、已下架、无库存）
   const handleIsValidProduct = (res) => {
     let validProductList: any[] = []
     let invalidProductList: any[] = []
     res.map((el) => {
-      if (el?.localData?.stock === 0 || !el?.localData?.shelvesStatus||!el?.localData?.salesStatus) {
+      if (
+        el?.skuGoodInfo?.isDeleted ||
+        !el?.skuGoodInfo?.shelvesStatus ||
+        !el?.skuGoodInfo?.salesStatus ||
+        el?.localData?.stock === 0 ||
+        !el?.localData?.shelvesStatus ||
+        el?.localData?.isDeleted
+      ) {
         invalidProductList.push(el)
       } else {
         validProductList.push(el)
@@ -37,7 +44,7 @@ const Cart = () => {
 
   //勾选商品或者更改商品购买数量
   const changeProduct = async (id, name, value) => {
-    let res=true
+    let res = true
     if (name === 'goodsNum') {
       res = await updateCart({
         id: id,
@@ -56,7 +63,7 @@ const Cart = () => {
         )
       }
     }
-    if(res){
+    if (res) {
       setProductList(
         productList.map((item) => {
           if (item.id === id) {
@@ -97,10 +104,6 @@ const Cart = () => {
   useDidShow(() => {
     getCartProductList()
   })
-
-  // useTabItemTap(() => {
-  //   getCartProductList()
-  // })
 
   useEffect(() => {
     getSelectProduct()

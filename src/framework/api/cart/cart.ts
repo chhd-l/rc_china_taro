@@ -35,6 +35,39 @@ export const getCarts = async (isNeedReload = false) => {
     return []
   }
 }
+
+export const getCartAndProducts = async (isNeedReload = false) => {
+  try {
+    if (isMock) {
+      return Mock.mock(dataSource)
+    } else {
+      let cartProducts = session.get('cart-data')
+      let finallyCartDatas: any[] = []
+      if (!cartProducts || isNeedReload) {
+        const res = await ApiRoot.carts().getCartAndProduct({
+          customerId: baseSetting.customerId,
+          storeId: baseSetting.storeId,
+        })
+        cartProducts = res || []
+        console.log('cart data', cartProducts)
+        for (let i = 0; i < cartProducts.length; i++) {
+          if (cartProducts[i]?.productBySkuId) {
+            finallyCartDatas.push(normalizeCartData(cartProducts[i], cartProducts[i]?.productBySkuId))
+          }
+        }
+        session.set('cart-data', finallyCartDatas)
+      } else {
+        finallyCartDatas = cartProducts
+      }
+      console.log('cart products data', finallyCartDatas)
+      return finallyCartDatas || []
+    }
+  } catch (err) {
+    console.log('err', err)
+    return []
+  }
+}
+
 export const getCartNumber = async (goodsId) => {
   const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
   const cartNumber = (res?.carts || []).reduce((prev, cur) => {
