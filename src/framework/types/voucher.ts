@@ -15,4 +15,5 @@ export type Voucher = {
   voucherGoodsRelated: string[] //商品型优惠券对哪些商品可用
   recurrence: boolean //是否可叠加折扣
   orderType:string //优惠券可用于哪种订单类型
+  originVoucher:any//从后端拿到的原始优惠券数据
 }

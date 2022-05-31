@@ -12,11 +12,13 @@ const Coupon = ({
   tradeItems,
   changeMaxDiscount,
   orderType,
+  changeCheckoutVoucher,
 }: {
   totalPrice: number
   tradeItems: any[]
   changeMaxDiscount: Function
   orderType: string
+  changeCheckoutVoucher: Function
 }) => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
   const [showVoucherModal, setShowVoucherModal] = useState(false)
@@ -45,6 +47,7 @@ const Coupon = ({
           if (el.voucherType === 'PRODUCT_VOUCHER') {
             const totalDiscountPrice = handleProductVoucherPrice(el)
             el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
+            console.log('444444')
           }
         }
         return el
@@ -86,6 +89,7 @@ const Coupon = ({
         return item
       }),
     )
+    changeCheckoutVoucher&&changeCheckoutVoucher(value.originVoucher)
   }
 
   //计算当前优惠券可优惠最大金额
