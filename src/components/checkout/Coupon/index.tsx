@@ -33,36 +33,34 @@ const Coupon = ({
     //3、店铺型优惠券：有门槛/无门槛FIX_AMOUNT：订单总金额（不包括运费）大于等于优惠券满减金额 无门槛PERCENTAGE：直接打折
     //4、商品型优惠券：所下单商品内有该优惠券绑定的商品，有门槛/无门槛FIX_AMOUNT：所有可用该优惠券的商品的总价大于等于优惠券满减金额 无门槛PERCENTAGE：直接打折
     //5、有可用优惠券时，默认选中最高折扣的优惠券
-    const records = cloneDeep(vouchers)
-      .map((el: Voucher) => {
-        if (
-          (orderType === 'FRESH_BUY' && el.orderType === 'SING_ORDER') ||
-          (orderType === 'normal' && el.orderType === 'NORMAL_SUBSCRIPTION')
-        ) {
-          el.isCanUsed = false
-        } else {
-          if (el.voucherType === 'SHOP_VOUCHER' && totalPrice >= el.voucherUsePrice) {
-            el.isCanUsed = true
-          }
-          if (el.voucherType === 'PRODUCT_VOUCHER') {
-            const totalDiscountPrice = handleProductVoucherPrice(el)
-            el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
-            console.log('444444')
-          }
+    let canUsedVouchers: Voucher[] = []
+    const notCanUseVouchers: Voucher[] = []
+    cloneDeep(vouchers).map((el: Voucher) => {
+      if (
+        (orderType === 'FRESH_BUY' && el.orderType === 'SING_ORDER') ||
+        (orderType === 'normal' && el.orderType === 'NORMAL_SUBSCRIPTION')
+      ) {
+        el.isCanUsed = false
+      } else {
+        if (el.voucherType === 'SHOP_VOUCHER' && totalPrice >= el.voucherUsePrice) {
+          el.isCanUsed = true
         }
-        return el
-      })
-      .sort((a, b) => Number(a.isCanUsed) - Number(b.isCanUsed))
-      .reverse()
-    console.log('1111111', records)
-    const maxVoucher = cloneDeep(records)
-      .filter((el) => el?.isCanUsed)
-      ?.sort((a, b) => a.voucherPrice - b.voucherPrice)
-    if (!selectedVoucher && maxVoucher.length > 0) {
-      changeSelectVoucher(maxVoucher[0], records)
-    } else {
-      setVouchers(records)
+        if (el.voucherType === 'PRODUCT_VOUCHER') {
+          const totalDiscountPrice = handleProductVoucherPrice(el)
+          el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
+        }
+      }
+      el.isCanUsed ? canUsedVouchers.push(el) : notCanUseVouchers.push(el)
+      return el
+    })
+    canUsedVouchers = canUsedVouchers.sort((a, b) => a.voucherPrice - b.voucherPrice).reverse()
+    canUsedVouchers.map((el) => {
+      console.log('22222', el.voucherName, el.voucherPrice)
+    })
+    if (!selectedVoucher && canUsedVouchers.length > 0) {
+      changeSelectVoucher(canUsedVouchers[0], canUsedVouchers.concat(notCanUseVouchers))
     }
+    setVouchers(canUsedVouchers.concat(notCanUseVouchers))
   }
 
   //获取产品型优惠券针对当前所要购买的商品的最大优惠价格
@@ -89,7 +87,7 @@ const Coupon = ({
         return item
       }),
     )
-    changeCheckoutVoucher&&changeCheckoutVoucher(value.originVoucher)
+    changeCheckoutVoucher && changeCheckoutVoucher(value.originVoucher)
   }
 
   //计算当前优惠券可优惠最大金额
@@ -156,12 +154,14 @@ const Coupon = ({
           </View>
         </View>
       </View>
-      <CheckoutVoucherModal
-        showVoucherModal={showVoucherModal}
-        closeVoucherModal={() => setShowVoucherModal(false)}
-        selectVoucher={selectVoucher}
-        vouchers={vouchers}
-      />
+      {showVoucherModal ? (
+        <CheckoutVoucherModal
+          showVoucherModal={showVoucherModal}
+          closeVoucherModal={() => setShowVoucherModal(false)}
+          selectVoucher={selectVoucher}
+          vouchers={vouchers}
+        />
+      ) : null}
       <AtModal
         className="rc-error-tips-modal-one"
         isOpened={showNoCoupon}
