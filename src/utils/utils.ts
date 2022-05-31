@@ -40,13 +40,6 @@ export const getCycleItem = (sku, cycle) => {
   return quarterCycle;
 };
 
-export const formatDate = (date) => {
-  const year = date.getFullYear()
-  const month = date.getMonth() <= 9 ? '0' + (date.getMonth() + 1) : date.getMonth()
-  const day = date.getDate() + 1
-  return year + '-' + month + '-' + day
-}
-
 export const dealDatasForApi = (feData, apiKeies, feKies) => {
   //字段sort需要保持一致(只能处理简单对象字段)
   let apiData = {} as any

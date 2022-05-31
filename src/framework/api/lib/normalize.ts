@@ -185,7 +185,7 @@ const petItemFeArr = [
 
 export const normalizeCartData = (cart: any, productSkuInfo: any, isSubscription?: boolean) => {
   let spuimage = productSkuInfo.goodsAsserts?.[0]?.artworkUrl || productSkuInfo.defaultImage
-  productSkuInfo.goodsVariants = productSkuInfo?.goodsVariant || productSkuInfo.goodsVariants
+  productSkuInfo.goodsVariants = productSkuInfo?.goodsVariant || productSkuInfo?.goodsVariants
   const productSku = { ...productSkuInfo }
   if (spuimage) {
     productSku.defaultImage = spuimage
