@@ -67,7 +67,7 @@ const DeliveryManagement = () => {
                             circle
                             type='primary'
                             onClick={() => {
-                                Taro.navigateTo({ url: `/pages/packageB/deliveryProgress/index` })
+                                Taro.navigateTo({ url: `/pages/packageB/deliveryProgress/index?id=${data?.id}` })
 
                             }}
                         >

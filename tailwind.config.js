@@ -33,6 +33,7 @@ module.exports = {
         rc_ECECEC: '#ECECEC',
         rc_222222: '#222222',
         rc_666666: '#666666',
+        rc_000000: '#000000',
       },
       fontSize: {
         rc16: '16px',
@@ -44,6 +45,7 @@ module.exports = {
         rc28: '28px',
         rc30: '30px',
         rc33: '33px',
+        rc34: '34px',
         rc48: '48px',
         rc54: '54px',
         rc64: '64px',
