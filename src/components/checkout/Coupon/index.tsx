@@ -70,7 +70,7 @@ const Coupon = ({
     if (el.discountType === 'FIX_AMOUNT') {
       el.maxDiscountPrice = el.recurrence ? (orderPrice / el.voucherUsePrice) * el.voucherPrice : el.voucherPrice
     } else {
-      el.maxDiscountPrice = el.recurrence ? orderPrice * el.voucherPrice * 0.01 : orderPrice * el.voucherPrice * 0.01
+      el.maxDiscountPrice = orderPrice * el.voucherPrice * 0.01
     }
     return el
   }

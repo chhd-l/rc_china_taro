@@ -4,6 +4,7 @@ import { Voucher } from '@/framework/types/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_INVALID } from '@/lib/constants'
 import { useEffect, useState } from 'react'
 import VoucherItem from '@/components/voucher/VoucherItem'
+import cloneDeep from 'lodash.cloneDeep'
 import './index.less'
 
 const VoucherModal = ({
@@ -41,50 +42,57 @@ const VoucherModal = ({
   }
 
   useEffect(() => {
-    setVoucherList(vouchers)
+    setVoucherList(cloneDeep(vouchers))
+    setSelectedVoucher(cloneDeep(vouchers).find((el) => el.isSelect))
+    console.log('232343434',vouchers)
   }, [vouchers])
 
+
   return (
-    <AtFloatLayout
-      isOpened={showVoucherModal}
-      onClose={() => {
-        closeVoucherModal && closeVoucherModal()
-      }}
-      className="rc-voucher-float-layout"
-      scrollY
-    >
-      <View>
-        <View className="flex justify-between mb-2">
-          <View
-            onClick={() => {
-              closeVoucherModal && closeVoucherModal()
-            }}
-          >
-            取消
+    <>
+      {showVoucherModal ? (
+        <AtFloatLayout
+          isOpened={showVoucherModal}
+          onClose={() => {
+            closeVoucherModal && closeVoucherModal()
+          }}
+          className="rc-voucher-float-layout"
+          scrollY
+        >
+          <View>
+            <View className="flex justify-between mb-2">
+              <View
+                onClick={() => {
+                  closeVoucherModal && closeVoucherModal()
+                }}
+              >
+                取消
+              </View>
+              <View
+                className="text-primary-red"
+                onClick={() => {
+                  selectVoucher && selectVoucher(selectedVoucher)
+                }}
+              >
+                确定
+              </View>
+            </View>
+            <View>
+              {voucherList.map((item) => (
+                <VoucherItem
+                  voucher={item}
+                  changeSelected={changeSelected}
+                  backgroundImageUrl={!item?.isCanUsed ? VOUCHER_INVALID : VOUCHER_NO_RECEIVED}
+                  showRadioSelect={item?.isCanUsed}
+                  priceClass={!item?.isCanUsed ? 'text-white' : 'text-primary-red'}
+                  expiredTimeClass={!item?.isCanUsed ? 'text-white' : 'text-gray-400'}
+                />
+              ))}
+            </View>
           </View>
-          <View
-            className="text-primary-red"
-            onClick={() => {
-              selectVoucher && selectVoucher(selectedVoucher)
-            }}
-          >
-            确定
-          </View>
-        </View>
-        <View>
-          {voucherList.map((item) => (
-            <VoucherItem
-              voucher={item}
-              changeSelected={changeSelected}
-              backgroundImageUrl={!item?.isCanUsed ? VOUCHER_INVALID : VOUCHER_NO_RECEIVED}
-              showRadioSelect={item?.isCanUsed}
-              priceClass={!item?.isCanUsed ? 'text-white' : 'text-primary-red'}
-              expiredTimeClass={!item?.isCanUsed ? 'text-white' : 'text-gray-400'}
-            />
-          ))}
-        </View>
-      </View>
-    </AtFloatLayout>
+        </AtFloatLayout>
+      ) : null}
+    </>
   )
 }
 
