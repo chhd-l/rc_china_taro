@@ -75,15 +75,15 @@ const ProductList = () => {
     <View className="product-list">
       <NavBarForList />
       <ScrollView style="height:100vh" className="scrollview mt-0" scrollIntoView={floorId} scrollY scrollWithAnimation>
-        {/* <Button
+        <Button
           onClick={() => {
             Taro.navigateTo({
-              url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=5`,
+              url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=7`,
             })
           }}
         >
           直播跳转
-        </Button> */}
+        </Button>
         <ListBanner bannerList={bannerList} />
         <FloorNav setFloorId={setFloorId} />
         <View>

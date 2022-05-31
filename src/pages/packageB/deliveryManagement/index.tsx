@@ -1,4 +1,5 @@
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
+import { handleBuyMore } from '@/components/creatSubscription/SubList'
 import PetList from '@/components/customer/PetList'
 import { getSubscriptionDetail } from '@/framework/api/subscription/subscription'
 import IconFont from '@/iconfont'
@@ -20,7 +21,7 @@ const DeliveryManagement = () => {
         return res
     })
     const handleClick = () => {
-
+        handleBuyMore(data)
     }
     console.log('data', data, data?.pet?.id)
     return <View className="delivery-management rc-content-bg">
