@@ -87,6 +87,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     voucherGoodsRelated: [],
     recurrence: voucher?.recurrence || false,
     orderType: voucher?.orderType || 'ALL',
+    originVoucher:voucher
   }
 }
 

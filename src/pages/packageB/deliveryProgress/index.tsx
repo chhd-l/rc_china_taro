@@ -1,27 +1,32 @@
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import { getSubscriptionScheduleNextDelivery } from '@/framework/api/subscription/subscription'
 import { deliveryDetailAtom } from '@/store/subscription'
-import { View, Picker, Text } from '@tarojs/components'
+import { View, Picker, Text, Button } from '@tarojs/components'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
 import { useAtom } from 'jotai'
 import moment from 'moment'
 import { useState } from 'react'
-import { AtList, AtListItem, AtModal } from 'taro-ui'
+import { AtList, AtListItem, AtModal, AtModalAction, AtModalContent, AtModalHeader } from 'taro-ui'
 import './index.less'
 
 const DeliveryProgress = () => {
     const [errorTips, setErrorTips] = useState(false)
     const [deliveryDetail, setDeliveryDetail] = useAtom(deliveryDetailAtom)
-
-    console.log('deliveryDetail', deliveryDetail)
-    // const { data } = useRequest(async () => {
-    //     const params = {
-    //         id: "73117cde-28be-f382-b910-8d169efd48e5",
-    //         nextDeliveryDate: "2022-06-13T16:00:00.000Z",
-    //         operator: "ss"
-    //     }
-    //     const res = await getSubscriptionScheduleNextDelivery(params)
-    // })
+    const { router } = getCurrentInstance()
+    const { userInfo } = Taro.getStorageSync('wxLoginRes')
+    const [open, setOpen] = useState(false)
+    console.log('deliveryDetail', Taro.getStorageSync('wxLoginRes'))
+    const { data, run } = useRequest(async (date) => {
+        const params = {
+            id: router?.params?.id,
+            nextDeliveryDate: date,
+            operator: userInfo?.nickName
+        }
+        const res = await getSubscriptionScheduleNextDelivery(params)
+    }, {
+        manual: true
+    })
     const handleDate = (e) => {
         console.info(' e.detail.value', e.detail.value)
         setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: e.detail.value })
@@ -32,6 +37,7 @@ const DeliveryProgress = () => {
 
     const immediateDelivery = () => {
         setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: moment().format('YYYY-MM-DD') })
+        setOpen(true)
     }
 
     return <View className="delivery-progress rc-content-bg">
@@ -110,6 +116,17 @@ const DeliveryProgress = () => {
             }}
             className="error-tips-modal"
         />
+        <AtModal isOpened={open} onClose={() => setOpen(false)}>
+            <AtModalContent>
+                <View className='text-rc34 text-rc_000000 font-medium'>提示</View>
+                <View className='text-rc34 text-rc_999999' >确认立即发货</View>
+
+            </AtModalContent>
+            <AtModalAction><Button onClick={() => {
+                run(deliveryDetail.nextDeliveryTime)
+                setOpen(false)
+            }}>确定</Button> <Button onClick={() => setOpen(false)}>取消</Button>  </AtModalAction>
+        </AtModal>
     </View>
 }
 export default DeliveryProgress

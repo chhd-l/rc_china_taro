@@ -23,10 +23,9 @@ const PetList = (props: Props) => {
   const [fakePet, setFakePet] = useState<any>([])
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
-  const { currentIdx, checkedArr = [] } = recommendInfo
+  const { currentIdx, checkedArr } = recommendInfo
   const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
   const { system } = Taro.getSystemInfoSync()
-  console.log('getSystemInfoSync', system, system.indexOf('Android'))
   const systemType = system.indexOf('Android') > -1
   const handleChange = (current: number) => {
     setRecommendInfo({ ...recommendInfo, currentIdx: current })
@@ -162,7 +161,7 @@ const PetList = (props: Props) => {
             style={{ height: '80px' }}
             className="w-72 flex items-center"
             circular
-            nextMargin={systemType ? "180rpx" : "70rpx"}
+            nextMargin={systemType ? "180rpx" : "100rpx"}
             previousMargin={systemType ? "160rpx" : "200rpx"}
             current={currentIdx}
             onChange={({ detail }) => handleChange(detail.current)}
@@ -173,7 +172,7 @@ const PetList = (props: Props) => {
                   <View className="text-center h-full flex items-center justify-center">
 
                     <View
-                      className={`w-16  bg-white h-16 rounded-full shadow-md flex items-center justify-center relative 
+                      className={`w-18  bg-white h-18 rounded-full shadow-md flex items-center justify-center relative 
                     ${currentIdx !== idx && 'scale-75 transform'}`}
                       onClick={() => {
                         handleChecked(pet.id, idx)
@@ -246,7 +245,7 @@ const PetList = (props: Props) => {
                   <View className="text-center h-full flex items-center justify-center">
                     {pet.id != '-1' ? (
                       <View
-                        className={`w-16  bg-white h-16 rounded-full shadow-md flex items-center justify-center relative 
+                        className={`w-18  bg-white h-18 rounded-full shadow-md flex items-center justify-center relative 
                   ${currentIdx !== idx && 'scale-75 transform'} `}
                         onClick={() => {
                           handleChecked(pet.id, idx)
