@@ -3,6 +3,12 @@ import ApiRoot, { baseSetting } from '../fetcher'
 export const getSubscriptionSimpleRecommend = async (params: any) => {
     try {
         const { subscriptionSimpleRecommend } = await ApiRoot.subscriptions().subscriptionSimpleRecommend({ body: params })
+        let { couponList, couponInfoList } = subscriptionSimpleRecommend
+        couponList?.forEach(el => {
+            el.coupons?.forEach(coupon => {
+                coupon.couponInfo = couponInfoList.find(info => info.id === coupon.couponId)
+            })
+        })
         console.info('subscriptionSimpleRecommend', subscriptionSimpleRecommend)
         return subscriptionSimpleRecommend
     } catch (err) {
