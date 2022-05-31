@@ -184,9 +184,11 @@ const petItemFeArr = [
 ]
 
 export const normalizeCartData = (cart: any, productSkuInfo: any, isSubscription?: boolean) => {
-  let spuimage = productSkuInfo.goodsAsserts?.[0]?.artworkUrl
+  let spuimage = productSkuInfo.goodsAsserts?.[0]?.artworkUrl || productSkuInfo.defaultImage
   const productSku = { ...productSkuInfo }
-  productSku.defaultImage = spuimage
+  if (spuimage) {
+    productSku.defaultImage = spuimage
+  }
   delete productSku.goodsAsserts
   cart.skuGoodInfo = productSku
   cart.select = false

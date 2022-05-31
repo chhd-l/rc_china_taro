@@ -79,13 +79,28 @@ export const getAge = (birthdayStr) => {
   let age = today.map((value, index) => {
     return value - birthday[index]
   })
-  if (age[0] > 0) {
-    return `${age[0]}岁`
-  } else if (age[1] > 0) {
-    return `${age[1]}个月 `
-  } else {
-    return '1个月'
+  console.info('age', age)
+  //月份需要+1
+  age[1] += 1
+  // 当天数为负数时，月减 1，天数加上月总天数
+  if (age[2] < 0) {
+    // 简单获取上个月总天数的方法，不会错
+    let lastMonth = new Date(today[0], today[1], 0)
+    // age[1]--
+    age[2] += lastMonth.getDate()
   }
+  // 当月数为负数时，年减 1，月数加上 12
+  if (age[1] < 0) {
+    age[0]--
+    age[1] += 12
+  }
+  let yearStr = age[0] ? `${age[0]}年 ` : ''
+  let monthStr = age[1] ? `${age[1]}月 ` : ''
+  let ageStr = age[0] > 0 ? yearStr : monthStr
+  if (!ageStr) {
+    ageStr = '1月'
+  }
+  return ageStr
 }
 
 export const handleReturnTime = (time: any) => {
@@ -96,7 +111,7 @@ export const handleReturnTime = (time: any) => {
   }
 }
 
-export const getDateDiff = (startTime, endTime,orderCancelMinute) => {
+export const getDateDiff = (startTime, endTime, orderCancelMinute) => {
   //将日期字符串转换为时间戳
   let sTime = new Date(startTime).getTime() //开始时间
   let eTime = new Date(endTime).getTime() //结束时间
@@ -113,7 +128,7 @@ export const getDateDiff = (startTime, endTime,orderCancelMinute) => {
   const minute = parseInt(
     String(
       parseInt(String(((eTime - sTime) % parseInt(String(divNumDay))) % parseInt(String(divNumHour)))) /
-        parseInt(String(divNumMinute)),
+      parseInt(String(divNumMinute)),
     ),
   )
   const second =
@@ -129,10 +144,10 @@ export const getDateDiff = (startTime, endTime,orderCancelMinute) => {
       day > 0 || hour > 0 || minute >= orderCancelMinute
         ? 0
         : second > 0
-        ? orderCancelMinute - 1 - Number(minute.toFixed(0))
-        : orderCancelMinute - Number(minute.toFixed(0)),
+          ? orderCancelMinute - 1 - Number(minute.toFixed(0))
+          : orderCancelMinute - Number(minute.toFixed(0)),
     second: day > 0 || hour > 0 || minute >= orderCancelMinute ? 0 : 60 - Number(second.toFixed(0)),
   }
 }
 
-export const getRecommendProduct = () => {}
+export const getRecommendProduct = () => { }

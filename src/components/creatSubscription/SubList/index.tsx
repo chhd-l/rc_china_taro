@@ -8,44 +8,46 @@ import cloneDeep from 'lodash.cloneDeep'
 import { getCycleItem } from '@/utils/utils'
 import { AtIcon, AtProgress } from 'taro-ui'
 import './index.less'
-
+export const handleBuyMore = (children) => {
+    let buyInfo = cloneDeep(children)
+    let {
+        birthday, breedCode, breedName, gender, id, image, name, type
+    } = buyInfo.pet
+    let { cycle, type: subType, freshType, goodsList, benefits: giftList } = buyInfo
+    goodsList?.forEach(el => {
+        el.goodsVariants = [el.goodsVariants]
+    })
+    giftList?.forEach(el => {
+        el.goodsVariants = [el.goodsVariants]
+    })
+    let { originalPrice, discountPrice } = getCycleItem(goodsList[0].goodsVariants?.[0], cycle)
+    const checkoutData = {
+        type: subType,
+        cycle: { cycle, quantity: goodsList[0].goodsVariants?.[0]?.num, originalPrice, discountPrice },
+        freshType,
+        pet: {
+            birthday, breedCode, breedName, gender, id, image, name, type
+        },
+        goodsList: goodsList.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)),
+        isSubscription: true,
+        giftList: giftList?.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)) || [],
+        couponList: [],
+    }
+    console.info('.....', checkoutData)
+    Taro.setStorage({
+        key: 'select-product',
+        data: JSON.stringify(checkoutData),
+        complete: (respon) => {
+            console.log(respon)
+            Taro.navigateTo({ url: routers.checkout })
+        },
+    })
+}
 const SubList = ({ children }) => {
     console.log('children', children)
 
     const handleClick = () => {
-        let buyInfo = cloneDeep(children)
-        let {
-            birthday, breedCode, breedName, gender, id, image, name, type
-        } = buyInfo.pet
-        let { cycle, type: subType, freshType, goodsList, benefits: giftList } = buyInfo
-        goodsList?.forEach(el => {
-            el.goodsVariants = [el.goodsVariants]
-        })
-        giftList?.forEach(el => {
-            el.goodsVariants = [el.goodsVariants]
-        })
-        let { originalPrice, discountPrice } = getCycleItem(goodsList[0].goodsVariants?.[0], cycle)
-        const checkoutData = {
-            type: subType,
-            cycle: { cycle, quantity: goodsList[0].goodsVariants?.[0]?.num, originalPrice, discountPrice },
-            freshType,
-            pet: {
-                birthday, breedCode, breedName, gender, id, image, name, type
-            },
-            goodsList: goodsList.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)),
-            isSubscription: true,
-            giftList: giftList?.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)) || [],
-            couponList: [],
-        }
-        console.info('.....', checkoutData)
-        Taro.setStorage({
-            key: 'select-product',
-            data: JSON.stringify(checkoutData),
-            complete: (respon) => {
-                console.log(respon)
-                Taro.navigateTo({ url: routers.checkout })
-            },
-        })
+        handleBuyMore(children)
     }
     return children?.goodsList?.map((el) => {
         const { goodsVariants = {} } = el
