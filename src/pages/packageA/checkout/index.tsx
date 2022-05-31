@@ -16,6 +16,7 @@ import { session } from '@/utils/global'
 import GiftItem from '@/components/checkout/GiftItem'
 import { subscriptionCreateAndPay } from '@/framework/api/subscription/subscription'
 import './index.less'
+import CouponItem from '@/components/checkout/CouponItem'
 
 const Checkout = () => {
   const [customerInfo] = useAtom(customerAtom)
@@ -81,18 +82,20 @@ const Checkout = () => {
       setLoading(true)
       const goodsList = tradeItems.map((el) => {
         if (el.skuGoodInfo.goodsVariants?.length > 0) {
-          el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
+          el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariants[0], {
             num: el.goodsNum,
           })
         }
+        delete el.skuGoodInfo.goodsVariants
         return el.skuGoodInfo
       })
       const benefits = giftItems.map((el) => {
         if (el.skuGoodInfo.goodsVariants?.length > 0) {
-          el.skuGoodInfo.goodsVariants = Object.assign(el.skuGoodInfo.goodsVariants[0], {
+          el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariants[0], {
             num: el.goodsNum,
           })
         }
+        delete el.skuGoodInfo.goodsVariants
         return el.skuGoodInfo
       })
       let shoppingCartIds: any[] = []
@@ -129,7 +132,15 @@ const Checkout = () => {
         address: addressInfo.id !== '' ? addressInfo : null,
         goodsList,
         benefits,
-        // coupons: [],
+        coupons: couponItems.map(el => {
+          return {
+            id: el.id,
+            subscriptionRecommendRuleId: el.subscriptionRecommendRuleId,
+            couponId: el.couponId,
+            quantityRule: el.quantityRule,
+            quantity: el.quantity
+          }
+        }),
         remark,
         totalDeliveryTimes: subscriptionInfo.cycleObj.quantity, //配送次数
       }
@@ -386,6 +397,9 @@ const Checkout = () => {
           <TradeItem tradeItems={tradeItems} />
           {giftItems?.map((item) => (
             <GiftItem product={item} />
+          ))}
+          {couponItems?.map((item) => (
+            <CouponItem coupon={item} />
           ))}
           <View>
             <DeliveryTime changeDeliveryDate={changeDeliveryDate} />

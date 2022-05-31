@@ -9,7 +9,7 @@ import './index.less'
 
 const Purchased = () => {
   const [recommendProduct] = useAtom(recommendProductAtom)
-  const { goodsVariantInfo: { goodsVariants, goodsAttributeValueRel, goodsAsserts, goodsName }, giftList } = recommendProduct
+  const { goodsVariantInfo: { goodsVariants, goodsAttributeValueRel, goodsAsserts, goodsName }, giftList, couponList } = recommendProduct
   console.log('Purchased', goodsVariants)
 
 
@@ -55,6 +55,37 @@ const Purchased = () => {
               <View className="flex flex-row items-center" >
                 <IconFont name="a-Frame1" size={73} />
                 <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">  {list.quantityRule !== 'FIRST_DELIVERY_FIXED_NUMBER' ? '逐包随单发货' : '一次性发货'}</Text>
+              </View>
+              <View className="flex justify-between">
+                <View className="text-primary-red">
+                  <Text className="text-rc20 text-primary-red">￥</Text>
+                  <Text className="text-rc28">0</Text>
+                  <Text className="text-rc20">.00</Text>
+                </View>
+                <View className="text-textGray text-rc22">x{list.quantity}</View>
+              </View>
+            </View>
+
+          </View>
+        </View>
+      ))
+    }
+    {
+      couponList?.map(list => (
+        <View className="flex flex-col" key={list.couponInfo?.id}>
+          <View className="flex flex-row items-center">
+            <View className="w-rc190 h-rc190  mr-2 relative">
+              <Image className="w-full" mode="widthFix" src={list.couponInfo?.voucherDefaultImage} />
+              <CountTag type="center" >{list.quantity}</CountTag>
+            </View>
+            <View className="flex-1">
+              <View className="font-bold text-rc26 text-rc_222222">{list.couponInfo?.voucherName}</View>
+              <View className="flex flex-row items-center" >
+                <IconFont name="a-Frame1" size={73} />
+                {/* <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">  </Text> */}
+              </View>
+              <View className="text-20 text-gray-400 ">
+                券描述:{list.voucherDescription}
               </View>
               <View className="flex justify-between">
                 <View className="text-primary-red">

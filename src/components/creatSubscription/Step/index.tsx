@@ -81,6 +81,33 @@ const Step = () => {
       setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift, discountPrice, originalPrice })
     }
     if (stepCount === 1) {
+      let { couponList } = recommendInfo
+      console.info('recommendInfo', recommendInfo)
+      console.info('recommenProduct', recommenProduct)
+      let { cycle, quantity } = recommenProduct?.cycle
+      let couponInfo = couponList.find(el => el.couponRule?.subscriptionCycle === cycle)
+      let couponsList = couponInfo?.coupons?.map(data => {
+        switch (data.quantityRule) {
+          case 'FIRST_DELIVERY_FIXED_NUMBER':
+            // data.quantity = recommenProduct.quantity
+            data.quantity = data.quantity
+            break;
+
+          case 'CALCULATE_BY_FEEDING_DAY':
+            data.quantity = quantity;
+            break;
+
+          case 'FIXED_NUMBER':
+            data.quantity = data.quantity;
+            break;
+
+          case 'DOUBLE_OF_SKU_NUMBER':
+            data.quantity = quantity * 2;
+            break;
+        }
+        return data
+      }) || []
+      setRecommendProduct({ ...recommenProduct, couponList: couponsList })
       // 切换商品总价和赠品没有改变
       // const { goodsList, giftList } = recommendInfo
       // const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
@@ -105,8 +132,8 @@ const Step = () => {
       }
       {
         stepCount === 2 && <AtButton type='primary' className="stepButton" onClick={() => {
-          // console.log('recommenProduct', recommenProduct)
-          const { freshType, cycle, goodsVariantInfo, giftList, subscriptionRecommendRuleId } = recommenProduct
+          console.log('recommenProductrecommenProductrecommenProduct', recommenProduct)
+          const { freshType, cycle, goodsVariantInfo, giftList, subscriptionRecommendRuleId, couponList } = recommenProduct
           const { recommPetInfo } = recommendInfo
           let { birthday, code: breedCode, breed: breedName, gender, id, image, name, type } = recommPetInfo
           birthday = moment(birthday)
@@ -127,7 +154,10 @@ const Step = () => {
                 // el.subscriptionRecommendRuleId=goodsList
                 return normalizeCartData({ goodsNum }, el, true)
               }) || [],
-              couponList: [],
+              couponList: couponList.map(el => {
+                el.subscriptionRecommendRuleId = subscriptionRecommendRuleId
+                return el
+              }),
             }),
             complete: (respon) => {
               console.log(respon)
