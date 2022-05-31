@@ -31,11 +31,14 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
     let finalVoucher = {
       ...voucher,
       voucherStatus: 'Ongoing',
-      goodsInfoList: cloneDeep(tradeItems).map((el) => {
-        return { id: el.skuGoodInfo.goodsVariant[0].id, spuNo: el.skuGoodInfo.spuNo }
-      }),
     }
-    finalVoucher = omit(finalVoucher, ['voucherId','consumerId','goodsInfoIds','orderCode'])
+    finalVoucher = omit(finalVoucher, [
+      'consumerId',
+      'goodsInfoIds',
+      'orderCode',
+      'isDeleted',
+      'isGetStatus',
+    ])
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const params = {
       goodsList,
