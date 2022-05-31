@@ -7,9 +7,9 @@ import ApiRoot, { isMock } from '../fetcher'
 
 const normalizeCheckoutAndListVouchers = (voucherList) => {
   return {
-    notUsedVouchers: voucherList.filter((el: Voucher) => !el.isUsed),
-    usedVouchers: voucherList.filter((el: Voucher) => el.isUsed),
-    expiredVouchers: voucherList.filter((el: Voucher) => el.isExpired),
+    notUsedVouchers: voucherList.filter((el: Voucher) => el?.originVoucher?.voucherStatus === 'Not_Used'),
+    usedVouchers: voucherList.filter((el: Voucher) => el?.originVoucher?.voucherStatus === 'Used'),
+    expiredVouchers: voucherList.filter((el: Voucher) => el?.originVoucher?.voucherStatus === 'Expired'),
   }
 }
 
@@ -57,7 +57,6 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     discountValue,
     voucherName,
     voucherDescription,
-    voucherStatus,
     minimumBasketPrice,
     voucherUsageBeginningOfTime,
     voucherUsageEndOfTime,
@@ -66,10 +65,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
   } = voucher
   return {
     id: id,
-    voucherPrice:
-      discountType === 'PERCENTAGE' && Number(discountValue) < 1
-        ? Number(discountValue || 0) * Number(minimumBasketPrice || 0)
-        : Number(discountValue || 0), //优惠价格
+    voucherPrice: Number(discountValue), //优惠价格
     voucherName: voucherName, //优惠券name
     voucherDescription: voucherDescription, //优惠券描述
     expiredTime:
@@ -77,17 +73,16 @@ const normalizeVoucher = (voucher: any, origin: string) => {
       '-' +
       moment(voucherUsageEndOfTime).format('YYYY.MM.DD'), //领取/失效时间
     isReceived: origin === 'pdp' ? voucher?.isGetStatus : true, //是否已领取
-    isExpired: origin === 'pdp' ? voucherStatus === 'Expired' : voucherStatus === '2', //是否已失效
     isSelect: false, //是否在checkout页面已选择
-    voucherUsePrice: Number(minimumBasketPrice || 0), //达到多少钱可使用优惠券
-    isUsed: origin === 'pdp' ? false : voucherStatus === '1', //是否已使用
+    voucherUsePrice: Number(minimumBasketPrice || discountValue || 0), //达到多少钱可使用优惠券
     voucherType: voucherType,
     isCanUsed: false,
-    // voucherGoodsRelated: origin === 'pdp' ? [] : voucher?.voucherGoodsRelated || [],
-    voucherGoodsRelated: [],
+    voucherGoodsRelated: voucher?.voucherGoodsRelated || [],
     recurrence: voucher?.recurrence || false,
     orderType: voucher?.orderType || 'ALL',
-    originVoucher:voucher
+    originVoucher: voucher,
+    discountType: discountType,
+    maxDiscountPrice: 0, //checkout时针对这笔订单最大可减多少
   }
 }
 

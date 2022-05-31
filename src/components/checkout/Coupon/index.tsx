@@ -43,17 +43,19 @@ const Coupon = ({
         el.isCanUsed = false
       } else {
         if (el.voucherType === 'SHOP_VOUCHER' && totalPrice >= el.voucherUsePrice) {
-          el.isCanUsed = true
+          el = setVoucherCanUse(el, totalPrice)
         }
         if (el.voucherType === 'PRODUCT_VOUCHER') {
           const totalDiscountPrice = handleProductVoucherPrice(el)
-          el.isCanUsed = totalDiscountPrice >= el.voucherUsePrice
+          if (totalDiscountPrice >= el.voucherUsePrice) {
+            el = setVoucherCanUse(el, totalDiscountPrice)
+          }
         }
       }
       el.isCanUsed ? canUsedVouchers.push(el) : notCanUseVouchers.push(el)
       return el
     })
-    canUsedVouchers = canUsedVouchers.sort((a, b) => a.voucherPrice - b.voucherPrice).reverse()
+    canUsedVouchers = canUsedVouchers.sort((a, b) => a.maxDiscountPrice - b.maxDiscountPrice).reverse()
     canUsedVouchers.map((el) => {
       console.log('22222', el.voucherName, el.voucherPrice)
     })
@@ -61,6 +63,16 @@ const Coupon = ({
       changeSelectVoucher(canUsedVouchers[0], canUsedVouchers.concat(notCanUseVouchers))
     }
     setVouchers(canUsedVouchers.concat(notCanUseVouchers))
+  }
+
+  const setVoucherCanUse = (el, orderPrice) => {
+    el.isCanUsed = true
+    if (el.discountType === 'FIX_AMOUNT') {
+      el.maxDiscountPrice = el.recurrence ? (orderPrice / el.voucherUsePrice) * el.voucherPrice : el.voucherPrice
+    } else {
+      el.maxDiscountPrice = el.recurrence ? orderPrice * el.voucherPrice * 0.01 : orderPrice * el.voucherPrice * 0.01
+    }
+    return el
   }
 
   //获取产品型优惠券针对当前所要购买的商品的最大优惠价格
@@ -79,7 +91,7 @@ const Coupon = ({
 
   //处理selectVoucher改变后最大优惠券金额和当前vouchers值
   const changeSelectVoucher = (value, voucherList) => {
-    changeMaxDiscount && changeMaxDiscount(handleMaxDiscount(value))
+    changeMaxDiscount && changeMaxDiscount(value?.maxDiscountPrice || 0)
     setSelectedVoucher(value)
     setVouchers(
       voucherList.map((item) => {
@@ -88,21 +100,6 @@ const Coupon = ({
       }),
     )
     changeCheckoutVoucher && changeCheckoutVoucher(value.originVoucher)
-  }
-
-  //计算当前优惠券可优惠最大金额
-  const handleMaxDiscount = (voucher) => {
-    if (voucher) {
-      const { voucherType, recurrence, voucherUsePrice, voucherPrice } = voucher
-      if (voucherType === 'SHOP_VOUCHER') {
-        return recurrence ? (totalPrice / voucherUsePrice) * voucherPrice : voucherPrice
-      }
-      if (voucherType === 'PRODUCT_VOUCHER') {
-        const totalDiscountPrice = handleProductVoucherPrice(voucher)
-        return recurrence ? (totalDiscountPrice / voucherUsePrice) * voucherPrice : voucherPrice
-      }
-    }
-    return 0
   }
 
   //获取优惠券列表
@@ -123,7 +120,6 @@ const Coupon = ({
 
   //手动选择优惠券
   const selectVoucher = (value) => {
-    console.log(222222)
     setShowVoucherModal(false)
     changeSelectVoucher(value, vouchers)
   }
@@ -148,7 +144,13 @@ const Coupon = ({
         <View>
           <View>
             <Text className="text-xs text-gray-400">
-              {selectedVoucher ? `已选${selectedVoucher.voucherPrice}元优惠券` : '请选择优惠券'}
+              {selectedVoucher
+                ? `已选${
+                    selectedVoucher.discountType === 'FIX_AMOUNT'
+                      ? selectedVoucher.voucherPrice + '元'
+                      : (100 - selectedVoucher.voucherPrice) / 10 + '折'
+                  }优惠券`
+                : '请选择优惠券'}
             </Text>
             <AtIcon value="chevron-right" size="24" color="#666666" />
           </View>
