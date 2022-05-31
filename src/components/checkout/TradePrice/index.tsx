@@ -6,10 +6,12 @@ const Remark = ({
   totalPrice,
   shipPrice,
   discountPrice,
+  subDiscountPrice,
 }: {
   totalPrice: number
   shipPrice: number
   discountPrice: number
+  subDiscountPrice: number
 }) => {
   return (
     <View className="p-4 text-24 text-gray-400 bggray mt-2 rounded pb-16">
@@ -23,7 +25,7 @@ const Remark = ({
       </View>
       <View className="flex flex-row justify-between items-center">
         <View>店铺优惠</View>
-        <View>{formatMoney(discountPrice)}</View>
+        <View>{formatMoney(discountPrice + subDiscountPrice)}</View>
       </View>
     </View>
   )

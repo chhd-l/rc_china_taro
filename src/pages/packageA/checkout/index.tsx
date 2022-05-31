@@ -29,10 +29,12 @@ const Checkout = () => {
   const [totalNum, setTotalNum] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
   const [discountPrice, setDiscountPrice] = useState(0)
+  const [subDiscountPrice, setSubDiscountPrice] = useState(0)
+
   const [loading, setLoading] = useState(false)
   const [shippingPrice, setShippingPrice] = useState(0)
   const [showNoAddressTip, setShowNoAddressTip] = useState(false)
-  const [voucher,setVoucher]=useState<any>(null)
+  const [voucher, setVoucher] = useState<any>(null)
 
   const changeDeliveryDate = (value) => {
     setDeliveryTime(value)
@@ -97,6 +99,15 @@ const Checkout = () => {
         delete el.skuGoodInfo.goodsVariants
         return el.skuGoodInfo
       })
+      let finalVoucher = voucher ? {
+        ...voucher,
+        voucherStatus: 'Ongoing',
+        // goodsInfoList: cloneDeep(tradeItems).map((el) => {
+        //   return { id: el.skuGoodInfo.goodsVariant[0].id, spuNo: el.skuGoodInfo.spuNo }
+        // }),
+      } : null
+      finalVoucher = omit(finalVoucher, ['voucherId', 'consumerId', 'goodsInfoIds', 'orderCode'])
+
       let shoppingCartIds: any[] = []
       tradeItems.map((el) => {
         if (el?.id !== null && el.id !== undefined) {
@@ -113,6 +124,7 @@ const Checkout = () => {
         type: orderType,
         cycle: subscriptionInfo.cycleObj?.cycle,
         freshType: subscriptionInfo.freshType,
+        voucher: finalVoucher,
         customer: {
           id: user.id,
           avatarUrl: user.avatarUrl,
@@ -203,7 +215,7 @@ const Checkout = () => {
         return false
       }
       setLoading(true)
-      await createOrder({tradeItems,address,remark,deliveryTime,voucher})
+      await createOrder({ tradeItems, address, remark, deliveryTime, voucher })
     } catch (e) {
       console.log('create order err', e)
       Taro.atMessage({
@@ -270,8 +282,8 @@ const Checkout = () => {
           setCouponItems(couponList)
           console.log(couponItems)
           // 订阅折扣价合并优惠券价格
-          let discount = subInfo.cycleObj.originalPrice - subInfo.cycleObj.discountPrice + discountPrice
-          setDiscountPrice(discount)
+          let discount = subInfo.cycleObj.originalPrice - subInfo.cycleObj.discountPrice
+          setSubDiscountPrice(discount)
         }
         setTradeItems(goodsList)
       },
@@ -280,7 +292,7 @@ const Checkout = () => {
     getShippingPrice()
   }, [])
 
-  const payPrice = useMemo(() => totalPrice - discountPrice, [totalPrice, discountPrice])
+  const payPrice = useMemo(() => totalPrice - discountPrice - subDiscountPrice, [totalPrice, discountPrice, subDiscountPrice])
 
   return (
     <View className="index py-2" style={{ marginBottom: '75rpx' }}>
@@ -306,13 +318,13 @@ const Checkout = () => {
                 setDiscountPrice(maxDiscountPrice)
               }}
               orderType={orderType}
-              changeCheckoutVoucher={(value)=>setVoucher(value)}
+              changeCheckoutVoucher={(value) => setVoucher(value)}
             />
             <Remark changeRemark={changeRemark} />
           </View>
         </View>
         <View>
-          <TradePrice totalPrice={totalPrice} discountPrice={discountPrice} shipPrice={shippingPrice} />
+          <TradePrice totalPrice={totalPrice} discountPrice={discountPrice} subDiscountPrice={subDiscountPrice} shipPrice={shippingPrice} />
         </View>
       </View>
       <View className="fixed bottom-0 w-full">
