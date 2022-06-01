@@ -35,6 +35,9 @@ const ProductDetail = () => {
   const { router } = getCurrentInstance()
   const [toastShow, setToastShow] = useAtom(cartSunccessToastShowAtom)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+  let type = 0 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
+  let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/productList/index', pid: 1 })) // 开发者在直播间页面路径上携带自定义参数（如示例中的 path 和pid参数），后续可以在分享卡片链接和跳转至商详页时获取，详见【获取自定义参数】、【直播间到商详页面携带参数】章节（上限600个字符，超过部分会被截断）
+  let closePictureInPictureMode = 0 // 是否关闭小窗
   useEffect(() => {
     getList()
   }, [])
@@ -119,12 +122,15 @@ const ProductDetail = () => {
       {choosedSku.id ? (
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
+          <View direction='all' className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
+            <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant>
+          </View>
           <View>
             <View className="text-center text-28 flex items-center justify-center py-4">
               {' '}
-              <View className="w-1 h-1 rounded-full bg-red-600"/>
+              <View className="w-1 h-1 rounded-full bg-red-600" />
               <View className="px-1">商品详情</View>
-              <View className="w-1 h-1 rounded-full bg-red-600"/>
+              <View className="w-1 h-1 rounded-full bg-red-600" />
             </View>
             {choosedSku?.video ? <Video className="w-full" src={choosedSku.video} /> : null}
             {detailInfo.description ? (
