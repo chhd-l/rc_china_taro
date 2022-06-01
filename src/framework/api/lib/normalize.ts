@@ -46,11 +46,11 @@ export const normalizeProductForFe = (goods: any): any => {
   let { goodsSpecifications, goodsVariants } = goods
   if (goodsSpecifications?.length === 1) {
     let goodsSpecificationDetailIdArr = goodsVariants.map(
-      (el) => el.goodsSpecificationRel[0].goodsSpecificationDetailId,
+      (el) => el.goodsSpecificationRel[0]?.goodsSpecificationDetailId,
     )
     console.info('goodsSpecificationDetailIdArr', goodsSpecificationDetailIdArr)
-    goodsSpecifications[0].goodsSpecificationDetail = goodsSpecifications[0]?.goodsSpecificationDetail.filter((el) =>
-      goodsSpecificationDetailIdArr.find((cel) => el.id === cel),
+    goodsSpecifications[0].goodsSpecificationDetail = goodsSpecifications[0]?.goodsSpecificationDetail?.filter((el) =>
+      goodsSpecificationDetailIdArr.find((cel) => el?.id === cel),
     )
     console.info('goodsSpecifications', goodsSpecifications)
   }
