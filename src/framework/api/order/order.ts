@@ -16,7 +16,7 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
           num: el.goodsNum,
         })
       }
-      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted','goodsVariants'])
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'goodsVariants'])
       return el.skuGoodInfo
     })
     let shoppingCartIds: any[] = []
@@ -27,11 +27,16 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
     })
     const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
     const user = Taro.getStorageSync('wxLoginRes').userInfo
-    let finalVoucher = {
-      ...voucher,
-      voucherStatus: 'Ongoing',
-    }
-    finalVoucher = omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+    let finalVoucher =
+      voucher && JSON.stringify(voucher) !== '{}'
+        ? {
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
+        : null
+    finalVoucher = finalVoucher
+      ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+      : null
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const params = {
       goodsList,
