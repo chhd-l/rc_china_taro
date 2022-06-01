@@ -75,7 +75,7 @@ const ProductList = () => {
     }) || []
     let newBanner = [...LiveStreamings, ...bannerList]
     setBannerList(newBanner)
-    console.info('data', data)
+    console.info('datanewBanner', newBanner)
   }
   const loginInit = async () => {
     if (Taro.getStorageSync('wxLoginRes')) {

@@ -8,6 +8,7 @@ interface ListBannerProps {
 }
 const ListBanner = ({ bannerList }: ListBannerProps) => {
   const toPage = ({ linkHref }) => {
+    console.info('linkHref', linkHref)
     Taro.navigateTo({
       url: linkHref,
     })
@@ -24,10 +25,9 @@ const ListBanner = ({ bannerList }: ListBannerProps) => {
       {bannerList.map((banner) => (
         <SwiperItem style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
           {banner.img ? (
-            <View className="relative" onClick={(banner) => {
-              () => {
-                toPage(banner)
-              }
+            <View className="relative bg-red-600" onClick={() => {
+              console.info('bannerbanner', banner)
+              toPage(banner)
             }}>
               {banner.status ? <View className="absolute top-1 left-1">{banner.status}</View> : null}
               <Image
