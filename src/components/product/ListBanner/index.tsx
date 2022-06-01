@@ -16,8 +16,8 @@ const ListBanner = ({ bannerList }: ListBannerProps) => {
       indicatorDots
       autoplay
     >
-      {bannerList.map((banner) => (
-        <SwiperItem style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
+      {bannerList.map((banner, idx) => (
+        <SwiperItem key={idx} style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
           {banner.img ? (
             <Image
               src={banner.img}
