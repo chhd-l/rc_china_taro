@@ -71,7 +71,7 @@ const SubList = ({ children }) => {
                             <View className="w-rc163 h-rc163">
                                 <Image className="w-full h-full" src={goodsVariants?.defaultImage} />
                             </View>
-                            <View className="flex flex-col pl-3 justify-between mb-3">
+                            <View className="flex flex-col pl-3 justify-center mb-3">
                                 <View>
                                     <View className="text-rc26 font-black mb-1">{goodsVariants?.name}</View>
                                     <View className="text-primary-red flex  justify-between items-center">
@@ -86,6 +86,7 @@ const SubList = ({ children }) => {
                                     <IconFont name='shengyushu' size={20} />
                                     <View className="text-primary-red font-bold text-rc22 ml-2">剩余：{children.totalDeliveryTimes - children.currentDeliverySequence}包</View>
                                 </View>
+                                {children.freshType === 'FRESH_100_DAYS' ? <View className="text-rc26 text-textGray mt-2">新鲜度：100天</View> : null}
                             </View>
                         </View>
                         <View className='flex flex-row text-rc20 justify-between text-rc_666666 mt-2 mb-3 pt-2' style={{ borderTop: '1px solid #E2E2E2' }}>

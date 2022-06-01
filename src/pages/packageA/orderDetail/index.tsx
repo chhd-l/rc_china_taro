@@ -167,6 +167,7 @@ const OrderDetails = () => {
                         <View className="numcolor">X{el?.num}</View>
                       </View>
                       <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                      {orderDetail.freshType === 'FRESH_100_DAYS' ? <View className="mt-1 ProductIntroduction numcolor">新鲜度：100天</View> : null}
                     </View>
                   </View>
                 ))}

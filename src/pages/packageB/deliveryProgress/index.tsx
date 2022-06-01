@@ -40,6 +40,12 @@ const DeliveryProgress = () => {
         setOpen(true)
     }
 
+    const copyText = (data) => {
+        Taro.setClipboardData({
+            data,
+        })
+    }
+
     return <View className="delivery-progress rc-content-bg">
         <View className=" px-3 bg-white rounded-md pb-3">
             <CommonTitle title="下次发货" />
@@ -70,13 +76,16 @@ const DeliveryProgress = () => {
                     <View className='my-2 record '>
                         <View className='flex flex-row py-2 justify-between  px-2'>
                             <View className='flex flex-row  '>
-                                <View className='text-rc22 text-textGray'>订单编号:201852750697</View>
-                                <View className='bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1'>复制</View>
+                                <View className='text-rc22 text-textGray'>订单编号:{deliveryDetail?.no}</View>
+                                <View className='bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1' onClick={(e) => {
+                                    e.stopPropagation()
+                                    copyText(deliveryDetail.no)
+                                }}>复制</View>
                             </View>
                             <View className='text-primary-red text-rc22'>第3包</View>
                         </View>
                         <View className='Descborder p-2'>
-                            <View className='flex  border-red-400'>
+                            <View className='flex  border-red-400 items-center'>
                                 <View className='h-rc169 w-rc163 bg-primary-red' />
                                 <View className='flex-1'>
                                     <View className='text-rc33 text-rc_222222 mt-2 ml-1'>皇家口腔护理成猫全价粮</View>
@@ -88,6 +97,8 @@ const DeliveryProgress = () => {
                                         <View className='text-rc22 text-textGray mr-1'>x1</View>
                                     </View>
                                     <View className='text-rc26 text-textGray ml-1'>规格:2kg</View>
+                                    {deliveryDetail?.freshType === 'FRESH_100_DAYS' ? <View className="text-rc26 text-textGray ml-1 mt-1">新鲜度：100天</View> : null}
+
                                 </View>
                             </View>
                         </View>

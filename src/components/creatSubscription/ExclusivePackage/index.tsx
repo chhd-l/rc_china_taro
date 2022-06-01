@@ -23,6 +23,9 @@ const ExclusivePackage = () => {
         // 新鲜度不存在100天 筛选存在100天的第一条数据
         const good = goodsList.filter(item => item.goodsVariantInfo.goodsVariants[0].isSupport100)[0]
         setRecommendProduct({ ...recommendProduct, ...good, freshType: val })
+      } else {
+        // 变更freshType
+        setRecommendProduct({ ...recommendProduct, freshType: val })
       }
     } else {
       setRecommendProduct({ ...recommendProduct, freshType: val })
