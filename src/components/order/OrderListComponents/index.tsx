@@ -31,9 +31,9 @@ const OrderListComponents = ({
       data: orderNumber,
     })
   }
-  useEffect(() => {
-    console.log('orderlist', list)
-  }, [])
+  // useEffect(() => {
+  //   console.log('orderlist', list)
+  // }, [])
 
   return (
     <ScrollView className="OrderListComponents" scrollY>

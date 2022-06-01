@@ -81,7 +81,7 @@ const Subscription = () => {
         <View onClick={() => {
           setShowPop(true)
         }} style={{ right: '39%' }}
-          className="w-3 h-3 absolute bottom-6"></View>
+          className="w-4 h-4 absolute bottom-8"></View>
         <Image lazyLoad className="w-full" src={SUBSCRIPTION_DESCRIPTION} mode="widthFix" />
         {/* <View className="w-2 h-2 bg-primary-red absolute bottom-0" onClick={() => {
           setShowPop(true)

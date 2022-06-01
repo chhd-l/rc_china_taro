@@ -180,8 +180,12 @@ const Checkout = () => {
             operator: customerInfo?.nickName || '',
           },
           success: () => {
+            let url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true`
+            if (couponItems?.length) {
+              url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true&isSendCoupon=true`
+            }
             Taro.redirectTo({
-              url: `${routers.orderList}?status=TO_SHIP&isFromSubscription=true`,
+              url,
             })
           },
           fail: () => {
