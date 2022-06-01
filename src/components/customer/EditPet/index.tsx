@@ -176,7 +176,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             name="isSterilized"
             pet={petInfo}
           />
-          <View className={`date-item border-0 grid grid-cols-12 text-26 relative ${systemType ? 'isandroid' : 'isios'}`}>
+          <View className={` ${systemType ? 'isandroid' : 'isios'} date-item border-0 grid grid-cols-12 text-26 relative`}>
             <View className="col-span-4 flex items-center  py-2">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View>
               <Text className="pl-2 ">宠物生日</Text>
