@@ -76,10 +76,19 @@ const ProductList = () => {
       setCustomer(data)
     }
   }
+
   useEffect(() => {
     loginInit()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
+  // const onScroll = (e) => {
+  //   console.info(e.detail)
+  //   if (e.detail.scrollTop > 370) {
+  //     setShowPendant(true)
+  //   } else {
+  //     setShowPendant(false)
+  //   }
+  // }
 
   return (
     <View className="product-list">
@@ -178,23 +187,30 @@ const ProductList = () => {
                 <View className="text-26  text-gray-400">{floor.subTitle}</View>
               </View>
               <View>
-                {(() => {
-                  switch (floor.type) {
-                    case FloorType.Activity:
-                      return <ActivityList list={activityList} />
-                    case FloorType.Stars:
-                      return <StarsList list={starsList} />
-                    default: //FloorType.Dry || FloorType.Wet
-                      return (
-                        <DryOrWetList
-                          list={productList}
-                          queryList={queryList}
-                          lifestageList={lifestageList}
-                          setLifestageList={setLifestageList}
-                        />
-                      )
-                  }
-                })()}
+                <View id={floor.id}></View>
+                <View className="p-2">
+                  <View className="text-red-600 font-medium py-1">{floor.title}</View>
+                  <View className="text-26  text-gray-400">{floor.subTitle}</View>
+                </View>
+                <View>
+                  {(() => {
+                    switch (floor.type) {
+                      case FloorType.Activity:
+                        return <ActivityList list={activityList} />
+                      case FloorType.Stars:
+                        return <StarsList list={starsList} />
+                      default: //FloorType.Dry || FloorType.Wet
+                        return (
+                          <DryOrWetList
+                            list={productList}
+                            queryList={queryList}
+                            lifestageList={lifestageList}
+                            setLifestageList={setLifestageList}
+                          />
+                        )
+                    }
+                  })()}
+                </View>
               </View>
             </View>
           ))}

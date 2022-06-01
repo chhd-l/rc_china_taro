@@ -6,6 +6,7 @@ import { getOrderList } from '@/framework/api/order/order'
 import { Order } from '@/framework/types/order'
 import { View } from '@tarojs/components'
 import './index.less'
+import routers from '@/routers'
 
 const tabList = [{ title: '全部' }, { title: '待付款' }, { title: '待发货' }, { title: '待收货' }]
 
@@ -20,6 +21,7 @@ const OrderList = () => {
   const [current, setCurrent] = useState('ALL')
   const [orderList, setOrderList] = useState<Order[]>([])
   const [showShipModal, setShowShipModal] = useState(false)
+  const [showSendCouponModal, setShowSendCouponModal] = useState(false)
   const { router } = getCurrentInstance()
   const [isFromSubscription, setIsFromSubscription] = useState(false)
   const getOrderLists = async (status) => {
@@ -50,12 +52,12 @@ const OrderList = () => {
     setCurrent(status)
     getOrderLists(status)
   })
-  // useEffect(() => {
-  //   // 测试执行函数
-  //   return () => {
-  //     isFromSubscription && Taro.navigateBack({ delta: 2 })
-  //   }
-  // }, [])
+  useEffect(() => {
+    const isSendCoupon = router?.params?.isSendCoupon
+    if (isSendCoupon) {
+      setShowSendCouponModal(true)
+    }
+  }, [])
 
   const handleClick = (value) => {
     Taro.setNavigationBarTitle({
@@ -65,7 +67,7 @@ const OrderList = () => {
     setCurrent(Object.keys(OrderStatusEnum)[cur])
     getOrderLists(Object.keys(OrderStatusEnum)[cur])
   }
-
+  console.info('showSendCouponModal', showSendCouponModal)
   return (
     <View>
       <AtTabs className="index" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
@@ -99,6 +101,28 @@ const OrderList = () => {
         }}
         onConfirm={() => {
           setShowShipModal(false)
+        }}
+        className="order-to-ship-modal"
+      />
+      <AtModal
+        key="orderShipTip"
+        isOpened={showSendCouponModal}
+        title="温馨提示提示"
+        content="您己获得相应线下门店服务券，请点击至我的卡包查看！"
+        cancelText='取消'
+        confirmText="确定"
+        onClose={() => {
+          setShowSendCouponModal(false)
+        }}
+        onCancel={() => {
+          setShowSendCouponModal(false)
+        }}
+        onConfirm={() => {
+          let url = `${routers.voucherList}?status=NOT_USED`
+          Taro.navigateTo({
+            url,
+          })
+          setShowSendCouponModal(false)
         }}
         className="order-to-ship-modal"
       />

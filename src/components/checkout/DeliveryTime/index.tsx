@@ -1,11 +1,11 @@
 import { Image, Picker, Text, View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
 import { useState } from 'react'
-import { formatDate } from '@/utils/utils'
 import { TO_SHIP_ORDER_ICON } from '@/lib/constants'
+import moment from 'moment'
 
 const DeliveryTime = ({ changeDeliveryDate }: { changeDeliveryDate: Function }) => {
-  const [deliveryTime, setDeliveryTime] = useState(formatDate(new Date()))
+  const [deliveryTime, setDeliveryTime] = useState(moment().add(1, 'days').format('YYYY-MM-DD'))
 
   const onDateChange = (e) => {
     setDeliveryTime(e.detail.value)
@@ -23,7 +23,7 @@ const DeliveryTime = ({ changeDeliveryDate }: { changeDeliveryDate: Function }) 
           <View>
             <View>
               <Text className="text-xs text-gray-400">{deliveryTime}</Text>
-              <AtIcon value="chevron-right" size="24" color='#666666'/>
+              <AtIcon value="chevron-right" size="24" color="#666666" />
             </View>
           </View>
         </View>

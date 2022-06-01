@@ -1,14 +1,117 @@
 import Taro from '@tarojs/taro'
 import { orderDetailMockData, orderListMockData } from '@/mock/order'
 import { session } from '@/utils/global'
+import omit from 'lodash/omit'
+import { pay } from '@/framework/api/payment/pay'
+import routers from '@/routers'
+import cloneDeep from 'lodash.cloneDeep'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
-export const createOrder = async (params: any) => {
+export const createOrder = async ({ tradeItems, address, remark, deliveryTime, voucher }) => {
   try {
+    //入参处理 start
+    const goodsList = cloneDeep(tradeItems).map((el) => {
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'goodsVariants'])
+      if (el.skuGoodInfo.goodsVariant?.length > 0) {
+        el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariant[0], {
+          num: el.goodsNum,
+        })
+        el.skuGoodInfo.goodsVariant = omit(el.skuGoodInfo.goodsVariant, ['isDeleted'])
+      }
+      return el.skuGoodInfo
+    })
+    let shoppingCartIds: any[] = []
+    tradeItems.map((el) => {
+      if (el?.id !== null && el.id !== undefined) {
+        shoppingCartIds.push(el.id)
+      }
+    })
+    const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
+    const user = Taro.getStorageSync('wxLoginRes').userInfo
+    let finalVoucher = {
+      ...voucher,
+      voucherStatus: 'Ongoing',
+    }
+    finalVoucher = omit(finalVoucher, [
+      'consumerId',
+      'goodsInfoIds',
+      'orderCode',
+      'isDeleted',
+      'isGetStatus',
+    ])
+    let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+    const params = {
+      goodsList,
+      addressInfo: addressInfo.id !== '' ? addressInfo : null,
+      remark,
+      shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
+      expectedShippingDate: new Date(deliveryTime).toISOString(),
+      isSubscription: false,
+      customerInfo: {
+        id: user.id,
+        avatarUrl: user.avatarUrl,
+        level: user.level,
+        phone: user.phone,
+        nickName: user.nickName,
+        name: user.name,
+      },
+      operator: user.nickName,
+      wxUserInfo: {
+        nickName: user.nickName,
+        unionId: wxLoginRes?.customerAccount?.unionId,
+        openId: wxLoginRes?.customerAccount?.openId,
+      },
+      voucher: finalVoucher,
+    }
+    //入参处理 end
+    console.log('create order params', params)
     const res = await ApiRoot.orders().createOrder({
       body: Object.assign(params, { storeId: baseSetting.storeId }),
     })
     console.log('create order view', res)
+    if (res.createOrder) {
+      Taro.removeStorageSync('select-product')
+      //下单成功处理删除购物车数据
+      let cartProducts = session.get('cart-data') || []
+      tradeItems.map((item) => {
+        cartProducts.map((el) => {
+          if (item.id === el.id) {
+            const delIndex = cartProducts.findIndex((data) => data.id === item.id)
+            cartProducts.splice(delIndex, 1)
+          }
+        })
+      })
+      session.set('cart-data', cartProducts)
+      pay({
+        params: {
+          customerId: wxLoginRes?.userInfo?.id || '',
+          customerOpenId: wxLoginRes?.customerAccount?.openId,
+          tradeId: res.createOrder?.orderNumber,
+          tradeNo: res.createOrder?.orderNumber,
+          tradeDescription: '商品',
+          payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+          amount: res.createOrder?.tradePrice.totalPrice * 100,
+          currency: 'CNY',
+          storeId: '12345678',
+          operator: wxLoginRes?.userInfo?.nickName || '',
+        },
+        success: () => {
+          Taro.redirectTo({
+            url: `${routers.orderList}?status=TO_SHIP`,
+          })
+        },
+        fail: () => {
+          Taro.redirectTo({
+            url: `${routers.orderList}?status=UNPAID`,
+          })
+        },
+      })
+    } else {
+      Taro.atMessage({
+        message: '系统繁忙，请稍后再试',
+        type: 'error',
+      })
+    }
     return res
   } catch (e) {
     console.log(e)

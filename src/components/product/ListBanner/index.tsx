@@ -1,12 +1,18 @@
 import Taro from '@tarojs/taro'
-import { SwiperItem, Image, Swiper } from '@tarojs/components'
-import { SwiperProps } from '@/framework/types/products'
+import { SwiperItem, Image, Swiper, View } from '@tarojs/components'
+// import { SwiperProps } from '@/framework/types/products'
 import './index.less'
 
 interface ListBannerProps {
-  bannerList: SwiperProps[]
+  bannerList: any[]
 }
 const ListBanner = ({ bannerList }: ListBannerProps) => {
+  const toPage = ({ linkHref }) => {
+    console.info('linkHref', linkHref)
+    Taro.navigateTo({
+      url: linkHref,
+    })
+  }
   return (
     <Swiper
       style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px !important;`}
@@ -19,12 +25,18 @@ const ListBanner = ({ bannerList }: ListBannerProps) => {
       {bannerList.map((banner, idx) => (
         <SwiperItem key={idx} style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
           {banner.img ? (
-            <Image
-              src={banner.img}
-              lazyLoad
-              mode="widthFix"
-              style={`width:100%;height:${Taro.getSystemInfoSync().screenWidth}px;`}
-            />
+            <View className="relative bg-red-600" onClick={() => {
+              console.info('bannerbanner', banner)
+              toPage(banner)
+            }}>
+              {banner.status ? <View className="absolute top-1 left-1">{banner.status}</View> : null}
+              <Image
+                src={banner.img}
+                lazyLoad
+                mode="widthFix"
+                style={`width:100%;height:${Taro.getSystemInfoSync().screenWidth}px;`}
+              />
+            </View>
           ) : null}
         </SwiperItem>
       ))}

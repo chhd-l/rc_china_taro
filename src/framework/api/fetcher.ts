@@ -10,9 +10,9 @@ export const baseSetting = {
   storeId: '12345678',
 }
 
-// const API_URL = 'http://localhost:9000/graphql'
+const API_URL = 'http://localhost:9000/graphql'
 // 生产
-const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
+// const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
 
 // const API_URL = 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/graphql'
 // 开发
