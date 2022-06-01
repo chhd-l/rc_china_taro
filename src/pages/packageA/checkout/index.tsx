@@ -99,15 +99,16 @@ const Checkout = () => {
         delete el.skuGoodInfo.goodsVariants
         return el.skuGoodInfo
       })
-      let finalVoucher = voucher ? {
-        ...voucher,
-        voucherStatus: 'Ongoing',
-        // goodsInfoList: cloneDeep(tradeItems).map((el) => {
-        //   return { id: el.skuGoodInfo.goodsVariant[0].id, spuNo: el.skuGoodInfo.spuNo }
-        // }),
-      } : null
-      finalVoucher = omit(finalVoucher, ['voucherId', 'consumerId', 'goodsInfoIds', 'orderCode'])
-
+      let finalVoucher =
+        voucher && JSON.stringify(voucher) !== '{}'
+          ? {
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
+          : null
+      finalVoucher = finalVoucher
+        ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+        : null
       let shoppingCartIds: any[] = []
       tradeItems.map((el) => {
         if (el?.id !== null && el.id !== undefined) {

@@ -99,7 +99,7 @@ const Coupon = ({
         return item
       }),
     )
-    changeCheckoutVoucher && changeCheckoutVoucher(value.originVoucher)
+    changeCheckoutVoucher && changeCheckoutVoucher(value?.originVoucher)
   }
 
   //获取优惠券列表
