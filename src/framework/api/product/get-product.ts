@@ -29,15 +29,21 @@ export const getProducts = async (params: any) => {
   // let list = mockProduct.data.FindGoodsList.records[0]
   try {
     const res = await ApiRoot.products().getESProductLists(params)
-    let list = res?.getEsProducts?.records
+    let list = res?.getEsProducts?.records || []
     console.info('test', res)
     // const pets = await ApiRoot.pets().getProduct({ id: "20220415" });
     const productList = normalizeProductsforFe(list)
     console.info('productList', productList)
-    return productList
+    return {
+      productList,
+      total: res?.getEsProducts?.total || 0
+    }
   } catch (err) {
     console.info('err', err)
-    return []
+    return {
+      productList: [],
+      totalPage: 0
+    }
   }
 }
 export const getProductBySkuId = async ({ goodsVariantId }: { goodsVariantId: string }) => {
