@@ -16,6 +16,7 @@ import { wxLogin } from '@/framework/api/customer/customer'
 import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
 import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
+import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
 
 const bannerLists = [
   {
@@ -66,14 +67,30 @@ const ProductList = () => {
   }
   const getLiveStreamingFindOnLiveData = async () => {
     let data = await getLiveStreamingFindOnLive('22c2f601-5a60-8b10-20c1-c56ef0d8bd53')
+    {/* 直播间状态。101：直播中，102：未开始，103已结束，104禁播，105：暂停，106：异常，107：已过期 */ }
+
     let LiveStreamings = data?.map(el => {
+      let statusIcon: string = ''
+      switch (el.liveStatus) {
+        case 101:
+          statusIcon = LIVINGSTREAMING_ONGOING
+          break;
+        case 102:
+          statusIcon = LIVINGSTREAMING_UPCOMING
+          break;
+      }
       return {
         img: el.coverImg,
         status: el.liveStatus,
+        statusIcon,
         linkHref: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${el.roomId}`
       }
     }) || []
-    let newBanner = [...LiveStreamings, ...bannerList]
+    let newBanner = [...bannerList]
+
+    if (LiveStreamings?.length) {
+      newBanner = [LiveStreamings[0], ...bannerList]
+    }
     setBannerList(newBanner)
     console.info('datanewBanner', newBanner)
   }

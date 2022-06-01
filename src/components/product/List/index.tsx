@@ -1,6 +1,7 @@
 import { ProductListItemProps } from '@/framework/types/products'
 import { View, Image } from '@tarojs/components'
 import Taro from '@tarojs/taro'
+import { useState } from 'react'
 import './index.less'
 
 interface ListProps {
@@ -45,3 +46,7 @@ const List = ({ list }: ListProps) => {
   )
 }
 export default List
+function useReachBottom(arg0: () => void) {
+  throw new Error('Function not implemented.')
+}
+
