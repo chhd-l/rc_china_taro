@@ -33,7 +33,7 @@ const VoucherItem = ({
   expiredTimeText = '有效期',
   applyBtnClass = '',
 }: VoucherItemProps) => {
-  const { voucherPrice, voucherName, voucherDescription, expiredTime, isSelect } = voucher
+  const { voucherPrice, voucherName, voucherDescription, expiredTime, isSelect, discountType } = voucher
 
   return (
     <View
@@ -65,10 +65,17 @@ const VoucherItem = ({
       ) : null}
       <View className="flex flex-row items-center text-24">
         <View className={`${priceClass} flex flex-col justify-center items-center`} style={{ width: '30%' }}>
-          <View>
-            <Text>{getCurrencyCode()}</Text>
-            <Text className="text-4xl font-medium">{voucherPrice}</Text>
-          </View>
+          {discountType === 'PERCENTAGE' ? (
+            <View>
+              <Text className="text-4xl font-medium">{(100 - voucherPrice) / 10}</Text>
+              <Text>折</Text>
+            </View>
+          ) : (
+            <View>
+              <Text>{getCurrencyCode()}</Text>
+              <Text className="text-4xl font-medium">{voucherPrice}</Text>
+            </View>
+          )}
           <View className="mt-3">{voucherName}</View>
         </View>
         <View className="flex flex-col pl-6 flex-grow">
