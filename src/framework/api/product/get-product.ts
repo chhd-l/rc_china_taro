@@ -12,8 +12,6 @@ export const getProduct = async ({ storeId, goodsId }) => {
     const { productBySpuId: data } = await ApiRoot.products().getProductBySpu({
       storeId,
       goodsId,
-      // goodsId: '44c5f184-9146-187f-f738-67db27bf0468',
-      // storeId: '12345678',
     })
     // console.info('listlistlistlist......', data)
     // let data = mockProduct.data.FindGoodsList.records[0]
