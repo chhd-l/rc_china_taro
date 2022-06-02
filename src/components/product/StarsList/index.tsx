@@ -1,12 +1,13 @@
 import { View, Image, ScrollView, Video } from '@tarojs/components'
+
 interface StarsListProps {
   list: any
 }
 const StarsList = ({ list }: StarsListProps) => {
   return (
-    <ScrollView className="whitespace-nowrap" scrollX>
-      {list.map((product) => (
-        <View className="inline-block  px-2 bg-gray-300" style="width:88%">
+    <ScrollView className="whitespace-nowrap pl-2 bg-gray-100" scrollX>
+      {list.map((product, idx) => (
+        <View key={idx} className="inline-block mr-4" style="width:80%">
           {/* <Video
             id="video"
             className="w-full"
@@ -19,20 +20,28 @@ const StarsList = ({ list }: StarsListProps) => {
             loop={false}
             muted={false}
           /> */}
-          <View className="flex items-center rounded-b-lg bg-white p-2">
-            {/* <Image style="width:100%" lazyLoad mode="widthFix" src={product.img} /> */}
+          <View className="flex items-center rounded-b-xl bg-white flex-col">
             <Image
               style="width:100%"
               lazyLoad
               mode="widthFix"
-              src={'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1613794160492_Id2TmT.png'}
+              src="https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1613794160492_Id2TmT.png"
             />
-            <View className="pl-2">
-              <View>{product.name}</View>
-              <View className="text-16px pb-2">室内成猫全粮价2kg/袋</View>
-              <View className="text-xs">高易消化蛋白</View>
-              <View className="text-xs">减少粪便量和异味</View>
-              <View className="text-center pt-1 text-red-600">¥{product.price}</View>
+            <View className="flex p-3 w-full">
+              <View>
+                <Image
+                  lazyLoad
+                  className='w-32 h-32'
+                  src="https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1613794160492_Id2TmT.png"
+                />
+              </View>
+              <View className='ml-2 h-full flex flex-col justify-center'>
+                <View className="text-xl">室内成猫专属</View>
+                <View style={{ fontSize: '.75rem' }} className="mb-2">室内成猫全粮价2kg/袋</View>
+                <View className="text-xs">高易消化蛋白</View>
+                <View className="text-xs">减少粪便量和异味</View>
+                <View className="text-center mt-2 text-red-600">¥140</View>
+              </View>
             </View>
           </View>
         </View>

@@ -1,63 +1,44 @@
+import ActivityList from '@/components/product/ActivityList'
+import DryOrWetList from '@/components/product/DryOrWetList'
+import FloorNav from '@/components/product/FloorNav'
 import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
-import Mock from 'mockjs'
-import { mockProduct } from '@/mock/product'
-import { wxLogin } from '@/framework/api/customer/customer'
-import IconFont from '@/iconfont'
-import { customerAtom } from '@/store/customer'
-import { Button, Image, MovableArea, ScrollView, Text, View } from '@tarojs/components'
-import Taro from '@tarojs/taro'
-import { useAtom } from 'jotai'
-import { useEffect, useState } from 'react'
+import StarsList from '@/components/product/StarsList'
 import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
-import { AtButton } from 'taro-ui'
+import { FloorType, SwiperProps } from '@/framework/types/products'
+import { catDryFood, floorList } from '@/lib/product'
+import { mockProduct, mockStar, mockTabOptions } from '@/mock/product'
+import { Button, MovableArea, ScrollView, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import Mock from 'mockjs'
+import { useEffect, useState } from 'react'
 import './index.less'
+import PetsList from './xxxx'
 
 const bannerLists = [
   {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Banner_1.jpg',
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
     url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
   },
   {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Banner_2.jpg',
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1645176690326_P7j5sr.jpg',
     url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
   },
   {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Banner_3.jpg',
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648034005829_tqkR1u.png',
     url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
   },
-]
-
-const ProductLists = [
   {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Home_Hot_1.png',
-    title: '离乳期幼猫全价猫奶糕更新',
-    noPrice: '199',
-    Price: '169',
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1597804065709_i2xUiW.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
   },
   {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Home_Hot_2.jpg',
-    title: '幼猫全价粮',
-    noPrice: '169',
-    Price: '138',
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1636022018746_LKzei7.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
   },
   {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Home_Hot_3.jpg',
-    title: '小型犬幼犬离乳期全价奶糕',
-    noPrice: '241',
-    Price: '212',
-  },
-  {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Home_Hot_4.jpg',
-    title: '柴犬幼犬全价粮',
-    noPrice: '288',
-    Price: '264',
-  },
-  {
-    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Home_Hot_5.jpg',
-    title: '小型犬幼犬全价粮',
-    noPrice: '138',
-    Price: '120',
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
   },
 ]
 
@@ -65,17 +46,24 @@ let type = 0 // 0. 显示直播、预告、商品讲解、回放其中之一的�
 let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/index/index', pid: 1 })) // 开发者在直播间页面路径上携带自定义参数（如示例中的 path 和pid参数），后续可以在分享卡片链接和跳转至商详页时获取，详见【获取自定义参数】、【直播间到商详页面携带参数】章节（上限600个字符，超过部分会被截断）
 let closePictureInPictureMode = 0 // 是否关闭小窗
 
-// const starsLists = Mock.mock(mockStar).list
+const starsLists = Mock.mock(mockStar).list
 const productLists = Mock.mock(mockProduct).list
-// const lifestageLists = Mock.mock(mockTabOptions).list
+const lifestageLists = Mock.mock(mockTabOptions).list
 const ProductList = () => {
-  // const [productList, setProductList] = useState(productLists)
-  const [, setCustomer] = useAtom(customerAtom)
   const [bannerList, setBannerList] = useState<any[]>(bannerLists)
-  const [productList, setProductList] = useState(productLists)
+  const [activityList, setActivityList] = useState<SwiperProps[]>(bannerLists)
+  const [starsList, setStarsList] = useState<SwiperProps[]>(starsLists)
   const [showPendant, setShowPendant] = useState(false)
+  const [MyPets, setMyPets] = useState(false)
+  const [productList, setProductList] = useState(productLists)
+  const [lifestageList, setLifestageList] = useState(lifestageLists)
+  const [floorActiveId, setFloorActiveId] = useState<string>('activity')
   const [floorId, setFloorId] = useState<string>('')
-
+  const queryList = (params) => {
+    console.info('params', params)
+    setProductList(productList)
+    //getlist
+  }
   const getLiveStreamingFindOnLiveData = async () => {
     let data = await getLiveStreamingFindOnLive('22c2f601-5a60-8b10-20c1-c56ef0d8bd53')
     let LiveStreamings =
@@ -91,31 +79,59 @@ const ProductList = () => {
     console.info('datanewBanner', newBanner)
   }
 
-  const loginInit = async () => {
-    if (Taro.getStorageSync('wxLoginRes')) {
-      const data = await wxLogin()
-      setCustomer(data)
-    }
-  }
-
   const onScroll = (e) => {
     if (e.detail.scrollTop > 370) {
       setShowPendant(true)
     } else {
       setShowPendant(false)
     }
+    if (e.detail.scrollTop >= 460) {
+      setFloorActiveId('activity')
+      setMyPets(true)
+    } else {
+      setMyPets(false)
+    }
+    if (e.detail.scrollTop > 680) {
+      setFloorActiveId('catStar')
+    }
+    if (e.detail.scrollTop >= 920) {
+      setFloorActiveId('catDryFood')
+    }
+    if (e.detail.scrollTop >= 1720) {
+      setFloorActiveId('catWetFood')
+    }
+    if (e.detail.scrollTop >= 2520) {
+      setFloorActiveId('dogStar')
+    }
+    if (e.detail.scrollTop >= 2790) {
+      setFloorActiveId('odgDryFood')
+    }
+    if (e.detail.scrollTop >= 3598) {
+      setFloorActiveId('dogWetFood')
+    }
   }
 
   useEffect(() => {
-    loginInit()
     getLiveStreamingFindOnLiveData()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
     <View className="product-list">
-      <NavBarForList />
-      <ScrollView className="scrollview mt-0" scrollY scrollWithAnimation scrollIntoView={floorId} onScroll={onScroll}>
+      <NavBarForList
+        MyPets={MyPets}
+        floorActiveId={floorActiveId}
+        setFloorActiveId={setFloorActiveId}
+        setFloorId={setFloorId}
+      />
+      <ScrollView
+        className="scrollview mt-0"
+        scrollIntoView={floorId}
+        onScroll={onScroll}
+        scrollY
+        scrollAnchoring
+        scrollWithAnimation
+        enhanced
+      >
         <MovableArea className="w-full h-full">
           <Button
             onClick={() => {
@@ -135,78 +151,130 @@ const ProductList = () => {
               type={type}
               customParams={customParams}
               closePictureInPictureMode={closePictureInPictureMode}
-            />
+            ></pendant>
           </View>
-          <View className="text-xs">
-            <View className="flex items-center justify-center text-sm text-gray-500 p-3">
-              <IconFont name="a-Group233" size={38} />
-              <View className="ml-1">
-                皇家宠物<Text className="ml-2">提供全心营养支持</Text>
+          <ListBanner bannerList={bannerList} />
+          <FloorNav
+            MyPets={MyPets}
+            floorActiveId={floorActiveId}
+            setFloorActiveId={setFloorActiveId}
+            setFloorId={setFloorId}
+          />
+          <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}>
+            <View key="活动专区">
+              <View id="activity" className="h-4" />
+              <View className="px-4">
+                <View className="text-red-500 text-base font-bold">活动专区</View>
+                <View className="text-26 text-gray-400">订阅商城 社群福利</View>
+              </View>
+              <View>
+                <ActivityList list={activityList} />
               </View>
             </View>
-            <ListBanner bannerList={bannerList} />
-            <View className="p-2 pt-10">
-              <View className="flex h-12">
-                <View className="w-12 h-full">
-                  <Image
-                    className="w-full h-full"
-                    src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Wechat.png"
-                  />
-                </View>
-                <View className="flex flex-col h-full ml-2">
-                  <View>更多有趣易懂养宠知识都在这里</View>
-                  <View className="mt-1">订阅我，随时掌握宠粮发货进度</View>
-                </View>
-                <View className="flex-1 h-full flex pt-1 justify-end">
-                  <AtButton className="m-0 py-0" full={false} size="small" type="primary">
-                    去关注
-                  </AtButton>
-                </View>
-              </View>
-              <View className="mt-4">
-                <View style={{ fontSize: '0.8rem' }} className="font-bold mt-6 mb-3">
-                  开启专属宠爱
-                </View>
-                <Image
-                  className="w-full h-48"
-                  src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Fresh_new.gif"
-                />
+            <View key="明星猫粮">
+              <View id="catStar" className="h-4" />
+              <View className="px-4">
+                <View className="text-red-500 text-base font-bold">明星猫粮</View>
+                <View className="text-26 text-gray-400">省薪囤货 爆款猫粮</View>
               </View>
               <View>
-                <View style={{ fontSize: '0.8rem' }} className="font-bold mt-6 mb-3">
-                  热门产品/新品
-                </View>
-                <View className="flex">
-                  <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
-                    {ProductLists.map((item, index) => (
-                      <View key={index} className="w-32 inline-block">
-                        <Image className="w-full h-28" src={item.img} />
-                        <View className="px-2">
-                          <View className="text-block truncate">{item.title}</View>
-                          <View className="flex justify-between items-center text-red-600">
-                            <Text className="text-gray-300 line-through">原价￥{item.noPrice}</Text>
-                            <Text>￥ {item.Price}</Text>
-                          </View>
-                        </View>
-                      </View>
-                    ))}
-                  </ScrollView>
-                </View>
+                <StarsList list={starsList} />
               </View>
-              <View className="mt-6">
-                <Image
-                  className="w-full"
-                  style={{ height: '52rem' }}
-                  src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Introduce.png"
-                />
+            </View>
+            <View key="全价猫干粮">
+              <View id="catDryFood" className="h-4" />
+              <View className="px-4">
+                <View className="text-red-500 text-base font-bold">全价猫干粮</View>
+                <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的猫咪定制专属营养</View>
               </View>
               <View>
-                <Image
-                  className="w-full h-72"
-                  src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_other.png"
+                <PetsList list={catDryFood} />
+              </View>
+            </View>
+            <View key="全价主食级猫湿粮">
+              <View id="catWetFood" className="h-4" />
+              <View className="px-4">
+                <View className="text-red-500 text-base font-bold">全价主食级猫湿粮</View>
+                <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
+              </View>
+              <View>
+                <DryOrWetList
+                  list={productList}
+                  queryList={queryList}
+                  lifestageList={lifestageList}
+                  setLifestageList={setLifestageList}
                 />
               </View>
             </View>
+            <View key="明星犬粮">
+              <View id="dogStar" className="h-4" />
+              <View className="px-4">
+                <View className="text-red-500 text-base font-bold">明星犬粮</View>
+                <View className="text-26 text-gray-400">省薪囤货  爆款犬粮</View>
+              </View>
+              <View>
+                <StarsList list={starsList} />
+              </View>
+            </View>
+            <View key="犬干粮">
+              <View id="odgDryFood" className="h-4" />
+              <View className="px-4">
+                <View className="text-red-500 text-base font-bold">犬干粮</View>
+                <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的狗狗都有自己的精准营养</View>
+              </View>
+              <View>
+                <DryOrWetList
+                  list={productList}
+                  queryList={queryList}
+                  lifestageList={lifestageList}
+                  setLifestageList={setLifestageList}
+                />
+              </View>
+            </View>
+            <View key="犬湿粮">
+              <View id="dogWetFood" className="h-4" />
+              <View className="px-4">
+                <View className="text-red-500 text-base font-bold">犬湿粮</View>
+                <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
+              </View>
+              <View>
+                <DryOrWetList
+                  list={productList}
+                  queryList={queryList}
+                  lifestageList={lifestageList}
+                  setLifestageList={setLifestageList}
+                />
+              </View>
+            </View>
+
+            {/* {floorList.map((floor, idx) => (
+              <View key={idx}>
+                <View id={floor.id} className="h-4" />
+                <View className="px-4">
+                  <View className="text-red-500 text-base font-bold">{floor.title}</View>
+                  <View className="text-26 text-gray-400">{floor.subTitle}</View>
+                </View>
+                <View>
+                  {(() => {
+                    switch (floor.type) {
+                      case FloorType.Activity:
+                        return <ActivityList list={activityList} />
+                      case FloorType.Stars:
+                        return <StarsList list={starsList} />
+                      default: //FloorType.Dry || FloorType.Wet
+                        return (
+                          <DryOrWetList
+                            list={productList}
+                            queryList={queryList}
+                            lifestageList={lifestageList}
+                            setLifestageList={setLifestageList}
+                          />
+                        )
+                    }
+                  })()}
+                </View>
+              </View>
+            ))} */}
           </View>
         </MovableArea>
       </ScrollView>

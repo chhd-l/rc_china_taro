@@ -1,36 +1,58 @@
-import { floorList } from "@/lib/product";
-import { ScrollView, View, Text } from "@tarojs/components";
-import { useState } from "react";
-interface FloorNavProps {
-  setFloorId: (id: string) => void;
-}
-const FloorNav = ({ setFloorId }: FloorNavProps) => {
-  const [floorActiveId, setFloorActiveId] = useState<string>("activity");
-  const handleNavClick = ({ id }) => {
-    console.info("idid", id);
-    setFloorId(id);
-    setFloorActiveId(id);
-  };
-  return (
-    <ScrollView className="whitespace-nowrap" scrollX>
-      <View className="sticky top-0 text-xs">
-        {floorList.map((floor) => (
-          <Text
-            onClick={() => {
-              handleNavClick(floor);
-            }}
-            className={`inline-block p-2 ${
-              floorActiveId == floor.id
-                ? "bg-white font-medium text-red-600"
-                : "bg-red-600 text-white"
-            }`}
-          >
-            {floor.label}
-          </Text>
-        ))}
-      </View>
-    </ScrollView>
-  );
-};
+import IconFont from '@/iconfont'
+import { floorList } from '@/lib/product'
+import { ScrollView, View } from '@tarojs/components'
+import './Style.less'
 
-export default FloorNav;
+interface FloorNavProps {
+  setFloorId: (id: string) => void
+  floorActiveId: string
+  setFloorActiveId: Function
+  MyPets: boolean
+}
+
+const FloorNav = ({ setFloorId, floorActiveId, setFloorActiveId, MyPets }: FloorNavProps) => {
+  const handleNavClick = ({ id }) => {
+    setFloorId(id)
+    setFloorActiveId(id)
+  }
+
+  return (
+    <View className={`relative ${MyPets && 'hidden'} h-14 `}>
+      <ScrollView className="whitespace-nowrap FloorNav bg-white flex h-full" enableFlex scrollX scrollWithAnimation>
+        <View className="sticky top-0 text-xs h-full flex">
+          {floorList.map((floor, idx) => (
+            <View
+              key={idx}
+              onClick={() => {
+                handleNavClick(floor)
+              }}
+              style={{
+                fontSize: '0.82rem',
+                background:
+                  floorActiveId === floor.id
+                    ? 'linear-gradient(rgba(255,255,255),rgba(255,255,255),rgb(210, 210, 210))'
+                    : 'red',
+              }}
+              className={`inline-block px-2 flex flex-col items-center justify-center h-full ${floorActiveId === floor.id ? 'font-medium text-red-600' : 'text-white'
+                }`}
+            >
+              <IconFont name={floor.icon} size={44} color={`${floorActiveId === floor.id ? 'red' : '#fff'}`} />
+              {floor.label}
+            </View>
+          ))}
+        </View>
+      </ScrollView>
+      <View
+        className="FloorNavIcon z-50 h-full flex items-center absolute top-0 right-0 px-1"
+        style={{
+          borderTopLeftRadius: '0.5rem',
+          background: 'linear-gradient(rgba(255,255,255),rgba(255,255,255),rgb(210, 210, 210))',
+        }}
+      >
+        <IconFont name="gengduo1" size={44} />
+      </View>
+    </View>
+  )
+}
+
+export default FloorNav

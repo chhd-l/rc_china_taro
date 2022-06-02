@@ -1,6 +1,4 @@
 import { FloorListProps, FloorType } from '@/framework/types/products'
-import Mock from 'mockjs'
-import { mocksearchPrams } from '@/mock/product'
 
 export const filterListArr = [
   {
@@ -54,7 +52,7 @@ export const floorList: FloorListProps[] = [
     title: '活动专区',
     label: '活动专区',
     subTitle: '订阅商城  社群福利',
-    icon: '',
+    icon: 'huodongzhuanqu',
     type: FloorType.Activity,
     active: true,
     id: 'activity',
@@ -63,7 +61,7 @@ export const floorList: FloorListProps[] = [
     title: '明星猫粮',
     label: '明星猫粮',
     subTitle: '省薪囤货  爆款猫粮',
-    icon: '',
+    icon: 'mingxingmaoliang',
     type: FloorType.Stars,
     active: false,
     id: 'catStar',
@@ -72,7 +70,7 @@ export const floorList: FloorListProps[] = [
     title: '全价猫干粮',
     label: '猫干粮',
     subTitle: '让不同年龄、品种、健康问题的猫咪定制专属营养',
-    icon: '',
+    icon: 'maoganliang',
     type: FloorType.Dry,
     active: false,
     id: 'catDryFood',
@@ -81,7 +79,7 @@ export const floorList: FloorListProps[] = [
     title: '全价主食级猫湿粮',
     label: '猫湿粮',
     subTitle: '宠爱升级，享受肉食乐趣同时满足每日所需营养',
-    icon: '',
+    icon: 'maoshiliang',
     type: FloorType.Wet,
     active: false,
     id: 'catWetFood',
@@ -90,7 +88,7 @@ export const floorList: FloorListProps[] = [
     title: '明星犬粮',
     label: '明星犬粮',
     subTitle: '省薪囤货  爆款犬粮',
-    icon: '',
+    icon: 'mingxingquanliang',
     type: FloorType.Stars,
     active: false,
     id: 'dogStar',
@@ -99,7 +97,7 @@ export const floorList: FloorListProps[] = [
     title: '犬干粮',
     label: '犬干粮',
     subTitle: '让不同年龄、品种、健康问题的狗狗都有自己的精准营养',
-    icon: '',
+    icon: 'quanganliang',
     type: FloorType.Dry,
     active: false,
     id: 'odgDryFood',
@@ -108,10 +106,148 @@ export const floorList: FloorListProps[] = [
     title: '犬湿粮',
     label: '犬湿粮',
     subTitle: '宠爱升级，享受肉食乐趣同时满足每日所需营养',
-    icon: '',
+    icon: 'quanshiliang',
     type: FloorType.Wet,
     active: false,
     id: 'dogWetFood',
+  },
+]
+
+export const catDryFood = [
+  {
+    color: 'pink',
+    title: '幼猫',
+    chu: [
+      {
+        title: '离乳期幼猫全价粮',
+        price: '111',
+        span: '社区专享95折'
+      },
+      {
+        title: '幼猫全价粮',
+        price: '111',
+        span: '社区专享95折'
+      },
+      {
+        title: '幼猫全价粮干湿套餐',
+        price: '111',
+        span: '社区专享95折'
+      },
+      {
+        title: '绝育呵护幼猫全价粮',
+        price: '111',
+        span: '社区专享95折'
+      },
+    ]
+  },
+  {
+    color: 'red',
+    title: '成猫',
+    chu: [
+      {
+        title: '室内长毛成猫全价粮',
+        price: '137',
+        span: '社区专享95折'
+      },
+      {
+        title: '室内成猫全价粮干湿套餐',
+        price: '201',
+        span: '社区专享95折'
+      },
+      {
+        title: '挑嘴成猫全价粮（肠道舒适型）',
+        price: '149',
+        span: '社区专享95折'
+      },
+      {
+        title: '室内成猫全价粮',
+        price: '129',
+        span: '社区专享95折'
+      },
+      {
+        title: '室外成猫全价粮',
+        price: '198',
+        span: '社区专享95折'
+      },
+      {
+        title: '营养成猫全价粮',
+        price: '118',
+        span: '社区专享95折'
+      },
+    ]
+  },
+  {
+    color: 'blue',
+    title: '老年猫',
+    chu: [
+      {
+        title: '室内成猫全价粮（7+）',
+        price: '116',
+        span: '社区专享95折'
+      },
+    ]
+  },
+  {
+    color: 'yellow',
+    title: '品种猫',
+    chu: [
+      {
+        title: '缅甸成猫全价粮食 2KG*2包',
+        price: '137',
+        span: '社区专享95折'
+      },
+      {
+        title: '波斯猫幼猫全价粮食',
+        price: '201',
+        span: '社区专享95折'
+      },
+      {
+        title: '布偶猫成猫全价粮',
+        price: '149',
+        span: '社区专享95折'
+      },
+      {
+        title: '孟加拉豹猫全价粮',
+        price: '129',
+        span: '社区专享95折'
+      },
+      {
+        title: '英国短毛猫幼猫全价粮',
+        price: '198',
+        span: '社区专享95折'
+      },
+      {
+        title: '英国短毛猫成猫全价粮',
+        price: '118',
+        span: '社区专享95折'
+      },
+    ]
+  },
+  {
+    color: 'cadetblue',
+    title: '亚健康',
+    chu: [
+      {
+        title: '口腔护理成猫全价粮',
+        price: '159',
+        span: '社区专享95折'
+      },
+      {
+        title: '体重呵护成猫全价粮',
+        price: '202',
+        span: '社区专享95折'
+      },
+      {
+        title: '美毛呵护成猫全价粮',
+        price: '202',
+        span: '社区专享95折'
+      },
+      {
+        title: '去毛球成猫全价粮',
+        price: '202',
+        span: '社区专享95折'
+      },
+    ]
   },
 ]
 
