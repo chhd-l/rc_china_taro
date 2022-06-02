@@ -5,16 +5,20 @@ import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
 import StarsList from '@/components/product/StarsList'
 import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
-import { FloorType, SwiperProps } from '@/framework/types/products'
-import { catDryFood, floorList } from '@/lib/product'
+import { SwiperProps } from '@/framework/types/products'
+import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
+import { catDryFood } from '@/lib/product'
 import { mockProduct, mockStar, mockTabOptions } from '@/mock/product'
-import { Button, MovableArea, ScrollView, View } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import { customerAtom } from '@/store/customer'
+import { MovableArea, ScrollView, View } from '@tarojs/components'
+import { requirePlugin } from '@tarojs/taro'
+import { useAtom } from 'jotai'
 import Mock from 'mockjs'
 import { useEffect, useState } from 'react'
 import './index.less'
 import PetsList from './xxxx'
 
+let livePlayer = requirePlugin('live-player-plugin')
 const bannerLists = [
   {
     img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
@@ -49,6 +53,11 @@ let closePictureInPictureMode = 0 // 是否关闭小窗
 const starsLists = Mock.mock(mockStar).list
 const productLists = Mock.mock(mockProduct).list
 const lifestageLists = Mock.mock(mockTabOptions).list
+const liveStatusIconList = {
+  101: LIVINGSTREAMING_ONGOING,
+  102: LIVINGSTREAMING_UPCOMING,
+}
+let timer: any = null
 const ProductList = () => {
   const [bannerList, setBannerList] = useState<any[]>(bannerLists)
   const [activityList, setActivityList] = useState<SwiperProps[]>(bannerLists)
@@ -59,11 +68,14 @@ const ProductList = () => {
   const [lifestageList, setLifestageList] = useState(lifestageLists)
   const [floorActiveId, setFloorActiveId] = useState<string>('activity')
   const [floorId, setFloorId] = useState<string>('')
+  let [liveStreaming, setLiveStreaming] = useState<any>([])
+
   const queryList = (params) => {
     console.info('params', params)
     setProductList(productList)
     //getlist
   }
+
   const getLiveStreamingFindOnLiveData = async () => {
     let data = await getLiveStreamingFindOnLive('22c2f601-5a60-8b10-20c1-c56ef0d8bd53')
     let LiveStreamings =
@@ -133,15 +145,6 @@ const ProductList = () => {
         enhanced
       >
         <MovableArea className="w-full h-full">
-          <Button
-            onClick={() => {
-              Taro.navigateTo({
-                url: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=7`,
-              })
-            }}
-          >
-            直播跳转
-          </Button>
           <View
             direction="all"
             className={`fixed right-2 bottom-28 z-50 ${showPendant ? '' : 'hidden'}`}
@@ -153,12 +156,12 @@ const ProductList = () => {
               closePictureInPictureMode={closePictureInPictureMode}
             ></pendant>
           </View>
-          <ListBanner bannerList={bannerList} />
+          <ListBanner bannerList={bannerList} liveStreaming={liveStreaming} />
           <FloorNav
-            MyPets={MyPets}
+            setFloorId={setFloorId}
             floorActiveId={floorActiveId}
             setFloorActiveId={setFloorActiveId}
-            setFloorId={setFloorId}
+            MyPets={MyPets}
           />
           <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}>
             <View key="活动专区">
@@ -210,7 +213,7 @@ const ProductList = () => {
               <View id="dogStar" className="h-4" />
               <View className="px-4">
                 <View className="text-red-500 text-base font-bold">明星犬粮</View>
-                <View className="text-26 text-gray-400">省薪囤货  爆款犬粮</View>
+                <View className="text-26 text-gray-400">省薪囤货 爆款犬粮</View>
               </View>
               <View>
                 <StarsList list={starsList} />

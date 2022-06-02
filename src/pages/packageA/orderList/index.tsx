@@ -1,12 +1,13 @@
-import Taro, { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance, useReachBottom } from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { AtModal, AtTabs, AtTabsPane } from 'taro-ui'
 import OrderListComponents from '@/components/order/OrderListComponents'
 import { getOrderList } from '@/framework/api/order/order'
 import { Order } from '@/framework/types/order'
 import { View } from '@tarojs/components'
-import './index.less'
 import routers from '@/routers'
+import { cloneDeep } from 'lodash'
+import './index.less'
 
 const tabList = [{ title: '全部' }, { title: '待付款' }, { title: '待发货' }, { title: '待收货' }]
 
@@ -24,13 +25,32 @@ const OrderList = () => {
   const [showSendCouponModal, setShowSendCouponModal] = useState(false)
   const { router } = getCurrentInstance()
   const [isFromSubscription, setIsFromSubscription] = useState(false)
-  const getOrderLists = async (status) => {
+  const [currentPage, setCurrentPage] = useState(0)
+  const [isNoMore, setIsNoMore] = useState(false)
+
+  useReachBottom(() => {
+    if (!isNoMore) {
+      let page = currentPage + 1
+      setCurrentPage(page)
+      getOrderLists({ curPage: page })
+    }
+  })
+
+  const getOrderLists = async ({ status = '', curPage = currentPage }) => {
+    let records: any[] = []
+    if (status !== '') {
+      curPage = 0
+    } else {
+      status = current
+      records = cloneDeep(orderList)
+    }
+    let offset = curPage ? curPage * 10 : 0
     const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
     const res = await getOrderList({
       storeId: '12345678',
       operator: 'zz',
       limit: 10,
-      offset: 0,
+      offset,
       isNeedTotal: true,
       sample: Object.assign(
         {
@@ -40,18 +60,24 @@ const OrderList = () => {
       ),
     })
     console.log('order list data', res)
-    setOrderList(res?.records)
+    if (res?.total < offset + 10) {
+      setIsNoMore(true)
+    } else {
+      setIsNoMore(false)
+    }
+    setOrderList([...records, ...res?.records])
   }
 
   Taro.useDidShow(() => {
     const status = router?.params?.status || 'ALL'
-    const isFromSubscription = router?.params?.isFromSubscription
-    console.log('status', status)
-    console.log('isFromSubscription', isFromSubscription)
-    setIsFromSubscription(!!isFromSubscription)
+    const isFromSubscriptionOrder = router?.params?.isFromSubscription
+    console.log('status', isFromSubscription)
+    console.log('isFromSubscription', isFromSubscriptionOrder)
+    setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
-    getOrderLists(status)
+    getOrderLists({ status })
   })
+
   useEffect(() => {
     const isSendCoupon = router?.params?.isSendCoupon
     if (isSendCoupon) {
@@ -59,13 +85,13 @@ const OrderList = () => {
     }
   }, [])
 
-  const handleClick = (value) => {
-    Taro.setNavigationBarTitle({
+  const handleClick = async (value) => {
+    await Taro.setNavigationBarTitle({
       title: tabList[value].title,
     })
     const cur = Object.values(OrderStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(OrderStatusEnum)[cur])
-    getOrderLists(Object.keys(OrderStatusEnum)[cur])
+    await getOrderLists({ status: Object.keys(OrderStatusEnum)[cur] })
   }
   console.info('showSendCouponModal', showSendCouponModal)
   return (
@@ -76,8 +102,8 @@ const OrderList = () => {
             {orderList?.length > 0 ? (
               <OrderListComponents
                 list={orderList}
-                operationSuccess={() => {
-                  getOrderLists(current)
+                operationSuccess={async () => {
+                  await getOrderLists({})
                 }}
                 openModalTip={() => {
                   setShowShipModal(true)
@@ -109,7 +135,7 @@ const OrderList = () => {
         isOpened={showSendCouponModal}
         title="温馨提示提示"
         content="您己获得相应线下门店服务券，请点击至我的卡包查看！"
-        cancelText='取消'
+        cancelText="取消"
         confirmText="确定"
         onClose={() => {
           setShowSendCouponModal(false)

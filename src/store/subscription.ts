@@ -25,7 +25,8 @@ type RecommendProductType = {
 
 type DeliveryDetailType = {
   nextDeliveryTime: string;
-  completedDeliveries: any[]
+  completedDeliveries: any[];
+  no: string
 }
 // 季卡0 半年卡1 年卡2
 export const currentStepAtom = atom(0)
@@ -53,9 +54,10 @@ export const recommendProductAtom = atom<RecommendProductType>({
   }
 })
 
-export const deliveryDetailAtom = atom<DeliveryDetailType>({
+export const deliveryDetailAtom = atom<any>({
   nextDeliveryTime: '',
-  completedDeliveries: []
+  completedDeliveries: [],
+  no: ''
   // giftList: [],
   // couponList: [],
   // freshType: 'FRESH_NORMAL',

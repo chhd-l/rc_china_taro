@@ -24,14 +24,18 @@ export const femaleIcon = `${CDNIMGURL}Icon_MP_F.svg`
 export const maleIcon = `${CDNIMGURL}Icon_MP_M.svg`
 export const petBg = `${CDNIMGURL}pet_backgroud.png`
 
-export const CART_NO_DATA_ICON=`${CDNIMGURL}MP-Cart-No product.svg`
+export const CART_NO_DATA_ICON = `${CDNIMGURL}MP-Cart-No product.svg`
 
-export const VOUCHER_NO_RECEIVED=`${CDNIMGURL}Icon_MP_Checkoutactive_new.svg`
+export const VOUCHER_NO_RECEIVED = `${CDNIMGURL}Icon_MP_Checkoutactive_new.svg`
 
-export const VOUCHER_RECEIVED=`${CDNIMGURL}Icon_MP_Received.svg`
+export const VOUCHER_RECEIVED = `${CDNIMGURL}Icon_MP_Received.svg`
 
-export const VOUCHER_INVALID=`${CDNIMGURL}Icon_MP_Checkoutinvalid_new.svg`
+export const VOUCHER_INVALID = `${CDNIMGURL}Icon_MP_Checkoutinvalid_new.svg`
 
-export const VOUCHER_EXPIRED=`${CDNIMGURL}Icon_MP_Expired.svg`
+export const VOUCHER_EXPIRED = `${CDNIMGURL}Icon_MP_Expired.svg`
 
-export const VOUCHER_USED=`${CDNIMGURL}Icon_MP_Used.svg`
+export const VOUCHER_USED = `${CDNIMGURL}Icon_MP_Used.svg`
+
+export const LIVINGSTREAMING_ONGOING = `${CDNIMGURL}MP_LiveStream_Ongoing.gif`
+
+export const LIVINGSTREAMING_UPCOMING = `${CDNIMGURL}MP_LiveStream_Upcoming.svg`

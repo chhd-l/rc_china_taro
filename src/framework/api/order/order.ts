@@ -11,13 +11,12 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
   try {
     //入参处理 start
     const goodsList = cloneDeep(tradeItems).map((el) => {
-      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'goodsVariants'])
-      if (el.skuGoodInfo.goodsVariant?.length > 0) {
-        el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariant[0], {
+      if (el.skuGoodInfo.goodsVariants?.length > 0 || el.skuGoodInfo.goodsVariant?.length > 0) {
+        el.skuGoodInfo.goodsVariant = Object.assign(omit(el.skuGoodInfo.goodsVariants[0], ['isDeleted']), {
           num: el.goodsNum,
         })
-        el.skuGoodInfo.goodsVariant = omit(el.skuGoodInfo.goodsVariant, ['isDeleted'])
       }
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'goodsVariants'])
       return el.skuGoodInfo
     })
     let shoppingCartIds: any[] = []
@@ -28,17 +27,16 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
     })
     const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
     const user = Taro.getStorageSync('wxLoginRes').userInfo
-    let finalVoucher = {
-      ...voucher,
-      voucherStatus: 'Ongoing',
-    }
-    finalVoucher = omit(finalVoucher, [
-      'consumerId',
-      'goodsInfoIds',
-      'orderCode',
-      'isDeleted',
-      'isGetStatus',
-    ])
+    let finalVoucher =
+      voucher && JSON.stringify(voucher) !== '{}'
+        ? {
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
+        : null
+    finalVoucher = finalVoucher
+      ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+      : null
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const params = {
       goodsList,

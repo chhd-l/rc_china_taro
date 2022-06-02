@@ -80,6 +80,7 @@ const OrderListComponents = ({
                   <View className="numcolor">X{el?.num}</View>
                 </View>
                 <View className=" mt-2 items-end ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                {item.freshType === 'FRESH_100_DAYS' ? <View className=" mt-1 items-end ProductIntroduction numcolor">新鲜度：100天</View> : null}
               </View>
             </View>
           ))}

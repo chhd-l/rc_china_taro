@@ -79,6 +79,7 @@ export interface Order {
   payInfo?: PayInfo
   isSubscription?: string
   subscriptionId?: string
+  freshType?: string
   subscriptionNo?: string
   tradePrice: TradePrice
   tradeState?: TradeState

@@ -15,22 +15,22 @@ export const handleBuyMore = (children) => {
     } = buyInfo.pet
     let { cycle, type: subType, freshType, goodsList, benefits: giftList } = buyInfo
     goodsList?.forEach(el => {
-        el.goodsVariants = [el.goodsVariants]
+        el.goodsVariant = [el.goodsVariant]
     })
     giftList?.forEach(el => {
-        el.goodsVariants = [el.goodsVariants]
+        el.goodsVariant = [el.goodsVariant]
     })
-    let { originalPrice, discountPrice } = getCycleItem(goodsList[0].goodsVariants?.[0], cycle)
+    let { originalPrice, discountPrice } = getCycleItem(goodsList[0].goodsVariant?.[0], cycle)
     const checkoutData = {
         type: subType,
-        cycle: { cycle, quantity: goodsList[0].goodsVariants?.[0]?.num, originalPrice, discountPrice },
+        cycle: { cycle, quantity: goodsList[0].goodsVariant?.[0]?.num, originalPrice, discountPrice },
         freshType,
         pet: {
             birthday, breedCode, breedName, gender, id, image, name, type
         },
-        goodsList: goodsList.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)),
+        goodsList: goodsList.map(el => normalizeCartData({ goodsNum: el?.goodsVariant?.[0]?.num }, el, true)),
         isSubscription: true,
-        giftList: giftList?.map(el => normalizeCartData({ goodsNum: el?.goodsVariants?.[0]?.num }, el, true)) || [],
+        giftList: giftList?.map(el => normalizeCartData({ goodsNum: el?.goodsVariant?.[0]?.num }, el, true)) || [],
         couponList: [],
     }
     console.info('.....', checkoutData)
@@ -50,7 +50,7 @@ const SubList = ({ children }) => {
         handleBuyMore(children)
     }
     return children?.goodsList?.map((el) => {
-        const { goodsVariants = {} } = el
+        const { goodsVariant = {} } = el
         return <View className="px-2 sub-list " key={el.spuNo} style={{ margin: '20px 0' }}>
             <View style={{ background: '#f8f8f8' }} className="px-2 pb-2 rounded-sm">
                 <View className="flex justify-between items-center h-8" >
@@ -69,14 +69,14 @@ const SubList = ({ children }) => {
                     <View className='mt-4   border-gray-200' style={{ borderTop: '1px solid #E2E2E2' }}>
                         <View className="w-full h-20 flex mb-4  pt-2">
                             <View className="w-rc163 h-rc163">
-                                <Image className="w-full h-full" src={goodsVariants?.defaultImage} />
+                                <Image className="w-full h-full" src={goodsVariant?.defaultImage} />
                             </View>
-                            <View className="flex flex-col pl-3 justify-between mb-3">
+                            <View className="flex flex-col pl-3 justify-center mb-3">
                                 <View>
-                                    <View className="text-rc26 font-black mb-1">{goodsVariants?.name}</View>
+                                    <View className="text-rc26 font-black mb-1">{goodsVariant?.name}</View>
                                     <View className="text-primary-red flex  justify-between items-center">
                                         <View className="flex flex-row flex-wrap">
-                                            {(normalizeTags(el?.goodsAttributeValueRel, goodsVariants?.feedingDays) || el?.goodsAttributeValueRel).map((tag) => (
+                                            {(normalizeTags(el?.goodsAttributeValueRel, goodsVariant?.feedingDays) || el?.goodsAttributeValueRel).map((tag) => (
                                                 <View key={tag} className="px-rc12 py-rc6 border rounded-lg border-solid border-red mr-2  text-rc20">{tag}</View>
                                             ))}
                                         </View>
@@ -86,6 +86,7 @@ const SubList = ({ children }) => {
                                     <IconFont name='shengyushu' size={20} />
                                     <View className="text-primary-red font-bold text-rc22 ml-2">剩余：{children.totalDeliveryTimes - children.currentDeliverySequence}包</View>
                                 </View>
+                                {children.freshType === 'FRESH_100_DAYS' ? <View className="text-rc26 text-textGray mt-2">新鲜度：100天</View> : null}
                             </View>
                         </View>
                         <View className='flex flex-row text-rc20 justify-between text-rc_666666 mt-2 mb-3 pt-2' style={{ borderTop: '1px solid #E2E2E2' }}>

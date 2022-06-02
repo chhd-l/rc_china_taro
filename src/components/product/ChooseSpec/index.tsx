@@ -17,6 +17,7 @@ import routers from '@/routers'
 import { getOrderSetting } from '@/framework/api/order/order'
 import './index.less'
 import { currentCartSpuAtom } from '@/store/product'
+import IconFont from '@/iconfont'
 
 interface ChooseSpecProps {
   choosedSku: SkuItemProps
@@ -199,21 +200,24 @@ const ChooseSpec = ({
             <View className="text-28 pb-1"> {specification.name}</View>
             <View className="py-1">
               {specification.children?.map((el, index) => (
-                <Text
+                <View
                   key={index}
                   onClick={() => {
                     handleChangeSku(el, specification)
                   }}
-                  className={`mr-2 inline-block text-center text-26  border border-solid px-2 rounded-full defalt border-gray-200 text-gray-400
-                  ${el.able ? '' : 'disabled'}
-                  ${selected[specification.id] === el.id ? 'active textWhite' : ''}`}
+                  className={`mr-2 inline-block text-center text-26  border border-solid px-2 rounded-full defalt border-gray-200 text-gray-400 relative
+                  ${el.able && choosedSku.stock > 0 ? '' : 'disabled'}
+                  ${selected[specification.id] === el.id && choosedSku.stock > 0 ? 'active textWhite' : ''}`}
                 >
+                  {el.able && choosedSku.stock > 0 ? null : <View className="absolute -top-3 -right-1">
+                    <IconFont name="a-Frame21" size={50} />
+                  </View>}
                   {el.name}
                   {/* {console.info('selected', selected)}
                   {console.info('specification.id', specification.id)}
                   {console.info('selected[specification.id]', selected[specification.id])}
                   {console.info('el.id', el.id)} */}
-                </Text>
+                </View>
               ))}
             </View>
           </View>
@@ -241,9 +245,9 @@ const ChooseSpec = ({
         </View>
       </View>
       <AtButton
-        disabled={!addBtnStatus}
+        disabled={!addBtnStatus || choosedSku.stock == 0}
         circle
-        className={`${addBtnStatus ? 'active' : 'disabled'}`}
+        className={`${addBtnStatus && choosedSku.stock > 0 ? 'active' : 'disabled'}`}
         onClick={handleComfirm}
       >
         确定

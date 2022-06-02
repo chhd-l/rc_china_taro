@@ -7,7 +7,7 @@ import { filterListArr, largeButtonClass } from '@/lib/product'
 import SearchFloatLayout from '@/components/product/SearchFloatLayout'
 import SearchLastOrHot from '@/components/product/SearchLastOrHot'
 import { getAttrs, getProducts } from '@/framework/api/product/get-product'
-import Taro from '@tarojs/taro'
+import Taro, { useReachBottom } from '@tarojs/taro'
 import { View, Text, Image } from '@tarojs/components'
 import { AtButton, AtSearchBar, AtIcon, AtAvatar } from 'taro-ui'
 import Mock from 'mockjs'
@@ -27,48 +27,80 @@ const Search = () => {
   const [lastSearchList, setLastSearchList] = useState<OptionProps[]>([])
   const [openSearchMore, setOpenSearchMore] = useState<boolean>(false)
   const [filterList, setFilterList] = useState<FilterListItemProps[]>([])
-  const [productList, setProductList] = useState<ProductListItemProps[]>()
+  const [productList, setProductList] = useState<ProductListItemProps[]>([])
+  const [currentPage, setCurrentPage] = useState(0)
+  const [isNoMore, setIsNoMore] = useState(false)
   const [animal, setAnimal] = useState<string>('')
+  let type = 1 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
+  let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/productList/index', pid: 1 })) // 开发者在直播间页面路径上携带自定义参数（如示例中的 path 和pid参数），后续可以在分享卡片链接和跳转至商详页时获取，详见【获取自定义参数】、【直播间到商详页面携带参数】章节（上限600个字符，超过部分会被截断）
+  let closePictureInPictureMode = 0 // 是否关闭小窗
   useEffect(() => {
     getCatOrDogAttrs('cat')
     getList({})
     getHotList()
     getLastList()
   }, [])
+
+  useReachBottom(() => {
+    if (isNoMore) {
+      return
+    }
+    let current = currentPage + 1
+    setCurrentPage(current)
+    getList({ current })
+  })
   const getList = async ({
     categoryId,
     goodsName,
     flterlist,
+    current
   }: {
     categoryId?: string
     goodsName?: string
     flterlist?: any
+    current?: number
   }) => {
     let params: any = {}
+    let offset = 0
+    if (current) {
+      offset = current * 10
+    }
     if (categoryId) {
       params.goodsCategoryId = categoryId
     }
     if (goodsName) {
       params.goodsName = goodsName
     }
-    ;(flterlist || filterList).map((el) => {
+    ; (flterlist || filterList).map((el) => {
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
-          if (!params.attributeIds) {
-            params.attributeIds = []
+          if (!params.attributeRelation?.length) {
+            params.attributeRelation = []
           }
-
-          if (!params.attributeValueIds) {
-            params.attributeValueIds = []
+          let hasAttributeIdIdx = params.attributeRelation?.findIndex(relation => relation.attributeId === val.attributeId)
+          if (hasAttributeIdIdx > -1) {
+            params.attributeRelation[hasAttributeIdIdx]?.attributeValueIds.push(val.value)
+          } else {
+            let attributeRelation = { attributeId: val.attributeId, attributeValueIds: [val.value] }
+            params.attributeRelation.push(attributeRelation)
           }
           params.goodsCategoryId = val.categoryId
-          params.attributeIds.push(val.attributeId)
-          params.attributeValueIds.push(val.value)
+
         })
     })
-    let res = await getProducts({ limit: 100, sample: params, hasTotal: true, offset: 0 })
-    setProductList(res)
+    let { productList: list, total } = await getProducts({ limit: 10, sample: params, hasTotal: true, offset })
+    console.info('list, totallist, total', list, total, offset)
+    let listData = list
+    if (offset > 0) {
+      listData = [...productList, ...list]
+    }
+    if (total < offset + 10) {
+      setIsNoMore(true)
+    } else {
+      setIsNoMore(false)
+    }
+    setProductList(listData)
   }
   const getHotList = () => {
     let hotList = Mock.mock(mocksearchPrams).list
@@ -172,6 +204,9 @@ const Search = () => {
         /> */}
 
         <View className="border-0">
+          <View direction='all' className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
+            <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant>
+          </View>
           <View className="text-md font-semibold pb-4 pt-2">我想搜</View>
           <View className="flex text-xs justify-between">
             <View className="flex-1 flex items-center">
@@ -186,9 +221,8 @@ const Search = () => {
                 {/* 猫图标切换 */}
                 <Image
                   className="w-7 h-8 line-height bg-center align-middle mr-1"
-                  src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
-                    animal === 'cat' ? '_selected_1' : '_1'
-                  }.svg`}
+                  src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${animal === 'cat' ? '_selected_1' : '_1'
+                    }.svg`}
                 />
                 <Text>猫产品</Text>
               </AtButton>
@@ -202,9 +236,8 @@ const Search = () => {
               >
                 <Image
                   className="w-7 h-8 line-height bg-center align-middle mr-1"
-                  src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
-                    animal === 'dog' ? '_selected_1' : '_1'
-                  }.svg`}
+                  src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${animal === 'dog' ? '_selected_1' : '_1'
+                    }.svg`}
                 />
                 <Text>狗产品</Text>
               </AtButton>

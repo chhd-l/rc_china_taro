@@ -83,7 +83,7 @@ const Step = () => {
     if (stepCount === 1) {
       let { couponList } = recommendInfo
       console.info('recommendInfo', recommendInfo)
-      console.info('recommenProduct', recommenProduct)
+      console.info('recommenProductrecommenProductrecommenProduct', recommenProduct)
       let { cycle, quantity } = recommenProduct?.cycle
       let couponInfo = couponList.find(el => el.couponRule?.subscriptionCycle === cycle)
       let couponsList = couponInfo?.coupons?.map(data => {

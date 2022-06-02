@@ -38,7 +38,8 @@ const isSterilizedOption = [
 const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, setPetList }: EditPetProps) => {
   const [petInfo, setPetInfo] = useState<PetListItemProps>(cloneDeep(pet))
   const [isOpen, setIsOpen] = useState<boolean>(false)
-
+  const { system } = Taro.getSystemInfoSync()
+  const systemType = system.indexOf('Android') > -1
   const handleSave = async () => {
     console.info('petInfo', petInfo)
     if (!petInfo.name || !petInfo.breed || !petInfo.birthday) {
@@ -175,7 +176,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             name="isSterilized"
             pet={petInfo}
           />
-          <View className="date-item border-0 grid grid-cols-12 text-26 relative">
+          <View className={` ${systemType ? 'isandroid' : 'isios'} date-item border-0 grid grid-cols-12 text-26 relative`}>
             <View className="col-span-4 flex items-center  py-2">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View>
               <Text className="pl-2 ">宠物生日</Text>
