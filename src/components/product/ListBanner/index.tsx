@@ -5,8 +5,9 @@ import './index.less'
 
 interface ListBannerProps {
   bannerList: any[]
+  liveStreaming: any[]
 }
-const ListBanner = ({ bannerList }: ListBannerProps) => {
+const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
   const toPage = ({ linkHref }) => {
     console.info('linkHref', linkHref)
     Taro.navigateTo({
@@ -22,7 +23,7 @@ const ListBanner = ({ bannerList }: ListBannerProps) => {
       indicatorDots
       autoplay
     >
-      {bannerList.map((banner) => (
+      {[...liveStreaming, ...bannerList].map((banner) => (
         <SwiperItem style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
           {banner.img ? (
             <View className="relative" onClick={() => {
