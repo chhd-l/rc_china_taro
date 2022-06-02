@@ -23,8 +23,8 @@ const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
       indicatorDots
       autoplay
     >
-      {[...liveStreaming, ...bannerList].map((banner) => (
-        <SwiperItem style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
+      {[...liveStreaming, ...bannerList].map((banner, idx) => (
+        <SwiperItem key={idx} style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
           {banner.img ? (
             <View
               className="relative"
