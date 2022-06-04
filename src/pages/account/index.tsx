@@ -11,7 +11,8 @@ import { useEffect, useState } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
 import quitIcon from '@/assets/icons/quit.svg'
-import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON,VOUCHER_ORDER_ICON } from '@/lib/constants'
+import NavBar from '@/components/common/Navbar'
+import { UNPAID_ORDER_ICON, TO_SHIP_ORDER_ICON, SHIPPED_ORDER_ICON, VOUCHER_ORDER_ICON } from '@/lib/constants'
 import './index.less'
 
 interface OrderTypeProps {
@@ -37,12 +38,12 @@ const Account = () => {
     setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
   }, [])
 
-  const navigateToOrderList=(item)=>{
-    if(item.label!=='我的卡券'){
+  const navigateToOrderList = (item) => {
+    if (item.label !== '我的卡券') {
       Taro.navigateTo({
         url: item.url,
       })
-    }else{
+    } else {
       Taro.requestSubscribeMessage({
         tmplIds: ['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc', 'b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk'],
         success: async (res) => {
@@ -65,6 +66,9 @@ const Account = () => {
 
   return (
     <View className="Account">
+      <NavBar>
+        <View className="mt-2 mb-2 text-center font-medium">我的</View>
+      </NavBar>
       {/* <Announcement title="添加社群，畅享更多专属福利！" /> */}
       <View className="p-2">
         {/*个人信息和个人管理*/}

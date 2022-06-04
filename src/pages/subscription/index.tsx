@@ -8,6 +8,7 @@ import { View, Image } from '@tarojs/components'
 import { CREATE_SUBSCRIPTION_ENTRY, subscriptionRights, SUBSCRIPTION_DESCRIPTION, SUBSCRIPTION_HELP_ICON, WHAT_IS_SUBSCRIPTION } from '@/lib/subscription'
 import { getSubscriptionFindByCustomerId } from '@/framework/api/subscription/subscription'
 import Taro from '@tarojs/taro'
+import NavBar from '@/components/common/Navbar'
 import { currentStepAtom, recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
 import { useAtom } from 'jotai'
 import './index.less'
@@ -63,9 +64,9 @@ const Subscription = () => {
 
   return (
     <View className="subscription-intrduce">
-      {/* <NavBar>
-        <View className="mt-2 mb-2 text-center">订阅</View>
-      </NavBar> */}
+      <NavBar>
+        <View className="mt-2 mb-2 text-center font-medium">订阅</View>
+      </NavBar>
       <Image lazyLoad className="w-full" src={WHAT_IS_SUBSCRIPTION} mode="widthFix" />
       <View className="px-2">
         <PetList />
