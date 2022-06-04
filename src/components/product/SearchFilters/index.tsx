@@ -52,9 +52,8 @@ const SearchFilters = ({
                 onClick={() => {
                   onChangeFilter(filter.key, index)
                 }}
-                className={`inline-block py-2 px-2 text-center attributeItem search-filter-round mr-2 border border-solid ${
-                  item.activeColor ? 'bg-red-600 border-red-500 text-white' : 'text-gray-400 border-gary-300'
-                }}`}
+                className={`inline-block py-2 px-2 text-center attributeItem search-filter-round mr-2 border border-solid ${(isSearchNow ? item.active : item.activeColor) ? 'bg-red-600 border-red-500 text-white' : 'text-gray-400 border-gary-300'
+                  }}`}
               >
                 {item.label}
               </Text>

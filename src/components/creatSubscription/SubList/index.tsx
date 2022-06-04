@@ -84,17 +84,17 @@ const SubList = ({ children }) => {
                                 </View>
                                 <View className="flex flex-row items-center mt-3">
                                     <IconFont name='shengyushu' size={20} />
-                                    <View className="text-primary-red font-bold text-rc22 ml-2">剩余：{children.totalDeliveryTimes - children.currentDeliverySequence}包</View>
+                                    <View className="text-primary-red font-bold text-rc22 ml-2">剩余：{children.totalDeliveryTimes - children.currentDeliveredSequence}包</View>
                                 </View>
                                 {children.freshType === 'FRESH_100_DAYS' ? <View className="text-rc26 text-textGray mt-2">新鲜度：100天</View> : null}
                             </View>
                         </View>
                         <View className='flex flex-row text-rc20 justify-between text-rc_666666 mt-2 mb-3 pt-2' style={{ borderTop: '1px solid #E2E2E2' }}>
                             <View>订阅编号:{children?.no}</View>
-                            <View>下一包将在{moment(children?.nextDeliveryTime).format('YYYY-MM-DD')}发货</View>
+                            <View>下一包将在{moment(children?.planingDeliveries?.[0]?.createdAt).format('YYYY-MM-DD')}发货</View>
                         </View>
                         <View className=" my-2 px-1" >
-                            <AtProgress percent={Math.ceil(children.currentDeliverySequence * 100 / children.totalDeliveryTimes)} strokeWidth={6} isHidePercent color="#d33024" />
+                            <AtProgress percent={Math.ceil(children.currentDeliveredSequence * 100 / children.totalDeliveryTimes)} strokeWidth={6} isHidePercent color="#d33024" />
                         </View>
                         <View className='flex justify-end'>
                             <View className='RenewButton' onClick={handleClick}>一键续订</View>
