@@ -117,7 +117,7 @@ export const catDryFood = [
   {
     color: 'pink',
     title: '幼猫',
-    chu: [
+    Children: [
       {
         title: '离乳期幼猫全价粮',
         price: '111',
@@ -141,9 +141,9 @@ export const catDryFood = [
     ]
   },
   {
-    color: 'red',
+    color: 'crimson',
     title: '成猫',
-    chu: [
+    Children: [
       {
         title: '室内长毛成猫全价粮',
         price: '137',
@@ -179,7 +179,7 @@ export const catDryFood = [
   {
     color: 'blue',
     title: '老年猫',
-    chu: [
+    Children: [
       {
         title: '室内成猫全价粮（7+）',
         price: '116',
@@ -190,7 +190,7 @@ export const catDryFood = [
   {
     color: 'yellow',
     title: '品种猫',
-    chu: [
+    Children: [
       {
         title: '缅甸成猫全价粮食 2KG*2包',
         price: '137',
@@ -226,7 +226,7 @@ export const catDryFood = [
   {
     color: 'cadetblue',
     title: '亚健康',
-    chu: [
+    Children: [
       {
         title: '口腔护理成猫全价粮',
         price: '159',
@@ -246,6 +246,210 @@ export const catDryFood = [
         title: '去毛球成猫全价粮',
         price: '202',
         span: '社区专享95折'
+      },
+    ]
+  },
+]
+
+export const dogDryFood = [
+  {
+    color: 'blue',
+    title: '幼犬',
+    Children: [
+      {
+        title: '小型犬',
+        Children: [
+          {
+            title: '小型犬幼犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '中型犬',
+        Children: [
+          {
+            title: '中型犬幼犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '大型犬',
+        Children: [
+          {
+            title: '大型犬幼犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    color: 'green',
+    title: '成犬',
+    Children: [
+      {
+        title: '小型犬',
+        Children: [
+          {
+            title: '小型犬成犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '中型犬',
+        Children: [
+          {
+            title: '中型犬成犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '大型犬',
+        Children: [
+          {
+            title: '大型犬成犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    color: 'crimson',
+    title: '老年犬',
+    Children: [
+      {
+        title: '小型犬',
+        Children: [
+          {
+            title: '小型犬老年犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '中型犬',
+        Children: [
+          {
+            title: '中型犬老年犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '大型犬',
+        Children: [
+          {
+            title: '大型犬老年犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    color: 'yellow',
+    title: '品种犬',
+    Children: [
+      {
+        title: '小型犬',
+        Children: [
+          {
+            title: '小型犬品种犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '中型犬',
+        Children: [
+          {
+            title: '中型犬品种犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '大型犬',
+        Children: [
+          {
+            title: '大型犬品种犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    color: 'cadetblue',
+    title: '亚健康',
+    Children: [
+      {
+        title: '小型犬',
+        Children: [
+          {
+            title: '小型犬老年犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '中型犬',
+        Children: [
+          {
+            title: '中型犬老年犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          },
+          {
+            title: '中型犬老年犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          },
+          {
+            title: '中型犬老年犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    color: 'yellow',
+    title: '品种犬',
+    Children: [
+      {
+        title: '小型犬',
+        Children: [
+          {
+            title: '皮肤呵护小型犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          },
+          {
+            title: '绝育呵护小型犬全价粮',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
       },
     ]
   },
