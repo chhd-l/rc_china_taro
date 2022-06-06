@@ -46,10 +46,8 @@ const ProductItem = ({
           {
             text: '删除',
             style: {
-              // backgroundColor: '#d33024',
               backgroundColor: '#DF6E66',
               width: '80rpx',
-              // opacity:'0.9',
               textAlign: 'center',
               borderTopRightRadius: '6%',
               borderBottomRightRadius: '6%',
@@ -98,7 +96,7 @@ const ProductItem = ({
                   ))}
                 </View>
               </View>
-              {goodsNum > stock ? (
+              {stock <= maxNum ? (
                 <View className="text-primary-red font-medium flex justify-end text-22" style={{ marginRight: '20px' }}>
                   库存紧张
                 </View>
@@ -108,7 +106,7 @@ const ProductItem = ({
                 <View style={{ marginRight: '20px' }}>
                   <AtInputNumber
                     min={1}
-                    max={maxNum}
+                    max={stock <= maxNum ? stock : maxNum}
                     step={1}
                     value={goodsNum}
                     onChange={(value) => {
