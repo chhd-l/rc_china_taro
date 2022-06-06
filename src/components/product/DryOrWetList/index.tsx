@@ -1,10 +1,11 @@
 import { OptionsProps } from '@/framework/types/common'
-import cloneDeep from 'lodash.cloneDeep'
-import { ScrollView, View, Image, Text } from '@tarojs/components'
-import { useEffect, useState } from 'react'
-import ShopProductList from '../ShopProductList'
-import { AtButton } from 'taro-ui'
+import { Image, ScrollView, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
+import cloneDeep from 'lodash.cloneDeep'
+import { useEffect, useState } from 'react'
+import { AtButton } from 'taro-ui'
+import ShopProductList from '../ShopProductList'
+
 interface TabOptionsProps extends OptionsProps {
   icon: string
   active: boolean | undefined
@@ -25,6 +26,7 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
   const [breedList, setBreedList] = useState<TabOptionsProps[]>(lifestageList[0].children || [])
   const [seeMoreUrl, setseeMoreUrl] = useState<string>('')
   const [headerImg, setHeaderImg] = useState<string>('')
+
   useEffect(() => {
     let newItem = { headerImg: '', seeMoreUrl: '' } as TabOptionsProps
     if (breedList?.length) {
@@ -35,6 +37,7 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
     setHeaderImg(newItem.headerImg || '')
     setseeMoreUrl(newItem.seeMoreUrl || '')
   }, [lifestageList, breedList])
+
   useEffect(() => {
     //一进来默认第一个是active
     lifestageList[0].active = true
@@ -42,6 +45,7 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
       breedList[0].active = true
     }
   }, [])
+
   const handleChangeBreed = (breed) => {
     breedList.forEach((item) => {
       if (item.value === breed.value) {
@@ -50,11 +54,12 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
     })
     setBreedList(cloneDeep(breedList))
   }
+
   const handleChangeLifestage = (lifestage) => {
     let params: any = {}
-    lifestageList.forEach((item) => {
+    const newLifestageList = lifestageList.map((item) => {
       if (item.value === lifestage.value) {
-        item.active = !item.active
+        item.active = true
         params.lifestage = lifestage.value
         // 更换lifestage的时候切换breed并重置到第一个默认active
         if (item.children) {
@@ -65,12 +70,15 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
           params.breed = item.children[0].value
           setBreedList(item.children)
         }
+      } else {
+        item.active = false
       }
+      return item
     })
-
     queryList(params)
-    setLifestageList(cloneDeep(lifestageList))
+    setLifestageList(cloneDeep(newLifestageList))
   }
+
   const handleSeeMore = () => {
     let selected = breedList?.length ? breedList : lifestageList
     let title = selected.find((item) => item.active)?.titleLable
@@ -80,13 +88,15 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
       url,
     })
   }
+
   return (
     <View>
       {lifestageList ? (
-        <ScrollView className="whitespace-nowrap pb-2" scrollX>
-          {lifestageList.map((lifestage) => (
+        <ScrollView className="whitespace-nowrap pb-4 px-2" scrollX>
+          {lifestageList.map((lifestage, idx) => (
             <View
-              className={`px-1 inline-block text-center `}
+              className='px-1 inline-block text-center'
+              key={idx}
               onClick={() => {
                 handleChangeLifestage(lifestage)
               }}
@@ -98,9 +108,8 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
                 }}
               >
                 <Image
-                  className={`box-border w-12 h-12 rounded-full border-1 border-solid  ${
-                    lifestage.active ? 'border-transparent' : 'border-gary-300'
-                  }`}
+                  className={`box-border w-12 h-12 rounded-full border-1 border-solid  ${lifestage.active ? 'border-transparent' : 'border-gary-300'
+                    }`}
                   src={lifestage.icon}
                 />
               </View>
@@ -109,10 +118,11 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
           ))}
         </ScrollView>
       ) : null}
-      {breedList ? (
+      {/* {breedList ? (
         <ScrollView className="whitespace-nowrap" scrollX>
-          {breedList.map((breed) => (
+          {breedList.map((breed, idx) => (
             <View
+              key={idx}
               style="width:33.3%"
               className={`inline-block text-center px-1 ${breed.active ? 'bg-red-600' : 'bg-gray-400'}`}
               onClick={() => {
@@ -121,9 +131,8 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
             >
               <View>
                 <Image
-                  className={`box-border w-4 h-4  border-1 border-solid  ${
-                    breed.active ? 'border-transparent' : 'border-gary-300'
-                  }`}
+                  className={`box-border w-4 h-4  border-1 border-solid  ${breed.active ? 'border-transparent' : 'border-gary-300'
+                    }`}
                   src={breed.icon}
                 />
                 <Text className="text-26 font-medium">{breed.label}</Text>
@@ -133,7 +142,7 @@ const DryOrWetList = ({ list, lifestageList, queryList, setLifestageList }: DryL
             </View>
           ))}
         </ScrollView>
-      ) : null}
+      ) : null} */}
       <Image src={headerImg} className="w-full" mode="widthFix" />
       <ShopProductList list={list} />
       <View className="p-2">

@@ -23,17 +23,25 @@ const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
       indicatorDots
       autoplay
     >
-      {[...liveStreaming, ...bannerList].map((banner) => (
-        <SwiperItem style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
+      {[...liveStreaming, ...bannerList].map((banner, idx) => (
+        <SwiperItem key={idx} style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
           {banner.img ? (
-            <View className="relative" onClick={() => {
-              console.info('bannerbanner', banner)
-              toPage(banner)
-            }}>
+            <View
+              className="relative"
+              onClick={() => {
+                console.info('bannerbanner', banner)
+                toPage(banner)
+              }}
+            >
               {/* 直播间状态。101：直播中，102：未开始，103已结束，104禁播，105：暂停，106：异常，107：已过期 */}
-              {banner.statusIcon ? <View className="absolute top-1 left-1">
-                <View className="w-16 h-8 bg-no-repeat bg-contain" style={{ backgroundImage: `url(${banner.statusIcon})` }}></View>
-              </View> : null}
+              {banner.statusIcon ? (
+                <View className="absolute top-1 left-1">
+                  <View
+                    className="w-16 h-8 bg-no-repeat bg-contain"
+                    style={{ backgroundImage: `url(${banner.statusIcon})` }}
+                  ></View>
+                </View>
+              ) : null}
               <Image
                 src={banner.img}
                 lazyLoad
