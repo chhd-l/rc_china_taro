@@ -2,24 +2,25 @@ import { Image, ScrollView, Text, View } from '@tarojs/components'
 import { useState } from 'react'
 import { AtButton } from 'taro-ui'
 
-const PetsList = ({ list }: any) => {
-  const [cat, setCat] = useState(list[0])
+const DogPetsList = ({ list }: any) => {
+  const [dog, setDog] = useState(list[0])
+  const [pets, setPets] = useState(dog.Children[0])
 
   return (
     <View className="pb-4 mt-1 flex flex-col">
-      <View className="flex justify-between items-center px-2">
+      <View className="flex justify-between items-center px-2 mb-2">
         {list.map((item, idx) => (
           <View
             className="px-1 flex flex-col text-center"
             key={idx}
             onClick={() => {
-              setCat(list.find((_, index) => idx === index))
+              setDog(list.find((_, index) => idx === index))
             }}
           >
             <View
               className={`w-12 h-12 rounded-full border-10 border-solid `}
               style={{
-                borderColor: cat.title === item.title ? cat.color : 'transparent',
+                borderColor: dog.title === item.title ? dog.color : 'transparent',
               }}
             >
               <Image
@@ -31,13 +32,37 @@ const PetsList = ({ list }: any) => {
           </View>
         ))}
       </View>
-      <View className="bg-gray-100 relative flex flex-col justify-between" style={{ height: '35rem' }}>
-        <View className="w-full h-28" style={{ backgroundColor: cat.color }} />
+      <View>
+        <View className="flex items-center">
+          {dog.Children.map((item, idx) => (
+            <View
+              key={idx}
+              style={{ width: '33.33%' }}
+              className="text-center pt-3 pb-1"
+              onClick={() => {
+                setPets(dog.Children.find((_, index) => idx === index))
+              }}
+            >
+              {item.title}
+              <View style={{ fontSize: '0.75rem' }}>参考成年体重10kg</View>
+            </View>
+          ))}
+        </View>
+        <View className="h-4 bg-white" />
+      </View>
+      <View
+        className="bg-gray-100 relative flex flex-col justify-between"
+        style={{ height: pets.Children.length > 1 ? '35rem' : '22rem' }}
+      >
+        <View className="w-full h-28" style={{ backgroundColor: dog.color }} />
         <View style={{ transform: 'translateY(-9%)' }}>
           <ScrollView className="whitespace-nowrap" scrollX>
             <View className="inline-block px-1">
-              <View className="flex flex-col flex-wrap" style={{ height: '27rem' }}>
-                {cat.chu.map((item, idx) => (
+              <View
+                className="flex flex-col flex-wrap"
+                style={{ height: pets.Children.length > 1 ? '27rem' : '15rem' }}
+              >
+                {pets.Children.map((item, idx) => (
                   <View key={idx} className="inline-block px-1 h-52  w-36">
                     <View className="bg-white rounded-lg">
                       {/* <Image src={item.img} className="w-30 h-28" /> */}
@@ -77,4 +102,4 @@ const PetsList = ({ list }: any) => {
     </View>
   )
 }
-export default PetsList
+export default DogPetsList
