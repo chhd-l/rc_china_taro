@@ -1,13 +1,16 @@
 import ActivityList from '@/components/product/ActivityList'
+import CatPetsList from '@/components/product/CatPetsList'
+import DogPetsList from '@/components/product/DogPetsList'
 import DryOrWetList from '@/components/product/DryOrWetList'
 import FloorNav from '@/components/product/FloorNav'
 import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
 import StarsList from '@/components/product/StarsList'
 import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
+import { getProducts } from '@/framework/api/product/get-product'
 import { SwiperProps } from '@/framework/types/products'
 import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
-import { catDryFood } from '@/lib/product'
+import { catDryFood, dogDryFood } from '@/lib/product'
 import { mockProduct, mockStar, mockTabOptions } from '@/mock/product'
 import { customerAtom } from '@/store/customer'
 import { MovableArea, ScrollView, View } from '@tarojs/components'
@@ -15,8 +18,8 @@ import { requirePlugin } from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import Mock from 'mockjs'
 import { useEffect, useState } from 'react'
+import List from '@/components/product/List'
 import './index.less'
-import PetsList from './xxxx'
 
 let livePlayer = requirePlugin('live-player-plugin')
 const bannerLists = [
@@ -58,23 +61,26 @@ const liveStatusIconList = {
   102: LIVINGSTREAMING_UPCOMING,
 }
 let timer: any = null
+
 const ProductList = () => {
   const [bannerList, setBannerList] = useState<any[]>(bannerLists)
   const [activityList, setActivityList] = useState<SwiperProps[]>(bannerLists)
   const [starsList, setStarsList] = useState<SwiperProps[]>(starsLists)
   const [showPendant, setShowPendant] = useState(false)
   const [MyPets, setMyPets] = useState(false)
-  const [productList, setProductList] = useState(productLists)
+  const [productList, setProductList] = useState([])
   const [lifestageList, setLifestageList] = useState(lifestageLists)
   const [floorActiveId, setFloorActiveId] = useState<string>('activity')
+  const [scrollLeft, setscrollLeft] = useState(true)
   const [floorId, setFloorId] = useState<string>('')
   let [liveStreaming, setLiveStreaming] = useState<any>([])
 
-  const queryList = (params) => {
-    console.info('params', params)
-    setProductList(productList)
-    //getlist
-  }
+  // const [productList, setProductList] = useState(productLists)
+  // const queryList = (params) => {
+  //   console.info('params', params)
+  //   setProductList(productList)
+  //   //getlist
+  // }
 
   const getLiveStreamingFindOnLiveData = async () => {
     let data = await getLiveStreamingFindOnLive('22c2f601-5a60-8b10-20c1-c56ef0d8bd53')
@@ -123,8 +129,22 @@ const ProductList = () => {
     }
   }
 
+  const onScrollFooList = (Left: number) => {
+    if (Left > 35) {
+      setscrollLeft(false)
+    } else {
+      setscrollLeft(true)
+    }
+  }
+
+  const getProductList = async () => {
+    let res = await getProducts({ limit: 10, sample: {}, hasTotal: true, offset: 0 })
+    setProductList(res?.productList || [])
+  }
+
   useEffect(() => {
     getLiveStreamingFindOnLiveData()
+    getProductList()
   }, [])
 
   return (
@@ -134,6 +154,8 @@ const ProductList = () => {
         floorActiveId={floorActiveId}
         setFloorActiveId={setFloorActiveId}
         setFloorId={setFloorId}
+        onScrollFooList={onScrollFooList}
+        scrollLeft={scrollLeft}
       />
       <ScrollView
         className="scrollview mt-0"
@@ -162,6 +184,8 @@ const ProductList = () => {
             floorActiveId={floorActiveId}
             setFloorActiveId={setFloorActiveId}
             MyPets={MyPets}
+            onScrollFooList={onScrollFooList}
+            scrollLeft={scrollLeft}
           />
           <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}>
             <View key="活动专区">
@@ -191,7 +215,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的猫咪定制专属营养</View>
               </View>
               <View>
-                <PetsList list={catDryFood} />
+                <CatPetsList list={catDryFood} />
               </View>
             </View>
             <View key="全价主食级猫湿粮">
@@ -201,12 +225,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
               </View>
               <View>
-                <DryOrWetList
-                  list={productList}
-                  queryList={queryList}
-                  lifestageList={lifestageList}
-                  setLifestageList={setLifestageList}
-                />
+                <CatPetsList list={catDryFood} />
               </View>
             </View>
             <View key="明星犬粮">
@@ -226,12 +245,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的狗狗都有自己的精准营养</View>
               </View>
               <View>
-                <DryOrWetList
-                  list={productList}
-                  queryList={queryList}
-                  lifestageList={lifestageList}
-                  setLifestageList={setLifestageList}
-                />
+                <DogPetsList list={dogDryFood} />
               </View>
             </View>
             <View key="犬湿粮">
@@ -241,12 +255,13 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
               </View>
               <View>
-                <DryOrWetList
-                  list={productList}
-                  queryList={queryList}
-                  lifestageList={lifestageList}
-                  setLifestageList={setLifestageList}
-                />
+                <DogPetsList list={dogDryFood} />
+              </View>
+            </View>
+            <View key="宠爱精选">
+              <View className="text-red-500 text-base font-bold px-4">宠爱精选</View>
+              <View>
+                <List list={productList} />
               </View>
             </View>
 
