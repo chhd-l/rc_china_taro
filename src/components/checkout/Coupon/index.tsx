@@ -56,9 +56,6 @@ const Coupon = ({
       return el
     })
     canUsedVouchers = canUsedVouchers.sort((a, b) => a.maxDiscountPrice - b.maxDiscountPrice).reverse()
-    canUsedVouchers.map((el) => {
-      console.log('22222', el.voucherName, el.voucherPrice)
-    })
     if (!selectedVoucher && canUsedVouchers.length > 0) {
       changeSelectVoucher(canUsedVouchers[0], canUsedVouchers.concat(notCanUseVouchers))
     }
@@ -68,7 +65,9 @@ const Coupon = ({
   const setVoucherCanUse = (el, orderPrice) => {
     el.isCanUsed = true
     if (el.discountType === 'FIX_AMOUNT') {
-      el.maxDiscountPrice = el.recurrence ? (orderPrice / el.voucherUsePrice) * el.voucherPrice : el.voucherPrice
+      el.maxDiscountPrice = el.recurrence
+        ? Math.floor(orderPrice / el.voucherUsePrice) * el.voucherPrice
+        : el.voucherPrice
     } else {
       el.maxDiscountPrice = orderPrice * el.voucherPrice * 0.01
     }
@@ -79,13 +78,13 @@ const Coupon = ({
   const handleProductVoucherPrice = (voucher) => {
     let canUsedProduct: any[] = []
     voucher.voucherGoodsRelated.map((el) => {
-      const item = tradeItems.find((orderProduct) => el?.goodsId === orderProduct?.skuGoodInfo?.id)
+      const item = tradeItems.find((orderProduct) => el?.goodsId === orderProduct?.goodsId)
       if (item) {
         canUsedProduct.push(item)
       }
     })
     return canUsedProduct.reduce((prev, cur) => {
-      return prev + cur?.goodsVariants[0].marketingPrice
+      return prev + cur?.skuGoodInfo?.goodsVariants[0].marketingPrice * cur?.goodsNum
     }, 0)
   }
 
