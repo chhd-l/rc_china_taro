@@ -1,7 +1,9 @@
 import Taro from "@tarojs/taro";
-import { View } from "@tarojs/components";
 import { FC, useEffect, useState } from "react";
-interface Props {}
+import { View } from "@tarojs/components";
+
+interface Props { }
+
 const NarBar: FC<Props> = ({ children }) => {
   const [paddingTop, setPaddingTop] = useState<any>(0);
 
@@ -13,6 +15,6 @@ const NarBar: FC<Props> = ({ children }) => {
     });
   }, []);
 
-  return <View style={{ paddingTop: paddingTop + "px" }}>{children}</View>;
+  return <View className="sticky top-0 left-0 z-50 bg-white" style={{ paddingTop: paddingTop + "px", height: '2.625rem' }}>{children}</View>;
 };
 export default NarBar;

@@ -2,7 +2,7 @@ import { useGlobalIconFont } from './iconfont/helper';
 
 export default defineAppConfig({
   pages: [
-    // 'pages/index/index',
+    'pages/index/index',
     'pages/productList/index',
     'pages/subscription/index',
     'pages/account/index',
@@ -52,12 +52,12 @@ export default defineAppConfig({
     selectedColor: '#d81e06',
     backgroundColor: '',
     list: [
-      // {
-      //   pagePath: 'pages/index/index',
-      //   text: '首页',
-      //   iconPath: 'assets/icons/icon-home.png',
-      //   selectedIconPath: 'assets/icons/icon-home-selected.png',
-      // },
+      {
+        pagePath: 'pages/index/index',
+        text: '首页',
+        iconPath: 'assets/icons/icon-home.png',
+        selectedIconPath: 'assets/icons/icon-home-selected.png',
+      },
       {
         pagePath: 'pages/productList/index',
         text: '商城',

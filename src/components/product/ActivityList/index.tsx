@@ -6,9 +6,9 @@ interface ActivityProps {
 }
 const ActivityList = ({ list }: ActivityProps) => {
   return (
-    <Swiper indicatorColor="#fff" indicatorActiveColor="#e2001a" circular indicatorDots autoplay>
-      {list.map((item) => (
-        <SwiperItem>{item.img ? <Image src={item.img} mode="widthFix" style="width:100%" /> : null}</SwiperItem>
+    <Swiper indicatorColor="#fff" indicatorActiveColor="#e2001a" circular autoplay>
+      {list.map((item, idx) => (
+        <SwiperItem key={idx}>{item.img ? <Image src={item.img} mode="widthFix" style="width:100%" /> : null}</SwiperItem>
       ))}
     </Swiper>
   )

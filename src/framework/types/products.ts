@@ -1,7 +1,8 @@
-import { ProductKeyReference, Image, Asset, TaxCategoryKeyReference } from './common'
+
+import { IconNames } from '@/iconfont'
+import { Image } from './common'
 import { Scalars } from '../schema/common.schema'
-import { Price, ScopedPrice } from './prices'
-import { AttributeConstraint } from '../enum'
+
 export interface ProductBaseProps {
   // specs: string
   name: string
@@ -60,7 +61,7 @@ export interface FloorListProps {
   title: string
   label: string
   subTitle: string
-  icon?: string
+  icon: IconNames
   type: FloorType
   active: boolean
   id: string
