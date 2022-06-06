@@ -81,10 +81,16 @@ const ProductList = () => {
   return (
     <View className="HomeIndex">
       <NavBarForList />
-      <View className={`text-xs flex items-center w-full fixed top-20 z-30 justify-center ${openDistMyPets && 'hidden'}`}>
+      <View
+        className={`text-xs flex items-center w-full fixed top-20 z-30 justify-center ${openDistMyPets && 'hidden'}`}
+      >
         <View className="flex items-center justify-center bg-white shadow-2xl p-2 fexidMyPets">
-          点击&quot;<IconFont name='a-Frame4' size={30} />&quot;<View className='text-red-500'>添加到我的小程序，订阅更方便</View>
-          <View className='ml-4' onClick={distMyPets}><IconFont name='shanchu' size={20} /></View>
+          点击&quot;
+          <IconFont name="a-Frame4" size={30} />
+          &quot;<View className="text-red-500">添加到我的小程序，订阅更方便</View>
+          <View className="ml-4" onClick={distMyPets}>
+            <IconFont name="shanchu" size={20} />
+          </View>
         </View>
       </View>
       <View className="mt-0 p-1">
@@ -95,7 +101,7 @@ const ProductList = () => {
               皇家宠物<Text className="ml-2">提供全心营养支持</Text>
             </View>
           </View>
-          <ListBanner bannerList={bannerLists} />
+          <ListBanner bannerList={bannerLists} liveStreaming={[]} />
           <View className="p-2 pt-10">
             <View className="flex h-12">
               <View className="w-12 h-full">
