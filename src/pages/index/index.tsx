@@ -7,7 +7,7 @@ import { Image, ScrollView, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-import { AtButton } from 'taro-ui'
+import { AtButton, AtDivider } from 'taro-ui'
 import './index.less'
 
 const bannerLists = [
@@ -87,7 +87,7 @@ const ProductList = () => {
         <View className="flex items-center justify-center bg-white shadow-2xl p-2 fexidMyPets">
           点击&quot;
           <IconFont name="a-Frame4" size={30} />
-          &quot;<View className="text-red-500">添加到我的小程序，订阅更方便</View>
+          &quot;<View className="text-red-500">添加到我的小程序</View>，订粮更方便
           <View className="ml-4" onClick={distMyPets}>
             <IconFont name="shanchu" size={20} />
           </View>
@@ -136,7 +136,7 @@ const ProductList = () => {
               <View className="flex">
                 <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
                   {ProductLists.map((item, index) => (
-                    <View key={index} className="w-32 inline-block">
+                    <View key={index} className="w-32 inline-block ml-2">
                       <Image className="w-full h-28" src={item.img} />
                       <View className="px-2">
                         <View className="text-block truncate">{item.title}</View>
@@ -166,6 +166,7 @@ const ProductList = () => {
           </View>
         </View>
       </View>
+      <AtDivider fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
     </View>
   )
 }
