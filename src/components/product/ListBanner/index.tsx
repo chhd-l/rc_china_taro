@@ -2,10 +2,11 @@ import Taro from '@tarojs/taro'
 import { SwiperItem, Image, Swiper, View } from '@tarojs/components'
 // import { SwiperProps } from '@/framework/types/products'
 import './index.less'
+import { useEffect } from 'react'
 
 interface ListBannerProps {
   bannerList: any[]
-  liveStreaming: any[]
+  liveStreaming?: any
 }
 const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
   const toPage = ({ linkHref }) => {
@@ -14,6 +15,7 @@ const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
       url: linkHref,
     })
   }
+  let list = liveStreaming ? [liveStreaming, ...bannerList] : bannerList
   return (
     <Swiper
       style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px !important;`}
@@ -23,7 +25,7 @@ const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
       indicatorDots
       autoplay
     >
-      {[...liveStreaming, ...bannerList].map((banner, idx) => (
+      {list.map((banner, idx) => (
         <SwiperItem key={idx} style={`width:100%; height:${Taro.getSystemInfoSync().screenWidth}px;`}>
           {banner.img ? (
             <View
