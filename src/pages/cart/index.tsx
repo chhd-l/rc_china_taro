@@ -1,10 +1,10 @@
 import { View } from '@tarojs/components'
-import { ProductItem, Empty, TotalSettle, Navbar } from '@/components/cart'
+import { ProductItem, Empty, TotalSettle, InvalidProductList } from '@/components/cart'
 import { useEffect, useState } from 'react'
-import {getCartAndProducts, getCarts, updateCart} from '@/framework/api/cart/cart'
+import { getCartAndProducts, updateCart } from '@/framework/api/cart/cart'
 import { useDidShow } from '@tarojs/taro'
 import { session } from '@/utils/global'
-import InvalidProductList from '@/components/cart/InvalidProductList'
+import NavBar from '@/components/common/Navbar'
 import './index.less'
 
 const Cart = () => {
@@ -17,7 +17,6 @@ const Cart = () => {
     setProductList([])
     setInvalidProducts([])
     const res = await getCartAndProducts(true)
-    // const res = await getCarts(true)
     handleIsValidProduct(res)
   }
 
@@ -112,7 +111,11 @@ const Cart = () => {
 
   return (
     <View>
-      <Navbar num={productList.length + invalidProducts.length} />
+      <NavBar
+        navbarTitle={`购物车${
+          productList.length + invalidProducts.length > 0 ? `(${productList.length + invalidProducts.length})` : ''
+        }`}
+      />
       <View className="index cart-content">
         <View className="h-2" style={{ backgroundColor: '#fbfbfb' }} />
         {productList.length > 0 || invalidProducts.length > 0 ? (

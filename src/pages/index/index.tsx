@@ -1,14 +1,18 @@
-import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/index/NavBarForList'
+import ListBanner from '@/components/product/ListBanner'
 import { wxLogin } from '@/framework/api/customer/customer'
+import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
 import IconFont from '@/iconfont'
+import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
 import { customerAtom } from '@/store/customer'
 import { Image, ScrollView, Text, View } from '@tarojs/components'
-import Taro from '@tarojs/taro'
+import Taro, { requirePlugin } from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import { AtButton, AtDivider } from 'taro-ui'
 import './index.less'
+
+let livePlayer = requirePlugin('live-player-plugin')
 
 const bannerLists = [
   {
@@ -58,10 +62,17 @@ const ProductLists = [
   },
 ]
 
+const liveStatusIconList = {
+  101: LIVINGSTREAMING_ONGOING,
+  102: LIVINGSTREAMING_UPCOMING,
+}
+let timer: any = null
+
 const ProductList = () => {
   const [openDistMyPets, setOpenDistMyPets] = useState(false)
   const [, setCustomer] = useAtom(customerAtom)
-
+  const [roomId, setRoomId] = useState<any>(null)
+  let [liveStreaming, setLiveStreaming] = useState<any>({})
   const loginInit = async () => {
     if (Taro.getStorageSync('wxLoginRes')) {
       const data = await wxLogin()
@@ -70,14 +81,70 @@ const ProductList = () => {
   }
 
   useEffect(() => {
+    if (roomId) {
+      getLiveStatus()
+      timer = setTimeout(() => {
+        getLiveStatus()
+      }, 2000)
+    } else {
+      clearInterval(timer)
+    }
+  }, [roomId])
+  const getLiveStatus = () => {
+    livePlayer
+      .getLiveStatus({ room_id: roomId })
+      .then((res) => {
+        // 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
+        const liveStatus = res.liveStatus
+        if (liveStatus == 101) {
+          setLiveStreaming({ ...liveStreaming, statusIcon: liveStatusIconList[liveStatus] })
+        }
+        if (liveStatus != 101 && liveStatus != 102) {
+          //重新获取banner live信息
+          getLiveStreamingFindOnLiveData()
+          setRoomId(null)
+        }
+        console.log('get live status', liveStatus)
+      })
+      .catch((err) => {
+        console.log('get live status', err)
+      })
+  }
+  const getLiveStreamingFindOnLiveData = async () => {
+    let data = await getLiveStreamingFindOnLive('22c2f601-5a60-8b10-20c1-c56ef0d8bd53')
+    {
+      /* 直播间状态。101：直播中，102：未开始，103已结束，104禁播，105：暂停，106：异常，107：已过期 */
+    }
+
+    let liveStreamingList =
+      data?.map((el) => {
+        return {
+          img: el.coverImg,
+          status: el.liveStatus,
+          statusIcon: liveStatusIconList[el.liveStatus],
+          linkHref: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${el.roomId}`,
+        }
+      }) || []
+    if (liveStreamingList?.length) {
+      setLiveStreaming(liveStreamingList[0])
+      if (liveStreamingList[0].roomId) {
+        setRoomId(liveStreamingList[0].roomId)
+      }
+    }
+  }
+  useEffect(() => {
     loginInit()
+    getLiveStreamingFindOnLiveData()
+    return () => {
+      clearInterval(timer)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   const distMyPets = () => {
     setOpenDistMyPets(true)
   }
-
+  console.info('liveStreamingliveStreaming', liveStreaming)
   return (
     <View className="HomeIndex">
       <NavBarForList />
@@ -101,7 +168,7 @@ const ProductList = () => {
               皇家宠物<Text className="ml-2">提供全心营养支持</Text>
             </View>
           </View>
-          <ListBanner bannerList={bannerLists} liveStreaming={[]} />
+          <ListBanner bannerList={bannerLists} liveStreaming={liveStreaming} />
           <View className="p-2 pt-10 pb-0">
             <View className="flex h-12">
               <View className="w-12 h-full">

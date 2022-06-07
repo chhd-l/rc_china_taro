@@ -34,7 +34,7 @@ const NavBarForList = ({
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
   }
   return (
-    <NavBar>
+    <NavBar isCustom>
       <View className="flex items-center px-2 product-list-navbar w-full">
         <View className="font-medium">商城</View>
         <View className="flex-1 text-28" onClick={handleClick}>
@@ -49,7 +49,7 @@ const NavBarForList = ({
             }}
           />
         </View>
-        <View className="w-24"></View>
+        <View className="w-24"/>
       </View>
       <View className={`relative ${!MyPets && 'opacity-0'} h-14`}>
         <ScrollView

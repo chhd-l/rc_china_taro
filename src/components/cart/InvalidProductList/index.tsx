@@ -78,9 +78,6 @@ const ProductItem = ({ productList, delCartSuccess }: { productList: any[]; delC
                       style="width:240rpx; height: 240rpx;border: 1px solid #f0f0f0"
                       lazyLoad
                       src={item.localData.image}
-                      onClick={() => {
-                        Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${item.skuGoodInfo.id}` })
-                      }}
                     />
                   </View>
                   <View className="ml-2 flex flex-col justify-between flex-grow">

@@ -5,14 +5,16 @@ import { useState } from 'react'
 import { Address } from '@/framework/types/customer'
 import { getAddresses } from '@/framework/api/customer/address'
 import routers from '@/routers'
+import NavBar from '@/components/common/Navbar'
 import './index.less'
+
 
 const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddressList = async () => {
-    const customerInfo=Taro.getStorageSync('wxLoginRes').userInfo
-    const res = await getAddresses({customerId:customerInfo.id})
+    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+    const res = await getAddresses({ customerId: customerInfo.id })
     setAddressList(res)
   }
 
@@ -62,35 +64,38 @@ const Index = () => {
   }
 
   return (
-    <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 min-h-screen">
-      {addressList.map((item: Address) => (
-        <AddressItem
-          addressInfo={item}
-          delAddressSuccess={() => getAddressList()}
-          isDefaultUpdateSuccess={updateIsDefault}
-        />
-      ))}
-      <View className="m-0 flex flex-row items-center mt-2 h-20">
-        <View className="flex flex-row m-auto border-none">
-          <Button
-            className="text-xs h-8 bg-white mr-3 flex items-center text-gray-400"
-            onClick={() => {
-              Taro.navigateTo({
-                url: routers.newAddress,
-              })
-            }}
-          >
-            <Text>+</Text>新增地址
-          </Button>
-          <Button
-            className="text-xs h-8 bg-white flex items-center text-gray-400 border-none"
-            onClick={() => getWechatAddress()}
-          >
-            <Text>+</Text>获取微信收货地址
-          </Button>
+    <>
+      <NavBar navbarTitle="地址管理" isNeedBack/>
+      <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 min-h-screen">
+        {addressList.map((item: Address) => (
+          <AddressItem
+            addressInfo={item}
+            delAddressSuccess={() => getAddressList()}
+            isDefaultUpdateSuccess={updateIsDefault}
+          />
+        ))}
+        <View className="m-0 flex flex-row items-center mt-2 h-20">
+          <View className="flex flex-row m-auto border-none">
+            <Button
+              className="text-xs h-8 bg-white mr-3 flex items-center text-gray-400"
+              onClick={() => {
+                Taro.navigateTo({
+                  url: routers.newAddress,
+                })
+              }}
+            >
+              <Text>+</Text>新增地址
+            </Button>
+            <Button
+              className="text-xs h-8 bg-white flex items-center text-gray-400 border-none"
+              onClick={() => getWechatAddress()}
+            >
+              <Text>+</Text>获取微信收货地址
+            </Button>
+          </View>
         </View>
       </View>
-    </View>
+    </>
   )
 }
 

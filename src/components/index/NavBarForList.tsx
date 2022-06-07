@@ -10,7 +10,7 @@ const NavBarForList = () => {
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
   }
   return (
-    <NavBar>
+    <NavBar isCustom>
       <View className="flex items-center px-2 product-list-navbar">
         <Image
           style={{ width: '8.2rem' }}
@@ -29,7 +29,7 @@ const NavBarForList = () => {
             }}
           />
         </View>
-        <View className="w-24"></View>
+        <View className="w-24" />
       </View>
     </NavBar>
   )

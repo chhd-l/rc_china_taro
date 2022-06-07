@@ -80,7 +80,7 @@ const ProductItem = ({
                 lazyLoad
                 src={image}
                 onClick={() => {
-                  Taro.redirectTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
+                  Taro.navigateTo({ url: `/pages/packageA/productDetail/index?id=${skuGoodInfo.id}` })
                 }}
               />
             </View>

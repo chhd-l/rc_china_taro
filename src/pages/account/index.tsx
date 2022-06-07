@@ -47,7 +47,10 @@ const Account = () => {
       Taro.requestSubscribeMessage({
         tmplIds: ['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc', 'b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk'],
         success: async (res) => {
-          if (res['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc'] && res['b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk']) {
+          if (
+            res['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc'] &&
+            res['b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk']
+          ) {
             Taro.navigateTo({
               url: item.url,
             })
@@ -65,9 +68,7 @@ const Account = () => {
 
   return (
     <View className="Account">
-      <NavBar>
-        <View className="mt-2 mb-2 text-center font-medium">我的</View>
-      </NavBar>
+      <NavBar navbarTitle="我的" />
       {/* <Announcement title="添加社群，畅享更多专属福利！" /> */}
       <View className="p-2">
         {/*个人信息和个人管理*/}
@@ -147,11 +148,7 @@ const Account = () => {
           </View>
           <View className="flex flex-row justify-around items-center mt-2">
             {orderTypeList.map((item, idx) => (
-              <View
-                key={idx}
-                className="flex flex-col items-center"
-                onClick={() => navigateToOrderList(item)}
-              >
+              <View key={idx} className="flex flex-col items-center" onClick={() => navigateToOrderList(item)}>
                 <Image className="w-6 h-6" src={item.icon} />
                 <Text className="text-xs">{item.label}</Text>
               </View>
