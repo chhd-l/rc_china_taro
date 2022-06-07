@@ -1,19 +1,34 @@
 import { ScrollView, View } from '@tarojs/components'
 import NavBar from '@/components/common/Navbar'
 import { AtSearchBar } from 'taro-ui'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import Taro from '@tarojs/taro'
 import { floorList } from '@/lib/product'
 import IconFont from '@/iconfont'
 import './index.less'
 
-const NavBarForList = ({ setFloorId, floorActiveId, setFloorActiveId, MyPets, onScrollFooList, scrollLeft }: any) => {
+const NavBarForList = ({
+  setFloorId,
+  floorActiveId,
+  setFloorActiveId,
+  MyPets,
+  onScrollFooList,
+  scrollLeft,
+  scrollLeftOpen,
+  setShowPendant,
+}: any) => {
   const [keyword, setKeyword] = useState('')
+  const [Left, setLeft] = useState<null | number>(null)
 
   const handleNavClick = ({ id }) => {
     setFloorId(id)
     setFloorActiveId(id)
   }
+
+  useEffect(() => {
+    setLeft(scrollLeft || null)
+  }, [setShowPendant])
+
   // const [keyword, setKeyword] = useState('猫奶罐')
   const handleClick = () => {
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
@@ -36,13 +51,14 @@ const NavBarForList = ({ setFloorId, floorActiveId, setFloorActiveId, MyPets, on
         </View>
         <View className="w-24"/>
       </View>
-      <View className={`relative ${!MyPets && 'hidden'} h-14`}>
+      <View className={`relative ${!MyPets && 'opacity-0'} h-14`}>
         <ScrollView
           className="whitespace-nowrap FloorNav bg-white flex h-full"
           enableFlex
           scrollX
-          scrollWithAnimation
+          scroll-left={Left}
           onScroll={(v) => {
+            setLeft(v.detail.scrollLeft)
             onScrollFooList(v.detail.scrollLeft)
           }}
         >
@@ -72,7 +88,7 @@ const NavBarForList = ({ setFloorId, floorActiveId, setFloorActiveId, MyPets, on
         </ScrollView>
         <View
           className={`FloorNavIcon z-50 h-full flex items-center absolute top-0 right-0 px-1 ${
-            scrollLeft ? '' : 'opacity-0'
+            scrollLeftOpen ? '' : 'opacity-0'
           }`}
           style={{
             borderTopLeftRadius: '0.5rem',
