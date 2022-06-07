@@ -1,17 +1,18 @@
-import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/index/NavBarForList'
+import ListBanner from '@/components/product/ListBanner'
 import { wxLogin } from '@/framework/api/customer/customer'
+import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
 import IconFont from '@/iconfont'
+import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
 import { customerAtom } from '@/store/customer'
 import { Image, ScrollView, Text, View } from '@tarojs/components'
 import Taro, { requirePlugin } from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import { AtButton, AtDivider } from 'taro-ui'
-let livePlayer = requirePlugin('live-player-plugin')
 import './index.less'
-import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
-import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
+
+let livePlayer = requirePlugin('live-player-plugin')
 
 const bannerLists = [
   {
@@ -159,7 +160,7 @@ const ProductList = () => {
           </View>
         </View>
       </View>
-      <View className="mt-0 p-1">
+      <View className="mt-0 p-1 pb-0">
         <View className="text-xs">
           <View className="flex items-center justify-center text-sm text-gray-500 p-3">
             <IconFont name="a-Group233" size={38} />
@@ -168,7 +169,7 @@ const ProductList = () => {
             </View>
           </View>
           <ListBanner bannerList={bannerLists} liveStreaming={liveStreaming} />
-          <View className="p-2 pt-10">
+          <View className="p-2 pt-10 pb-0">
             <View className="flex h-12">
               <View className="w-12 h-full">
                 <Image
@@ -226,13 +227,13 @@ const ProductList = () => {
             <View>
               <Image
                 className="w-full h-72"
-                src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_other.png"
+                src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_other_new.png"
               />
             </View>
           </View>
         </View>
       </View>
-      <AtDivider fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
+      <AtDivider className="h-16" fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
     </View>
   )
 }

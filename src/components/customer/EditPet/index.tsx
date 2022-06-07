@@ -108,7 +108,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             name="type"
             pet={petInfo}
           />
-          <View className="grid grid-cols-12 text-26 py-2">
+          <View className="grid grid-cols-12 text-26">
             <View className="col-span-4 flex items-center">
               <View
                 className="w-4 h-4 bg-contain bg-no-repeat"
@@ -128,7 +128,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
               placeholder="点击输入宠物名"
             />
           </View>
-          <View className="grid grid-cols-12 text-26 py-2 relative">
+          <View className="grid grid-cols-12 text-26 relative">
             <View className="col-span-4 flex items-center">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${breedIcon})` }}></View>
               <Text className="pl-2 ">宠物品种</Text>
@@ -176,7 +176,9 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             name="isSterilized"
             pet={petInfo}
           />
-          <View className={` ${systemType ? 'isandroid' : 'isios'} date-item border-0 grid grid-cols-12 text-26 relative`}>
+          <View
+            className={`${systemType ? 'isandroid' : 'isios'} date-item border-0 grid grid-cols-12 text-26 relative`}
+          >
             <View className="col-span-4 flex items-center  py-2">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View>
               <Text className="pl-2 ">宠物生日</Text>
@@ -191,7 +193,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
                 onChange={handleChangeDate}
               >
                 <AtList>
-                  <AtListItem title="" extraText={petInfo.birthday} />
+                  <AtListItem title="请选择生日" extraText={petInfo.birthday} />
                 </AtList>
               </Picker>
             </View>

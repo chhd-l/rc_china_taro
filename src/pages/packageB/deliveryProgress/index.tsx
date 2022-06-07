@@ -100,7 +100,7 @@ const DeliveryProgress = () => {
                         复制
                       </View>
                     </View>
-                    <View className="text-primary-red text-rc22">第3包</View>
+                    <View className="text-primary-red text-rc22">第{completedDelivery.sequence}包</View>
                   </View>
                   <View className="Descborder p-2">
                     {completedDelivery?.lineItems
