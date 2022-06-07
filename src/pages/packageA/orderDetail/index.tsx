@@ -10,6 +10,7 @@ import OrderLogistics from '@/components/order/Logistics'
 import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
 import IconFont from '@/iconfont'
 import './index.less'
+import NavBar from '@/components/common/Navbar'
 
 const orderStatusType = {
   UNPAID: '交易待付款',
@@ -96,148 +97,164 @@ const OrderDetails = () => {
   }, [])
 
   return (
-    <ScrollView scrollY overflow-anchor={false}>
-      <View className="OrderDetails">
-        {orderDetail?.orderNumber ? (
-          <>
-            <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 pt-6">
-              <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
-              {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
-                <View>
-                  <AtCountdown
-                    format={{ hours: ':', minutes: ':', seconds: '' }}
-                    minutes={getTimeCount().minutes}
-                    seconds={getTimeCount().seconds}
-                  />
-                  后取消订单
-                </View>
-              ) : null}
-            </View>
-            <View className="bodyContext">
-              <AtList className="ListBg">
-                {trackingId ? (
+    <>
+      <NavBar navbarTitle="订单详情" isNeedBack />
+      <ScrollView scrollY overflow-anchor={false}>
+        <View className="OrderDetails">
+          {orderDetail?.orderNumber ? (
+            <>
+              <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 pt-6">
+                <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
+                {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
+                  <View>
+                    <AtCountdown
+                      format={{ hours: ':', minutes: ':', seconds: '' }}
+                      minutes={getTimeCount().minutes}
+                      seconds={getTimeCount().seconds}
+                    />
+                    后取消订单
+                  </View>
+                ) : null}
+              </View>
+              <View className="bodyContext">
+                <AtList className="ListBg">
+                  {trackingId ? (
+                    <AtListItem
+                      className="bg-white flex items-center h-16 mt-2"
+                      title={`物流公司：${getCarrierType()}`}
+                      note={`物流编号： ${trackingId || ''}`}
+                      arrow="right"
+                      extraText="查看"
+                      thumb={LOGISTICS_ORDER_ICON}
+                      onClick={() => {
+                        setShowLogistic(!showLogistic)
+                      }}
+                    />
+                  ) : null}
+                  {showLogistic && deliveries && deliveries?.length > 0 ? (
+                    <OrderLogistics logistics={deliveries} />
+                  ) : null}
                   <AtListItem
                     className="bg-white flex items-center h-16 mt-2"
-                    title={`物流公司：${getCarrierType()}`}
-                    note={`物流编号： ${trackingId || ''}`}
-                    arrow="right"
-                    extraText="查看"
-                    thumb={LOGISTICS_ORDER_ICON}
-                    onClick={() => {
-                      setShowLogistic(!showLogistic)
-                    }}
+                    title={`${receiverName || ''} ${phone}`}
+                    note={`${province} ${city} ${region} ${detail}`}
+                    thumb={ADDRESS_ORDER_ICON}
                   />
-                ) : null}
-                {showLogistic && deliveries && deliveries?.length > 0 ? (
-                  <OrderLogistics logistics={deliveries} />
-                ) : null}
-                <AtListItem
-                  className="bg-white flex items-center h-16 mt-2"
-                  title={`${receiverName || ''} ${phone}`}
-                  note={`${province} ${city} ${region} ${detail}`}
-                  thumb={ADDRESS_ORDER_ICON}
-                />
-              </AtList>
-              <AtCard
-                className="m-0 mt-2 border-0"
-                title="订单信息"
-                renderIcon={
-                  orderDetail.isSubscription ? (
-                    <View className="mr-2">
-                      <IconFont name="a-Group201" size={44} />
-                    </View>
-                  ) : (
-                    <View></View>
-                  )
-                }
-              >
-                {(orderDetail?.lineItem?.filter((el) => !el.isGift) || []).map((el, idx) => (
-                  <View key={idx} className="w-full h-20 flex mb-4">
-                    <View className="w-28 h-full">
-                      <Image className="w-full h-full" src={el?.pic} />
-                    </View>
-                    <View className="w-full h-full flex flex-col pl-3">
-                      <View className="text-xs font-black mb-1">{el?.skuName}</View>
-                      <View className="text-primary-red flex ProductIntroduction justify-between items-center">
-                        <View className="flex flex-row flex-wrap">
-                          {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                            <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
-                          ))}
-                        </View>
-                        <View className="numcolor">X{el?.num}</View>
+                </AtList>
+                <AtCard
+                  className="m-0 mt-2 border-0"
+                  title="订单信息"
+                  renderIcon={
+                    orderDetail.isSubscription ? (
+                      <View className="mr-2">
+                        <IconFont name="a-Group201" size={44} />
                       </View>
-                      <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
-                      {orderDetail.freshType === 'FRESH_100_DAYS' ? <View className="mt-1 ProductIntroduction numcolor">新鲜度：100天</View> : null}
+                    ) : (
+                      <View></View>
+                    )
+                  }
+                >
+                  {(orderDetail?.lineItem?.filter((el) => !el.isGift) || []).map((el, idx) => (
+                    <View key={idx} className="w-full h-20 flex mb-4">
+                      <View className="w-28 h-full">
+                        <Image className="w-full h-full" src={el?.pic} />
+                      </View>
+                      <View className="w-full h-full flex flex-col pl-3">
+                        <View className="text-xs font-black mb-1">{el?.skuName}</View>
+                        <View className="text-primary-red flex ProductIntroduction justify-between items-center">
+                          <View className="flex flex-row flex-wrap">
+                            {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                              <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
+                            ))}
+                          </View>
+                          <View className="numcolor">X{el?.num}</View>
+                        </View>
+                        <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                        {orderDetail.freshType === 'FRESH_100_DAYS' ? (
+                          <View className="mt-1 ProductIntroduction numcolor">新鲜度：100天</View>
+                        ) : null}
+                      </View>
                     </View>
-                  </View>
-                ))}
-                {orderDetail?.lineItem?.filter(el => el.isGift)?.length ? <View style={{ borderTop: "1rpx solid #e8e8e8", marginBottom: '18rpx' }}></View> : null}
-                {(orderDetail?.lineItem?.filter(el => el.isGift) || []).map((el, idx) => (
-                  <View key={idx} className="w-full h-20 flex mb-4">
-                    <View className="w-20 h-full">
-                      <Image className="w-full" mode="widthFix" src={el?.pic} />
-                    </View>
-                    <View className="w-full h-full flex flex-col pl-3">
-
-                      <View className="text-xs font-black mb-1">{el?.skuName}<Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">赠品</Text></View>
-                      <View className="flex ProductIntroduction justify-between items-center">
-                        <View className="flex flex-row flex-wrap">
-                          {/* {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                  ))}
+                  {orderDetail?.lineItem?.filter((el) => el.isGift)?.length ? (
+                    <View style={{ borderTop: '1rpx solid #e8e8e8', marginBottom: '18rpx' }} />
+                  ) : null}
+                  {(orderDetail?.lineItem?.filter((el) => el.isGift) || []).map((el, idx) => (
+                    <View key={idx} className="w-full h-20 flex mb-4">
+                      <View className="w-20 h-full">
+                        <Image className="w-full" mode="widthFix" src={el?.pic} />
+                      </View>
+                      <View className="w-full h-full flex flex-col pl-3">
+                        <View className="text-xs font-black mb-1">
+                          {el?.skuName}
+                          <Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">
+                            赠品
+                          </Text>
+                        </View>
+                        <View className="flex ProductIntroduction justify-between items-center">
+                          <View className="flex flex-row flex-wrap">
+                            {/* {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
                             <View style={{ borderColor: '#e8e8e8' }} className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2">{tag}</View>
                           ))} */}
+                          </View>
+                          <View className="numcolor">X{el?.num}</View>
                         </View>
-                        <View className="numcolor">X{el?.num}</View>
+                        {el?.goodsSpecifications ? (
+                          <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                        ) : null}
                       </View>
-                      {el?.goodsSpecifications ? <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View> : null}
-
+                    </View>
+                  ))}
+                  <View className="w-full h-8 footerText flex items-end flex-col">
+                    <View className="text-right">
+                      共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(goodsPrice)}，优惠
+                      {formatMoney(discountsPrice)}，实付款
+                      <Text className="text-primary-red text-28">{formatMoney(totalPrice)}</Text>
                     </View>
                   </View>
-                ))}
-                <View className="w-full h-8 footerText flex items-end flex-col">
-                  <View className="text-right">
-                    共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(goodsPrice)}，优惠
-                    {formatMoney(discountsPrice)}，实付款
-                    <Text className="text-primary-red text-28">{formatMoney(totalPrice)}</Text>
-                  </View>
-                </View>
-                <View className="flex items-center justify-between boderTop">
-                  <Text>订单编号</Text>
-                  <Text>{orderDetail.orderNumber}</Text>
-                </View>
-                {orderDetail.isSubscription && (
                   <View className="flex items-center justify-between boderTop">
-                    <Text>订阅编号</Text>
-                    <Text
-                      className="text-rc22 arrow"
-                      onClick={() => Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${orderDetail?.subscriptionId}` })}
-                    >
-                      {orderDetail.subscriptionNo}
-                      <AtIcon value="chevron-right" size="14"></AtIcon>
-                    </Text>
+                    <Text>订单编号</Text>
+                    <Text>{orderDetail.orderNumber}</Text>
                   </View>
-                )}
-                <View className="flex items-center justify-between boderTop">
-                  <Text>下单时间</Text>
-                  <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
-                </View>
-                <View className="flex items-center justify-between boderTop">
-                  <Text>支付方式</Text>
-                  <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
-                </View>
-                <View className="flex items-center justify-between boderTop">
-                  <Text>发货时间</Text>
-                  <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
-                </View>
-                <View className="flex items-center justify-between boderTop break-words">
-                  <Text>备注</Text>
-                  <Text style={{ wordWrap: 'break-word', width: '70%' }}>{orderDetail?.remark}</Text>
-                </View>
-              </AtCard>
-            </View>
-          </>
-        ) : null}
-      </View>
-    </ScrollView>
+                  {orderDetail.isSubscription && (
+                    <View className="flex items-center justify-between boderTop">
+                      <Text>订阅编号</Text>
+                      <Text
+                        className="text-rc22 arrow"
+                        onClick={() =>
+                          Taro.navigateTo({
+                            url: `/pages/packageB/deliveryManagement/index?id=${orderDetail?.subscriptionId}`,
+                          })
+                        }
+                      >
+                        {orderDetail.subscriptionNo}
+                        <AtIcon value="chevron-right" size="14" />
+                      </Text>
+                    </View>
+                  )}
+                  <View className="flex items-center justify-between boderTop">
+                    <Text>下单时间</Text>
+                    <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
+                  </View>
+                  <View className="flex items-center justify-between boderTop">
+                    <Text>支付方式</Text>
+                    <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
+                  </View>
+                  <View className="flex items-center justify-between boderTop">
+                    <Text>发货时间</Text>
+                    <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
+                  </View>
+                  <View className="flex items-center justify-between boderTop break-words">
+                    <Text>备注</Text>
+                    <Text style={{ wordWrap: 'break-word', width: '70%' }}>{orderDetail?.remark}</Text>
+                  </View>
+                </AtCard>
+              </View>
+            </>
+          ) : null}
+        </View>
+      </ScrollView>
+    </>
   )
 }
 

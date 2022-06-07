@@ -8,6 +8,7 @@ import { View } from '@tarojs/components'
 import routers from '@/routers'
 import { cloneDeep } from 'lodash'
 import './index.less'
+import NavBar from '@/components/common/Navbar'
 
 const tabList = [{ title: '全部' }, { title: '待付款' }, { title: '待发货' }, { title: '待收货' }]
 
@@ -96,6 +97,7 @@ const OrderList = () => {
   console.info('showSendCouponModal', showSendCouponModal)
   return (
     <View>
+      <NavBar navbarTitle={tabList[OrderStatusEnum[current]].title} isNeedBack />
       <AtTabs className="index" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
