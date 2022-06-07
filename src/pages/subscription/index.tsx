@@ -1,5 +1,5 @@
 import { AtFloatLayout } from 'taro-ui'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useRequest } from 'ahooks'
 import PetList from '@/components/customer/PetList'
 import SubList from '@/components/creatSubscription/SubList'
@@ -28,30 +28,6 @@ const Subscription = () => {
 
   const { data } = useRequest(
     async () => {
-      setRecommendInfoAtom({
-        recommPetInfo: {},
-        couponList: [],
-        goodsList: [],
-        giftList: [],
-        currentIdx: 0,
-        checkedArr: [],
-      })
-      setRecommendProductAtom({
-        giftList: [],
-        couponList: [],
-        cardType: 0,
-        freshType: 'FRESH_NORMAL',
-        discountPrice: '',
-        originalPrice: '',
-        goodsVariantInfo: {
-          goodsVariants: {},
-          goodsAttributeValueRel: [],
-          goodsAsserts: {},
-          goodsName: '',
-        },
-      })
-      setCurrentStep(0)
-
       // const params = {
       //   id: "73117cde-28be-f382-b910-8d169efd48e5",
       //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
@@ -71,6 +47,35 @@ const Subscription = () => {
   const toSub = () => {
     Taro.navigateTo({ url: `/pages/packageB/createSubscription/index` })
   }
+
+  useEffect(() => {
+    setRecommendInfoAtom({
+      recommPetInfo: {},
+      couponList: [],
+      goodsList: [],
+      giftList: [],
+      currentIdx: 0,
+      checkedArr: [],
+    })
+    setRecommendProductAtom({
+      giftList: [],
+      couponList: [],
+      cardType: 0,
+      freshType: 'FRESH_NORMAL',
+      discountPrice: '',
+      originalPrice: '',
+      goodsVariantInfo: {
+        goodsVariants: {},
+        goodsAttributeValueRel: [],
+        goodsAsserts: {},
+        goodsName: '',
+      },
+    })
+  }, [])
+
+  Taro.useDidShow(() => {
+    setCurrentStep(0)
+  })
 
   return (
     <View className="subscription-intrduce">
