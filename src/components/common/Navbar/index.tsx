@@ -1,21 +1,17 @@
-import Taro, {getCurrentPages} from '@tarojs/taro'
+import Taro, { getCurrentPages } from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { View } from '@tarojs/components'
 import IconFont from '@/iconfont'
 
-const NavBar = ({
-  children,
-  isCustom = false,
-  isNeedBack = false,
-  navbarTitle = '',
-  backEvent,
-}: {
-  children?: any
-  isCustom?: boolean
-  isNeedBack?: boolean
-  navbarTitle?: string
-  backEvent?: Function
-}) => {
+interface NavbarProps {
+  children?: any //自定义navbar
+  isCustom?: boolean //是否自定义，为true的话children必传
+  isNeedBack?: boolean //是否需要返回组件 tabbar页面不需要，其余的基本都需要
+  navbarTitle?: string //title
+  backEvent?: Function //自定义返回上一页事件
+}
+
+const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = '', backEvent }: NavbarProps) => {
   const [paddingTop, setPaddingTop] = useState<any>(0)
 
   useEffect(() => {
