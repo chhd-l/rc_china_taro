@@ -193,7 +193,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
                 onChange={handleChangeDate}
               >
                 <AtList>
-                  <AtListItem title="" extraText={petInfo.birthday} />
+                  <AtListItem title="请选择生日" extraText={petInfo.birthday} />
                 </AtList>
               </Picker>
             </View>
