@@ -93,7 +93,7 @@ const ProductList = () => {
           </View>
         </View>
       </View>
-      <View className="mt-0 p-1">
+      <View className="mt-0 p-1 pb-0">
         <View className="text-xs">
           <View className="flex items-center justify-center text-sm text-gray-500 p-3">
             <IconFont name="a-Group233" size={38} />
@@ -102,7 +102,7 @@ const ProductList = () => {
             </View>
           </View>
           <ListBanner bannerList={bannerLists} liveStreaming={[]} />
-          <View className="p-2 pt-10">
+          <View className="p-2 pt-10 pb-0">
             <View className="flex h-12">
               <View className="w-12 h-full">
                 <Image
@@ -160,13 +160,13 @@ const ProductList = () => {
             <View>
               <Image
                 className="w-full h-72"
-                src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_other.png"
+                src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_other_new.png"
               />
             </View>
           </View>
         </View>
       </View>
-      <AtDivider fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
+      <AtDivider className="h-12 mb-4" fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
     </View>
   )
 }
