@@ -1,6 +1,7 @@
 import IconFont from '@/iconfont'
 import { floorList } from '@/lib/product'
 import { ScrollView, View } from '@tarojs/components'
+import { useEffect, useState } from 'react'
 import './Style.less'
 
 interface FloorNavProps {
@@ -9,7 +10,9 @@ interface FloorNavProps {
   setFloorActiveId: Function
   MyPets: boolean
   onScrollFooList: Function
-  scrollLeft: boolean
+  scrollLeft: number
+  scrollLeftOpen: boolean
+  setShowPendant: boolean
 }
 
 const FloorNav = ({
@@ -19,20 +22,29 @@ const FloorNav = ({
   MyPets,
   onScrollFooList,
   scrollLeft,
+  scrollLeftOpen,
+  setShowPendant,
 }: FloorNavProps) => {
+  const [Left, setLeft] = useState<null | number>(null)
+
   const handleNavClick = ({ id }) => {
     setFloorId(id)
     setFloorActiveId(id)
   }
 
+  useEffect(() => {
+    setLeft(scrollLeft || null)
+  }, [setShowPendant])
+
   return (
-    <View className={`relative ${MyPets && 'hidden'} h-14 `}>
+    <View className={`relative ${MyPets && 'opacity-0'} h-14 `}>
       <ScrollView
         className="whitespace-nowrap FloorNav bg-white flex h-full"
         enableFlex
         scrollX
-        scrollWithAnimation
+        scroll-left={Left}
         onScroll={(v) => {
+          setLeft(v.detail.scrollLeft)
           onScrollFooList(v.detail.scrollLeft)
         }}
       >
@@ -62,7 +74,7 @@ const FloorNav = ({
       </ScrollView>
       <View
         className={`FloorNavIcon z-50 h-full flex items-center absolute top-0 right-0 px-1 ${
-          scrollLeft ? '' : 'opacity-0'
+          scrollLeftOpen ? '' : 'opacity-0'
         }`}
         style={{
           borderTopLeftRadius: '0.5rem',
