@@ -68,10 +68,12 @@ const ProductList = () => {
   const [starsList, setStarsList] = useState<SwiperProps[]>(starsLists)
   const [showPendant, setShowPendant] = useState(false)
   const [MyPets, setMyPets] = useState(false)
+  const [MyPets2, setMyPets2] = useState(false)
   const [productList, setProductList] = useState([])
   const [lifestageList, setLifestageList] = useState(lifestageLists)
   const [floorActiveId, setFloorActiveId] = useState<string>('activity')
-  const [scrollLeft, setscrollLeft] = useState(true)
+  const [scrollLeft, setscrollLeft] = useState(0)
+  const [scrollLeftOpen, setscrollLeftOpen] = useState(true)
   const [floorId, setFloorId] = useState<string>('')
   let [liveStreaming, setLiveStreaming] = useState<any>([])
 
@@ -100,8 +102,10 @@ const ProductList = () => {
   const onScroll = (e) => {
     if (e.detail.scrollTop > 370) {
       setShowPendant(true)
+      setMyPets2(true)
     } else {
       setShowPendant(false)
+      setMyPets2(false)
     }
     if (e.detail.scrollTop >= 460) {
       setFloorActiveId('activity')
@@ -130,10 +134,11 @@ const ProductList = () => {
   }
 
   const onScrollFooList = (Left: number) => {
+    setscrollLeft(Left)
     if (Left > 35) {
-      setscrollLeft(false)
+      setscrollLeftOpen(false)
     } else {
-      setscrollLeft(true)
+      setscrollLeftOpen(true)
     }
   }
 
@@ -156,6 +161,8 @@ const ProductList = () => {
         setFloorId={setFloorId}
         onScrollFooList={onScrollFooList}
         scrollLeft={scrollLeft}
+        scrollLeftOpen={scrollLeftOpen}
+        setShowPendant={MyPets2}
       />
       <ScrollView
         className="scrollview mt-0"
@@ -186,6 +193,8 @@ const ProductList = () => {
             MyPets={MyPets}
             onScrollFooList={onScrollFooList}
             scrollLeft={scrollLeft}
+            scrollLeftOpen={scrollLeftOpen}
+            setShowPendant={MyPets2}
           />
           <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}>
             <View key="活动专区">

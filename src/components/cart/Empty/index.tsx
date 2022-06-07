@@ -7,7 +7,7 @@ import './index.less'
 
 const Empty = () => {
   return (
-    <View className="bg-white flex justify-center cart-content">
+    <View className="bg-white flex justify-center pt-20">
       <View className="flex flex-col items-center">
         <Image className="w-40 h-28" src={CART_NO_DATA_ICON} />
         <View className="mt-2 text-base font-bold">购物车有点空</View>

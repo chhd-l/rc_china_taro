@@ -17,6 +17,7 @@ import { cartSunccessToastShowAtom } from '@/store/customer'
 import { AtToast } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
+import NavBar from "@/components/common/Navbar";
 
 export interface SelectedProps {
   [x: string]: string
@@ -119,6 +120,7 @@ const ProductDetail = () => {
   }
   return (
     <>
+      <NavBar navbarTitle="商品详情" isNeedBack />
       {choosedSku.id ? (
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />

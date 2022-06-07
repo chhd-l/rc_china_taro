@@ -12,9 +12,10 @@ import { useAtom } from 'jotai'
 import { customerAtom } from '@/store/customer'
 import GiftItem from '@/components/checkout/GiftItem'
 import { subscriptionCreateAndPay } from '@/framework/api/subscription/subscription'
-import moment from "moment";
+import moment from 'moment'
 import './index.less'
 import CouponItem from '@/components/checkout/CouponItem'
+import NavBar from '@/components/common/Navbar'
 
 const Checkout = () => {
   const [customerInfo] = useAtom(customerAtom)
@@ -102,9 +103,9 @@ const Checkout = () => {
       let finalVoucher =
         voucher && JSON.stringify(voucher) !== '{}'
           ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+              ...voucher,
+              voucherStatus: 'Ongoing',
+            }
           : null
       finalVoucher = finalVoucher
         ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -144,7 +145,7 @@ const Checkout = () => {
         address: addressInfo.id !== '' ? addressInfo : null,
         goodsList,
         benefits,
-        coupons: couponItems.map(el => {
+        coupons: couponItems.map((el) => {
           let couponInfo = el.couponInfo
           delete couponInfo.isDeleted
           delete couponInfo.isGetStatus
@@ -303,63 +304,74 @@ const Checkout = () => {
     getShippingPrice()
   }, [])
 
-  const payPrice = useMemo(() => totalPrice - discountPrice - subDiscountPrice, [totalPrice, discountPrice, subDiscountPrice])
+  const payPrice = useMemo(
+    () => totalPrice - discountPrice - subDiscountPrice,
+    [totalPrice, discountPrice, subDiscountPrice],
+  )
 
   return (
-    <View className="index py-2" style={{ marginBottom: '75rpx' }}>
-      <View className="px-4 bg-white">
-        <View className="bggray pb-2 mt-2 rounded">
-          <Address address={address} />
-        </View>
-        <View className="bggray pb-2 px-2 rounded">
-          <TradeItem tradeItems={tradeItems} />
-          {giftItems?.map((item) => (
-            <GiftItem product={item} />
-          ))}
-          {couponItems?.map((item) => (
-            <CouponItem coupon={item} />
-          ))}
+    <>
+      <NavBar navbarTitle="确认订单" isNeedBack />
+      <View className="index py-2" style={{ marginBottom: '75rpx' }}>
+        <View className="px-4 bg-white">
+          <View className="bggray pb-2 mt-2 rounded">
+            <Address address={address} />
+          </View>
+          <View className="bggray pb-2 px-2 rounded">
+            <TradeItem tradeItems={tradeItems} />
+            {giftItems?.map((item) => (
+              <GiftItem product={item} />
+            ))}
+            {couponItems?.map((item) => (
+              <CouponItem coupon={item} />
+            ))}
+            <View>
+              <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
+              <Coupon
+                totalPrice={totalPrice}
+                tradeItems={tradeItems}
+                changeMaxDiscount={(maxDiscountPrice) => {
+                  console.log('maxDiscountPrice', maxDiscountPrice)
+                  setDiscountPrice(maxDiscountPrice)
+                }}
+                orderType={orderType}
+                changeCheckoutVoucher={(value) => setVoucher(value)}
+              />
+              <Remark changeRemark={changeRemark} />
+            </View>
+          </View>
           <View>
-            <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
-            <Coupon
+            <TradePrice
               totalPrice={totalPrice}
-              tradeItems={tradeItems}
-              changeMaxDiscount={(maxDiscountPrice) => {
-                console.log('maxDiscountPrice', maxDiscountPrice)
-                setDiscountPrice(maxDiscountPrice)
-              }}
-              orderType={orderType}
-              changeCheckoutVoucher={(value) => setVoucher(value)}
+              discountPrice={discountPrice}
+              subDiscountPrice={subDiscountPrice}
+              shipPrice={shippingPrice}
             />
-            <Remark changeRemark={changeRemark} />
           </View>
         </View>
-        <View>
-          <TradePrice totalPrice={totalPrice} discountPrice={discountPrice} subDiscountPrice={subDiscountPrice} shipPrice={shippingPrice} />
+        <View className="fixed bottom-0 w-full">
+          <TotalCheck num={totalNum} totalPrice={payPrice} checkNow={checkNow} loading={loading} />
         </View>
+        <AtMessage />
+        <AtModal
+          key="noAddressTip"
+          isOpened={showNoAddressTip}
+          title="提示"
+          content="请填写收货地址"
+          confirmText="确定"
+          onClose={() => {
+            setShowNoAddressTip(false)
+          }}
+          onCancel={() => {
+            setShowNoAddressTip(false)
+          }}
+          onConfirm={() => {
+            setShowNoAddressTip(false)
+          }}
+          className="order-to-ship-modal"
+        />
       </View>
-      <View className="fixed bottom-0 w-full">
-        <TotalCheck num={totalNum} totalPrice={payPrice} checkNow={checkNow} loading={loading} />
-      </View>
-      <AtMessage />
-      <AtModal
-        key="noAddressTip"
-        isOpened={showNoAddressTip}
-        title="提示"
-        content="请填写收货地址"
-        confirmText="确定"
-        onClose={() => {
-          setShowNoAddressTip(false)
-        }}
-        onCancel={() => {
-          setShowNoAddressTip(false)
-        }}
-        onConfirm={() => {
-          setShowNoAddressTip(false)
-        }}
-        className="order-to-ship-modal"
-      />
-    </View>
+    </>
   )
 }
 

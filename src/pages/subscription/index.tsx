@@ -69,14 +69,12 @@ const Subscription = () => {
     },
   )
   const toSub = () => {
-    Taro.redirectTo({ url: `/pages/packageB/createSubscription/index` })
+    Taro.navigateTo({ url: `/pages/packageB/createSubscription/index` })
   }
 
   return (
     <View className="subscription-intrduce">
-      <NavBar>
-        <View className="mt-2 mb-2 text-center font-medium">订阅</View>
-      </NavBar>
+      <NavBar navbarTitle="订阅" />
       <Image lazyLoad className="w-full" src={WHAT_IS_SUBSCRIPTION} mode="widthFix" />
       <View className="px-2">
         <PetList />
@@ -93,7 +91,7 @@ const Subscription = () => {
           }}
           style={{ right: '39%' }}
           className="w-4 h-4 absolute bottom-8"
-        ></View>
+        />
         <Image lazyLoad className="w-full" src={SUBSCRIPTION_DESCRIPTION} mode="widthFix" />
         {/* <View className="w-2 h-2 bg-primary-red absolute bottom-0" onClick={() => {
           setShowPop(true)
@@ -115,7 +113,7 @@ const Subscription = () => {
               }}
               className="w-3 h-3 bg-contain bg-primary-red bg-no-repeat mt-2 "
               style={{ background: `url(${SUBSCRIPTION_HELP_ICON})` }}
-            ></View>
+            />
             {/* <Image lazyLoad   className="w-full" src={SUBSCRIPTION_HELP_ICON} mode="widthFix" /> */}
             八大权益
           </View>
