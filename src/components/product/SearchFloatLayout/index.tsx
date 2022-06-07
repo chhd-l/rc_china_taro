@@ -1,9 +1,10 @@
 import { FilterListItemProps } from '@/framework/types/products'
 import { largeButtonClass } from '@/lib/product'
 import { Text, View, Image } from '@tarojs/components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AtAvatar, AtButton, AtFloatLayout } from 'taro-ui'
 import SearchFilters from '../SearchFilters'
+import cloneDeep from 'lodash.cloneDeep'
 import './index.less'
 
 interface SearchFloatLayoutProps {
@@ -28,6 +29,17 @@ const SearchFloatLayout = ({
   animal,
   setAnimal,
 }: SearchFloatLayoutProps) => {
+  useEffect(() => {
+    if (openSearchMore) {
+      //每次打开强制更多里面的选中和外面一致
+      filterList.forEach((el: any) => {
+        el.list.forEach((cel) => {
+          cel.activeColor = cel.active
+        })
+      })
+      setFilterList(cloneDeep(filterList))
+    }
+  }, [openSearchMore])
   // const [animal, setAnimal] = useState<String>()
   return (
     <AtFloatLayout
@@ -49,9 +61,8 @@ const SearchFloatLayout = ({
             {/* 猫图标切换 */}
             <Image
               className="w-7 h-8 line-height bg-center align-middle mr-1"
-              src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
-                animal === 'cat' ? '_selected_1' : '_1'
-              }.svg`}
+              src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${animal === 'cat' ? '_selected_1' : '_1'
+                }.svg`}
             />
             <Text>猫产品</Text>
           </AtButton>
@@ -66,9 +77,8 @@ const SearchFloatLayout = ({
             <Image
               // circle
               className="w-7 h-8 line-height bg-center align-middle mr-1"
-              src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
-                animal === 'dog' ? '_selected_1' : '_1'
-              }.svg`}
+              src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${animal === 'dog' ? '_selected_1' : '_1'
+                }.svg`}
             />
             <Text>狗产品</Text>
           </AtButton>

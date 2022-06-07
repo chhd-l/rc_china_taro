@@ -36,7 +36,7 @@ const DeliveryManagement = () => {
                             <Image src={goodsVariant.defaultImage} className="w-full h-full" />
                         </View>
                         <View className="flex-1 px-3 flex-col flex items-start w-full justify-center">
-                            <View className="text-28   mb-2 font-bold">您的宠物还剩余<Text className="text-primary-red">{data.totalDeliveryTimes - data.currentDeliverySequence}</Text>包</View>
+                            <View className="text-28   mb-2 font-bold">您的宠物还剩余<Text className="text-primary-red">{data.totalDeliveryTimes - data.currentDeliveredSequence}</Text>包</View>
                             {data.freshType === 'FRESH_100_DAYS' ? <View className="text-rc26 text-textGray mb-2">新鲜度：100天</View> : null}
                             <AtButton
                                 size="small"
@@ -57,7 +57,7 @@ const DeliveryManagement = () => {
                 <View className="flex justify-between items-center">
                     <IconFont name="fahuoyizhan" size={80} />
                     <View className="text-24 text-right">
-                        下一包将在{moment(data?.nextDeliveryTime).format('YYYY-MM-DD')}发货，请注意查收!
+                        下一包将在{moment(data?.planingDeliveries?.[0]?.createdAt).format('YYYY-MM-DD')}发货，请注意查收!
                     </View>
                 </View>
                 <View className="flex">
