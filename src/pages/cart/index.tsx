@@ -1,10 +1,9 @@
 import { View } from '@tarojs/components'
-import { ProductItem, Empty, TotalSettle } from '@/components/cart'
+import { ProductItem, Empty, TotalSettle, InvalidProductList } from '@/components/cart'
 import { useEffect, useState } from 'react'
 import { getCartAndProducts, updateCart } from '@/framework/api/cart/cart'
 import { useDidShow } from '@tarojs/taro'
 import { session } from '@/utils/global'
-import InvalidProductList from '@/components/cart/InvalidProductList'
 import NavBar from '@/components/common/Navbar'
 import './index.less'
 
