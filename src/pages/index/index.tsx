@@ -233,7 +233,7 @@ const ProductList = () => {
           </View>
         </View>
       </View>
-      <AtDivider className="h-12 mb-4" fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
+      <AtDivider className="h-16" fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
     </View>
   )
 }
