@@ -31,10 +31,10 @@ const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = 
           {isNeedBack ? (
             <View
               className="absolute flex items-center rounded-2xl"
-              style={{ height: '30px', border: '1px solid #666666' }}
+              style={{ height: '30px', border: '1px solid #C3C3C3' }}
             >
               <View
-                style={{ borderRight: '1px solid #666666' }}
+                style={{ borderRight: '1px solid #C3C3C3' }}
                 className="h-full flex items-center pl-3"
                 onClick={() => {
                   console.log('current pages router ', getCurrentPages())
