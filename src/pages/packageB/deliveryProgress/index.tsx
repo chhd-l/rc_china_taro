@@ -1,7 +1,8 @@
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
+import { normalizeTags } from '@/framework/api/lib/normalize'
 import { getSubscriptionScheduleNextDelivery } from '@/framework/api/subscription/subscription'
 import { deliveryDetailAtom } from '@/store/subscription'
-import { View, Picker, Text, Button } from '@tarojs/components'
+import { View, Picker, Text, Button, Image } from '@tarojs/components'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
 import { useAtom } from 'jotai'
@@ -81,43 +82,60 @@ const DeliveryProgress = () => {
         <CommonTitle title="发货记录" />
         {deliveryDetail?.completedDeliveries?.length ? (
           <View className="text-26 mt-3">
-            <View className="my-2 record ">
-              <View className="flex flex-row py-2 justify-between  px-2">
-                <View className="flex flex-row  ">
-                  <View className="text-rc22 text-textGray">订单编号:{deliveryDetail?.no}</View>
-                  <View
-                    className="bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1"
-                    onClick={(e) => {
-                      e.stopPropagation()
-                      copyText(deliveryDetail.no)
-                    }}
-                  >
-                    复制
-                  </View>
-                </View>
-                <View className="text-primary-red text-rc22">第3包</View>
-              </View>
-              <View className="Descborder p-2">
-                <View className="flex  border-red-400 items-center">
-                  <View className="h-rc169 w-rc163 bg-primary-red" />
-                  <View className="flex-1">
-                    <View className="text-rc33 text-rc_222222 mt-2 ml-1">皇家口腔护理成猫全价粮</View>
-                    <View className="flex flex-row justify-between my-2">
-                      <View className="flex flex-row ">
-                        <View className="age mx-1">适用年龄:4-12月</View>
-                        <View className="age ">适用年龄:4-12月</View>
-                      </View>
-                      <View className="text-rc22 text-textGray mr-1">x1</View>
+            {deliveryDetail?.completedDeliveries?.map((completedDelivery) => (
+              <View className="my-2 record ">
+                <View className="flex flex-row py-2 justify-between  px-2">
+                  <View className="flex flex-row  ">
+                    <View className="text-rc22 text-textGray">订单编号:{completedDelivery?.tradeId}</View>
+                    <View
+                      className="bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1"
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        copyText(completedDelivery.tradeId)
+                      }}
+                    >
+                      复制
                     </View>
-                    <View className="text-rc26 text-textGray ml-1">规格:2kg</View>
-                    {deliveryDetail?.freshType === 'FRESH_100_DAYS' ? (
-                      <View className="text-rc26 text-textGray ml-1 mt-1">新鲜度：100天</View>
-                    ) : null}
                   </View>
+                  <View className="text-primary-red text-rc22">第3包</View>
+                </View>
+                <View className="Descborder p-2">
+                  {completedDelivery?.lineItems
+                    ?.filter((el) => !el.isGift)
+                    ?.map((el) => (
+                      <View className="flex  border-red-400 items-center mb-1">
+                        <View className="h-rc169 w-rc163 bg-primary-red">
+                          <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
+                        </View>
+                        <View className="flex-1">
+                          <View className="text-rc28 text-rc_222222  ml-1">{el.skuName}</View>
+                          <View className="flex flex-row justify-between mb-1">
+                            <View className="flex flex-row text-rc20">
+                              {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                                <View className=" text-primary-red px-1 border rounded-lg border-solid border-red mr-2 mt-2">
+                                  {tag}
+                                </View>
+                              ))}
+                              {/* <View className="age mx-1">适用年龄:4-12月</View>
+                          <View className="age ">适用年龄:4-12月</View> */}
+                            </View>
+                            <View className="text-rc22 text-textGray mr-1">x{el.num}</View>
+                          </View>
+                          <View className="text-rc22 text-textGray ml-1">
+                            {el?.goodsSpecifications ? `规格:${el?.goodsSpecifications}` : ''}
+                          </View>
+                          {deliveryDetail?.freshType === 'FRESH_100_DAYS' ? (
+                            <View className="text-rc26 text-textGray ml-1 mt-1">新鲜度：100天</View>
+                          ) : null}
+                        </View>
+                      </View>
+                    ))}
+                </View>
+                <View className="text-rc24 text-rc_666666 leading-rc72 text-right pr-2">
+                  发货日期:{moment(deliveryDetail?.shipmentDate).format('YYYY-MM-DD')}
                 </View>
               </View>
-              <View className="text-rc24 text-rc_666666 leading-rc72 text-right pr-2">发货日期:2022-08-23</View>
-            </View>
+            ))}
           </View>
         ) : (
           <Text>暂无发货记录</Text>
