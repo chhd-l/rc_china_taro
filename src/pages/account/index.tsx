@@ -6,7 +6,7 @@ import { useAtom } from 'jotai'
 // import Announcement from '@/components/common/Announcement'
 // import defaultIcon from '@/assets/icons/icon-home.png'
 import { View, Text, Image, Button } from '@tarojs/components'
-import { AtAvatar, AtButton, AtModal, AtModalAction, AtModalContent, AtModalHeader } from 'taro-ui'
+import { AtAvatar, AtButton, AtModal, AtModalAction, AtModalHeader } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import PetList from '@/components/customer/PetList'
 import routers from '@/routers'
@@ -61,7 +61,6 @@ const Account = () => {
         },
       })
     }
-
   }
 
   return (
@@ -173,9 +172,6 @@ const Account = () => {
           <AtModalHeader>
             <View style={{ height: '100rpx', lineHeight: '100rpx' }}>确定要退出登录？</View>
           </AtModalHeader>
-          {/* <AtModalContent>
-            <View className="text-center text-base mt-10">确定要退出登录？</View>
-          </AtModalContent> */}
           <AtModalAction>
             <Button
               onClick={() => {

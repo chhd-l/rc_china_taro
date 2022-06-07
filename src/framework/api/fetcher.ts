@@ -13,6 +13,7 @@ export const baseSetting = {
 // const API_URL = 'http://localhost:9000/graphql'
 // 生产
 const API_URL = 'https://msdev.d2cgo.com/faas/graphql'
+// const API_URL = 'http://20.62.176.70/faas/graphql'
 
 // const API_URL = 'https://dtc-faas-dtc-plaform-dev-woyuxzgfcv.cn-shanghai.fcapp.run/graphql'
 // 开发
