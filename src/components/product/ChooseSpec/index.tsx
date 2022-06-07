@@ -138,7 +138,7 @@ const ChooseSpec = ({
 
   const addToCheckout = async () => {
     let data = await getProductBySkuId({ goodsVariantId: choosedSku.id })
-    let selectedProduct = normalizeCartData({ goodsNum: buyCount }, data.productBySkuId)
+    let selectedProduct = normalizeCartData({ goodsNum: buyCount,goodsId:detailInfo.id,goodsVariantId: choosedSku.id }, data.productBySkuId)
     Taro.setStorage({
       key: 'select-product',
       data: JSON.stringify({ goodsList: [selectedProduct] }),
