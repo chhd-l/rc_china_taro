@@ -17,10 +17,10 @@ interface SingleChoiceProps {
 }
 const SingleChoice = ({ label, options, name, pet, setPetInfo }: SingleChoiceProps) => {
   const [optionList, setOptionList] = useState(cloneDeep(options))
+
   const handleChange = (item, idx) => {
-    console.info('item, idx', item, idx)
-    optionList.forEach((item) => {
-      item.active = false
+    optionList.forEach((value) => {
+      value.active = false
     })
     optionList[idx].active = true
     pet[name] = item.value
@@ -30,12 +30,10 @@ const SingleChoice = ({ label, options, name, pet, setPetInfo }: SingleChoicePro
       //  Object.assign({}, pet, { breed: '' })
       setPetInfo && setPetInfo(newPet)
     }
-    console.info('pet', pet)
     setOptionList(cloneDeep(optionList))
   }
+
   useEffect(() => {
-    console.info('optionList', optionList)
-    console.info('petname', pet[name])
     optionList.forEach((item) => {
       if (item.value === pet[name]) {
         item.active = true
@@ -44,17 +42,19 @@ const SingleChoice = ({ label, options, name, pet, setPetInfo }: SingleChoicePro
     setOptionList(cloneDeep(optionList))
     console.info(optionList, 'optionList')
   }, [])
+
   return (
     <View className="grid grid-cols-12 text-26 py-2">
       {label}
       <View className="col-span-8 flex">
         {optionList.map((option, idx) => (
           <View
+            key={idx}
             onClick={() => {
               handleChange(option, idx)
             }}
-            className={`inline-block rounded-lg flex-1 py-1 text-center border border-solid   ${
-              option.active ? 'border-red-600' : 'border-gray-300'
+            className={`inline-block rounded-lg flex-1 py-1 text-center border-2 border-solid   ${
+              option.active ? 'border-red-600 text-red-600' : 'border-gray-300'
             } ${idx == optionList.length - 1 ? '' : 'mr-2'}`}
           >
             {option.label}
