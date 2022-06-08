@@ -136,13 +136,13 @@ const Coupon = ({
   return (
     <View className="bg-white mt-2 pl-2 py-2 rounded ">
       <View className="flex flex-row justify-between items-center" onClick={() => selectCoupon()}>
-        <View className="text-30 flex flex-row items-center">
-          <Image className="w-6 h-6 mr-2" src={VOUCHER_ORDER_ICON} />
+        <View className="text-26 flex flex-row items-center">
+          <Image className="w-5 h-5 mr-2" src={VOUCHER_ORDER_ICON} />
           优惠券
         </View>
         <View>
           <View>
-            <Text className="text-xs text-gray-400">
+            <Text className="text-26 text-gray-400">
               {selectedVoucher
                 ? `已选${
                     selectedVoucher.discountType === 'FIX_AMOUNT'

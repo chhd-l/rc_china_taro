@@ -21,8 +21,8 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
   return (
     <View onClick={() => selectAddress()}>
       {receiverName ? (
-        <View className="flex flex-row justify-between items-start text-30 items-start px-4 py-2">
-          <View className="text-black font-semibold" style={{ wordBreak: 'keep-all' }}>
+        <View className="flex flex-row justify-between items-start px-4 py-2">
+          <View className="text-black text-26 font-semibold" style={{ wordBreak: 'keep-all' }}>
             {receiverName}
           </View>
           <View className="ml-2 text-xs">
@@ -37,8 +37,8 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
         </View>
       ) : (
         <View className="flex flex-row justify-between px-4 py-2 items-center">
-          <View className="text-30 flex flex-row items-center">
-            <Image className="w-6 h-6 mr-2" src={ADDRESS_ORDER_ICON} />
+          <View className="text-26 flex flex-row items-center">
+            <Image className="w-5 h-5 mr-2" src={ADDRESS_ORDER_ICON} />
             新增收货地址
           </View>
           <View>
