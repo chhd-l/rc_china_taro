@@ -11,6 +11,7 @@ import { useRequest } from 'ahooks'
 import { useAtom } from 'jotai'
 import moment from 'moment'
 import { AtButton } from 'taro-ui'
+import orderBy from 'lodash/orderBy'
 import './index.less'
 
 const DeliveryManagement = () => {
@@ -19,7 +20,10 @@ const DeliveryManagement = () => {
   const { data } = useRequest(async () => {
     const res = await getSubscriptionDetail(Current?.router?.params?.id)
     res.nextDeliveryTime = res?.planingDeliveries?.[0]?.shipmentDate || undefined
-    debugger
+    if (res.completedDeliveries) {
+      //倒序
+      res.completedDeliveries = orderBy(res.completedDeliveries, ['sequence'], ['desc'])
+    }
     setDeliveryDetail(res)
     return res
   })

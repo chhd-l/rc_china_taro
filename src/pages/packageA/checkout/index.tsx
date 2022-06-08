@@ -161,6 +161,7 @@ const Checkout = () => {
           }
         }),
         remark,
+        firstDeliveryTime: new Date(deliveryTime).toISOString(),
         totalDeliveryTimes: subscriptionInfo.cycleObj.quantity, //配送次数
       }
       let params = {

@@ -8,7 +8,7 @@ import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
 import { useAtom } from 'jotai'
 import moment from 'moment'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AtList, AtListItem, AtModal } from 'taro-ui'
 import './index.less'
 
@@ -55,7 +55,7 @@ const DeliveryProgress = () => {
 
   const copyText = (datas: any) => {
     Taro.setClipboardData({
-      datas,
+      data: datas,
     })
   }
 
@@ -189,7 +189,7 @@ const DeliveryProgress = () => {
           }}
           onConfirm={() => {
             createDeliveryNow = true
-            run(deliveryDetail.nextDeliveryTime)
+            run(moment()?.format('YYYY-MM-DD'))
             setOpen(false)
           }}
           className="out-stock-tip-modal"
