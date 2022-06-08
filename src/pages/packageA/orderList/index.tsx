@@ -28,7 +28,7 @@ const OrderList = () => {
   const [isFromSubscription, setIsFromSubscription] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
   const [isNoMore, setIsNoMore] = useState(false)
-
+  const [firstIn, setFirstIn] = useState(true)
   useReachBottom(() => {
     if (!isNoMore) {
       let page = currentPage + 1
@@ -60,6 +60,11 @@ const OrderList = () => {
         status !== 'ALL' ? { orderState: status } : {},
       ),
     })
+    const isSendCoupon = router?.params?.isSendCoupon
+    if (isSendCoupon && firstIn) {
+      setShowSendCouponModal(true)
+      setFirstIn(false)
+    }
     console.log('order list data', res)
     if (res?.total < offset + 10) {
       setIsNoMore(true)
@@ -78,13 +83,6 @@ const OrderList = () => {
     setCurrent(status)
     getOrderLists({ status })
   })
-
-  useEffect(() => {
-    const isSendCoupon = router?.params?.isSendCoupon
-    if (isSendCoupon) {
-      setShowSendCouponModal(true)
-    }
-  }, [])
 
   const handleClick = async (value) => {
     await Taro.setNavigationBarTitle({

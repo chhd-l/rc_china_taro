@@ -52,6 +52,12 @@ const SubList = ({ children }) => {
   const handleClick = () => {
     handleBuyMore(children)
   }
+  const copyText = (data) => {
+    Taro.setClipboardData({
+      data,
+    })
+  }
+
   return children?.goodsList?.map((el) => {
     const { goodsVariant = {} } = el
     console.info('planingDeliveriesplaningDeliveriesplaningDeliveries', children?.planingDeliveries)
@@ -113,8 +119,22 @@ const SubList = ({ children }) => {
                 className="flex flex-row text-rc20 justify-between text-rc_666666 mt-2 mb-3 pt-2"
                 style={{ borderTop: '1px solid #E2E2E2' }}
               >
-                <View>订阅编号:{children?.no}</View>
-                <View>下一包将在{moment(children?.planingDeliveries?.[0]?.createdAt).format('YYYY-MM-DD')}发货</View>
+                <View className="flex">
+                  <View>订阅编号:{children?.no} </View>
+                  <View
+                    className="bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      copyText(children?.no)
+                    }}
+                  >
+                    复制
+                  </View>
+                </View>
+                <View>
+                  下一包将在{moment(children?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
+                  发货
+                </View>
               </View>
               <View className=" my-2 px-1">
                 <AtProgress
