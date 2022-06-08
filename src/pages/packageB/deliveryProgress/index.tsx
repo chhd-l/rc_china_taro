@@ -58,8 +58,8 @@ const DeliveryProgress = () => {
         <View className=" px-3 bg-white rounded-md pb-3">
           <CommonTitle title="下次发货" />
           <View className="text-26 mt-3">
-            <View className="mb-2">皇家英国短毛猫成猫全价粮</View>
-            <View>第{deliveryDetail?.currentDeliveringSequence || 1}包</View>
+            <View className="mb-2">{deliveryDetail?.planingDeliveries?.find((el) => !el.isGift)?.skuName}</View>
+            <View>第{deliveryDetail?.planingDeliveries?.[0].sequence || 1}包</View>
             <View>
               {moment(deliveryDetail?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
             </View>
