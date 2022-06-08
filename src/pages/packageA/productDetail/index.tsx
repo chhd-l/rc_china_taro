@@ -17,7 +17,7 @@ import { cartSunccessToastShowAtom } from '@/store/customer'
 import { AtToast } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
-import NavBar from "@/components/common/Navbar";
+import NavBar from '@/components/common/Navbar'
 
 export interface SelectedProps {
   [x: string]: string
@@ -69,7 +69,6 @@ const ProductDetail = () => {
     })
     //默认选规格
     detailData.skus[0]?.goodsSpecificationRel?.forEach((specification) => {
-
       detailData.specifications
         ?.filter((el) => {
           // console.info('el.id !== specification?.goodsSpecificationId', el.id, specification?.goodsSpecificationId)
@@ -124,8 +123,8 @@ const ProductDetail = () => {
       {choosedSku.id ? (
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
-          <View direction='all' className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
-            <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant>
+          <View direction="all" className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
+            {/* <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant> */}
           </View>
           <View>
             <View className="text-center text-28 flex items-center justify-center py-4">
@@ -175,9 +174,7 @@ const ProductDetail = () => {
             onClose={() => setToastShow(false)}
           />
           <View className="h-12"></View>
-          <AddCart handleShowSpec={handleShowSpec}
-            detailInfo={detailInfo}
-          />
+          <AddCart handleShowSpec={handleShowSpec} detailInfo={detailInfo} />
           <AuthLogin />
         </View>
       ) : null}

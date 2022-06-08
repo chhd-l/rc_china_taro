@@ -61,7 +61,8 @@ const DeliveryManagement = () => {
           <View className="flex justify-between items-center">
             <IconFont name="fahuoyizhan" size={80} />
             <View className="text-24 text-right">
-              下一包将在{moment(data?.planingDeliveries?.[0]?.createdAt).format('YYYY-MM-DD')}发货，请注意查收!
+              下一包将在{moment(data?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
+              发货，请注意查收!
             </View>
           </View>
           <View className="flex">

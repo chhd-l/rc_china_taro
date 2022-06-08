@@ -12,7 +12,7 @@ import { View, Text, Image } from '@tarojs/components'
 import { AtButton, AtSearchBar, AtIcon, AtAvatar } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
-import NavBar from "@/components/common/Navbar";
+import NavBar from '@/components/common/Navbar'
 
 interface SearchProps {
   keywords: string
@@ -54,7 +54,7 @@ const Search = () => {
     categoryId,
     goodsName,
     flterlist,
-    current
+    current,
   }: {
     categoryId?: string
     goodsName?: string
@@ -72,14 +72,16 @@ const Search = () => {
     if (goodsName) {
       params.goodsName = goodsName
     }
-    ; (flterlist || filterList).map((el) => {
+    ;(flterlist || filterList).map((el) => {
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
           if (!params.attributeRelation?.length) {
             params.attributeRelation = []
           }
-          let hasAttributeIdIdx = params.attributeRelation?.findIndex(relation => relation.attributeId === val.attributeId)
+          let hasAttributeIdIdx = params.attributeRelation?.findIndex(
+            (relation) => relation.attributeId === val.attributeId,
+          )
           if (hasAttributeIdIdx > -1) {
             params.attributeRelation[hasAttributeIdIdx]?.attributeValueIds.push(val.value)
           } else {
@@ -87,7 +89,6 @@ const Search = () => {
             params.attributeRelation.push(attributeRelation)
           }
           params.goodsCategoryId = val.categoryId
-
         })
     })
     let { productList: list, total } = await getProducts({ limit: 10, sample: params, hasTotal: true, offset })
@@ -207,8 +208,12 @@ const Search = () => {
         /> */}
 
           <View className="border-0">
-            <View direction='all' className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
-              <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant>
+            <View
+              direction="all"
+              className={`fixed right-2 bottom-28 z-50`}
+              style={{ width: '100px', height: '100px' }}
+            >
+              {/* <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant> */}
             </View>
             <View className="text-md font-semibold pb-4 pt-2">我想搜</View>
             <View className="flex text-xs justify-between">
@@ -224,7 +229,8 @@ const Search = () => {
                   {/* 猫图标切换 */}
                   <Image
                     className="w-7 h-8 line-height bg-center align-middle mr-1"
-                    src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${animal === 'cat' ? '_selected_1' : '_1'
+                    src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_cat${
+                      animal === 'cat' ? '_selected_1' : '_1'
                     }.svg`}
                   />
                   <Text>猫产品</Text>
@@ -239,7 +245,8 @@ const Search = () => {
                 >
                   <Image
                     className="w-7 h-8 line-height bg-center align-middle mr-1"
-                    src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${animal === 'dog' ? '_selected_1' : '_1'
+                    src={`https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/filter_dog${
+                      animal === 'dog' ? '_selected_1' : '_1'
                     }.svg`}
                   />
                   <Text>狗产品</Text>

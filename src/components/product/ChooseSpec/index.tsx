@@ -138,7 +138,10 @@ const ChooseSpec = ({
 
   const addToCheckout = async () => {
     let data = await getProductBySkuId({ goodsVariantId: choosedSku.id })
-    let selectedProduct = normalizeCartData({ goodsNum: buyCount,goodsId:detailInfo.id,goodsVariantId: choosedSku.id }, data.productBySkuId)
+    let selectedProduct = normalizeCartData(
+      { goodsNum: buyCount, goodsId: detailInfo.id, goodsVariantId: choosedSku.id },
+      data.productBySkuId,
+    )
     Taro.setStorage({
       key: 'select-product',
       data: JSON.stringify({ goodsList: [selectedProduct] }),
@@ -205,13 +208,16 @@ const ChooseSpec = ({
                   onClick={() => {
                     handleChangeSku(el, specification)
                   }}
-                  className={`mr-2 inline-block text-center text-26  border border-solid px-2 rounded-full defalt border-gray-200 text-gray-400 relative
+                  style={{ minWidth: '60px' }}
+                  className={`mr-2 inline-block text-center text-26 py-1  border border-solid px-2 rounded-full defalt border-gray-200 text-gray-400 relative
                   ${el.able && choosedSku.stock > 0 ? '' : 'disabled'}
                   ${selected[specification.id] === el.id && choosedSku.stock > 0 ? 'active textWhite' : ''}`}
                 >
-                  {el.able && choosedSku.stock > 0 ? null : <View className="absolute -top-3 -right-1">
-                    <IconFont name="a-Frame21" size={50} />
-                  </View>}
+                  {el.able && choosedSku.stock > 0 ? null : (
+                    <View className="absolute -top-3 -right-1">
+                      <IconFont name="a-Frame21" size={50} />
+                    </View>
+                  )}
                   {el.name}
                   {/* {console.info('selected', selected)}
                   {console.info('specification.id', specification.id)}

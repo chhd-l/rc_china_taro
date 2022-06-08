@@ -52,25 +52,36 @@ const SubList = ({ children }) => {
   const handleClick = () => {
     handleBuyMore(children)
   }
+  const copyText = (data) => {
+    Taro.setClipboardData({
+      data,
+    })
+  }
+
   return children?.goodsList?.map((el) => {
     const { goodsVariant = {} } = el
     console.info('planingDeliveriesplaningDeliveriesplaningDeliveries', children?.planingDeliveries)
     return (
       <View className="px-2 sub-list " key={el.spuNo} style={{ margin: '20px 0' }}>
         <View style={{ background: '#f8f8f8' }} className="px-2 pb-2 rounded-sm">
-          <View className="flex justify-between items-center h-8">
-            <View className="h-full flex flex-row items-center">
+          <View className="flex justify-between items-end h-8">
+            <View className="h-full flex flex-row items-end">
               <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
               <Text className="card">季卡</Text>
             </View>
             <View
-              className="text-28 flex-1 justify-end text-right  h-full flex items-center"
+              className="text-22 flex-1 justify-end text-right  h-full flex items-end"
               onClick={() => {
                 Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${children?.id}` })
               }}
             >
               发货管理
-              <AtIcon value="chevron-right" size="20" color="#666666" />
+              <AtIcon
+                value="chevron-right"
+                size="16"
+                color="#666666"
+                customStyle={{ position: 'relative', top: '1px' }}
+              />
             </View>
           </View>
           <View className="mt-2">
@@ -113,8 +124,22 @@ const SubList = ({ children }) => {
                 className="flex flex-row text-rc20 justify-between text-rc_666666 mt-2 mb-3 pt-2"
                 style={{ borderTop: '1px solid #E2E2E2' }}
               >
-                <View>订阅编号:{children?.no}</View>
-                <View>下一包将在{moment(children?.planingDeliveries?.[0]?.createdAt).format('YYYY-MM-DD')}发货</View>
+                <View className="flex">
+                  <View>订阅编号:{children?.no} </View>
+                  <View
+                    className="bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1"
+                    onClick={(e) => {
+                      e.stopPropagation()
+                      copyText(children?.no)
+                    }}
+                  >
+                    复制
+                  </View>
+                </View>
+                <View>
+                  下一包将在{moment(children?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
+                  发货
+                </View>
               </View>
               <View className=" my-2 px-1">
                 <AtProgress

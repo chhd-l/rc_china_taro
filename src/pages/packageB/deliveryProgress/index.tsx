@@ -60,7 +60,9 @@ const DeliveryProgress = () => {
           <View className="text-26 mt-3">
             <View className="mb-2">皇家英国短毛猫成猫全价粮</View>
             <View>第{deliveryDetail?.currentDeliveringSequence || 1}包</View>
-            <View>{moment(deliveryDetail?.planingDeliveries?.[0]?.createdAt).format('YYYY-MM-DD')}</View>
+            <View>
+              {moment(deliveryDetail?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
+            </View>
           </View>
           <View className=" mt-3 flex justify-end text-white text-26">
             <View className="bg-primary-red py-1 px-4 ml-4 rounded-full" onClick={immediateDelivery}>

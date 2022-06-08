@@ -101,10 +101,10 @@ const ProductList = () => {
 
   const onScroll = (e) => {
     if (e.detail.scrollTop > 370) {
-      setShowPendant(true)
+      // setShowPendant(true)
       setMyPets2(true)
     } else {
-      setShowPendant(false)
+      // setShowPendant(false)
       setMyPets2(false)
     }
     if (e.detail.scrollTop >= 460) {
@@ -174,7 +174,7 @@ const ProductList = () => {
         enhanced
       >
         <MovableArea className="w-full h-full">
-          <View
+          {/* <View
             direction="all"
             className={`fixed right-2 bottom-28 z-50 ${showPendant ? '' : 'hidden'}`}
             style={{ width: '100px', height: '100px' }}
@@ -184,7 +184,7 @@ const ProductList = () => {
               customParams={customParams}
               closePictureInPictureMode={closePictureInPictureMode}
             ></pendant>
-          </View>
+          </View> */}
           <ListBanner bannerList={bannerList} />
           <FloorNav
             setFloorId={setFloorId}
