@@ -3,15 +3,16 @@ import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import { getSubscriptionScheduleNextDelivery } from '@/framework/api/subscription/subscription'
 import { deliveryDetailAtom } from '@/store/subscription'
-import { View, Picker, Text, Button, Image } from '@tarojs/components'
+import { Image, Picker, Text, View } from '@tarojs/components'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
 import { useAtom } from 'jotai'
 import moment from 'moment'
 import { useState } from 'react'
-import { AtList, AtListItem, AtModal, AtModalAction, AtModalContent, AtModalHeader } from 'taro-ui'
+import { AtList, AtListItem, AtModal } from 'taro-ui'
 import './index.less'
 
+let createDeliveryNow = false //立即发货
 const DeliveryProgress = () => {
   const [errorTips, setErrorTips] = useState(false)
   const [deliveryDetail, setDeliveryDetail] = useAtom(deliveryDetailAtom)
@@ -24,9 +25,13 @@ const DeliveryProgress = () => {
       const params = {
         id: router?.params?.id,
         nextDeliveryDate: date,
+        createDeliveryNow: createDeliveryNow,
         operator: userInfo?.nickName,
       }
       const res = await getSubscriptionScheduleNextDelivery(params)
+      if (res) {
+        Taro.showToast({ title: '已提醒商家发货', icon: 'success', duration: 2000 })
+      }
     },
     {
       manual: true,
@@ -34,6 +39,7 @@ const DeliveryProgress = () => {
   )
   const handleDate = (e) => {
     console.info(' e.detail.value', e.detail.value)
+    createDeliveryNow = false
     setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: e.detail.value })
 
     // 报错需要弹出提示框
@@ -45,9 +51,9 @@ const DeliveryProgress = () => {
     setOpen(true)
   }
 
-  const copyText = (data: any) => {
+  const copyText = (datas: any) => {
     Taro.setClipboardData({
-      data,
+      datas,
     })
   }
 
@@ -58,8 +64,10 @@ const DeliveryProgress = () => {
         <View className=" px-3 bg-white rounded-md pb-3">
           <CommonTitle title="下次发货" />
           <View className="text-26 mt-3">
-            <View className="mb-2">皇家英国短毛猫成猫全价粮</View>
-            <View>第{deliveryDetail?.currentDeliveringSequence || 1}包</View>
+            <View className="mb-2">
+              {deliveryDetail?.planingDeliveries[0]?.lineItems?.find((el) => !el.isGift)?.skuName}
+            </View>
+            <View>第{deliveryDetail?.planingDeliveries?.[0].sequence || 1}包</View>
             <View>
               {moment(deliveryDetail?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
             </View>
@@ -166,8 +174,27 @@ const DeliveryProgress = () => {
           }}
           className="error-tips-modal"
         />
-        <AtModal isOpened={open} onClose={() => setOpen(false)}>
-          <AtModalHeader>
+        <AtModal
+          key="shipnow"
+          isOpened={open}
+          title="提示"
+          content="确认立即发货"
+          confirmText="确定"
+          onClose={() => {
+            setOpen(false)
+          }}
+          onCancel={() => {
+            setOpen(false)
+          }}
+          onConfirm={() => {
+            createDeliveryNow = true
+            run(deliveryDetail.nextDeliveryTime)
+            setOpen(false)
+          }}
+          className="out-stock-tip-modal"
+        />
+        {/* <AtModal isOpened={open} onClose={() => setOpen(false)}>
+          <AtModalContent>
             <View className="text-rc34 text-rc_000000 font-medium">提示</View>
           </AtModalHeader>
           <AtModalContent>
@@ -185,7 +212,7 @@ const DeliveryProgress = () => {
             </Button>{' '}
             <Button onClick={() => setOpen(false)}>取消</Button>{' '}
           </AtModalAction>
-        </AtModal>
+        </AtModal> */}
       </View>
     </View>
   )

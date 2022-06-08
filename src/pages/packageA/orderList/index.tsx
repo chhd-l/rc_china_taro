@@ -1,5 +1,5 @@
 import Taro, { getCurrentInstance, useReachBottom } from '@tarojs/taro'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { AtModal, AtTabs, AtTabsPane } from 'taro-ui'
 import OrderListComponents from '@/components/order/OrderListComponents'
 import { getOrderList } from '@/framework/api/order/order'
@@ -7,8 +7,8 @@ import { Order } from '@/framework/types/order'
 import { View } from '@tarojs/components'
 import routers from '@/routers'
 import { cloneDeep } from 'lodash'
-import './index.less'
 import NavBar from '@/components/common/Navbar'
+import './index.less'
 
 const tabList = [{ title: '全部' }, { title: '待付款' }, { title: '待发货' }, { title: '待收货' }]
 
@@ -29,6 +29,7 @@ const OrderList = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const [isNoMore, setIsNoMore] = useState(false)
   const [firstIn, setFirstIn] = useState(true)
+
   useReachBottom(() => {
     if (!isNoMore) {
       let page = currentPage + 1
@@ -37,12 +38,11 @@ const OrderList = () => {
     }
   })
 
-  const getOrderLists = async ({ status = '', curPage = currentPage }) => {
+  const getOrderLists = async ({ orderState = current, curPage = currentPage, isReload = false }) => {
     let records: any[] = []
-    if (status !== '') {
+    if (isReload) {
       curPage = 0
     } else {
-      status = current
       records = cloneDeep(orderList)
     }
     let offset = curPage ? curPage * 10 : 0
@@ -57,7 +57,7 @@ const OrderList = () => {
         {
           customerId: customerInfo.id,
         },
-        status !== 'ALL' ? { orderState: status } : {},
+        orderState !== 'ALL' ? { orderState } : {},
       ),
     })
     const isSendCoupon = router?.params?.isSendCoupon
@@ -71,7 +71,7 @@ const OrderList = () => {
     } else {
       setIsNoMore(false)
     }
-    setOrderList([...records, ...res?.records])
+    setOrderList(records.concat(res?.records))
   }
 
   Taro.useDidShow(() => {
@@ -81,7 +81,7 @@ const OrderList = () => {
     console.log('isFromSubscription', isFromSubscriptionOrder)
     setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
-    getOrderLists({ status })
+    getOrderLists({orderState:status})
   })
 
   const handleClick = async (value) => {
@@ -90,20 +90,20 @@ const OrderList = () => {
     })
     const cur = Object.values(OrderStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(OrderStatusEnum)[cur])
-    await getOrderLists({ status: Object.keys(OrderStatusEnum)[cur] })
+    await getOrderLists({ orderState: Object.keys(OrderStatusEnum)[cur],isReload:true })
   }
   console.info('showSendCouponModal', showSendCouponModal)
   return (
     <View>
       <NavBar navbarTitle={tabList[OrderStatusEnum[current]].title} isNeedBack />
-      <AtTabs className="index" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
+      <AtTabs className="order-list-tab bg-gray-eee" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
             {orderList?.length > 0 ? (
               <OrderListComponents
                 list={orderList}
                 operationSuccess={async () => {
-                  await getOrderLists({})
+                  await getOrderLists({ isReload:true })
                 }}
                 openModalTip={() => {
                   setShowShipModal(true)

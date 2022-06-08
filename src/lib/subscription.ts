@@ -1,7 +1,7 @@
 import { CDNIMGURL } from "./constants";
 
 export const EDIT_ADDRESS_ICON = `${CDNIMGURL}edit_address.png`
-export const WHAT_IS_SUBSCRIPTION = `${CDNIMGURL}MP_Subacription_01.png`
+export const WHAT_IS_SUBSCRIPTION = `${CDNIMGURL}MP_Subacription_01_new.png`
 export const CREATE_SUBSCRIPTION_ENTRY = `${CDNIMGURL}MP_Subacription_02.png`
 export const SUBSCRIPTION_DESCRIPTION = `${CDNIMGURL}MP_Subacription_03.png`
 export const SUBSCRIPTION_HELP_ICON = `${CDNIMGURL}Icon_MP_Help.svg`

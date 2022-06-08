@@ -153,7 +153,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
       console.log('query orders view list', res)
       return {
         total: total || 0,
-        records,
+        records:records||[],
       }
     }
   } catch (e) {
