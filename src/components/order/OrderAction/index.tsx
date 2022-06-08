@@ -2,15 +2,12 @@ import { View } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 import { cancelOrder, completedOrder } from '@/framework/api/order/order'
 import { pay } from '@/framework/api/payment/pay'
-import { useAtom } from 'jotai'
-import { customerAtom } from '@/store/customer'
 import Taro from '@tarojs/taro'
 import routers from '@/routers/index'
 import './index.less'
 
 const OrderAction = ({
   amount,
-  remark,
   orderState,
   orderId,
   operationSuccess,
@@ -20,11 +17,8 @@ const OrderAction = ({
   orderId: string
   operationSuccess: Function
   openModalTip: Function
-  remark: string
   amount: number
 }) => {
-  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
-
   const completed = async () => {
     const res = await completedOrder({
       orderNum: orderId,
@@ -51,7 +45,7 @@ const OrderAction = ({
         {orderState === 'UNPAID' ? (
           <>
             <AtButton
-              className="w-20 border-gray-300"
+              className="order-action-button border-gray-300"
               size="small"
               circle
               onClick={(e) => {
@@ -62,15 +56,16 @@ const OrderAction = ({
               取消订单
             </AtButton>
             <AtButton
-              className="w-20 text-primary-red border-red ml-3"
+              className="order-action-button text-primary-red border-red ml-3"
               size="small"
               circle
               onClick={(e) => {
                 e.stopPropagation()
                 let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+
                 pay({
                   params: {
-                    customerId: customerInfo?.id || '',
+                    customerId: wxLoginRes?.userInfo?.id || '',
                     customerOpenId: wxLoginRes?.customerAccount?.openId,
                     tradeId: orderId,
                     tradeNo: orderId,
@@ -79,7 +74,7 @@ const OrderAction = ({
                     amount,
                     currency: 'CNY',
                     storeId: '12345678',
-                    operator: customerInfo?.nickName || '',
+                    operator: wxLoginRes?.userInfo?.nickName || '',
                   },
                   success: function () {
                     Taro.redirectTo({
@@ -95,7 +90,7 @@ const OrderAction = ({
         ) : null}
         {orderState === 'TO_SHIP' ? (
           <AtButton
-            className="w-20 text-primary-red border-red ml-3"
+            className="order-action-button text-primary-red border-red ml-3"
             size="small"
             circle
             onClick={(e) => {
@@ -108,7 +103,7 @@ const OrderAction = ({
         ) : null}
         {orderState === 'SHIPPED' ? (
           <AtButton
-            className="w-20 text-primary-red border-red ml-3"
+            className="order-action-button text-primary-red border-red ml-3"
             size="small"
             circle
             onClick={(e) => {

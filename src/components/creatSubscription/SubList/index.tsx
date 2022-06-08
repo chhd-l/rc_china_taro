@@ -8,6 +8,7 @@ import cloneDeep from 'lodash.cloneDeep'
 import { getCycleItem } from '@/utils/utils'
 import { AtIcon, AtProgress } from 'taro-ui'
 import './index.less'
+
 export const handleBuyMore = (children) => {
   let buyInfo = cloneDeep(children)
   let { birthday, breedCode, breedName, gender, id, image, name, type } = buyInfo.pet
@@ -127,7 +128,7 @@ const SubList = ({ children }) => {
                 <View className="flex">
                   <View>订阅编号:{children?.no} </View>
                   <View
-                    className="bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1"
+                    className="bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1 copy"
                     onClick={(e) => {
                       e.stopPropagation()
                       copyText(children?.no)
