@@ -1,5 +1,5 @@
 import { AtFloatLayout } from 'taro-ui'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useRequest } from 'ahooks'
 import PetList from '@/components/customer/PetList'
 import SubList from '@/components/creatSubscription/SubList'
@@ -48,7 +48,7 @@ const Subscription = () => {
     Taro.navigateTo({ url: `/pages/packageB/createSubscription/index` })
   }
 
-  useEffect(() => {
+  Taro.useDidShow(() => {
     setRecommendInfoAtom({
       recommPetInfo: {},
       couponList: [],
@@ -71,9 +71,6 @@ const Subscription = () => {
         goodsName: '',
       },
     })
-  }, [])
-
-  Taro.useDidShow(() => {
     setCurrentStep(0)
   })
 

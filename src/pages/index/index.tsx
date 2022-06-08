@@ -149,21 +149,21 @@ const ProductList = () => {
     <View className="HomeIndex">
       <NavBarForList />
       <View
-        className={`text-xs flex items-center w-full fixed top-20 z-30 justify-center ${openDistMyPets && 'hidden'}`}
+        className={`text-xs flex items-center w-full fixed z-30 justify-center ${openDistMyPets && 'hidden'}`}
+        style={{ top: '5.9rem' }}
       >
         <View className="flex items-center justify-center bg-white shadow-2xl p-2 fexidMyPets">
-          点击&quot;
-          <IconFont name="a-Frame4" size={30} />
-          &quot;<View className="text-red-500">添加到我的小程序</View>，订粮更方便
+          点击“
+          <IconFont name="a-Frame4" size={30} />”<View className="text-red-600">添加到我的小程序</View>，订粮更方便
           <View className="ml-4" onClick={distMyPets}>
-            <IconFont name="shanchu" size={20} />
+            <IconFont name="shanchu" size={24} />
           </View>
         </View>
       </View>
       <View className="mt-0 p-1 pb-0">
         <View className="text-xs">
-          <View className="flex items-center justify-center text-sm text-gray-500 p-3">
-            <IconFont name="a-Group233" size={38} />
+          <View className="flex items-center justify-center text-sm text-gray-500 p-3 pt-2">
+            <IconFont name="a-Group233" size={42} />
             <View className="ml-1">
               皇家宠物<Text className="ml-2">提供全心营养支持</Text>
             </View>
