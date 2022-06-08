@@ -52,7 +52,7 @@ export const getSubscriptionScheduleNextDelivery = async (params: any) => {
         const { subscriptionScheduleNextDelivery } = await ApiRoot.subscriptions().subscriptionScheduleNextDelivery({ body: params })
         return subscriptionScheduleNextDelivery
     } catch (err) {
-        return {}
+        return false
     }
 }
 
