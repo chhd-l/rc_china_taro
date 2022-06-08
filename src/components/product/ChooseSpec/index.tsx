@@ -273,7 +273,7 @@ const ChooseSpec = ({
         onConfirm={() => {
           setShowOutStockTip(false)
         }}
-        className="out-stock-tip-modal"
+        className="rc_modal"
       />
     </AtFloatLayout>
   ) : null

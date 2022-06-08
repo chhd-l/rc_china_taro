@@ -208,7 +208,23 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
           pet={pet}
         />
       ) : null}
-      <AtModal isOpened={showDelModal}>
+      <AtModal
+        key="shipnow"
+        isOpened={showDelModal}
+        title="提示"
+        content="确定删除宠物信息？"
+        confirmText="狠心删除"
+        cancelText="再想想"
+        onClose={() => {
+          setShowDelModal(false)
+        }}
+        onCancel={() => {
+          setShowDelModal(false)
+        }}
+        onConfirm={comfirmDel}
+        className="rc_modal"
+      />
+      {/* <AtModal isOpened={showDelModal}>
         <AtModalContent>确定删除宠物信息？</AtModalContent>
         <AtModalAction>
           <Button
@@ -220,7 +236,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
           </Button>{' '}
           <Button onClick={comfirmDel}>狠心删除</Button>{' '}
         </AtModalAction>
-      </AtModal>
+      </AtModal> */}
     </View>
   )
 }

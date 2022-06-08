@@ -62,10 +62,10 @@ const AddressItem = ({
   //checkout过来勾选地址
   const selectAddress = () => {
     console.log('getCurrentPages ', getCurrentPages())
-    console.log(routers.checkout.replace('/',''))
+    console.log(routers.checkout.replace('/', ''))
     const findCheckoutIndex = getCurrentPages().findIndex((el) => {
-      console.log(el.route);
-     return el.route === routers.checkout.replace('/','')
+      console.log(el.route)
+      return el.route === routers.checkout.replace('/', '')
     })
     console.log(findCheckoutIndex)
     if (findCheckoutIndex > -1) {
@@ -136,7 +136,8 @@ const AddressItem = ({
       </View>
       <AtModal
         isOpened={showDelTip}
-        title="确定删除地址信息？"
+        title="提示"
+        content="确定删除地址信息？"
         cancelText="再想想"
         confirmText="狠心删除"
         onClose={() => {

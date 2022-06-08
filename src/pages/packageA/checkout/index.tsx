@@ -369,7 +369,7 @@ const Checkout = () => {
           onConfirm={() => {
             setShowNoAddressTip(false)
           }}
-          className="order-to-ship-modal"
+          className="rc_modal"
         />
       </View>
     </>

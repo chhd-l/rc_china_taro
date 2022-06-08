@@ -25,7 +25,7 @@ const DeliveryProgress = () => {
       const params = {
         id: router?.params?.id,
         nextDeliveryDate: moment(date),
-        createDeliveryNow: createDeliveryNow,
+        createDelivery: createDeliveryNow,
         operator: userInfo?.nickName,
       }
       const res = await getSubscriptionScheduleNextDelivery(params)
@@ -192,7 +192,7 @@ const DeliveryProgress = () => {
             run(moment()?.format('YYYY-MM-DD'))
             setOpen(false)
           }}
-          className="out-stock-tip-modal"
+          className="rc_modal"
         />
         {/* <AtModal isOpened={open} onClose={() => setOpen(false)}>
           <AtModalContent>

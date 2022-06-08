@@ -108,7 +108,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       </AtFloatLayout>
       <AtMessage />
       <AtModal
-        className="rc-error-tips-modal-one"
+        className="rc_modal"
         isOpened={showSuccessReceive}
         title="提示"
         confirmText="确定"
