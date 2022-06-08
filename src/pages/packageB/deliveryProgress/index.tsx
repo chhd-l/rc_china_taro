@@ -23,13 +23,15 @@ const DeliveryProgress = () => {
     async (date) => {
       const params = {
         id: router?.params?.id,
-        nextDeliveryDate: date,
+        nextDeliveryDate: moment(date),
         createDeliveryNow: createDeliveryNow,
         operator: userInfo?.nickName,
       }
       const res = await getSubscriptionScheduleNextDelivery(params)
       if (res) {
-        Taro.showToast({ title: '已提醒商家发货', icon: 'success', duration: 2000 })
+        setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: date })
+        let title = createDeliveryNow ? '已提醒商家发货' : '日期修改成功'
+        Taro.showToast({ title, icon: 'success', duration: 2000 })
       }
     },
     {
@@ -39,14 +41,14 @@ const DeliveryProgress = () => {
   const handleDate = (e) => {
     console.info(' e.detail.value', e.detail.value)
     createDeliveryNow = false
-    setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: e.detail.value })
-
+    // setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: e.detail.value })
+    run(e.detail.value)
     // 报错需要弹出提示框
     // setErrorTips(true)
   }
 
   const immediateDelivery = () => {
-    setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: moment().format('YYYY-MM-DD') })
+    // setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: moment().format('YYYY-MM-DD') })
     setOpen(true)
   }
 
@@ -67,9 +69,7 @@ const DeliveryProgress = () => {
               {deliveryDetail?.planingDeliveries[0]?.lineItems?.find((el) => !el.isGift)?.skuName}
             </View>
             <View>第{deliveryDetail?.planingDeliveries?.[0].sequence || 1}包</View>
-            <View>
-              {moment(deliveryDetail?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
-            </View>
+            <View>{moment(deliveryDetail?.nextDeliveryTime).format('YYYY-MM-DD')}</View>
           </View>
           <View className=" mt-3 flex justify-end text-white text-26">
             <View className="bg-primary-red py-1 px-4 ml-4 rounded-full" onClick={immediateDelivery}>
@@ -176,6 +176,7 @@ const DeliveryProgress = () => {
           title="提示"
           content="确认立即发货"
           confirmText="确定"
+          cancelText="取消"
           onClose={() => {
             setOpen(false)
           }}

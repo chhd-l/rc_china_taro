@@ -194,7 +194,7 @@ export const normalizeCartData = (cart: any, productSkuInfo: any, isSubscription
   cart.skuGoodInfo = productSku
   cart.select = false
   cart.localData = {
-    name: productSkuInfo?.goodsVariants[0]?.name,
+    name: productSkuInfo?.goodsVariants[0]?.name || productSkuInfo.goodsName,
     image: productSkuInfo?.goodsVariants[0]?.defaultImage || spuimage,
     price: isSubscription ? productSkuInfo?.goodsVariants[0]?.subscriptionPrice : productSkuInfo?.goodsVariants[0]?.marketingPrice,
     tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
