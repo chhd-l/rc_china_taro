@@ -45,7 +45,7 @@ const DeliveryProgress = () => {
     setOpen(true)
   }
 
-  const copyText = (data) => {
+  const copyText = (data: any) => {
     Taro.setClipboardData({
       data,
     })
@@ -87,8 +87,8 @@ const DeliveryProgress = () => {
           <CommonTitle title="发货记录" />
           {deliveryDetail?.completedDeliveries?.length ? (
             <View className="text-26 mt-3">
-              {deliveryDetail?.completedDeliveries?.map((completedDelivery) => (
-                <View className="my-2 record ">
+              {deliveryDetail?.completedDeliveries?.map((completedDelivery, idx) => (
+                <View key={idx} className="my-2 record ">
                   <View className="flex flex-row py-2 justify-between  px-2">
                     <View className="flex flex-row  ">
                       <View className="text-rc22 text-textGray">订单编号:{completedDelivery?.tradeId}</View>
@@ -107,8 +107,8 @@ const DeliveryProgress = () => {
                   <View className="Descborder p-2">
                     {completedDelivery?.lineItems
                       ?.filter((el) => !el.isGift)
-                      ?.map((el) => (
-                        <View className="flex  border-red-400 items-center mb-1">
+                      ?.map((el, index) => (
+                        <View key={index} className="flex  border-red-400 items-center mb-1">
                           <View className="h-rc169 w-rc163 bg-primary-red">
                             <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
                           </View>
@@ -116,8 +116,11 @@ const DeliveryProgress = () => {
                             <View className="text-rc28 text-rc_222222  ml-1">{el.skuName}</View>
                             <View className="flex flex-row justify-between mb-1">
                               <View className="flex flex-row text-rc20">
-                                {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                                  <View className=" text-primary-red px-1 border rounded-lg border-solid border-red mr-2 mt-2">
+                                {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag, key) => (
+                                  <View
+                                    key={key}
+                                    className=" text-primary-red px-1 border rounded-lg border-solid border-red mr-2 mt-2"
+                                  >
                                     {tag}
                                   </View>
                                 ))}
@@ -164,12 +167,15 @@ const DeliveryProgress = () => {
           className="error-tips-modal"
         />
         <AtModal isOpened={open} onClose={() => setOpen(false)}>
-          <AtModalContent>
+          <AtModalHeader>
             <View className="text-rc34 text-rc_000000 font-medium">提示</View>
+          </AtModalHeader>
+          <AtModalContent>
             <View className="text-rc34 text-rc_999999">确认立即发货</View>
           </AtModalContent>
           <AtModalAction>
             <Button
+              style={{ color: 'rgba(220, 38, 38) !important' }}
               onClick={() => {
                 run(deliveryDetail.nextDeliveryTime)
                 setOpen(false)

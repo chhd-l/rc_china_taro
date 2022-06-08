@@ -203,13 +203,13 @@ const ProductList = () => {
               <View className="flex">
                 <ScrollView className="whitespace-nowrap " scrollX overflow-anchor={false}>
                   {ProductLists.map((item, index) => (
-                    <View key={index} className="w-32 inline-block ml-2">
+                    <View key={index} className="w-28 inline-block ml-2">
                       <Image className="w-full h-28" src={item.img} />
                       <View className="px-2">
                         <View className="text-block truncate">{item.title}</View>
-                        <View className="flex justify-between items-center text-red-600">
+                        <View className="flex justify-between items-center text-red-600 font-bold">
                           <Text className="text-gray-300 line-through">原价￥{item.noPrice}</Text>
-                          <Text>￥ {item.Price}</Text>
+                          <Text className="text-sm">￥ {item.Price}</Text>
                         </View>
                       </View>
                     </View>

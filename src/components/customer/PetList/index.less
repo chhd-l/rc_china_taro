@@ -1,27 +1,42 @@
-
 .PetListMy {
-    background: url('https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_backgroud.png') no-repeat cen;
-    background-size: 100%;
+  background: url('https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_backgroud.png') no-repeat cen;
+  background-size: 100%;
 
-    .iconjia {
-        top: 25%;
+  .custompettips {
+    .triangle {
+      box-sizing: border-box;
+      width: 0px;
+      border: .5rem solid #000;
+      border-top-color: transparent;
+      border-bottom-color: rgba(156, 163, 175);
+      border-left-color: transparent;
+      border-right-color: transparent;
+    }
+  }
+
+  .iconjia {
+    top: 25%;
+  }
+
+  .bgacIImg {
+    background: url('https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_edit.png') no-repeat center;
+    background-size: 100% 100% !important;
+  }
+
+  .Petpictureshadow {
+    box-shadow: -1px 1px 10px 1px rgb(237, 237, 237) !important;
+    margin: 1rem auto;
+  }
+
+  .check-icon {
+    background-color: gray;
+
+    .at-icon-check {
+      font-size: 24px !important;
     }
 
-    .bgacIImg {
-        background: url('https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_edit.png') no-repeat center;
-        background-size: 100% 100% !important;
+    &.bg-primary-red {
+      background-color: rgba(211, 48, 36, var(--tw-bg-opacity));
     }
-
-    .Petpictureshadow {
-        box-shadow: -1px 1px 10px 1px rgb(237, 237, 237) !important;
-    }
-    .check-icon{
-        background-color: gray;
-        .at-icon-check{
-            font-size: 24px!important;
-        }
-        &.bg-primary-red{
-            background-color: rgba(211, 48, 36, var(--tw-bg-opacity));
-        }
-    }
+  }
 }

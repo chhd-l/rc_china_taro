@@ -1,15 +1,16 @@
-import { Swiper, SwiperItem, View, Image, Text } from '@tarojs/components'
-import { useEffect, useState } from 'react'
-import { PetGender, PetListItemProps } from '@/framework/types/customer'
-import Taro from '@tarojs/taro'
-import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
-import { getPets } from '@/framework/api/pet/get-pets'
-import { customerAtom } from '@/store/customer'
-import { useAtom } from 'jotai'
-import { getAge } from '@/utils/utils'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
-import { Dog, Cat } from '@/utils/global'
+import { getPets } from '@/framework/api/pet/get-pets'
+import { PetGender, PetListItemProps } from '@/framework/types/customer'
+import IconFont from '@/iconfont'
+import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
+import { customerAtom } from '@/store/customer'
 import { recommendInfoAtom } from '@/store/subscription'
+import { Cat, Dog } from '@/utils/global'
+import { getAge } from '@/utils/utils'
+import { Image, Swiper, SwiperItem, Text, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import { useAtom } from 'jotai'
+import { useEffect, useState } from 'react'
 import { AtIcon } from 'taro-ui'
 import './index.less'
 
@@ -50,7 +51,7 @@ const PetList = (props: Props) => {
       item.age = getAge(item.birthday)
     })
     if (props.siglePetInfo) {
-      res = res.filter(el => el.petId === props.siglePetInfo?.id)
+      res = res.filter((el) => el.petId === props.siglePetInfo?.id)
       if (!res.length) {
         // debugger
         res = [props.siglePetInfo]
@@ -83,8 +84,9 @@ const PetList = (props: Props) => {
   const CheckBoxItem = ({ id, idx }: { id: string; idx?: number }) => {
     return props.showCheckBox ? (
       <View
-        className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${checkedArr.includes(id) && 'bg-primary-red'
-          }`}
+        className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${
+          checkedArr.includes(id) && 'bg-primary-red'
+        }`}
         onClick={() => {
           handleChecked(id, idx)
         }}
@@ -94,64 +96,68 @@ const PetList = (props: Props) => {
     ) : null
   }
   const renderNoPet = () => {
-    return <View
-      onClick={toPetList}
-      className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2 relative"
-      style={{ borderRadius: '50%' }}
-    // src={pet.image}
-    >
-      <AtIcon value="add" size={16} />
-    </View>
+    return (
+      <View
+        onClick={toPetList}
+        className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2 relative"
+        style={{ borderRadius: '50%' }}
+        // src={pet.image}
+      >
+        <AtIcon value="add" size={16} />
+      </View>
+    )
   }
   const renderOnePet = () => {
-    return <View className="box-border">
-      <View className="w-full flex relative mb-2">
-        <View className="text-center h-full w-full flex items-center">
+    return (
+      <View className="box-border">
+        <View className="w-full flex relative mb-2">
+          <View className="text-center h-full w-full flex items-center">
+            <View
+              className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md relative"
+              onClick={() => {
+                handleChecked(fakePet[0].id, 0)
+              }}
+            >
+              <Image
+                src={fakePet[0].image || (fakePet[0].type === 'DOG' ? Dog : Cat)}
+                // src={pet.image}
+                style={{ borderRadius: '50%' }}
+                className="w-full h-full m-auto Petpictureshadow"
+              />
+              <CheckBoxItem id={fakePet[0].id} idx={0} />
+            </View>
+          </View>
           <View
-            className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md relative"
-            onClick={() => {
-              handleChecked(fakePet[0].id, 0)
-            }}
+            style={{ top: '50%', transform: 'translateY(-50%)' }}
+            className="w-6 h-6 m-auto absolute right-0"
+            onClick={toPetList}
           >
-            <Image
-              src={fakePet[0].image || (fakePet[0].type === 'DOG' ? Dog : Cat)}
-              // src={pet.image}
-              style={{ borderRadius: '50%' }}
-              className="w-full h-full m-auto Petpictureshadow"
+            <View
+              className="w-full h-full bg-no-repeat bg-contain"
+              style={{
+                backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
+                backgroundColor: '#fff',
+                borderRadius: '50%',
+                boxShadow: '-0.5px 0.5px 22px 0px #999',
+              }}
             />
-            <CheckBoxItem id={fakePet[0].id} idx={0} />
           </View>
         </View>
-        <View
-          style={{ top: '50%', transform: 'translateY(-50%)' }}
-          className="w-6 h-6 m-auto absolute right-0"
-          onClick={toPetList}
-        >
+        <View className="text-center flex justify-center items-center">
+          <Text className="text-primary-red font-semibold text-lg mx-2">{fakePet[currentIdx]?.name}</Text>
           <View
-            className="w-full h-full bg-no-repeat bg-contain"
+            className="w-3 h-3 mr-4  bg-contain"
             style={{
-              backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
-              backgroundColor: '#fff',
-              borderRadius: '50%',
-              boxShadow: '-0.5px 0.5px 22px 0px #999',
+              backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
             }}
-          />
+          ></View>
+          <Text className=" text-22 bg-white">
+            {fakePet[currentIdx]?.breed}
+            <Text className=" ml-1">{fakePet[currentIdx]?.age ? ` ${fakePet[currentIdx]?.age}` : ''}</Text>
+          </Text>
         </View>
       </View>
-      <View className="text-center flex justify-center items-center">
-        <Text className="text-primary-red font-semibold text-lg mx-2">{fakePet[currentIdx]?.name}</Text>
-        <View
-          className="w-3 h-3 mr-4  bg-contain"
-          style={{
-            backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
-          }}
-        ></View>
-        <Text className=" text-22 bg-white">
-          {fakePet[currentIdx]?.breed}
-          <Text className=" ml-1">{fakePet[currentIdx]?.age ? ` ${fakePet[currentIdx]?.age}` : ''}</Text>
-        </Text>
-      </View>
-    </View>
+    )
   }
   const renderTwoPet = () => {
     return (
@@ -161,8 +167,8 @@ const PetList = (props: Props) => {
             style={{ height: '80px' }}
             className="w-72 flex items-center"
             circular
-            nextMargin={systemType ? "180rpx" : "100rpx"}
-            previousMargin={systemType ? "160rpx" : "200rpx"}
+            nextMargin={systemType ? '180rpx' : '100rpx'}
+            previousMargin={systemType ? '160rpx' : '200rpx'}
             current={currentIdx}
             onChange={({ detail }) => handleChange(detail.current)}
           >
@@ -170,7 +176,6 @@ const PetList = (props: Props) => {
               return (
                 <SwiperItem key={idx}>
                   <View className="text-center h-full flex items-center justify-center">
-
                     <View
                       className={`w-18  bg-white h-18 rounded-full shadow-md flex items-center justify-center relative 
                     ${currentIdx !== idx && 'scale-75 transform'}`}
@@ -190,7 +195,6 @@ const PetList = (props: Props) => {
                         currentIdx:{currentIdx}
                       </View>
                     </View>
-
                   </View>
                 </SwiperItem>
               )
@@ -316,6 +320,21 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
+      <View className="custompettips relative flex flex-col items-center">
+        <View className="triangle" />
+        <View
+          className="w-full h-9 bg-gray-400 flex items-center justify-center text-sm text-white"
+          style={{ borderRadius: '1.5rem' }}
+        >
+          赶紧添加你的宠物信息，定制TA的营养套餐~
+        </View>
+        <View
+          className="absolute top-2 right-0 bg-gray-400 border-2 border-gray-400 border-solid"
+          style={{ borderRadius: '100%' }}
+        >
+          <IconFont name="shanchu" size={42} color="#fff" />
+        </View>
+      </View>
     </View>
   )
 }
