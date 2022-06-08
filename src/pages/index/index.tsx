@@ -72,7 +72,7 @@ const ProductList = () => {
   const [openDistMyPets, setOpenDistMyPets] = useState(false)
   const [, setCustomer] = useAtom(customerAtom)
   const [roomId, setRoomId] = useState<any>(null)
-  let [liveStreaming, setLiveStreaming] = useState<any>({})
+  let [liveStreaming, setLiveStreaming] = useState<any>(undefined)
   const loginInit = async () => {
     if (Taro.getStorageSync('wxLoginRes')) {
       const data = await wxLogin()
