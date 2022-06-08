@@ -1,15 +1,16 @@
-import { Swiper, SwiperItem, View, Image, Text } from '@tarojs/components'
-import { useEffect, useState } from 'react'
-import { PetGender, PetListItemProps } from '@/framework/types/customer'
-import Taro from '@tarojs/taro'
-import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
-import { getPets } from '@/framework/api/pet/get-pets'
-import { customerAtom } from '@/store/customer'
-import { useAtom } from 'jotai'
-import { getAge } from '@/utils/utils'
 import AuthLogin, { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
-import { Dog, Cat } from '@/utils/global'
+import { getPets } from '@/framework/api/pet/get-pets'
+import { PetGender, PetListItemProps } from '@/framework/types/customer'
+import IconFont from '@/iconfont'
+import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
+import { customerAtom } from '@/store/customer'
 import { recommendInfoAtom } from '@/store/subscription'
+import { Cat, Dog } from '@/utils/global'
+import { getAge } from '@/utils/utils'
+import { Image, Swiper, SwiperItem, Text, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import { useAtom } from 'jotai'
+import { useEffect, useState } from 'react'
 import { AtIcon } from 'taro-ui'
 import './index.less'
 
@@ -323,6 +324,21 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
+      <View className="custompettips relative flex flex-col items-center">
+        <View className="triangle" />
+        <View
+          className="w-full h-9 bg-gray-400 flex items-center justify-center text-sm text-white"
+          style={{ borderRadius: '1.5rem' }}
+        >
+          赶紧添加你的宠物信息，定制TA的营养套餐~
+        </View>
+        <View
+          className="absolute top-2 right-0 bg-gray-400 border-2 border-gray-400 border-solid"
+          style={{ borderRadius: '100%' }}
+        >
+          <IconFont name="shanchu" size={42} color="#fff" />
+        </View>
+      </View>
       <AuthLogin />
     </View>
   )

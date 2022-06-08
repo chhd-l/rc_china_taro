@@ -1,51 +1,70 @@
-.birthday-icon{
-    background-image: url('/src/assets/icons/pet/birthday.png');
-}
-.date-item{
-    // border:0px;
-    .at-list__item-container{
-        position: relative;
-        .at-list__item-extra{
-            position: absolute;
-            left: -2px;
-            top: 0;
-        }
-    }
-    View{
-        &::after{
-            border:0
-        }
-        &::before{
-            border:0
-        }
-        // border:0px
-    }
-    .at-list__item{
-        &::after{
-            border:0px
-        }
-    }
-}
-.date-item.isios{
-    .at-list__item{
-        padding: 11px;
-    }
+.birthday-icon {
+  background-image: url('/src/assets/icons/pet/birthday.png');
 }
 
-.date-item.isandroid{
-    .at-list__item{
-        padding: 12px;
+.date-item {
+
+  .at-list__item-container {
+    position: relative;
+
+    .at-list__item-content {
+      position: absolute;
+      width: 12rem;
+      z-index: 10;
+
+      .item-content__info-title {
+        font-size: 22rpx;
+        color: #666;
+      }
     }
-}
-.edit-pet{
-    .py-1{
-        padding-top: 0.3rem;
-        padding-bottom: 0.3rem;
+
+    .at-list__item-extra {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      left: -2px;
+      z-index: 11;
+
+      .item-extra__info {
+        font-size: 22rpx;
+        color: black;
+      }
     }
+  }
+
+  View {
+    &::after {
+      border: 0
+    }
+
+    &::before {
+      border: 0
+    }
+  }
+
+  .at-list__item {
+    &::after {
+      border: 0px
+    }
+  }
 }
+
+.date-item.isios {
+  .at-list__item {
+    padding: 0;
+  }
+}
+
+.edit-pet {
+  .py-1 {
+    padding-top: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
+}
+
 .PickerItem {
-    .item-extra__info {
-        float: left !important;
-        background: #fff;
-    }
+  .item-extra__info {
+    height: 100%;
+    background: #fff;
+  }
 }
