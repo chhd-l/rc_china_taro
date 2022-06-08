@@ -152,7 +152,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
         ) : (
           // 新增
           <View
-            className="text-center pt-14 pb-2 w-screen"
+            className="text-center py-8 w-screen z-50"
             style={{ backgroundImage: `url(${petBg})` }}
             onClick={() => {
               showEdit(petIdx)
@@ -169,7 +169,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               />
             ) : (
               <View
-                className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
+                className="w-20 h-20 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
                 style={{ borderRadius: '50%' }}
                 // src={pet.image}
                 onClick={() => {

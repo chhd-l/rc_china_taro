@@ -432,27 +432,6 @@ export const dogDryFood = [
       },
     ]
   },
-  {
-    color: 'yellow',
-    title: '品种犬',
-    Children: [
-      {
-        title: '小型犬',
-        Children: [
-          {
-            title: '皮肤呵护小型犬全价粮',
-            price: '111',
-            span: '社区专享95折'
-          },
-          {
-            title: '绝育呵护小型犬全价粮',
-            price: '111',
-            span: '社区专享95折'
-          }
-        ]
-      },
-    ]
-  },
 ]
 
 export const largeButtonClass =
