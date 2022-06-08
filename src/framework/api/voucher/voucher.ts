@@ -94,7 +94,11 @@ export const receiveVoucher = async (params) => {
     console.log('receive voucher', res?.voucherReceive)
     return res?.voucherReceive || false
   } catch (err) {
-    console.log('err', err)
+    console.log('err', err?.errors?.Message)
+    Taro.atMessage({
+      message: err?.errors?.Message || '系统繁忙，请稍后再试',
+      type: 'error',
+    })
     return false
   }
 }
