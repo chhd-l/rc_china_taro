@@ -7,6 +7,7 @@ import { createAddress, updateAddress } from '@/framework/api/customer/address'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { pickForUpdate } from '@/utils/utils'
 import './index.less'
+import NavBar from '@/components/common/Navbar'
 
 const Index = () => {
   const { router } = getCurrentInstance()
@@ -62,7 +63,7 @@ const Index = () => {
     } else if (router?.params.type === 'edit') {
       let params = pickForUpdate(addressInfo, initData)
       await updateAddress({
-        params: Object.assign(params,{id:addressInfo.id}),
+        params: Object.assign(params, { id: addressInfo.id }),
       })
     } else {
       await createAddress(
@@ -110,95 +111,98 @@ const Index = () => {
   }, [])
 
   return (
-    <View className="index bg-gray-200 p-2 h-screen">
-      <AtForm className="p-2" onSubmit={() => saveNewAddress()}>
-        <View className=" bg-white">
-          <AtInput
-            name="receiverName"
-            title="收货人"
-            type="text"
-            placeholder="请输入姓名"
-            value={addressInfo['receiverName']}
-            onChange={(value) => updateAddressInfo(value, 'receiverName')}
-            className="rc-address-input"
-          />
-          <AtInput
-            name="phone"
-            title="联系电话"
-            type="text"
-            placeholder="请输入联系电话"
-            value={addressInfo['phone']}
-            onChange={(value) => updateAddressInfo(value, 'phone')}
-            className="rc-address-input"
-          />
-          <View
-            className="ml-3 py-3 text-32 border-b border-t-0 border-l-0 border-r-0 border-solid"
-            style={{ borderColor: '#d6e4ef' }}
-          >
-            <Text>所在地区</Text>
-            <Text
-              onClick={() => {
-                console.log('WPickerRef', WPickerRef)
-                WPickerRef.show()
-              }}
-              className={`${province ? '' : 'text-gray-300'} ml-8`}
+    <>
+      <NavBar navbarTitle={router?.params?.type === 'edit' ? '编辑地址' : '新增地址'} isNeedBack />
+      <View className="index bg-gray-eee p-2 h-screen">
+        <AtForm className="p-2 rounded" onSubmit={() => saveNewAddress()}>
+          <View className=" bg-white">
+            <AtInput
+              name="receiverName"
+              title="收货人"
+              type="text"
+              placeholder="请输入姓名"
+              value={addressInfo['receiverName']}
+              onChange={(value) => updateAddressInfo(value, 'receiverName')}
+              className="rc-address-input"
+            />
+            <AtInput
+              name="phone"
+              title="联系电话"
+              type="text"
+              placeholder="请输入联系电话"
+              value={addressInfo['phone']}
+              onChange={(value) => updateAddressInfo(value, 'phone')}
+              className="rc-address-input"
+            />
+            <View
+              className="ml-3 py-3 text-32 border-b border-t-0 border-l-0 border-r-0 border-solid"
+              style={{ borderColor: '#d6e4ef' }}
             >
-              {province ? province + ',' + city + ',' + region : '省,市,区'}
-            </Text>
+              <Text>所在地区</Text>
+              <Text
+                onClick={() => {
+                  console.log('WPickerRef', WPickerRef)
+                  WPickerRef.show()
+                }}
+                className={`${province ? '' : 'text-gray-300'} ml-8`}
+              >
+                {province ? province + ',' + city + ',' + region : '省,市,区'}
+              </Text>
+            </View>
+            <RegionPicker
+              mode="region"
+              value={address}
+              defaultType="label"
+              hideArea={false}
+              confirm={(res) => onConfirm(res)}
+              cancel={onCancel}
+              onRef={onRef}
+            />
+            <AtTextarea
+              value={addressInfo['detail']}
+              onChange={(value) => updateAddressInfo(value, 'detail')}
+              maxLength={200}
+              placeholder="请输入详细地址"
+              count={false}
+              className="ml-1 border-0 border-t-0 rc-text-area"
+            />
+            <Radio
+              value="0"
+              checked={Boolean(addressInfo.isDefault)}
+              onClick={() => updateAddressInfo(!addressInfo.isDefault, 'isDefault')}
+              style={{ transform: 'scale(0.6)' }}
+              color="#d33024"
+              className="mt-2 text-48 -ml-4 text-gray-400"
+            >
+              &nbsp;默认地址
+            </Radio>
           </View>
-          <RegionPicker
-            mode="region"
-            value={address}
-            defaultType="label"
-            hideArea={false}
-            confirm={(res) => onConfirm(res)}
-            cancel={onCancel}
-            onRef={onRef}
-          />
-          <AtTextarea
-            value={addressInfo['detail']}
-            onChange={(value) => updateAddressInfo(value, 'detail')}
-            maxLength={200}
-            placeholder="请输入详细地址"
-            count={false}
-            className="ml-1 border-0 border-t-0 rc-text-area"
-          />
-          <Radio
-            value="0"
-            checked={Boolean(addressInfo.isDefault)}
-            onClick={() => updateAddressInfo(!addressInfo.isDefault, 'isDefault')}
-            style={{ transform: 'scale(0.6)' }}
-            color="red"
-            className="mt-2 text-48 -ml-4"
+        </AtForm>
+        <View className="mt-2 flex justify-center">
+          <AtButton
+            className="bg-red-500 rc-button text-white w-24 rounded-3xl"
+            formType="submit"
+            onClick={saveNewAddress}
           >
-            默认地址
-          </Radio>
+            保存
+          </AtButton>
         </View>
-      </AtForm>
-      <View className="mt-2 flex justify-center">
-        <AtButton
-          className="bg-red-500 rc-button text-white w-24 rounded-3xl"
-          formType="submit"
-          onClick={saveNewAddress}
-        >
-          保存
-        </AtButton>
+        <AtToast
+          isOpened={isOpen}
+          duration={1200}
+          text="请填写完整地址信息"
+          icon="close"
+          onClose={() => setIsOpen(false)}
+        />
+        <AtToast
+          isOpened={isOpenPhone}
+          duration={1200}
+          text="请填写正确手机号码"
+          icon="close"
+          onClose={() => setIsOpenPhone(false)}
+        />
       </View>
-      <AtToast
-        isOpened={isOpen}
-        duration={1200}
-        text="请填写完整地址信息"
-        icon="close"
-        onClose={() => setIsOpen(false)}
-      />
-      <AtToast
-        isOpened={isOpenPhone}
-        duration={1200}
-        text="请填写正确手机号码"
-        icon="close"
-        onClose={() => setIsOpenPhone(false)}
-      />
-    </View>
+    </>
   )
 }
 

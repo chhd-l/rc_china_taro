@@ -62,7 +62,7 @@ const TotalSettle = ({
           value="选中"
           checked={isChecked}
           style={{ transform: 'scale(0.6)' }}
-          color="red"
+          color="#d33024"
           className="text-48"
           onClick={() => changeIsAllSelect()}
         >

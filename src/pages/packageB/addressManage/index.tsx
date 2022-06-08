@@ -8,7 +8,6 @@ import routers from '@/routers'
 import NavBar from '@/components/common/Navbar'
 import './index.less'
 
-
 const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
@@ -65,8 +64,8 @@ const Index = () => {
 
   return (
     <>
-      <NavBar navbarTitle="地址管理" isNeedBack/>
-      <View style={{ backgroundColor: '#eeeeee' }} className="index p-2 min-h-screen">
+      <NavBar navbarTitle="地址管理" isNeedBack />
+      <View className="index p-2 min-h-screen bg-gray-eee">
         {addressList.map((item: Address) => (
           <AddressItem
             addressInfo={item}
@@ -84,13 +83,13 @@ const Index = () => {
                 })
               }}
             >
-              <Text>+</Text>新增地址
+              <Text>+&nbsp; </Text>新增地址
             </Button>
             <Button
               className="text-xs h-8 bg-white flex items-center text-gray-400 border-none"
               onClick={() => getWechatAddress()}
             >
-              <Text>+</Text>获取微信收货地址
+              <Text>+&nbsp; </Text>获取微信收货地址
             </Button>
           </View>
         </View>
