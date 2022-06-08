@@ -98,6 +98,7 @@ module.exports = {
       },
       borderColor: {
         rc_E2E2E2: '#E2E2E2',
+        'gray-eee': '#eeeeee',
       },
     },
   },

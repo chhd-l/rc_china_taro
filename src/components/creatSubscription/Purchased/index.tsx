@@ -76,8 +76,8 @@ const Purchased = () => {
               <View className="flex justify-between">
                 <View className="text-primary-red">
                   <Text className="text-rc20 text-primary-red">￥</Text>
-                  <Text className="text-rc28">0</Text>
-                  <Text className="text-rc20">.00</Text>
+                  <Text className="text-rc28 font-bold">0</Text>
+                  <Text className="text-rc20 font-bold">.00</Text>
                 </View>
                 <View className="text-textGray text-rc22">x{list.quantity}</View>
               </View>
@@ -107,8 +107,8 @@ const Purchased = () => {
               <View className="flex justify-between">
                 <View className="text-primary-red">
                   <Text className="text-rc20 text-primary-red">￥</Text>
-                  <Text className="text-rc28">0</Text>
-                  <Text className="text-rc20">.00</Text>
+                  <Text className="text-rc28 font-bold">0</Text>
+                  <Text className="text-rc20 font-bold">.00</Text>
                 </View>
                 <View className="text-textGray text-rc22">x{list.quantity}</View>
               </View>

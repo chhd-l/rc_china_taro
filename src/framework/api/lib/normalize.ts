@@ -194,7 +194,7 @@ export const normalizeCartData = (cart: any, productSkuInfo: any, isSubscription
   cart.skuGoodInfo = productSku
   cart.select = false
   cart.localData = {
-    name: productSkuInfo?.goodsName,
+    name: productSkuInfo?.goodsVariants[0]?.name,
     image: productSkuInfo?.goodsVariants[0]?.defaultImage || spuimage,
     price: isSubscription ? productSkuInfo?.goodsVariants[0]?.subscriptionPrice : productSkuInfo?.goodsVariants[0]?.marketingPrice,
     tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
@@ -211,15 +211,15 @@ export const normalizeTags = (attributeValueRels, feedingDays) => {
   attributeValueRels?.forEach((attr) => {
     switch (attr.attributeName) {
       case '年龄':
-        tags[0] = `适用年龄:${attr.attributeValueName}` //显示中文
+        tags[0] = `适用年龄: ${attr.attributeValueName}` //显示中文
         break
       case '干/湿':
         let value =
           (attr.attributeValueName == '湿粮' && '每日一包') ||
           (attr.attributeValueName == '其他' && '2日一罐')
-        let dryVal = attr.attributeValueName == '干粮' && feedingDays && `建议饲喂天数:${feedingDays}天`
+        let dryVal = attr.attributeValueName == '干粮' && feedingDays && `建议饲喂天数: ${feedingDays}天`
 
-        tags[1] = value ? `建议干湿搭配:${value}` : ''
+        tags[1] = value ? `建议干湿搭配: ${value}` : ''
         tags[2] = dryVal || ''
         break
     }
