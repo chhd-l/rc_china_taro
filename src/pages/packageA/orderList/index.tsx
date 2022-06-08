@@ -96,7 +96,7 @@ const OrderList = () => {
   return (
     <View>
       <NavBar navbarTitle={tabList[OrderStatusEnum[current]].title} isNeedBack />
-      <AtTabs className="index" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
+      <AtTabs className="order-list-tab bg-gray-eee" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
             {orderList?.length > 0 ? (

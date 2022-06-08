@@ -25,6 +25,7 @@ module.exports = {
         rc_9B9C9D: '#9B9C9D',
         rc_FAFBFC: '#FAFBFC',
         rc_EAEAEA: '#EAEAEA',
+        'gray-ef':'#efefef'
       },
       textColor: {
         titleGray: '#A7A7A7',

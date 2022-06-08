@@ -8,7 +8,7 @@ const ProductItem = ({ product }: { product: any }) => {
   const { image, price, tags, name } = product.localData
 
   return (
-    <View className="flex flex-row justify-between items-stretch mt-4 p-2">
+    <View className="flex flex-row justify-between items-center mt-4 p-2">
       <View style={{ width: '260rpx', height: '260rpx' }}>
         <Image style="width:260rpx; height: 260rpx;border: 1px solid #f0f0f0" lazyLoad src={image} />
       </View>
@@ -19,7 +19,7 @@ const ProductItem = ({ product }: { product: any }) => {
             <View className="text-22 text-gray-400 mt-1">{el}</View>
           ))}
         </View>
-        <View className="flex flex-row justify-between pr-4 items-end">
+        <View className="flex flex-row justify-between items-end mt-4">
           <Text className="text-26 text-primary-red font-semibold">{formatMoney(price)}</Text>
           <Text className="text-22">x {goodsNum}</Text>
         </View>
