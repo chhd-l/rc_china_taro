@@ -11,7 +11,7 @@ import moment from 'moment'
 import { useState } from 'react'
 import { AtList, AtListItem, AtModal, AtModalAction, AtModalContent, AtModalHeader } from 'taro-ui'
 import './index.less'
-
+let createDeliveryNow = false //立即发货
 const DeliveryProgress = () => {
   const [errorTips, setErrorTips] = useState(false)
   const [deliveryDetail, setDeliveryDetail] = useAtom(deliveryDetailAtom)
@@ -24,9 +24,13 @@ const DeliveryProgress = () => {
       const params = {
         id: router?.params?.id,
         nextDeliveryDate: date,
+        createDeliveryNow: createDeliveryNow,
         operator: userInfo?.nickName,
       }
       const res = await getSubscriptionScheduleNextDelivery(params)
+      if (res) {
+        Taro.showToast({ title: '已提醒商家发货', icon: 'success', duration: 2000 })
+      }
     },
     {
       manual: true,
@@ -34,6 +38,7 @@ const DeliveryProgress = () => {
   )
   const handleDate = (e) => {
     console.info(' e.detail.value', e.detail.value)
+    createDeliveryNow = false
     setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: e.detail.value })
 
     // 报错需要弹出提示框
@@ -58,7 +63,9 @@ const DeliveryProgress = () => {
         <View className=" px-3 bg-white rounded-md pb-3">
           <CommonTitle title="下次发货" />
           <View className="text-26 mt-3">
-            <View className="mb-2">{deliveryDetail?.planingDeliveries?.find((el) => !el.isGift)?.skuName}</View>
+            <View className="mb-2">
+              {deliveryDetail?.planingDeliveries[0]?.lineItems?.find((el) => !el.isGift)?.skuName}
+            </View>
             <View>第{deliveryDetail?.planingDeliveries?.[0].sequence || 1}包</View>
             <View>
               {moment(deliveryDetail?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
@@ -163,7 +170,26 @@ const DeliveryProgress = () => {
           }}
           className="error-tips-modal"
         />
-        <AtModal isOpened={open} onClose={() => setOpen(false)}>
+        <AtModal
+          key="shipnow"
+          isOpened={open}
+          title="提示"
+          content="确认立即发货"
+          confirmText="确定"
+          onClose={() => {
+            setOpen(false)
+          }}
+          onCancel={() => {
+            setOpen(false)
+          }}
+          onConfirm={() => {
+            createDeliveryNow = true
+            run(deliveryDetail.nextDeliveryTime)
+            setOpen(false)
+          }}
+          className="out-stock-tip-modal"
+        />
+        {/* <AtModal isOpened={open} onClose={() => setOpen(false)}>
           <AtModalContent>
             <View className="text-rc34 text-rc_000000 font-medium">提示</View>
             <View className="text-rc34 text-rc_999999">确认立即发货</View>
@@ -179,7 +205,7 @@ const DeliveryProgress = () => {
             </Button>{' '}
             <Button onClick={() => setOpen(false)}>取消</Button>{' '}
           </AtModalAction>
-        </AtModal>
+        </AtModal> */}
       </View>
     </View>
   )
