@@ -35,7 +35,7 @@ const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = 
             >
               <View
                 style={{ borderRight: '1px solid #C3C3C3' }}
-                className="h-full flex items-center pl-3"
+                className="h-full flex items-center pl-3 pr-2"
                 onClick={() => {
                   console.log('current pages router ', getCurrentPages())
                   if (backEvent) {
@@ -45,7 +45,7 @@ const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = 
                   }
                 }}
               >
-                <IconFont name="fanhui-dingbu" size={48} />
+                <IconFont name="fanhui-dingbu" size={40} />
               </View>
               <View
                 onClick={() => {
@@ -53,9 +53,9 @@ const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = 
                     url: '/pages/index/index',
                   })
                 }}
-                className="h-full flex items-center pl-1 pr-3"
+                className="h-full flex items-center pl-3 pr-3"
               >
-                <IconFont name="shouye" size={48} />
+                <IconFont name="shouye" size={40} />
               </View>
             </View>
           ) : null}

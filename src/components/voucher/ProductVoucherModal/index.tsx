@@ -1,5 +1,5 @@
 import { View, Text } from '@tarojs/components'
-import {AtFloatLayout, AtIcon, AtMessage, AtModal} from 'taro-ui'
+import { AtFloatLayout, AtIcon, AtMessage, AtModal } from 'taro-ui'
 import { useEffect, useState } from 'react'
 import { Voucher } from '@/framework/types/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
@@ -11,24 +11,12 @@ import './index.less'
 const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [showReceiveVoucher, setShowReceiveVoucher] = useState(false)
-  const [showSuccessReceive,setShowSuccessReceive]=useState(false)
+  const [showSuccessReceive, setShowSuccessReceive] = useState(false)
 
   const getVoucherList = async () => {
     console.log('aaaaaaa', goodsId)
     const res = await getPdpVouchers({ goodsId })
     setVouchers(res.sort((a, b) => a.isReceived - b.isReceived))
-  }
-
-  const handleVoucherName = () => {
-    let voucherNames = ''
-    vouchers.map((item, index) => {
-      if (index !== vouchers.length - 1) {
-        voucherNames += item.voucherName + '，'
-      } else {
-        voucherNames += item.voucherName
-      }
-    })
-    return voucherNames
   }
 
   //用户领取商品优惠券
@@ -38,11 +26,6 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       voucherId: voucher.id,
     })
     if (res) {
-      // Taro.atMessage({
-      //   message: '优惠券领券成功',
-      //   type: 'success',
-      // })
-      // await getVoucherList()
       setShowSuccessReceive(true)
       setVouchers(
         vouchers
@@ -60,7 +43,6 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
         type: 'error',
       })
     }
-    // setShowReceiveVoucher(false)
   }
 
   useEffect(() => {
@@ -73,14 +55,13 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
     <>
       {vouchers.length > 0 ? (
         <View className="flex flex-row bg-gray-fb py-2 text-26">
-          <View className="flex flex-row w-full" style={{wordBreak:'keep-all'}}>
+          <View className="flex flex-row w-full" style={{ wordBreak: 'keep-all' }}>
             <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2">
               本店活动
             </Text>
-            <View className="px-2 text-gray-400">
-              {/*{handleVoucherName()}*/}
+            <Text className="px-2 text-gray-400">
               {vouchers[0]?.voucherName} {vouchers.length > 1 ? '...' : ''}
-            </View>
+            </Text>
           </View>
           <View
             className="text-primary-red flex items-center justify-end text-end w-full"
