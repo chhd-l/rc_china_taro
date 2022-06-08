@@ -10,16 +10,19 @@ import { initNewPet } from '@/lib/customer'
 import { getAge } from '@/utils/utils'
 import NavBar from '@/components/common/Navbar'
 import './index.less'
+import { useAtom } from 'jotai'
+import { customerAtom } from '@/store/customer'
 
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [showAddPetBtn, SetshowAddPetBtn] = useState(true)
   const { router } = getCurrentInstance()
+  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+
   let petNumber = router?.params?.petNumber || '0'
 
   const getList = async () => {
-    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-    let res = (await getPets({ customerId: customerInfo.id })) || []
+    let res = (await getPets({ customerId: customerInfo?.id })) || []
     console.log('res', res)
     res.forEach((item) => {
       item.age = getAge(item.birthday)

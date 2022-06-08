@@ -24,28 +24,32 @@ const PetList = (props: Props) => {
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const { currentIdx, checkedArr } = recommendInfo
-  const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
+  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+
   const { system } = Taro.getSystemInfoSync()
   const systemType = system.indexOf('Android') > -1
   const handleChange = (current: number) => {
     setRecommendInfo({ ...recommendInfo, currentIdx: current })
   }
-
   useEffect(() => {
-    if (customerInfos?.id) {
-      getList()
-    }
-  }, [customerInfos?.id])
+    getList()
+  }, [customerInfo?.id])
 
   Taro.useDidShow(() => {
+    console.info('Taro.getStorageSync', Taro.getStorageSync('wxLoginRes').userInfo)
     getList()
   })
 
   const getList = async () => {
-    if (!customerInfos?.id) {
+    // const customerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
+    if (!customerInfo?.id) {
+      console.info('!customerInfo?.id', !customerInfo?.id)
+      //未登录需要清空宠物信息
+      setPetList([])
+      setFakePet([])
       return
     }
-    let res = (await getPets({ customerId: customerInfos.id })) || []
+    let res = (await getPets({ customerId: customerInfo.id })) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })

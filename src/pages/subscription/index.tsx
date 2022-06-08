@@ -17,14 +17,14 @@ import NavBar from '@/components/common/Navbar'
 import { currentStepAtom, recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
 import { useAtom } from 'jotai'
 import './index.less'
+import { customerAtom } from '@/store/customer'
 
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
   const [, setRecommendInfoAtom] = useAtom(recommendInfoAtom)
   const [, setRecommendProductAtom] = useAtom(recommendProductAtom)
   const [, setCurrentStep] = useAtom(currentStepAtom)
-
-  const customerInfos = Taro.getStorageSync('wxLoginRes').userInfo
+  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
 
   const { data } = useRequest(
     async () => {
@@ -33,15 +33,15 @@ const Subscription = () => {
       //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
       //   operator: "ss"
       // }
-      if (!customerInfos?.id) {
+      if (!customerInfo?.id) {
         return []
       }
       // const res = await getSubscriptionFindByCustomerId('25a96973-c23b-e6b6-2e8d-3c8a85922b1e')
-      const res = await getSubscriptionFindByCustomerId(customerInfos?.id)
+      const res = await getSubscriptionFindByCustomerId(customerInfo?.id)
       return res
     },
     {
-      refreshDeps: [customerInfos?.id],
+      refreshDeps: [customerInfo?.id],
     },
   )
   const toSub = () => {
