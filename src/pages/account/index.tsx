@@ -86,7 +86,7 @@ const Account = () => {
                         className="NewbieIcon bg-center"
                         image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
                       />
-                      <Text className="text-24 ml-1 LevelColor">{customerInfo.level}</Text>
+                      <Text className="text-20 ml-1 LevelColor">{customerInfo.level}</Text>
                     </View>
                   </View>
                   <View className="text-24 my-1 text-red-600">当前积分：{customerInfo.points || 0}</View>
@@ -132,25 +132,25 @@ const Account = () => {
           </View>
         </View>
         {/*/!*我的订单*!/*/}
-        <View className="p-2 bg-gray-50">
-          <View className="flex justify-between pb-2 border-b-2 border-l-0 border-r-0 border-t-0 border-solid border-gray-300">
-            <View>我的订单</View>
+        <View className="p-3 bg-gray-fb">
+          <View className="flex items-center justify-between pb-3 border-b-2 border-l-0 border-r-0 border-t-0 border-solid border-gray-eee">
+            <View className="text-26 font-semibold">我的订单</View>
             <View
-              className="text-xs"
+              className="text-22"
               onClick={() => {
                 Taro.navigateTo({
                   url: `${routers.orderList}?status=ALL`,
                 })
               }}
             >
-              查看全部订单&gt;
+              查看全部订单 &gt;
             </View>
           </View>
-          <View className="flex flex-row justify-around items-center mt-2">
+          <View className="flex flex-row justify-around items-center mt-3">
             {orderTypeList.map((item, idx) => (
               <View key={idx} className="flex flex-col items-center" onClick={() => navigateToOrderList(item)}>
-                <Image className="w-6 h-6" src={item.icon} />
-                <Text className="text-xs">{item.label}</Text>
+                <Image className="w-5 h-5" src={item.icon} />
+                <Text className="text-22 mt-2">{item.label}</Text>
               </View>
             ))}
           </View>
