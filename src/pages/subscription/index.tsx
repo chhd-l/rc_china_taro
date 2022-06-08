@@ -25,7 +25,7 @@ const Subscription = () => {
   const [, setRecommendProductAtom] = useAtom(recommendProductAtom)
   const [, setCurrentStep] = useAtom(currentStepAtom)
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
-
+  const [needRefresh, setNeedRefresh] = useState(false)
   const { data } = useRequest(
     async () => {
       // const params = {
@@ -41,7 +41,7 @@ const Subscription = () => {
       return res
     },
     {
-      refreshDeps: [customerInfo?.id],
+      refreshDeps: [needRefresh],
     },
   )
   const toSub = () => {
@@ -75,6 +75,7 @@ const Subscription = () => {
 
   Taro.useDidShow(() => {
     setCurrentStep(0)
+    setNeedRefresh(!needRefresh)
   })
 
   return (
