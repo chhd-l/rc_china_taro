@@ -38,4 +38,4 @@ export const VOUCHER_USED = `${CDNIMGURL}Icon_MP_Used.svg`
 
 export const LIVINGSTREAMING_ONGOING = `${CDNIMGURL}MP_LiveStream_Ongoing.gif`
 
-export const LIVINGSTREAMING_UPCOMING = `${CDNIMGURL}MP_LiveStream_Upcoming.svg`
+export const LIVINGSTREAMING_UPCOMING = `${CDNIMGURL}MP_Livestreaming_uncoming.gif`

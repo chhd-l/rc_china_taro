@@ -6,7 +6,7 @@ import IconFont from '@/iconfont'
 import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
 import { customerAtom } from '@/store/customer'
 import { Image, ScrollView, Text, View } from '@tarojs/components'
-import Taro, { requirePlugin } from '@tarojs/taro'
+import Taro, { requirePlugin, useDidShow } from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import { AtButton, AtDivider } from 'taro-ui'
@@ -79,20 +79,22 @@ const ProductList = () => {
     }
   }
 
-  useEffect(() => {
-    if (roomId) {
-      getLiveStatus()
-      timer = setTimeout(() => {
-        getLiveStatus()
-      }, 2000)
-    } else {
-      clearInterval(timer)
-    }
-  }, [roomId])
+  // useEffect(() => {
+  //   console.info('roomId', roomId)
+  //   if (roomId) {
+  //     getLiveStatus()
+  //     timer = setInterval(() => {
+  //       getLiveStatus()
+  //     }, 2000)
+  //   } else {
+  //     clearInterval(timer)
+  //   }
+  // }, [roomId])
   const getLiveStatus = () => {
     livePlayer
       .getLiveStatus({ room_id: roomId })
       .then((res) => {
+        console.info('resgetLiveStatus', res)
         // 101: 直播中, 102: 未开始, 103: 已结束, 104: 禁播, 105: 暂停中, 106: 异常，107：已过期
         const liveStatus = res.liveStatus
         if (liveStatus == 101) {
@@ -118,8 +120,9 @@ const ProductList = () => {
     let liveStreamingList =
       data?.map((el) => {
         return {
-          img: el.coverImg,
+          img: el.shareImg,
           status: el.liveStatus,
+          roomId: el.roomId,
           statusIcon: liveStatusIconList[el.liveStatus],
           linkHref: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${el.roomId}`,
         }
@@ -131,9 +134,11 @@ const ProductList = () => {
       }
     }
   }
+  useDidShow(() => {
+    getLiveStreamingFindOnLiveData()
+  })
   useEffect(() => {
     loginInit()
-    getLiveStreamingFindOnLiveData()
     return () => {
       clearInterval(timer)
     }

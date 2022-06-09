@@ -225,7 +225,7 @@ const DeliveryProgress = () => {
               ))}
             </View>
           ) : (
-            <Text>暂无发货记录</Text>
+            <Text style={{ color: '#999999', fontSize: '11px' }}>暂无发货记录</Text>
           )}
         </View>
         <AtModal

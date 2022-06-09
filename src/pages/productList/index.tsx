@@ -89,7 +89,7 @@ const ProductList = () => {
     let LiveStreamings =
       data?.map((el) => {
         return {
-          img: el.coverImg,
+          img: el.shareImg,
           status: el.liveStatus,
           linkHref: `plugin-private://wx2b03c6e691cd7370/pages/live-player-plugin?room_id=${el.roomId}`,
         }

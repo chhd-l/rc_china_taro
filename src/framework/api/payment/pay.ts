@@ -1,3 +1,4 @@
+import routers from '@/routers'
 import Taro from '@tarojs/taro'
 import ApiRoot from '../fetcher'
 
@@ -41,6 +42,14 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               paySign = wxPaymentRequest.paySign
               payInfoId = payInfo.id
             }
+            // if (payInfo?.status === 'PAID') {
+            //   //0元就不用调用支付接口
+            //   let url = `${routers.orderList}?status=TO_SHIP`
+            //   Taro.redirectTo({
+            //     url,
+            //   })
+            //   return
+            // }
             console.info('.....notSubscription', wxPaymentRequest)
           }
           if (timeStamp) {
