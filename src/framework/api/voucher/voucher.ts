@@ -47,6 +47,10 @@ export const getPdpVouchers = async (params) => {
     return vouchers || []
   } catch (err) {
     console.log('err', err)
+    Taro.atMessage({
+      message: err?.errors?.Message || '系统繁忙，请稍后再试',
+      type: 'error',
+    })
     return []
   }
 }

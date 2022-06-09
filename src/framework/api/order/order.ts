@@ -104,15 +104,20 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
           })
         },
       })
-    } else {
-      Taro.atMessage({
-        message: '系统繁忙，请稍后再试',
-        type: 'error',
-      })
     }
+    // else {
+    //   Taro.atMessage({
+    //     message: '系统繁忙，请稍后再试',
+    //     type: 'error',
+    //   })
+    // }
     return res
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    console.log(err)
+    Taro.atMessage({
+      message: err?.errors?.Message || '系统繁忙，请稍后再试',
+      type: 'error',
+    })
     return []
   }
 }
