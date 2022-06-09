@@ -1,16 +1,18 @@
 import { View } from '@tarojs/components'
-import { ProductItem, Empty, TotalSettle, InvalidProductList } from '@/components/cart'
+import { ProductItem, Empty, TotalSettle } from '@/components/cart'
 import { useEffect, useState } from 'react'
-import { getCartAndProducts, updateCart } from '@/framework/api/cart/cart'
+import { batchDeleteCart, getCartAndProducts, updateCart } from '@/framework/api/cart/cart'
 import { useDidShow } from '@tarojs/taro'
 import { session } from '@/utils/global'
 import NavBar from '@/components/common/Navbar'
+import { AtModal } from 'taro-ui'
 import './index.less'
 
 const Cart = () => {
   const [productList, setProductList] = useState<any[]>([])
   const [selectedProduct, setSelectedProduct] = useState<any[]>([])
   const [invalidProducts, setInvalidProducts] = useState<any[]>([])
+  const [showDelAllTipModal, setShowDelAllTipModal] = useState(false)
 
   //获取购物车商品列表
   const getCartProductList = async () => {
@@ -101,6 +103,21 @@ const Cart = () => {
     handleIsValidProduct(tempProductList)
   }
 
+  //清空失效商品
+  const clearInvalidProduct = async () => {
+    const ids = invalidProducts.map((el) => {
+      return el.id
+    })
+    const res = await batchDeleteCart({
+      ids,
+      operator: 'system',
+    })
+    if (res) {
+      delCartSuccess && delCartSuccess(ids)
+    }
+    setShowDelAllTipModal(false)
+  }
+
   useDidShow(() => {
     getCartProductList()
   })
@@ -117,12 +134,20 @@ const Cart = () => {
         }`}
       />
       <View className="index cart-content">
-        <View className="h-2" style={{ backgroundColor: '#fbfbfb' }} />
+        <View className="h-2 bg-gray-fb" />
         {productList.length > 0 || invalidProducts.length > 0 ? (
           <View className="mb-8">
-            <View className="pb-2" style={{ backgroundColor: '#fbfbfb' }}>
+            <View className="pb-2 bg-gray-fb">
               {productList.map((item, index) => (
-                <View key={index} className={`${index !== productList.length - 1 ? 'mb-2' : ''}`}>
+                <View
+                  key={index}
+                  className={`${
+                    index !== productList.length - 1 ||
+                    (index === productList.length - 1 && invalidProducts.length == 0)
+                      ? 'mb-2'
+                      : ''
+                  }`}
+                >
                   <ProductItem
                     product={item}
                     key={item.id}
@@ -132,7 +157,22 @@ const Cart = () => {
                 </View>
               ))}
             </View>
-            <InvalidProductList productList={invalidProducts} delCartSuccess={delCartSuccess} />
+            {invalidProducts.length > 0 ? (
+              <View>
+                <View className="flex justify-between py-2 px-4">
+                  <View>失效商品{invalidProducts.length}件</View>
+                  <View className="text-primary-red" onClick={() => setShowDelAllTipModal(true)}>
+                    清空失效商品
+                  </View>
+                </View>
+                <View>
+                  {invalidProducts.map((item, index) => (
+                    <ProductItem isInvalid product={item} key={index} delCartSuccess={delCartSuccess} />
+                  ))}
+                </View>
+                <View className="h-2 bg-gray-fb" />
+              </View>
+            ) : null}
           </View>
         ) : (
           <Empty />
@@ -145,6 +185,22 @@ const Cart = () => {
           />
         </View>
       </View>
+      <AtModal
+        key="delete-all-product-modal"
+        isOpened={showDelAllTipModal}
+        title="确认"
+        cancelText="取消"
+        confirmText="确定"
+        onClose={() => {
+          setShowDelAllTipModal(false)
+        }}
+        onCancel={() => {
+          setShowDelAllTipModal(false)
+        }}
+        onConfirm={() => clearInvalidProduct()}
+        content="确定清空全部失效商品吗？"
+        className="error-tips-modal"
+      />
     </View>
   )
 }
