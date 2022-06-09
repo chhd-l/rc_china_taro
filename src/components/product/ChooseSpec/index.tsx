@@ -183,11 +183,16 @@ const ChooseSpec = ({
       }}
     >
       <View className="flex justify-end">
-        <AtIcon value="close" size="26" color="#666" onClick={() => setShowSpecs(false)} />
+        <AtIcon value="close" size="14" color="#666" onClick={() => setShowSpecs(false)} />
       </View>
       <View className="px-2 mt-2">
-        <View className="flex mb-4">
-          <Image className="w-24 h-auto" mode="widthFix" src={choosedSku.img?.[0] || ''} />
+        <View className="flex mt-5 mb-3">
+          <Image
+            className="w-24 h-auto"
+            style={{ border: '1px solid #eee' }}
+            mode="widthFix"
+            src={choosedSku.img?.[0] || ''}
+          />
           <View className="pl-3">
             <View className="text-xs font-bold">{choosedSku.name}</View>
             <View className="pt-1 text-gray-400 text-26">{choosedSku.no ? `商品编号：${choosedSku.no}` : null} </View>
@@ -199,7 +204,7 @@ const ChooseSpec = ({
         </View>
 
         {detailInfo.specifications?.map((specification, idx) => (
-          <View key={idx}>
+          <View key={idx} className="pt-3">
             <View className="text-28 pb-1"> {specification.name}</View>
             <View className="py-1">
               {specification.children?.map((el, index) => (
@@ -253,7 +258,7 @@ const ChooseSpec = ({
       <AtButton
         disabled={!addBtnStatus || choosedSku.stock == 0}
         circle
-        className={`${addBtnStatus && choosedSku.stock > 0 ? 'active' : 'disabled'}  comfirmaion-btn mb-2`}
+        className={`${addBtnStatus && choosedSku.stock > 0 ? 'active' : 'disabled'}  comfirmaion-btn mb-2 `}
         onClick={handleComfirm}
       >
         确定
