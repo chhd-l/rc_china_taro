@@ -69,7 +69,7 @@ const ProductItem = ({ productList, delCartSuccess }: { productList: any[]; delC
                   <Radio
                     value="选中"
                     style={{ transform: 'scale(0.6)' }}
-                    color="red"
+                    color="#d33024"
                     className="text-48 flex items-center"
                     disabled
                   />

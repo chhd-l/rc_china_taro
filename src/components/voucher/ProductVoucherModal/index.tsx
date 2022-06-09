@@ -5,7 +5,6 @@ import { Voucher } from '@/framework/types/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
 import { getPdpVouchers, receiveVoucher } from '@/framework/api/voucher/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
-import Taro from '@tarojs/taro'
 import './index.less'
 
 const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
@@ -37,11 +36,6 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
           })
           .sort((a, b) => Number(a.isReceived) - Number(b.isReceived)),
       )
-    } else {
-      Taro.atMessage({
-        message: '系统繁忙，请稍后再试',
-        type: 'error',
-      })
     }
   }
 

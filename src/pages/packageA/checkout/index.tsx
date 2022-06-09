@@ -13,9 +13,9 @@ import { customerAtom } from '@/store/customer'
 import GiftItem from '@/components/checkout/GiftItem'
 import { subscriptionCreateAndPay } from '@/framework/api/subscription/subscription'
 import moment from 'moment'
-import './index.less'
 import CouponItem from '@/components/checkout/CouponItem'
 import NavBar from '@/components/common/Navbar'
+import './index.less'
 
 const Checkout = () => {
   const [customerInfo] = useAtom(customerAtom)
