@@ -155,7 +155,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
         </View>
         <SingleChoice
           label={
-            <View className="col-span-4 flex items-center mb-1 text-22">
+            <View className="col-span-4 flex items-center mb-2 text-22">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${genderIcon})` }}></View>
               <Text className="pl-2 ">宠物性别</Text>
             </View>
@@ -166,7 +166,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
         />
         <SingleChoice
           label={
-            <View className="col-span-4 flex items-center mb-1 text-22">
+            <View className="col-span-4 flex items-center mb-2 text-22">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${sterilizedIcon})` }}></View>
               <Text className="pl-2 ">是否绝育</Text>
             </View>
