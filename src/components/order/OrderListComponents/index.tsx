@@ -120,8 +120,9 @@ const OrderListComponents = ({
                     赠品
                   </Text>
                 </View>
-                <View className=" flex ProductIntroduction justify-between items-center">
-                  <View className="text-gray-400 text-20">X{el?.num}</View>
+                <View className="text-primary-red flex text-20 justify-between items-center">
+                  <View className="flex flex-row flex-wrap"></View>
+                  <View className="text-gray-400">X{el?.num}</View>
                 </View>
                 {el?.goodsSpecifications ? (
                   <View className="text-24 mt-2 items-end ProductIntroduction text-gray-400">
