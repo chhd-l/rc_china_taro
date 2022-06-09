@@ -5,6 +5,7 @@ import { Order } from '@/framework/types/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import routers from '@/routers'
 import IconFont from '@/iconfont'
+import { pay } from '@/framework/api/payment/pay'
 import OrderAction from '../OrderAction'
 import './index.less'
 
@@ -16,18 +17,34 @@ const orderStatusType = {
   VOID: '已取消',
 }
 
-const OrderListComponents = ({
-  list,
-  operationSuccess,
-  openModalTip,
-}: {
-  list: Order[]
-  operationSuccess: Function
-  openModalTip: Function
-}) => {
+const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalTip: Function }) => {
   const copyText = (orderNumber) => {
     Taro.setClipboardData({
       data: orderNumber,
+    })
+  }
+
+  //立即付款
+  const payNow = (orderId, amount) => {
+    let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+    pay({
+      params: {
+        customerId: wxLoginRes?.userInfo?.id || '',
+        customerOpenId: wxLoginRes?.customerAccount?.openId,
+        tradeId: orderId,
+        tradeNo: orderId,
+        tradeDescription: '商品',
+        payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+        amount,
+        currency: 'CNY',
+        storeId: '12345678',
+        operator: wxLoginRes?.userInfo?.nickName || '',
+      },
+      success: function () {
+        Taro.redirectTo({
+          url: `${routers.orderList}?status=TO_SHIP`,
+        })
+      },
     })
   }
 
@@ -138,16 +155,11 @@ const OrderListComponents = ({
               <Text className="text-primary-red text-28">{formatMoney(item.tradePrice.totalPrice)}</Text>
             </View>
             <OrderAction
-              amount={item.tradePrice.totalPrice * 100}
-              // remark={item.remark}
               orderState={item?.tradeState?.orderState || ''}
-              orderId={item.orderNumber || ''}
-              operationSuccess={() => {
-                operationSuccess && operationSuccess()
-              }}
               openModalTip={() => {
-                openModalTip && openModalTip()
+                openModalTip && openModalTip(item?.orderNumber)
               }}
+              payNow={() => payNow(item.orderNumber || '', item.tradePrice.totalPrice * 100)}
             />
           </View>
         </View>

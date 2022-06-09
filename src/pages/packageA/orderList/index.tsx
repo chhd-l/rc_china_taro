@@ -2,7 +2,7 @@ import Taro, { getCurrentInstance, useReachBottom } from '@tarojs/taro'
 import { useState } from 'react'
 import { AtModal, AtTabs, AtTabsPane } from 'taro-ui'
 import OrderListComponents from '@/components/order/OrderListComponents'
-import { getOrderList } from '@/framework/api/order/order'
+import { cancelOrder, completedOrder, getOrderList } from '@/framework/api/order/order'
 import { Order } from '@/framework/types/order'
 import { View } from '@tarojs/components'
 import routers from '@/routers'
@@ -22,13 +22,14 @@ const OrderStatusEnum = {
 const OrderList = () => {
   const [current, setCurrent] = useState('ALL')
   const [orderList, setOrderList] = useState<Order[]>([])
-  const [showShipModal, setShowShipModal] = useState(false)
   const [showSendCouponModal, setShowSendCouponModal] = useState(false)
   const { router } = getCurrentInstance()
   const [isFromSubscription, setIsFromSubscription] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
   const [isNoMore, setIsNoMore] = useState(false)
   const [firstIn, setFirstIn] = useState(true)
+  const [curActionOrderId, setCurActionOrderId] = useState('')
+  const [showActionTipModal, setShowActionTipModal] = useState(false)
 
   useReachBottom(() => {
     if (!isNoMore) {
@@ -93,6 +94,45 @@ const OrderList = () => {
     await getOrderLists({ orderState: Object.keys(OrderStatusEnum)[cur], isReload: true })
   }
   console.info('showSendCouponModal', showSendCouponModal)
+
+  //取消订单
+  const cancel = async () => {
+    const res = await cancelOrder({
+      orderNum: curActionOrderId,
+      nowOrderState: current,
+    })
+    if (res) {
+      await getOrderLists({ isReload: true })
+    }
+  }
+
+  //确认收货
+  const completed = async () => {
+    const res = await completedOrder({
+      orderNum: curActionOrderId,
+      nowOrderState: current,
+    })
+    if (res) {
+      await getOrderLists({ isReload: true })
+    }
+  }
+
+  const handleClickActionTipModal = async () => {
+    switch (current) {
+      case 'UNPAID':
+        await cancel()
+        break
+      case 'TO_SHIP':
+        break
+      case 'SHIPPED':
+        await completed()
+        break
+      default:
+        break
+    }
+    setShowActionTipModal(false)
+  }
+
   return (
     <View>
       <NavBar navbarTitle={tabList[OrderStatusEnum[current]].title} isNeedBack />
@@ -108,11 +148,9 @@ const OrderList = () => {
             {orderList?.length > 0 ? (
               <OrderListComponents
                 list={orderList}
-                operationSuccess={async () => {
-                  await getOrderLists({ isReload: true })
-                }}
-                openModalTip={() => {
-                  setShowShipModal(true)
+                openModalTip={(orderId) => {
+                  setShowActionTipModal(true)
+                  setCurActionOrderId(orderId)
                 }}
               />
             ) : null}
@@ -120,20 +158,26 @@ const OrderList = () => {
         ))}
       </AtTabs>
       <AtModal
-        key="orderShipTip"
-        isOpened={showShipModal}
-        title="提示"
-        content="已提醒发货，请耐心等待"
+        isOpened={showActionTipModal}
+        title="确认"
+        content={
+          current === 'UNPAID'
+            ? '确定要取消该订单吗？'
+            : current === 'TO_SHIP'
+            ? '已提醒发货，请耐心等待'
+            : current === 'SHIPPED'
+            ? '确定已经收到货物'
+            : ''
+        }
+        cancelText="取消"
         confirmText="确定"
         onClose={() => {
-          setShowShipModal(false)
+          setShowActionTipModal(false)
         }}
         onCancel={() => {
-          setShowShipModal(false)
+          setShowActionTipModal(false)
         }}
-        onConfirm={() => {
-          setShowShipModal(false)
-        }}
+        onConfirm={() => handleClickActionTipModal()}
         className="rc_modal"
       />
       <AtModal
