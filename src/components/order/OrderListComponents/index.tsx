@@ -49,7 +49,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
   }
 
   return (
-    <ScrollView className="OrderListComponents" scrollY>
+    <ScrollView className="OrderListComponents" scrollY scrollAnchoring enhanced bounces>
       {list.map((item: any, idx: number) => (
         <View
           className="card"
