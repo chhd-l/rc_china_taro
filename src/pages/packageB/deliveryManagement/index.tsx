@@ -18,7 +18,8 @@ const DeliveryManagement = () => {
   const [, setDeliveryDetail] = useAtom(deliveryDetailAtom)
 
   const { data } = useRequest(async () => {
-    const res = await getSubscriptionDetail('d941864d-5422-60a8-ac1e-6299575a42fb')
+    const res = await getSubscriptionDetail(Current?.router?.params?.id)
+    // const res = await getSubscriptionDetail('d941864d-5422-60a8-ac1e-6299575a42fb')
     res.nextDeliveryTime = res?.planingDeliveries?.[0]?.shipmentDate || undefined
     if (res.completedDeliveries) {
       //倒序
