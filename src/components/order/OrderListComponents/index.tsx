@@ -95,7 +95,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                 )}
               </View>
               <View className="w-full h-full flex flex-col pl-3">
-                <View className="text-30 font-black mb-1">{el?.skuName}</View>
+                <View className="text-30 mb-1">{el?.skuName}</View>
                 <View className="text-primary-red flex text-20 justify-between items-center">
                   <View className="flex flex-row flex-wrap">
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
