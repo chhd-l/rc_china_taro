@@ -100,8 +100,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                   <View className="flex flex-row flex-wrap">
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
                       <View
-                        className="px-1 border rounded-lg border-solid border-red mr-2"
-                        style={{ marginTop: '1px' }}
+                        className="px-1 border rounded-lg border-solid border-red mr-2 mb-1"
                       >
                         {tag}
                       </View>
