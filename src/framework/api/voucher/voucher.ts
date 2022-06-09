@@ -96,13 +96,19 @@ export const receiveVoucher = async (params) => {
     const { customerId } = Taro.getStorageSync('wxLoginRes')?.customerAccount
     const res = await ApiRoot.vouchers().receiveVoucher({ ...params, customerId })
     console.log('receive voucher', res?.voucherReceive)
-    return res?.voucherReceive || false
+    return {
+      result: res?.voucherReceive || false,
+      errorCode: '',
+    }
   } catch (err) {
     console.log('err', err?.errors?.Message)
     Taro.atMessage({
-      message: err?.errors?.Message || '系统繁忙，请稍后再试',
+      message: err?.errors?.Code === 'E0611920100' ? '优惠券已领完' : err?.errors?.Message || '系统繁忙，请稍后再试',
       type: 'error',
     })
-    return false
+    return {
+      result: false,
+      errorCode: err?.errors?.Code || '',
+    }
   }
 }
