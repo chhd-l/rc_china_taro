@@ -5,6 +5,7 @@ import { Order } from '@/framework/types/order'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import routers from '@/routers'
 import IconFont from '@/iconfont'
+import { pay } from '@/framework/api/payment/pay'
 import OrderAction from '../OrderAction'
 import './index.less'
 
@@ -16,23 +17,39 @@ const orderStatusType = {
   VOID: '已取消',
 }
 
-const OrderListComponents = ({
-  list,
-  operationSuccess,
-  openModalTip,
-}: {
-  list: Order[]
-  operationSuccess: Function
-  openModalTip: Function
-}) => {
+const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalTip: Function }) => {
   const copyText = (orderNumber) => {
     Taro.setClipboardData({
       data: orderNumber,
     })
   }
 
+  //立即付款
+  const payNow = (orderId, amount) => {
+    let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+    pay({
+      params: {
+        customerId: wxLoginRes?.userInfo?.id || '',
+        customerOpenId: wxLoginRes?.customerAccount?.openId,
+        tradeId: orderId,
+        tradeNo: orderId,
+        tradeDescription: '商品',
+        payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+        amount,
+        currency: 'CNY',
+        storeId: '12345678',
+        operator: wxLoginRes?.userInfo?.nickName || '',
+      },
+      success: function () {
+        Taro.redirectTo({
+          url: `${routers.orderList}?status=TO_SHIP`,
+        })
+      },
+    })
+  }
+
   return (
-    <ScrollView className="OrderListComponents" scrollY>
+    <ScrollView className="OrderListComponents" scrollY scrollAnchoring enhanced bounces>
       {list.map((item: any, idx: number) => (
         <View
           className="card"
@@ -78,13 +95,12 @@ const OrderListComponents = ({
                 )}
               </View>
               <View className="w-full h-full flex flex-col pl-3">
-                <View className="text-30 font-black mb-1">{el?.skuName}</View>
+                <View className="text-30 mb-1">{el?.skuName}</View>
                 <View className="text-primary-red flex text-20 justify-between items-center">
                   <View className="flex flex-row flex-wrap">
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
                       <View
-                        className="px-1 border rounded-lg border-solid border-red mr-2"
-                        style={{ marginTop: '1px' }}
+                        className="px-1 border rounded-lg border-solid border-red mr-2 mb-1"
                       >
                         {tag}
                       </View>
@@ -139,16 +155,11 @@ const OrderListComponents = ({
               <Text className="text-primary-red text-28">{formatMoney(item.tradePrice.totalPrice)}</Text>
             </View>
             <OrderAction
-              amount={item.tradePrice.totalPrice * 100}
-              // remark={item.remark}
               orderState={item?.tradeState?.orderState || ''}
-              orderId={item.orderNumber || ''}
-              operationSuccess={() => {
-                operationSuccess && operationSuccess()
-              }}
               openModalTip={() => {
-                openModalTip && openModalTip()
+                openModalTip && openModalTip(item?.orderNumber)
               }}
+              payNow={() => payNow(item.orderNumber || '', item.tradePrice.totalPrice * 100)}
             />
           </View>
         </View>
