@@ -99,11 +99,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                 <View className="text-primary-red flex text-20 justify-between items-center">
                   <View className="flex flex-row flex-wrap">
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                      <View
-                        className="px-1 border rounded-lg border-solid border-red mr-2 mb-1"
-                      >
-                        {tag}
-                      </View>
+                      <View className="px-1 border rounded-lg border-solid border-red mr-2 mb-1">{tag}</View>
                     ))}
                   </View>
                   <View className="text-gray-400">X{el?.num}</View>
@@ -130,7 +126,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                 )}
               </View>
               <View className="w-full h-full flex flex-col pl-3">
-                <View className="text-30 font-black mb-1">
+                <View className="text-30  mb-1">
                   {el?.skuName}
                   <Text className="px-1 text-22 font-normal bg-primary-red text-white ml-1 whitespace-nowrap">
                     赠品

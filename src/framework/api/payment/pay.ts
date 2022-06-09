@@ -21,8 +21,9 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
       tmplIds: ['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ', 'xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc'],
       success: async (res) => {
         if (res['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ'] && res['xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc']) {
-          let payInfoId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = ''
+          let payInfoId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = '', payInfo: any = {}
           if (paymentRequest?.success) {
+            payInfo = paymentRequest.payInfo
             console.info('.....paymentRequest,isSubscription', paymentRequest)
             timeStamp = paymentRequest.wxPaymentRequest.timeStamp
             nonceStr = paymentRequest.wxPaymentRequest.nonceStr
@@ -31,9 +32,9 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
             paySign = paymentRequest.wxPaymentRequest.paySign
             payInfoId = paymentRequest.payInfo.id
           } else {
-
             const { pay: data } = await ApiRoot.orders().pay({ body: params })
-            const { wxPaymentRequest, payInfo } = data
+            const { wxPaymentRequest } = data
+            payInfo = data.payInfo
             if (data.success) {
               timeStamp = wxPaymentRequest.timeStamp
               nonceStr = wxPaymentRequest.nonceStr
@@ -42,15 +43,16 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               paySign = wxPaymentRequest.paySign
               payInfoId = payInfo.id
             }
-            // if (payInfo?.status === 'PAID') {
-            //   //0元就不用调用支付接口
-            //   let url = `${routers.orderList}?status=TO_SHIP`
-            //   Taro.redirectTo({
-            //     url,
-            //   })
-            //   return
-            // }
             console.info('.....notSubscription', wxPaymentRequest)
+          }
+          console.info('payInfo', payInfo)
+          if (payInfo?.status === 'PAID') {
+            //0元就不用调用支付接口
+            let url = `${routers.orderList}?status=TO_SHIP`
+            Taro.redirectTo({
+              url,
+            })
+            return
           }
           if (timeStamp) {
             Taro.requestPayment({
