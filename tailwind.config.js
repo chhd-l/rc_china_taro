@@ -25,7 +25,8 @@ module.exports = {
         rc_9B9C9D: '#9B9C9D',
         rc_FAFBFC: '#FAFBFC',
         rc_EAEAEA: '#EAEAEA',
-        'gray-ef':'#efefef'
+        'gray-ef':'#efefef',
+        'primary-red': '#d33024',
       },
       textColor: {
         titleGray: '#A7A7A7',
@@ -35,6 +36,7 @@ module.exports = {
         rc_222222: '#222222',
         rc_666666: '#666666',
         rc_000000: '#000000',
+        'primary-red': '#d33024',
       },
       fontSize: {
         rc16: '16px',
@@ -100,6 +102,7 @@ module.exports = {
       borderColor: {
         rc_E2E2E2: '#E2E2E2',
         'gray-eee': '#eeeeee',
+        'primary-red': '#d33024',
       },
     },
   },

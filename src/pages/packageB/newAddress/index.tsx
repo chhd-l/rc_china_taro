@@ -135,7 +135,7 @@ const Index = () => {
               className="rc-address-input"
             />
             <View
-              className="ml-3 py-3 text-32 border-b border-t-0 border-l-0 border-r-0 border-solid"
+              className="ml-4 py-3 text-28 border-b border-t-0 border-l-0 border-r-0 border-solid"
               style={{ borderColor: '#d6e4ef' }}
             >
               <Text>所在地区</Text>
@@ -144,7 +144,7 @@ const Index = () => {
                   console.log('WPickerRef', WPickerRef)
                   WPickerRef.show()
                 }}
-                className={`${province ? '' : 'text-gray-300'} ml-8`}
+                className={`${province ? '' : 'text-gray-300'} ml-8 pl-2`}
               >
                 {province ? province + ',' + city + ',' + region : '省,市,区'}
               </Text>
@@ -172,15 +172,15 @@ const Index = () => {
               onClick={() => updateAddressInfo(!addressInfo.isDefault, 'isDefault')}
               style={{ transform: 'scale(0.6)' }}
               color="#d33024"
-              className="mt-2 text-48 -ml-4 text-gray-400"
+              className="mt-2 text-40 -ml-4 text-gray-400"
             >
               &nbsp;默认地址
             </Radio>
           </View>
         </AtForm>
-        <View className="mt-2 flex justify-center">
+        <View className="mt-3 flex justify-center">
           <AtButton
-            className="bg-red-500 rc-button text-white w-24 rounded-3xl"
+            className="bg-primary-red border-primary-red text-white w-36 rounded-3xl text-28"
             formType="submit"
             onClick={saveNewAddress}
           >
