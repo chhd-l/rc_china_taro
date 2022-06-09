@@ -7,6 +7,7 @@ import Taro, { getCurrentInstance } from '@tarojs/taro'
 import cloneDeep from 'lodash.cloneDeep'
 import { useState } from 'react'
 import { AtSearchBar } from 'taro-ui'
+import './index.less'
 // const breedLists = Mock.mock(breedListMock).list
 // console.info('breedLists', breedLists)
 export interface BreedListItemProps {
@@ -34,11 +35,7 @@ const BreedList = () => {
   const getList = async () => {
     let res = await getBreedList()
     let type = !!router?.params?.type ? router?.params?.type : 'CAT'
-    console.log('res', res)
-    console.log('type', type)
-    console.log('typ!!router?.params?.typee', !!router?.params.type, router?.params?.type)
     res = res.filter((el) => el.type == type)
-    console.log('res', res)
     setBreedList(res)
 
     const lists = cloneDeep(res)
@@ -64,9 +61,9 @@ const BreedList = () => {
   return (
     <>
       {breedList.length ? (
-        <View className="bg-gray-200">
+        <View className="breedlist" style={{ backgroundColor: '#eee' }}>
           <AtSearchBar
-            className="bg-gray-200"
+            className="bg-gray-200 petsSearchBtn"
             showActionButton
             value={keyword}
             onChange={handleKeyword}
@@ -75,7 +72,7 @@ const BreedList = () => {
           <View className="fixed text-24 top-16 right-2 z-10">
             {list.map((el) => (
               <View
-                className="mt-2"
+                className="mt-1"
                 onClick={() => {
                   setActiveId(`item-${el.letter}`)
                 }}
@@ -104,7 +101,7 @@ const BreedList = () => {
             </View>
           </View>
           <View>
-            <View className="px-4 text-30 pt-3">品种列表</View>
+            <View className="px-4 text-30 pt-5 pb-2">品种列表</View>
             <BreedLists activeId={activeId} list={list} handleBreed={handleBreed} />
           </View>
         </View>

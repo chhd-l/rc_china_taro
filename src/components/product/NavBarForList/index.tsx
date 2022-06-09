@@ -49,14 +49,14 @@ const NavBarForList = ({
             }}
           />
         </View>
-        <View className="w-24"/>
+        <View className="w-24" />
       </View>
       <View className={`relative ${!MyPets && 'opacity-0'} h-14`}>
         <ScrollView
           className="whitespace-nowrap FloorNav bg-white flex h-full"
           enableFlex
           scrollX
-          scroll-left={Left}
+          // scroll-left={Left}
           onScroll={(v) => {
             setLeft(v.detail.scrollLeft)
             onScrollFooList(v.detail.scrollLeft)

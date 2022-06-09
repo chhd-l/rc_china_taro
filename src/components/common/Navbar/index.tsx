@@ -23,7 +23,10 @@ const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = 
   }, [])
 
   return (
-    <View className="sticky top-0 left-0 z-50 bg-white" style={{ paddingTop: paddingTop + 'px', height: '2.625rem' }}>
+    <View
+      className="sticky top-0 left-0 z-50 bg-white"
+      style={{ paddingTop: paddingTop + 'px', height: '2.625rem', paddingBottom: '8rpx' }}
+    >
       {isCustom ? (
         children
       ) : (

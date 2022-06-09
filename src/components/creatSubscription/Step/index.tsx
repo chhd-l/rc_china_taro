@@ -14,7 +14,11 @@ import Purchased from '../Purchased'
 import './index.less'
 
 const nextStepView = {
-  0: <PetList showCheckBox />,
+  0: (
+    <View className="mb-4">
+      <PetList showCheckBox />
+    </View>
+  ),
   1: <ExclusivePackage />,
   2: <Purchased />,
 }

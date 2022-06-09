@@ -9,6 +9,11 @@ import { getCycleItem } from '@/utils/utils'
 import { AtIcon, AtProgress } from 'taro-ui'
 import './index.less'
 
+const cycleObj = {
+  QUARTER: '季卡',
+  HALF_YEAR: '半年卡',
+  YEAR: '年卡',
+}
 export const handleBuyMore = (children) => {
   let buyInfo = cloneDeep(children)
   let { birthday, breedCode, breedName, gender, id, image, name, type } = buyInfo.pet
@@ -67,10 +72,13 @@ const SubList = ({ children }) => {
         <View style={{ background: '#f8f8f8' }} className="px-2 pb-2 rounded-sm">
           <View className="flex justify-between items-end h-8">
             <View className="h-full flex flex-row items-end">
-              <Text className="font-bold mr-2 list-item-title">我的新鲜购</Text>
-              <Text className="card">季卡</Text>
+              <View className="font-bold mr-2 list-item-title" style={{ lineHeight: 1 }}>
+                我的新鲜购
+              </View>
+              {children?.cycle ? <View className="card">{cycleObj[children?.cycle]}</View> : null}
             </View>
             <View
+              style={{ lineHeight: 1 }}
               className="text-22 flex-1 justify-end text-right  h-full flex items-end"
               onClick={() => {
                 Taro.navigateTo({ url: `/pages/packageB/deliveryManagement/index?id=${children?.id}` })
@@ -81,19 +89,19 @@ const SubList = ({ children }) => {
                 value="chevron-right"
                 size="16"
                 color="#666666"
-                customStyle={{ position: 'relative', top: '1px' }}
+                customStyle={{ position: 'relative', top: '3px' }}
               />
             </View>
           </View>
           <View className="mt-2">
             <View className="mt-4   border-gray-200" style={{ borderTop: '1px solid #E2E2E2' }}>
-              <View className="w-full h-20 flex mb-4  pt-2">
+              <View className="w-full  flex  items-center" style={{ minHeight: '5rem' }}>
                 <View className="w-rc163 h-rc163">
                   <Image className="w-full h-full" src={goodsVariant?.defaultImage} />
                 </View>
-                <View className="flex flex-col pl-3 justify-center mb-3">
+                <View className="flex flex-col pl-3 justify-center py-2">
                   <View>
-                    <View className="text-rc26 font-black mb-1">{goodsVariant?.name}</View>
+                    <View className="text-rc24 mb-1">{goodsVariant?.name}</View>
                     <View className="text-primary-red flex  justify-between items-center">
                       <View className="flex flex-row flex-wrap">
                         {(
@@ -117,12 +125,12 @@ const SubList = ({ children }) => {
                     </View>
                   </View>
                   {children.freshType === 'FRESH_100_DAYS' ? (
-                    <View className="text-rc26 text-textGray mt-2">新鲜度：100天</View>
+                    <View className="text-rc22 text-textGray mt-2">新鲜度：100天</View>
                   ) : null}
                 </View>
               </View>
               <View
-                className="flex flex-row text-rc20 justify-between text-rc_666666 mt-2 mb-3 pt-2"
+                className="flex flex-row text-rc20 justify-between text-rc_666666 mb-3 pt-2"
                 style={{ borderTop: '1px solid #E2E2E2' }}
               >
                 <View className="flex">

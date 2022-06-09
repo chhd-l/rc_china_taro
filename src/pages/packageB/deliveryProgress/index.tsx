@@ -67,7 +67,7 @@ const DeliveryProgress = () => {
           <CommonTitle title="下次发货" />
           <View className="text-26 mt-3">
             <View className="mb-2">
-              {deliveryDetail?.planingDeliveries[0]?.lineItems?.find((el) => !el.isGift)?.skuName}
+              {deliveryDetail?.planingDeliveries?.[0]?.lineItems?.find((el) => !el.isGift)?.skuName}
             </View>
             <View>第{deliveryDetail?.planingDeliveries?.[0].sequence || 1}包</View>
             <View>{moment(deliveryDetail?.nextDeliveryTime).format('YYYY-MM-DD')}</View>
@@ -97,7 +97,7 @@ const DeliveryProgress = () => {
             <View className="text-26 mt-3">
               {deliveryDetail?.completedDeliveries?.map((completedDelivery, idx) => (
                 <View key={idx} className="my-2 record ">
-                  <View className="flex flex-row py-2 justify-between  px-2">
+                  {/* <View className="flex flex-row py-2 justify-between  px-2">
                     <View className="flex flex-row  ">
                       <View className="text-rc22 text-textGray">订单编号:{completedDelivery?.tradeId}</View>
                       <View
@@ -111,43 +111,102 @@ const DeliveryProgress = () => {
                       </View>
                     </View>
                     <View className="text-primary-red text-rc22">第{completedDelivery.sequence}包</View>
+                  </View> */}
+                  <View className="h-6 flex justify-between items-center text-24 py-2  px-2">
+                    <View className="flex items-center">
+                      {/* {item?.isSubscription ? (
+                <View className="mr-2">
+                  <IconFont name="a-Group201" size={32} />
+                </View>
+              ) : null} */}
+                      订单编号: {completedDelivery?.tradeId}
+                      <View
+                        className="ml-2 rounded-2xl text-22 px-2"
+                        style={{ background: '#e7e7e7' }}
+                        onClick={(e) => {
+                          e.stopPropagation()
+                          copyText(completedDelivery?.tradeId)
+                        }}
+                      >
+                        复制
+                      </View>
+                    </View>
+                    <View className="text-primary-red text-24">第{completedDelivery.sequence}包</View>
                   </View>
                   <View className="Descborder p-2">
                     {completedDelivery?.lineItems
                       ?.filter((el) => !el.isGift)
                       ?.map((el, index) => (
-                        <View key={index} className="flex  border-red-400 items-center mb-1">
-                          <View className="h-rc169 w-rc163 bg-primary-red">
-                            <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
+                        <View
+                          key={index}
+                          className="w-full flex items-center max-h-20 "
+                          style={{ marginBottom: '36rpx' }}
+                        >
+                          <View className="w-32 h-full" style={{ marginTop: '36rpx' }}>
+                            {el?.pic ? (
+                              <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
+                            ) : (
+                              <Image className="w-full h-20" mode="widthFix" src={el?.pic} />
+                            )}
                           </View>
-                          <View className="flex-1">
-                            <View className="text-rc28 text-rc_222222  ml-1">{el.skuName}</View>
-                            <View className="flex flex-row justify-between mb-1">
-                              <View className="flex flex-row text-rc20">
-                                {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag, key) => (
+                          <View className="w-full h-full flex flex-col pl-3">
+                            <View className="text-30 mb-1">{el?.skuName}</View>
+                            <View className="text-primary-red flex text-20 justify-between items-center">
+                              <View className="flex flex-row flex-wrap">
+                                {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
                                   <View
-                                    key={key}
-                                    className=" text-primary-red px-1 border rounded-lg border-solid border-red mr-2 mt-2"
+                                    className="px-1 border rounded-lg border-solid border-red mr-2"
+                                    style={{ marginTop: '1px' }}
                                   >
                                     {tag}
                                   </View>
                                 ))}
-                                {/* <View className="age mx-1">适用年龄:4-12月</View>
-                          <View className="age ">适用年龄:4-12月</View> */}
                               </View>
-                              <View className="text-rc22 text-textGray mr-1">x{el.num}</View>
+                              <View className="text-gray-400">X{el?.num}</View>
                             </View>
-                            <View className="text-rc22 text-textGray ml-1">
-                              {el?.goodsSpecifications ? `规格:${el?.goodsSpecifications}` : ''}
+                            <View className="text-24 mt-2 items-end ProductIntroduction text-gray-400">
+                              规格：{el?.goodsSpecifications}
                             </View>
-                            {deliveryDetail?.freshType === 'FRESH_100_DAYS' ? (
-                              <View className="text-rc26 text-textGray ml-1 mt-1">新鲜度：100天</View>
+                            {deliveryDetail.freshType === 'FRESH_100_DAYS' ? (
+                              <View className="text-24 mt-1 items-end ProductIntroduction text-gray-400">
+                                新鲜度：100天
+                              </View>
                             ) : null}
                           </View>
                         </View>
+
+                        // <View key={index} className="flex  border-red-400 items-center mb-1">
+                        //   <View className="h-rc169 w-rc163 bg-primary-red">
+                        //     <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
+                        //   </View>
+                        //   <View className="flex-1">
+                        //     <View className="text-rc28 text-rc_222222  ml-1">{el.skuName}</View>
+                        //     <View className="flex flex-row justify-between mb-1">
+                        //       <View className="flex flex-row text-rc20">
+                        //         {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag, key) => (
+                        //           <View
+                        //             key={key}
+                        //             className=" text-primary-red px-1 border rounded-lg border-solid border-red mr-2 mt-2"
+                        //           >
+                        //             {tag}
+                        //           </View>
+                        //         ))}
+                        //         {/* <View className="age mx-1">适用年龄:4-12月</View>
+                        //   <View className="age ">适用年龄:4-12月</View> */}
+                        //       </View>
+                        //       <View className="text-rc22 text-textGray mr-1">x{el.num}</View>
+                        //     </View>
+                        //     <View className="text-rc22 text-textGray ml-1">
+                        //       {el?.goodsSpecifications ? `规格:${el?.goodsSpecifications}` : ''}
+                        //     </View>
+                        //     {deliveryDetail?.freshType === 'FRESH_100_DAYS' ? (
+                        //       <View className="text-rc26 text-textGray ml-1 mt-1">新鲜度：100天</View>
+                        //     ) : null}
+                        //   </View>
+                        // </View>
                       ))}
                   </View>
-                  <View className="text-rc24 text-rc_666666 leading-rc72 text-right pr-2">
+                  <View className=" text-24 leading-rc72 text-right pr-2">
                     发货日期:{moment(deliveryDetail?.shipmentDate).format('YYYY-MM-DD')}
                   </View>
                 </View>
