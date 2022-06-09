@@ -1,6 +1,6 @@
 import { View, Image, Button } from '@tarojs/components'
 import { AtIcon, AtModal, AtModalAction, AtModalContent, AtSwipeAction } from 'taro-ui'
-import { petBg, UPLOADPATH } from '@/lib/constants'
+import { Cat, Dog, petBg, UPLOADPATH } from '@/lib/constants'
 import Taro from '@tarojs/taro'
 import cloneDeep from 'lodash.cloneDeep'
 import { useEffect, useState } from 'react'
@@ -8,7 +8,6 @@ import EditPet from '@/components/customer/EditPet'
 import { editPetButton } from '@/lib/customer'
 import { deletePet } from '@/framework/api/pet/delete-pet'
 import { PetListItemProps } from '@/framework/types/customer'
-import { Dog, Cat } from '@/utils/global'
 import './index.less'
 
 interface Props {
@@ -118,6 +117,9 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                 console.log('val', val)
                 handleClick(val, petIdx)
               }}
+              onOpened={() => {
+                showEdit(petIdx)
+              }}
               disabled={isEdit}
               isOpened={pet.isOpened}
               options={editPetButton}
@@ -168,14 +170,17 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               />
             ) : (
               <View
-                className="w-20 h-20 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
-                style={{ borderRadius: '50%' }}
+                style={{
+                  borderRadius: '50%',
+                  backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Pet_Add.png)`,
+                }}
+                className="w-20 h-20 m-auto mb-3   bg-no-repeat  bg-contain flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
                 // src={pet.image}
                 onClick={() => {
                   handleImage()
                 }}
               >
-                <AtIcon value="add" size={16} />
+                {/* <AtIcon value="add" size={16} /> */}
               </View>
             )}
             {/* <Image

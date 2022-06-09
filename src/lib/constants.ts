@@ -22,7 +22,7 @@ export const ORDER_COMMENT_ICON = `${CDNIMGURL}icon_MP_Comments.svg`
 
 export const femaleIcon = `${CDNIMGURL}Icon_MP_F.svg`
 export const maleIcon = `${CDNIMGURL}Icon_MP_M.svg`
-export const petBg = `${CDNIMGURL}pet_backgroud.png`
+export const petBg = `${CDNIMGURL}Pet_Bg.png`
 
 export const CART_NO_DATA_ICON = `${CDNIMGURL}MP-Cart-No product.svg`
 
@@ -39,3 +39,5 @@ export const VOUCHER_USED = `${CDNIMGURL}Icon_MP_Used.svg`
 export const LIVINGSTREAMING_ONGOING = `${CDNIMGURL}MP_LiveStream_Ongoing.gif`
 
 export const LIVINGSTREAMING_UPCOMING = `${CDNIMGURL}MP_Livestreaming_uncoming.gif`
+export const Dog = `${CDNIMGURL}Pet_Dog.png`
+export const Cat = `${CDNIMGURL}Pet_Cat.png`

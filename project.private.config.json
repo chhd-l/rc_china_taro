@@ -59,6 +59,13 @@
           "query": "id=d941864d-5422-60a8-ac1e-6299575a42fb",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "orderList",
+          "pathName": "pages/packageA/orderList/index",
+          "query": "status=ALL",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

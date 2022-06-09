@@ -12,5 +12,3 @@ export const session = {
   },
 }
 
-export const Dog = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_dog.svg'
-export const Cat = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/pet_cat.svg'

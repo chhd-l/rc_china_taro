@@ -2,10 +2,9 @@ import AuthLogin, { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { getPets } from '@/framework/api/pet/get-pets'
 import { PetGender, PetListItemProps } from '@/framework/types/customer'
 import IconFont from '@/iconfont'
-import { femaleIcon, maleIcon, petBg } from '@/lib/constants'
+import { Cat, Dog, femaleIcon, maleIcon, petBg } from '@/lib/constants'
 import { customerAtom } from '@/store/customer'
 import { recommendInfoAtom } from '@/store/subscription'
-import { Cat, Dog } from '@/utils/global'
 import { getAge } from '@/utils/utils'
 import { Image, Swiper, SwiperItem, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
@@ -103,11 +102,15 @@ const PetList = (props: Props) => {
     return (
       <View
         onClick={toPetList}
-        className="w-16 h-16 m-auto mb-3 bg-white flex justify-center items-center Petpictureshadow text-gray-300 mt-2 relative"
-        style={{ borderRadius: '50%' }}
+        style={{
+          borderRadius: '50%',
+          backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Pet_Add.png)`,
+        }}
+        className="w-16 h-16 m-auto mb-3  bg-no-repeat  bg-contain flex justify-center items-center Petpictureshadow text-gray-300 mt-2 relative"
+
         // src={pet.image}
       >
-        <AtIcon value="add" size={16} />
+        {/* <AtIcon value="add" size={16} /> */}
       </View>
     )
   }
@@ -117,7 +120,7 @@ const PetList = (props: Props) => {
         <View className="w-full flex relative mb-2">
           <View className="text-center h-full w-full flex items-center">
             <View
-              className="m-auto w-18 h-18 flex items-center bg-white rounded-full shadow-md relative"
+              className="m-auto w-18 h-18 flex items-center bg-white rounded-full relative"
               onClick={() => {
                 handleChecked(fakePet[0].id, 0)
               }}
@@ -181,7 +184,7 @@ const PetList = (props: Props) => {
                 <SwiperItem key={idx}>
                   <View className="text-center h-full flex items-center justify-center">
                     <View
-                      className={`w-18  bg-white h-18 rounded-full shadow-md flex items-center justify-center relative 
+                      className={`  bg-white  w-18 h-18 rounded-full flex items-center justify-center relative 
                     ${currentIdx !== idx && 'scale-75 transform'}`}
                       onClick={() => {
                         handleChecked(pet.id, idx)
@@ -253,7 +256,7 @@ const PetList = (props: Props) => {
                   <View className="text-center h-full flex items-center justify-center">
                     {pet.id != '-1' ? (
                       <View
-                        className={`w-18  bg-white h-18 rounded-full shadow-md flex items-center justify-center relative 
+                        className={` bg-white w-18  h-18 rounded-full flex items-center justify-center relative 
                   ${currentIdx !== idx && 'scale-75 transform'} `}
                         onClick={() => {
                           handleChecked(pet.id, idx)
@@ -325,7 +328,7 @@ const PetList = (props: Props) => {
       </View>
       {renderPetContent()}
       {!petList.length && (
-        <View className="custompettips relative flex flex-col items-center">
+        <View className="custompettips relative flex flex-col items-center top-3">
           <View className="triangle" />
           <View
             className="w-full h-9 flex items-center justify-center text-xs text-white"
