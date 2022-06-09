@@ -2,6 +2,7 @@ import NavBar from '@/components/common/Navbar'
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import { normalizeTags } from '@/framework/api/lib/normalize'
 import { getSubscriptionScheduleNextDelivery } from '@/framework/api/subscription/subscription'
+import routers from '@/routers'
 import { deliveryDetailAtom } from '@/store/subscription'
 import { Image, Picker, Text, View } from '@tarojs/components'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
@@ -48,10 +49,11 @@ const DeliveryProgress = () => {
     // setErrorTips(true)
   }
 
-  const toDetail = (id) => {
-    id &&
+  const toDetail = ({ tradeId }) => {
+    debugger
+    tradeId &&
       Taro.navigateTo({
-        url: `/pages/packageA/productDetail/index?id=${id}`,
+        url: `${routers.orderDetail}?id=${tradeId}`,
       })
   }
 
@@ -151,7 +153,7 @@ const DeliveryProgress = () => {
                           className="w-full flex items-center max-h-20 "
                           style={{ marginBottom: '36rpx' }}
                           onClick={() => {
-                            toDetail(el.spuId)
+                            toDetail(completedDelivery)
                           }}
                         >
                           <View className="w-32 h-full" style={{ marginTop: '36rpx' }}>
