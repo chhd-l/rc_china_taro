@@ -6,7 +6,7 @@ import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { AtFloatLayout, AtIcon } from 'taro-ui'
 import VoucherModal from '@/components/voucher/ProductVoucherModal'
-import { getOrderSetting } from "@/framework/api/order/order";
+import { getOrderSetting } from '@/framework/api/order/order'
 import './Style.less'
 
 interface DetailProps {
@@ -75,7 +75,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
         </View>
         <View className="py-1 flex justify-between">
           <View>
-            <Text className="text-primary-red pr-4 ">{formatMoney(choosedSku.price)}</Text>
+            <Text className="text-primary-red pr-4 font-bold">{formatMoney(choosedSku.price)}</Text>
             <Text className="text-gray-300  text-26 line-through">{formatMoney(choosedSku.originalPrice)}</Text>
           </View>
           {maxNum > choosedSku.stock && choosedSku.stock ? (
@@ -84,7 +84,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
         </View>
         {/*店铺优惠活动*/}
         <VoucherModal goodsId={detailInfo.id} />
-        <View className="flex justify-between text-28">
+        <View className="flex justify-between text-28 items-center">
           <View>
             已选
             {choosedSku.specText?.join(',')}，{buyCount}件
@@ -93,7 +93,8 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
             onClick={() => {
               handleShowSpec(addToTypeEnum.None)
             }}
-            className="text-primary-red text-40"
+            className="text-primary-red text-40 flex  items-center relative"
+            style={{ top: '-5px' }}
           >
             ...
           </View>
