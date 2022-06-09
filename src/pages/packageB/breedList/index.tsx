@@ -1,13 +1,12 @@
 // import { breedListMock } from '@/mock/pet'
-import { View, Image } from '@tarojs/components'
-import { useEffect, useState } from 'react'
-import { AtSearchBar } from 'taro-ui'
-import cloneDeep from 'lodash.cloneDeep'
-import Mock from 'mockjs'
-import Taro, { getCurrentInstance } from '@tarojs/taro'
 import BreedLists from '@/components/customer/BreedLists'
 import { getBreedList } from '@/framework/api/pet/get-breeds'
 import { pySegSort } from '@/utils/pinyin'
+import { Image, View } from '@tarojs/components'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
+import cloneDeep from 'lodash.cloneDeep'
+import { useState } from 'react'
+import { AtSearchBar } from 'taro-ui'
 // const breedLists = Mock.mock(breedListMock).list
 // console.info('breedLists', breedLists)
 export interface BreedListItemProps {
@@ -27,13 +26,19 @@ const BreedList = () => {
   const handleKeyword = (val) => {
     setKeyword(val)
   }
-  useEffect(() => {
+
+  Taro.useReady(() => {
     getList()
-  }, [])
+  })
+
   const getList = async () => {
     let res = await getBreedList()
-    let type = router?.params?.type || 'CAT'
+    let type = !!router?.params?.type ? router?.params?.type : 'CAT'
+    console.log('res', res)
+    console.log('type', type)
+    console.log('typ!!router?.params?.typee', !!router?.params.type, router?.params?.type)
     res = res.filter((el) => el.type == type)
+    console.log('res', res)
     setBreedList(res)
 
     const lists = cloneDeep(res)
@@ -52,8 +57,8 @@ const BreedList = () => {
     setList(newList)
   }
   const handleSearch = () => {
-    let list = breedList.filter((item) => item.name.includes(keyword))
-    initData(list)
+    let lists = breedList.filter((item) => item.name.includes(keyword))
+    initData(lists)
   }
 
   return (

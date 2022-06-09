@@ -155,7 +155,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
         </View>
         <SingleChoice
           label={
-            <View className="col-span-4 flex items-center mb-1 text-22">
+            <View className="col-span-4 flex items-center mb-2 text-22">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${genderIcon})` }}></View>
               <Text className="pl-2 ">宠物性别</Text>
             </View>
@@ -166,7 +166,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
         />
         <SingleChoice
           label={
-            <View className="col-span-4 flex items-center mb-1 text-22">
+            <View className="col-span-4 flex items-center mb-2 text-22">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${sterilizedIcon})` }}></View>
               <Text className="pl-2 ">是否绝育</Text>
             </View>
@@ -187,14 +187,14 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             className="col-span-8 border-solid border-gray-300 rounded-lg px-2 flex items-center"
           >
             <Picker
-              style={{ borderWidth: '0px !important' }}
+              style={{ borderWidth: '0px !important', backgroundColor: '#fff !important' }}
               mode="date"
-              className="flex-1 PickerItem w-full h-full flex items-center"
+              className="flex-1 PickerItem w-full h-full flex items-center bg-white"
               end={new Date().toLocaleString().split(' ')[0].replace(/\//g, '-')}
               onChange={handleChangeDate}
             >
-              <AtList className="border-0 w-full h-full">
-                <AtListItem className="text-xl" title="请选择生日" extraText={petInfo.birthday} />
+              <AtList className="border-0 w-full h-full bg-white">
+                <AtListItem className="text-xl bg-white" title="请选择生日" extraText={petInfo.birthday} />
               </AtList>
             </Picker>
           </View>

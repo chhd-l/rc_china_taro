@@ -17,8 +17,7 @@ interface Props {
 }
 const AddCart = ({ handleShowSpec, detailInfo }: Props) => {
   const [cartNumber, setCartNumber] = useState(0)
-  const [cartSunccessToastShow] = useAtom
-    (cartSunccessToastShowAtom)
+  const [cartSunccessToastShow] = useAtom(cartSunccessToastShowAtom)
   const [currentCartSpu, setCurrentCartSpu] = useAtom(currentCartSpuAtom)
   useEffect(() => {
     getCart()
@@ -39,9 +38,9 @@ const AddCart = ({ handleShowSpec, detailInfo }: Props) => {
   }
   return (
     <View className="addCartBox fixed bg-white bottom-0 left-0 right-0 z-10">
-      <View className="text-30 flex h-12">
+      <View className="text-28 flex h-16">
         <View
-          className="flex flex-col justify-center items-center text-26 px-4"
+          className="flex flex-col justify-center items-center text-22 px-4 text-primary-red"
           onClick={() => {
             Taro.switchTab({
               url: routers.cart,

@@ -208,13 +208,13 @@ const Search = () => {
         /> */}
 
           <View className="border-0">
-            <View
+            {/* <View
               direction="all"
               className={`fixed right-2 bottom-28 z-50`}
               style={{ width: '100px', height: '100px' }}
             >
-              {/* <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant> */}
-            </View>
+              <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant>
+            </View> */}
             <View className="text-md font-semibold pb-4 pt-2">我想搜</View>
             <View className="flex text-xs justify-between">
               <View className="flex-1 flex items-center">

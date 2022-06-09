@@ -123,9 +123,9 @@ const ProductDetail = () => {
       {choosedSku.id ? (
         <View className="product-detail">
           <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
-          <View direction="all" className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
-            {/* <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant> */}
-          </View>
+          {/* <View direction="all" className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
+            <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant>
+          </View> */}
           <View>
             <View className="text-center text-28 flex items-center justify-center py-4">
               {' '}

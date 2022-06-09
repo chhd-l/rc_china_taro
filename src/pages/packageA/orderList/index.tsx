@@ -81,7 +81,7 @@ const OrderList = () => {
     console.log('isFromSubscription', isFromSubscriptionOrder)
     setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
-    getOrderLists({orderState:status})
+    getOrderLists({ orderState: status })
   })
 
   const handleClick = async (value) => {
@@ -90,20 +90,26 @@ const OrderList = () => {
     })
     const cur = Object.values(OrderStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(OrderStatusEnum)[cur])
-    await getOrderLists({ orderState: Object.keys(OrderStatusEnum)[cur],isReload:true })
+    await getOrderLists({ orderState: Object.keys(OrderStatusEnum)[cur], isReload: true })
   }
   console.info('showSendCouponModal', showSendCouponModal)
   return (
     <View>
       <NavBar navbarTitle={tabList[OrderStatusEnum[current]].title} isNeedBack />
-      <AtTabs className="order-list-tab bg-gray-eee" current={OrderStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
+      <AtTabs
+        className="order-list-tab bg-gray-eee"
+        current={OrderStatusEnum[current]}
+        tabList={tabList}
+        onClick={handleClick}
+        swipeable
+      >
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
             {orderList?.length > 0 ? (
               <OrderListComponents
                 list={orderList}
                 operationSuccess={async () => {
-                  await getOrderLists({ isReload:true })
+                  await getOrderLists({ isReload: true })
                 }}
                 openModalTip={() => {
                   setShowShipModal(true)
@@ -128,7 +134,7 @@ const OrderList = () => {
         onConfirm={() => {
           setShowShipModal(false)
         }}
-        className="order-to-ship-modal"
+        className="rc_modal"
       />
       <AtModal
         key="orderShipTip"
@@ -150,7 +156,7 @@ const OrderList = () => {
           })
           setShowSendCouponModal(false)
         }}
-        className="order-to-ship-modal"
+        className="rc_modal"
       />
     </View>
   )

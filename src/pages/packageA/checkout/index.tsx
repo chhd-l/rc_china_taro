@@ -75,6 +75,16 @@ const Checkout = () => {
     }
   }
 
+  const toOrderList = () => {
+    let url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true`
+    if (couponItems?.length) {
+      url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true&isSendCoupon=true`
+    }
+    Taro.redirectTo({
+      url,
+    })
+  }
+
   const subscriptionCheckNow = async () => {
     try {
       if (address.id === '') {
@@ -161,6 +171,7 @@ const Checkout = () => {
           }
         }),
         remark,
+        firstDeliveryTime: new Date(deliveryTime).toISOString(),
         totalDeliveryTimes: subscriptionInfo.cycleObj.quantity, //配送次数
       }
       let params = {
@@ -171,6 +182,11 @@ const Checkout = () => {
       }
       console.log('create order params', params)
       const res = await subscriptionCreateAndPay(params)
+      if (res.payment?.payInfo?.status === 'PAID') {
+        //0元就不用调用支付接口
+        toOrderList()
+        return
+      }
       if (res.payment) {
         console.log(res, 'subscriptionCreateAndPayressssss')
         Taro.removeStorageSync('select-product')
@@ -188,13 +204,7 @@ const Checkout = () => {
             operator: customerInfo?.nickName || '',
           },
           success: () => {
-            let url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true`
-            if (couponItems?.length) {
-              url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true&isSendCoupon=true`
-            }
-            Taro.redirectTo({
-              url,
-            })
+            toOrderList()
           },
           fail: () => {
             Taro.redirectTo({
@@ -368,7 +378,7 @@ const Checkout = () => {
           onConfirm={() => {
             setShowNoAddressTip(false)
           }}
-          className="order-to-ship-modal"
+          className="rc_modal"
         />
       </View>
     </>

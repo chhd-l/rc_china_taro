@@ -1,17 +1,17 @@
-import Taro, { getCurrentInstance } from '@tarojs/taro'
-import { View } from '@tarojs/components'
-import cloneDeep from 'lodash.cloneDeep'
-import { AtButton } from 'taro-ui'
-import { PetListItemProps } from '@/framework/types/customer'
-import { useEffect, useState } from 'react'
-import { getPets } from '@/framework/api/pet/get-pets'
-import PetItem from '@/components/customer/PetItem'
-import { initNewPet } from '@/lib/customer'
-import { getAge } from '@/utils/utils'
 import NavBar from '@/components/common/Navbar'
-import './index.less'
-import { useAtom } from 'jotai'
+import PetItem from '@/components/customer/PetItem'
+import { getPets } from '@/framework/api/pet/get-pets'
+import { PetListItemProps } from '@/framework/types/customer'
+import { initNewPet } from '@/lib/customer'
 import { customerAtom } from '@/store/customer'
+import { getAge } from '@/utils/utils'
+import { View } from '@tarojs/components'
+import { getCurrentInstance } from '@tarojs/taro'
+import { useAtom } from 'jotai'
+import cloneDeep from 'lodash.cloneDeep'
+import { useEffect, useState } from 'react'
+import { AtButton } from 'taro-ui'
+import './index.less'
 
 const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
@@ -23,12 +23,30 @@ const PetList = () => {
 
   const getList = async () => {
     let res = (await getPets({ customerId: customerInfo?.id })) || []
-    console.log('res', res)
+    console.log('resxxxxxxxxxxxxx', res)
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
-    setPetList(res)
-    SetshowAddPetBtn(true)
+    if (res.length) {
+      setPetList(res)
+      SetshowAddPetBtn(true)
+    } else {
+      setPetList([
+        {
+          age: '',
+          birthday: '',
+          breed: '',
+          customerId: '20220415',
+          gender: 'MALE',
+          id: '-1',
+          image: '',
+          isSterilized: false,
+          name: '',
+          type: 'CAT',
+        },
+      ])
+      SetshowAddPetBtn(false)
+    }
   }
 
   const addPet = () => {
@@ -64,8 +82,13 @@ const PetList = () => {
           )
         })}
         {showAddPetBtn ? (
-          <AtButton className="mx-3 mt-4" onClick={addPet} circle type="secondary">
-            {' '}
+          <AtButton
+            className="mx-3 mt-4 text-xs flex items-center justify-center py-1"
+            onClick={addPet}
+            circle
+            type="secondary"
+            size="small"
+          >
             添加宠物
           </AtButton>
         ) : null}

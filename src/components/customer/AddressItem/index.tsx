@@ -134,7 +134,8 @@ const AddressItem = ({
       </View>
       <AtModal
         isOpened={showDelTip}
-        title="确定删除地址信息？"
+        title="提示"
+        content="确定删除地址信息？"
         cancelText="再想想"
         confirmText="狠心删除"
         onClose={() => {

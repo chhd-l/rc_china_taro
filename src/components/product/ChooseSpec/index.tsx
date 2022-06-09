@@ -186,7 +186,7 @@ const ChooseSpec = ({
         <AtIcon value="close" size="26" color="#666" onClick={() => setShowSpecs(false)} />
       </View>
       <View className="px-2 mt-2">
-        <View className="flex">
+        <View className="flex mb-4">
           <Image className="w-24 h-auto" mode="widthFix" src={choosedSku.img?.[0] || ''} />
           <View className="pl-3">
             <View className="text-xs font-bold">{choosedSku.name}</View>
@@ -228,7 +228,7 @@ const ChooseSpec = ({
             </View>
           </View>
         ))}
-        <View className="flex py-3 items-center mb-10 justify-between">
+        <View className="flex py-3 items-center mb-6 justify-between">
           <View>数量</View>
           <View>
             {' '}
@@ -253,7 +253,7 @@ const ChooseSpec = ({
       <AtButton
         disabled={!addBtnStatus || choosedSku.stock == 0}
         circle
-        className={`${addBtnStatus && choosedSku.stock > 0 ? 'active' : 'disabled'}`}
+        className={`${addBtnStatus && choosedSku.stock > 0 ? 'active' : 'disabled'}  comfirmaion-btn mb-2`}
         onClick={handleComfirm}
       >
         确定
@@ -273,7 +273,7 @@ const ChooseSpec = ({
         onConfirm={() => {
           setShowOutStockTip(false)
         }}
-        className="out-stock-tip-modal"
+        className="rc_modal"
       />
     </AtFloatLayout>
   ) : null

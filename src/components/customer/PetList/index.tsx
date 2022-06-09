@@ -142,7 +142,7 @@ const PetList = (props: Props) => {
                 backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
                 backgroundColor: '#fff',
                 borderRadius: '50%',
-                boxShadow: '-0.5px 0.5px 22px 0px #999',
+                boxShadow: '-0.5px 0.5px 10px 0px #999',
               }}
             />
           </View>
@@ -324,21 +324,23 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
-      <View className="custompettips relative flex flex-col items-center">
-        <View className="triangle" />
-        <View
-          className="w-full h-9 bg-gray-400 flex items-center justify-center text-sm text-white"
-          style={{ borderRadius: '1.5rem' }}
-        >
-          赶紧添加你的宠物信息，定制TA的营养套餐~
+      {!petList.length && (
+        <View className="custompettips relative flex flex-col items-center">
+          <View className="triangle" />
+          <View
+            className="w-full h-9 flex items-center justify-center text-xs text-white"
+            style={{ borderRadius: '1.5rem', backgroundColor: '#BEBEBE' }}
+          >
+            赶紧添加你的宠物信息，定制TA的营养套餐哦~
+          </View>
+          <View
+            className="absolute top-2 right-0 border-2 border-solid"
+            style={{ borderRadius: '100%', backgroundColor: '#BEBEBE', borderColor: '#BEBEBE' }}
+          >
+            <IconFont name="shanchu" size={42} color="#fff" />
+          </View>
         </View>
-        <View
-          className="absolute top-2 right-0 bg-gray-400 border-2 border-gray-400 border-solid"
-          style={{ borderRadius: '100%' }}
-        >
-          <IconFont name="shanchu" size={42} color="#fff" />
-        </View>
-      </View>
+      )}
       <AuthLogin />
     </View>
   )
