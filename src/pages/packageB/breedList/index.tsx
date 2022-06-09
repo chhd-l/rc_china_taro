@@ -1,13 +1,13 @@
 // import { breedListMock } from '@/mock/pet'
-import { View, Image } from '@tarojs/components'
-import { useEffect, useState } from 'react'
-import { AtSearchBar } from 'taro-ui'
-import cloneDeep from 'lodash.cloneDeep'
-import Mock from 'mockjs'
-import Taro, { getCurrentInstance } from '@tarojs/taro'
 import BreedLists from '@/components/customer/BreedLists'
 import { getBreedList } from '@/framework/api/pet/get-breeds'
 import { pySegSort } from '@/utils/pinyin'
+import { Image, View } from '@tarojs/components'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
+import cloneDeep from 'lodash.cloneDeep'
+import { useState } from 'react'
+import { AtSearchBar } from 'taro-ui'
+import './index.less'
 // const breedLists = Mock.mock(breedListMock).list
 // console.info('breedLists', breedLists)
 export interface BreedListItemProps {
@@ -27,12 +27,14 @@ const BreedList = () => {
   const handleKeyword = (val) => {
     setKeyword(val)
   }
-  useEffect(() => {
+
+  Taro.useReady(() => {
     getList()
-  }, [])
+  })
+
   const getList = async () => {
     let res = await getBreedList()
-    let type = router?.params?.type || 'CAT'
+    let type = !!router?.params?.type ? router?.params?.type : 'CAT'
     res = res.filter((el) => el.type == type)
     setBreedList(res)
 
@@ -52,16 +54,16 @@ const BreedList = () => {
     setList(newList)
   }
   const handleSearch = () => {
-    let list = breedList.filter((item) => item.name.includes(keyword))
-    initData(list)
+    let lists = breedList.filter((item) => item.name.includes(keyword))
+    initData(lists)
   }
 
   return (
     <>
       {breedList.length ? (
-        <View className="bg-gray-200">
+        <View className="breedlist" style={{ backgroundColor: '#eee' }}>
           <AtSearchBar
-            className="bg-gray-200"
+            className="bg-gray-200 petsSearchBtn"
             showActionButton
             value={keyword}
             onChange={handleKeyword}
@@ -70,7 +72,7 @@ const BreedList = () => {
           <View className="fixed text-24 top-16 right-2 z-10">
             {list.map((el) => (
               <View
-                className="mt-2"
+                className="mt-1"
                 onClick={() => {
                   setActiveId(`item-${el.letter}`)
                 }}
@@ -99,7 +101,7 @@ const BreedList = () => {
             </View>
           </View>
           <View>
-            <View className="px-4 text-30 pt-3">品种列表</View>
+            <View className="px-4 text-30 pt-5 pb-2">品种列表</View>
             <BreedLists activeId={activeId} list={list} handleBreed={handleBreed} />
           </View>
         </View>

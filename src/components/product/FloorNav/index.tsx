@@ -42,7 +42,7 @@ const FloorNav = ({
         className="whitespace-nowrap FloorNav bg-white flex h-full"
         enableFlex
         scrollX
-        scroll-left={Left}
+        // scroll-left={Left}
         onScroll={(v) => {
           setLeft(v.detail.scrollLeft)
           onScrollFooList(v.detail.scrollLeft)

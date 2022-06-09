@@ -69,7 +69,6 @@ const liveStatusIconList = {
 let timer: any = null
 
 const ProductList = () => {
-  const [openDistMyPets, setOpenDistMyPets] = useState(false)
   const [, setCustomer] = useAtom(customerAtom)
   const [roomId, setRoomId] = useState<any>(null)
   let [liveStreaming, setLiveStreaming] = useState<any>(undefined)
@@ -141,28 +140,13 @@ const ProductList = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
-  const distMyPets = () => {
-    setOpenDistMyPets(true)
-  }
   console.info('liveStreamingliveStreaming', liveStreaming)
   return (
     <View className="HomeIndex">
       <NavBarForList />
-      <View
-        className={`text-xs flex items-center w-full fixed z-30 justify-center ${openDistMyPets && 'hidden'}`}
-        style={{ top: '5.9rem' }}
-      >
-        <View className="flex items-center justify-center bg-white shadow-2xl p-2 fexidMyPets">
-          点击“
-          <IconFont name="a-Frame4" size={30} />”<View className="text-red-600">添加到我的小程序</View>，订粮更方便
-          <View className="ml-4" onClick={distMyPets}>
-            <IconFont name="shanchu" size={24} />
-          </View>
-        </View>
-      </View>
       <View className="mt-0 p-1 pb-0">
         <View className="text-xs">
-          <View className="flex items-center justify-center text-sm text-gray-500 p-3 pt-2">
+          <View className="flex items-center justify-center text-sm text-gray-500 p-3 pt-0">
             <IconFont name="a-Group233" size={42} />
             <View className="ml-1">
               皇家宠物<Text className="ml-2">提供全心营养支持</Text>
@@ -220,7 +204,7 @@ const ProductList = () => {
             <View className="mt-6">
               <Image
                 className="w-full"
-                style={{ height: '52rem' }}
+                style={{ height: '55rem' }}
                 src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Introduce.png"
               />
             </View>
