@@ -36,8 +36,8 @@ const Subscription = () => {
       if (!customerInfo?.id) {
         return []
       }
-      // const res = await getSubscriptionFindByCustomerId('25a96973-c23b-e6b6-2e8d-3c8a85922b1e')
-      const res = await getSubscriptionFindByCustomerId(customerInfo?.id)
+      const res = await getSubscriptionFindByCustomerId('0a1781df-4d21-7324-4bdd-d25726b2f353')
+      // const res = await getSubscriptionFindByCustomerId(customerInfo?.id)
       return res
     },
     {

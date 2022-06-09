@@ -48,6 +48,13 @@ const DeliveryProgress = () => {
     // setErrorTips(true)
   }
 
+  const toDetail = (id) => {
+    id &&
+      Taro.navigateTo({
+        url: `/pages/packageA/productDetail/index?id=${id}`,
+      })
+  }
+
   const immediateDelivery = () => {
     // setDeliveryDetail({ ...deliveryDetail, nextDeliveryTime: moment().format('YYYY-MM-DD') })
     setOpen(true)
@@ -63,34 +70,36 @@ const DeliveryProgress = () => {
     <View>
       <NavBar navbarTitle="发货进度" isNeedBack />
       <View className="delivery-progress rc-content-bg">
-        <View className=" px-3 bg-white rounded-md pb-3">
-          <CommonTitle title="下次发货" />
-          <View className="text-26 mt-3">
-            <View className="mb-2">
-              {deliveryDetail?.planingDeliveries?.[0]?.lineItems?.find((el) => !el.isGift)?.skuName}
+        {deliveryDetail?.status === 'COMPLETED' ? null : (
+          <View className=" px-3 bg-white rounded-md pb-3">
+            <CommonTitle title="下次发货" />
+            <View className="text-26 mt-3">
+              <View className="mb-2">
+                {deliveryDetail?.planingDeliveries?.[0]?.lineItems?.find((el) => !el.isGift)?.skuName}
+              </View>
+              <View>第{deliveryDetail?.planingDeliveries?.[0].sequence || 1}包</View>
+              <View>{moment(deliveryDetail?.nextDeliveryTime).format('YYYY-MM-DD')}</View>
             </View>
-            <View>第{deliveryDetail?.planingDeliveries?.[0].sequence || 1}包</View>
-            <View>{moment(deliveryDetail?.nextDeliveryTime).format('YYYY-MM-DD')}</View>
+            <View className=" mt-3 flex justify-end text-white text-26">
+              <View className="bg-primary-red py-1 px-4 ml-4 rounded-full" onClick={immediateDelivery}>
+                立即发货
+              </View>
+              <View className="bg-primary-red py-1 px-4 ml-4 rounded-full relative">
+                选择日期
+                <Picker
+                  className="absolute left-0 right-0 bottom-0 top-0"
+                  mode="date"
+                  onChange={handleDate}
+                  start={moment().format('YYYY-MM-DD')}
+                >
+                  <AtList>
+                    <AtListItem />
+                  </AtList>
+                </Picker>
+              </View>
+            </View>
           </View>
-          <View className=" mt-3 flex justify-end text-white text-26">
-            <View className="bg-primary-red py-1 px-4 ml-4 rounded-full" onClick={immediateDelivery}>
-              立即发货
-            </View>
-            <View className="bg-primary-red py-1 px-4 ml-4 rounded-full relative">
-              选择日期
-              <Picker
-                className="absolute left-0 right-0 bottom-0 top-0"
-                mode="date"
-                onChange={handleDate}
-                start={moment().format('YYYY-MM-DD')}
-              >
-                <AtList>
-                  <AtListItem />
-                </AtList>
-              </Picker>
-            </View>
-          </View>
-        </View>
+        )}
         <View className=" px-3 mt-3 bg-white  rounded-md  pb-3">
           <CommonTitle title="发货记录" />
           {deliveryDetail?.completedDeliveries?.length ? (
@@ -141,6 +150,9 @@ const DeliveryProgress = () => {
                           key={index}
                           className="w-full flex items-center max-h-20 "
                           style={{ marginBottom: '36rpx' }}
+                          onClick={() => {
+                            toDetail(el.spuId)
+                          }}
                         >
                           <View className="w-32 h-full" style={{ marginTop: '36rpx' }}>
                             {el?.pic ? (

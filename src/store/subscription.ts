@@ -57,7 +57,8 @@ export const recommendProductAtom = atom<RecommendProductType>({
 export const deliveryDetailAtom = atom<any>({
   nextDeliveryTime: '',
   completedDeliveries: [],
-  no: ''
+  no: '',
+  status: '',
   // giftList: [],
   // couponList: [],
   // freshType: 'FRESH_NORMAL',

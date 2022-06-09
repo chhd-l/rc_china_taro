@@ -62,11 +62,11 @@ const PetList = (props: Props) => {
         res.age = getAge(res.birthday)
       }
     }
-    if (res.length > 1) {
-      setRecommendInfo({ ...recommendInfo, currentIdx: 1, checkedArr: [] })
-    } else {
-      setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
-    }
+    // if (res.length > 1) {
+    //   setRecommendInfo({ ...recommendInfo, currentIdx: 1, checkedArr: [] })
+    // } else {
+    //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
+    // }
     setPetList(res)
     setFakePet(res)
   }

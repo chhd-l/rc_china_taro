@@ -7,7 +7,8 @@ import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import moment from 'moment'
-import { AtButton } from 'taro-ui'
+import { useState } from 'react'
+import { AtButton, AtModal } from 'taro-ui'
 import AtMyStep from '../components/AtMyStep'
 import ExclusivePackage from '../ExclusivePackage'
 import Purchased from '../Purchased'
@@ -26,6 +27,7 @@ const Step = () => {
   const [stepCount, setStepCount] = useAtom(currentStepAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [recommenProduct, setRecommendProduct] = useAtom(recommendProductAtom)
+  const [noPetModal, setNoPetModal] = useState(false)
   const goNextStep = async () => {
     const { type, code, birthday, isSterilized } = recommendInfo.recommPetInfo
     const params = {
@@ -35,7 +37,10 @@ const Step = () => {
       isPetSterilized: isSterilized,
       petBirthday: moment(birthday),
     }
-
+    if (Object.keys(recommendInfo.recommPetInfo).length === 0) {
+      setNoPetModal(true)
+      return
+    }
     // const params = {
     //   subscriptionType: 'FRESH_BUY',
     //   petType: 'CAT',
@@ -152,7 +157,7 @@ const Step = () => {
             type="primary"
             className="stepButton"
             onClick={goNextStep}
-            disabled={Object.keys(recommendInfo.recommPetInfo).length === 0}
+            // disabled={Object.keys(recommendInfo.recommPetInfo).length === 0}
           >
             下一步
           </AtButton>
@@ -209,6 +214,23 @@ const Step = () => {
           </AtButton>
         )}
       </View>
+      <AtModal
+        key="noPetTip"
+        isOpened={noPetModal}
+        title="提示"
+        content="请选择宠物"
+        confirmText="确定"
+        onClose={() => {
+          setNoPetModal(false)
+        }}
+        onCancel={() => {
+          setNoPetModal(false)
+        }}
+        onConfirm={() => {
+          setNoPetModal(false)
+        }}
+        className="rc_modal"
+      />
     </View>
   )
 }

@@ -7,5 +7,60 @@
     "preloadBackgroundData": false,
     "useIsolateContext": true
   },
-  "projectname": "rc_china_taro"
+  "projectname": "rc_china_taro",
+  "condition": {
+    "miniprogram": {
+      "list": [
+        {
+          "name": "11",
+          "pathName": "pages/packageB/deliveryProgress/index",
+          "query": "id=fcd70129-87f4-b743-db4c-dee2f3f93925",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "petList",
+          "pathName": "pages/packageB/petList/index",
+          "query": "petNumber=3",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "petList",
+          "pathName": "pages/packageB/petList/index",
+          "query": "petNumber=3",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pdp",
+          "pathName": "pages/packageA/productDetail/index",
+          "query": "id=0958f8aa-de01-bed2-8e0b-b16c6f41a49d",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "plp",
+          "pathName": "pages/packageA/search/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "test",
+          "pathName": "pages/packageB/deliveryManagement/index",
+          "query": "id=d941864d-5422-60a8-ac1e-6299575a42fb",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "test",
+          "pathName": "pages/packageB/deliveryManagement/index",
+          "query": "id=d941864d-5422-60a8-ac1e-6299575a42fb",
+          "launchMode": "default",
+          "scene": null
+        }
+      ]
+    }
+  }
 }
