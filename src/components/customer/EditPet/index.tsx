@@ -191,14 +191,14 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             className="col-span-8 border-solid border-gray-300 rounded-lg px-2 flex items-center h-8"
           >
             <Picker
-              style={{ borderWidth: '0px !important', backgroundColor: '#fff !important' }}
+              style={{ borderWidth: '0px !important', backgroundColor: 'transparent !important' }}
               mode="date"
-              className="flex-1 PickerItem w-full h-full flex items-center bg-white"
+              className="flex-1 PickerItem w-full h-full flex items-center"
               end={new Date().toLocaleString().split(' ')[0].replace(/\//g, '-')}
               onChange={handleChangeDate}
             >
-              <AtList className="border-0 w-full h-full bg-white">
-                <AtListItem className="text-xl bg-white" title="请选择生日" extraText={petInfo.birthday} />
+              <AtList className="border-0 w-full h-full bg-transparent">
+                <AtListItem className="text-xl bg-transparent" title="请选择生日" extraText={petInfo.birthday} />
               </AtList>
             </Picker>
           </View>
