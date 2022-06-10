@@ -80,6 +80,7 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
         })
       })
       session.set('cart-data', cartProducts)
+      console.info('////////')
       pay({
         params: {
           customerId: wxLoginRes?.userInfo?.id || '',
