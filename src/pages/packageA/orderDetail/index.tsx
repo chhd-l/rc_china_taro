@@ -221,11 +221,14 @@ const OrderDetails = () => {
                       <Text>订阅编号</Text>
                       <Text
                         className="text-rc22 arrow"
-                        onClick={() =>
+                        onClick={() => {
+                          if (orderDetail?.tradeState?.orderState === 'UNPAID') {
+                            return
+                          }
                           Taro.navigateTo({
                             url: `/pages/packageB/deliveryManagement/index?id=${orderDetail?.subscriptionId}`,
                           })
-                        }
+                        }}
                       >
                         {orderDetail.subscriptionNo}
                         <AtIcon value="chevron-right" size="14" />
