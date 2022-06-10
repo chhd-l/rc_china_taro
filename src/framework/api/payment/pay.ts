@@ -35,6 +35,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
             payInfoId = paymentRequest.payInfo.id
           } else {
             console.info('........', payInfo)
+            console.info('paramsparamsparams', params)
             const { pay: data } = await ApiRoot.orders().pay({ body: params })
             console.info('data', data)
             const { wxPaymentRequest } = data

@@ -6,7 +6,7 @@ import { getSubscriptionDetail } from '@/framework/api/subscription/subscription
 import IconFont from '@/iconfont'
 import { deliveryDetailAtom } from '@/store/subscription'
 import { View, Image, Text } from '@tarojs/components'
-import Taro, { Current } from '@tarojs/taro'
+import Taro, { Current, useDidShow } from '@tarojs/taro'
 import { useRequest } from 'ahooks'
 import { useAtom } from 'jotai'
 import moment from 'moment'
@@ -15,7 +15,7 @@ import orderBy from 'lodash/orderBy'
 import './index.less'
 
 const DeliveryManagement = () => {
-  const [, setDeliveryDetail] = useAtom(deliveryDetailAtom)
+  const [deliveryDetail, setDeliveryDetail] = useAtom(deliveryDetailAtom)
 
   const { data } = useRequest(async () => {
     const res = await getSubscriptionDetail(Current?.router?.params?.id)
@@ -31,6 +31,11 @@ const DeliveryManagement = () => {
   const handleClick = () => {
     handleBuyMore(data)
   }
+  useDidShow(() => {
+    console.info('deliveryDetail', deliveryDetail)
+    //更新
+    setDeliveryDetail(deliveryDetail)
+  })
   console.log('data', data, data?.pet?.id)
   return (
     <View className="delivery-management rc-content-bg">
@@ -69,7 +74,7 @@ const DeliveryManagement = () => {
             <View className="flex justify-between items-center">
               <IconFont name="fahuoyizhan" size={80} />
               <View className="text-24 text-right">
-                下一包将在{moment(data?.nextDeliveryTime).format('YYYY-MM-DD')}
+                下一包将在{moment(deliveryDetail?.nextDeliveryTime).format('YYYY-MM-DD')}
                 发货，请注意查收!
               </View>
             </View>
