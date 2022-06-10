@@ -133,7 +133,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                   </Text>
                 </View>
                 <View className="text-primary-red flex text-20 justify-between items-center">
-                  <View className="flex flex-row flex-wrap"></View>
+                  <View className="flex flex-row flex-wrap" />
                   <View className="text-gray-400">X{el?.num}</View>
                 </View>
                 {el?.goodsSpecifications ? (
@@ -153,7 +153,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
             <OrderAction
               orderState={item?.tradeState?.orderState || ''}
               openModalTip={() => {
-                openModalTip && openModalTip(item?.orderNumber)
+                openModalTip && openModalTip(item?.orderNumber, item?.tradeState?.orderState)
               }}
               payNow={() => payNow(item.orderNumber || '', item.tradePrice.totalPrice * 100)}
             />
