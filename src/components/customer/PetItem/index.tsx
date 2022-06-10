@@ -133,7 +133,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                   showEdit(petIdx)
                 }}
               >
-                <View className="w-20 bg-white h-20 rounded-full shadow-md flex items-center justify-center m-auto">
+                <View className={`w-20 bg-white h-20 rounded-full  flex items-center justify-center m-auto `}>
                   <Image
                     src={pet.image || (pet.type === 'DOG' ? Dog : Cat)}
                     style={{ borderRadius: '50%' }}
