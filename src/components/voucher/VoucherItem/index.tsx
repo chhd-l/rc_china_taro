@@ -1,4 +1,4 @@
-import { Radio, View, Text } from '@tarojs/components'
+import { Radio, View, Text, Image } from '@tarojs/components'
 import { getCurrencyCode } from '@/utils/utils'
 import { Voucher } from '@/framework/types/voucher'
 import { AtButton } from 'taro-ui'
@@ -65,7 +65,9 @@ const VoucherItem = ({
       ) : null}
       <View className="flex flex-row items-center text-24">
         <View className={`${priceClass} flex flex-col justify-center items-center`} style={{ width: '30%' }}>
-          {discountType === 'PERCENTAGE' ? (
+          {voucher?.originVoucher?.voucherDefaultImage ? (
+            <Image className="w-18 h-18" mode="widthFix" src={voucher?.originVoucher?.voucherDefaultImage} />
+          ) : discountType === 'PERCENTAGE' ? (
             <View>
               <Text className="text-4xl font-medium">{(100 - voucherPrice) / 10}</Text>
               <Text>折</Text>
@@ -76,7 +78,7 @@ const VoucherItem = ({
               <Text className="text-4xl font-medium">{voucherPrice}</Text>
             </View>
           )}
-          <View className="mt-3">{voucherName}</View>
+          <View className={`${voucher?.originVoucher?.voucherDefaultImage ? '' : 'mt-3'}`}>{voucherName}</View>
         </View>
         <View className="flex flex-col pl-6 flex-grow">
           <View className={`${priceClass} text-28`}>{voucherDescription}</View>

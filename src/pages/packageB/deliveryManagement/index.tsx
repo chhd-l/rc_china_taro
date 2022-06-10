@@ -19,6 +19,7 @@ const DeliveryManagement = () => {
 
   const { data } = useRequest(async () => {
     const res = await getSubscriptionDetail(Current?.router?.params?.id)
+    // const res = await getSubscriptionDetail('d941864d-5422-60a8-ac1e-6299575a42fb')
     res.nextDeliveryTime = res?.planingDeliveries?.[0]?.shipmentDate || undefined
     if (res.completedDeliveries) {
       //倒序
@@ -64,15 +65,24 @@ const DeliveryManagement = () => {
 
         <CommonTitle title="发货驿站" />
         <View>
-          <View className="flex justify-between items-center">
-            <IconFont name="fahuoyizhan" size={80} />
-            <View className="text-24 text-right">
-              下一包将在{moment(data?.nextDeliveryTime).format('YYYY-MM-DD')}
-              发货，请注意查收!
+          {data?.status !== 'COMPLETED' ? (
+            <View className="flex justify-between items-center">
+              <IconFont name="fahuoyizhan" size={80} />
+              <View className="text-24 text-right">
+                下一包将在{moment(data?.nextDeliveryTime).format('YYYY-MM-DD')}
+                发货，请注意查收!
+              </View>
             </View>
-          </View>
+          ) : null}
           <View className="flex">
-            <View className="w-36"></View>
+            <View className="w-36">
+              <View
+                style={{ display: `${data?.status === 'COMPLETED' ? 'block' : 'none'}`, top: '-2rpx' }}
+                className="relative"
+              >
+                <IconFont name="fahuoyizhan" size={80} />
+              </View>
+            </View>
             <View className="flex-1 flex  px-3 w-full">
               <AtButton
                 size="small"

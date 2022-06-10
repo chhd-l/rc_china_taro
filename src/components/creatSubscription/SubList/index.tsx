@@ -145,10 +145,12 @@ const SubList = ({ children }) => {
                     复制
                   </View>
                 </View>
-                <View>
-                  下一包将在{moment(children?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
-                  发货
-                </View>
+                {children?.status === 'COMPLETED' ? null : (
+                  <View>
+                    下一包将在{moment(children?.planingDeliveries?.[0]?.shipmentDate || undefined).format('YYYY-MM-DD')}
+                    发货
+                  </View>
+                )}
               </View>
               <View className=" my-2 px-1">
                 <AtProgress

@@ -24,7 +24,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
     const res = await receiveVoucher({
       voucherId: voucher.id,
     })
-    if (res) {
+    if (res.result) {
       setShowSuccessReceive(true)
       setVouchers(
         vouchers
@@ -36,6 +36,11 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
           })
           .sort((a, b) => Number(a.isReceived) - Number(b.isReceived)),
       )
+    } else {
+      //该优惠券已领取完之后重新刷新数据
+      if (res.errorCode === 'E0611920100') {
+        await getVoucherList()
+      }
     }
   }
 

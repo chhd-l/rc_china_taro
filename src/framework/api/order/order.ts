@@ -30,9 +30,9 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -158,7 +158,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
       console.log('query orders view list', res)
       return {
         total: total || 0,
-        records:records||[],
+        records: records || [],
       }
     }
   } catch (e) {
