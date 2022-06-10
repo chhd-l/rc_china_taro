@@ -150,7 +150,7 @@ const DeliveryProgress = () => {
                       ?.map((el, index) => (
                         <View
                           key={index}
-                          className="w-full flex items-center max-h-20 "
+                          className="w-full flex items-center min-h-20 "
                           style={{ marginBottom: '36rpx' }}
                           onClick={() => {
                             toDetail(completedDelivery)
