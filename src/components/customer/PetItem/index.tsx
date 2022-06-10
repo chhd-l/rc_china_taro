@@ -99,16 +99,20 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
                 showEdit(petIdx)
               }}
             >
-              <Image
-                className={`w-22 h-22 m-auto relative rounded-full ${
-                  imgUrl || pet.image ? 'bg-white  image-pad shadow-little' : ''
-                }`}
-                src={imgUrl || pet.image || (pet.type === 'DOG' ? Dog : Cat)}
-                // style={{ borderRadius: '50%' }}
-                onClick={() => {
-                  handleImage()
-                }}
-              />
+              <View
+                className={`w-22 ${
+                  pet.image ? ' bg-white   image-pad shadow-little' : ''
+                } h-22 rounded-full  flex items-center justify-center m-auto `}
+              >
+                <Image
+                  className={`w-full h-full  rounded-full`}
+                  src={imgUrl || pet.image || (pet.type === 'DOG' ? Dog : Cat)}
+                  // style={{ borderRadius: '50%' }}
+                  onClick={() => {
+                    handleImage()
+                  }}
+                />
+              </View>
             </View>
           ) : (
             // 宠物列表
@@ -125,7 +129,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               disabled={isEdit}
               isOpened={pet.isOpened}
               options={editPetButton}
-              maxDistance={164}
+              maxDistance={175}
               areaWidth={Taro.getSystemInfoSync().windowWidth}
             >
               <View

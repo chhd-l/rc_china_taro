@@ -1,13 +1,20 @@
 import { Image, ScrollView, Text, View } from '@tarojs/components'
 import { useState } from 'react'
 import { AtButton } from 'taro-ui'
+import './index.less'
+
+const httpsTilte = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/'
+
+const SecondaryMenu1 = [httpsTilte + 'Dog_bg1_01.png']
+const SecondaryMenu2 = [httpsTilte + 'Dog_bg2_01.png', httpsTilte + 'Dog_bg2_02.png']
+const SecondaryMenu3 = [httpsTilte + 'Dog_bg3_01.png', httpsTilte + 'Dog_bg3_02.png', httpsTilte + 'Dog_bg3_03.png']
 
 const DogPetsList = ({ list }: any) => {
   const [dog, setDog] = useState(list[0])
   const [pets, setPets] = useState(dog.Children[0])
 
   return (
-    <View className="pb-4 mt-1 flex flex-col">
+    <View className="pb-4 mt-1 flex flex-col DogPetList">
       <View className="flex justify-between items-center px-2 mb-2">
         {list.map((item, idx) => (
           <View
@@ -15,6 +22,7 @@ const DogPetsList = ({ list }: any) => {
             key={idx}
             onClick={() => {
               setDog(list.find((_, index) => idx === index))
+              setPets(list.find((_, index) => idx === index).Children[0])
             }}
           >
             <View
@@ -23,22 +31,18 @@ const DogPetsList = ({ list }: any) => {
                 borderColor: dog.title === item.title ? dog.color : 'transparent',
               }}
             >
-              <Image
-                className="box-border w-full h-full rounded-full"
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
+              <Image className="box-border w-full h-full rounded-full" src={httpsTilte + item.titleImg} />
             </View>
             <View className="text-24">{item.title}</View>
           </View>
         ))}
       </View>
-      <View>
-        <View className="flex items-center">
+      <ScrollView enableFlex className="whitespace-nowrap pb-4" scrollX>
+        <View className="flex items-center dogBg1" style={{ width: '107vw' }}>
           {dog.Children.map((item, idx) => (
             <View
               key={idx}
-              style={{ width: '33.33%' }}
-              className="text-center pt-3 pb-1"
+              className="text-center flex-1 flex flex-col py-2 items-center justify-center"
               onClick={() => {
                 setPets(dog.Children.find((_, index) => idx === index))
               }}
@@ -48,14 +52,15 @@ const DogPetsList = ({ list }: any) => {
             </View>
           ))}
         </View>
-        <View className="h-4 bg-white" />
-      </View>
+      </ScrollView>
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
-        style={{ height: pets.Children.length > 1 ? '35rem' : '22rem' }}
+        style={{ height: pets.Children.length > 1 ? '36rem' : pets.Children.length === 0 ? '10.6rem' : '23rem' }}
       >
-        <View className="w-full h-28" style={{ backgroundColor: dog.color }} />
-        <View style={{ transform: 'translateY(-9%)' }}>
+        <View className="w-full h-32">
+          <Image className="w-full h-full" src={httpsTilte + pets.img} />
+        </View>
+        <View style={{ transform: 'translateY(-8%)' }}>
           <ScrollView className="whitespace-nowrap" scrollX>
             <View className="inline-block px-1">
               <View
@@ -66,10 +71,7 @@ const DogPetsList = ({ list }: any) => {
                   <View key={idx} className="inline-block px-1 h-52  w-36">
                     <View className="bg-white rounded-lg">
                       {/* <Image src={item.img} className="w-30 h-28" /> */}
-                      <Image
-                        src="https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1613794160492_Id2TmT.png"
-                        className="w-full h-32"
-                      />
+                      <Image src={httpsTilte + item.img} className="w-full h-32" />
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal" style="height:3em">
                         {item.title}
                       </View>

@@ -41,7 +41,7 @@ export const getPdpVouchers = async (params) => {
   try {
     let { customerId, storeId } = Taro.getStorageSync('wxLoginRes')?.customerAccount
     const res = await ApiRoot.vouchers().getVouchersByGoodsId({ ...params, customerId, storeId })
-    let vouchers = res?.voucherDetailList || []
+    let vouchers = res?.voucherDetailList?.filter((item) => !item?.isUsed) || []
     vouchers = vouchers.map((el) => normalizeVoucher(el, 'pdp'))
     console.log('PDP vouchers view data', vouchers)
     return vouchers || []

@@ -7,28 +7,26 @@ const StarsList = ({ list }: StarsListProps) => {
   return (
     <ScrollView className="whitespace-nowrap pl-2 bg-gray-100" scrollX>
       {list.map((product, idx) => (
-        <View key={idx} className="inline-block mr-4" style="width:80%">
-          {/* <Video
-            id="video"
-            className="w-full"
-            // src={product.video}
-            src=""
-            poster="http://dummyimage.com/200x100"
-            //   initialTime='0'
-            controls={true}
-            autoplay={false}
-            loop={false}
-            muted={false}
-          /> */}
+        <View key={idx} className="inline-block mr-4" style="width:76%">
           <View className="flex items-center rounded-b-xl bg-white flex-col">
-            <Image
+            {/* <Image
               style="width:100%"
               lazyLoad
               mode="widthFix"
               src="https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1613794160492_Id2TmT.png"
+            /> */}
+            <Video
+              id="video"
+              className="w-full border-0"
+              src={product.mp4}
+              poster={product.expr}
+              object-fit="fill"
+              autoplay={false}
+              loop={false}
+              muted={false}
             />
             <View className="flex p-3 w-full">
-              <View>
+              {/* <View>
                 <Image
                   lazyLoad
                   className="w-32 h-32"
@@ -43,7 +41,8 @@ const StarsList = ({ list }: StarsListProps) => {
                 <View className="text-xs">高易消化蛋白</View>
                 <View className="text-xs">减少粪便量和异味</View>
                 <View className="text-center mt-2 text-red-600">¥140</View>
-              </View>
+              </View> */}
+              <Image style="width:100%" lazyLoad mode="widthFix" src={product.img} />
             </View>
           </View>
         </View>

@@ -113,164 +113,169 @@ export const floorList: FloorListProps[] = [
   },
 ]
 
+const httpsTilte = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/'
+
+export const mxCatDryFood = [
+  {
+    mp4: httpsTilte + 'Shop_Start_01.mp4',
+    img: httpsTilte + 'Shop_Start_01.png',
+    expr: httpsTilte + 'Shop_Start_01cover.jpg',
+  },
+  {
+    mp4: httpsTilte + 'Shop_Start_02.mp4',
+    img: httpsTilte + 'Shop_Start_02.png',
+    expr: httpsTilte + 'Shop_Start_02cover.jpg',
+  },
+  {
+    mp4: httpsTilte + 'Shop_Start_03.mp4',
+    img: httpsTilte + 'Shop_Start_03.png',
+    expr: httpsTilte + 'Shop_Start_03cover.jpg',
+  },
+  {
+    mp4: httpsTilte + 'Shop_Start_04.mp4',
+    img: httpsTilte + 'Shop_Start_04.jpg',
+    expr: httpsTilte + 'Shop_Start_04cover.jpg',
+  },
+]
+
+export const mxDogDryFood = [
+  {
+    mp4: httpsTilte + 'Shop_Start_Dog_01.mp4',
+    img: httpsTilte + 'Shop_Start_Dog_01.png',
+    expr: httpsTilte + 'Shop_Start_Dog_01cover.jpg',
+  },
+  {
+    mp4: httpsTilte + 'Shop_Start_Dog_02.mp4',
+    img: httpsTilte + 'Shop_Start_Dog_02.png',
+    expr: httpsTilte + 'Shop_Start_Dog_02cover.jpg',
+  },
+  {
+    mp4: httpsTilte + 'Shop_Start_Dog_03.mp4',
+    img: httpsTilte + 'Shop_Start_Dog_03.png',
+    expr: httpsTilte + 'Shop_Start_Dog_03cover.jpg',
+  },
+  {
+    mp4: httpsTilte + 'Shop_Start_Dog_04.mp4',
+    img: httpsTilte + 'Shop_Start_Dog_04.jpg',
+    expr: httpsTilte + 'Shop_Start_Dog_04cover.jpg',
+  },
+]
+
 export const catDryFood = [
   {
-    color: 'pink',
+    color: '#F5B5C3',
     title: '幼猫',
+    titleImg: httpsTilte + 'Shop_Cat_classify_01.png',
+    img: httpsTilte + 'Shop_Cat_classify_01banner.jpg',
     Children: [
       {
         title: '离乳期幼猫全价粮',
         price: '111',
-        span: '社区专享95折'
+        span: '社区专享95折',
+        img: httpsTilte + 'Shop_Cat_classify_01_Product01.png',
       },
       {
         title: '幼猫全价粮',
         price: '111',
+        img: httpsTilte + 'Shop_Cat_classify_01_Product02.jpg',
         span: '社区专享95折'
       },
       {
         title: '幼猫全价粮干湿套餐',
-        price: '111',
-        span: '社区专享95折'
-      },
-      {
-        title: '绝育呵护幼猫全价粮',
+        img: httpsTilte + 'Shop_Cat_classify_01_Product03.png',
         price: '111',
         span: '社区专享95折'
       },
     ]
   },
   {
-    color: 'crimson',
+    color: '#D14359',
     title: '成猫',
+    titleImg: httpsTilte + 'Shop_Cat_classify_02.png',
+    img: httpsTilte + 'Shop_Cat_classify_02banner.jpg',
     Children: [
       {
         title: '室内长毛成猫全价粮',
         price: '137',
+        img: httpsTilte + 'Shop_Cat_classify_02_Product01.jpg',
         span: '社区专享95折'
       },
       {
         title: '室内成猫全价粮干湿套餐',
+        img: httpsTilte + 'Shop_Cat_classify_02_Product02.jpg',
         price: '201',
         span: '社区专享95折'
       },
       {
         title: '挑嘴成猫全价粮（肠道舒适型）',
+        img: httpsTilte + 'Shop_Cat_classify_02_Product03.jpg',
         price: '149',
-        span: '社区专享95折'
-      },
-      {
-        title: '室内成猫全价粮',
-        price: '129',
-        span: '社区专享95折'
-      },
-      {
-        title: '室外成猫全价粮',
-        price: '198',
-        span: '社区专享95折'
-      },
-      {
-        title: '营养成猫全价粮',
-        price: '118',
         span: '社区专享95折'
       },
     ]
   },
   {
-    color: 'blue',
+    color: '#4190C9',
     title: '老年猫',
+    titleImg: httpsTilte + 'Shop_Cat_classify_03.png',
+    img: httpsTilte + 'Shop_Cat_classify_03banner.jpg',
     Children: [
       {
         title: '室内成猫全价粮（7+）',
         price: '116',
+        img: httpsTilte + 'Shop_Cat_classify_03_Product01.jpg',
         span: '社区专享95折'
       },
     ]
   },
   {
-    color: 'yellow',
+    color: '#E4C27A',
     title: '品种猫',
+    titleImg: httpsTilte + 'Shop_Cat_classify_04.png',
+    img: httpsTilte + 'Shop_Cat_classify_04banner.jpg',
     Children: [
       {
         title: '缅甸成猫全价粮食 2KG*2包',
         price: '137',
-        span: '社区专享95折'
-      },
-      {
-        title: '波斯猫幼猫全价粮食',
-        price: '201',
-        span: '社区专享95折'
-      },
-      {
-        title: '布偶猫成猫全价粮',
-        price: '149',
-        span: '社区专享95折'
-      },
-      {
-        title: '孟加拉豹猫全价粮',
-        price: '129',
-        span: '社区专享95折'
-      },
-      {
-        title: '英国短毛猫幼猫全价粮',
-        price: '198',
-        span: '社区专享95折'
-      },
-      {
-        title: '英国短毛猫成猫全价粮',
-        price: '118',
+        img: httpsTilte + 'Shop_Cat_classify_04_Product01.jpg',
         span: '社区专享95折'
       },
     ]
   },
   {
-    color: 'cadetblue',
+    color: '#5686AA',
     title: '亚健康',
-    Children: [
-      {
-        title: '口腔护理成猫全价粮',
-        price: '159',
-        span: '社区专享95折'
-      },
-      {
-        title: '体重呵护成猫全价粮',
-        price: '202',
-        span: '社区专享95折'
-      },
-      {
-        title: '美毛呵护成猫全价粮',
-        price: '202',
-        span: '社区专享95折'
-      },
-      {
-        title: '去毛球成猫全价粮',
-        price: '202',
-        span: '社区专享95折'
-      },
-    ]
+    titleImg: httpsTilte + 'Shop_Cat_classify_05.png',
+    img: httpsTilte + 'Shop_Cat_classify_05banner.jpg',
+    Children: []
   },
 ]
 
 export const dogDryFood = [
   {
-    color: 'blue',
+    color: '#67AEE2',
     title: '幼犬',
+    titleImg: 'Shop_Dog01.png',
     Children: [
       {
         title: '小型犬',
+        img: 'Shop_Dog01_classify_01banner.jpg',
         Children: [
           {
             title: '小型犬幼犬全价粮',
             price: '111',
+            img: 'Shop_Dog01_classify_01_Product01.jpg',
             span: '社区专享95折'
           }
         ]
       },
       {
         title: '中型犬',
+        img: 'Shop_Dog01_classify_02banner.jpg',
         Children: [
           {
             title: '中型犬幼犬全价粮',
+            img: 'Shop_Dog01_classify_02_Product01.jpg',
             price: '111',
             span: '社区专享95折'
           }
@@ -278,9 +283,11 @@ export const dogDryFood = [
       },
       {
         title: '大型犬',
+        img: 'Shop_Dog01_classify_03banner.jpg',
         Children: [
           {
             title: '大型犬幼犬全价粮',
+            img: 'Shop_Dog01_classify_03_Product01.jpg',
             price: '111',
             span: '社区专享95折'
           }
@@ -289,24 +296,29 @@ export const dogDryFood = [
     ]
   },
   {
-    color: 'green',
+    color: '#2C9155',
     title: '成犬',
+    titleImg: 'Shop_Dog_02.png',
     Children: [
       {
         title: '小型犬',
+        img: 'Shop_Dog02_classify_01banner.jpg',
         Children: [
           {
-            title: '小型犬成犬全价粮',
+            title: '小型犬幼犬全价粮',
             price: '111',
+            img: 'Shop_Dog01_classify_01_Product01.jpg',
             span: '社区专享95折'
           }
         ]
       },
       {
         title: '中型犬',
+        img: 'Shop_Dog02_classify_02banner.jpg',
         Children: [
           {
-            title: '中型犬成犬全价粮',
+            title: '中型犬幼犬全价粮',
+            img: 'Shop_Dog02_classify_02_Product01.jpg',
             price: '111',
             span: '社区专享95折'
           }
@@ -314,9 +326,11 @@ export const dogDryFood = [
       },
       {
         title: '大型犬',
+        img: 'Shop_Dog02_classify_03banner.jpg',
         Children: [
           {
-            title: '大型犬成犬全价粮',
+            title: '大型犬幼犬全价粮',
+            img: 'Shop_Dog02_classify_03_Product01.jpg',
             price: '111',
             span: '社区专享95折'
           }
@@ -325,35 +339,18 @@ export const dogDryFood = [
     ]
   },
   {
-    color: 'crimson',
+    color: '#D14359',
     title: '老年犬',
+    titleImg: 'Shop_Dog03.png',
     Children: [
       {
         title: '小型犬',
+        img: 'Shop_Dog03_classify_01banner.jpg',
         Children: [
           {
-            title: '小型犬老年犬全价粮',
+            title: '小型犬幼犬全价粮',
             price: '111',
-            span: '社区专享95折'
-          }
-        ]
-      },
-      {
-        title: '中型犬',
-        Children: [
-          {
-            title: '中型犬老年犬全价粮',
-            price: '111',
-            span: '社区专享95折'
-          }
-        ]
-      },
-      {
-        title: '大型犬',
-        Children: [
-          {
-            title: '大型犬老年犬全价粮',
-            price: '111',
+            img: 'Shop_Dog03_classify_01_Product01.jpg',
             span: '社区专享95折'
           }
         ]
@@ -361,24 +358,29 @@ export const dogDryFood = [
     ]
   },
   {
-    color: 'yellow',
+    color: '#E5C37B',
+    titleImg: 'Shop_Dog04.png',
     title: '品种犬',
     Children: [
       {
         title: '小型犬',
+        img: 'Shop_Dog04_classify_01banner.jpg',
         Children: [
           {
-            title: '小型犬品种犬全价粮',
+            title: '小型犬幼犬全价粮',
             price: '111',
+            img: 'Shop_Dog04_classify_01_Product01.jpg',
             span: '社区专享95折'
           }
         ]
       },
       {
         title: '中型犬',
+        img: 'Shop_Dog04_classify_02banner.jpg',
         Children: [
           {
-            title: '中型犬品种犬全价粮',
+            title: '中型犬幼犬全价粮',
+            img: 'Shop_Dog04_classify_02_Product01.png',
             price: '111',
             span: '社区专享95折'
           }
@@ -386,9 +388,11 @@ export const dogDryFood = [
       },
       {
         title: '大型犬',
+        img: 'Shop_Dog04_classify_03banner.jpg',
         Children: [
           {
-            title: '大型犬品种犬全价粮',
+            title: '大型犬幼犬全价粮',
+            img: 'Shop_Dog04_classify_03_Product01.jpg',
             price: '111',
             span: '社区专享95折'
           }
@@ -397,38 +401,26 @@ export const dogDryFood = [
     ]
   },
   {
-    color: 'cadetblue',
+    color: '#5585A9',
+    titleImg: 'Shop_Dog05.png',
     title: '亚健康',
     Children: [
       {
         title: '小型犬',
+        img: 'Shop_Dog05_classify_01banner.jpg',
         Children: [
           {
-            title: '小型犬老年犬全价粮',
+            title: '小型犬幼犬全价粮',
             price: '111',
+            img: 'Shop_Dog05_classify_01_Product01.jpg',
             span: '社区专享95折'
           }
         ]
       },
       {
         title: '中型犬',
-        Children: [
-          {
-            title: '中型犬老年犬全价粮',
-            price: '111',
-            span: '社区专享95折'
-          },
-          {
-            title: '中型犬老年犬全价粮',
-            price: '111',
-            span: '社区专享95折'
-          },
-          {
-            title: '中型犬老年犬全价粮',
-            price: '111',
-            span: '社区专享95折'
-          }
-        ]
+        img: 'Shop_Dog05_classify_02banner.jpg',
+        Children: []
       },
     ]
   },
