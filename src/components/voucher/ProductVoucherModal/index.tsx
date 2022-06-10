@@ -81,14 +81,20 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
         className="rc-voucher-float-layout"
         scrollY
       >
-        <View>
-          <View className="flex mb-2">
+        <View className="relative">
+          <View className="flex fixed top-0 right-0 left-0 h-8 z-50 bg-gray-eee px-2">
             <View className="m-auto">本店活动</View>
             <View className="flex justify-end">
-              <AtIcon value="close" size="20" color="#666" onClick={() => setShowReceiveVoucher(false)} />
+              <AtIcon
+                className="flex items-center"
+                value="close"
+                size="18"
+                color="#666"
+                onClick={() => setShowReceiveVoucher(false)}
+              />
             </View>
           </View>
-          <View>
+          <View className="mt-6">
             {vouchers.map((item) => (
               <VoucherItem
                 voucher={item}

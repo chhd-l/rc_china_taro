@@ -338,7 +338,7 @@ const Checkout = () => {
             <View>
               <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
               <Coupon
-                totalPrice={totalPrice}
+                totalPrice={orderType === 'normal' ? totalPrice : totalPrice - subDiscountPrice}
                 tradeItems={tradeItems}
                 changeMaxDiscount={(maxDiscountPrice) => {
                   console.log('maxDiscountPrice', maxDiscountPrice)

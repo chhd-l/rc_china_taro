@@ -20,7 +20,9 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
     Taro.requestSubscribeMessage({
       tmplIds: ['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ', 'xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc'],
       success: async (res) => {
+        console.info('============')
         if (res['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ'] && res['xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc']) {
+          console.info('xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc')
           let payInfoId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = '', payInfo: any = {}
           if (paymentRequest?.success) {
             payInfo = paymentRequest.payInfo
@@ -32,18 +34,21 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
             paySign = paymentRequest.wxPaymentRequest.paySign
             payInfoId = paymentRequest.payInfo.id
           } else {
+            console.info('........', payInfo)
+            console.info('paramsparamsparams', params)
             const { pay: data } = await ApiRoot.orders().pay({ body: params })
-            const { wxPaymentRequest } = data
+            console.info('data', data)
             payInfo = data.payInfo
-            if (data.success) {
+            const wxPaymentRequest = data.wxPaymentRequest
+            if (data.success && wxPaymentRequest) {
               timeStamp = wxPaymentRequest.timeStamp
               nonceStr = wxPaymentRequest.nonceStr
               packageStr = wxPaymentRequest.package
               signType = wxPaymentRequest.signType
               paySign = wxPaymentRequest.paySign
               payInfoId = payInfo.id
+              console.info('.....notSubscription', wxPaymentRequest)
             }
-            console.info('.....notSubscription', wxPaymentRequest)
           }
           console.info('payInfo', payInfo)
           if (payInfo?.status === 'PAID') {

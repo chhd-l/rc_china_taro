@@ -33,7 +33,7 @@ const VoucherItem = ({
   expiredTimeText = '有效期',
   applyBtnClass = '',
 }: VoucherItemProps) => {
-  const { voucherPrice, voucherName, voucherDescription, expiredTime, isSelect, discountType } = voucher
+  const { voucherPrice, voucherName, voucherDescription, expiredTime, isSelect, discountType, originVoucher } = voucher
 
   return (
     <View
@@ -64,9 +64,12 @@ const VoucherItem = ({
         </View>
       ) : null}
       <View className="flex flex-row items-center text-24">
-        <View className={`${priceClass} flex flex-col justify-center items-center`} style={{ width: '30%' }}>
-          {voucher?.originVoucher?.voucherDefaultImage ? (
-            <Image className="w-18 h-18" mode="widthFix" src={voucher?.originVoucher?.voucherDefaultImage} />
+        <View
+          className={`${priceClass} flex flex-col justify-center items-center`}
+          style={{ width: '30%', marginTop: showRadioSelect && originVoucher?.voucherDefaultImage ? '-30rpx' : 0 }}
+        >
+          {originVoucher?.voucherDefaultImage ? (
+            <Image className="w-18 h-18" mode="widthFix" src={originVoucher?.voucherDefaultImage} />
           ) : discountType === 'PERCENTAGE' ? (
             <View>
               <Text className="text-4xl font-medium">{(100 - voucherPrice) / 10}</Text>
@@ -78,7 +81,7 @@ const VoucherItem = ({
               <Text className="text-4xl font-medium">{voucherPrice}</Text>
             </View>
           )}
-          <View className={`${voucher?.originVoucher?.voucherDefaultImage ? '' : 'mt-3'}`}>{voucherName}</View>
+          <View className={`${originVoucher?.voucherDefaultImage ? '' : 'mt-3'}`}>{voucherName}</View>
         </View>
         <View className="flex flex-col pl-6 flex-grow">
           <View className={`${priceClass} text-28`}>{voucherDescription}</View>

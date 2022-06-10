@@ -221,7 +221,7 @@ const DeliveryProgress = () => {
                       ))}
                   </View>
                   <View className=" text-24 leading-rc72 text-right pr-2">
-                    发货日期:{moment(deliveryDetail?.shipmentDate).format('YYYY-MM-DD')}
+                    发货日期:{moment(completedDelivery?.shipmentDate).format('YYYY-MM-DD')}
                   </View>
                 </View>
               ))}

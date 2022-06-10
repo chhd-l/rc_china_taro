@@ -105,7 +105,11 @@ const Card = () => {
                   {index == recommendProduct.cardType && <IconFont name="xuanzhong" size={22} />}
                   {index === cycleList.length - 1 && (
                     <View className="absolute right-0" style={{ top: '-14px' }}>
-                      <IconFont name="tuijian" size={70} />
+                      {index == recommendProduct.cardType ? (
+                        <IconFont name="a-tuijian1" size={70} />
+                      ) : (
+                        <IconFont name="tuijian" size={70} />
+                      )}
                     </View>
                   )}
                 </View>
