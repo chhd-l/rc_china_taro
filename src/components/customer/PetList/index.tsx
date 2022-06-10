@@ -52,6 +52,8 @@ const PetList = (props: Props) => {
     if (props.siglePetInfo) {
       let petArr: any = [props.siglePetInfo]
       petArr[0].age = getAge(petArr[0].birthday)
+      petArr[0].breed = petArr[0].breedName
+      console.info('breedName', petArr)
       setPetList(petArr)
       setFakePet(petArr)
       return
