@@ -88,8 +88,26 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
     setIsEdit(false) //edit
   }
   return (
-    <View className="px-2 bg-white edit-pet pt-4 shadow-inner mx-3 pb-2">
-      <View>
+    <View
+      className="px-2 bg-white edit-pet  mx-3 pb-2 relative"
+      style={{ zIndex: 0 }}
+      // style={{
+      //   boxShadow:
+      //     '0 15px 17px -14px rgba(0, 0, 0, 0.3)inset',
+      // }}
+    >
+      <View
+        style={{
+          width: '100%',
+          height: '13px',
+          boxShadow: '0px 6px 12px -5px black',
+          position: 'relative',
+          top: '-13px',
+          zIndex: 0,
+          background: 'transparent',
+        }}
+      ></View>
+      <View className="pt-4 ">
         <SingleChoice
           label={
             <View className="col-span-4 flex items-center mb-1 text-22">
@@ -116,7 +134,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             <Text className="pl-2 ">宠物昵称</Text>
           </View>
           <Input
-            className="col-span-8 border border-solid border-gray-300 rounded-lg my-1 px-2 py-1"
+            className="col-span-8 border-2 border-solid border-gray-300 rounded-lg my-1 px-2 py-1"
             name="name"
             value={petInfo.name}
             onBlur={(e) => {
@@ -133,7 +151,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             <Text className="pl-2 ">宠物品种</Text>
           </View>
           <Input
-            className="col-span-8 border border-solid border-gray-300 rounded-lg my-1 px-2 py-1"
+            className="col-span-8 border-2 border-solid border-gray-300 rounded-lg my-1 px-2 py-1"
             name="breed"
             value={petInfo.breed}
             disabled
@@ -183,7 +201,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             <Text className="pl-2 ">宠物生日</Text>
           </View>
           <View
-            style={{ borderWidth: '1rpx !important' }}
+            style={{ borderWidth: '2rpx !important' }}
             className="col-span-8 border-solid border-gray-300 rounded-lg px-2 flex items-center"
           >
             <Picker

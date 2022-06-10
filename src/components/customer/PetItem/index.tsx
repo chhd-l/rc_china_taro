@@ -89,20 +89,22 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
 
   return (
     <View className="my-2 mx-3">
-      <View className=" rounded-lg overflow-hidden">
+      <View className=" rounded-lg overflow-hidden relative" style={{ zIndex: 1 }}>
         {pet.id !== '-1' ? (
           isEdit ? (
             <View
-              className="text-center pt-14 pb-2 w-screen"
+              className="text-center pt-14 pb-2 w-screen bg-cover bg-no-repeat"
               style={{ backgroundImage: `url(${petBg})` }}
               onClick={() => {
                 showEdit(petIdx)
               }}
             >
               <Image
-                className="w-20 h-20 m-auto relative"
+                className={`w-22 h-22 m-auto relative rounded-full ${
+                  imgUrl || pet.image ? 'bg-white  image-pad shadow-little' : ''
+                }`}
                 src={imgUrl || pet.image || (pet.type === 'DOG' ? Dog : Cat)}
-                style={{ borderRadius: '50%' }}
+                // style={{ borderRadius: '50%' }}
                 onClick={() => {
                   handleImage()
                 }}
@@ -127,17 +129,21 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               areaWidth={Taro.getSystemInfoSync().windowWidth}
             >
               <View
-                className="text-center pt-14 pb-2 w-screen"
+                className="text-center pt-14 pb-2 w-screen bg-cover bg-no-repeat"
                 style={{ backgroundImage: `url(${petBg})` }}
                 onClick={() => {
                   showEdit(petIdx)
                 }}
               >
-                <View className={`w-20 bg-white h-20 rounded-full  flex items-center justify-center m-auto `}>
+                <View
+                  className={`w-22 ${
+                    pet.image ? ' bg-white   image-pad shadow-little' : ''
+                  } h-22 rounded-full  flex items-center justify-center m-auto `}
+                >
                   <Image
                     src={pet.image || (pet.type === 'DOG' ? Dog : Cat)}
-                    style={{ borderRadius: '50%' }}
-                    className="w-20 h-20 m-auto Petpictureshadow"
+                    // style={{ borderRadius: '50%' }}
+                    className="w-full h-full m-auto Petpictureshadow rounded-full"
                   />
                 </View>
                 <View className="flex justify-center pt-3">
@@ -153,28 +159,32 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
         ) : (
           // 新增
           <View
-            className="text-center py-8 w-screen z-50"
+            className="text-center py-8 w-screen z-50 bg-cover"
             style={{ backgroundImage: `url(${petBg})` }}
             onClick={() => {
               showEdit(petIdx)
             }}
           >
             {imgUrl ? (
-              <Image
-                className="w-20 h-20 m-auto relative"
-                src={imgUrl}
-                style={{ borderRadius: '50%' }}
-                onClick={() => {
-                  handleImage()
-                }}
-              />
+              <View
+                className="w-22 h-22 m-auto relative rounded-full image-pad shadow-little"
+                // style={{ borderRadius: '50%' }}
+              >
+                <Image
+                  className="w-full h-full rounded-full"
+                  src={imgUrl}
+                  // style={{ borderRadius: '50%' }}
+                  onClick={() => {
+                    handleImage()
+                  }}
+                />
+              </View>
             ) : (
               <View
                 style={{
-                  borderRadius: '50%',
                   backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Pet_Add.png)`,
                 }}
-                className="w-20 h-20 m-auto mb-3   bg-no-repeat  bg-contain flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
+                className="w-22 h-22 m-auto mb-3 rounded-full   bg-no-repeat  bg-contain flex justify-center items-center Petpictureshadow text-gray-300 mt-2"
                 // src={pet.image}
                 onClick={() => {
                   handleImage()
@@ -184,7 +194,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               </View>
             )}
             {/* <Image
-              className="w-20 h-20 m-auto relative"
+              className="w-24 h-24 m-auto relative"
               src={imgUrl}
               style={{ borderRadius: '50%' }}
               onClick={(files) => {

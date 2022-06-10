@@ -86,7 +86,7 @@ const PetList = () => {
         })}
         {showAddPetBtn ? (
           <AtButton
-            className="mx-3 mt-4 text-xs flex items-center justify-center py-1"
+            className="mx-3 mt-4 text-xs flex items-center justify-center py-3 h-10 add-pet-btn"
             onClick={addPet}
             circle
             type="secondary"

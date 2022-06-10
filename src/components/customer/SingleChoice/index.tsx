@@ -53,8 +53,8 @@ const SingleChoice = ({ label, options, name, pet, setPetInfo }: SingleChoicePro
             onClick={() => {
               handleChange(option, idx)
             }}
-            className={`inline-block text-22 rounded-lg flex-1 py-1 text-center border-1 border-solid   ${
-              option.active ? 'border-2 border-red-600 text-red-600' : 'border-gray-300'
+            className={`inline-block text-22 rounded-lg flex-1 py-1 text-center border-2 border-solid   ${
+              option.active ? 'border-red-600 text-red-600' : 'border-gray-300'
             } ${idx == optionList.length - 1 ? '' : 'mr-2'}`}
           >
             {option.label}

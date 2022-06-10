@@ -1,3 +1,4 @@
+import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import AuthLogin, { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import { getPets } from '@/framework/api/pet/get-pets'
 import { PetGender, PetListItemProps } from '@/framework/types/customer'
@@ -138,7 +139,9 @@ const PetList = (props: Props) => {
         <View className="w-full flex relative mb-2">
           <View className="text-center h-full w-full flex items-center">
             <View
-              className="m-auto w-18 h-18 flex items-center bg-white rounded-full relative"
+              className={`m-auto box-border w-22 h-22 flex items-center ${
+                fakePet[0].image ? 'bg-white  image-pad shadow-little' : ''
+              } rounded-full relative`}
               onClick={() => {
                 handleChecked(fakePet[0].id, 0)
               }}
@@ -189,7 +192,7 @@ const PetList = (props: Props) => {
       <View className="box-border">
         <View className="w-full flex items-center mb-2">
           <Swiper
-            style={{ height: '80px' }}
+            style={{ minHeight: '6.5rem' }}
             className="w-72 flex items-center"
             circular
             nextMargin={systemType ? '180rpx' : '100rpx'}
@@ -202,7 +205,9 @@ const PetList = (props: Props) => {
                 <SwiperItem key={idx}>
                   <View className="text-center h-full flex items-center justify-center">
                     <View
-                      className={`  bg-white  w-18 h-18 rounded-full flex items-center justify-center relative 
+                      className={`box-border ${
+                        pet.image ? 'bg-white  image-pad shadow-little' : ''
+                      }   w-22 h-22 rounded-full flex items-center justify-center relative 
                     ${currentIdx !== idx && 'scale-75 transform'}`}
                       onClick={() => {
                         handleChecked(pet.id, idx)
@@ -227,12 +232,12 @@ const PetList = (props: Props) => {
           </Swiper>
           <View className="w-6 h-6 m-auto" onClick={toPetList}>
             <View
-              className="w-full h-full bg-no-repeat bg-contain"
+              className=" bg-no-repeat bg-contain w-6 h-6 "
               style={{
                 backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
                 backgroundColor: '#fff',
                 borderRadius: '50%',
-                boxShadow: '-0.5px 0.5px 22px 0px #999',
+                boxShadow: '0px 0 8px 2px #eaeaea',
               }}
             />
           </View>
@@ -259,7 +264,7 @@ const PetList = (props: Props) => {
       <View className="box-border">
         <View className="w-full flex items-center mb-2">
           <Swiper
-            style={{ height: '80px' }}
+            style={{ minHeight: '6.5rem' }}
             className="w-full flex items-center"
             circular
             // displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
@@ -274,7 +279,9 @@ const PetList = (props: Props) => {
                   <View className="text-center h-full flex items-center justify-center">
                     {pet.id != '-1' ? (
                       <View
-                        className={` bg-white w-18  h-18 rounded-full flex items-center justify-center relative 
+                        className={`box-border ${
+                          pet.image ? 'bg-white   image-pad shadow-little' : ''
+                        } w-22  h-22 rounded-full flex items-center justify-center relative 
                   ${currentIdx !== idx && 'scale-75 transform'} `}
                         onClick={() => {
                           handleChecked(pet.id, idx)
@@ -300,12 +307,12 @@ const PetList = (props: Props) => {
           </Swiper>
           <View className="w-6 h-6 m-auto" onClick={toPetList}>
             <View
-              className="w-full h-full bg-no-repeat bg-contain"
+              className="bg-no-repeat bg-contain w-6 h-6 "
               style={{
                 backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/small_add.svg)`,
                 backgroundColor: '#fff',
                 borderRadius: '50%',
-                boxShadow: '-0.5px 0.5px 22px 0px #999',
+                boxShadow: '0px 0 8px 2px #eaeaea',
               }}
             />
           </View>
@@ -335,13 +342,13 @@ const PetList = (props: Props) => {
 
   return (
     <View
-      className="box-border py-3 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
+      className="box-border pb-4 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
       style={{
         backgroundImage: `url(${petBg})`,
       }}
     >
-      <View className="flex justify-between">
-        <View className="font-semibold">我的宠物</View>
+      <View className="flex justify-between mb-5 items-end pet-list-title">
+        <CommonTitle title="我的宠物"></CommonTitle>
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
