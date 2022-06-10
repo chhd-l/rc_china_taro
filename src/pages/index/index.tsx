@@ -212,7 +212,7 @@ const ProductList = () => {
             <View className="mt-6">
               <Image
                 className="w-full"
-                style={{ height: '115vh' }}
+                style={{ height: '120vh' }}
                 src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Introduce.png"
               />
             </View>

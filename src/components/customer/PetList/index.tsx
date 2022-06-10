@@ -21,6 +21,7 @@ interface Props {
 const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [fakePet, setFakePet] = useState<any>([])
+  const [Nopets, setNopets] = useState(true)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const { currentIdx, checkedArr } = recommendInfo
@@ -66,6 +67,7 @@ const PetList = (props: Props) => {
     // } else {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     // }
+    res.length ? setNopets(false) : setNopets(true)
     setPetList(res)
     setFakePet(res)
   }
@@ -327,7 +329,7 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
-      {!petList.length && (
+      {Nopets && (
         <View className="custompettips relative flex flex-col items-center top-3">
           <View className="triangle" />
           <View
@@ -339,6 +341,7 @@ const PetList = (props: Props) => {
           <View
             className="absolute top-2 right-0 border-2 border-solid"
             style={{ borderRadius: '100%', backgroundColor: '#BEBEBE', borderColor: '#BEBEBE' }}
+            onClick={() => setNopets(false)}
           >
             <IconFont name="shanchu" size={42} color="#fff" />
           </View>

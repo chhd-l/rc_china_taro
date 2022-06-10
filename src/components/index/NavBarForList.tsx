@@ -48,7 +48,8 @@ const NavBarForList = () => {
         <View className="triangle" />
         <View className="flex items-center justify-center bg-white shadow-2xl p-2 fexidMyPets">
           点击“
-          <IconFont name="a-Frame4" size={30} />”<View className="text-red-600">添加到我的小程序</View>，订粮更方便
+          <IconFont name="a-Frame4" size={30} />”<View className="text-red-600 font-semibold">添加到我的小程序</View>
+          ，订粮更方便
           <View className="ml-4" onClick={distMyPets}>
             <IconFont name="shanchu" size={24} />
           </View>

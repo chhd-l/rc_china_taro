@@ -6,7 +6,7 @@ import { initNewPet } from '@/lib/customer'
 import { customerAtom } from '@/store/customer'
 import { getAge } from '@/utils/utils'
 import { View } from '@tarojs/components'
-import { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import cloneDeep from 'lodash.cloneDeep'
 import { useEffect, useState } from 'react'
@@ -18,7 +18,10 @@ const PetList = () => {
   const [showAddPetBtn, SetshowAddPetBtn] = useState(true)
   const { router } = getCurrentInstance()
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const { system } = Taro.getSystemInfoSync()
+  const systemType = system.indexOf('Android') > -1
 
+  console.log('system', system, systemType)
   let petNumber = router?.params?.petNumber || '0'
 
   const getList = async () => {
@@ -82,15 +85,26 @@ const PetList = () => {
           )
         })}
         {showAddPetBtn ? (
-          <AtButton
-            className="mx-3 mt-4 text-xs flex items-center justify-center py-1"
-            onClick={addPet}
-            circle
-            type="secondary"
-            size="small"
-          >
-            添加宠物
-          </AtButton>
+          systemType ? (
+            <AtButton
+              className="mx-3 mt-4 flex items-center justify-center h-10 text-xs"
+              onClick={addPet}
+              circle
+              type="secondary"
+            >
+              添加宠物
+            </AtButton>
+          ) : (
+            <AtButton
+              className="mx-3 mt-4 flex items-center h-11 justify-center"
+              customStyle={{ fontSize: '.85rem' }}
+              onClick={addPet}
+              circle
+              type="secondary"
+            >
+              添加宠物
+            </AtButton>
+          )
         ) : null}
       </View>
     </>

@@ -123,7 +123,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               disabled={isEdit}
               isOpened={pet.isOpened}
               options={editPetButton}
-              maxDistance={164}
+              maxDistance={175}
               areaWidth={Taro.getSystemInfoSync().windowWidth}
             >
               <View
