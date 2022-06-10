@@ -5,6 +5,7 @@ import omit from 'lodash/omit'
 import { pay } from '@/framework/api/payment/pay'
 import routers from '@/routers'
 import cloneDeep from 'lodash.cloneDeep'
+import { formatDateToApi } from '@/utils/utils'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const createOrder = async ({ tradeItems, address, remark, deliveryTime, voucher }) => {
@@ -30,9 +31,9 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-          ...voucher,
-          voucherStatus: 'Ongoing',
-        }
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -43,7 +44,7 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       addressInfo: addressInfo.id !== '' ? addressInfo : null,
       remark,
       shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
-      expectedShippingDate: new Date(deliveryTime).toISOString(),
+      expectedShippingDate: formatDateToApi(deliveryTime),
       isSubscription: false,
       customerInfo: {
         id: user.id,

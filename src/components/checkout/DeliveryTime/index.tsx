@@ -5,7 +5,7 @@ import { TO_SHIP_ORDER_ICON } from '@/lib/constants'
 import moment from 'moment'
 
 const DeliveryTime = ({ changeDeliveryDate }: { changeDeliveryDate: Function }) => {
-  const [deliveryTime, setDeliveryTime] = useState(moment().add(1, 'days').format('YYYY-MM-DD'))
+  const [deliveryTime, setDeliveryTime] = useState(moment().format('YYYY-MM-DD'))
 
   const onDateChange = (e) => {
     setDeliveryTime(e.detail.value)
