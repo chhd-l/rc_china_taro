@@ -1,6 +1,6 @@
 import { GoodsVariants } from '@/framework/schema/products.schema'
 import { SkuItemProps } from '@/framework/types/products'
-import { dealDatasForApi, formatDateToApi, formatDateToFe } from '@/utils/utils'
+import { dealDatasForApi, formatDateToApi } from '@/utils/utils'
 import moment from 'moment'
 
 export const normalizePetsForApi = (petInfo: any) => {
@@ -20,8 +20,6 @@ export const normalizePetsForApi = (petInfo: any) => {
 export const normalizePetsForFe = (petInfo: any) => {
   let data: any = dealDatasForApi(petInfo, petItemFeArr, petItemApiArr)
   if (data.birthday) {
-    //处理日期
-    // data.birthday = formatDateToFe(data.birthday)
     data.birthday = moment(petInfo.birthday).format('YYYY-MM-DD')
   }
   return data

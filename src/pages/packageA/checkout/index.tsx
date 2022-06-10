@@ -15,6 +15,7 @@ import { subscriptionCreateAndPay } from '@/framework/api/subscription/subscript
 import moment from 'moment'
 import CouponItem from '@/components/checkout/CouponItem'
 import NavBar from '@/components/common/Navbar'
+import { formatDateToApi } from '@/utils/utils'
 import './index.less'
 
 const Checkout = () => {
@@ -25,7 +26,7 @@ const Checkout = () => {
   const [couponItems, setCouponItems] = useState<any[]>([])
   const [orderType, setOrderType] = useState<string>('normal')
   const [subscriptionInfo, setSubscriptionInfo] = useState<any>({})
-  const [deliveryTime, setDeliveryTime] = useState(moment().add(1, 'days').format('YYYY-MM-DD'))
+  const [deliveryTime, setDeliveryTime] = useState(moment().format('YYYY-MM-DD'))
   const [remark, setRemark] = useState('')
   const [totalNum, setTotalNum] = useState(0)
   const [totalPrice, setTotalPrice] = useState(0)
@@ -171,7 +172,7 @@ const Checkout = () => {
           }
         }),
         remark,
-        firstDeliveryTime: new Date(deliveryTime).toISOString(),
+        firstDeliveryTime: formatDateToApi(deliveryTime),
         totalDeliveryTimes: subscriptionInfo.cycleObj.quantity, //配送次数
       }
       let params = {

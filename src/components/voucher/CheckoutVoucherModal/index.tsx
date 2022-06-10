@@ -44,9 +44,8 @@ const VoucherModal = ({
   useEffect(() => {
     setVoucherList(cloneDeep(vouchers))
     setSelectedVoucher(cloneDeep(vouchers).find((el) => el.isSelect))
-    console.log('232343434',vouchers)
+    console.log('232343434', vouchers)
   }, [vouchers])
-
 
   return (
     <>
@@ -59,8 +58,8 @@ const VoucherModal = ({
           className="rc-voucher-float-layout"
           scrollY
         >
-          <View>
-            <View className="flex justify-between mb-2">
+          <View className="relative">
+            <View className="flex justify-between items-center fixed top-0 right-0 left-0 h-8 z-50 bg-gray-eee px-2">
               <View
                 onClick={() => {
                   closeVoucherModal && closeVoucherModal()
@@ -77,7 +76,7 @@ const VoucherModal = ({
                 确定
               </View>
             </View>
-            <View>
+            <View className="mt-6">
               {voucherList.map((item) => (
                 <VoucherItem
                   voucher={item}
