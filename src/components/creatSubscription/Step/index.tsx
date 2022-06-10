@@ -95,6 +95,8 @@ const Step = () => {
         giftList: gift,
         discountPrice,
         originalPrice,
+        cardType: 0,
+        freshType: 'FRESH_NORMAL',
       })
     }
     if (stepCount === 1) {
