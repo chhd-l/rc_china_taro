@@ -49,18 +49,25 @@ const PetList = (props: Props) => {
       setFakePet([])
       return
     }
+    if (props.siglePetInfo) {
+      let petArr: any = [props.siglePetInfo]
+      petArr[0].age = getAge(petArr[0].birthday)
+      setPetList(petArr)
+      setFakePet(petArr)
+      return
+    }
     let res = (await getPets({ customerId: customerInfo.id })) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
-    if (props.siglePetInfo) {
-      res = res.filter((el) => el.petId === props.siglePetInfo?.id)
-      if (!res.length) {
-        // debugger
-        res = [props.siglePetInfo]
-        res.age = getAge(res.birthday)
-      }
-    }
+    // if (props.siglePetInfo) {
+    //   res = res.filter((el) => el.petId === props.siglePetInfo?.id)
+    //   if (!res.length) {
+    //     // debugger
+    //     res = [props.siglePetInfo]
+    //     res.age = getAge(res.birthday)
+    //   }
+    // }
     // if (res.length > 1) {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 1, checkedArr: [] })
     // } else {
