@@ -86,7 +86,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
             <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
           {(item?.lineItem?.filter((el) => !el.isGift) || []).map((el, index) => (
-            <View key={index} className="w-full flex items-center max-h-20 " style={{ marginBottom: '36rpx' }}>
+            <View key={index} className="w-full flex items-center min-h-20 " style={{ marginBottom: '36rpx' }}>
               <View className="w-32 h-full" style={{ marginTop: '36rpx' }}>
                 {el?.pic ? (
                   <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
@@ -99,7 +99,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                 <View className="text-primary-red flex text-20 justify-between items-center">
                   <View className="flex flex-row flex-wrap">
                     {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                      <View className="p-1 border rounded-lg border-solid border-red mr-2 mb-1">{tag}</View>
+                      <View className="px-1 border rounded-lg border-solid border-red mr-2 mb-1">{tag}</View>
                     ))}
                   </View>
                   <View className="text-gray-400">X{el?.num}</View>
