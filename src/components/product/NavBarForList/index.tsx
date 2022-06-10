@@ -18,8 +18,11 @@ const NavBarForList = ({
   setShowPendant,
 }: any) => {
   const [keyword, setKeyword] = useState('')
+  const { system } = Taro.getSystemInfoSync()
+  const systemType = system.indexOf('Android') > -1
   const [Left, setLeft] = useState<null | number>(null)
-
+  const menuButtonInfo = Taro.getMenuButtonBoundingClientRect()
+  console.info('menuButtonInfo', menuButtonInfo)
   const handleNavClick = ({ id }) => {
     setFloorId(id)
     setFloorActiveId(id)
@@ -34,8 +37,8 @@ const NavBarForList = ({
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
   }
   return (
-    <NavBar isCustom>
-      <View className="flex items-center px-2 product-list-navbar w-full">
+    <NavBar isCustom isAutoHeight>
+      <View className={`flex items-center px-2 product-list-navbar w-full ${systemType ? 'isandroid' : 'isios'}`}>
         <View className="font-medium">商城</View>
         <View className="flex-1 text-28" onClick={handleClick}>
           <AtSearchBar
@@ -49,9 +52,9 @@ const NavBarForList = ({
             }}
           />
         </View>
-        <View className="w-24" />
+        <View className="ml-4" style={{ width: menuButtonInfo?.width || '6.5rem' }} />
       </View>
-      <View className={`relative ${!MyPets && 'opacity-0'} h-14`}>
+      <View className={`relative ${!MyPets && 'hidden'} h-14`}>
         <ScrollView
           className="whitespace-nowrap FloorNav bg-white flex h-full"
           enableFlex
