@@ -64,6 +64,7 @@ const PetList = (props: Props) => {
     }
     console.info('petInfoListpetInfoListpetInfoList', petInfoList)
     if (petInfoList?.length) {
+      petInfoList.length ? setNopets(false) : setNopets(true)
       setPetList(petInfoList)
       setFakePet(petInfoList)
       return

@@ -222,7 +222,11 @@ const OrderDetails = () => {
                       <Text
                         className="text-rc22 arrow"
                         onClick={() => {
-                          if (orderDetail?.tradeState?.orderState === 'UNPAID') {
+                          debugger
+                          if (
+                            orderDetail?.tradeState?.orderState === 'UNPAID' ||
+                            orderDetail?.tradeState?.orderState === 'VOID'
+                          ) {
                             return
                           }
                           Taro.navigateTo({
