@@ -113,8 +113,11 @@ const ProductList = () => {
   }
   const getLiveStreamingFindOnLiveData = async () => {
     let data = await getLiveStreamingFindOnLive('22c2f601-5a60-8b10-20c1-c56ef0d8bd53')
-    if (!data) {
+    console.info('....', data)
+    if (!data?.[0]) {
+      console.info('....aaaaa', data)
       setLiveStreaming(undefined)
+      return
     }
     {
       /* 直播间状态。101：直播中，102：未开始，103已结束，104禁播，105：暂停，106：异常，107：已过期 */
@@ -123,7 +126,7 @@ const ProductList = () => {
     let liveStreamingList =
       data?.map((el) => {
         return {
-          img: el.shareImg,
+          img: el.feedsImg || el.shareImg,
           status: el.liveStatus,
           roomId: el.roomId,
           statusIcon: liveStatusIconList[el.liveStatus],
