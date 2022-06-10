@@ -5,13 +5,21 @@ import IconFont from '@/iconfont'
 
 interface NavbarProps {
   children?: any //自定义navbar
+  isAutoHeight?: boolean
   isCustom?: boolean //是否自定义，为true的话children必传
   isNeedBack?: boolean //是否需要返回组件 tabbar页面不需要，其余的基本都需要
   navbarTitle?: string //title
   backEvent?: Function //自定义返回上一页事件
 }
 
-const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = '', backEvent }: NavbarProps) => {
+const NavBar = ({
+  children,
+  isCustom = false,
+  isNeedBack = false,
+  navbarTitle = '',
+  backEvent,
+  isAutoHeight = false,
+}: NavbarProps) => {
   const [paddingTop, setPaddingTop] = useState<any>(0)
 
   useEffect(() => {
@@ -25,7 +33,7 @@ const NavBar = ({ children, isCustom = false, isNeedBack = false, navbarTitle = 
   return (
     <View
       className="sticky top-0 left-0 z-50 bg-white"
-      style={{ paddingTop: paddingTop + 'px', height: '2.625rem', paddingBottom: '8rpx' }}
+      style={{ paddingTop: paddingTop + 'px', height: isAutoHeight ? 'auto' : '2.625rem', paddingBottom: '8rpx' }}
     >
       {isCustom ? (
         children

@@ -9,10 +9,6 @@ export const formatDateToApi = (date: string): string => {
   return new Date(date).toISOString()
 }
 
-export const formatDateToFe = (date: string): string => {
-  return new Date(date).toLocaleDateString().replace(/\//g, '-')
-}
-
 export const formatMoney = (price: number) => {
   return getCurrencyCode() + (price || 0).toFixed(2)
 }
@@ -142,5 +138,3 @@ export const getDateDiff = (startTime, endTime, orderCancelMinute) => {
     second: day > 0 || hour > 0 || minute >= orderCancelMinute ? 0 : 60 - Number(second.toFixed(0)),
   }
 }
-
-export const getRecommendProduct = () => { }

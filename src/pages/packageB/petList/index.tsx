@@ -4,6 +4,7 @@ import { getPets } from '@/framework/api/pet/get-pets'
 import { PetListItemProps } from '@/framework/types/customer'
 import { initNewPet } from '@/lib/customer'
 import { customerAtom } from '@/store/customer'
+import { petInfoListAuto } from '@/store/pets'
 import { getAge } from '@/utils/utils'
 import { View } from '@tarojs/components'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
@@ -20,6 +21,7 @@ const PetList = () => {
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
   const { system } = Taro.getSystemInfoSync()
   const systemType = system.indexOf('Android') > -1
+  const [petInfoList, setPetInfoList] = useAtom(petInfoListAuto)
 
   console.log('system', system, systemType)
   let petNumber = router?.params?.petNumber || '0'
@@ -30,6 +32,7 @@ const PetList = () => {
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
+    setPetInfoList(res)
     if (res.length) {
       setPetList(res)
       SetshowAddPetBtn(true)
