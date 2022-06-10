@@ -31,11 +31,11 @@ const DeliveryManagement = () => {
   const handleClick = () => {
     handleBuyMore(data)
   }
-  useDidShow(() => {
-    console.info('deliveryDetail', deliveryDetail)
-    //更新
-    setDeliveryDetail(deliveryDetail)
-  })
+  // useDidShow(() => {
+  //   console.info('deliveryDetail', deliveryDetail)
+  //   //更新
+  //   setDeliveryDetail(deliveryDetail)
+  // })
   console.log('data', data, data?.pet?.id)
   return (
     <View className="delivery-management rc-content-bg">

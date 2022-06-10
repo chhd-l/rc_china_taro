@@ -4,6 +4,7 @@ import { getPets } from '@/framework/api/pet/get-pets'
 import { PetListItemProps } from '@/framework/types/customer'
 import { initNewPet } from '@/lib/customer'
 import { customerAtom } from '@/store/customer'
+import { petInfoListAuto } from '@/store/pets'
 import { getAge } from '@/utils/utils'
 import { View } from '@tarojs/components'
 import { getCurrentInstance } from '@tarojs/taro'
@@ -18,6 +19,7 @@ const PetList = () => {
   const [showAddPetBtn, SetshowAddPetBtn] = useState(true)
   const { router } = getCurrentInstance()
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const [petInfoList, setPetInfoList] = useAtom(petInfoListAuto)
 
   let petNumber = router?.params?.petNumber || '0'
 
@@ -27,6 +29,7 @@ const PetList = () => {
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })
+    setPetInfoList(res)
     if (res.length) {
       setPetList(res)
       SetshowAddPetBtn(true)

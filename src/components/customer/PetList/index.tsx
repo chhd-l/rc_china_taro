@@ -4,6 +4,7 @@ import { PetGender, PetListItemProps } from '@/framework/types/customer'
 import IconFont from '@/iconfont'
 import { Cat, Dog, femaleIcon, maleIcon, petBg } from '@/lib/constants'
 import { customerAtom } from '@/store/customer'
+import { petInfoListAuto } from '@/store/pets'
 import { recommendInfoAtom } from '@/store/subscription'
 import { getAge } from '@/utils/utils'
 import { Image, Swiper, SwiperItem, Text, View } from '@tarojs/components'
@@ -23,6 +24,7 @@ const PetList = (props: Props) => {
   const [fakePet, setFakePet] = useState<any>([])
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
+  const [petInfoList, setPetInfoList] = useAtom(petInfoListAuto)
   const { currentIdx, checkedArr } = recommendInfo
   const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
 
@@ -58,6 +60,12 @@ const PetList = (props: Props) => {
       setFakePet(petArr)
       return
     }
+    console.info('petInfoListpetInfoListpetInfoList', petInfoList)
+    if (petInfoList?.length) {
+      setPetList(petInfoList)
+      setFakePet(petInfoList)
+      return
+    }
     let res = (await getPets({ customerId: customerInfo.id })) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
@@ -75,6 +83,7 @@ const PetList = (props: Props) => {
     // } else {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     // }
+    setPetInfoList(res)
     setPetList(res)
     setFakePet(res)
   }
