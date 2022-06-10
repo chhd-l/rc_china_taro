@@ -22,10 +22,7 @@ const CatPetsList = ({ list }: any) => {
                 borderColor: cat.title === item.title ? cat.color : 'transparent',
               }}
             >
-              <Image
-                className="box-border w-full h-full rounded-full"
-                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-              />
+              <Image className="box-border w-full h-full rounded-full" src={item.titleImg} />
             </View>
             <View className="text-24">{item.title}</View>
           </View>
@@ -33,10 +30,12 @@ const CatPetsList = ({ list }: any) => {
       </View>
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
-        style={{ height: cat.Children.length > 1 ? '35rem' : '22rem' }}
+        style={{ height: cat.Children.length > 1 ? '36rem' : cat.Children.length === 0 ? '10.6rem' : '23rem' }}
       >
-        <View className="w-full h-28" style={{ backgroundColor: cat.color }} />
-        <View style={{ transform: 'translateY(-9%)' }}>
+        <View className="w-full h-32">
+          <Image className="w-full h-full" src={cat.img} />
+        </View>
+        <View style={{ transform: 'translateY(-8%)' }}>
           <ScrollView className="whitespace-nowrap" scrollX>
             <View className="inline-block px-1">
               <View className="flex flex-col flex-wrap" style={{ height: cat.Children.length > 1 ? '27rem' : '15rem' }}>
@@ -44,10 +43,7 @@ const CatPetsList = ({ list }: any) => {
                   <View key={idx} className="inline-block px-1 h-52  w-36">
                     <View className="bg-white rounded-lg">
                       {/* <Image src={item.img} className="w-30 h-28" /> */}
-                      <Image
-                        src="https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1613794160492_Id2TmT.png"
-                        className="w-full h-32"
-                      />
+                      <Image src={item.img} className="w-full h-32" />
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal" style="height:3em">
                         {item.title}
                       </View>

@@ -89,10 +89,11 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
   }
   return (
     <View className="px-2 bg-white edit-pet pt-4 shadow-inner mx-3 pb-2">
-      <View>
+      <View className="mb-3">
+        {/* 宠物类型 */}
         <SingleChoice
           label={
-            <View className="col-span-4 flex items-center mb-1 text-22">
+            <View className="col-span-4 flex items-center text-22">
               <View
                 className="w-4 h-4 bg-contain bg-no-repeat"
                 style={{
@@ -107,7 +108,8 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
           name="type"
           pet={petInfo}
         />
-        <View className="grid grid-cols-12 text-22 my-1 mb-1">
+        {/* 宠物昵称 */}
+        <View className="grid grid-cols-12 text-22 mb-3 h-8">
           <View className="col-span-4 flex items-center">
             <View
               className="w-4 h-4 bg-contain bg-no-repeat"
@@ -116,7 +118,7 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             <Text className="pl-2 ">宠物昵称</Text>
           </View>
           <Input
-            className="col-span-8 border border-solid border-gray-300 rounded-lg my-1 px-2 py-1"
+            className="col-span-8 border border-solid border-gray-300 rounded-lg px-2 h-full flex items-center"
             name="name"
             value={petInfo.name}
             onBlur={(e) => {
@@ -127,13 +129,14 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             placeholder="点击输入宠物名"
           />
         </View>
-        <View className="grid grid-cols-12 text-22 relative mb-1">
+        {/* 宠物品种 */}
+        <View className="grid grid-cols-12 text-22 relative mb-3 h-8">
           <View className="col-span-4 flex items-center">
             <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${breedIcon})` }}></View>
             <Text className="pl-2 ">宠物品种</Text>
           </View>
           <Input
-            className="col-span-8 border border-solid border-gray-300 rounded-lg my-1 px-2 py-1"
+            className="col-span-8 border border-solid border-gray-300 rounded-lg px-2 h-full flex items-center"
             name="breed"
             value={petInfo.breed}
             disabled
@@ -153,9 +156,10 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
             customStyle={{ transform: 'translateY(-50%)', top: '50%' }}
           ></AtIcon>
         </View>
+        {/* 宠物性别 */}
         <SingleChoice
           label={
-            <View className="col-span-4 flex items-center mb-2 text-22">
+            <View className="col-span-4 flex items-center text-22">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${genderIcon})` }}></View>
               <Text className="pl-2 ">宠物性别</Text>
             </View>
@@ -164,9 +168,10 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
           name="gender"
           pet={petInfo}
         />
+        {/* 是否绝育 */}
         <SingleChoice
           label={
-            <View className="col-span-4 flex items-center mb-2 text-22">
+            <View className="col-span-4 flex items-center text-22">
               <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${sterilizedIcon})` }}></View>
               <Text className="pl-2 ">是否绝育</Text>
             </View>
@@ -175,26 +180,25 @@ const EditPet = ({ pet, petItem, getList, SetshowAddPetBtn, setIsEdit, petList, 
           name="isSterilized"
           pet={petInfo}
         />
-        <View
-          className={`${systemType ? 'isandroid' : 'isios'} date-item border-0 grid grid-cols-12 text-22 mb-1 relative`}
-        >
-          <View className="col-span-4 flex items-center py-2">
+        {/* 宠物生日 */}
+        <View className={`${systemType ? 'isandroid' : 'isios'} date-item border-0 grid grid-cols-12 text-22 relative`}>
+          <View className="col-span-4 flex items-center">
             <View className="w-4 h-4 bg-contain" style={{ backgroundImage: `url(${birthdayIcon})` }}></View>
             <Text className="pl-2 ">宠物生日</Text>
           </View>
           <View
             style={{ borderWidth: '1rpx !important' }}
-            className="col-span-8 border-solid border-gray-300 rounded-lg px-2 flex items-center"
+            className="col-span-8 border-solid border-gray-300 rounded-lg px-2 flex items-center h-8"
           >
             <Picker
-              style={{ borderWidth: '0px !important', backgroundColor: '#fff !important' }}
+              style={{ borderWidth: '0px !important', backgroundColor: 'transparent !important' }}
               mode="date"
-              className="flex-1 PickerItem w-full h-full flex items-center bg-white"
+              className="flex-1 PickerItem w-full h-full flex items-center"
               end={new Date().toLocaleString().split(' ')[0].replace(/\//g, '-')}
               onChange={handleChangeDate}
             >
-              <AtList className="border-0 w-full h-full bg-white">
-                <AtListItem className="text-xl bg-white" title="请选择生日" extraText={petInfo.birthday} />
+              <AtList className="border-0 w-full h-full bg-transparent">
+                <AtListItem className="text-xl bg-transparent" title="请选择生日" extraText={petInfo.birthday} />
               </AtList>
             </Picker>
           </View>

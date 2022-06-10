@@ -10,7 +10,7 @@ import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-
 import { getProducts } from '@/framework/api/product/get-product'
 import { SwiperProps } from '@/framework/types/products'
 import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
-import { catDryFood, dogDryFood } from '@/lib/product'
+import { catDryFood, dogDryFood, mxCatDryFood, mxDogDryFood } from '@/lib/product'
 import { mockProduct, mockStar, mockTabOptions } from '@/mock/product'
 import { customerAtom } from '@/store/customer'
 import { MovableArea, ScrollView, View } from '@tarojs/components'
@@ -214,7 +214,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">省薪囤货 爆款猫粮</View>
               </View>
               <View>
-                <StarsList list={starsList} />
+                <StarsList list={mxCatDryFood} />
               </View>
             </View>
             <View key="全价猫干粮">
@@ -244,7 +244,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">省薪囤货 爆款犬粮</View>
               </View>
               <View>
-                <StarsList list={starsList} />
+                <StarsList list={mxDogDryFood} />
               </View>
             </View>
             <View key="犬干粮">
