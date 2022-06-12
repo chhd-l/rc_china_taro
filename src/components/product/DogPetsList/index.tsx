@@ -1,5 +1,5 @@
 import { Image, ScrollView, Text, View } from '@tarojs/components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AtButton } from 'taro-ui'
 import './index.less'
 
@@ -12,6 +12,32 @@ const SecondaryMenu3 = [httpsTilte + 'Dog_bg3_01.png', httpsTilte + 'Dog_bg3_02.
 const DogPetsList = ({ list }: any) => {
   const [dog, setDog] = useState(list[0])
   const [pets, setPets] = useState(dog.Children[0])
+  const [bg, setBg] = useState<{
+    DogBg:string
+    bgList:string[]
+  }>({
+    DogBg : "",
+    bgList : []
+  })
+
+  useEffect(() => {
+    if(list.length === 1) {
+      setBg({
+        DogBg : SecondaryMenu1[0],
+        bgList : SecondaryMenu1
+      })
+    } else if (list.length === 2) {
+      setBg({
+        DogBg : SecondaryMenu2[0],
+        bgList : SecondaryMenu2
+      })
+    } else {
+      setBg({
+        DogBg : SecondaryMenu3[0],
+        bgList : SecondaryMenu3
+      })
+    }
+  }, [list])
 
   return (
     <View className="pb-4 mt-1 flex flex-col DogPetList">
@@ -37,17 +63,27 @@ const DogPetsList = ({ list }: any) => {
           </View>
         ))}
       </View>
-      <ScrollView enableFlex className="whitespace-nowrap pb-4" scrollX>
-        <View className="flex items-center dogBg1" style={{ width: '107vw' }}>
+      <ScrollView enableFlex className="whitespace-nowrap" scrollX>
+        <View className="flex items-center pb-4" style={{ 
+          width: '107vw',
+          background: `url(${bg.DogBg}) no-repeat center`,
+          backgroundSize: "100% 100%"
+           }}>
           {dog.Children.map((item, idx) => (
             <View
               key={idx}
-              className="text-center flex-1 flex flex-col py-2 items-center justify-center"
+              className="text-center flex-1 flex flex-col items-center justify-center"
               onClick={() => {
                 setPets(dog.Children.find((_, index) => idx === index))
+                const DogBg = bg.bgList[idx]
+                console.log(DogBg)
+                setBg({
+                  DogBg,
+                  bgList: bg.bgList
+                })
               }}
             >
-              {item.title}
+              <View>{item.title}</View>
               <View style={{ fontSize: '0.75rem' }}>参考成年体重10kg</View>
             </View>
           ))}
