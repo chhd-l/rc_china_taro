@@ -150,7 +150,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             >
               <Image src={PDP_WECHAT} className="w-full" mode="widthFix" />
             </View>
-            <View className="text-center">微信分享</View>
+            <View className="text-center text-28">微信分享</View>
           </Button>
           <View
             className="flex-1"
@@ -166,7 +166,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             >
               <Image src={PDP_POSTER} className="w-full" mode="widthFix" />
             </View>
-            <View className="text-center">生成海报</View>
+            <View className="text-center text-28">生成海报</View>
           </View>
         </View>
       </AtFloatLayout>
