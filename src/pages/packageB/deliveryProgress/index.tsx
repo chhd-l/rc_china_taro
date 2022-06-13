@@ -92,6 +92,7 @@ const DeliveryProgress = () => {
                   className="absolute left-0 right-0 bottom-0 top-0"
                   mode="date"
                   onChange={handleDate}
+                  value={moment(deliveryDetail?.nextDeliveryTime).format('YYYY-MM-DD')}
                   start={moment().format('YYYY-MM-DD')}
                 >
                   <AtList>
