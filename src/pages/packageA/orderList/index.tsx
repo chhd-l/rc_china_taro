@@ -83,7 +83,7 @@ const OrderList = () => {
     console.log('isFromSubscription', isFromSubscriptionOrder)
     setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
-    getOrderLists({ orderState: status })
+    getOrderLists({ orderState: status,isReload:true })
   })
 
   const handleClick = async (value) => {

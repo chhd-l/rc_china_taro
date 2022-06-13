@@ -49,6 +49,13 @@ const bannerLists = [
   },
 ]
 
+const activityList = [
+  {
+    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Shop_Active_banner.jpg',
+    url: '',
+  },
+]
+
 let type = 0 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
 let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/index/index', pid: 1 })) // 开发者在直播间页面路径上携带自定义参数（如示例中的 path 和pid参数），后续可以在分享卡片链接和跳转至商详页时获取，详见【获取自定义参数】、【直播间到商详页面携带参数】章节（上限600个字符，超过部分会被截断）
 let closePictureInPictureMode = 0 // 是否关闭小窗
@@ -64,7 +71,6 @@ let timer: any = null
 
 const ProductList = () => {
   const [bannerList, setBannerList] = useState<any[]>(bannerLists)
-  const [activityList, setActivityList] = useState<SwiperProps[]>(bannerLists)
   const [starsList, setStarsList] = useState<SwiperProps[]>(starsLists)
   const [showPendant, setShowPendant] = useState(false)
   const [MyPets, setMyPets] = useState(false)

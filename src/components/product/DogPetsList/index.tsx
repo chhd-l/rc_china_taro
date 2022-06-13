@@ -13,28 +13,28 @@ const DogPetsList = ({ list }: any) => {
   const [dog, setDog] = useState(list[0])
   const [pets, setPets] = useState(dog.Children[0])
   const [bg, setBg] = useState<{
-    DogBg:string
-    bgList:string[]
+    DogBg: string
+    bgList: string[]
   }>({
-    DogBg : "",
-    bgList : []
+    DogBg: '',
+    bgList: [],
   })
 
   useEffect(() => {
-    if(list.length === 1) {
+    if (list.length === 1) {
       setBg({
-        DogBg : SecondaryMenu1[0],
-        bgList : SecondaryMenu1
+        DogBg: SecondaryMenu1[0],
+        bgList: SecondaryMenu1,
       })
     } else if (list.length === 2) {
       setBg({
-        DogBg : SecondaryMenu2[0],
-        bgList : SecondaryMenu2
+        DogBg: SecondaryMenu2[0],
+        bgList: SecondaryMenu2,
       })
     } else {
       setBg({
-        DogBg : SecondaryMenu3[0],
-        bgList : SecondaryMenu3
+        DogBg: SecondaryMenu3[0],
+        bgList: SecondaryMenu3,
       })
     }
   }, [list])
@@ -47,14 +47,31 @@ const DogPetsList = ({ list }: any) => {
             className="px-1 flex flex-col text-center"
             key={idx}
             onClick={() => {
+              const arr = list.find((_, index) => idx === index).Children
               setDog(list.find((_, index) => idx === index))
-              setPets(list.find((_, index) => idx === index).Children[0])
+              setPets(arr[0])
+              if (arr.length === 1) {
+                setBg({
+                  DogBg: SecondaryMenu1[0],
+                  bgList: SecondaryMenu1,
+                })
+              } else if (arr.length === 2) {
+                setBg({
+                  DogBg: SecondaryMenu2[0],
+                  bgList: SecondaryMenu2,
+                })
+              } else {
+                setBg({
+                  DogBg: SecondaryMenu3[0],
+                  bgList: SecondaryMenu3,
+                })
+              }
             }}
           >
             <View
               className={`w-12 h-12 rounded-full border-10 border-solid `}
               style={{
-                borderColor: dog.title === item.title ? dog.color : 'transparent',
+                borderColor: dog.title === item.title ? dog.color : '#C1C1C1',
               }}
             >
               <Image className="box-border w-full h-full rounded-full" src={httpsTilte + item.titleImg} />
@@ -64,27 +81,31 @@ const DogPetsList = ({ list }: any) => {
         ))}
       </View>
       <ScrollView enableFlex className="whitespace-nowrap" scrollX>
-        <View className="flex items-center pb-4" style={{ 
-          width: '107vw',
-          background: `url(${bg.DogBg}) no-repeat center`,
-          backgroundSize: "100% 100%"
-           }}>
+        <View
+          className="flex items-center pb-4"
+          style={{
+            width: '107vw',
+            background: `url(${bg.DogBg}) no-repeat center`,
+            backgroundSize: '100% 100%',
+          }}
+        >
           {dog.Children.map((item, idx) => (
             <View
               key={idx}
-              className="text-center flex-1 flex flex-col items-center justify-center"
+              className="text-center flex flex-col items-center justify-center pr-1 pt-3"
+              style={{ width: '33.33%' }}
               onClick={() => {
                 setPets(dog.Children.find((_, index) => idx === index))
                 const DogBg = bg.bgList[idx]
                 console.log(DogBg)
                 setBg({
                   DogBg,
-                  bgList: bg.bgList
+                  bgList: bg.bgList,
                 })
               }}
             >
-              <View>{item.title}</View>
-              <View style={{ fontSize: '0.75rem' }}>参考成年体重10kg</View>
+              <View className="text-xs font-bold">{item.title}</View>
+              <View style={{ fontSize: '.5rem' }}>参考成年体重10kg</View>
             </View>
           ))}
         </View>

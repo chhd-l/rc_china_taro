@@ -1,9 +1,12 @@
 import { Image, ScrollView, Text, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { AtButton } from 'taro-ui'
 
 const CatPetsList = ({ list }: any) => {
   const [cat, setCat] = useState(list[0])
+  const { system } = Taro.getSystemInfoSync()
+  const systemType = system.indexOf('Android') > -1
 
   return (
     <View className="pb-4 mt-1 flex flex-col">
@@ -19,7 +22,7 @@ const CatPetsList = ({ list }: any) => {
             <View
               className={`w-12 h-12 rounded-full border-10 border-solid `}
               style={{
-                borderColor: cat.title === item.title ? cat.color : 'transparent',
+                borderColor: cat.title === item.title ? cat.color : '#C1C1C1',
               }}
             >
               <Image className="box-border w-full h-full rounded-full" src={item.titleImg} />
@@ -48,11 +51,14 @@ const CatPetsList = ({ list }: any) => {
                         {item.title}
                       </View>
                     </View>
-                    <View className="text-right py-1">
-                      <Text className="pr-2 ">￥{item.price}</Text>
-                      <Text style={{ borderRadius: '2px' }} className="bg-red-600 px-1 text-white text-24">
+                    <View className="flex items-center h-6 justify-end">
+                      <View style={{ fontSize: systemType ? '1rem' : '20px', lineHeight: '1.1' }}>￥{item.price}</View>
+                      <View
+                        style={{ borderRadius: '2px', fontSize: '.6rem' }}
+                        className="bg-red-600 px-1 text-white ml-1"
+                      >
                         {item.span}
-                      </Text>
+                      </View>
                     </View>
                   </View>
                 ))}

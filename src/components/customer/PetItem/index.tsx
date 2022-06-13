@@ -102,7 +102,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               <View
                 className={`w-22 ${
                   pet.image ? ' bg-white   image-pad shadow-little' : ''
-                } h-22 rounded-full  flex items-center justify-center m-auto `}
+                } h-22 rounded-full  flex items-center justify-center m-auto`}
               >
                 <Image
                   className={`w-full h-full  rounded-full`}

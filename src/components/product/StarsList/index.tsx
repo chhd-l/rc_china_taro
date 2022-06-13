@@ -17,7 +17,7 @@ const StarsList = ({ list }: StarsListProps) => {
             /> */}
             <Video
               id="video"
-              className="w-full border-0"
+              className="w-full border-0 h-64"
               src={product.mp4}
               poster={product.expr}
               object-fit="fill"
@@ -25,7 +25,7 @@ const StarsList = ({ list }: StarsListProps) => {
               loop={false}
               muted={false}
             />
-            <View className="flex p-3 w-full">
+            <View className="flex w-full">
               {/* <View>
                 <Image
                   lazyLoad

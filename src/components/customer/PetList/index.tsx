@@ -12,6 +12,7 @@ import { Image, Swiper, SwiperItem, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
+import { FrePetUnchoose, FreshPetChoose } from '@/lib/subscription'
 import { AtIcon } from 'taro-ui'
 import './index.less'
 
@@ -23,7 +24,7 @@ interface Props {
 const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [fakePet, setFakePet] = useState<any>([])
-  const [Nopets, setNopets] = useState(true)
+  const [Nopets, setNopets] = useState(Taro.getStorageSync('Nopets') ? Taro.getStorageSync('Nopets') : true)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [petInfoList, setPetInfoList] = useAtom(petInfoListAuto)
@@ -45,6 +46,8 @@ const PetList = (props: Props) => {
   })
 
   const getList = async () => {
+    console.log('getList', getList)
+    console.log('petInfoList', petInfoList)
     // const customerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
     if (!customerInfo?.id) {
       console.info('!customerInfo?.id', !customerInfo?.id)
@@ -60,14 +63,17 @@ const PetList = (props: Props) => {
       console.info('breedName', petArr)
       setPetList(petArr)
       setFakePet(petArr)
+      setNopets(false)
       return
     }
-    console.info('petInfoListpetInfoListpetInfoList', petInfoList)
     if (petInfoList?.length) {
-      petInfoList.length ? setNopets(false) : setNopets(true)
       setPetList(petInfoList)
       setFakePet(petInfoList)
+      setNopets(false)
+      Taro.setStorageSync('Nopets', false)
       return
+    } else {
+      Taro.setStorageSync('Nopets', true)
     }
     let res = (await getPets({ customerId: customerInfo.id })) || []
     res.forEach((item) => {
@@ -86,7 +92,13 @@ const PetList = (props: Props) => {
     // } else {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     // }
-    res.length ? setNopets(false) : setNopets(true)
+    console.log('res', res)
+    if (res.length) {
+      setNopets(false)
+      Taro.setStorageSync('Nopets', false)
+    } else {
+      Taro.setStorageSync('Nopets', true)
+    }
     setPetInfoList(res)
     setPetList(res)
     setFakePet(res)
@@ -109,14 +121,13 @@ const PetList = (props: Props) => {
   const CheckBoxItem = ({ id, idx }: { id: string; idx?: number }) => {
     return props.showCheckBox ? (
       <View
-        className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${
-          checkedArr.includes(id) && 'bg-primary-red'
-        }`}
+        className="absolute bottom-0 right-0 w-4 h-4"
+        // className={` check-icon  flex justify-center items-center rounded-sm `}
         onClick={() => {
           handleChecked(id, idx)
         }}
       >
-        <AtIcon value="check" color=" #fff"></AtIcon>
+        <Image src={checkedArr.includes(id) ? FreshPetChoose : FrePetUnchoose} className="w-4 h-4" />
       </View>
     ) : null
   }
@@ -355,6 +366,7 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
+      {console.log(Nopets)}
       {Nopets && (
         <View className="custompettips relative flex flex-col items-center top-3">
           <View className="triangle" />
@@ -367,7 +379,10 @@ const PetList = (props: Props) => {
           <View
             className="absolute top-2 right-0 border-2 border-solid"
             style={{ borderRadius: '100%', backgroundColor: '#BEBEBE', borderColor: '#BEBEBE' }}
-            onClick={() => setNopets(false)}
+            onClick={() => {
+              setNopets(false)
+              Taro.setStorageSync('Nopets', false)
+            }}
           >
             <IconFont name="shanchu" size={42} color="#fff" />
           </View>

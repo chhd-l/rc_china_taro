@@ -176,7 +176,7 @@ const Account = () => {
               }}
             >
               取消
-            </Button>{' '}
+            </Button>
             <Button
               onClick={() => {
                 Taro.removeStorageSync('wxLoginRes')
@@ -188,7 +188,7 @@ const Account = () => {
               }}
             >
               确定
-            </Button>{' '}
+            </Button>
           </AtModalAction>
         </AtModal>
       </View>
