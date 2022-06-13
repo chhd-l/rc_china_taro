@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, View } from '@tarojs/components'
+import { Image, ScrollView, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { AtButton } from 'taro-ui'
@@ -20,7 +20,7 @@ const CatPetsList = ({ list }: any) => {
             }}
           >
             <View
-              className={`w-12 h-12 rounded-full border-10 border-solid `}
+              className={`w-12 h-12 rounded-full ${cat.title === item.title ? 'border-10' : 'border-2'} border-solid `}
               style={{
                 borderColor: cat.title === item.title ? cat.color : '#C1C1C1',
               }}
