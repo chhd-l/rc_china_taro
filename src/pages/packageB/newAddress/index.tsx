@@ -170,9 +170,8 @@ const Index = () => {
               value="0"
               checked={Boolean(addressInfo.isDefault)}
               onClick={() => updateAddressInfo(!addressInfo.isDefault, 'isDefault')}
-              style={{ transform: 'scale(0.6)' }}
               color="#d33024"
-              className="mt-2 text-40 -ml-4 text-gray-400"
+              className="mt-2 text-40 -ml-4 text-gray-400 transform-6"
             >
               &nbsp;默认地址
             </Radio>

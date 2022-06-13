@@ -61,9 +61,8 @@ const TotalSettle = ({
         <Radio
           value="选中"
           checked={isChecked}
-          style={{ transform: 'scale(0.6)' }}
           color="#d33024"
-          className="text-40"
+          className="text-40 transform-6"
           onClick={() => changeIsAllSelect()}
         >
           全选

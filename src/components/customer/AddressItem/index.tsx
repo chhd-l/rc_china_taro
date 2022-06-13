@@ -106,9 +106,8 @@ const AddressItem = ({
           key={addressInfo.id}
           value="选中"
           checked={Boolean(addressInfo.isDefault)}
-          style={{ transform: 'scale(0.6)' }}
           color="#d33024"
-          className="text-40 -ml-5 text-gray-400"
+          className="text-40 -ml-5 text-gray-400 transform"
           onClick={() => setAsDefault()}
         >
           &nbsp;默认地址

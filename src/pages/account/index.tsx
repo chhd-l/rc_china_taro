@@ -26,7 +26,7 @@ const orderTypeList: OrderTypeProps[] = [
   { label: '待发货', icon: TO_SHIP_ORDER_ICON, url: `${routers.orderList}?status=TO_SHIP` },
   { label: '待收货', icon: SHIPPED_ORDER_ICON, url: `${routers.orderList}?status=SHIPPED` },
   // { label: '退货/退款', icon: defaultIcon, url: '' },
-  { label: '我的卡券', icon: VOUCHER_ORDER_ICON, url: `${routers.voucherList}?status=NOT_USED` },
+  { label: '我的卡券', icon: VOUCHER_ORDER_ICON, url: `${routers.voucherList}?voucherStatus=NOT_USED` },
 ]
 
 const Account = () => {

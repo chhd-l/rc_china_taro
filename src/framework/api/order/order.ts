@@ -155,7 +155,13 @@ export const getOrderList = async (queryOrderListParams: any) => {
       }
     } else {
       console.log('query orders view params', queryOrderListParams)
-      let res = await ApiRoot.orders().getOrders({ queryOrderListParams })
+      let { userInfo } = Taro.getStorageSync('wxLoginRes')
+      const params = Object.assign(queryOrderListParams, {
+        storeId: userInfo?.storeId || '12345678',
+        operator: userInfo?.nickName || 'system',
+        isNeedTotal: true,
+      })
+      let res = await ApiRoot.orders().getOrders({ params })
       const { records, total } = res.orders
       console.log('query orders view list', res)
       return {
@@ -205,9 +211,10 @@ export const getExpressCompanyList = async () => {
 
 export const shippedOrder = async (params: any) => {
   try {
+    let { userInfo } = Taro.getStorageSync('wxLoginRes')
     params = Object.assign(params, {
-      storeId: '12345678',
-      operator: 'zz',
+      storeId: userInfo?.storeId ||'12345678',
+      operator: userInfo?.nickName || 'system',
     })
     console.info('shipped order view params', params)
     let res = await ApiRoot.orders().shippedOrder({ body: params })
@@ -221,9 +228,10 @@ export const shippedOrder = async (params: any) => {
 
 export const completedOrder = async (params: any) => {
   try {
+    let { userInfo } = Taro.getStorageSync('wxLoginRes')
     params = Object.assign(params, {
-      storeId: '12345678',
-      operator: 'zz',
+      storeId: userInfo?.storeId ||'12345678',
+      operator: userInfo?.nickName || 'system',
     })
     console.info('completed order view params', params)
     let res = await ApiRoot.orders().completedOrder({ body: params })
@@ -237,9 +245,10 @@ export const completedOrder = async (params: any) => {
 
 export const cancelOrder = async (params: any) => {
   try {
+    let { userInfo } = Taro.getStorageSync('wxLoginRes')
     params = Object.assign(params, {
-      storeId: '12345678',
-      operator: 'zz',
+      storeId: userInfo?.storeId ||'12345678',
+      operator: userInfo?.nickName || 'system',
     })
     console.info('cancel order view params', params)
     let res = await ApiRoot.orders().cancelOrder({ body: params })

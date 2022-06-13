@@ -40,7 +40,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       )
     } else {
       //该优惠券已领取完之后重新刷新数据
-      if (res.errorCode === 'E0611920100' || res.errorCode === 'E06201') {
+      if (res.errorCode === 'E0611920100' || res.errorCode === 'E06201' || res.errorCode === 'EG701210') {
         setModalTipText('优惠券已领完')
         setShowSuccessReceive(true)
         await getVoucherList()
@@ -58,7 +58,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
     <>
       {vouchers.length > 0 ? (
         <View className="flex flex-row bg-gray-fb py-2 text-26">
-          <View className="flex flex-row w-full" style={{ wordBreak: 'keep-all' }}>
+          <View className="flex flex-row w-full keep-all">
             <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2">
               本店活动
             </Text>

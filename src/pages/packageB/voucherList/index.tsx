@@ -38,7 +38,7 @@ const VoucherList = () => {
   }
 
   Taro.useDidShow(() => {
-    const status = router?.params?.status || 'NOT_USED'
+    const status = router?.params?.voucherStatus || 'NOT_USED'
     setCurrent(status)
     getVoucherList()
   })

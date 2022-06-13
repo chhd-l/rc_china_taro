@@ -41,19 +41,17 @@ const OrderList = () => {
 
   const getOrderLists = async ({ orderState = current, curPage = currentPage, isReload = false }) => {
     let records: any[] = []
+    const limit = 10
     if (isReload) {
       curPage = 0
     } else {
       records = cloneDeep(orderList)
     }
-    let offset = curPage ? curPage * 10 : 0
+    let offset = curPage ? curPage * limit : 0
     const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
     const res = await getOrderList({
-      storeId: '12345678',
-      operator: 'zz',
-      limit: 10,
+      limit,
       offset,
-      isNeedTotal: true,
       sample: Object.assign(
         {
           customerId: customerInfo.id,
@@ -77,13 +75,13 @@ const OrderList = () => {
   }
 
   Taro.useDidShow(() => {
-    const status = router?.params?.status || 'ALL'
+    let status = router?.params?.status || 'ALL'
     const isFromSubscriptionOrder = !!router?.params?.isFromSubscription
     console.log('status', status)
     console.log('isFromSubscription', isFromSubscriptionOrder)
     setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
-    getOrderLists({ orderState: status,isReload:true })
+    getOrderLists({ orderState: status, isReload: true })
   })
 
   const handleClick = async (value) => {
@@ -129,7 +127,7 @@ const OrderList = () => {
         break
       case 'sendCoupon':
         await Taro.navigateTo({
-          url: `${routers.voucherList}?status=NOT_USED`,
+          url: `${routers.voucherList}?voucherStatus=NOT_USED`,
         })
         break
       default:
