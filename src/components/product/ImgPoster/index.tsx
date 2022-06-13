@@ -9,9 +9,8 @@ import { formatMoney } from '@/utils/utils'
 const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShareBtn, showShareBtn }) => {
   const [picTempUrl, setPicTempUrl] = useState('')
   const [posterStatus, setPosterStatus] = useState(false)
-  let deviceWidth = Taro.getSystemInfoSync().screenWidth
-  let deviceHeight = Taro.getSystemInfoSync().screenHeight
-
+  let deviceWidth = Taro.getSystemInfoSync().windowWidth
+  let deviceHeight = Taro.getSystemInfoSync().windowHeight - 70
   //提前将需要分享的图片素材先缓存至本地临时图片路径
   const initPic = async (img) => {
     console.info('imgimgimgimg', img)
@@ -46,54 +45,55 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     let userAvatar = await initPic(user.avatarUrl)
     console.info('deviceWidth', deviceWidth)
     console.info('deviceHeight', deviceHeight)
-    ctx.drawImage(productImg, 0, 120, deviceWidth, deviceWidth) //产品图
+    ctx.drawImage(productImg, 0, 100, deviceWidth, deviceWidth) //产品图
     // ctx.drawImage(productInfo.img, 0, 0, deviceWidth, deviceWidth, 30, 45, 140, 140) //画商品图片
-    ctx.drawImage(qrcodeImg, deviceWidth - 130, deviceHeight - 120, 100, 100) //画二维码
-    ctx.drawImage(minLogo, 20, deviceHeight - 120, 100, 100) //
+    ctx.drawImage(qrcodeImg, deviceWidth - 80, deviceWidth + 160, 60, 60) //画二维码
+    ctx.drawImage(minLogo, 20, deviceWidth + 160, 60, 60) //
     //名字
-    ctx.setFillStyle('#666')
-    ctx.setFontSize(20)
-    let productName = productInfo?.name?.slice(0, 8)
+    ctx.setFillStyle('#000')
+    ctx.setFontSize(18)
+    let productName = productInfo?.name?.slice(0, 9)
     if (productInfo?.name?.length > 8) {
       productName = productName + '...'
     }
-    // 原价
-    ctx.fillText(productName, 20, deviceWidth + 160)
+    ctx.fillText(productName, 20, deviceWidth + 130)
     ctx.setFillStyle('#999')
-    ctx.setFontSize(16)
+    ctx.setFontSize(12)
+    // 原价
     let originalPrice = `原价${formatMoney(productInfo?.originalPrice)}`
     let textWidth = ctx.measureText(originalPrice).width
-    ctx.fillText(originalPrice, deviceWidth / 2, deviceWidth + 160)
-    ctx.rect(deviceWidth / 2, deviceWidth + 151, textWidth, 1)
+    ctx.fillText(originalPrice, deviceWidth / 2, deviceWidth + 130)
+    ctx.rect(deviceWidth / 2, deviceWidth + 125, textWidth, 1)
     ctx.fill()
 
     // 现价
     let price = `${formatMoney(productInfo?.price)}`
     ctx.setFillStyle('#d33024')
     ctx.setFontSize(26)
-    ctx.fillText(price, deviceWidth / 2 + textWidth, deviceWidth + 160)
+    ctx.fillText(price, deviceWidth / 2 + textWidth, deviceWidth + 130)
 
     // 描述
     ctx.setFillStyle('#666')
     ctx.setFontSize(13)
-    ctx.fillText('1.保存图片到相册', 130, deviceHeight - 75)
-    ctx.fillText('2.长按到爱宠有卡查看商品', 130, deviceHeight - 55)
+    ctx.fillText('1.保存图片到相册', 90, deviceWidth + 190)
+    ctx.fillText('2.长按到爱宠有卡查看商品', 90, deviceWidth + 205)
 
     // 描述
-    ctx.setFillStyle('#666')
+    ctx.setFillStyle('#000')
     ctx.setFontSize(20)
-    ctx.fillText(user?.nickName || '', 130, 50)
-    ctx.fillText('为你的爱宠挑个好物，请查收', 130, 80)
+    ctx.fillText(user?.nickName || '', 100, 50)
+    ctx.setFillStyle('#666')
+    ctx.setFontSize(14)
+    ctx.fillText('为你的爱宠挑个好物，请查收', 100, 70)
 
     ctx.beginPath() //标志开始一个路径
-    ctx.arc(60, 60, 40, 0, 2 * Math.PI) //在canvas中绘制圆形
+    ctx.arc(50, 50, 30, 0, 2 * Math.PI) //在canvas中绘制圆形
     ctx.stroke()
     if (userAvatar) {
       ctx.clip()
-      ctx.drawImage(userAvatar, 20, 20, 80, 80) //用户头像
+      ctx.drawImage(userAvatar, 20, 20, 60, 60) //用户头像
     }
     console.info('ctxctxctx', ctx)
-    debugger
     //开始画画完后生成新的临时图片地址
     ctx.draw(false, () => {
       setTimeout(() => {
@@ -104,7 +104,6 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             setPicTempUrl(res.tempFilePath)
             setShowPoster(true)
             setShowShareBtn(false)
-            // this.picTempUrl=res.tempFilePath;
           },
         })
       }, 300)
@@ -195,13 +194,11 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
       {/* <View onClick={()=>{
           getPhotosAlbumAuth()
       }}>保存本地</View> */}
-      <View class="canvas-box absolute invisible" style={{ left: '-10000', top: '-10000' }}>
-        <Canvas
-          canvas-id="mycanvas"
-          style={{ width: deviceWidth, height: deviceHeight }}
-          width={deviceWidth}
-          height={deviceHeight}
-        ></Canvas>
+      <View
+        class="canvas-box fixed invisible"
+        style={{ left: '-999999', top: '-999999', zIndex: '-10', heigt: 0, overflow: 'hidden' }}
+      >
+        <Canvas canvas-id="mycanvas" style={{ width: `${deviceWidth}px`, height: deviceWidth + 260 }}></Canvas>
       </View>
       <AtFloatLayout
         isOpened={showPoster}
@@ -211,7 +208,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
         }}
       >
         <View
-          className="posterPreview"
+          className="posterPreview pb-8"
           onClick={() => {
             setPosterStatus(false)
           }}
