@@ -48,11 +48,11 @@ const CatPetsList = ({ list }: any) => {
                         {item.title}
                       </View>
                     </View>
-                    <View className="text-right py-1">
-                      <Text className="pr-2 ">￥{item.price}</Text>
-                      <Text style={{ borderRadius: '2px' }} className="bg-red-600 px-1 text-white text-24">
+                    <View className="text-right flex items-center h-6">
+                      <View style={{ fontSize: '1rem', lineHeight: '.8' }}>￥{item.price}</View>
+                      <View style={{ borderRadius: '2px', fontSize: '.6rem' }} className="bg-red-600 px-1 text-white">
                         {item.span}
-                      </Text>
+                      </View>
                     </View>
                   </View>
                 ))}
