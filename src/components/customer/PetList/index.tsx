@@ -45,6 +45,8 @@ const PetList = (props: Props) => {
   })
 
   const getList = async () => {
+    console.log('getList', getList)
+    console.log('petInfoList', petInfoList)
     // const customerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
     if (!customerInfo?.id) {
       console.info('!customerInfo?.id', !customerInfo?.id)
@@ -60,6 +62,7 @@ const PetList = (props: Props) => {
       console.info('breedName', petArr)
       setPetList(petArr)
       setFakePet(petArr)
+      setNopets(false)
       return
     }
     if (petInfoList?.length) {
@@ -88,6 +91,7 @@ const PetList = (props: Props) => {
     // } else {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     // }
+    console.log('res', res)
     if (res.length) {
       setNopets(false)
       Taro.setStorageSync('Nopets', false)
@@ -116,14 +120,17 @@ const PetList = (props: Props) => {
   const CheckBoxItem = ({ id, idx }: { id: string; idx?: number }) => {
     return props.showCheckBox ? (
       <View
-        className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${
-          checkedArr.includes(id) && 'bg-primary-red'
-        }`}
+        // className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm `}
         onClick={() => {
           handleChecked(id, idx)
         }}
       >
-        <AtIcon value="check" color=" #fff"></AtIcon>
+        {checkedArr.includes(id) ? (
+          <IconFont name="pet_choose" size={40} />
+        ) : (
+          <IconFont name="Pet_dischoose" size={40} />
+        )}
+        {/* <AtIcon value="check" color=" #fff"></AtIcon> */}
       </View>
     ) : null
   }
@@ -362,6 +369,7 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
+      {console.log(Nopets)}
       {Nopets && (
         <View className="custompettips relative flex flex-col items-center top-3">
           <View className="triangle" />
