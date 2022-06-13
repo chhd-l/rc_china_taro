@@ -75,9 +75,8 @@ const ProductItem = ({ product, changeProduct, delCartSuccess, isInvalid = false
             <Radio
               value="选中"
               checked={select}
-              style={{ transform: 'scale(0.6)' }}
               color="#d33024"
-              className="text-48 flex items-center"
+              className="text-48 flex items-center transform-6"
               onClick={() => changeProduct && changeProduct(id, 'select', !select)}
               disabled={isInvalid}
             />
@@ -111,14 +110,12 @@ const ProductItem = ({ product, changeProduct, delCartSuccess, isInvalid = false
                 </View>
               </View>
               {stock <= maxNum && !isInvalid ? (
-                <View className="text-primary-red font-medium flex justify-end text-22" style={{ marginRight: '20px' }}>
-                  库存紧张
-                </View>
+                <View className="text-primary-red font-medium flex justify-end text-22 cart-mr-20">库存紧张</View>
               ) : null}
               {!isInvalid ? (
                 <View className="flex flex-row mt-2 justify-between items-center">
                   <View className="text-primary-red font-medium text-base">{formatMoney(price)}</View>
-                  <View style={{ marginRight: '20px' }}>
+                  <View className="cart-mr-20">
                     <AtInputNumber
                       min={1}
                       max={stock <= maxNum ? stock : maxNum}

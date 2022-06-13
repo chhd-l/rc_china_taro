@@ -58,7 +58,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
     <>
       {vouchers.length > 0 ? (
         <View className="flex flex-row bg-gray-fb py-2 text-26">
-          <View className="flex flex-row w-full" style={{ wordBreak: 'keep-all' }}>
+          <View className="flex flex-row w-full keep-all">
             <Text className="text-primary-red border-red border-r-1 border-l-0 border-t-0 border-b-0 border-solid pr-2">
               本店活动
             </Text>
