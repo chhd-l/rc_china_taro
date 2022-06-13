@@ -12,6 +12,7 @@ import { Image, Swiper, SwiperItem, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
+import { FrePetUnchoose, FreshPetChoose } from '@/lib/subscription'
 import { AtIcon } from 'taro-ui'
 import './index.less'
 
@@ -120,17 +121,13 @@ const PetList = (props: Props) => {
   const CheckBoxItem = ({ id, idx }: { id: string; idx?: number }) => {
     return props.showCheckBox ? (
       <View
-        // className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm `}
+        className="absolute bottom-0 right-0 w-4 h-4"
+        // className={` check-icon  flex justify-center items-center rounded-sm `}
         onClick={() => {
           handleChecked(id, idx)
         }}
       >
-        {checkedArr.includes(id) ? (
-          <IconFont name="pet_choose" size={40} />
-        ) : (
-          <IconFont name="Pet_dischoose" size={40} />
-        )}
-        {/* <AtIcon value="check" color=" #fff"></AtIcon> */}
+        <Image src={checkedArr.includes(id) ? FreshPetChoose : FrePetUnchoose} className="w-4 h-4" />
       </View>
     ) : null
   }
