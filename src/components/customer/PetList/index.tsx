@@ -12,6 +12,7 @@ import { Image, Swiper, SwiperItem, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
+import { FrePetUnchoose, FreshPetChoose } from '@/lib/subscription'
 import { AtIcon } from 'taro-ui'
 import './index.less'
 
@@ -45,6 +46,8 @@ const PetList = (props: Props) => {
   })
 
   const getList = async () => {
+    console.log('getList', getList)
+    console.log('petInfoList', petInfoList)
     // const customerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
     if (!customerInfo?.id) {
       console.info('!customerInfo?.id', !customerInfo?.id)
@@ -60,6 +63,7 @@ const PetList = (props: Props) => {
       console.info('breedName', petArr)
       setPetList(petArr)
       setFakePet(petArr)
+      setNopets(false)
       return
     }
     if (petInfoList?.length) {
@@ -88,6 +92,7 @@ const PetList = (props: Props) => {
     // } else {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     // }
+    console.log('res', res)
     if (res.length) {
       setNopets(false)
       Taro.setStorageSync('Nopets', false)
@@ -116,14 +121,13 @@ const PetList = (props: Props) => {
   const CheckBoxItem = ({ id, idx }: { id: string; idx?: number }) => {
     return props.showCheckBox ? (
       <View
-        className={`w-4 h-4 check-icon absolute bottom-0 right-0 flex justify-center items-center rounded-sm ${
-          checkedArr.includes(id) && 'bg-primary-red'
-        }`}
+        className="absolute bottom-0 right-0 w-4 h-4"
+        // className={` check-icon  flex justify-center items-center rounded-sm `}
         onClick={() => {
           handleChecked(id, idx)
         }}
       >
-        <AtIcon value="check" color=" #fff"></AtIcon>
+        <Image src={checkedArr.includes(id) ? FreshPetChoose : FrePetUnchoose} className="w-4 h-4" />
       </View>
     ) : null
   }
@@ -362,6 +366,7 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
+      {console.log(Nopets)}
       {Nopets && (
         <View className="custompettips relative flex flex-col items-center top-3">
           <View className="triangle" />

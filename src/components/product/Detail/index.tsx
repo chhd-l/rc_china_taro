@@ -8,14 +8,16 @@ import { AtFloatLayout, AtIcon } from 'taro-ui'
 import VoucherModal from '@/components/voucher/ProductVoucherModal'
 import { getOrderSetting } from '@/framework/api/order/order'
 import './Style.less'
+import { PDP_SHARE } from '@/lib/constants'
 
 interface DetailProps {
   choosedSku: SkuItemProps
   detailInfo: ProductDetailProps
   buyCount: number
   handleShowSpec: (type: addToTypeEnum) => void
+  setShowShareBtn: (type: boolean) => void
 }
-const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProps) => {
+const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShareBtn }: DetailProps) => {
   const [isOpened, setIsOpened] = useState(false)
   const [currentSwiperPage, setCurrentSwiperPage] = useState(1)
   const [maxNum, setMaxNum] = useState(5)
@@ -59,9 +61,17 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec }: DetailProp
             {currentSwiperPage}/{choosedSku?.img.length}
           </View>
         </View>
-        <View className="py-1">
-          <View className="text-28 font-medium">{choosedSku?.name}</View>
-          <AtIcon prefixClass="fa" value="share" size="30" color="red" />
+        <View className="py-1 flex">
+          <View className="text-28 font-medium flex-1">{choosedSku?.name}</View>
+          {/* <AtIcon prefixClass="fa" value="share" size="30" color="red" /> */}
+          <View
+            className="w-4 h-4"
+            onClick={() => {
+              setShowShareBtn(true)
+            }}
+          >
+            <Image src={PDP_SHARE} className="w-full h-full" mode="widthFix" />
+          </View>
         </View>
         <View>
           {choosedSku?.tags?.map((tag, index) => (

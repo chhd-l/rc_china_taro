@@ -78,12 +78,12 @@ const OrderList = () => {
 
   Taro.useDidShow(() => {
     const status = router?.params?.status || 'ALL'
-    const isFromSubscriptionOrder = router?.params?.isFromSubscription
-    console.log('status', isFromSubscription)
+    const isFromSubscriptionOrder = !!router?.params?.isFromSubscription
+    console.log('status', status)
     console.log('isFromSubscription', isFromSubscriptionOrder)
     setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
-    getOrderLists({ orderState: status })
+    getOrderLists({ orderState: status,isReload:true })
   })
 
   const handleClick = async (value) => {
@@ -161,7 +161,7 @@ const OrderList = () => {
 
   return (
     <View>
-      <NavBar navbarTitle={tabList[OrderStatusEnum[current]].title} isNeedBack />
+      <NavBar navbarTitle={tabList[OrderStatusEnum?.[current]]?.title} isNeedBack />
       <AtTabs
         className="order-list-tab bg-gray-eee"
         current={OrderStatusEnum[current]}

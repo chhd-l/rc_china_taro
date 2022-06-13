@@ -1,6 +1,6 @@
 import { View, Image, Button } from '@tarojs/components'
 import { AtIcon, AtModal, AtModalAction, AtModalContent, AtSwipeAction } from 'taro-ui'
-import { Cat, Dog, petBg, UPLOADPATH } from '@/lib/constants'
+import { Cat, Dog, petBg, SERVICEPATH } from '@/lib/constants'
 import Taro from '@tarojs/taro'
 import cloneDeep from 'lodash.cloneDeep'
 import { useEffect, useState } from 'react'
@@ -68,7 +68,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
         // 返回选定照片的本地文件路径列表，tempFilePath可以作为img标签的src属性显示图片
         const tempFilePaths = res.tempFilePaths
         Taro.uploadFile({
-          url: UPLOADPATH, //仅为示例，非真实的接口地址
+          url: `${SERVICEPATH}/upload`, //仅为示例，非真实的接口地址
           filePath: tempFilePaths[0],
           header: { 'Content-Type': 'multipart/form-data' },
           name: 'file',
@@ -102,7 +102,7 @@ const PetItem = ({ pet, petIdx, petList, setPetList, SetshowAddPetBtn, showAddPe
               <View
                 className={`w-22 ${
                   pet.image ? ' bg-white   image-pad shadow-little' : ''
-                } h-22 rounded-full  flex items-center justify-center m-auto `}
+                } h-22 rounded-full  flex items-center justify-center m-auto`}
               >
                 <Image
                   className={`w-full h-full  rounded-full`}
