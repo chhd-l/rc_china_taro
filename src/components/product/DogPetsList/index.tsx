@@ -47,8 +47,25 @@ const DogPetsList = ({ list }: any) => {
             className="px-1 flex flex-col text-center"
             key={idx}
             onClick={() => {
+              const arr = list.find((_, index) => idx === index).Children
               setDog(list.find((_, index) => idx === index))
-              setPets(list.find((_, index) => idx === index).Children[0])
+              setPets(arr[0])
+              if (arr.length === 1) {
+                setBg({
+                  DogBg: SecondaryMenu1[0],
+                  bgList: SecondaryMenu1,
+                })
+              } else if (arr.length === 2) {
+                setBg({
+                  DogBg: SecondaryMenu2[0],
+                  bgList: SecondaryMenu2,
+                })
+              } else {
+                setBg({
+                  DogBg: SecondaryMenu3[0],
+                  bgList: SecondaryMenu3,
+                })
+              }
             }}
           >
             <View
@@ -75,7 +92,7 @@ const DogPetsList = ({ list }: any) => {
           {dog.Children.map((item, idx) => (
             <View
               key={idx}
-              className="text-center flex flex-col items-center justify-center pr-1"
+              className="text-center flex flex-col items-center justify-center pr-1 pt-3"
               style={{ width: '33.33%' }}
               onClick={() => {
                 setPets(dog.Children.find((_, index) => idx === index))
@@ -87,8 +104,8 @@ const DogPetsList = ({ list }: any) => {
                 })
               }}
             >
-              <View>{item.title}</View>
-              <View style={{ fontSize: '0.75rem' }}>参考成年体重10kg</View>
+              <View className="text-xs font-bold">{item.title}</View>
+              <View style={{ fontSize: '.5rem' }}>参考成年体重10kg</View>
             </View>
           ))}
         </View>
