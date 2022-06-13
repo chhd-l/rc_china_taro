@@ -1,7 +1,7 @@
 export const CDNIMGURL = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/'
 // export const UPLOADPATH = 'https://msdev.d2cgo.com/faas/upload'
-// export const SERVICEPATH = 'https://msdev.d2cgo.com/faas'
-export const SERVICEPATH = 'https://msdev.fivefen.com/faas'
+export const SERVICEPATH = 'https://msdev.d2cgo.com/faas'
+// export const SERVICEPATH = 'https://msdev.fivefen.com/faas'
 export const EDIT_ADDRESS_ICON = `${CDNIMGURL}edit_address.png`
 
 export const DELETE_ADDRESS_ICON = `${CDNIMGURL}remove_address.png`
@@ -43,3 +43,8 @@ export const LIVINGSTREAMING_ONGOING = `${CDNIMGURL}MP_LiveStream_Ongoing.gif`
 export const LIVINGSTREAMING_UPCOMING = `${CDNIMGURL}MP_Livestreaming_uncoming.gif`
 export const Dog = `${CDNIMGURL}Pet_Dog.png`
 export const Cat = `${CDNIMGURL}Pet_Cat.png`
+export const PDP_SHARE = `${CDNIMGURL}PDP_share.svg`
+export const PDP_WECHAT = `${CDNIMGURL}WeChat.svg`
+export const PDP_POSTER = `${CDNIMGURL}poster.svg`
+
+

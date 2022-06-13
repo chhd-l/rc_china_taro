@@ -63,6 +63,7 @@ export const normalizeProductForFe = (goods: any): any => {
     // price: goods.mar
     // originalPrice:
     id: goods.id,
+    wxCodeUrl: goods.wxCodeUrl,
     no: goods.spuNo,
     tags: [''], //逻辑处理
     img: goods.goodsAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),

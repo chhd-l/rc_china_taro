@@ -39,6 +39,7 @@ export interface SpecProps {
 
 export interface ProductDetailProps extends ProductBaseProps {
   skus: SkuItemProps[]
+  wxCodeUrl: string
   type: string
   // goodsAttributeValueRel:attrProps[]
   description: string

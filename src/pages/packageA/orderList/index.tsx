@@ -78,7 +78,7 @@ const OrderList = () => {
 
   Taro.useDidShow(() => {
     const status = router?.params?.status || 'ALL'
-    const isFromSubscriptionOrder = router?.params?.isFromSubscription
+    const isFromSubscriptionOrder = !!router?.params?.isFromSubscription
     console.log('status', isFromSubscription)
     console.log('isFromSubscription', isFromSubscriptionOrder)
     setIsFromSubscription(!!isFromSubscriptionOrder)

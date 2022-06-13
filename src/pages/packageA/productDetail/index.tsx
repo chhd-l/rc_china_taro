@@ -10,14 +10,15 @@ import Detail from '@/components/product/Detail'
 import { addToTypeEnum } from '@/framework/types/common'
 import cloneDeep from 'lodash.cloneDeep'
 import { getProduct } from '@/framework/api/product/get-product'
-import Taro, { getCurrentInstance } from '@tarojs/taro'
+import Taro, { getCurrentInstance, useShareAppMessage } from '@tarojs/taro'
 import { baseSetting } from '@/framework/api/fetcher'
 import { useAtom } from 'jotai'
 import { cartSunccessToastShowAtom } from '@/store/customer'
-import { AtToast } from 'taro-ui'
+import { AtFloatLayout, AtToast } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
 import NavBar from '@/components/common/Navbar'
+import ImgPoster from '@/components/product/ImgPoster'
 
 export interface SelectedProps {
   [x: string]: string
@@ -36,15 +37,29 @@ const ProductDetail = () => {
   const { router } = getCurrentInstance()
   const [toastShow, setToastShow] = useAtom(cartSunccessToastShowAtom)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+  const [showShareBtn, setShowShareBtn] = useState(false)
+  const [showPoster, setShowPoster] = useState(false)
   let type = 1 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
   let customParams = encodeURIComponent(JSON.stringify({ path: 'pages/productList/index', pid: 1 })) // 开发者在直播间页面路径上携带自定义参数（如示例中的 path 和pid参数），后续可以在分享卡片链接和跳转至商详页时获取，详见【获取自定义参数】、【直播间到商详页面携带参数】章节（上限600个字符，超过部分会被截断）
   let closePictureInPictureMode = 0 // 是否关闭小窗
   useEffect(() => {
     getList()
   }, [])
+  console.info('....location', location)
   useEffect(() => {
     console.log('detailInfo', detailInfo)
   }, [detailInfo.id])
+  useShareAppMessage((res) => {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: detailInfo?.name,
+      path: `/pages/packageA/productDetail/index?id=${detailInfo?.id}`,
+      imageUrl: choosedSku?.img?.[0],
+    }
+  })
   const getList = async () => {
     console.info('router.params', router?.params)
     let goodsId = router?.params?.id || ''
@@ -120,9 +135,28 @@ const ProductDetail = () => {
   return (
     <>
       <NavBar navbarTitle="商品详情" isNeedBack />
+      <ImgPoster
+        qrcode={detailInfo?.wxCodeUrl}
+        setShowPoster={setShowPoster}
+        showPoster={showPoster}
+        setShowShareBtn={setShowShareBtn}
+        showShareBtn={showShareBtn}
+        productInfo={{
+          img: choosedSku?.img?.[0],
+          name: choosedSku?.name,
+          price: choosedSku?.price,
+          originalPrice: choosedSku?.originalPrice,
+        }}
+      />
       {choosedSku.id ? (
         <View className="product-detail">
-          <Detail choosedSku={choosedSku} detailInfo={detailInfo} buyCount={buyCount} handleShowSpec={handleShowSpec} />
+          <Detail
+            choosedSku={choosedSku}
+            setShowShareBtn={setShowShareBtn}
+            detailInfo={detailInfo}
+            buyCount={buyCount}
+            handleShowSpec={handleShowSpec}
+          />
           {/* <View direction="all" className={`fixed right-2 bottom-28 z-50`} style={{ width: '100px', height: '100px' }}>
             <pendant type={type} customParams={customParams} closePictureInPictureMode={closePictureInPictureMode}></pendant>
           </View> */}
