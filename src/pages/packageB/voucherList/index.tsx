@@ -6,6 +6,7 @@ import { Voucher } from '@/framework/types/voucher'
 import { getListVouchers } from '@/framework/api/voucher/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
 import { VOUCHER_EXPIRED, VOUCHER_NO_RECEIVED, VOUCHER_USED } from '@/lib/constants'
+import NavBar from '@/components/common/Navbar'
 import './index.less'
 
 const VoucherStatusEnum = {
@@ -43,9 +44,6 @@ const VoucherList = () => {
   })
 
   const handleClick = (value) => {
-    // Taro.setNavigationBarTitle({
-    //   title: tabList[value].title,
-    // })
     const cur = Object.values(VoucherStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(VoucherStatusEnum)[cur])
     setVoucherList(
@@ -55,6 +53,7 @@ const VoucherList = () => {
 
   return (
     <View>
+      <NavBar navbarTitle="我的优惠券" isNeedBack />
       <AtTabs className="index" current={VoucherStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
         {tabList.map((item, index) => (
           <AtTabsPane current={VoucherStatusEnum[current]} index={index} key={item.title}>
