@@ -1,8 +1,8 @@
 import ActivityList from '@/components/product/ActivityList'
 import CatPetsList from '@/components/product/CatPetsList'
 import DogPetsList from '@/components/product/DogPetsList'
-import DryOrWetList from '@/components/product/DryOrWetList'
 import FloorNav from '@/components/product/FloorNav'
+import List from '@/components/product/List'
 import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
 import StarsList from '@/components/product/StarsList'
@@ -10,15 +10,12 @@ import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-
 import { getProducts } from '@/framework/api/product/get-product'
 import { SwiperProps } from '@/framework/types/products'
 import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
-import { catDryFood, dogDryFood, mxCatDryFood, mxDogDryFood } from '@/lib/product'
+import { catDryFood, dogDryFood, dogDryFood2, mxCatDryFood, mxDogDryFood } from '@/lib/product'
 import { mockProduct, mockStar, mockTabOptions } from '@/mock/product'
-import { customerAtom } from '@/store/customer'
 import { MovableArea, ScrollView, View } from '@tarojs/components'
 import { requirePlugin } from '@tarojs/taro'
-import { useAtom } from 'jotai'
 import Mock from 'mockjs'
 import { useEffect, useState } from 'react'
-import List from '@/components/product/List'
 import './index.less'
 
 let livePlayer = requirePlugin('live-player-plugin')
@@ -256,7 +253,7 @@ const ProductList = () => {
             <View key="犬干粮">
               <View id="odgDryFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">犬干粮</View>
+                <View className="text-red-500 text-base font-bold">全价犬干粮</View>
                 <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的狗狗都有自己的精准营养</View>
               </View>
               <View>
@@ -266,11 +263,11 @@ const ProductList = () => {
             <View key="犬湿粮">
               <View id="dogWetFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">犬湿粮</View>
+                <View className="text-red-500 text-base font-bold">全价主食级犬湿粮</View>
                 <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
               </View>
               <View>
-                <DogPetsList list={dogDryFood} />
+                <DogPetsList list={dogDryFood2} />
               </View>
             </View>
             <View key="宠爱精选">

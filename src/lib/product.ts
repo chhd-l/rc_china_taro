@@ -426,5 +426,89 @@ export const dogDryFood = [
   },
 ]
 
+export const dogDryFood2 = [
+  {
+    color: '#67AEE2',
+    title: '幼犬',
+    titleImg: 'Shop_Dog01.png',
+    Children: [
+      {
+        title: '小型犬',
+        img: 'Shop_Dog01_classify_01banner.jpg',
+        Children: [
+          {
+            title: '小型犬幼犬全价粮',
+            price: '111',
+            img: 'Shop_Dog01_classify_01_Product01.jpg',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '中型犬',
+        img: 'Shop_Dog01_classify_02banner.jpg',
+        Children: [
+          {
+            title: '中型犬幼犬全价粮',
+            img: 'Shop_Dog01_classify_02_Product01.jpg',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    color: '#2C9155',
+    title: '成犬',
+    titleImg: 'Shop_Dog_02.png',
+    Children: [
+      {
+        title: '小型犬',
+        img: 'Shop_Dog02_classify_01banner.jpg',
+        Children: [
+          {
+            title: '小型犬幼犬全价粮',
+            price: '111',
+            img: 'Shop_Dog01_classify_01_Product01.jpg',
+            span: '社区专享95折'
+          }
+        ]
+      },
+      {
+        title: '中型犬',
+        img: 'Shop_Dog02_classify_02banner.jpg',
+        Children: [
+          {
+            title: '中型犬幼犬全价粮',
+            img: 'Shop_Dog02_classify_02_Product01.jpg',
+            price: '111',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+  {
+    color: '#E5C37B',
+    titleImg: 'Shop_Dog04.png',
+    title: '品种犬',
+    Children: [
+      {
+        title: '小型犬',
+        img: 'Shop_Dog04_classify_01banner.jpg',
+        Children: [
+          {
+            title: '小型犬幼犬全价粮',
+            price: '111',
+            img: 'Shop_Dog04_classify_01_Product01.jpg',
+            span: '社区专享95折'
+          }
+        ]
+      },
+    ]
+  },
+]
+
 export const largeButtonClass =
   'ClickButton items-center flex h-10 flex-1 px-3 text-gray-400 search-filter-round1 border-solid mr-3 mb-2 cateClickButton'

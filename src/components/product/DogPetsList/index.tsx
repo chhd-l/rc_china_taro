@@ -41,10 +41,11 @@ const DogPetsList = ({ list }: any) => {
 
   return (
     <View className="pb-4 mt-1 flex flex-col DogPetList">
-      <View className="flex justify-between items-center px-2 mb-2">
+      <View className="flex items-center px-2 mb-2">
         {list.map((item, idx) => (
           <View
-            className="px-1 flex flex-col text-center"
+            className="flex flex-col text-center items-center"
+            style={{ width: '20%' }}
             key={idx}
             onClick={() => {
               const arr = list.find((_, index) => idx === index).Children
@@ -69,7 +70,7 @@ const DogPetsList = ({ list }: any) => {
             }}
           >
             <View
-              className={`w-12 h-12 rounded-full border-10 border-solid `}
+              className={`w-12 h-12 rounded-full ${dog.title === item.title ? 'border-10' : 'border-2'} border-solid `}
               style={{
                 borderColor: dog.title === item.title ? dog.color : '#C1C1C1',
               }}
@@ -104,7 +105,16 @@ const DogPetsList = ({ list }: any) => {
                 })
               }}
             >
-              <View className="text-xs font-bold">{item.title}</View>
+              <View className="text-xs font-bold flex">
+                <View
+                  className="w-5 mr-1"
+                  style={{
+                    background: `url(${httpsTilte}Dog_0${idx + 1}.svg) no-repeat center`,
+                    backgroundSize: `1${idx * 4}0% 1${idx * 4}0%`,
+                  }}
+                />
+                {item.title}
+              </View>
               <View style={{ fontSize: '.5rem' }}>参考成年体重10kg</View>
             </View>
           ))}
