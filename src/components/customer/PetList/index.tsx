@@ -23,7 +23,7 @@ interface Props {
 const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [fakePet, setFakePet] = useState<any>([])
-  const [Nopets, setNopets] = useState(true)
+  const [Nopets, setNopets] = useState(Taro.getStorageSync('Nopets') ? Taro.getStorageSync('Nopets') : true)
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [petInfoList, setPetInfoList] = useAtom(petInfoListAuto)
@@ -62,12 +62,14 @@ const PetList = (props: Props) => {
       setFakePet(petArr)
       return
     }
-    console.info('petInfoListpetInfoListpetInfoList', petInfoList)
     if (petInfoList?.length) {
-      petInfoList.length ? setNopets(false) : setNopets(true)
       setPetList(petInfoList)
       setFakePet(petInfoList)
+      setNopets(false)
+      Taro.setStorageSync('Nopets', false)
       return
+    } else {
+      Taro.setStorageSync('Nopets', true)
     }
     let res = (await getPets({ customerId: customerInfo.id })) || []
     res.forEach((item) => {
@@ -86,7 +88,12 @@ const PetList = (props: Props) => {
     // } else {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     // }
-    res.length ? setNopets(false) : setNopets(true)
+    if (res.length) {
+      setNopets(false)
+      Taro.setStorageSync('Nopets', false)
+    } else {
+      Taro.setStorageSync('Nopets', true)
+    }
     setPetInfoList(res)
     setPetList(res)
     setFakePet(res)
@@ -367,7 +374,10 @@ const PetList = (props: Props) => {
           <View
             className="absolute top-2 right-0 border-2 border-solid"
             style={{ borderRadius: '100%', backgroundColor: '#BEBEBE', borderColor: '#BEBEBE' }}
-            onClick={() => setNopets(false)}
+            onClick={() => {
+              setNopets(false)
+              Taro.setStorageSync('Nopets', false)
+            }}
           >
             <IconFont name="shanchu" size={42} color="#fff" />
           </View>

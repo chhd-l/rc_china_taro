@@ -19,7 +19,7 @@ const CatPetsList = ({ list }: any) => {
             <View
               className={`w-12 h-12 rounded-full border-10 border-solid `}
               style={{
-                borderColor: cat.title === item.title ? cat.color : 'transparent',
+                borderColor: cat.title === item.title ? cat.color : '#C1C1C1',
               }}
             >
               <Image className="box-border w-full h-full rounded-full" src={item.titleImg} />
