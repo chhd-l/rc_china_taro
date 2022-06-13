@@ -77,13 +77,13 @@ const OrderList = () => {
   }
 
   Taro.useDidShow(() => {
-    const status = router?.params?.status || 'ALL'
+    let status = router?.params?.status || 'ALL'
     const isFromSubscriptionOrder = !!router?.params?.isFromSubscription
     console.log('status', status)
     console.log('isFromSubscription', isFromSubscriptionOrder)
     setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
-    getOrderLists({ orderState: status,isReload:true })
+    getOrderLists({ orderState: status, isReload: true })
   })
 
   const handleClick = async (value) => {
@@ -129,7 +129,7 @@ const OrderList = () => {
         break
       case 'sendCoupon':
         await Taro.navigateTo({
-          url: `${routers.voucherList}?status=NOT_USED`,
+          url: `${routers.voucherList}?voucherStatus=NOT_USED`,
         })
         break
       default:
