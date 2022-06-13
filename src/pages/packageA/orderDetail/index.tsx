@@ -120,7 +120,7 @@ const OrderDetails = () => {
                 <AtList className="ListBg">
                   {trackingId ? (
                     <AtListItem
-                      className="bg-white flex items-center h-16 mt-2"
+                      className="bg-white flex items-center h-16 mt-2 rc-order-list-item"
                       title={`物流公司：${getCarrierType()}`}
                       note={`物流编号： ${trackingId || ''}`}
                       arrow="right"
