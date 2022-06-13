@@ -47,10 +47,10 @@ export const getPdpVouchers = async (params) => {
     return vouchers || []
   } catch (err) {
     console.log('err', err)
-    Taro.atMessage({
-      message: err?.errors?.Message || '系统繁忙，请稍后再试',
-      type: 'error',
-    })
+    // Taro.atMessage({
+    //   message: err?.errors?.Message || '系统繁忙，请稍后再试',
+    //   type: 'error',
+    // })
     return []
   }
 }
@@ -102,10 +102,10 @@ export const receiveVoucher = async (params) => {
     }
   } catch (err) {
     console.log('err', err?.errors?.Message)
-    Taro.atMessage({
-      message: err?.errors?.Code === 'E0611920100' ? '优惠券已领完' : err?.errors?.Message || '系统繁忙，请稍后再试',
-      type: 'error',
-    })
+    // Taro.atMessage({
+    //   message: err?.errors?.Code === 'E0611920100'||err?.errors?.Code === 'E06201' ? '优惠券已领完' : err?.errors?.Message || '系统繁忙，请稍后再试',
+    //   type: 'error',
+    // })
     return {
       result: false,
       errorCode: err?.errors?.Code || '',

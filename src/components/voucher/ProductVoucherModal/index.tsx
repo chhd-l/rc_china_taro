@@ -11,6 +11,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [showReceiveVoucher, setShowReceiveVoucher] = useState(false)
   const [showSuccessReceive, setShowSuccessReceive] = useState(false)
+  const [modalTipText, setModalTipText] = useState('')
 
   const getVoucherList = async () => {
     console.log('aaaaaaa', goodsId)
@@ -25,6 +26,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       voucherId: voucher.id,
     })
     if (res.result) {
+      setModalTipText('领取成功')
       setShowSuccessReceive(true)
       setVouchers(
         vouchers
@@ -38,7 +40,9 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
       )
     } else {
       //该优惠券已领取完之后重新刷新数据
-      if (res.errorCode === 'E0611920100') {
+      if (res.errorCode === 'E0611920100' || res.errorCode === 'E06201') {
+        setModalTipText('优惠券已领完')
+        setShowSuccessReceive(true)
         await getVoucherList()
       }
     }
@@ -117,7 +121,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
         isOpened={showSuccessReceive}
         title="提示"
         confirmText="确定"
-        content="领取成功"
+        content={modalTipText}
         onClose={() => {
           setShowSuccessReceive(false)
         }}
