@@ -61,7 +61,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
             {currentSwiperPage}/{choosedSku?.img.length}
           </View>
         </View>
-        <View className="py-1 flex">
+        <View className="pb-1 pt-4 flex">
           <View className="text-28 font-medium flex-1">{choosedSku?.name}</View>
           {/* <AtIcon prefixClass="fa" value="share" size="30" color="red" /> */}
           <View
