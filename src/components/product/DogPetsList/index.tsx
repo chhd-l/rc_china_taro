@@ -70,7 +70,7 @@ const DogPetsList = ({ list, systemType }: any) => {
             }}
           >
             <View
-              className={`w-12 h-12 rounded-full ${dog.title === item.title ? 'border-10' : 'border-2'} border-solid `}
+              className={`w-16 h-16 rounded-full ${dog.title === item.title ? 'border-10' : 'border-2'} border-solid `}
               style={{
                 borderColor: dog.title === item.title ? dog.color : '#C1C1C1',
               }}
