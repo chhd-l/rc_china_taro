@@ -58,15 +58,15 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     console.info('deviceHeight', deviceHeight)
     ctx.drawImage(productImg, 0, 100, deviceWidth, deviceWidth) //产品图
     // ctx.drawImage(productInfo.img, 0, 0, deviceWidth, deviceWidth, 30, 45, 140, 140) //画商品图片
-    ctx.drawImage(qrcodeImg, deviceWidth - 100, deviceWidth + 160, 65, 65) //画二维码
+    ctx.drawImage(qrcodeImg, deviceWidth - 100, deviceWidth + 160, 66, 66) //画二维码
     ctx.drawImage(minLogo, 30, deviceWidth + 160, 60, 60) //
     ctx.drawImage(bottomBg, 0, deviceWidth + 225, deviceWidth, 60)
 
     ctx.setFillStyle('#000')
     ctx.setFontSize(12)
     // ctx.font = 'normal bold 12px arial'
-    ctx.fillText('皇家爱宠有卡', 26, deviceWidth + 229.5)
-    ctx.fillText('皇家爱宠有卡', 25.5, deviceWidth + 230)
+    ctx.fillText('皇家爱宠有卡', 26, deviceWidth + 229.7)
+    ctx.fillText('皇家爱宠有卡', 25.7, deviceWidth + 230)
 
     //名字
     ctx.setFillStyle('#000')
@@ -94,18 +94,18 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     // 描述
     ctx.setFillStyle('#000')
     ctx.setFontSize(13)
-    ctx.fillText('1.保存图片到相册', 120, deviceWidth + 200)
-    ctx.fillText('2.长按到爱宠有卡查看商品', 120, deviceWidth + 215)
+    ctx.fillText('1.保存图片到相册', 120, deviceWidth + 196)
+    ctx.fillText('2.长按到爱宠有卡查看商品', 120, deviceWidth + 216)
 
     // 描述
     ctx.setFillStyle('#000')
     ctx.setFontSize(18)
     // ctx.font = 'normal bold 18px arial'
-    ctx.fillText(user?.nickName || '', 100, 49.5)
-    ctx.fillText(user?.nickName || '', 99.5, 50)
+    ctx.fillText(user?.nickName || '', 100, 47.5)
+    ctx.fillText(user?.nickName || '', 99.5, 48)
     ctx.setFillStyle('#000')
     ctx.setFontSize(16)
-    ctx.fillText('为你的爱宠挑个好物，请查收', 100, 70)
+    ctx.fillText('为你的爱宠挑个好物，请查收', 100, 73)
 
     ctx.beginPath() //标志开始一个路径
     ctx.setStrokeStyle('#f2f2f2')
