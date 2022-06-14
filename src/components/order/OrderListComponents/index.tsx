@@ -86,7 +86,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
             <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
           </View>
           {(item?.lineItem?.filter((el) => !el.isGift) || []).map((el, index) => (
-            <View key={index} className="w-full flex items-center min-h-20 " style={{ marginBottom: '36rpx' }}>
+            <View key={index} className="w-full flex items-center min-h-16 " style={{ marginBottom: '36rpx' }}>
               <View className="w-32 h-full" style={{ marginTop: '36rpx' }}>
                 {el?.pic ? (
                   <Image className="w-full h-full" mode="widthFix" src={el?.pic} />
