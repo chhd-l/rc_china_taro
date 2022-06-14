@@ -56,6 +56,7 @@ const OrderList = () => {
     })
     setIsNoMore(res?.total < offset + 10)
     setOrderList(records.concat(res?.records))
+    console.log('ddddddd1', new Date().getTime())
   }
 
   Taro.useDidShow(() => {
@@ -156,14 +157,17 @@ const OrderList = () => {
       >
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
-            <OrderListComponents
-              list={orderList}
-              openModalTip={(orderId, orderStatus) => {
-                setShowActionTipModal(true)
-                setCurActionOrderId(orderId)
-                setCurActionType(orderStatus)
-              }}
-            />
+            {index === OrderStatusEnum[current] ? (
+              <OrderListComponents
+                key={index}
+                list={orderList}
+                openModalTip={(orderId, orderStatus) => {
+                  setShowActionTipModal(true)
+                  setCurActionOrderId(orderId)
+                  setCurActionType(orderStatus)
+                }}
+              />
+            ) : null}
           </AtTabsPane>
         ))}
       </AtTabs>
