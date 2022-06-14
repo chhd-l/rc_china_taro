@@ -1,9 +1,6 @@
 import { View, Image, ScrollView, Video } from '@tarojs/components'
 
-interface StarsListProps {
-  list: any
-}
-const StarsList = ({ list }: StarsListProps) => {
+const StarsList = ({ list, systemType }: any) => {
   return (
     <ScrollView className="whitespace-nowrap pl-2 bg-gray-100" scrollX>
       {list.map((product, idx) => (
@@ -17,7 +14,8 @@ const StarsList = ({ list }: StarsListProps) => {
             /> */}
             <Video
               id="video"
-              className="w-full border-0 h-64"
+              className="w-full border-0"
+              style={{ height: systemType ? '16rem' : '18.2rem' }}
               src={product.mp4}
               poster={product.expr}
               object-fit="fill"
@@ -25,7 +23,7 @@ const StarsList = ({ list }: StarsListProps) => {
               loop={false}
               muted={false}
             />
-            <View className="flex w-full">
+            <View className="flex w-full relative">
               {/* <View>
                 <Image
                   lazyLoad
@@ -43,6 +41,9 @@ const StarsList = ({ list }: StarsListProps) => {
                 <View className="text-center mt-2 text-red-600">¥140</View>
               </View> */}
               <Image style="width:100%" lazyLoad mode="widthFix" src={product.img} />
+              <View className="absolute text-center text-red-600" style={{ top: '73%', left: '60%' }}>
+                ¥{product.price}
+              </View>
             </View>
           </View>
         </View>
