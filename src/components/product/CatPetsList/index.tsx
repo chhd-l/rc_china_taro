@@ -53,7 +53,7 @@ const CatPetsList = ({ list, systemType }: any) => {
             <View className="inline-block px-1">
               <View className="flex flex-col flex-wrap" style={{ height: cat.Children.length > 1 ? '27rem' : '15rem' }}>
                 {cat.Children.map((item, idx) => (
-                  <View key={idx} className="inline-block px-1 h-52  w-36">
+                  <View key={idx} className="inline-block px-1 h-52 w-36">
                     <View className="bg-white rounded-lg pb-2">
                       <Image src={item.img} className="w-full h-36" />
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
