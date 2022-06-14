@@ -4,7 +4,7 @@ const StarsList = ({ list, systemType }: any) => {
   return (
     <ScrollView className="whitespace-nowrap pl-2 bg-gray-100" scrollX>
       {list.map((product, idx) => (
-        <View key={idx} className="inline-block mr-4" style="width:76%">
+        <View key={idx} className="inline-block mr-4" style="width:83%">
           <View className="flex items-center rounded-b-xl bg-white flex-col">
             {/* <Image
               style="width:100%"
@@ -15,7 +15,7 @@ const StarsList = ({ list, systemType }: any) => {
             <Video
               id="video"
               className="w-full border-0"
-              style={{ height: systemType ? '16rem' : '18.2rem' }}
+              style={{ height: systemType ? '17rem' : '18.2rem' }}
               src={product.mp4}
               poster={product.expr}
               object-fit="fill"
