@@ -44,7 +44,7 @@ const ProductList = () => {
     } else {
       setMyPets(false)
     }
-    if (e.detail.scrollTop > 680) {
+    if (e.detail.scrollTop > 650) {
       setFloorActiveId('catStar')
     }
     if (e.detail.scrollTop >= 920) {
@@ -115,7 +115,8 @@ const ProductList = () => {
             scrollLeftOpen={scrollLeftOpen}
             setShowPendant={MyPets2}
           />
-          <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}>
+          {/* <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}> */}
+          <View>
             <View key="活动专区">
               <View id="activity" className="h-4" />
               <View className="px-4">
