@@ -3,6 +3,7 @@ import { getProductBySkuId } from '@/framework/api/product/get-product'
 import { dataSource } from '@/mock/cart'
 import Mock from 'mockjs'
 import { session } from '@/utils/global'
+import Taro from '@tarojs/taro'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const getCarts = async (isNeedReload = false) => {
@@ -13,7 +14,11 @@ export const getCarts = async (isNeedReload = false) => {
       let cartProducts = session.get('cart-data')
       let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
-        const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
+        let { customerAccount } = Taro.getStorageSync('wxLoginRes')
+        const res = await ApiRoot.carts().getCarts({
+          customerId: customerAccount?.customerId,
+          storeId: customerAccount?.storeId,
+        })
         cartProducts = res?.carts || []
         console.log('cart data', cartProducts)
         for (let i = 0; i < cartProducts.length; i++) {
@@ -44,9 +49,10 @@ export const getCartAndProducts = async (isNeedReload = false) => {
       let cartProducts = session.get('cart-data')
       let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
+        let { customerAccount } = Taro.getStorageSync('wxLoginRes')
         const res = await ApiRoot.carts().getCartAndProduct({
-          customerId: baseSetting.customerId,
-          storeId: baseSetting.storeId,
+          customerId: customerAccount?.customerId,
+          storeId: customerAccount?.storeId,
         })
         cartProducts = res || []
         console.log('cart data', cartProducts)
@@ -69,7 +75,11 @@ export const getCartAndProducts = async (isNeedReload = false) => {
 }
 
 export const getCartNumber = async (goodsId) => {
-  const res = await ApiRoot.carts().getCarts({ customerId: baseSetting.customerId, storeId: baseSetting.storeId })
+  let { customerAccount } = Taro.getStorageSync('wxLoginRes')
+  const res = await ApiRoot.carts().getCarts({
+    customerId: customerAccount?.customerId,
+    storeId: customerAccount?.storeId,
+  })
   const cartNumber = (res?.carts || []).reduce((prev, cur) => {
     return prev + cur.goodsNum
   }, 0)
