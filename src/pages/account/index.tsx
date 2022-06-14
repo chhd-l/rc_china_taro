@@ -39,6 +39,10 @@ const Account = () => {
   }, [])
 
   const navigateToOrderList = (item) => {
+    if (!Taro.getStorageSync('wxLoginRes')) {
+      setAuthLoginOpened(true)
+      return
+    }
     if (item.label !== '我的卡券') {
       Taro.navigateTo({
         url: item.url,
@@ -138,6 +142,10 @@ const Account = () => {
             <View
               className="text-22"
               onClick={() => {
+                if (!Taro.getStorageSync('wxLoginRes')) {
+                  setAuthLoginOpened(true)
+                  return
+                }
                 Taro.navigateTo({
                   url: `${routers.orderList}?status=ALL`,
                 })

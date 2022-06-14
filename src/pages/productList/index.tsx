@@ -13,7 +13,7 @@ import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constan
 import { catDryFood, dogDryFood, dogDryFood2, mxCatDryFood, mxDogDryFood } from '@/lib/product'
 import { mockProduct, mockStar, mockTabOptions } from '@/mock/product'
 import { MovableArea, ScrollView, View } from '@tarojs/components'
-import { requirePlugin } from '@tarojs/taro'
+import Taro, { requirePlugin } from '@tarojs/taro'
 import Mock from 'mockjs'
 import { useEffect, useState } from 'react'
 import './index.less'
@@ -79,6 +79,8 @@ const ProductList = () => {
   const [scrollLeftOpen, setscrollLeftOpen] = useState(true)
   const [floorId, setFloorId] = useState<string>('')
   let [liveStreaming, setLiveStreaming] = useState<any>([])
+  const { system } = Taro.getSystemInfoSync()
+  const systemType = system.indexOf('Android') > -1
 
   // const [productList, setProductList] = useState(productLists)
   // const queryList = (params) => {
@@ -227,7 +229,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的猫咪定制专属营养</View>
               </View>
               <View>
-                <CatPetsList list={catDryFood} />
+                <CatPetsList systemType={systemType} list={catDryFood} />
               </View>
             </View>
             <View key="全价主食级猫湿粮">
@@ -237,7 +239,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
               </View>
               <View>
-                <CatPetsList list={catDryFood} />
+                <CatPetsList systemType={systemType} list={catDryFood} />
               </View>
             </View>
             <View key="明星犬粮">
@@ -257,7 +259,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的狗狗都有自己的精准营养</View>
               </View>
               <View>
-                <DogPetsList list={dogDryFood} />
+                <DogPetsList systemType={systemType} list={dogDryFood} />
               </View>
             </View>
             <View key="犬湿粮">
@@ -267,7 +269,7 @@ const ProductList = () => {
                 <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
               </View>
               <View>
-                <DogPetsList list={dogDryFood2} />
+                <DogPetsList systemType={systemType} list={dogDryFood2} />
               </View>
             </View>
             <View key="宠爱精选">

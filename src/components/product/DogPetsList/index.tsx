@@ -1,4 +1,4 @@
-import { Image, ScrollView, Text, View } from '@tarojs/components'
+import { Image, ScrollView, View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import { AtButton } from 'taro-ui'
 import './index.less'
@@ -9,7 +9,7 @@ const SecondaryMenu1 = [httpsTilte + 'Dog_bg1_01.png']
 const SecondaryMenu2 = [httpsTilte + 'Dog_bg2_01.png', httpsTilte + 'Dog_bg2_02.png']
 const SecondaryMenu3 = [httpsTilte + 'Dog_bg3_01.png', httpsTilte + 'Dog_bg3_02.png', httpsTilte + 'Dog_bg3_03.png']
 
-const DogPetsList = ({ list }: any) => {
+const DogPetsList = ({ list, systemType }: any) => {
   const [dog, setDog] = useState(list[0])
   const [pets, setPets] = useState(dog.Children[0])
   const [bg, setBg] = useState<{
@@ -113,6 +113,13 @@ const DogPetsList = ({ list }: any) => {
                     backgroundSize: `1${idx * 4}0% 1${idx * 4}0%`,
                   }}
                 />
+                {/* <Image
+                  className="w-5 mr-1"
+                  src={`${httpsTilte}Dog_02_new.svg`}
+                  style={{
+                    backgroundSize: `1${idx * 4}0% 1${idx * 4}0%`,
+                  }}
+                /> */}
                 {item.title}
               </View>
               <View style={{ fontSize: '.5rem' }}>参考成年体重10kg</View>
@@ -122,12 +129,25 @@ const DogPetsList = ({ list }: any) => {
       </ScrollView>
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
-        style={{ height: pets.Children.length > 1 ? '36rem' : pets.Children.length === 0 ? '10.6rem' : '23rem' }}
+        style={{
+          height:
+            pets.Children.length > 1
+              ? systemType
+                ? '34.5rem'
+                : '37rem'
+              : pets.Children.length === 0
+              ? systemType
+                ? '10.5rem'
+                : '12rem'
+              : systemType
+              ? '22.5rem'
+              : '24rem',
+        }}
       >
-        <View className="w-full h-32">
+        <View className={`w-full ${systemType ? 'h-32' : 'h-36'}`}>
           <Image className="w-full h-full" src={httpsTilte + pets.img} />
         </View>
-        <View style={{ transform: 'translateY(-8%)' }}>
+        <View style={{ transform: systemType ? 'translateY(-6%)' : 'translateY(-8%)' }}>
           <ScrollView className="whitespace-nowrap" scrollX>
             <View className="inline-block px-1">
               <View
@@ -136,18 +156,18 @@ const DogPetsList = ({ list }: any) => {
               >
                 {pets.Children.map((item, idx) => (
                   <View key={idx} className="inline-block px-1 h-52  w-36">
-                    <View className="bg-white rounded-lg">
-                      {/* <Image src={item.img} className="w-30 h-28" /> */}
+                    <View className="bg-white rounded-lg pb-2">
                       <Image src={httpsTilte + item.img} className="w-full h-32" />
-                      <View className="text-center text-28 pb-1 px-1 whitespace-normal" style="height:3em">
-                        {item.title}
-                      </View>
+                      <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
                     </View>
-                    <View className="text-right py-1">
-                      <Text className="pr-2 ">￥{item.price}</Text>
-                      <Text style={{ borderRadius: '2px' }} className="bg-red-600 px-1 text-white text-24">
+                    <View className="flex items-center h-6 justify-end">
+                      <View style={{ fontSize: systemType ? '1rem' : '20px', lineHeight: '1.1' }}>￥{item.price}</View>
+                      <View
+                        style={{ borderRadius: '2px', fontSize: '.6rem' }}
+                        className="bg-red-600 px-1 text-white ml-1"
+                      >
                         {item.span}
-                      </Text>
+                      </View>
                     </View>
                   </View>
                 ))}
