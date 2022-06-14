@@ -15,7 +15,8 @@ const StarsList = ({ list, systemType }: any) => {
             <Video
               id="video"
               className="w-full border-0"
-              style={{ height: systemType ? '17rem' : '18.2rem' }}
+              style={{ height: "573rpx"}}
+              // style={{ height: systemType ? '17rem' : '18.2rem' }}
               src={product.mp4}
               poster={product.expr}
               object-fit="fill"
