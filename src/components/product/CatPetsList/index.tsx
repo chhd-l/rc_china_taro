@@ -18,7 +18,7 @@ const CatPetsList = ({ list, systemType }: any) => {
             }}
           >
             <View
-              className={`w-12 h-12 rounded-full ${cat.title === item.title ? 'border-10' : 'border-2'} border-solid `}
+              className={`w-16 h-16 rounded-full ${cat.title === item.title ? 'border-10' : 'border-2'} border-solid `}
               style={{
                 borderColor: cat.title === item.title ? cat.color : '#C1C1C1',
               }}
