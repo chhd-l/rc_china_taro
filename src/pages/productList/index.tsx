@@ -16,7 +16,7 @@ import {
   mxCatDryFood,
   mxDogDryFood,
 } from '@/lib/product'
-import { MovableArea, ScrollView, View } from '@tarojs/components'
+import { ScrollView, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import './index.less'
@@ -66,7 +66,7 @@ const ProductList = () => {
 
   const onScrollFooList = (Left: number) => {
     setscrollLeft(Left)
-    if (Left > 35) {
+    if (Left <= -1) {
       setscrollLeftOpen(false)
     } else {
       setscrollLeftOpen(true)
@@ -103,19 +103,20 @@ const ProductList = () => {
         scrollWithAnimation
         enhanced
       >
-        <MovableArea className="w-full h-full">
+        <View className="w-full h-full">
           <ListBanner bannerList={bannerLists} />
-          <FloorNav
-            setFloorId={setFloorId}
-            floorActiveId={floorActiveId}
-            setFloorActiveId={setFloorActiveId}
-            MyPets={MyPets}
-            onScrollFooList={onScrollFooList}
-            scrollLeft={scrollLeft}
-            scrollLeftOpen={scrollLeftOpen}
-            setShowPendant={MyPets2}
-          />
-          {/* <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}> */}
+          <View style={{ height: '3.375rem' }}>
+            <FloorNav
+              setFloorId={setFloorId}
+              floorActiveId={floorActiveId}
+              setFloorActiveId={setFloorActiveId}
+              MyPets={MyPets}
+              onScrollFooList={onScrollFooList}
+              scrollLeft={scrollLeft}
+              scrollLeftOpen={scrollLeftOpen}
+              setShowPendant={MyPets2}
+            />
+          </View>
           <View>
             <View key="活动专区">
               <View id="activity" className="h-4" />
@@ -194,7 +195,7 @@ const ProductList = () => {
               </View>
             </View>
           </View>
-        </MovableArea>
+        </View>
       </ScrollView>
     </View>
   )

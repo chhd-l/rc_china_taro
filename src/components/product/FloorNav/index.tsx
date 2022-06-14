@@ -45,7 +45,7 @@ const FloorNav = ({
         // scroll-left={Left}
         onScroll={(v) => {
           setLeft(v.detail.scrollLeft)
-          onScrollFooList(v.detail.scrollLeft)
+          onScrollFooList(v.detail.deltaX)
         }}
       >
         <View className="sticky top-0 text-xs h-full flex">
