@@ -16,18 +16,10 @@ import {
   mxCatDryFood,
   mxDogDryFood,
 } from '@/lib/product'
-import { MovableArea, ScrollView, View } from '@tarojs/components'
+import { ScrollView, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import './index.less'
-
-let activityTop = 0
-let catStarTop = 0
-let catDryFoodTop = 0
-let catWetFoodTop = 0
-let dogStarTop = 0
-let dogDryFoodTop = 0
-let dogWetFoodTop = 0
 
 const ProductList = () => {
   const [MyPets, setMyPets] = useState(false)
@@ -40,80 +32,41 @@ const ProductList = () => {
   const { system } = Taro.getSystemInfoSync()
   const systemType = system.indexOf('Android') > -1
 
-  useEffect(() => {
-    const NodeRef = Taro.createSelectorQuery()
-    NodeRef.select('#activity')
-      .boundingClientRect((react) => {
-        activityTop = react.top
-      })
-      .exec()
-    NodeRef.select('#catStar')
-      .boundingClientRect((react) => {
-        catStarTop = react.top
-      })
-      .exec()
-    NodeRef.select('#catDryFood')
-      .boundingClientRect((react) => {
-        catDryFoodTop = react.top
-      })
-      .exec()
-    NodeRef.select('#catWetFood')
-      .boundingClientRect((react) => {
-        catWetFoodTop = react.top
-      })
-      .exec()
-    NodeRef.select('#dogStar')
-      .boundingClientRect((react) => {
-        dogStarTop = react.top
-      })
-      .exec()
-    NodeRef.select('#odgDryFood')
-      .boundingClientRect((react) => {
-        dogDryFoodTop = react.top
-      })
-      .exec()
-    NodeRef.select('#dogWetFood')
-      .boundingClientRect((react) => {
-        dogWetFoodTop = react.top
-      })
-      .exec()
-  }, [])
-
   const onScroll = (e) => {
     if (e.detail.scrollTop > 370) {
       setMyPets2(true)
     } else {
       setMyPets2(false)
     }
-    if (e.detail.scrollTop >= activityTop) {
+    if (e.detail.scrollTop >= 460) {
       setFloorActiveId('activity')
       setMyPets(true)
     } else {
       setMyPets(false)
     }
-    if (e.detail.scrollTop > catStarTop) {
+    if (e.detail.scrollTop > 650) {
       setFloorActiveId('catStar')
     }
-    if (e.detail.scrollTop >= catDryFoodTop) {
+    if (e.detail.scrollTop >= 920) {
       setFloorActiveId('catDryFood')
     }
-    if (e.detail.scrollTop >= catWetFoodTop) {
+    if (e.detail.scrollTop >= 1720) {
       setFloorActiveId('catWetFood')
     }
-    if (e.detail.scrollTop >= dogStarTop) {
+    if (e.detail.scrollTop >= 2520) {
       setFloorActiveId('dogStar')
     }
-    if (e.detail.scrollTop >= dogDryFoodTop) {
+    if (e.detail.scrollTop >= 2790) {
       setFloorActiveId('odgDryFood')
     }
-    if (e.detail.scrollTop >= dogWetFoodTop) {
+    if (e.detail.scrollTop >= 3598) {
       setFloorActiveId('dogWetFood')
     }
   }
 
   const onScrollFooList = (Left: number) => {
     setscrollLeft(Left)
-    if (Left > 35) {
+    if (Left <= -1) {
       setscrollLeftOpen(false)
     } else {
       setscrollLeftOpen(true)
@@ -150,18 +103,20 @@ const ProductList = () => {
         scrollWithAnimation
         enhanced
       >
-        <MovableArea className="w-full h-full">
+        <View className="w-full h-full">
           <ListBanner bannerList={bannerLists} />
-          <FloorNav
-            setFloorId={setFloorId}
-            floorActiveId={floorActiveId}
-            setFloorActiveId={setFloorActiveId}
-            MyPets={MyPets}
-            onScrollFooList={onScrollFooList}
-            scrollLeft={scrollLeft}
-            scrollLeftOpen={scrollLeftOpen}
-            setShowPendant={MyPets2}
-          />
+          <View style={{ height: '3.375rem' }}>
+            <FloorNav
+              setFloorId={setFloorId}
+              floorActiveId={floorActiveId}
+              setFloorActiveId={setFloorActiveId}
+              MyPets={MyPets}
+              onScrollFooList={onScrollFooList}
+              scrollLeft={scrollLeft}
+              scrollLeftOpen={scrollLeftOpen}
+              setShowPendant={MyPets2}
+            />
+          </View>
           {/* <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}> */}
           <View>
             <View key="活动专区">
@@ -241,7 +196,7 @@ const ProductList = () => {
               </View>
             </View>
           </View>
-        </MovableArea>
+        </View>
       </ScrollView>
     </View>
   )

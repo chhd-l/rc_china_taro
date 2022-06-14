@@ -21,12 +21,12 @@ const DogPetsList = ({ list, systemType }: any) => {
   })
 
   useEffect(() => {
-    if (list.length === 1) {
+    if (list[0].Children.length === 1) {
       setBg({
         DogBg: SecondaryMenu1[0],
         bgList: SecondaryMenu1,
       })
-    } else if (list.length === 2) {
+    } else if (list[0].Children.length === 2) {
       setBg({
         DogBg: SecondaryMenu2[0],
         bgList: SecondaryMenu2,
@@ -156,7 +156,7 @@ const DogPetsList = ({ list, systemType }: any) => {
               >
                 {pets.Children.map((item, idx) => (
                   <View key={idx} className="inline-block px-1 h-52 w-36">
-                    <View className="bg-white rounded-lg pb-2">
+                    <View className="bg-white rounded-lg overflow-hidden pb-2">
                       <Image src={httpsTilte + item.img} className="w-full h-36" />
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
                     </View>
