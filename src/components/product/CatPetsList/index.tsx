@@ -7,10 +7,11 @@ const CatPetsList = ({ list, systemType }: any) => {
 
   return (
     <View className="pb-4 mt-1 flex flex-col">
-      <View className="flex justify-between items-center px-2 mb-2">
+      <View className="flex items-center px-2 mb-2">
         {list.map((item, idx) => (
           <View
-            className="px-1 flex flex-col text-center"
+            className="flex flex-col text-center items-center"
+            style={{ width: '20%' }}
             key={idx}
             onClick={() => {
               setCat(list.find((_, index) => idx === index))
@@ -53,8 +54,8 @@ const CatPetsList = ({ list, systemType }: any) => {
             <View className="inline-block px-1">
               <View className="flex flex-col flex-wrap" style={{ height: cat.Children.length > 1 ? '27rem' : '15rem' }}>
                 {cat.Children.map((item, idx) => (
-                  <View key={idx} className="inline-block px-1 h-52  w-36">
-                    <View className="bg-white rounded-lg pb-2">
+                  <View key={idx} className="inline-block px-1 h-52 w-36">
+                    <View className="bg-white overflow-hidden rounded-lg pb-2">
                       <Image src={item.img} className="w-full h-36" />
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
                     </View>
