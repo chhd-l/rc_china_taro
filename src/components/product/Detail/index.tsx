@@ -65,9 +65,11 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
           <View className="text-28 font-medium flex-1">{choosedSku?.name}</View>
           {/* <AtIcon prefixClass="fa" value="share" size="30" color="red" /> */}
           <View
-            className="w-4 h-4"
-            onClick={() => {
+            className="w-6 h-6"
+            onClick={(e) => {
+              console.info('....')
               setShowShareBtn(true)
+              e.stopPropagation()
             }}
           >
             <Image src={PDP_SHARE} className="w-full h-full" mode="widthFix" />
@@ -94,7 +96,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
         </View>
         {/*店铺优惠活动*/}
         <VoucherModal goodsId={detailInfo.id} />
-        <View className="flex justify-between text-28 items-center">
+        <View className="flex justify-between text-24 items-center">
           <View>
             已选
             {choosedSku.specText?.join(',')}，{buyCount}件
@@ -111,18 +113,18 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
         </View>
       </View>
       <View className="productRemark text-26 text-gray-400 flex items-center text-center">
-        <View className="flex-1">
-          <AtIcon className="mr-1" value="check-circle" size={12} />
+        <View className="flex-1 text-22">
+          <AtIcon className="mr-1" value="check-circle" size={11} />
           正品保证
         </View>
-        <View className="flex-1">
-          <AtIcon className="mr-1" value="check-circle" size={12} />
+        <View className="flex-1 text-22">
+          <AtIcon className="mr-1" value="check-circle" size={11} />
           全场免邮
         </View>
-        <View className="flex-1">
-          <AtIcon className="mr-1" value="check-circle" size={12} />
+        <View className="flex-1 text-22">
+          <AtIcon className="mr-1" value="check-circle" size={11} />
           发货须知
-          <AtIcon className="ml-1" value="help" size={12} onClick={() => setIsOpened(true)} />
+          <AtIcon className="ml-1" value="help" size={11} onClick={() => setIsOpened(true)} />
         </View>
       </View>
       <View className="px-2">

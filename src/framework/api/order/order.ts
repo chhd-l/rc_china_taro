@@ -31,9 +31,9 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -161,7 +161,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
         operator: userInfo?.nickName || 'system',
         isNeedTotal: true,
       })
-      let res = await ApiRoot.orders().getOrders({ params })
+      let res = await ApiRoot.orders().getOrders({ queryOrderListParams: params })
       const { records, total } = res.orders
       console.log('query orders view list', res)
       return {
@@ -213,7 +213,7 @@ export const shippedOrder = async (params: any) => {
   try {
     let { userInfo } = Taro.getStorageSync('wxLoginRes')
     params = Object.assign(params, {
-      storeId: userInfo?.storeId ||'12345678',
+      storeId: userInfo?.storeId || '12345678',
       operator: userInfo?.nickName || 'system',
     })
     console.info('shipped order view params', params)
@@ -230,7 +230,7 @@ export const completedOrder = async (params: any) => {
   try {
     let { userInfo } = Taro.getStorageSync('wxLoginRes')
     params = Object.assign(params, {
-      storeId: userInfo?.storeId ||'12345678',
+      storeId: userInfo?.storeId || '12345678',
       operator: userInfo?.nickName || 'system',
     })
     console.info('completed order view params', params)
@@ -247,7 +247,7 @@ export const cancelOrder = async (params: any) => {
   try {
     let { userInfo } = Taro.getStorageSync('wxLoginRes')
     params = Object.assign(params, {
-      storeId: userInfo?.storeId ||'12345678',
+      storeId: userInfo?.storeId || '12345678',
       operator: userInfo?.nickName || 'system',
     })
     console.info('cancel order view params', params)

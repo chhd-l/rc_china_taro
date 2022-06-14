@@ -135,19 +135,6 @@ const ProductDetail = () => {
   return (
     <>
       <NavBar navbarTitle="商品详情" isNeedBack />
-      <ImgPoster
-        qrcode={detailInfo?.wxCodeUrl}
-        setShowPoster={setShowPoster}
-        showPoster={showPoster}
-        setShowShareBtn={setShowShareBtn}
-        showShareBtn={showShareBtn}
-        productInfo={{
-          img: choosedSku?.img?.[0],
-          name: choosedSku?.name,
-          price: choosedSku?.price,
-          originalPrice: choosedSku?.originalPrice,
-        }}
-      />
       {choosedSku.id ? (
         <View className="product-detail">
           <Detail
@@ -164,7 +151,7 @@ const ProductDetail = () => {
             <View className="text-center text-28 flex items-center justify-center py-4">
               {' '}
               <View className="w-1 h-1 rounded-full bg-red-600" />
-              <View className="px-1">商品详情</View>
+              <View className="px-1 text-22 font-bold">商品详情</View>
               <View className="w-1 h-1 rounded-full bg-red-600" />
             </View>
             {choosedSku?.video ? <Video className="w-full" src={choosedSku.video} /> : null}
@@ -212,6 +199,19 @@ const ProductDetail = () => {
           <AuthLogin />
         </View>
       ) : null}
+      <ImgPoster
+        qrcode={detailInfo?.wxCodeUrl}
+        setShowPoster={setShowPoster}
+        showPoster={showPoster}
+        setShowShareBtn={setShowShareBtn}
+        showShareBtn={showShareBtn}
+        productInfo={{
+          img: choosedSku?.img?.[0],
+          name: choosedSku?.name,
+          price: choosedSku?.price,
+          originalPrice: choosedSku?.originalPrice,
+        }}
+      />
     </>
   )
 }
