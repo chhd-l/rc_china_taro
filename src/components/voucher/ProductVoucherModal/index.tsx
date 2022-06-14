@@ -5,6 +5,9 @@ import { Voucher } from '@/framework/types/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
 import { getPdpVouchers, receiveVoucher } from '@/framework/api/voucher/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
+import Taro from '@tarojs/taro'
+import { useAtom } from 'jotai'
+import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import './index.less'
 
 const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
@@ -12,6 +15,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   const [showReceiveVoucher, setShowReceiveVoucher] = useState(false)
   const [showSuccessReceive, setShowSuccessReceive] = useState(false)
   const [modalTipText, setModalTipText] = useState('')
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
 
   const getVoucherList = async () => {
     console.log('aaaaaaa', goodsId)
@@ -21,6 +25,10 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
 
   //用户领取商品优惠券
   const customerReceiveVoucher = async (voucher: Voucher) => {
+    if (!Taro.getStorageSync('wxLoginRes')) {
+      setAuthLoginOpened(true)
+      return
+    }
     console.log('received voucher', voucher)
     const res = await receiveVoucher({
       voucherId: voucher.id,

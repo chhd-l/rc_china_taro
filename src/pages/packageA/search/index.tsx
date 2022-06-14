@@ -30,6 +30,8 @@ const Search = () => {
   const [filterList, setFilterList] = useState<FilterListItemProps[]>([])
   const [productList, setProductList] = useState<ProductListItemProps[]>([])
   const [currentPage, setCurrentPage] = useState(0)
+  const [categoryId, setCategoryId] = useState<string>('')
+  const [goodsName, setGoodsName] = useState<string>('')
   const [isNoMore, setIsNoMore] = useState(false)
   const [animal, setAnimal] = useState<string>('')
   let type = 1 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
@@ -48,11 +50,11 @@ const Search = () => {
     }
     let current = currentPage + 1
     setCurrentPage(current)
-    getList({ current })
+    getList({ current, goodsName, categoryId })
   })
   const getList = async ({
     categoryId,
-    goodsName,
+    goodsName = keyword,
     flterlist,
     current,
   }: {
@@ -68,6 +70,7 @@ const Search = () => {
     }
     if (categoryId) {
       params.goodsCategoryId = categoryId
+      setCategoryId(categoryId)
     }
     if (goodsName) {
       params.goodsName = goodsName

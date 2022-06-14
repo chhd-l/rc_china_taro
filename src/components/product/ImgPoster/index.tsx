@@ -4,7 +4,7 @@ import Taro from '@tarojs/taro'
 import minLogo from '@/assets/img/min-logo.png'
 import { AtFloatLayout } from 'taro-ui'
 import './index.less'
-import { PDP_POSTER, PDP_WECHAT } from '@/lib/constants'
+import { PDP_POSTER, PDP_WECHAT, SHARE_BG, SHRRE_DOWNLOAD } from '@/lib/constants'
 import { formatMoney } from '@/utils/utils'
 const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShareBtn, showShareBtn }) => {
   const [picTempUrl, setPicTempUrl] = useState('')
@@ -39,16 +39,21 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
       title: '正在生成中...',
     })
     var ctx = Taro.createCanvasContext('mycanvas', this)
+    ctx.setFillStyle('#fff')
+    ctx.fillRect(0, 0, deviceWidth, deviceWidth + 270)
     const user = Taro.getStorageSync('wxLoginRes').userInfo
     let productImg = await initPic(productInfo.img)
     let qrcodeImg = await initPic(qrcode)
     let userAvatar = await initPic(user.avatarUrl)
+    let bottomBg = await initPic(SHARE_BG)
+
     console.info('deviceWidth', deviceWidth)
     console.info('deviceHeight', deviceHeight)
     ctx.drawImage(productImg, 0, 100, deviceWidth, deviceWidth) //产品图
     // ctx.drawImage(productInfo.img, 0, 0, deviceWidth, deviceWidth, 30, 45, 140, 140) //画商品图片
     ctx.drawImage(qrcodeImg, deviceWidth - 80, deviceWidth + 160, 60, 60) //画二维码
     ctx.drawImage(minLogo, 20, deviceWidth + 160, 60, 60) //
+    ctx.drawImage(bottomBg, 0, deviceWidth + 210, deviceWidth, 60) //
     //名字
     ctx.setFillStyle('#000')
     ctx.setFontSize(18)
@@ -154,13 +159,14 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
   return (
     <View className="poster-wrap">
       <AtFloatLayout
+        className="share-btn-wrap"
         isOpened={showShareBtn}
         title="分享"
         onClose={() => {
           setShowShareBtn(false)
         }}
       >
-        <View className="flex">
+        <View className="flex h-full items-center">
           <Button openType="share" border={0} onClick={() => {}} className="flex-1 share-btn">
             <View
               className="w-12 m-auto"
@@ -173,6 +179,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             <View className="text-center text-28">微信分享</View>
           </Button>
           <View
+            style={{ borderLeft: '1px solid #eee' }}
             className="flex-1"
             onClick={() => {
               createShareGoods()
@@ -198,7 +205,10 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
         class="canvas-box fixed invisible"
         style={{ left: '-999999', top: '-999999', zIndex: '-10', heigt: 0, overflow: 'hidden' }}
       >
-        <Canvas canvas-id="mycanvas" style={{ width: `${deviceWidth}px`, height: deviceWidth + 260 }}></Canvas>
+        <Canvas
+          canvas-id="mycanvas"
+          style={{ width: `${deviceWidth}px`, height: deviceWidth + 270, background: '#fff' }}
+        ></Canvas>
       </View>
       <AtFloatLayout
         isOpened={showPoster}
@@ -217,12 +227,13 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             <Image src={picTempUrl} mode="widthFix" className="w-full"></Image>
           </View>
           <Button
-            className="bg-primary-red text-white text-28 m-auto mt-2"
-            style={{ borderRadius: '50px', width: '100px' }}
+            className="bg-primary-red text-white text-28 m-auto mt-2 flex justify-center items-center"
+            style={{ borderRadius: '50px', width: '140px' }}
             onClick={() => {
               getPhotosAlbumAuth()
             }}
           >
+            <Image src={SHRRE_DOWNLOAD} mode="widthFix" className="w-5 text-white relative" style={{ top: '2px' }} />
             保存图片
           </Button>
         </View>
