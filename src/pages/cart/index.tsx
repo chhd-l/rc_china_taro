@@ -7,6 +7,7 @@ import { session } from '@/utils/global'
 import NavBar from '@/components/common/Navbar'
 import { AtModal } from 'taro-ui'
 import './index.less'
+import Taro from '@tarojs/taro'
 
 const Cart = () => {
   const [productList, setProductList] = useState<any[]>([])
@@ -119,6 +120,7 @@ const Cart = () => {
   }
 
   useDidShow(() => {
+    Taro.setStorageSync('commerce-loading', 1)
     getCartProductList()
   })
 

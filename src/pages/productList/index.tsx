@@ -74,6 +74,7 @@ const ProductList = () => {
   }
 
   const getProductList = async () => {
+    Taro.setStorageSync('commerce-loading', 1)
     let res = await getProducts({ limit: 10, sample: {}, hasTotal: true, offset: 0 })
     setProductList(res?.productList || [])
   }
