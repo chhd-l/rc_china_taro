@@ -6,10 +6,13 @@ import { AtFloatLayout } from 'taro-ui'
 import './index.less'
 import { PDP_POSTER, PDP_WECHAT, SHARE_BG, SHRRE_DOWNLOAD } from '@/lib/constants'
 import { formatMoney } from '@/utils/utils'
+import { useAtom } from 'jotai'
+import AuthLogin, { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShareBtn, showShareBtn }) => {
   const [picTempUrl, setPicTempUrl] = useState('')
   const [posterStatus, setPosterStatus] = useState(false)
   let deviceWidth = Taro.getSystemInfoSync().windowWidth
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
   let deviceHeight = Taro.getSystemInfoSync().windowHeight - 70
   //提前将需要分享的图片素材先缓存至本地临时图片路径
   const initPic = async (img) => {
@@ -42,6 +45,9 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     ctx.setFillStyle('#fff')
     ctx.fillRect(0, 0, deviceWidth, deviceWidth + 270)
     const user = Taro.getStorageSync('wxLoginRes').userInfo
+    if (!user?.nickName) {
+      return
+    }
     let productImg = await initPic(productInfo.img)
     let qrcodeImg = await initPic(qrcode)
     let userAvatar = await initPic(user.avatarUrl)
@@ -166,34 +172,38 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
           setShowShareBtn(false)
         }}
       >
-        <View className="flex h-full items-center">
+        <View className="flex pt-7 pb-8 items-center ">
           <Button openType="share" border={0} onClick={() => {}} className="flex-1 share-btn">
             <View
-              className="w-12 m-auto"
+              className="w-14 m-auto"
               onClick={() => {
                 setShowShareBtn(true)
               }}
             >
               <Image src={PDP_WECHAT} className="w-full" mode="widthFix" />
             </View>
-            <View className="text-center text-28">微信分享</View>
+            <View className="text-center text-24">微信分享</View>
           </Button>
           <View
             style={{ borderLeft: '1px solid #eee' }}
-            className="flex-1"
+            className="flex-1 py-1"
             onClick={() => {
               createShareGoods()
             }}
           >
             <View
-              className="w-12 m-auto"
+              className="w-14 m-auto"
               onClick={() => {
+                if (!Taro.getStorageSync('wxLoginRes')) {
+                  setAuthLoginOpened(true)
+                  return
+                }
                 setShowShareBtn(true)
               }}
             >
               <Image src={PDP_POSTER} className="w-full" mode="widthFix" />
             </View>
-            <View className="text-center text-28">生成海报</View>
+            <View className="text-center text-24">生成海报</View>
           </View>
         </View>
       </AtFloatLayout>
@@ -238,6 +248,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
           </Button>
         </View>
       </AtFloatLayout>
+      <AuthLogin />
     </View>
   )
 }

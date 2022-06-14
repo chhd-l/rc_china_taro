@@ -1,8 +1,15 @@
 .poster-wrap{
     position: relative;
     left: -10000px;
+    .at-float-layout .layout-header{
+        background-color: #fff;
+    }
     .layout-header__title{
         text-align: center;
+        padding-right: 0;
+    }
+    .at-float-layout .layout-header__btn-close::after,.at-float-layout .layout-header__btn-close::before{
+        background-color: #000;
     }
     .at-float-layout .layout-body,.at-float-layout .layout-body__content{
         min-height: 200px;
@@ -12,11 +19,12 @@
         max-height: 90vh;
         min-height: 200px;
     }
-    .share-btn-wrap .layout-body__content{
-        height: 110px;
-    }
+    // .share-btn-wrap .layout-body__content{
+    //     height: 150px;
+    // }
     .share-btn{
         background-color: #fff;
+        padding: 0;
         line-height: unset;
         &::before{
             border:0;
