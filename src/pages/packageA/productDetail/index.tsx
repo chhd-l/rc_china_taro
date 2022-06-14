@@ -55,7 +55,8 @@ const ProductDetail = () => {
       console.log(res.target)
     }
     return {
-      title: detailInfo?.name,
+      // title: detailInfo?.name,
+      title: '法国皇家官方宠粮订阅商城',
       path: `/pages/packageA/productDetail/index?id=${detailInfo?.id}`,
       imageUrl: choosedSku?.img?.[0],
     }
@@ -151,7 +152,7 @@ const ProductDetail = () => {
             <View className="text-center text-28 flex items-center justify-center py-4">
               {' '}
               <View className="w-1 h-1 rounded-full bg-red-600" />
-              <View className="px-1 text-22 font-bold">商品详情</View>
+              <View className="px-1 text-24 font-bold">商品详情</View>
               <View className="w-1 h-1 rounded-full bg-red-600" />
             </View>
             {choosedSku?.video ? <Video className="w-full" src={choosedSku.video} /> : null}

@@ -120,21 +120,25 @@ export const mxCatDryFood = [
     mp4: httpsTilte + 'Shop_Start_01.mp4',
     img: httpsTilte + 'Shop_Start_01.png',
     expr: httpsTilte + 'Shop_Start_01cover.jpg',
+    price: '264'
   },
   {
     mp4: httpsTilte + 'Shop_Start_02.mp4',
     img: httpsTilte + 'Shop_Start_02.png',
     expr: httpsTilte + 'Shop_Start_02cover.jpg',
+    price: '162'
   },
   {
     mp4: httpsTilte + 'Shop_Start_03.mp4',
     img: httpsTilte + 'Shop_Start_03.png',
     expr: httpsTilte + 'Shop_Start_03cover.jpg',
+    price: '123'
   },
   {
     mp4: httpsTilte + 'Shop_Start_04.mp4',
     img: httpsTilte + 'Shop_Start_04.jpg',
     expr: httpsTilte + 'Shop_Start_04cover.jpg',
+    price: '132'
   },
 ]
 
@@ -143,21 +147,25 @@ export const mxDogDryFood = [
     mp4: httpsTilte + 'Shop_Start_Dog_01.mp4',
     img: httpsTilte + 'Shop_Start_Dog_01.png',
     expr: httpsTilte + 'Shop_Start_Dog_01cover.jpg',
+    price: '252'
   },
   {
     mp4: httpsTilte + 'Shop_Start_Dog_02.mp4',
     img: httpsTilte + 'Shop_Start_Dog_02.png',
     expr: httpsTilte + 'Shop_Start_Dog_02cover.jpg',
+    price: '195'
   },
   {
     mp4: httpsTilte + 'Shop_Start_Dog_03.mp4',
     img: httpsTilte + 'Shop_Start_Dog_03.png',
     expr: httpsTilte + 'Shop_Start_Dog_03cover.jpg',
+    price: '103'
   },
   {
     mp4: httpsTilte + 'Shop_Start_Dog_04.mp4',
     img: httpsTilte + 'Shop_Start_Dog_04.jpg',
     expr: httpsTilte + 'Shop_Start_Dog_04cover.jpg',
+    price: '68'
   },
 ]
 
@@ -507,6 +515,41 @@ export const dogDryFood2 = [
         ]
       },
     ]
+  },
+]
+
+
+export const bannerLists = [
+  {
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+  },
+  {
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1645176690326_P7j5sr.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+  },
+  {
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648034005829_tqkR1u.png',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+  },
+  {
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1597804065709_i2xUiW.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+  },
+  {
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1636022018746_LKzei7.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+  },
+  {
+    img: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+    url: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1648800549779_Z3pog8.jpg',
+  },
+]
+
+export const activityList = [
+  {
+    img: 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Shop_Active_banner.jpg',
+    url: '',
   },
 ]
 

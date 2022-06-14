@@ -1,12 +1,9 @@
 import { Image, ScrollView, View } from '@tarojs/components'
-import Taro from '@tarojs/taro'
 import { useState } from 'react'
 import { AtButton } from 'taro-ui'
 
-const CatPetsList = ({ list }: any) => {
+const CatPetsList = ({ list, systemType }: any) => {
   const [cat, setCat] = useState(list[0])
-  const { system } = Taro.getSystemInfoSync()
-  const systemType = system.indexOf('Android') > -1
 
   return (
     <View className="pb-4 mt-1 flex flex-col">
@@ -33,23 +30,33 @@ const CatPetsList = ({ list }: any) => {
       </View>
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
-        style={{ height: cat.Children.length > 1 ? '36rem' : cat.Children.length === 0 ? '10.6rem' : '23rem' }}
+        style={{
+          height:
+            cat.Children.length > 1
+              ? systemType
+                ? '34.5rem'
+                : '37rem'
+              : cat.Children.length === 0
+              ? systemType
+                ? '10.5rem'
+                : '12rem'
+              : systemType
+              ? '22.5rem'
+              : '24rem',
+        }}
       >
-        <View className="w-full h-32">
+        <View className={`w-full ${systemType ? 'h-32' : 'h-36'}`}>
           <Image className="w-full h-full" src={cat.img} />
         </View>
-        <View style={{ transform: 'translateY(-8%)' }}>
+        <View style={{ transform: systemType ? 'translateY(-6%)' : 'translateY(-8%)' }}>
           <ScrollView className="whitespace-nowrap" scrollX>
             <View className="inline-block px-1">
               <View className="flex flex-col flex-wrap" style={{ height: cat.Children.length > 1 ? '27rem' : '15rem' }}>
                 {cat.Children.map((item, idx) => (
-                  <View key={idx} className="inline-block px-1 h-52  w-36">
-                    <View className="bg-white rounded-lg">
-                      {/* <Image src={item.img} className="w-30 h-28" /> */}
-                      <Image src={item.img} className="w-full h-32" />
-                      <View className="text-center text-28 pb-1 px-1 whitespace-normal" style="height:3em">
-                        {item.title}
-                      </View>
+                  <View key={idx} className="inline-block px-1 h-52 w-36">
+                    <View className="bg-white overflow-hidden rounded-lg pb-2">
+                      <Image src={item.img} className="w-full h-36" />
+                      <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
                     </View>
                     <View className="flex items-center h-6 justify-end">
                       <View style={{ fontSize: systemType ? '1rem' : '20px', lineHeight: '1.1' }}>￥{item.price}</View>
