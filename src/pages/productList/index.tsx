@@ -21,6 +21,14 @@ import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import './index.less'
 
+let activityTop = 0
+let catStarTop = 0
+let catDryFoodTop = 0
+let catWetFoodTop = 0
+let dogStarTop = 0
+let dogDryFoodTop = 0
+let dogWetFoodTop = 0
+
 const ProductList = () => {
   const [MyPets, setMyPets] = useState(false)
   const [MyPets2, setMyPets2] = useState(false)
@@ -32,34 +40,73 @@ const ProductList = () => {
   const { system } = Taro.getSystemInfoSync()
   const systemType = system.indexOf('Android') > -1
 
+  useEffect(() => {
+    const NodeRef = Taro.createSelectorQuery()
+    NodeRef.select('#activity')
+      .boundingClientRect((react) => {
+        activityTop = react.top
+      })
+      .exec()
+    NodeRef.select('#catStar')
+      .boundingClientRect((react) => {
+        catStarTop = react.top
+      })
+      .exec()
+    NodeRef.select('#catDryFood')
+      .boundingClientRect((react) => {
+        catDryFoodTop = react.top
+      })
+      .exec()
+    NodeRef.select('#catWetFood')
+      .boundingClientRect((react) => {
+        catWetFoodTop = react.top
+      })
+      .exec()
+    NodeRef.select('#dogStar')
+      .boundingClientRect((react) => {
+        dogStarTop = react.top
+      })
+      .exec()
+    NodeRef.select('#odgDryFood')
+      .boundingClientRect((react) => {
+        dogDryFoodTop = react.top
+      })
+      .exec()
+    NodeRef.select('#dogWetFood')
+      .boundingClientRect((react) => {
+        dogWetFoodTop = react.top
+      })
+      .exec()
+  }, [])
+
   const onScroll = (e) => {
     if (e.detail.scrollTop > 370) {
       setMyPets2(true)
     } else {
       setMyPets2(false)
     }
-    if (e.detail.scrollTop >= 460) {
+    if (e.detail.scrollTop >= activityTop) {
       setFloorActiveId('activity')
       setMyPets(true)
     } else {
       setMyPets(false)
     }
-    if (e.detail.scrollTop > 650) {
+    if (e.detail.scrollTop > catStarTop) {
       setFloorActiveId('catStar')
     }
-    if (e.detail.scrollTop >= 920) {
+    if (e.detail.scrollTop >= catDryFoodTop) {
       setFloorActiveId('catDryFood')
     }
-    if (e.detail.scrollTop >= 1720) {
+    if (e.detail.scrollTop >= catWetFoodTop) {
       setFloorActiveId('catWetFood')
     }
-    if (e.detail.scrollTop >= 2520) {
+    if (e.detail.scrollTop >= dogStarTop) {
       setFloorActiveId('dogStar')
     }
-    if (e.detail.scrollTop >= 2790) {
+    if (e.detail.scrollTop >= dogDryFoodTop) {
       setFloorActiveId('odgDryFood')
     }
-    if (e.detail.scrollTop >= 3598) {
+    if (e.detail.scrollTop >= dogWetFoodTop) {
       setFloorActiveId('dogWetFood')
     }
   }
