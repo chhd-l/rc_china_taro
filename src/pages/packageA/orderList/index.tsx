@@ -44,33 +44,17 @@ const OrderList = () => {
     const limit = 10
     if (isReload) {
       curPage = 0
+      setOrderList([])
     } else {
       records = cloneDeep(orderList)
     }
     let offset = curPage ? curPage * limit : 0
-    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
     const res = await getOrderList({
       limit,
       offset,
-      sample: Object.assign(
-        {
-          customerId: customerInfo.id,
-        },
-        orderState !== 'ALL' ? { orderState } : {},
-      ),
+      sample: orderState !== 'ALL' ? { orderState } : {},
     })
-    const isSendCoupon = router?.params?.isSendCoupon
-    if (isSendCoupon && firstIn) {
-      setCurActionType('sendCoupon')
-      setShowActionTipModal(true)
-      setFirstIn(false)
-    }
-    console.log('order list data', res)
-    if (res?.total < offset + 10) {
-      setIsNoMore(true)
-    } else {
-      setIsNoMore(false)
-    }
+    setIsNoMore(res?.total < offset + 10)
     setOrderList(records.concat(res?.records))
   }
 
@@ -82,12 +66,15 @@ const OrderList = () => {
     setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
     getOrderLists({ orderState: status, isReload: true })
+    const isSendCoupon = router?.params?.isSendCoupon
+    if (isSendCoupon && firstIn) {
+      setCurActionType('sendCoupon')
+      setShowActionTipModal(true)
+      setFirstIn(false)
+    }
   })
 
   const handleClick = async (value) => {
-    await Taro.setNavigationBarTitle({
-      title: tabList[value].title,
-    })
     const cur = Object.values(OrderStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(OrderStatusEnum)[cur])
     await getOrderLists({ orderState: Object.keys(OrderStatusEnum)[cur], isReload: true })
@@ -169,16 +156,14 @@ const OrderList = () => {
       >
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
-            {orderList?.length > 0 ? (
-              <OrderListComponents
-                list={orderList}
-                openModalTip={(orderId, orderStatus) => {
-                  setShowActionTipModal(true)
-                  setCurActionOrderId(orderId)
-                  setCurActionType(orderStatus)
-                }}
-              />
-            ) : null}
+            <OrderListComponents
+              list={orderList}
+              openModalTip={(orderId, orderStatus) => {
+                setShowActionTipModal(true)
+                setCurActionOrderId(orderId)
+                setCurActionType(orderStatus)
+              }}
+            />
           </AtTabsPane>
         ))}
       </AtTabs>
