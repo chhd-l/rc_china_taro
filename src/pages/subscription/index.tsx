@@ -80,7 +80,7 @@ const Subscription = () => {
       <NavBar navbarTitle="订阅" />
       <Image lazyLoad className="w-full" src={WHAT_IS_SUBSCRIPTION} mode="widthFix" />
       <View className="px-2">
-        <PetList />
+        <PetList withoutLoading={true} />
       </View>
       {data?.map((item) => (
         <SubList key={item.id}>{item}</SubList>

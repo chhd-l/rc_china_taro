@@ -171,7 +171,7 @@ const Account = () => {
         {/* <View>微信关注</View> */}
         {/*/!*我的宠物*!/*/}
         <View>
-          <PetList />
+          <PetList withoutLoading={true} />
         </View>
         <AtModal isOpened={signoutOpend}>
           <AtModalHeader>
