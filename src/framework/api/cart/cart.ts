@@ -51,8 +51,8 @@ export const getCartAndProducts = async (isNeedReload = false) => {
       if (!cartProducts || isNeedReload) {
         let { customerAccount } = Taro.getStorageSync('wxLoginRes')
         const res = await ApiRoot.carts().getCartAndProduct({
-          customerId: customerAccount?.customerId,
-          storeId: customerAccount?.storeId,
+          customerId: customerAccount?.customerId || '',
+          storeId: customerAccount?.storeId || '',
         })
         cartProducts = res || []
         console.log('cart data', cartProducts)
@@ -77,8 +77,8 @@ export const getCartAndProducts = async (isNeedReload = false) => {
 export const getCartNumber = async (goodsId) => {
   let { customerAccount } = Taro.getStorageSync('wxLoginRes')
   const res = await ApiRoot.carts().getCarts({
-    customerId: customerAccount?.customerId,
-    storeId: customerAccount?.storeId,
+    customerId: customerAccount?.customerId|| '',
+    storeId: customerAccount?.storeId|| '',
   })
   const cartNumber = (res?.carts || []).reduce((prev, cur) => {
     return prev + cur.goodsNum
