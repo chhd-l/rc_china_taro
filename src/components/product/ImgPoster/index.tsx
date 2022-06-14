@@ -38,16 +38,16 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
   }
   //初始Canvas，将内容画到Canvas上,画完后将画布生成临时图片
   const createShareGoods = async () => {
+    const user = Taro.getStorageSync('wxLoginRes').userInfo
+    if (!user?.nickName) {
+      return
+    }
     Taro.showLoading({
       title: '正在生成中...',
     })
     var ctx = Taro.createCanvasContext('mycanvas', this)
     ctx.setFillStyle('#fff')
     ctx.fillRect(0, 0, deviceWidth, deviceWidth + 270)
-    const user = Taro.getStorageSync('wxLoginRes').userInfo
-    if (!user?.nickName) {
-      return
-    }
     let productImg = await initPic(productInfo.img)
     let qrcodeImg = await initPic(qrcode)
     let userAvatar = await initPic(user.avatarUrl)
@@ -174,12 +174,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
       >
         <View className="flex pt-7 pb-8 items-center ">
           <Button openType="share" border={0} onClick={() => {}} className="flex-1 share-btn">
-            <View
-              className="w-14 m-auto"
-              onClick={() => {
-                setShowShareBtn(true)
-              }}
-            >
+            <View className="w-14 m-auto">
               <Image src={PDP_WECHAT} className="w-full" mode="widthFix" />
             </View>
             <View className="text-center text-24">微信分享</View>
@@ -188,19 +183,15 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             style={{ borderLeft: '1px solid #eee' }}
             className="flex-1 py-1"
             onClick={() => {
+              if (!Taro.getStorageSync('wxLoginRes')) {
+                setShowShareBtn(false)
+                setAuthLoginOpened(true)
+                return
+              }
               createShareGoods()
             }}
           >
-            <View
-              className="w-14 m-auto"
-              onClick={() => {
-                if (!Taro.getStorageSync('wxLoginRes')) {
-                  setAuthLoginOpened(true)
-                  return
-                }
-                setShowShareBtn(true)
-              }}
-            >
+            <View className="w-14 m-auto">
               <Image src={PDP_POSTER} className="w-full" mode="widthFix" />
             </View>
             <View className="text-center text-24">生成海报</View>
@@ -248,7 +239,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
           </Button>
         </View>
       </AtFloatLayout>
-      <AuthLogin />
+      {/* <AuthLogin /> */}
     </View>
   )
 }
