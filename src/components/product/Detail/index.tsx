@@ -96,7 +96,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
         </View>
         {/*店铺优惠活动*/}
         <VoucherModal goodsId={detailInfo.id} />
-        <View className="flex justify-between text-24 items-center">
+        <View className="flex justify-between text-26 items-center">
           <View>
             已选
             {choosedSku.specText?.join(',')}，{buyCount}件
@@ -112,7 +112,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
           </View>
         </View>
       </View>
-      <View className="productRemark text-26 text-gray-400 flex items-center text-center">
+      <View className="productRemark text-26 flex py-1 items-center text-center " style={{ color: '#9a9a9a' }}>
         <View className="flex-1 text-22">
           <AtIcon className="mr-1" value="check-circle" size={11} />
           正品保证

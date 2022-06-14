@@ -46,5 +46,7 @@ export const Cat = `${CDNIMGURL}Pet_Cat.png`
 export const PDP_SHARE = `${CDNIMGURL}PDP_share.svg`
 export const PDP_WECHAT = `${CDNIMGURL}WeChat.svg`
 export const PDP_POSTER = `${CDNIMGURL}poster.svg`
+export const SHARE_BG = `${CDNIMGURL}Share_bg.png`
+export const SHRRE_DOWNLOAD = `${CDNIMGURL}Share_download.svg`
 
 
