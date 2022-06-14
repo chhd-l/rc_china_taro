@@ -7,10 +7,11 @@ const CatPetsList = ({ list, systemType }: any) => {
 
   return (
     <View className="pb-4 mt-1 flex flex-col">
-      <View className="flex justify-between items-center px-2 mb-2">
+      <View className="flex items-center px-2 mb-2">
         {list.map((item, idx) => (
           <View
-            className="px-1 flex flex-col text-center"
+            className="flex flex-col text-center items-center"
+            style={{ width: '20%' }}
             key={idx}
             onClick={() => {
               setCat(list.find((_, index) => idx === index))
