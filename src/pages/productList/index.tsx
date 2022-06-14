@@ -117,7 +117,6 @@ const ProductList = () => {
               setShowPendant={MyPets2}
             />
           </View>
-          {/* <View style={{ paddingTop: MyPets ? '3.375rem' : '' }}> */}
           <View>
             <View key="活动专区">
               <View id="activity" className="h-4" />
