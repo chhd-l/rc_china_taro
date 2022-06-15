@@ -53,6 +53,9 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
           console.info('payInfo', payInfo)
           if (payInfo?.status === 'PAID') {
             //0元就不用调用支付接口
+            Taro.showLoading({
+              title: '支付成功',
+            })
             let url = `${routers.orderList}?status=TO_SHIP`
             Taro.redirectTo({
               url,
@@ -79,6 +82,9 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
                     storeId: '12345678',
                     operator: 'zyq',
                   },
+                })
+                Taro.showLoading({
+                  title: '支付成功',
                 })
                 success && success()
               },

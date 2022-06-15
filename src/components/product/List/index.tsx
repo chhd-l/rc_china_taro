@@ -16,11 +16,12 @@ const List = ({ list }: ListProps) => {
   }
   console.info('productList', list)
   return (
-    <View className="px-1 product-list">
-      <View className="product-list-box grid grid-cols-2 gap-2 px-2">
+    <View className="px-2 product-list">
+      <View className="product-list-box flex flex-wrap ">
         {list.map((product) => (
           <View
-            className="col-span-1"
+            style={{ width: '50%', boxSizing: 'border-box' }}
+            className="px-1"
             onClick={() => {
               toDetail(product)
             }}
