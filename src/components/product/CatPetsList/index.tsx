@@ -63,13 +63,15 @@ const CatPetsList = ({ list, systemType }: any) => {
                   >
                     <View className="bg-white overflow-hidden rounded-lg pb-2 flex-1">
                       <Image src={item.img} className="w-full" style={{ height: '274rpx' }} />
-                      <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
+                      <View className="text-center pb-1 px-1 whitespace-normal" style={{ fontSize: '27rpx' }}>
+                        {item.title}
+                      </View>
                     </View>
                     <View className="flex items-center h-6 justify-end">
-                      <View style={{ fontSize: systemType ? '1rem' : '20px', lineHeight: '1.1' }}>￥{item.price}</View>
+                      <View style={{ fontSize: '34rpx', lineHeight: '1.1' }}>￥{item.price}</View>
                       <View
-                        style={{ borderRadius: '2px', fontSize: '.6rem' }}
-                        className="bg-red-600 px-1 text-white ml-1"
+                        style={{ borderRadius: '2px', fontSize: '22rpx' }}
+                        className="bg-red-600 px-1 text-white ml-2"
                       >
                         {item.span}
                       </View>

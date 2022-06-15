@@ -164,9 +164,9 @@ const DogPetsList = ({ list, systemType }: any) => {
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
                     </View>
                     <View className="flex items-center h-6 justify-end">
-                      <View style={{ fontSize: systemType ? '1rem' : '20px', lineHeight: '1.1' }}>￥{item.price}</View>
+                      <View style={{ fontSize: '37rpx', lineHeight: '1.1' }}>￥{item.price}</View>
                       <View
-                        style={{ borderRadius: '2px', fontSize: '.6rem' }}
+                        style={{ borderRadius: '2px', fontSize: '22rpx' }}
                         className="bg-red-600 px-1 text-white ml-1"
                       >
                         {item.span}
