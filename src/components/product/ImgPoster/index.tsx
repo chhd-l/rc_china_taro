@@ -48,7 +48,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     })
     var ctx = Taro.createCanvasContext('mycanvas', this)
     ctx.setFillStyle('#fff')
-    ctx.fillRect(0, 0, deviceWidth, deviceWidth + 270)
+    ctx.fillRect(0, 0, deviceWidth, deviceWidth + 285)
     let productImg = await initPic(productInfo.img)
     let qrcodeImg = await initPic(qrcode)
     let userAvatar = await initPic(user.avatarUrl)
