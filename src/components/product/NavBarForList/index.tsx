@@ -73,7 +73,7 @@ const NavBarForList = ({
                   handleNavClick(floor)
                 }}
                 style={{
-                  fontSize: '0.82rem',
+                  fontSize: '28rpx',
                   background:
                     floorActiveId === floor.id
                       ? 'linear-gradient(rgba(255,255,255),rgba(255,255,255),rgb(210, 210, 210))'
@@ -83,18 +83,19 @@ const NavBarForList = ({
                   floorActiveId === floor.id ? 'font-medium text-red-600' : 'text-white'
                 }`}
               >
-                <IconFont name={floor.icon} size={44} color={`${floorActiveId === floor.id ? 'red' : '#fff'}`} />
+                <IconFont name={floor.icon} size={40} color={`${floorActiveId === floor.id ? 'red' : '#fff'}`} />
                 {floor.label}
               </View>
             ))}
           </View>
         </ScrollView>
         <View
-          className="FloorNavIcon z-50 h-full items-center absolute top-0 right-0 px-1"
+          className="FloorNavIcon h-full items-center absolute top-0 right-0 px-1"
           style={{
             borderTopLeftRadius: '0.5rem',
             background: 'linear-gradient(rgba(255,255,255),rgba(255,255,255),rgb(210, 210, 210))',
             display: scrollLeftOpen ? 'flex' : 'none',
+            zIndex: '99',
           }}
         >
           <IconFont name="gengduo1" size={44} />

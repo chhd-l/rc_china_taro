@@ -187,7 +187,8 @@ const ProductList = () => {
                 开启专属宠爱
               </View>
               <Image
-                className="w-full h-48"
+                className="w-full"
+                style={{ height: '386rpx' }}
                 src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Fresh_new.gif"
               />
             </View>
@@ -215,7 +216,7 @@ const ProductList = () => {
             <View className="mt-6">
               <Image
                 className="w-full"
-                style={{ height: '120vh' }}
+                style={{ height: '1857rpx' }}
                 src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/MP_Home_Introduce.png"
               />
             </View>

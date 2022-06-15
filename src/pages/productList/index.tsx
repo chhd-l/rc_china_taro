@@ -17,7 +17,6 @@ import {
   mxDogDryFood,
 } from '@/lib/product'
 import { ScrollView, View } from '@tarojs/components'
-import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import './index.less'
 
@@ -29,8 +28,6 @@ const ProductList = () => {
   const [scrollLeft, setscrollLeft] = useState(0)
   const [scrollLeftOpen, setscrollLeftOpen] = useState(true)
   const [floorId, setFloorId] = useState<string>('')
-  const { system } = Taro.getSystemInfoSync()
-  const systemType = system.indexOf('Android') > -1
 
   const onScroll = (e) => {
     if (e.detail.scrollTop > 370) {
@@ -121,8 +118,10 @@ const ProductList = () => {
             <View key="活动专区">
               <View id="activity" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">活动专区</View>
-                <View className="text-26 text-gray-400">订阅商城 社群福利</View>
+                <View className="text-red-500 text-32 font-bold">活动专区</View>
+                <View className="text-gray-400" style={{ fontSize: '25rpx' }}>
+                  订阅商城 社群福利
+                </View>
               </View>
               <View>
                 <ActivityList list={activityList} />
@@ -131,65 +130,77 @@ const ProductList = () => {
             <View key="明星猫粮">
               <View id="catStar" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">明星猫粮</View>
-                <View className="text-26 text-gray-400">省薪囤货 爆款猫粮</View>
+                <View className="text-red-500 text-32 font-bold">明星猫粮</View>
+                <View className="text-gray-400" style={{ fontSize: '25rpx' }}>
+                  省薪囤货 爆款猫粮
+                </View>
               </View>
               <View>
-                <StarsList systemType={systemType} list={mxCatDryFood} />
+                <StarsList list={mxCatDryFood} />
               </View>
             </View>
             <View key="全价猫干粮">
               <View id="catDryFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">全价猫干粮</View>
-                <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的猫咪定制专属营养</View>
+                <View className="text-red-500 text-32 font-bold">全价猫干粮</View>
+                <View className="text-gray-400" style={{ fontSize: '25rpx' }}>
+                  让不同年龄、品种、健康问题的猫咪定制专属营养
+                </View>
               </View>
               <View>
-                <CatPetsList systemType={systemType} list={catDryFood} />
+                <CatPetsList list={catDryFood} />
               </View>
             </View>
             <View key="全价主食级猫湿粮">
               <View id="catWetFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">全价主食级猫湿粮</View>
-                <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
+                <View className="text-red-500 text-32 font-bold">全价主食级猫湿粮</View>
+                <View className="text-gray-400" style={{ fontSize: '25rpx' }}>
+                  宠爱升级，享受肉食乐趣同时满足每日所需营养
+                </View>
               </View>
               <View>
-                <CatPetsList systemType={systemType} list={catDryFood} />
+                <CatPetsList list={catDryFood} />
               </View>
             </View>
             <View key="明星犬粮">
               <View id="dogStar" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">明星犬粮</View>
-                <View className="text-26 text-gray-400">省薪囤货 爆款犬粮</View>
+                <View className="text-red-500 text-32 font-bold">明星犬粮</View>
+                <View className="text-gray-400" style={{ fontSize: '25rpx' }}>
+                  省薪囤货 爆款犬粮
+                </View>
               </View>
               <View>
-                <StarsList systemType={systemType} list={mxDogDryFood} />
+                <StarsList list={mxDogDryFood} />
               </View>
             </View>
             <View key="犬干粮">
               <View id="odgDryFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">全价狗干粮</View>
-                <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的狗狗都有自己的精准营养</View>
+                <View className="text-red-500 text-32 font-bold">全价狗干粮</View>
+                <View className="text-gray-400" style={{ fontSize: '25rpx' }}>
+                  让不同年龄、品种、健康问题的狗狗都有自己的精准营养
+                </View>
               </View>
               <View>
-                <DogPetsList systemType={systemType} list={dogDryFood} />
+                <DogPetsList list={dogDryFood} />
               </View>
             </View>
             <View key="犬湿粮">
               <View id="dogWetFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">全价主食级狗湿粮</View>
-                <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
+                <View className="text-red-500 text-32 font-bold">全价主食级狗湿粮</View>
+                <View className="text-gray-400" style={{ fontSize: '25rpx' }}>
+                  宠爱升级，享受肉食乐趣同时满足每日所需营养
+                </View>
               </View>
               <View>
-                <DogPetsList systemType={systemType} list={dogDryFood2} />
+                <DogPetsList list={dogDryFood2} />
               </View>
             </View>
             <View key="宠爱精选">
-              <View className="text-red-500 text-base font-bold px-4">宠爱精选</View>
+              <View className="text-red-500 text-32 font-bold px-4">宠爱精选</View>
               <View>
                 <List list={productList} />
               </View>

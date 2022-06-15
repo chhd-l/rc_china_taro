@@ -1,6 +1,6 @@
 import { View, Image, ScrollView, Video } from '@tarojs/components'
 
-const StarsList = ({ list, systemType }: any) => {
+const StarsList = ({ list }: any) => {
   return (
     <ScrollView className="whitespace-nowrap pl-2 bg-gray-100" scrollX>
       {list.map((product, idx) => (
@@ -15,7 +15,7 @@ const StarsList = ({ list, systemType }: any) => {
             <Video
               id="video"
               className="w-full border-0"
-              style={{ height: "573rpx"}}
+              style={{ height: '573rpx' }}
               // style={{ height: systemType ? '17rem' : '18.2rem' }}
               src={product.mp4}
               poster={product.expr}
