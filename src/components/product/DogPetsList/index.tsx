@@ -9,7 +9,7 @@ const SecondaryMenu1 = [httpsTilte + 'Dog_bg1_01.png']
 const SecondaryMenu2 = [httpsTilte + 'Dog_bg2_01.png', httpsTilte + 'Dog_bg2_02.png']
 const SecondaryMenu3 = [httpsTilte + 'Dog_bg3_01.png', httpsTilte + 'Dog_bg3_02.png', httpsTilte + 'Dog_bg3_03.png']
 
-const DogPetsList = ({ list, systemType }: any) => {
+const DogPetsList = ({ list }: any) => {
   const [dog, setDog] = useState(list[0])
   const [pets, setPets] = useState(dog.Children[0])
   const [bg, setBg] = useState<{
@@ -73,8 +73,8 @@ const DogPetsList = ({ list, systemType }: any) => {
               className={`rounded-full ${dog.title === item.title ? 'border-10' : 'border-2'} border-solid`}
               style={{
                 borderColor: dog.title === item.title ? dog.color : '#C1C1C1',
-                width: '116rpx',
-                height: '116rpx',
+                width: '128rpx',
+                height: '128rpx',
               }}
             >
               <Image className="box-border w-full h-full rounded-full" src={httpsTilte + item.titleImg} />
@@ -132,7 +132,7 @@ const DogPetsList = ({ list, systemType }: any) => {
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
         style={{
-          height: pets.Children.length > 1 ? '1115rpx' : pets.Children.length === 0 ? '346rpx' : '683rpx',
+          height: pets.Children.length > 1 ? '1135rpx' : pets.Children.length === 0 ? '342rpx' : '723rpx',
         }}
       >
         <View className="w-full" style={{ height: '260rpx' }}>
@@ -140,7 +140,7 @@ const DogPetsList = ({ list, systemType }: any) => {
         </View>
         <View
           style={{
-            transform: 'translateY(-64rpx)',
+            transform: 'translateY(-84rpx)',
             height: pets.Children.length > 1 ? '' : pets.Children.length === 0 ? '0' : '403rpx',
           }}
         >

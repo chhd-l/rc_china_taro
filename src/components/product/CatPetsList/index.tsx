@@ -2,7 +2,7 @@ import { Image, ScrollView, View } from '@tarojs/components'
 import { useState } from 'react'
 import { AtButton } from 'taro-ui'
 
-const CatPetsList = ({ list, systemType }: any) => {
+const CatPetsList = ({ list }: any) => {
   const [cat, setCat] = useState(list[0])
 
   return (
@@ -21,8 +21,8 @@ const CatPetsList = ({ list, systemType }: any) => {
               className={`w-15 h-15 rounded-full ${cat.title === item.title ? 'border-10' : 'border-2'} border-solid `}
               style={{
                 borderColor: cat.title === item.title ? cat.color : '#C1C1C1',
-                width: '116rpx',
-                height: '116rpx',
+                width: '128rpx',
+                height: '128rpx',
               }}
             >
               <Image className="box-border w-full h-full rounded-full" src={item.titleImg} />
@@ -34,7 +34,7 @@ const CatPetsList = ({ list, systemType }: any) => {
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
         style={{
-          height: cat.Children.length > 1 ? '1115rpx' : cat.Children.length === 0 ? '346rpx' : '703rpx',
+          height: cat.Children.length > 1 ? '1135rpx' : cat.Children.length === 0 ? '342rpx' : '723rpx',
         }}
       >
         <View className="w-full" style={{ height: '260rpx' }}>
@@ -42,7 +42,7 @@ const CatPetsList = ({ list, systemType }: any) => {
         </View>
         <View
           style={{
-            transform: 'translateY(-64rpx)',
+            transform: 'translateY(-84rpx)',
             height: cat.Children.length > 1 ? '' : cat.Children.length === 0 ? '0' : '429rpx',
           }}
         >
