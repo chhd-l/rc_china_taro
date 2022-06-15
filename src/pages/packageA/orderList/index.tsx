@@ -23,7 +23,6 @@ const OrderList = () => {
   const [current, setCurrent] = useState('ALL')
   const [orderList, setOrderList] = useState<Order[]>([])
   const { router } = getCurrentInstance()
-  const [isFromSubscription, setIsFromSubscription] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
   const [isNoMore, setIsNoMore] = useState(false)
   const [firstIn, setFirstIn] = useState(true)
@@ -61,10 +60,7 @@ const OrderList = () => {
 
   Taro.useDidShow(() => {
     let status = router?.params?.status || 'ALL'
-    const isFromSubscriptionOrder = !!router?.params?.isFromSubscription
     console.log('status', status)
-    console.log('isFromSubscription', isFromSubscriptionOrder)
-    setIsFromSubscription(!!isFromSubscriptionOrder)
     setCurrent(status)
     getOrderLists({ orderState: status, isReload: true })
     const isSendCoupon = router?.params?.isSendCoupon
