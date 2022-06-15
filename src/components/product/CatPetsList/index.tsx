@@ -21,6 +21,8 @@ const CatPetsList = ({ list, systemType }: any) => {
               className={`w-15 h-15 rounded-full ${cat.title === item.title ? 'border-10' : 'border-2'} border-solid `}
               style={{
                 borderColor: cat.title === item.title ? cat.color : '#C1C1C1',
+                width: '116rpx',
+                height: '116rpx',
               }}
             >
               <Image className="box-border w-full h-full rounded-full" src={item.titleImg} />
@@ -32,31 +34,35 @@ const CatPetsList = ({ list, systemType }: any) => {
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
         style={{
-          height:
-            cat.Children.length > 1
-              ? systemType
-                ? '34.5rem'
-                : '37rem'
-              : cat.Children.length === 0
-              ? systemType
-                ? '10.5rem'
-                : '12rem'
-              : systemType
-              ? '22.5rem'
-              : '24rem',
+          height: cat.Children.length > 1 ? '1115rpx' : cat.Children.length === 0 ? '346rpx' : '703rpx',
         }}
       >
-        <View className={`w-full ${systemType ? 'h-32' : 'h-36'}`}>
+        <View className="w-full" style={{ height: '260rpx' }}>
           <Image className="w-full h-full" src={cat.img} />
         </View>
-        <View style={{ transform: systemType ? 'translateY(-6%)' : 'translateY(-8%)' }}>
+        <View
+          style={{
+            transform: 'translateY(-64rpx)',
+            height: cat.Children.length > 1 ? '' : cat.Children.length === 0 ? '0' : '429rpx',
+          }}
+        >
           <ScrollView className="whitespace-nowrap" scrollX>
             <View className="inline-block px-1">
-              <View className="flex flex-col flex-wrap" style={{ height: cat.Children.length > 1 ? '27rem' : '15rem' }}>
+              <View
+                className="flex flex-col flex-wrap"
+                style={{ height: cat.Children.length > 1 ? '842rpx' : '429rpx' }}
+              >
                 {cat.Children.map((item, idx) => (
-                  <View key={idx} className="inline-block px-1 h-52 w-36">
-                    <View className="bg-white overflow-hidden rounded-lg pb-2">
-                      <Image src={item.img} className="w-full h-36" />
+                  <View
+                    key={idx}
+                    className="inline-block px-1 h-52 w-36 flex flex-col"
+                    style={{
+                      width: '285rpx',
+                      height: '411rpx',
+                    }}
+                  >
+                    <View className="bg-white overflow-hidden rounded-lg pb-2 flex-1">
+                      <Image src={item.img} className="w-full" style={{ height: '274rpx' }} />
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
                     </View>
                     <View className="flex items-center h-6 justify-end">

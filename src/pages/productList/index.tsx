@@ -171,7 +171,7 @@ const ProductList = () => {
             <View key="犬干粮">
               <View id="odgDryFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">全价犬干粮</View>
+                <View className="text-red-500 text-base font-bold">全价狗干粮</View>
                 <View className="text-26 text-gray-400">让不同年龄、品种、健康问题的狗狗都有自己的精准营养</View>
               </View>
               <View>
@@ -181,7 +181,7 @@ const ProductList = () => {
             <View key="犬湿粮">
               <View id="dogWetFood" className="h-4" />
               <View className="px-4">
-                <View className="text-red-500 text-base font-bold">全价主食级犬湿粮</View>
+                <View className="text-red-500 text-base font-bold">全价主食级狗湿粮</View>
                 <View className="text-26 text-gray-400">宠爱升级，享受肉食乐趣同时满足每日所需营养</View>
               </View>
               <View>
