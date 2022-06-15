@@ -63,7 +63,7 @@ const ProductList = () => {
 
   const onScrollFooList = (Left: number) => {
     setscrollLeft(Left)
-    if (Left <= -1) {
+    if (Left > 10) {
       setscrollLeftOpen(false)
     } else {
       setscrollLeftOpen(true)
