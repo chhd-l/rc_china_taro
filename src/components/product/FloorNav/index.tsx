@@ -37,7 +37,7 @@ const FloorNav = ({
   }, [setShowPendant])
 
   return (
-    <View className={`relative ${MyPets && 'opacity-0'}`} style={{ height: '100rpx' }}>
+    <View className={`relative ${MyPets && 'opacity-0'}`} style={{ height: '100rpx', backgroundColor: 'red' }}>
       <ScrollView
         className="whitespace-nowrap FloorNav bg-white flex h-full"
         enableFlex
@@ -45,7 +45,7 @@ const FloorNav = ({
         // scroll-left={Left}
         onScroll={(v) => {
           setLeft(v.detail.scrollLeft)
-          onScrollFooList(v.detail.deltaX)
+          onScrollFooList(v.detail.scrollLeft)
         }}
       >
         <View className="text-xs h-full flex">
