@@ -54,7 +54,7 @@ const NavBarForList = ({
         </View>
         <View className="ml-4" style={{ width: menuButtonInfo?.width || '6.5rem' }} />
       </View>
-      <View className={`relative ${!MyPets && 'hidden'}`} style={{ height: '100rpx' }}>
+      <View className={`relative ${!MyPets && 'hidden'}`} style={{ height: '100rpx', backgroundColor: 'red' }}>
         <ScrollView
           className="whitespace-nowrap FloorNav bg-white flex h-full"
           enableFlex
@@ -62,7 +62,7 @@ const NavBarForList = ({
           // scroll-left={Left}
           onScroll={(v) => {
             setLeft(v.detail.scrollLeft)
-            onScrollFooList(v.detail.deltaX)
+            onScrollFooList(v.detail.scrollLeft)
           }}
         >
           <View className="text-xs h-full flex">

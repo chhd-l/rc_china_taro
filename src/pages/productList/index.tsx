@@ -17,6 +17,7 @@ import {
   mxDogDryFood,
 } from '@/lib/product'
 import { ScrollView, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import './index.less'
 
@@ -63,7 +64,7 @@ const ProductList = () => {
 
   const onScrollFooList = (Left: number) => {
     setscrollLeft(Left)
-    if (Left <= -1) {
+    if (Left > 10) {
       setscrollLeftOpen(false)
     } else {
       setscrollLeftOpen(true)
