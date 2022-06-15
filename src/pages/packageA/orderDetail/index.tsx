@@ -9,8 +9,8 @@ import { Order } from '@/framework/types/order'
 import OrderLogistics from '@/components/order/Logistics'
 import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
 import IconFont from '@/iconfont'
-import './index.less'
 import NavBar from '@/components/common/Navbar'
+import './index.less'
 
 const orderStatusType = {
   UNPAID: '交易待付款',
@@ -164,7 +164,12 @@ const OrderDetails = () => {
                         <View className="text-primary-red flex ProductIntroduction justify-between items-center">
                           <View className="flex flex-row flex-wrap">
                             {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                              <View className="px-1 border rounded-lg border-solid border-red mr-2 mt-2">{tag}</View>
+                              <View
+                                className="px-1 border rounded-lg border-solid border-red mr-2 mt-2"
+                                style={{ borderWidth: '1PX' }}
+                              >
+                                {tag}
+                              </View>
                             ))}
                           </View>
                           <View className="numcolor">X{el?.num}</View>

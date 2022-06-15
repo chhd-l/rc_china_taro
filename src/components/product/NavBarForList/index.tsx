@@ -65,7 +65,7 @@ const NavBarForList = ({
             onScrollFooList(v.detail.deltaX)
           }}
         >
-          <View className="sticky top-0 text-xs h-full flex">
+          <View className="text-xs h-full flex">
             {floorList.map((floor, idx) => (
               <View
                 key={idx}
@@ -90,12 +90,11 @@ const NavBarForList = ({
           </View>
         </ScrollView>
         <View
-          className={`FloorNavIcon z-50 h-full flex items-center absolute top-0 right-0 px-1 ${
-            scrollLeftOpen ? '' : 'opacity-0'
-          }`}
+          className="FloorNavIcon z-50 h-full items-center absolute top-0 right-0 px-1"
           style={{
             borderTopLeftRadius: '0.5rem',
             background: 'linear-gradient(rgba(255,255,255),rgba(255,255,255),rgb(210, 210, 210))',
+            display: scrollLeftOpen ? 'flex' : 'none',
           }}
         >
           <IconFont name="gengduo1" size={44} />

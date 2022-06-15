@@ -2,25 +2,27 @@ import { View } from '@tarojs/components'
 import { ProductItem, Empty, TotalSettle } from '@/components/cart'
 import { useEffect, useState } from 'react'
 import { batchDeleteCart, getCartAndProducts, updateCart } from '@/framework/api/cart/cart'
-import { useDidShow } from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { session } from '@/utils/global'
 import NavBar from '@/components/common/Navbar'
 import { AtModal } from 'taro-ui'
 import './index.less'
-import Taro from '@tarojs/taro'
 
 const Cart = () => {
   const [productList, setProductList] = useState<any[]>([])
   const [selectedProduct, setSelectedProduct] = useState<any[]>([])
   const [invalidProducts, setInvalidProducts] = useState<any[]>([])
   const [showDelAllTipModal, setShowDelAllTipModal] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   //获取购物车商品列表
   const getCartProductList = async () => {
+    setLoading(true)
     setProductList([])
     setInvalidProducts([])
     const res = await getCartAndProducts(true)
     handleIsValidProduct(res)
+    setLoading(false)
   }
 
   //过滤出失效商品（整个spu已删除、已下架、不可售,单个sku已删除、已下架、无库存）
@@ -137,7 +139,7 @@ const Cart = () => {
       />
       <View className="index cart-content">
         <View className="h-2 bg-gray-fb" />
-        {productList.length > 0 || invalidProducts.length > 0 ? (
+        {loading ? null : productList.length > 0 || invalidProducts.length > 0 ? (
           <View className="mb-8">
             <View className="pb-2 bg-gray-fb">
               {productList.map((item, index) => (

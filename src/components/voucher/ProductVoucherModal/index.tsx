@@ -25,10 +25,6 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
 
   //用户领取商品优惠券
   const customerReceiveVoucher = async (voucher: Voucher) => {
-    if (!Taro.getStorageSync('wxLoginRes')) {
-      setAuthLoginOpened(true)
-      return
-    }
     console.log('received voucher', voucher)
     const res = await receiveVoucher({
       voucherId: voucher.id,
@@ -77,6 +73,10 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
           <View
             className="text-primary-red flex items-center justify-end text-end w-full"
             onClick={() => {
+              if (!Taro.getStorageSync('wxLoginRes')) {
+                setAuthLoginOpened(true)
+                return
+              }
               setShowReceiveVoucher(true)
             }}
           >

@@ -70,9 +70,11 @@ const DogPetsList = ({ list, systemType }: any) => {
             }}
           >
             <View
-              className={`w-15 h-15 rounded-full ${dog.title === item.title ? 'border-10' : 'border-2'} border-solid `}
+              className={`rounded-full ${dog.title === item.title ? 'border-10' : 'border-2'} border-solid`}
               style={{
                 borderColor: dog.title === item.title ? dog.color : '#C1C1C1',
+                width: '116rpx',
+                height: '116rpx',
               }}
             >
               <Image className="box-border w-full h-full rounded-full" src={httpsTilte + item.titleImg} />
@@ -130,40 +132,41 @@ const DogPetsList = ({ list, systemType }: any) => {
       <View
         className="bg-gray-100 relative flex flex-col justify-between"
         style={{
-          height:
-            pets.Children.length > 1
-              ? systemType
-                ? '34.5rem'
-                : '37rem'
-              : pets.Children.length === 0
-              ? systemType
-                ? '10.5rem'
-                : '12rem'
-              : systemType
-              ? '22.5rem'
-              : '24rem',
+          height: pets.Children.length > 1 ? '1115rpx' : pets.Children.length === 0 ? '346rpx' : '683rpx',
         }}
       >
-        <View className={`w-full ${systemType ? 'h-32' : 'h-36'}`}>
+        <View className="w-full" style={{ height: '260rpx' }}>
           <Image className="w-full h-full" src={httpsTilte + pets.img} />
         </View>
-        <View style={{ transform: systemType ? 'translateY(-6%)' : 'translateY(-8%)' }}>
+        <View
+          style={{
+            transform: 'translateY(-64rpx)',
+            height: pets.Children.length > 1 ? '' : pets.Children.length === 0 ? '0' : '403rpx',
+          }}
+        >
           <ScrollView className="whitespace-nowrap" scrollX>
             <View className="inline-block px-1">
               <View
                 className="flex flex-col flex-wrap"
-                style={{ height: pets.Children.length > 1 ? '27rem' : '15rem' }}
+                style={{ height: pets.Children.length > 1 ? '842rpx' : '403rpx' }}
               >
                 {pets.Children.map((item, idx) => (
-                  <View key={idx} className="inline-block px-1 h-52 w-36">
+                  <View
+                    key={idx}
+                    className="inline-block px-1"
+                    style={{
+                      width: '285rpx',
+                      height: '411rpx',
+                    }}
+                  >
                     <View className="bg-white rounded-lg overflow-hidden pb-2">
-                      <Image src={httpsTilte + item.img} className="w-full h-36" />
+                      <Image src={httpsTilte + item.img} className="w-full" style={{ height: '274rpx' }} />
                       <View className="text-center text-28 pb-1 px-1 whitespace-normal">{item.title}</View>
                     </View>
                     <View className="flex items-center h-6 justify-end">
-                      <View style={{ fontSize: systemType ? '1rem' : '20px', lineHeight: '1.1' }}>￥{item.price}</View>
+                      <View style={{ fontSize: '37rpx', lineHeight: '1.1' }}>￥{item.price}</View>
                       <View
-                        style={{ borderRadius: '2px', fontSize: '.6rem' }}
+                        style={{ borderRadius: '2px', fontSize: '22rpx' }}
                         className="bg-red-600 px-1 text-white ml-1"
                       >
                         {item.span}
