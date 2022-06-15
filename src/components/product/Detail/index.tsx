@@ -79,7 +79,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
           {choosedSku?.tags?.map((tag, index) => (
             <Text
               key={index}
-              className="border border-solid border-primary-red px-1 mr-1  text-26 rounded-lg text-primary-red"
+              className="border-2 border-solid border-primary-red px-1 mr-1  text-26 rounded-lg text-primary-red"
             >
               {tag}
             </Text>

@@ -220,7 +220,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
       >
         <Canvas
           canvas-id="mycanvas"
-          style={{ width: `${deviceWidth}px`, height: deviceWidth + 290, background: '#fff' }}
+          style={{ width: `${deviceWidth}px`, height: deviceWidth + 285, background: '#fff' }}
         ></Canvas>
       </View>
       <AtFloatLayout
@@ -236,8 +236,11 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             setPosterStatus(false)
           }}
         >
-          <View style={{ width: '73%', borderColor: '#f0f0f0' }} className="m-auto border-1 border-solid">
-            <Image src={picTempUrl} mode="widthFix" className="w-full"></Image>
+          <View
+            style={{ width: '73%', borderColor: '#f0f0f0' }}
+            className="m-auto border-1 border-solid overflow-hidden"
+          >
+            <Image src={picTempUrl} mode="widthFix" className="w-full float-left"></Image>
           </View>
           <Button
             className="bg-primary-red text-white text-28 m-auto mt-2 flex justify-center items-center"
