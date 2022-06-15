@@ -43,7 +43,7 @@ const NavBarForList = () => {
         className={`text-xs flex flex-col items-center w-full fixed z-30 justify-center navbarforlist ${
           openDistMyPets && 'hidden'
         }`}
-        style={{ top: '10.5vh' }}
+        style={{ top: '153rpx' }}
       >
         <View className="triangle" />
         <View className="flex items-center justify-center bg-white shadow-2xl p-2 fexidMyPets">
