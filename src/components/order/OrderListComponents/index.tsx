@@ -100,7 +100,12 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                     <View className="text-primary-red flex text-20 justify-between items-center">
                       <View className="flex flex-row flex-wrap">
                         {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
-                          <View className="px-1 border rounded-lg border-solid border-red mr-2 mb-1">{tag}</View>
+                          <View
+                            className="px-1 border rounded-lg border-solid border-red mr-2 mb-1"
+                            style={{ borderWidth: '1PX' }}
+                          >
+                            {tag}
+                          </View>
                         ))}
                       </View>
                       <View className="text-gray-400">X{el?.num}</View>
