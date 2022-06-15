@@ -1,6 +1,7 @@
 export const CDNIMGURL = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/'
 // export const UPLOADPATH = 'https://msdev.d2cgo.com/faas/upload'
 // export const SERVICEPATH = 'https://msdev.d2cgo.com/faas'
+// export const SERVICEPATH = 'http://localhost:9000/graphql'
 export const SERVICEPATH = 'https://msdev.fivefen.com/faas'
 export const EDIT_ADDRESS_ICON = `${CDNIMGURL}edit_address.png`
 

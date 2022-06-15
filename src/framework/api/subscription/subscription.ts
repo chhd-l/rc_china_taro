@@ -1,3 +1,4 @@
+import Taro from '@tarojs/taro'
 import ApiRoot, { baseSetting } from '../fetcher'
 
 export const getSubscriptionSimpleRecommend = async (params: any) => {
@@ -28,6 +29,7 @@ export const subscriptionCreateAndPay = async (params?: any) => {
 
 
 export const getSubscriptionFindByCustomerId = async (customerId: string) => {
+    Taro.setStorageSync('commerce-loading', 1)
     try {
         const { subscriptionFindByCustomerId } = await ApiRoot.subscriptions().subscriptionFindByCustomerId({ customerId })
         return subscriptionFindByCustomerId

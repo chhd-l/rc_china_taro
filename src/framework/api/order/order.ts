@@ -31,9 +31,9 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-          ...voucher,
-          voucherStatus: 'Ongoing',
-        }
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -155,11 +155,12 @@ export const getOrderList = async (queryOrderListParams: any) => {
       }
     } else {
       console.log('query orders view params', queryOrderListParams)
-      let { userInfo } = Taro.getStorageSync('wxLoginRes')
+      let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const params = Object.assign(queryOrderListParams, {
-        storeId: userInfo?.storeId || '12345678',
-        operator: userInfo?.nickName || 'system',
+        storeId: wxLoginRes?.userInfo?.storeId || '12345678',
+        operator: wxLoginRes?.userInfo?.nickName || 'system',
         isNeedTotal: true,
+        sample: { ...queryOrderListParams?.sample, customerId: wxLoginRes?.customerAccount?.customerId },
       })
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams: params })
       const { records, total } = res.orders

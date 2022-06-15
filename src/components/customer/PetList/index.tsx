@@ -20,6 +20,7 @@ interface Props {
   showCheckBox?: boolean
   handleCheckedPet?: Function
   siglePetInfo?: any
+  withoutLoading?: boolean
 }
 const PetList = (props: Props) => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
@@ -48,6 +49,9 @@ const PetList = (props: Props) => {
   const getList = async () => {
     console.log('getList', getList)
     console.log('petInfoList', petInfoList)
+    if (props.withoutLoading) {
+      Taro.setStorageSync('commerce-loading', 1)
+    }
     // const customerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
     if (!customerInfo?.id) {
       console.info('!customerInfo?.id', !customerInfo?.id)

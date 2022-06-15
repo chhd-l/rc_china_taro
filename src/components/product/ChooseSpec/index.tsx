@@ -214,7 +214,7 @@ const ChooseSpec = ({
                     handleChangeSku(el, specification)
                   }}
                   style={{ minWidth: '60px' }}
-                  className={`mr-2 inline-block text-center text-26 py-1  border border-solid px-2 rounded-full defalt border-gray-200 text-gray-400 relative
+                  className={`mr-2 inline-block text-center text-26 py-1  border-2 border-solid px-2 rounded-full defalt border-gray-200 text-gray-400 relative
                   ${el.able && choosedSku.stock > 0 ? '' : 'disabled'}
                   ${selected[specification.id] === el.id && choosedSku.stock > 0 ? 'active textWhite' : ''}`}
                 >

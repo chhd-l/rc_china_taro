@@ -61,7 +61,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
             {currentSwiperPage}/{choosedSku?.img.length}
           </View>
         </View>
-        <View className="py-1 flex">
+        <View className="pb-1 pt-4 flex">
           <View className="text-28 font-medium flex-1">{choosedSku?.name}</View>
           {/* <AtIcon prefixClass="fa" value="share" size="30" color="red" /> */}
           <View
@@ -79,7 +79,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
           {choosedSku?.tags?.map((tag, index) => (
             <Text
               key={index}
-              className="border border-solid border-primary-red px-1 mr-1  text-26 rounded-lg text-primary-red"
+              className="border-2 border-solid border-primary-red px-1 mr-1  text-26 rounded-lg text-primary-red"
             >
               {tag}
             </Text>

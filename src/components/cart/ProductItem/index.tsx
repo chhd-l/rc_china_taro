@@ -103,7 +103,10 @@ const ProductItem = ({ product, changeProduct, delCartSuccess, isInvalid = false
                 <View className="mt-2 font-semibold text-black">{specs}</View>
                 <View className="flex flex-row flex-wrap text-20">
                   {tags.map((el) => (
-                    <View className="mt-2 border border-solid rounded-md border-red mr-2 px-1 text-primary-red">
+                    <View
+                      className="mt-2 border border-solid rounded-md border-red mr-2 px-1 text-primary-red"
+                      style={{ borderWidth: '1PX' }}
+                    >
                       {el}
                     </View>
                   ))}

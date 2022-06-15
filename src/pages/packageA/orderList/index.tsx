@@ -23,7 +23,6 @@ const OrderList = () => {
   const [current, setCurrent] = useState('ALL')
   const [orderList, setOrderList] = useState<Order[]>([])
   const { router } = getCurrentInstance()
-  const [isFromSubscription, setIsFromSubscription] = useState(false)
   const [currentPage, setCurrentPage] = useState(0)
   const [isNoMore, setIsNoMore] = useState(false)
   const [firstIn, setFirstIn] = useState(true)
@@ -44,50 +43,35 @@ const OrderList = () => {
     const limit = 10
     if (isReload) {
       curPage = 0
+      setOrderList([])
     } else {
       records = cloneDeep(orderList)
     }
     let offset = curPage ? curPage * limit : 0
-    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
     const res = await getOrderList({
       limit,
       offset,
-      sample: Object.assign(
-        {
-          customerId: customerInfo.id,
-        },
-        orderState !== 'ALL' ? { orderState } : {},
-      ),
+      sample: orderState !== 'ALL' ? { orderState } : {},
     })
+    setIsNoMore(res?.total < offset + 10)
+    setOrderList(records.concat(res?.records))
+    console.log('ddddddd1', new Date().getTime())
+  }
+
+  Taro.useDidShow(() => {
+    let status = router?.params?.status || 'ALL'
+    console.log('status', status)
+    setCurrent(status)
+    getOrderLists({ orderState: status, isReload: true })
     const isSendCoupon = router?.params?.isSendCoupon
     if (isSendCoupon && firstIn) {
       setCurActionType('sendCoupon')
       setShowActionTipModal(true)
       setFirstIn(false)
     }
-    console.log('order list data', res)
-    if (res?.total < offset + 10) {
-      setIsNoMore(true)
-    } else {
-      setIsNoMore(false)
-    }
-    setOrderList(records.concat(res?.records))
-  }
-
-  Taro.useDidShow(() => {
-    let status = router?.params?.status || 'ALL'
-    const isFromSubscriptionOrder = !!router?.params?.isFromSubscription
-    console.log('status', status)
-    console.log('isFromSubscription', isFromSubscriptionOrder)
-    setIsFromSubscription(!!isFromSubscriptionOrder)
-    setCurrent(status)
-    getOrderLists({ orderState: status, isReload: true })
   })
 
   const handleClick = async (value) => {
-    await Taro.setNavigationBarTitle({
-      title: tabList[value].title,
-    })
     const cur = Object.values(OrderStatusEnum).filter((item) => item === value)[0]
     setCurrent(Object.keys(OrderStatusEnum)[cur])
     await getOrderLists({ orderState: Object.keys(OrderStatusEnum)[cur], isReload: true })
@@ -169,8 +153,9 @@ const OrderList = () => {
       >
         {tabList.map((item, index) => (
           <AtTabsPane current={OrderStatusEnum[current]} index={index} key={item.title}>
-            {orderList?.length > 0 ? (
+            {index === OrderStatusEnum[current] ? (
               <OrderListComponents
+                key={index}
                 list={orderList}
                 openModalTip={(orderId, orderStatus) => {
                   setShowActionTipModal(true)

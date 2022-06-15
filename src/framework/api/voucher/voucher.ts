@@ -19,8 +19,10 @@ export const getListVouchers = async () => {
     if (isMock) {
       return normalizeCheckoutAndListVouchers(Mock.mock(dataSource))
     } else {
-      let { customerId } = Taro.getStorageSync('wxLoginRes')?.customerAccount
-      const res = await ApiRoot.vouchers().getCustomerVouchers({ customerId })
+      let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+      const res = await ApiRoot.vouchers().getCustomerVouchers({
+        customerId: wxLoginRes?.customerAccount?.customerId || '',
+      })
       let vouchers = res?.consumerVoucherDetailList || []
       vouchers = vouchers.map((el) => normalizeVoucher(el, 'list'))
       console.log('customer vouchers view data', vouchers)
@@ -39,11 +41,11 @@ export const getListVouchers = async () => {
 //获取PDP page vouchers
 export const getPdpVouchers = async (params) => {
   try {
-    let { customerAccount } = Taro.getStorageSync('wxLoginRes')
+    const wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const res = await ApiRoot.vouchers().getVouchersByGoodsId({
       ...params,
-      customerId: customerAccount?.customerId,
-      storeId: customerAccount?.storeId,
+      customerId: wxLoginRes?.customerAccount?.customerId,
+      storeId: wxLoginRes?.customerAccount?.storeId,
     })
     let vouchers = res?.voucherDetailList?.filter((item) => !item?.isUsed) || []
     vouchers = vouchers.map((el) => normalizeVoucher(el, 'pdp'))
@@ -97,8 +99,11 @@ const normalizeVoucher = (voucher: any, origin: string) => {
 //领取优惠券
 export const receiveVoucher = async (params) => {
   try {
-    const { customerId } = Taro.getStorageSync('wxLoginRes')?.customerAccount
-    const res = await ApiRoot.vouchers().receiveVoucher({ ...params, customerId })
+    const wxLoginRes = Taro.getStorageSync('wxLoginRes')
+    const res = await ApiRoot.vouchers().receiveVoucher({
+      ...params,
+      customerId: wxLoginRes?.customerAccount?.customerId || '',
+    })
     console.log('receive voucher', res?.voucherReceive)
     return {
       result: res?.voucherReceive || false,

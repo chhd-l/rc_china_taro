@@ -2,14 +2,18 @@ import { useState } from 'react'
 import { View, Button, Image, Canvas } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import minLogo from '@/assets/img/min-logo.png'
-import { AtFloatLayout } from 'taro-ui'
+import { AtFloatLayout, AtModal } from 'taro-ui'
 import './index.less'
 import { PDP_POSTER, PDP_WECHAT, SHARE_BG, SHRRE_DOWNLOAD } from '@/lib/constants'
 import { formatMoney } from '@/utils/utils'
+import { useAtom } from 'jotai'
+import AuthLogin, { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShareBtn, showShareBtn }) => {
   const [picTempUrl, setPicTempUrl] = useState('')
   const [posterStatus, setPosterStatus] = useState(false)
   let deviceWidth = Taro.getSystemInfoSync().windowWidth
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+  const [showSaveSuccessTip, setShowSaveSuccessTip] = useState(false)
   let deviceHeight = Taro.getSystemInfoSync().windowHeight - 70
   //提前将需要分享的图片素材先缓存至本地临时图片路径
   const initPic = async (img) => {
@@ -35,13 +39,16 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
   }
   //初始Canvas，将内容画到Canvas上,画完后将画布生成临时图片
   const createShareGoods = async () => {
+    const user = Taro.getStorageSync('wxLoginRes').userInfo
+    if (!user?.nickName) {
+      return
+    }
     Taro.showLoading({
-      title: '正在生成中...',
+      title: '海报生成中...',
     })
     var ctx = Taro.createCanvasContext('mycanvas', this)
     ctx.setFillStyle('#fff')
-    ctx.fillRect(0, 0, deviceWidth, deviceWidth + 270)
-    const user = Taro.getStorageSync('wxLoginRes').userInfo
+    ctx.fillRect(0, 0, deviceWidth, deviceWidth + 285)
     let productImg = await initPic(productInfo.img)
     let qrcodeImg = await initPic(qrcode)
     let userAvatar = await initPic(user.avatarUrl)
@@ -51,9 +58,16 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     console.info('deviceHeight', deviceHeight)
     ctx.drawImage(productImg, 0, 100, deviceWidth, deviceWidth) //产品图
     // ctx.drawImage(productInfo.img, 0, 0, deviceWidth, deviceWidth, 30, 45, 140, 140) //画商品图片
-    ctx.drawImage(qrcodeImg, deviceWidth - 80, deviceWidth + 160, 60, 60) //画二维码
-    ctx.drawImage(minLogo, 20, deviceWidth + 160, 60, 60) //
-    ctx.drawImage(bottomBg, 0, deviceWidth + 210, deviceWidth, 60) //
+    ctx.drawImage(qrcodeImg, deviceWidth - 100, deviceWidth + 160, 66, 66) //画二维码
+    ctx.drawImage(minLogo, 30, deviceWidth + 160, 60, 60) //
+    ctx.drawImage(bottomBg, 0, deviceWidth + 225, deviceWidth, 60)
+
+    ctx.setFillStyle('#000')
+    ctx.setFontSize(12)
+    // ctx.font = 'normal bold 12px arial'
+    ctx.fillText('皇家爱宠有卡', 26, deviceWidth + 229.7)
+    ctx.fillText('皇家爱宠有卡', 25.7, deviceWidth + 230)
+
     //名字
     ctx.setFillStyle('#000')
     ctx.setFontSize(18)
@@ -78,20 +92,23 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     ctx.fillText(price, deviceWidth / 2 + textWidth, deviceWidth + 130)
 
     // 描述
-    ctx.setFillStyle('#666')
+    ctx.setFillStyle('#000')
     ctx.setFontSize(13)
-    ctx.fillText('1.保存图片到相册', 90, deviceWidth + 190)
-    ctx.fillText('2.长按到爱宠有卡查看商品', 90, deviceWidth + 205)
+    ctx.fillText('1.保存图片到相册', 120, deviceWidth + 196)
+    ctx.fillText('2.长按到爱宠有卡查看商品', 120, deviceWidth + 216)
 
     // 描述
     ctx.setFillStyle('#000')
-    ctx.setFontSize(20)
-    ctx.fillText(user?.nickName || '', 100, 50)
-    ctx.setFillStyle('#666')
-    ctx.setFontSize(14)
-    ctx.fillText('为你的爱宠挑个好物，请查收', 100, 70)
+    ctx.setFontSize(18)
+    // ctx.font = 'normal bold 18px arial'
+    ctx.fillText(user?.nickName || '', 100, 47.5)
+    ctx.fillText(user?.nickName || '', 99.5, 48)
+    ctx.setFillStyle('#000')
+    ctx.setFontSize(16)
+    ctx.fillText('为你的爱宠挑个好物，请查收', 100, 73)
 
     ctx.beginPath() //标志开始一个路径
+    ctx.setStrokeStyle('#f2f2f2')
     ctx.arc(50, 50, 30, 0, 2 * Math.PI) //在canvas中绘制圆形
     ctx.stroke()
     if (userAvatar) {
@@ -137,13 +154,14 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     Taro.saveImageToPhotosAlbum({
       filePath: picTempUrl,
       success: (data) => {
-        Taro.showToast({
-          title: '图片保存成功',
-          icon: 'success',
-          mask: true,
-        })
+        // Taro.showToast({
+        //   title: '图片保存成功',
+        //   icon: 'success',
+        //   mask: true,
+        // })
         setShowPoster(false)
         setShowShareBtn(false)
+        setShowSaveSuccessTip(true)
       },
       fail: () => {
         Taro.showToast({
@@ -166,34 +184,29 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
           setShowShareBtn(false)
         }}
       >
-        <View className="flex h-full items-center">
+        <View className="flex pt-7 pb-8 items-center ">
           <Button openType="share" border={0} onClick={() => {}} className="flex-1 share-btn">
-            <View
-              className="w-12 m-auto"
-              onClick={() => {
-                setShowShareBtn(true)
-              }}
-            >
+            <View className="w-14 m-auto">
               <Image src={PDP_WECHAT} className="w-full" mode="widthFix" />
             </View>
-            <View className="text-center text-28">微信分享</View>
+            <View className="text-center text-24">微信分享</View>
           </Button>
           <View
             style={{ borderLeft: '1px solid #eee' }}
-            className="flex-1"
+            className="flex-1 py-1"
             onClick={() => {
+              if (!Taro.getStorageSync('wxLoginRes')) {
+                setShowShareBtn(false)
+                setAuthLoginOpened(true)
+                return
+              }
               createShareGoods()
             }}
           >
-            <View
-              className="w-12 m-auto"
-              onClick={() => {
-                setShowShareBtn(true)
-              }}
-            >
+            <View className="w-14 m-auto">
               <Image src={PDP_POSTER} className="w-full" mode="widthFix" />
             </View>
-            <View className="text-center text-28">生成海报</View>
+            <View className="text-center text-24">生成海报</View>
           </View>
         </View>
       </AtFloatLayout>
@@ -207,12 +220,12 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
       >
         <Canvas
           canvas-id="mycanvas"
-          style={{ width: `${deviceWidth}px`, height: deviceWidth + 270, background: '#fff' }}
+          style={{ width: `${deviceWidth}px`, height: deviceWidth + 285, background: '#fff' }}
         ></Canvas>
       </View>
       <AtFloatLayout
         isOpened={showPoster}
-        title="分享标品"
+        title="分享商品"
         onClose={() => {
           setShowPoster(false)
         }}
@@ -223,21 +236,42 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
             setPosterStatus(false)
           }}
         >
-          <View style={{ width: '60%', borderColor: '#f0f0f0' }} className="m-auto border-1 border-solid">
-            <Image src={picTempUrl} mode="widthFix" className="w-full"></Image>
+          <View
+            style={{ width: '73%', borderColor: '#f0f0f0' }}
+            className="m-auto border-1 border-solid overflow-hidden"
+          >
+            <Image src={picTempUrl} mode="widthFix" className="w-full float-left"></Image>
           </View>
           <Button
             className="bg-primary-red text-white text-28 m-auto mt-2 flex justify-center items-center"
-            style={{ borderRadius: '50px', width: '140px' }}
+            style={{ borderRadius: '50px', width: '110px' }}
             onClick={() => {
               getPhotosAlbumAuth()
             }}
           >
-            <Image src={SHRRE_DOWNLOAD} mode="widthFix" className="w-5 text-white relative" style={{ top: '2px' }} />
+            <Image src={SHRRE_DOWNLOAD} mode="widthFix" className="w-4 text-white relative" style={{ top: '2px' }} />
             保存图片
           </Button>
         </View>
       </AtFloatLayout>
+      <AtModal
+        key="orderShipTip"
+        isOpened={showSaveSuccessTip}
+        title="提示"
+        content="图片已保存到相册，赶紧去分享吧"
+        confirmText="确定"
+        onClose={() => {
+          setShowSaveSuccessTip(false)
+        }}
+        onCancel={() => {
+          setShowSaveSuccessTip(false)
+        }}
+        onConfirm={() => {
+          setShowSaveSuccessTip(false)
+        }}
+        className="rc_modal"
+      />
+      {/* <AuthLogin /> */}
     </View>
   )
 }

@@ -74,6 +74,7 @@ const ProductList = () => {
   let [liveStreaming, setLiveStreaming] = useState<any>(undefined)
   const loginInit = async () => {
     if (Taro.getStorageSync('wxLoginRes')) {
+      Taro.setStorageSync('commerce-loading', 1)
       const data = await wxLogin()
       setCustomer(data)
     }
