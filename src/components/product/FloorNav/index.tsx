@@ -37,7 +37,7 @@ const FloorNav = ({
   }, [setShowPendant])
 
   return (
-    <View className={`relative ${MyPets && 'opacity-0'} h-14 `}>
+    <View className={`relative ${MyPets && 'opacity-0'}`} style={{ height: '100rpx' }}>
       <ScrollView
         className="whitespace-nowrap FloorNav bg-white flex h-full"
         enableFlex
@@ -56,11 +56,11 @@ const FloorNav = ({
                 handleNavClick(floor)
               }}
               style={{
-                fontSize: '28rpx',
+                fontSize: '26rpx',
                 background:
                   floorActiveId === floor.id
                     ? 'linear-gradient(rgba(255,255,255),rgba(255,255,255),rgb(210, 210, 210))'
-                    : 'red',
+                    : 'rgb(230, 0, 0)',
               }}
               className={`inline-block px-2 flex flex-col items-center justify-center h-full ${
                 floorActiveId === floor.id ? 'font-medium text-red-600' : 'text-white'
