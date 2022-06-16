@@ -31,9 +31,9 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
       params: {
         consumerId: wxLoginRes?.userInfo?.id || '',
         consumerOpenId: wxLoginRes?.consumerAccount?.openId,
-        tradeId: orderId,
-        tradeNo: orderId,
-        tradeDescription: '商品',
+        orderId: orderId,
+        orderNo: orderId,
+        orderDescription: '商品',
         payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
         amount,
         currency: 'CNY',
@@ -84,7 +84,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                     复制
                   </View>
                 </View>
-                <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
+                <View className="text-primary-red">{orderStatusType[item?.orderState?.orderState || '']}</View>
               </View>
               {(item?.lineItem?.filter((el) => !el.isGift) || []).map((el, index) => (
                 <View key={index} className="w-full flex items-center min-h-16 " style={{ marginBottom: '36rpx' }}>
@@ -152,16 +152,16 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
               ))}
               <View className="w-full pt-2 footerText flex items-end flex-col">
                 <View className="text-right text-22">
-                  共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.productPrice)}，优惠
-                  {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
-                  <Text className="text-primary-red text-28">{formatMoney(item.tradePrice.totalPrice)}</Text>
+                  共{item?.lineItem?.length}件商品 总价{formatMoney(item.orderPrice.productPrice)}，优惠
+                  {formatMoney(item.orderPrice.discountsPrice || 0)}，实付款
+                  <Text className="text-primary-red text-28">{formatMoney(item.orderPrice.totalPrice)}</Text>
                 </View>
                 <OrderAction
-                  orderState={item?.tradeState?.orderState || ''}
+                  orderState={item?.orderState?.orderState || ''}
                   openModalTip={() => {
-                    openModalTip && openModalTip(item?.orderNumber, item?.tradeState?.orderState)
+                    openModalTip && openModalTip(item?.orderNumber, item?.orderState?.orderState)
                   }}
-                  payNow={() => payNow(item.orderNumber || '', item.tradePrice.totalPrice * 100)}
+                  payNow={() => payNow(item.orderNumber || '', item.orderPrice.totalPrice * 100)}
                 />
               </View>
             </View>

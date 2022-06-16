@@ -75,11 +75,11 @@ export const orderDetailMockData = {
     paymentState: '',
   },
   isSubscription: false,
-  tradePrice: {
+  orderPrice: {
     productPrice: 1056,
     totalPrice: 1056,
   },
-  tradeState: {
+  orderState: {
     orderType: null,
     orderState: 'COMPLETED',
     storeId: '12345678',

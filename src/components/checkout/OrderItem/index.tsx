@@ -28,10 +28,10 @@ const ProductItem = ({ product }: { product: any }) => {
   )
 }
 
-const TradeItem = ({ tradeItems }: { tradeItems: any[] }) => {
+const OrderItem = ({ orderItems }: { orderItems: any[] }) => {
   return (
     <View className="">
-      {tradeItems.map((item) => (
+      {orderItems.map((item) => (
         <View>
           <ProductItem product={item} />
           {false ? <GiftItem product={item} /> : null}
@@ -40,4 +40,4 @@ const TradeItem = ({ tradeItems }: { tradeItems: any[] }) => {
     </View>
   )
 }
-export default TradeItem
+export default OrderItem

@@ -49,11 +49,11 @@ const DeliveryProgress = () => {
     // setErrorTips(true)
   }
 
-  const toDetail = ({ tradeId }) => {
+  const toDetail = ({ orderId }) => {
     debugger
-    tradeId &&
+    orderId &&
       Taro.navigateTo({
-        url: `${routers.orderDetail}?id=${tradeId}`,
+        url: `${routers.orderDetail}?id=${orderId}`,
       })
   }
 
@@ -111,12 +111,12 @@ const DeliveryProgress = () => {
                 <View key={idx} className="my-2 record ">
                   {/* <View className="flex flex-row py-2 justify-between  px-2">
                     <View className="flex flex-row  ">
-                      <View className="text-rc22 text-textGray">订单编号:{completedDelivery?.tradeId}</View>
+                      <View className="text-rc22 text-textGray">订单编号:{completedDelivery?.orderId}</View>
                       <View
                         className="bg-rc_EAEAEA text text-rc_222222 h-rc33 w-rc61 text-center text-rc22 ml-1"
                         onClick={(e) => {
                           e.stopPropagation()
-                          copyText(completedDelivery.tradeId)
+                          copyText(completedDelivery.orderId)
                         }}
                       >
                         复制
@@ -131,13 +131,13 @@ const DeliveryProgress = () => {
                   <IconFont name="a-Group201" size={32} />
                 </View>
               ) : null} */}
-                      订单编号: {completedDelivery?.tradeId}
+                      订单编号: {completedDelivery?.orderId}
                       <View
                         className="ml-2 rounded-2xl text-22 px-2"
                         style={{ background: '#e7e7e7' }}
                         onClick={(e) => {
                           e.stopPropagation()
-                          copyText(completedDelivery?.tradeId)
+                          copyText(completedDelivery?.orderId)
                         }}
                       >
                         复制

@@ -1,6 +1,6 @@
 import { View } from '@tarojs/components'
 import { useEffect, useMemo, useState } from 'react'
-import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePrice } from '@/components/checkout'
+import { Address, OrderItem, DeliveryTime, Remark, Coupon, TotalCheck, OrderPrice } from '@/components/checkout'
 import Taro, { useDidHide } from '@tarojs/taro'
 import { createOrder, getOrderSetting } from '@/framework/api/order/order'
 import { AtMessage, AtModal } from 'taro-ui'
@@ -21,7 +21,7 @@ import './index.less'
 const Checkout = () => {
   const [consumerInfo] = useAtom(consumerAtom)
   const [address, setAddress] = useState({ id: '' })
-  const [tradeItems, setTradeItems] = useState<any[]>([])
+  const [orderItems, setOrderItems] = useState<any[]>([])
   const [giftItems, setGiftItems] = useState<any[]>([])
   const [couponItems, setCouponItems] = useState<any[]>([])
   const [orderType, setOrderType] = useState<string>('normal')
@@ -47,14 +47,14 @@ const Checkout = () => {
   }
 
   const getTotalNum = () => {
-    const total = tradeItems.reduce((prev, cur) => {
+    const total = orderItems.reduce((prev, cur) => {
       return prev + cur.productNum
     }, 0)
     setTotalNum(total)
   }
 
   const getTotalPrice = () => {
-    const total = tradeItems.reduce((prev, cur) => {
+    const total = orderItems.reduce((prev, cur) => {
       return prev + cur.productNum * cur.localData.price
     }, 0)
     let normalTotal = total + shippingPrice
@@ -93,7 +93,7 @@ const Checkout = () => {
         return false
       }
       setLoading(true)
-      const productList = tradeItems.map((el) => {
+      const productList = orderItems.map((el) => {
         if (el.skuGoodInfo.productVariants?.length > 0) {
           el.skuGoodInfo.productVariant = Object.assign(el.skuGoodInfo.productVariants[0], {
             num: el.productNum,
@@ -122,7 +122,7 @@ const Checkout = () => {
         ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
         : null
       let shoppingCartIds: any[] = []
-      tradeItems.map((el) => {
+      orderItems.map((el) => {
         if (el?.id !== null && el.id !== undefined) {
           shoppingCartIds.push(el.id)
         }
@@ -198,9 +198,9 @@ const Checkout = () => {
           params: {
             consumerId: consumerInfo?.id || '',
             consumerOpenId: wxLoginRes?.consumerAccount?.openId,
-            tradeId: res.payment?.payInfo?.tradeNo,
-            tradeNo: res.payment?.payInfo?.tradeNo,
-            tradeDescription: '商品',
+            orderId: res.payment?.payInfo?.orderNo,
+            orderNo: res.payment?.payInfo?.orderNo,
+            orderDescription: '商品',
             payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
             amount: res.payment?.payInfo?.amount * 100,
             currency: 'CNY',
@@ -241,7 +241,7 @@ const Checkout = () => {
         return false
       }
       setLoading(true)
-      await createOrder({ tradeItems, address, remark, deliveryTime, voucher })
+      await createOrder({ orderItems, address, remark, deliveryTime, voucher })
     } catch (e) {
       console.log('create order err', e)
       Taro.atMessage({
@@ -268,7 +268,7 @@ const Checkout = () => {
   useEffect(() => {
     getTotalNum()
     getTotalPrice()
-  }, [tradeItems, shippingPrice])
+  }, [orderItems, shippingPrice])
 
   const getDefaultAddress = async () => {
     const selectAddress = Taro.getStorageSync('select-address')
@@ -311,7 +311,7 @@ const Checkout = () => {
           let discount = subInfo.cycleObj.originalPrice - subInfo.cycleObj.discountPrice
           setSubDiscountPrice(discount)
         }
-        setTradeItems(productList)
+        setOrderItems(productList)
       },
     })
     getDefaultAddress()
@@ -332,7 +332,7 @@ const Checkout = () => {
             <Address address={address} />
           </View>
           <View className="bggray pb-2 px-2 rounded">
-            <TradeItem tradeItems={tradeItems} />
+            <OrderItem orderItems={orderItems} />
             {giftItems?.map((item) => (
               <GiftItem product={item} />
             ))}
@@ -343,7 +343,7 @@ const Checkout = () => {
               <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
               <Coupon
                 totalPrice={orderType === 'normal' ? totalPrice : totalPrice - subDiscountPrice}
-                tradeItems={tradeItems}
+                orderItems={orderItems}
                 changeMaxDiscount={(maxDiscountPrice) => {
                   console.log('maxDiscountPrice', maxDiscountPrice)
                   setDiscountPrice(maxDiscountPrice)
@@ -355,7 +355,7 @@ const Checkout = () => {
             </View>
           </View>
           <View>
-            <TradePrice
+            <OrderPrice
               totalPrice={totalPrice}
               discountPrice={discountPrice}
               subDiscountPrice={subDiscountPrice}

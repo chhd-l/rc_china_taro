@@ -5,9 +5,9 @@ import ApiRoot from '../fetcher'
 interface PayInput {
   consumerId: string
   consumerOpenId: string
-  tradeId: string
-  tradeNo: string
-  tradeDescription: string
+  orderId: string
+  orderNo: string
+  orderDescription: string
   payWayId: string
   amount: number
   currency: string

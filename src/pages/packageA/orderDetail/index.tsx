@@ -34,7 +34,7 @@ const OrderDetails = () => {
       region: '',
       detail: '',
     },
-    tradePrice: {
+    orderPrice: {
       productPrice: 0,
       deliveryPrice: 0,
       totalPrice: 0,
@@ -46,14 +46,14 @@ const OrderDetails = () => {
     },
   })
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
-  const { totalPrice, discountsPrice, productPrice } = orderDetail?.tradePrice
+  const { totalPrice, discountsPrice, productPrice } = orderDetail?.orderPrice
   const { trackingId, deliveries } = orderDetail?.shippingInfo
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [orderCancelMinute, setOrderCancelMinute] = useState(30)
 
   const getTimeCount = () => {
-    const time = getDateDiff(orderDetail?.tradeState?.createdAt, new Date(), orderCancelMinute)
+    const time = getDateDiff(orderDetail?.orderState?.createdAt, new Date(), orderCancelMinute)
     return {
       minutes: Number(time.minute.toFixed(0)),
       seconds: Number(time.second.toFixed(0)),
@@ -72,7 +72,7 @@ const OrderDetails = () => {
     const res = await getOrderDetail({ orderNum: id })
     setOrderDetail(res)
     const orderCancelTime = await getOrderCancelTime()
-    const time = getDateDiff(res?.tradeState?.createdAt, new Date(), orderCancelTime)
+    const time = getDateDiff(res?.orderState?.createdAt, new Date(), orderCancelTime)
     setMinutes(Number(time.minute))
     setSeconds(Number(time.second.toFixed(0)))
     console.log(Number(time.minute), Number(time.second.toFixed(0)))
@@ -104,8 +104,8 @@ const OrderDetails = () => {
           {orderDetail?.orderNumber ? (
             <>
               <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 pt-6">
-                <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
-                {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
+                <View className="font-bold">{orderStatusType[orderDetail?.orderState?.orderState || '']}</View>
+                {orderDetail?.orderState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
                   <View>
                     <AtCountdown
                       format={{ hours: ':', minutes: ':', seconds: '' }}
@@ -229,8 +229,8 @@ const OrderDetails = () => {
                         onClick={() => {
                           debugger
                           if (
-                            orderDetail?.tradeState?.orderState === 'UNPAID' ||
-                            orderDetail?.tradeState?.orderState === 'VOID'
+                            orderDetail?.orderState?.orderState === 'UNPAID' ||
+                            orderDetail?.orderState?.orderState === 'VOID'
                           ) {
                             return
                           }
@@ -246,7 +246,7 @@ const OrderDetails = () => {
                   )}
                   <View className="flex items-center justify-between boderTop">
                     <Text>下单时间</Text>
-                    <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
+                    <Text>{handleReturnTime(orderDetail?.orderState?.createdAt)}</Text>
                   </View>
                   <View className="flex items-center justify-between boderTop">
                     <Text>支付方式</Text>

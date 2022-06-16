@@ -8,10 +8,10 @@ import cloneDeep from 'lodash.cloneDeep'
 import { formatDateToApi } from '@/utils/utils'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
-export const createOrder = async ({ tradeItems, address, remark, deliveryTime, voucher }) => {
+export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher }) => {
   try {
     //入参处理 start
-    const productList = cloneDeep(tradeItems).map((el) => {
+    const productList = cloneDeep(orderItems).map((el) => {
       if (el.skuGoodInfo.productVariants?.length > 0 || el.skuGoodInfo.productVariant?.length > 0) {
         el.skuGoodInfo.productVariant = Object.assign(omit(el.skuGoodInfo.productVariants[0], ['isDeleted']), {
           num: el.productNum,
@@ -21,7 +21,7 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       return el.skuGoodInfo
     })
     let shoppingCartIds: any[] = []
-    tradeItems.map((el) => {
+    orderItems.map((el) => {
       if (el?.id !== null && el.id !== undefined) {
         shoppingCartIds.push(el.id)
       }
@@ -72,7 +72,7 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       Taro.removeStorageSync('select-product')
       //下单成功处理删除购物车数据
       let cartProducts = session.get('cart-data') || []
-      tradeItems.map((item) => {
+      orderItems.map((item) => {
         cartProducts.map((el) => {
           if (item.id === el.id) {
             const delIndex = cartProducts.findIndex((data) => data.id === item.id)
@@ -86,11 +86,11 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
         params: {
           consumerId: wxLoginRes?.userInfo?.id || '',
           consumerOpenId: wxLoginRes?.consumerAccount?.openId,
-          tradeId: res.createOrder?.orderNumber,
-          tradeNo: res.createOrder?.orderNumber,
-          tradeDescription: '商品',
+          orderId: res.createOrder?.orderNumber,
+          orderNo: res.createOrder?.orderNumber,
+          orderDescription: '商品',
           payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
-          amount: res.createOrder?.tradePrice.totalPrice * 100,
+          amount: res.createOrder?.orderPrice.totalPrice * 100,
           currency: 'CNY',
           storeId: '12345678',
           operator: wxLoginRes?.userInfo?.nickName || '',
