@@ -1,4 +1,4 @@
-import { Customer } from "./customer.schema";
+import { Consumer } from "./consumer.schema";
 
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
@@ -18,7 +18,7 @@ export type CreatedBy = {
   /**The ID of the API Client which created a resource.*/
   externalUserId: string;
   /**External user ID provided by X-External-User-ID HTTP Header. Maximum length is 128 characters.*/
-  customer: Customer;
+  consumer: Consumer;
   /**Present when creating a resource using a token from the password flow.*/
   anonymousId: string;
   /**Present when creating a resource using a token from an anonymous session.*/
@@ -29,7 +29,7 @@ export type LastModifiedBy = {
   /**The ID of the API Client which created a resource.*/
   externalUserId: string;
   /**External user ID provided by X-External-User-ID HTTP Header. Maximum length is 128 characters.*/
-  customer: Customer;
+  consumer: Consumer;
   /**Present when creating a resource using a token from the password flow.*/
   anonymousId: string;
   /**Present when creating a resource using a token from an anonymous session.*/
@@ -95,10 +95,10 @@ export type ProductKeyReference = {
   key: string;
 }
 /**
- *	References a customer group by key.
+ *	References a consumer group by key.
  */
-export type CustomerGroupKeyReference = {
-  typeId: 'customer-group';
+export type ConsumerGroupKeyReference = {
+  typeId: 'consumer-group';
   key: string;
 }
 export type TaxCategoryKeyReference = {

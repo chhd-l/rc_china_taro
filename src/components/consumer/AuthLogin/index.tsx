@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { wxBindPhone, wxRegisterAndLogin } from '@/framework/api/customer/customer'
+import { wxBindPhone, wxRegisterAndLogin } from '@/framework/api/consumer/consumer'
 import { View, Text, Button } from '@tarojs/components'
 import { useAtom, atom } from 'jotai'
-import { customerAtom } from '@/store/customer'
+import { consumerAtom } from '@/store/consumer'
 import { AtButton, AtCheckbox, AtFloatLayout, AtToast } from 'taro-ui'
 import BottonSwi from './BottonSwi'
 import './index.less'
@@ -40,7 +40,7 @@ const Tabs = [
 
 const AuthLogin = () => {
   const [tabValue, setTabValue] = useState<Tab>(Tab.Login)
-  const [, setCustomer] = useAtom(customerAtom)
+  const [, setConsumer] = useAtom(consumerAtom)
   const [chexList, setChexList] = useState<string[]>([])
   const [isOpen, setIsOpen] = useState(false)
   const [loginButton, setLoginButton] = useState<boolean>(false)
@@ -51,7 +51,7 @@ const AuthLogin = () => {
         setLoginButton(false)
         return res
       })
-      setCustomer(data)
+      setConsumer(data)
       setTabValue(Tab.BindPhone)
     } else {
       setLoginButton(true)

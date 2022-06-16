@@ -6,10 +6,10 @@ import { createOrder, getOrderSetting } from '@/framework/api/order/order'
 import { AtMessage, AtModal } from 'taro-ui'
 import omit from 'lodash/omit'
 import routers from '@/routers/index'
-import { getAddresses } from '@/framework/api/customer/address'
+import { getAddresses } from '@/framework/api/consumer/address'
 import { pay } from '@/framework/api/payment/pay'
 import { useAtom } from 'jotai'
-import { customerAtom } from '@/store/customer'
+import { consumerAtom } from '@/store/consumer'
 import GiftItem from '@/components/checkout/GiftItem'
 import { subscriptionCreateAndPay } from '@/framework/api/subscription/subscription'
 import moment from 'moment'
@@ -19,7 +19,7 @@ import { formatDateToApi } from '@/utils/utils'
 import './index.less'
 
 const Checkout = () => {
-  const [customerInfo] = useAtom(customerAtom)
+  const [consumerInfo] = useAtom(consumerAtom)
   const [address, setAddress] = useState({ id: '' })
   const [tradeItems, setTradeItems] = useState<any[]>([])
   const [giftItems, setGiftItems] = useState<any[]>([])
@@ -127,10 +127,10 @@ const Checkout = () => {
           shoppingCartIds.push(el.id)
         }
       })
-      const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
+      const addressInfo = omit(address, ['consumerId', 'storeId', 'isDefault'])
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const user = wxLoginRes.userInfo
-      const customerAccount = wxLoginRes.customerAccount
+      const consumerAccount = wxLoginRes.consumerAccount
 
       const subscriptionInput = {
         description: 'description',
@@ -138,7 +138,7 @@ const Checkout = () => {
         cycle: subscriptionInfo.cycleObj?.cycle,
         freshType: subscriptionInfo.freshType,
         voucher: finalVoucher,
-        customer: {
+        consumer: {
           id: user.id,
           avatarUrl: user.avatarUrl,
           level: user.level,
@@ -148,8 +148,8 @@ const Checkout = () => {
           email: user.email,
           points: user.points,
           account: {
-            unionId: customerAccount.unionId,
-            openId: customerAccount.openId,
+            unionId: consumerAccount.unionId,
+            openId: consumerAccount.openId,
           },
         },
         pet: subscriptionInfo.pet,
@@ -179,7 +179,7 @@ const Checkout = () => {
         input: subscriptionInput,
         payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
         storeId: '12345678',
-        operator: customerInfo?.nickName || '',
+        operator: consumerInfo?.nickName || '',
       }
       console.log('create order params', params)
       const res = await subscriptionCreateAndPay(params)
@@ -196,8 +196,8 @@ const Checkout = () => {
         Taro.removeStorageSync('select-product')
         pay({
           params: {
-            customerId: customerInfo?.id || '',
-            customerOpenId: wxLoginRes?.customerAccount?.openId,
+            consumerId: consumerInfo?.id || '',
+            consumerOpenId: wxLoginRes?.consumerAccount?.openId,
             tradeId: res.payment?.payInfo?.tradeNo,
             tradeNo: res.payment?.payInfo?.tradeNo,
             tradeDescription: '商品',
@@ -205,7 +205,7 @@ const Checkout = () => {
             amount: res.payment?.payInfo?.amount * 100,
             currency: 'CNY',
             storeId: '12345678',
-            operator: customerInfo?.nickName || '',
+            operator: consumerInfo?.nickName || '',
           },
           success: () => {
             toOrderList()
@@ -276,7 +276,7 @@ const Checkout = () => {
       setAddress(JSON.parse(selectAddress))
     } else {
       const { userInfo } = Taro.getStorageSync('wxLoginRes')
-      const addresses = await getAddresses({ customerId: userInfo?.id })
+      const addresses = await getAddresses({ consumerId: userInfo?.id })
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])

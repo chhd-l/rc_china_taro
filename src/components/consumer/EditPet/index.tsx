@@ -1,4 +1,4 @@
-import { PetGender, PetListItemProps, PetType } from '@/framework/types/customer'
+import { PetGender, PetListItemProps, PetType } from '@/framework/types/consumer'
 import { Form, Input, Picker, Text, View } from '@tarojs/components'
 import { useState } from 'react'
 import Taro from '@tarojs/taro'

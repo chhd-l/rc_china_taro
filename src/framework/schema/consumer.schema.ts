@@ -37,15 +37,15 @@ export type Address = {
   custom: CustomFields;
 };
 
-export type Customer = {
+export type Consumer = {
   id: string;
-  /**The unique ID of the customer.*/
-  customerNumber: string;
-  /**The customer number can be used to create a more human-readable (in contrast to ID) identifier for the customer. It should be unique across a project. Once the field was set it cannot be changed anymore.*/
+  /**The unique ID of the consumer.*/
+  consumerNumber: string;
+  /**The consumer number can be used to create a more human-readable (in contrast to ID) identifier for the consumer. It should be unique across a project. Once the field was set it cannot be changed anymore.*/
   key: string;
-  /**User-specific unique identifier for a customer. Must be unique across a project. The field can be reset using the Set Key UpdateAction*/
+  /**User-specific unique identifier for a consumer. Must be unique across a project. The field can be reset using the Set Key UpdateAction*/
   version: number;
-  /**The current version of the customer.*/
+  /**The current version of the consumer.*/
   createdAt: Scalars["DateTime"];
   createdBy: CreatedBy;
   /** Present on resources created after 2019-02-01 except for events not tracked.*/
@@ -53,11 +53,11 @@ export type Customer = {
   lastModifiedBy: LastModifiedBy;
   /**Present on resources updated after 2019-02-01 except for events not tracked.*/
   email: string;
-  /**The customer's email address and the main identifier of uniqueness for a customer account. Email addresses are either unique to the store they're specified for, or for the entire project. For more information, see Email uniqueness.*/
+  /**The consumer's email address and the main identifier of uniqueness for a consumer account. Email addresses are either unique to the store they're specified for, or for the entire project. For more information, see Email uniqueness.*/
   password: string;
   /**when authenticationMode is set to ExternalAuth.*/
   stores: Store;
-  /** References to the stores the customer account is associated with. If no stores are specified, the customer is a global customer, and can log in using the Password Flow for global Customers. If one or more stores are specified, the customer can only log in using the Password Flow for Customers in a Store for those specific stores.*/
+  /** References to the stores the consumer account is associated with. If no stores are specified, the consumer is a global consumer, and can log in using the Password Flow for global Consumers. If one or more stores are specified, the consumer can only log in using the Password Flow for Consumers in a Store for those specific stores.*/
   firstName: string;
   lastName: string;
   middleName: string;
@@ -78,10 +78,10 @@ export type Customer = {
   /**The IDs from the addresses list which are used as billing addresses*/
   isEmailVerified: Boolean;
   externalId: string;
-  // customerGroup : CustomerGroup
+  // consumerGroup : ConsumerGroup
   custom: CustomFields;
   locale: string;
   /**String conforming to IETF language tag*/
   // authenticationMode : AuthenticationMode
-  /**Indicates whether the password is required for the Customer.*/
+  /**Indicates whether the password is required for the Consumer.*/
 };

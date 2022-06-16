@@ -164,7 +164,7 @@ const petItemApiArr = [
   'image',
   'isSterilized',
   'birthday',
-  'customerId',
+  'consumerId',
   'operator',
   'id',
 ]
@@ -177,7 +177,7 @@ const petItemFeArr = [
   'image',
   'isSterilized',
   'birthday',
-  'customerId',
+  'consumerId',
   'operator',
   'id',
 ]

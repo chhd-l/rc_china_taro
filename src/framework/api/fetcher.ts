@@ -2,12 +2,12 @@ import { SERVICEPATH } from '@/lib/constants'
 import ClientBuilder from '@/rc-china-commerce/packages/taro/lib'
 import Taro from '@tarojs/taro'
 
-const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+const consumerInfo = Taro.getStorageSync('wxLoginRes').userInfo
 
 export const isMock = false
 
 export const baseSetting = {
-  customerId: customerInfo?.id || 'test001',
+  consumerId: consumerInfo?.id || 'test001',
   storeId: '12345678',
 }
 

@@ -12,7 +12,7 @@ export const petLists = {
       breed: Mock.Random.name(),
       isSterilized: Mock.Random.boolean(),
       birthday: Mock.Random.date(),
-      customer: Mock.Random.name(),
+      consumer: Mock.Random.name(),
     },
   ],
 }

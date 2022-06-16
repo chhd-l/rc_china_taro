@@ -76,10 +76,10 @@ export type TaxCategoryKeyReference = {
   key: string;
 };
 /**
- *	References a customer group by key.
+ *	References a consumer group by key.
  */
-export type CustomerGroupKeyReference = {
-  typeId: "customer-group";
+export type ConsumerGroupKeyReference = {
+  typeId: "consumer-group";
   key: string;
 };
 /**

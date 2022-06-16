@@ -4,10 +4,10 @@ import { Cat, Dog, petBg, SERVICEPATH } from '@/lib/constants'
 import Taro from '@tarojs/taro'
 import cloneDeep from 'lodash.cloneDeep'
 import { useEffect, useState } from 'react'
-import EditPet from '@/components/customer/EditPet'
-import { editPetButton } from '@/lib/customer'
+import EditPet from '@/components/consumer/EditPet'
+import { editPetButton } from '@/lib/consumer'
 import { deletePet } from '@/framework/api/pet/delete-pet'
-import { PetListItemProps } from '@/framework/types/customer'
+import { PetListItemProps } from '@/framework/types/consumer'
 import './index.less'
 
 interface Props {

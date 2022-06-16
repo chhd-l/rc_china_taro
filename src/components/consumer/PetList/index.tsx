@@ -1,10 +1,10 @@
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
-import AuthLogin, { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
+import AuthLogin, { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
 import { getPets } from '@/framework/api/pet/get-pets'
-import { PetGender, PetListItemProps } from '@/framework/types/customer'
+import { PetGender, PetListItemProps } from '@/framework/types/consumer'
 import IconFont from '@/iconfont'
 import { Cat, Dog, femaleIcon, maleIcon, petBg } from '@/lib/constants'
-import { customerAtom } from '@/store/customer'
+import { consumerAtom } from '@/store/consumer'
 import { petInfoListAuto } from '@/store/pets'
 import { recommendInfoAtom } from '@/store/subscription'
 import { getAge } from '@/utils/utils'
@@ -30,7 +30,7 @@ const PetList = (props: Props) => {
   const [recommendInfo, setRecommendInfo] = useAtom(recommendInfoAtom)
   const [petInfoList, setPetInfoList] = useAtom(petInfoListAuto)
   const { currentIdx, checkedArr } = recommendInfo
-  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
 
   const { system } = Taro.getSystemInfoSync()
   const systemType = system.indexOf('Android') > -1
@@ -39,7 +39,7 @@ const PetList = (props: Props) => {
   }
   useEffect(() => {
     getList()
-  }, [customerInfo?.id])
+  }, [consumerInfo?.id])
 
   Taro.useDidShow(() => {
     console.info('Taro.getStorageSync', Taro.getStorageSync('wxLoginRes').userInfo)
@@ -52,9 +52,9 @@ const PetList = (props: Props) => {
     if (props.withoutLoading) {
       Taro.setStorageSync('commerce-loading', 1)
     }
-    // const customerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
-    if (!customerInfo?.id) {
-      console.info('!customerInfo?.id', !customerInfo?.id)
+    // const consumerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
+    if (!consumerInfo?.id) {
+      console.info('!consumerInfo?.id', !consumerInfo?.id)
       //未登录需要清空宠物信息
       setPetList([])
       setFakePet([])
@@ -79,7 +79,7 @@ const PetList = (props: Props) => {
     } else {
       Taro.setStorageSync('Nopets', true)
     }
-    let res = (await getPets({ customerId: customerInfo.id })) || []
+    let res = (await getPets({ consumerId: consumerInfo.id })) || []
     res.forEach((item) => {
       item.age = getAge(item.birthday)
     })

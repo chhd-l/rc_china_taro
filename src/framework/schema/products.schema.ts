@@ -205,7 +205,7 @@ export type ProductVariant = {
   key: string
   // User-specific unique identifier for the variant. Product variant keys are different from product keys.
   prices?: Price[]
-  // The prices of the variant. The prices does not contain two prices for the same price scope (same currency, country, customer group and channel).
+  // The prices of the variant. The prices does not contain two prices for the same price scope (same currency, country, consumer group and channel).
   attributes?: Attribute[]
   price?: Price
   // Only appears when price selection is used. This field cannot be used in a query predicate.

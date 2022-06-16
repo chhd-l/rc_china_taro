@@ -29,8 +29,8 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     pay({
       params: {
-        customerId: wxLoginRes?.userInfo?.id || '',
-        customerOpenId: wxLoginRes?.customerAccount?.openId,
+        consumerId: wxLoginRes?.userInfo?.id || '',
+        consumerOpenId: wxLoginRes?.consumerAccount?.openId,
         tradeId: orderId,
         tradeNo: orderId,
         tradeDescription: '商品',

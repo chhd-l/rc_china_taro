@@ -11,7 +11,7 @@ import { createCart } from '@/framework/api/cart/cart'
 import { getProductBySkuId } from '@/framework/api/product/get-product'
 import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { baseSetting } from '@/framework/api/fetcher'
-import { cartSunccessToastShowAtom } from '@/store/customer'
+import { cartSunccessToastShowAtom } from '@/store/consumer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
 import { getOrderSetting } from '@/framework/api/order/order'
@@ -118,7 +118,7 @@ const ChooseSpec = ({
     console.info('choosedSkuchoosedSkuchoosedSkuchoosedSku', choosedSku)
     const { id } = choosedSku
     await createCart({
-      customerId: baseSetting.customerId,
+      consumerId: baseSetting.consumerId,
       // goodsId: '44c5f184-9146-187f-f738-67db27bf0468',
       // goodsVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
       goodsId: detailInfo.id,

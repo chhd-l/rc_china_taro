@@ -1,5 +1,5 @@
 // import { breedListMock } from '@/mock/pet'
-import BreedLists from '@/components/customer/BreedLists'
+import BreedLists from '@/components/consumer/BreedLists'
 import { getBreedList } from '@/framework/api/pet/get-breeds'
 import { pySegSort } from '@/utils/pinyin'
 import { Image, View } from '@tarojs/components'

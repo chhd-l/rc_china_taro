@@ -9,10 +9,10 @@ export type Address = {
   isDefault?: boolean
   country?: string
   region: string //区
-  customerId?: string
+  consumerId?: string
 }
 
-export type Customer = {
+export type Consumer = {
   id: string
   name: string
   avatarUrl: string
@@ -37,7 +37,7 @@ export interface PetListItemProps {
   birthday: string
   image: string
   isOpened?: boolean
-  customerId?: string
+  consumerId?: string
 }
 
 export enum PetType {

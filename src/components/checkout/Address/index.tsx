@@ -1,6 +1,6 @@
 import { Image, View } from '@tarojs/components'
 import { AtIcon } from 'taro-ui'
-import { Address } from '@/framework/types/customer'
+import { Address } from '@/framework/types/consumer'
 import Taro from '@tarojs/taro'
 import routers from '@/routers'
 import { ADDRESS_ORDER_ICON } from '@/lib/constants'

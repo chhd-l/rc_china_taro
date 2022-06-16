@@ -7,7 +7,7 @@ import { getPdpVouchers, receiveVoucher } from '@/framework/api/voucher/voucher'
 import { VOUCHER_NO_RECEIVED, VOUCHER_RECEIVED } from '@/lib/constants'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
-import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
+import { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
 import './index.less'
 
 const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
@@ -24,7 +24,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   }
 
   //用户领取商品优惠券
-  const customerReceiveVoucher = async (voucher: Voucher) => {
+  const consumerReceiveVoucher = async (voucher: Voucher) => {
     console.log('received voucher', voucher)
     const res = await receiveVoucher({
       voucherId: voucher.id,
@@ -113,7 +113,7 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
                 applyVoucher={() => {
                   setShowReceiveVoucher(false)
                 }}
-                receiveVoucher={customerReceiveVoucher}
+                receiveVoucher={consumerReceiveVoucher}
                 showApplyBtn={item.isReceived}
                 showReceiveBtn={!item.isReceived}
                 backgroundImageUrl={item.isReceived ? VOUCHER_RECEIVED : VOUCHER_NO_RECEIVED}

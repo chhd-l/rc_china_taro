@@ -7,8 +7,8 @@ export type Cart = {
   createdBy?: CreatedBy;
   lastModifiedAt?: Scalars["DateTime"];
   lastModifiedBy?: LastModifiedBy;
-  customerId?: string;
-  customerEmail?: string;
+  consumerId?: string;
+  consumerEmail?: string;
   storeId?: string;
   lineItems: LineItem[]; //product items
   lineItemsSubtotalPrice: number; //The sum of all the prices of all the items in the cart.Duties, taxes, shipping and discounts excluded.
@@ -57,7 +57,7 @@ export type ProductVariant = {
   isMatchingVariant: boolean; //是否是选中的那个sku
   availableForSale?: boolean; // Indicates if the product variant is available for sale.
   tags: string[];
-  specs:string
+  specs: string
   // attributes: Attribute[];
   //规格？
 };

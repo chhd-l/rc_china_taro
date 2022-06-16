@@ -1,7 +1,7 @@
 import NavBar from '@/components/common/Navbar'
 import CommonTitle from '@/components/creatSubscription/CommonTitle'
 import { handleBuyMore } from '@/components/creatSubscription/SubList'
-import PetList from '@/components/customer/PetList'
+import PetList from '@/components/consumer/PetList'
 import { getSubscriptionDetail } from '@/framework/api/subscription/subscription'
 import IconFont from '@/iconfont'
 import { deliveryDetailAtom } from '@/store/subscription'

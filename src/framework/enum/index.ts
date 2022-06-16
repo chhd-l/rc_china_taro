@@ -13,7 +13,7 @@ export enum TaxMode {
 }
 //购物车创建来源
 export enum CartOrigin {
-  Customer = "Customer",
+  Consumer = "Consumer",
   Merchant = "Merchant",
 }
 

@@ -1,4 +1,4 @@
-import { Address } from '@/framework/types/customer'
+import { Address } from '@/framework/types/consumer'
 
 export interface TradeGoodsAttributeAndValue {
   attributeName: string
@@ -62,10 +62,10 @@ export interface Logs {
 
 export interface Buyer {
   isMember: boolean
-  customerId: string
-  customerName: string
-  customerEmail: string
-  customerLevel: string
+  consumerId: string
+  consumerName: string
+  consumerEmail: string
+  consumerLevel: string
   nickName: string
   phone: string
 }

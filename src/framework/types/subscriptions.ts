@@ -1,4 +1,4 @@
-// import { Address } from "./customers";
+// import { Address } from "./consumers";
 import { Order } from "./orders"
 import { Scalars } from '../schema/common.schema'
 import { Price } from './prices'

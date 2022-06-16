@@ -1,4 +1,4 @@
-import { PetGender, PetListItemProps, PetType } from '@/framework/types/customer'
+import { PetGender, PetListItemProps, PetType } from '@/framework/types/consumer'
 import { View } from '@tarojs/components'
 import { ReactNode, useEffect, useState } from 'react'
 import cloneDeep from 'lodash.cloneDeep'

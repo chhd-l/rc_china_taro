@@ -1,7 +1,7 @@
 import { AtFloatLayout } from 'taro-ui'
 import { useState } from 'react'
 import { useRequest } from 'ahooks'
-import PetList from '@/components/customer/PetList'
+import PetList from '@/components/consumer/PetList'
 import SubList from '@/components/creatSubscription/SubList'
 import { View, Image } from '@tarojs/components'
 import {
@@ -11,20 +11,20 @@ import {
   SUBSCRIPTION_HELP_ICON,
   WHAT_IS_SUBSCRIPTION,
 } from '@/lib/subscription'
-import { getSubscriptionFindByCustomerId } from '@/framework/api/subscription/subscription'
+import { getSubscriptionFindByConsumerId } from '@/framework/api/subscription/subscription'
 import Taro from '@tarojs/taro'
 import NavBar from '@/components/common/Navbar'
 import { currentStepAtom, recommendInfoAtom, recommendProductAtom } from '@/store/subscription'
 import { useAtom } from 'jotai'
 import './index.less'
-import { customerAtom } from '@/store/customer'
+import { consumerAtom } from '@/store/consumer'
 
 const Subscription = () => {
   const [showPop, setShowPop] = useState<boolean>(false)
   const [, setRecommendInfoAtom] = useAtom(recommendInfoAtom)
   const [, setRecommendProductAtom] = useAtom(recommendProductAtom)
   const [, setCurrentStep] = useAtom(currentStepAtom)
-  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
   const [needRefresh, setNeedRefresh] = useState(false)
   const { data } = useRequest(
     async () => {
@@ -33,11 +33,11 @@ const Subscription = () => {
       //   nextDeliveryDate: "2022-06-13T16:00:00.000Z",
       //   operator: "ss"
       // }
-      if (!customerInfo?.id) {
+      if (!consumerInfo?.id) {
         return []
       }
-      // const res = await getSubscriptionFindByCustomerId('0a1781df-4d21-7324-4bdd-d25726b2f353')
-      const res = await getSubscriptionFindByCustomerId(customerInfo?.id)
+      // const res = await getSubscriptionFindByConsumerId('0a1781df-4d21-7324-4bdd-d25726b2f353')
+      const res = await getSubscriptionFindByConsumerId(consumerInfo?.id)
       return res
     },
     {

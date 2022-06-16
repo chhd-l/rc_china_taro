@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import { View, Radio, Text, Image } from '@tarojs/components'
 import { AtModal } from 'taro-ui'
-import { Address } from '@/framework/types/customer'
+import { Address } from '@/framework/types/consumer'
 import Taro, { getCurrentPages } from '@tarojs/taro'
-import { deleteAddress, updateAddress } from '@/framework/api/customer/address'
+import { deleteAddress, updateAddress } from '@/framework/api/consumer/address'
 import routers from '@/routers'
 import { EDIT_ADDRESS_ICON, DELETE_ADDRESS_ICON } from '@/lib/constants'
 import './index.less'
@@ -45,7 +45,7 @@ const AddressItem = ({
     if (value) {
       const res = await updateAddress({
         params: {
-          customerId: addressInfo.customerId,
+          consumerId: addressInfo.consumerId,
           id: addressInfo.id,
           isDefault: !addressInfo.isDefault,
         },

@@ -1,4 +1,4 @@
-import { CustomerGroupKeyReference, ChannelKeyReference, Scalars, CustomFields } from '../schema/common.schema'
+import { ConsumerGroupKeyReference, ChannelKeyReference, Scalars, CustomFields } from '../schema/common.schema'
 export type Price = {
     id: string
     // The unique ID of this price.
@@ -6,8 +6,8 @@ export type Price = {
     country?: string
     // A two-digit country code as per 
     // ISO 3166-1 alpha-2
-    // customerGroup?: CustomerGroupKeyReference
-    // A reference to a customer group.
+    // consumerGroup?: ConsumerGroupKeyReference
+    // A reference to a consumer group.
     // channel?: ChannelKeyReference
     // A reference to a channel.
     // validFrom?: Scalars["DateTime"]
@@ -17,7 +17,7 @@ export type Price = {
     // tiers?: PriceTier[]
     discounted?: DiscountedPrice[]
     // Set if a matching ProductDiscount exists. If set, the Cart will use the discounted value for the cart price calculation.
-    // When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the customer with the 
+    // When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the consumer with the 
     // half down rounding
     // custom?: CustomFields
 }
@@ -30,8 +30,8 @@ export type ScopedPrice = {
     country?: string
     // A two-digit country code as per 
     // ISO 3166-1 alpha-2
-    customerGroup?: CustomerGroupKeyReference
-    // A reference to a customer group.
+    consumerGroup?: ConsumerGroupKeyReference
+    // A reference to a consumer group.
     channel?: ChannelKeyReference
     // A reference to a channel.
     validFrom?: Scalars["DateTime"]
@@ -40,7 +40,7 @@ export type ScopedPrice = {
     // Date until which the price is valid.
     discounted?: DiscountedPrice
     // Is set if a matching ProductDiscount exists. If set, the Cart will use the discounted value for the cart price calculation.
-    // When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the customer with the 
+    // When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the consumer with the 
     // half down rounding
     custom?: CustomFields
 }

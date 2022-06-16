@@ -54,7 +54,7 @@ export const orderDetailMockData = {
   ],
   shippingAddress: {
     id: '001',
-    customerId: null,
+    consumerId: null,
     receiverName: null,
     phone: '020-81167888',
     country: null,
@@ -111,10 +111,10 @@ export const orderDetailMockData = {
   remark: '',
   buyer: {
     isMember: true,
-    customerId: '51b66041-1ee0-7f1d-6197-07401d9931ce',
-    customerName: null,
-    customerEmail: null,
-    customerLevel: '新手铲屎官',
+    consumerId: '51b66041-1ee0-7f1d-6197-07401d9931ce',
+    consumerName: null,
+    consumerEmail: null,
+    consumerLevel: '新手铲屎官',
     nickName: '香',
     phone: null,
   },

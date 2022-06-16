@@ -2,7 +2,7 @@ export const mockPetlist = [
   {
     birthday: '',
     breedCode: '哦哦哦',
-    customerId: '',
+    consumerId: '',
     gender: 'MALE',
     image: 'http://dummyimage.com/100x100',
     isSterilized: false,
@@ -14,7 +14,7 @@ export const mockPetlist = [
   {
     birthday: '',
     breedCode: '哦哦哦',
-    customerId: '',
+    consumerId: '',
     gender: 'MALE',
     image: 'http://dummyimage.com/100x100',
     isSterilized: true,

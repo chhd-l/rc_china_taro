@@ -1,4 +1,4 @@
-import { PetGender, PetType } from '@/framework/types/customer'
+import { PetGender, PetType } from '@/framework/types/consumer'
 
 export const initNewPet = {
   age: '',
@@ -10,7 +10,7 @@ export const initNewPet = {
   isSterilized: false,
   birthday: '',
   image: '',
-  customerId: '20220415',
+  consumerId: '20220415',
 }
 
 export const editPetButton = [

@@ -7,7 +7,7 @@ import './index.less'
 import { PDP_POSTER, PDP_WECHAT, SHARE_BG, SHRRE_DOWNLOAD } from '@/lib/constants'
 import { formatMoney } from '@/utils/utils'
 import { useAtom } from 'jotai'
-import AuthLogin, { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
+import AuthLogin, { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
 const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShareBtn, showShareBtn }) => {
   const [picTempUrl, setPicTempUrl] = useState('')
   const [posterStatus, setPosterStatus] = useState(false)

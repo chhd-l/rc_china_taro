@@ -1,11 +1,11 @@
 import quitIcon from '@/assets/icons/quit.svg'
 import NavBar from '@/components/common/Navbar'
-import { AuthLogin } from '@/components/customer'
-import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
-import PetList from '@/components/customer/PetList'
+import { AuthLogin } from '@/components/consumer'
+import { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
+import PetList from '@/components/consumer/PetList'
 import { SHIPPED_ORDER_ICON, TO_SHIP_ORDER_ICON, UNPAID_ORDER_ICON, VOUCHER_ORDER_ICON } from '@/lib/constants'
 import routers from '@/routers'
-import { customerAtom } from '@/store/customer'
+import { consumerAtom } from '@/store/consumer'
 // import Announcement from '@/components/common/Announcement'
 // import defaultIcon from '@/assets/icons/icon-home.png'
 import { Button, Image, Text, View } from '@tarojs/components'
@@ -31,11 +31,11 @@ const orderTypeList: OrderTypeProps[] = [
 
 const Account = () => {
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
-  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
   const [signoutOpend, setSignoutOpend] = useState(false)
 
   useEffect(() => {
-    setCustomerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
+    setConsumerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
   }, [])
 
   const navigateToOrderList = (item) => {
@@ -78,22 +78,22 @@ const Account = () => {
         {/*个人信息和个人管理*/}
         <View className="flex flex-row justify-between px-2 pb-4 items-center">
           <View className="flex flex-row items-center">
-            {customerInfo?.id ? (
+            {consumerInfo?.id ? (
               <>
-                <AtAvatar circle size="large" image={customerInfo?.avatarUrl} />
+                <AtAvatar circle size="large" image={consumerInfo?.avatarUrl} />
                 <View className="flex-col ml-4">
                   <View className="flex  item-center ">
-                    <Text className="text-black font-semibold text-32  mr-2">{customerInfo.nickName}</Text>
+                    <Text className="text-black font-semibold text-32  mr-2">{consumerInfo.nickName}</Text>
                     <View className="flex flex-row items-center justify-items-center">
                       <AtAvatar
                         circle
                         className="NewbieIcon bg-center"
                         image="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/consumer_type.png"
                       />
-                      <Text className="text-20 ml-1 LevelColor">{customerInfo.level}</Text>
+                      <Text className="text-20 ml-1 LevelColor">{consumerInfo.level}</Text>
                     </View>
                   </View>
-                  <View className="text-24 my-1 text-red-600">当前积分：{customerInfo.points || 0}</View>
+                  <View className="text-24 my-1 text-red-600">当前积分：{consumerInfo.points || 0}</View>
                   <View
                     className="flex item-center text-xs text-gray-600"
                     onClick={() => {
@@ -188,7 +188,7 @@ const Account = () => {
             <Button
               onClick={() => {
                 Taro.removeStorageSync('wxLoginRes')
-                setCustomerInfo(null)
+                setConsumerInfo(null)
                 setSignoutOpend(false)
                 const pages = Taro.getCurrentPages()
                 const perpage = pages[pages.length - 1]

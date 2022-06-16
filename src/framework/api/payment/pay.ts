@@ -3,8 +3,8 @@ import Taro from '@tarojs/taro'
 import ApiRoot from '../fetcher'
 
 interface PayInput {
-  customerId: string
-  customerOpenId: string
+  consumerId: string
+  consumerOpenId: string
   tradeId: string
   tradeNo: string
   tradeDescription: string

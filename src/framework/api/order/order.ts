@@ -26,14 +26,14 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
         shoppingCartIds.push(el.id)
       }
     })
-    const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
+    const addressInfo = omit(address, ['consumerId', 'storeId', 'isDefault'])
     const user = Taro.getStorageSync('wxLoginRes').userInfo
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -46,7 +46,7 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
       expectedShippingDate: formatDateToApi(deliveryTime),
       isSubscription: false,
-      customerInfo: {
+      consumerInfo: {
         id: user.id,
         avatarUrl: user.avatarUrl,
         level: user.level,
@@ -57,8 +57,8 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       operator: user.nickName,
       wxUserInfo: {
         nickName: user.nickName,
-        unionId: wxLoginRes?.customerAccount?.unionId,
-        openId: wxLoginRes?.customerAccount?.openId,
+        unionId: wxLoginRes?.consumerAccount?.unionId,
+        openId: wxLoginRes?.consumerAccount?.openId,
       },
       voucher: finalVoucher,
     }
@@ -84,8 +84,8 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       console.info('////////')
       pay({
         params: {
-          customerId: wxLoginRes?.userInfo?.id || '',
-          customerOpenId: wxLoginRes?.customerAccount?.openId,
+          consumerId: wxLoginRes?.userInfo?.id || '',
+          consumerOpenId: wxLoginRes?.consumerAccount?.openId,
           tradeId: res.createOrder?.orderNumber,
           tradeNo: res.createOrder?.orderNumber,
           tradeDescription: '商品',
@@ -160,7 +160,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
         storeId: wxLoginRes?.userInfo?.storeId || '12345678',
         operator: wxLoginRes?.userInfo?.nickName || 'system',
         isNeedTotal: true,
-        sample: { ...queryOrderListParams?.sample, customerId: wxLoginRes?.customerAccount?.customerId },
+        sample: { ...queryOrderListParams?.sample, consumerId: wxLoginRes?.consumerAccount?.consumerId },
       })
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams: params })
       const { records, total } = res.orders

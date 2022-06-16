@@ -28,11 +28,11 @@ export const subscriptionCreateAndPay = async (params?: any) => {
 }
 
 
-export const getSubscriptionFindByCustomerId = async (customerId: string) => {
+export const getSubscriptionFindByConsumerId = async (consumerId: string) => {
     Taro.setStorageSync('commerce-loading', 1)
     try {
-        const { subscriptionFindByCustomerId } = await ApiRoot.subscriptions().subscriptionFindByCustomerId({ customerId })
-        return subscriptionFindByCustomerId
+        const { subscriptionFindByConsumerId } = await ApiRoot.subscriptions().subscriptionFindByConsumerId({ consumerId })
+        return subscriptionFindByConsumerId
     } catch (err) {
         return []
     }

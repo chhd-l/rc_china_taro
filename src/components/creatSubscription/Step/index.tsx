@@ -1,4 +1,4 @@
-import PetList from '@/components/customer/PetList'
+import PetList from '@/components/consumer/PetList'
 import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { getSubscriptionSimpleRecommend } from '@/framework/api/subscription/subscription'
 import routers from '@/routers'
