@@ -52,7 +52,7 @@ const Subscription = () => {
     setRecommendInfoAtom({
       recommPetInfo: {},
       couponList: [],
-      goodsList: [],
+      productList: [],
       giftList: [],
       currentIdx: 0,
       checkedArr: [],
@@ -64,11 +64,11 @@ const Subscription = () => {
       freshType: 'FRESH_NORMAL',
       discountPrice: '',
       originalPrice: '',
-      goodsVariantInfo: {
-        goodsVariants: {},
-        goodsAttributeValueRel: [],
-        goodsAsserts: {},
-        goodsName: '',
+      productVariantInfo: {
+        productVariants: {},
+        productAttributeValueRel: [],
+        productAsserts: {},
+        productName: '',
       },
     })
     setCurrentStep(0)

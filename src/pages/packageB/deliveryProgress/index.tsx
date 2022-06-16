@@ -168,7 +168,7 @@ const DeliveryProgress = () => {
                             <View className="text-30 mb-1">{el?.skuName}</View>
                             <View className="text-primary-red flex text-20 justify-between items-center">
                               <View className="flex flex-row flex-wrap">
-                                {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                                {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag) => (
                                   <View
                                     className="px-1 border rounded-lg border-solid border-red mr-2"
                                     style={{ marginTop: '1px' }}
@@ -180,7 +180,7 @@ const DeliveryProgress = () => {
                               <View className="text-gray-400">X{el?.num}</View>
                             </View>
                             <View className="text-24 mt-2 items-end ProductIntroduction text-gray-400">
-                              规格：{el?.goodsSpecifications}
+                              规格：{el?.productSpecifications}
                             </View>
                             {deliveryDetail.freshType === 'FRESH_100_DAYS' ? (
                               <View className="text-24 mt-1 items-end ProductIntroduction text-gray-400">
@@ -198,7 +198,7 @@ const DeliveryProgress = () => {
                         //     <View className="text-rc28 text-rc_222222  ml-1">{el.skuName}</View>
                         //     <View className="flex flex-row justify-between mb-1">
                         //       <View className="flex flex-row text-rc20">
-                        //         {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag, key) => (
+                        //         {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag, key) => (
                         //           <View
                         //             key={key}
                         //             className=" text-primary-red px-1 border rounded-lg border-solid border-red mr-2 mt-2"
@@ -212,7 +212,7 @@ const DeliveryProgress = () => {
                         //       <View className="text-rc22 text-textGray mr-1">x{el.num}</View>
                         //     </View>
                         //     <View className="text-rc22 text-textGray ml-1">
-                        //       {el?.goodsSpecifications ? `规格:${el?.goodsSpecifications}` : ''}
+                        //       {el?.productSpecifications ? `规格:${el?.productSpecifications}` : ''}
                         //     </View>
                         //     {deliveryDetail?.freshType === 'FRESH_100_DAYS' ? (
                         //       <View className="text-rc26 text-textGray ml-1 mt-1">新鲜度：100天</View>

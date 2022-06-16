@@ -9,11 +9,11 @@ import './index.less'
 const Purchased = () => {
   const [recommendProduct] = useAtom(recommendProductAtom)
   const {
-    goodsVariantInfo: { goodsVariants, goodsAttributeValueRel, goodsAsserts, goodsName },
+    productVariantInfo: { productVariants, productAttributeValueRel, productAsserts, productName },
     giftList,
     couponList,
   } = recommendProduct
-  console.log('Purchased', goodsVariants)
+  console.log('Purchased', productVariants)
 
   return (
     <View className="m-4">
@@ -24,16 +24,16 @@ const Purchased = () => {
           <Image
             className="w-full "
             mode="widthFix"
-            src={goodsVariants?.[0]?.defaultImage || goodsAsserts?.[0]?.artworkUrl}
+            src={productVariants?.[0]?.defaultImage || productAsserts?.[0]?.artworkUrl}
           />
           <CountTag type="center">{recommendProduct.quantity!}</CountTag>
         </View>
         <View className="flex-1">
-          <View className="font-bold text-rc26 text-rc_222222">{goodsVariants?.[0]?.name || goodsName}</View>
+          <View className="font-bold text-rc26 text-rc_222222">{productVariants?.[0]?.name || productName}</View>
           <View className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center my-2">
             逐包随单发货
           </View>
-          {normalizeTags(goodsAttributeValueRel, goodsVariants?.[0]?.feedingDays).map((item) => (
+          {normalizeTags(productAttributeValueRel, productVariants?.[0]?.feedingDays).map((item) => (
             <View className="text-rc22 text-textGray" key={item}>
               {item}
             </View>
@@ -41,7 +41,7 @@ const Purchased = () => {
           <View className="flex flex-row items-center justify-between">
             <View className="my-2">
               <Text className="text-rc20 text-primary-red">￥</Text>
-              <Text className="font-bold text-primary-red text-rc28">{goodsVariants?.[0]?.subscriptionPrice}</Text>
+              <Text className="font-bold text-primary-red text-rc28">{productVariants?.[0]?.subscriptionPrice}</Text>
               {/* <Text className="text-primary-red text-rc20">.00</Text> */}
             </View>
             <View className="text-textGray text-rc22">x{recommendProduct.quantity}</View>
@@ -56,14 +56,14 @@ const Purchased = () => {
               <Image
                 className="w-full"
                 mode="widthFix"
-                src={list.goodsVariants?.[0]?.defaultImage || list.goodsAsserts?.[0]?.artworkUrl}
+                src={list.productVariants?.[0]?.defaultImage || list.productAsserts?.[0]?.artworkUrl}
               />
               {/* <CountTag type="center" >{list.quantityRule === 'DOUBLE_OF_SKU_NUMBER' ? recommendProduct.quantity! * 2 : list.quantity}</CountTag> */}
               <CountTag type="center">{list.quantity}</CountTag>
             </View>
             <View className="flex-1">
               <View className="font-bold text-rc26 text-rc_222222">
-                {list.goodsVariants?.[0]?.name || list.goodsName}
+                {list.productVariants?.[0]?.name || list.productName}
               </View>
               {/* <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View> */}
               <View className="flex flex-row items-center">

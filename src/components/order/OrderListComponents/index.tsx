@@ -99,7 +99,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                     <View className="text-30 mb-1">{el?.skuName}</View>
                     <View className="text-primary-red flex text-20 justify-between items-center">
                       <View className="flex flex-row flex-wrap">
-                        {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                        {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag) => (
                           <View
                             className="px-1 border rounded-lg border-solid border-red mr-2 mb-1"
                             style={{ borderWidth: '1PX' }}
@@ -111,7 +111,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                       <View className="text-gray-400">X{el?.num}</View>
                     </View>
                     <View className="text-24 mt-2 items-end ProductIntroduction text-gray-400">
-                      规格：{el?.goodsSpecifications}
+                      规格：{el?.productSpecifications}
                     </View>
                     {item.freshType === 'FRESH_100_DAYS' ? (
                       <View className="text-24 mt-1 items-end ProductIntroduction text-gray-400">新鲜度：100天</View>
@@ -142,9 +142,9 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                       <View className="flex flex-row flex-wrap" />
                       <View className="text-gray-400">X{el?.num}</View>
                     </View>
-                    {el?.goodsSpecifications ? (
+                    {el?.productSpecifications ? (
                       <View className="text-24 mt-2 items-end ProductIntroduction text-gray-400">
-                        规格：{el?.goodsSpecifications}
+                        规格：{el?.productSpecifications}
                       </View>
                     ) : null}
                   </View>
@@ -152,7 +152,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
               ))}
               <View className="w-full pt-2 footerText flex items-end flex-col">
                 <View className="text-right text-22">
-                  共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.goodsPrice)}，优惠
+                  共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.productPrice)}，优惠
                   {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
                   <Text className="text-primary-red text-28">{formatMoney(item.tradePrice.totalPrice)}</Text>
                 </View>

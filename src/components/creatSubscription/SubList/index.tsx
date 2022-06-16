@@ -17,17 +17,17 @@ const cycleObj = {
 export const handleBuyMore = (children) => {
   let buyInfo = cloneDeep(children)
   let { birthday, breedCode, breedName, gender, id, image, name, type } = buyInfo.pet
-  let { cycle, type: subType, freshType, goodsList, benefits: giftList } = buyInfo
-  goodsList?.forEach((el) => {
-    el.goodsVariant = [el.goodsVariant]
+  let { cycle, type: subType, freshType, productList, benefits: giftList } = buyInfo
+  productList?.forEach((el) => {
+    el.productVariant = [el.productVariant]
   })
   giftList?.forEach((el) => {
-    el.goodsVariant = [el.goodsVariant]
+    el.productVariant = [el.productVariant]
   })
-  let { originalPrice, discountPrice } = getCycleItem(goodsList[0].goodsVariant?.[0], cycle)
+  let { originalPrice, discountPrice } = getCycleItem(productList[0].productVariant?.[0], cycle)
   const checkoutData = {
     type: subType,
-    cycle: { cycle, quantity: goodsList[0].goodsVariant?.[0]?.num, originalPrice, discountPrice },
+    cycle: { cycle, quantity: productList[0].productVariant?.[0]?.num, originalPrice, discountPrice },
     freshType,
     pet: {
       birthday,
@@ -39,9 +39,9 @@ export const handleBuyMore = (children) => {
       name,
       type,
     },
-    goodsList: goodsList.map((el) => normalizeCartData({ goodsNum: el?.goodsVariant?.[0]?.num }, el, true)),
+    productList: productList.map((el) => normalizeCartData({ productNum: el?.productVariant?.[0]?.num }, el, true)),
     isSubscription: true,
-    giftList: giftList?.map((el) => normalizeCartData({ goodsNum: el?.goodsVariant?.[0]?.num }, el, true)) || [],
+    giftList: giftList?.map((el) => normalizeCartData({ productNum: el?.productVariant?.[0]?.num }, el, true)) || [],
     couponList: [],
   }
   console.info('.....', checkoutData)
@@ -64,8 +64,8 @@ const SubList = ({ children }) => {
     })
   }
 
-  return children?.goodsList?.map((el) => {
-    const { goodsVariant = {} } = el
+  return children?.productList?.map((el) => {
+    const { productVariant = {} } = el
     console.info('planingDeliveriesplaningDeliveriesplaningDeliveries', children?.planingDeliveries)
     return (
       <View className="px-2 sub-list " key={el.spuNo} style={{ margin: '20px 0' }}>
@@ -97,16 +97,16 @@ const SubList = ({ children }) => {
             <View className="mt-4   border-gray-200" style={{ borderTop: '1px solid #E2E2E2' }}>
               <View className="w-full  flex  items-center" style={{ minHeight: '5rem' }}>
                 <View className="w-rc163 h-rc163">
-                  <Image className="w-full h-full" src={goodsVariant?.defaultImage} />
+                  <Image className="w-full h-full" src={productVariant?.defaultImage} />
                 </View>
                 <View className="flex flex-col pl-3 justify-center py-2">
                   <View>
-                    <View className="text-rc24 mb-1">{goodsVariant?.name}</View>
+                    <View className="text-rc24 mb-1">{productVariant?.name}</View>
                     <View className="text-primary-red flex  justify-between items-center">
                       <View className="flex flex-row flex-wrap">
                         {(
-                          normalizeTags(el?.goodsAttributeValueRel, goodsVariant?.feedingDays) ||
-                          el?.goodsAttributeValueRel
+                          normalizeTags(el?.productAttributeValueRel, productVariant?.feedingDays) ||
+                          el?.productAttributeValueRel
                         ).map((tag) => (
                           <View
                             key={tag}

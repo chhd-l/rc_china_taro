@@ -2,7 +2,7 @@ import { View, Text, Image } from '@tarojs/components'
 import { formatMoney } from '@/utils/utils'
 
 const CouponItem = ({ coupon }: { coupon: any }) => {
-  const { quantity: goodsNum } = coupon
+  const { quantity: productNum } = coupon
   let price = 0
   const { voucherDefaultImage: image, voucherName: name } = coupon.couponInfo
 
@@ -23,7 +23,7 @@ const CouponItem = ({ coupon }: { coupon: any }) => {
                 </View> */}
         <View className="flex flex-row justify-between items-end mt-4">
           <Text className="text-26 text-primary-red font-semibold">{formatMoney(price)}</Text>
-          <Text className="text-22">x {goodsNum}</Text>
+          <Text className="text-22">x {productNum}</Text>
         </View>
       </View>
     </View>

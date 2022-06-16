@@ -11,13 +11,13 @@ import ApiRoot, { baseSetting, isMock } from '../fetcher'
 export const createOrder = async ({ tradeItems, address, remark, deliveryTime, voucher }) => {
   try {
     //入参处理 start
-    const goodsList = cloneDeep(tradeItems).map((el) => {
-      if (el.skuGoodInfo.goodsVariants?.length > 0 || el.skuGoodInfo.goodsVariant?.length > 0) {
-        el.skuGoodInfo.goodsVariant = Object.assign(omit(el.skuGoodInfo.goodsVariants[0], ['isDeleted']), {
-          num: el.goodsNum,
+    const productList = cloneDeep(tradeItems).map((el) => {
+      if (el.skuGoodInfo.productVariants?.length > 0 || el.skuGoodInfo.productVariant?.length > 0) {
+        el.skuGoodInfo.productVariant = Object.assign(omit(el.skuGoodInfo.productVariants[0], ['isDeleted']), {
+          num: el.productNum,
         })
       }
-      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'goodsVariants'])
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'productVariants'])
       return el.skuGoodInfo
     })
     let shoppingCartIds: any[] = []
@@ -36,11 +36,11 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
         }
         : null
     finalVoucher = finalVoucher
-      ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+      ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
       : null
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const params = {
-      goodsList,
+      productList,
       addressInfo: addressInfo.id !== '' ? addressInfo : null,
       remark,
       shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],

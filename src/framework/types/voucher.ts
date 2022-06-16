@@ -10,10 +10,10 @@ export type Voucher = {
   voucherUsePrice: number //达到多少钱可使用优惠券
   voucherType: string //优惠券类型，店铺通用优惠券/商品型优惠券
   isCanUsed: boolean //checkout时是否可用
-  voucherGoodsRelated: any[] //商品型优惠券对哪些商品可用
+  voucherProductRelated: any[] //商品型优惠券对哪些商品可用
   recurrence: boolean //是否可叠加折扣
-  orderType:string //优惠券可用于哪种订单类型
-  originVoucher:any//从后端拿到的原始优惠券数据
-  discountType:string
-  maxDiscountPrice:number//针对这个这笔订单最大可优惠多少
+  orderType: string //优惠券可用于哪种订单类型
+  originVoucher: any//从后端拿到的原始优惠券数据
+  discountType: string
+  maxDiscountPrice: number//针对这个这笔订单最大可优惠多少
 }

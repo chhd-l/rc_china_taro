@@ -48,14 +48,14 @@ const Checkout = () => {
 
   const getTotalNum = () => {
     const total = tradeItems.reduce((prev, cur) => {
-      return prev + cur.goodsNum
+      return prev + cur.productNum
     }, 0)
     setTotalNum(total)
   }
 
   const getTotalPrice = () => {
     const total = tradeItems.reduce((prev, cur) => {
-      return prev + cur.goodsNum * cur.localData.price
+      return prev + cur.productNum * cur.localData.price
     }, 0)
     let normalTotal = total + shippingPrice
     if (orderType === 'FRESH_BUY') {
@@ -93,22 +93,22 @@ const Checkout = () => {
         return false
       }
       setLoading(true)
-      const goodsList = tradeItems.map((el) => {
-        if (el.skuGoodInfo.goodsVariants?.length > 0) {
-          el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariants[0], {
-            num: el.goodsNum,
+      const productList = tradeItems.map((el) => {
+        if (el.skuGoodInfo.productVariants?.length > 0) {
+          el.skuGoodInfo.productVariant = Object.assign(el.skuGoodInfo.productVariants[0], {
+            num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.goodsVariants
+        delete el.skuGoodInfo.productVariants
         return el.skuGoodInfo
       })
       const benefits = giftItems.map((el) => {
-        if (el.skuGoodInfo.goodsVariants?.length > 0) {
-          el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariants[0], {
-            num: el.goodsNum,
+        if (el.skuGoodInfo.productVariants?.length > 0) {
+          el.skuGoodInfo.productVariant = Object.assign(el.skuGoodInfo.productVariants[0], {
+            num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.goodsVariants
+        delete el.skuGoodInfo.productVariants
         return el.skuGoodInfo
       })
       let finalVoucher =
@@ -119,7 +119,7 @@ const Checkout = () => {
             }
           : null
       finalVoucher = finalVoucher
-        ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+        ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
         : null
       let shoppingCartIds: any[] = []
       tradeItems.map((el) => {
@@ -154,7 +154,7 @@ const Checkout = () => {
         },
         pet: subscriptionInfo.pet,
         address: addressInfo.id !== '' ? addressInfo : null,
-        goodsList,
+        productList,
         benefits,
         coupons: couponItems.map((el) => {
           let couponInfo = el.couponInfo
@@ -289,7 +289,7 @@ const Checkout = () => {
       key: 'select-product',
       success: function (res) {
         let data = JSON.parse(res.data)
-        let { goodsList } = data
+        let { productList } = data
         if (data.isSubscription) {
           setOrderType('FRESH_BUY')
           let { giftList, couponList } = data
@@ -311,7 +311,7 @@ const Checkout = () => {
           let discount = subInfo.cycleObj.originalPrice - subInfo.cycleObj.discountPrice
           setSubDiscountPrice(discount)
         }
-        setTradeItems(goodsList)
+        setTradeItems(productList)
       },
     })
     getDefaultAddress()

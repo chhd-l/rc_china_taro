@@ -38,7 +38,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
     })
   }
   //初始Canvas，将内容画到Canvas上,画完后将画布生成临时图片
-  const createShareGoods = async () => {
+  const createShareProduct = async () => {
     const user = Taro.getStorageSync('wxLoginRes').userInfo
     if (!user?.nickName) {
       return
@@ -200,7 +200,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
                 setAuthLoginOpened(true)
                 return
               }
-              createShareGoods()
+              createShareProduct()
             }}
           >
             <View className="w-14 m-auto">
@@ -210,7 +210,7 @@ const ImgPoster = ({ productInfo, qrcode, setShowPoster, showPoster, setShowShar
           </View>
         </View>
       </AtFloatLayout>
-      {/* <View onClick={createShareGoods}>点击分享</View> */}
+      {/* <View onClick={createShareProduct}>点击分享</View> */}
       {/* <View onClick={()=>{
           getPhotosAlbumAuth()
       }}>保存本地</View> */}

@@ -45,12 +45,12 @@ const DeliveryManagement = () => {
         <CommonTitle title="发货管理">
           <Text className="text-rc22 text-rc_666666">订阅编号:{data?.no}</Text>
         </CommonTitle>
-        {data?.goodsList?.map((item) => {
-          const { goodsVariant } = item
+        {data?.productList?.map((item) => {
+          const { productVariant } = item
           return (
             <View className="h-36 flex" key={item.id}>
               <View className="w-36 h-full">
-                <Image src={goodsVariant.defaultImage} className="w-full h-full" />
+                <Image src={productVariant.defaultImage} className="w-full h-full" />
               </View>
               <View className="flex-1 px-3 flex-col flex items-start w-full justify-center">
                 <View className="text-28   mb-2 font-bold">

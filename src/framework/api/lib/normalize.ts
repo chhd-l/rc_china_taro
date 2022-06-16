@@ -1,4 +1,4 @@
-import { GoodsVariants } from '@/framework/schema/products.schema'
+import { ProductVariants } from '@/framework/schema/products.schema'
 import { SkuItemProps } from '@/framework/types/products'
 import { dealDatasForApi, formatDateToApi } from '@/utils/utils'
 import moment from 'moment'
@@ -25,8 +25,8 @@ export const normalizePetsForFe = (petInfo: any) => {
   return data
 }
 
-export const normalizeProductForFe = (goods: any): any => {
-  // goods.goodsAttributeValueRel?.forEach((attr) => {
+export const normalizeProductForFe = (product: any): any => {
+  // product.productAttributeValueRel?.forEach((attr) => {
   //   let tagStr = ''
   //   switch (attr.attributeName) {
   //     case '年龄':
@@ -41,44 +41,44 @@ export const normalizeProductForFe = (goods: any): any => {
   //   tags.push(tagStr)
   // })
   // 单独处理一个规格的情况，下架商品不可见
-  let { goodsSpecifications, goodsVariants } = goods
-  if (goodsSpecifications?.length === 1) {
-    let goodsSpecificationDetailIdArr = goodsVariants.map(
-      (el) => el.goodsSpecificationRel[0]?.goodsSpecificationDetailId,
+  let { productSpecifications, productVariants } = product
+  if (productSpecifications?.length === 1) {
+    let productSpecificationDetailIdArr = productVariants.map(
+      (el) => el.productSpecificationRel[0]?.productSpecificationDetailId,
     )
-    console.info('goodsSpecificationDetailIdArr', goodsSpecificationDetailIdArr)
-    goodsSpecifications[0].goodsSpecificationDetail = goodsSpecifications[0]?.goodsSpecificationDetail?.filter((el) =>
-      goodsSpecificationDetailIdArr.find((cel) => el?.id === cel),
+    console.info('productSpecificationDetailIdArr', productSpecificationDetailIdArr)
+    productSpecifications[0].productSpecificationDetail = productSpecifications[0]?.productSpecificationDetail?.filter((el) =>
+      productSpecificationDetailIdArr.find((cel) => el?.id === cel),
     )
-    console.info('goodsSpecifications', goodsSpecifications)
+    console.info('productSpecifications', productSpecifications)
   }
-  if (goodsSpecifications?.length > 1) {
+  if (productSpecifications?.length > 1) {
     //多个规格的情况，需要处理无库存的时候置灰
-    goodsVariants = goodsVariants.filter(el => el.stock)
+    productVariants = productVariants.filter(el => el.stock)
   }
   let spu = {
     // specs: string
-    name: goods.goodsName,
+    name: product.productName,
     // stock: number
-    // price: goods.mar
+    // price: product.mar
     // originalPrice:
-    id: goods.id,
-    wxCodeUrl: goods.wxCodeUrl,
-    no: goods.spuNo,
+    id: product.id,
+    wxCodeUrl: product.wxCodeUrl,
+    no: product.spuNo,
     tags: [''], //逻辑处理
-    img: goods.goodsAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),
-    video: goods.goodsAsserts?.filter((el) => el.type === 'video')[0]?.artworkUrl,
-    skus: goodsVariants
-      ?.map((sku, index) => normalizeSkuForFe(sku, index, goods.goodsAttributeValueRel, goodsSpecifications)),
-    type: goods.type,
-    description: goods.goodsDescription,
+    img: product.productAsserts?.filter((el) => el.type === 'image').map((el) => el.artworkUrl),
+    video: product.productAsserts?.filter((el) => el.type === 'video')[0]?.artworkUrl,
+    skus: productVariants
+      ?.map((sku, index) => normalizeSkuForFe(sku, index, product.productAttributeValueRel, productSpecifications)),
+    type: product.type,
+    description: product.productDescription,
     specifications:
-      goodsSpecifications
+      productSpecifications
         ?.map((spec) => {
           let item = {
             id: spec.id,
             name: spec.specificationName,
-            children: spec.goodsSpecificationDetail.map((el) => {
+            children: spec.productSpecificationDetail.map((el) => {
               return {
                 able: true,
                 id: el.id,
@@ -94,12 +94,12 @@ export const normalizeProductForFe = (goods: any): any => {
 }
 
 export const normalizeSkuForFe = (
-  sku: GoodsVariants,
+  sku: ProductVariants,
   index: number,
-  goodsAttributeValueRel: any,
-  goodsSpecifications,
+  productAttributeValueRel: any,
+  productSpecifications,
 ): SkuItemProps => {
-  let tags: string[] = normalizeTags(goodsAttributeValueRel, sku.feedingDays)
+  let tags: string[] = normalizeTags(productAttributeValueRel, sku.feedingDays)
   // let tags = sku.feedingDays ? [...spuTags, `建议饲喂天数:${sku.feedingDays}天`] : [...spuTags]
   let item = {
     // specs: string
@@ -113,11 +113,11 @@ export const normalizeSkuForFe = (
     tags: tags.filter((el) => el), //筛选有数据的展示
     img: [sku.defaultImage],
     specString: '',
-    goodsSpecificationRel: sku.goodsSpecificationRel,
-    specText: normalizeSpecText(sku.goodsSpecificationRel, goodsSpecifications)?.filter((el) => el),
+    productSpecificationRel: sku.productSpecificationRel,
+    specText: normalizeSpecText(sku.productSpecificationRel, productSpecifications)?.filter((el) => el),
     specIds:
-      sku.goodsSpecificationRel?.map((el) => {
-        return el.goodsSpecificationDetailId
+      sku.productSpecificationRel?.map((el) => {
+        return el.productSpecificationDetailId
       }) || [],
     defaultChoose: index === 0 ? true : false,
   }
@@ -126,15 +126,15 @@ export const normalizeSkuForFe = (
 export const normalizeProductsforFe = (data: any) => {
   let list = data?.map((item) => {
     console.log('item-------------', item)
-    let minItem = item.goodsVariants ? item.goodsVariants[0] : null
-    let images = item.goodsAsserts?.filter((el) => el.type === 'image')
-    // item.goodsVariants.forEach((variant) => {
+    let minItem = item.productVariants ? item.productVariants[0] : null
+    let images = item.productAsserts?.filter((el) => el.type === 'image')
+    // item.productVariants.forEach((variant) => {
     //   if (variant?.marketingPrice && Number(minItem.marketingPrice) > Number(variant?.marketingPrice)) {
     //     minItem = variant
     //   }
     // })
     return {
-      name: item.goodsName,
+      name: item.productName,
       img: minItem?.defaultImage || (images ? images[0]?.artworkUrl : null),
       originalPrice: minItem?.listPrice,
       price: minItem?.marketingPrice,
@@ -144,13 +144,13 @@ export const normalizeProductsforFe = (data: any) => {
   })
   return list
 }
-export const normalizeSpecText = (goodsSpecificationRel, goodsSpecifications): string[] => {
-  return goodsSpecificationRel?.map((el) => {
-    let specObj = goodsSpecifications.find((spec) => spec.id === el.goodsSpecificationId)
-    let specDetailName = specObj?.goodsSpecificationDetail?.find(
-      (specDetail) => specDetail.id === el.goodsSpecificationDetailId,
+export const normalizeSpecText = (productSpecificationRel, productSpecifications): string[] => {
+  return productSpecificationRel?.map((el) => {
+    let specObj = productSpecifications.find((spec) => spec.id === el.productSpecificationId)
+    let specDetailName = specObj?.productSpecificationDetail?.find(
+      (specDetail) => specDetail.id === el.productSpecificationDetailId,
     )?.specificationDetailName
-    // console.info('goodsSpecificationDetailId', specDetailName)
+    // console.info('productSpecificationDetailId', specDetailName)
     return specDetailName || ''
   })
 }
@@ -183,24 +183,24 @@ const petItemFeArr = [
 ]
 
 export const normalizeCartData = (cart: any, productSkuInfo: any, isSubscription?: boolean) => {
-  let spuimage = productSkuInfo.goodsAsserts?.[0]?.artworkUrl || productSkuInfo.defaultImage
-  productSkuInfo.goodsVariants = productSkuInfo?.goodsVariant || productSkuInfo?.goodsVariants
+  let spuimage = productSkuInfo.productAsserts?.[0]?.artworkUrl || productSkuInfo.defaultImage
+  productSkuInfo.productVariants = productSkuInfo?.productVariant || productSkuInfo?.productVariants
   const productSku = { ...productSkuInfo }
   if (spuimage) {
     productSku.defaultImage = spuimage
   }
-  delete productSku.goodsAsserts
+  delete productSku.productAsserts
   cart.skuGoodInfo = productSku
   cart.select = false
   cart.localData = {
-    name: productSkuInfo?.goodsVariants[0]?.name || productSkuInfo.goodsName,
-    image: productSkuInfo?.goodsVariants[0]?.defaultImage || spuimage,
-    price: isSubscription ? productSkuInfo?.goodsVariants[0]?.subscriptionPrice : productSkuInfo?.goodsVariants[0]?.marketingPrice,
+    name: productSkuInfo?.productVariants[0]?.name || productSkuInfo.productName,
+    image: productSkuInfo?.productVariants[0]?.defaultImage || spuimage,
+    price: isSubscription ? productSkuInfo?.productVariants[0]?.subscriptionPrice : productSkuInfo?.productVariants[0]?.marketingPrice,
     tags: normalizeProductForFe(productSkuInfo)?.skus[0].tags,
     specs: normalizeProductForFe(productSkuInfo)?.skus[0].specText,
-    stock: productSkuInfo?.goodsVariants[0]?.stock || 0,//sku库存
-    shelvesStatus: productSkuInfo?.goodsVariants[0]?.shelvesStatus || false,//sku上下架状态
-    isDeleted: productSkuInfo?.goodsVariants[0]?.isDeleted || false//sku是否被删除
+    stock: productSkuInfo?.productVariants[0]?.stock || 0,//sku库存
+    shelvesStatus: productSkuInfo?.productVariants[0]?.shelvesStatus || false,//sku上下架状态
+    isDeleted: productSkuInfo?.productVariants[0]?.isDeleted || false//sku是否被删除
   }
   return cart
 }

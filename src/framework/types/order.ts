@@ -1,6 +1,6 @@
 import { Address } from '@/framework/types/consumer'
 
-export interface TradeGoodsAttributeAndValue {
+export interface TradeProductAttributeAndValue {
   attributeName: string
   attributeNameEn: string
   attributeValueName: string
@@ -8,7 +8,7 @@ export interface TradeGoodsAttributeAndValue {
   relId: string
   attributeId: string
   attributeValueId: string
-  goodsId: string
+  productId: string
 }
 
 export interface TradeLineItem {
@@ -17,11 +17,11 @@ export interface TradeLineItem {
   spuNo: string
   skuName: string
   spuName: string
-  goodsSpecifications: string
+  productSpecifications: string
   pic: string
   price: string
   num: string
-  goodsAttributeAndValues: [TradeGoodsAttributeAndValue]
+  productAttributeAndValues: [TradeProductAttributeAndValue]
   feedingDays: number
   isGift?: boolean
 }
@@ -37,7 +37,7 @@ export interface PayInfo {
 }
 
 export interface TradePrice {
-  goodsPrice: number
+  productPrice: number
   deliveryPrice: number
   totalPrice: number
   discountsPrice: number

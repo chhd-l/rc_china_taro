@@ -6,15 +6,15 @@ import { ProductDetailProps } from '@/framework/types/products'
 import ApiRoot from '../fetcher'
 import { normalizeCatOrDogAttr, normalizeProductForFe, normalizeProductsforFe } from '../lib/normalize'
 
-export const getProduct = async ({ storeId, goodsId }) => {
+export const getProduct = async ({ storeId, productId }) => {
   try {
     // const { productBySpuId: data } = mockProduct.data
     const { productBySpuId: data } = await ApiRoot.products().getProductBySpu({
       storeId,
-      goodsId,
+      productId,
     })
     // console.info('listlistlistlist......', data)
-    // let data = mockProduct.data.FindGoodsList.records[0]
+    // let data = mockProduct.data.FindProductList.records[0]
     const detail = normalizeProductForFe(data)
     return detail
     // return detail.map((pet) => normalizeProductForFe(pet))
@@ -24,7 +24,7 @@ export const getProduct = async ({ storeId, goodsId }) => {
 }
 
 export const getProducts = async (params: any) => {
-  // let list = mockProduct.data.FindGoodsList.records[0]
+  // let list = mockProduct.data.FindProductList.records[0]
   try {
     const res = await ApiRoot.products().getESProductLists(params)
     let list = res?.getEsProducts?.records || []
@@ -44,10 +44,10 @@ export const getProducts = async (params: any) => {
     }
   }
 }
-export const getProductBySkuId = async ({ goodsVariantId }: { goodsVariantId: string }) => {
+export const getProductBySkuId = async ({ productVariantId }: { productVariantId: string }) => {
   try {
     const res = await ApiRoot.products().getProductBySku({
-      goodsVariantId,
+      productVariantId,
     })
     console.log('getProductBySkuId view', res)
     return res

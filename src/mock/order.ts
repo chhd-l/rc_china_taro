@@ -9,11 +9,11 @@ export const orderDetailMockData = {
       spuNo: '2001020',
       skuName: '离乳期幼猫全价猫奶糕',
       spuName: '离乳期幼猫全价猫奶糕',
-      goodsSpecifications: '2KG',
+      productSpecifications: '2KG',
       pic: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1632987707399_z7bUuS.png',
       price: 170,
       num: 4,
-      goodsAttributeAndValues: [
+      productAttributeAndValues: [
         {
           attributeName: 'Age',
           attributeNameEn: 'Age',
@@ -22,7 +22,7 @@ export const orderDetailMockData = {
           relId: 'c62b9356-bd86-92ff-c831-bde8055b88fa',
           attributeId: 'a7ddacc3-c36f-a8a0-d54f-9cb4395b1a02',
           attributeValueId: '05325edb-111b-ce6a-8d72-f95bb11e',
-          goodsId: '2be89f55-584f-7c3b-6b4d-76119dfcbe25',
+          productId: '2be89f55-584f-7c3b-6b4d-76119dfcbe25',
         },
       ],
       feedingDays: 45,
@@ -33,11 +33,11 @@ export const orderDetailMockData = {
       spuNo: '20010200',
       skuName: '离乳期幼猫全价猫奶糕',
       spuName: '离乳期幼猫全价猫奶糕',
-      goodsSpecifications: '幼猫粮2KG',
+      productSpecifications: '幼猫粮2KG',
       pic: 'https://miniapp-product.royalcanin.com.cn/rcmini2020/upload/1618476680557_qTbFsC.jpg',
       price: 188,
       num: 2,
-      goodsAttributeAndValues: [
+      productAttributeAndValues: [
         {
           attributeName: 'Age',
           attributeNameEn: 'Age',
@@ -46,7 +46,7 @@ export const orderDetailMockData = {
           relId: '6222556f-7d33-7844-353e-b28969bbc448',
           attributeId: 'a7ddacc3-c36f-a8a0-d54f-9cb4395b1a02',
           attributeValueId: '4a0e8b24-4c40-ab19-8c31-2b910bb1',
-          goodsId: 'bc0d8dd6-fd3c-3512-6422-75d2ceeb2f70',
+          productId: 'bc0d8dd6-fd3c-3512-6422-75d2ceeb2f70',
         },
       ],
       feedingDays: 40,
@@ -76,7 +76,7 @@ export const orderDetailMockData = {
   },
   isSubscription: false,
   tradePrice: {
-    goodsPrice: 1056,
+    productPrice: 1056,
     totalPrice: 1056,
   },
   tradeState: {

@@ -31,7 +31,7 @@ const Search = () => {
   const [productList, setProductList] = useState<ProductListItemProps[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [categoryId, setCategoryId] = useState<string>('')
-  const [goodsName, setGoodsName] = useState<string>('')
+  const [productName, setProductName] = useState<string>('')
   const [isNoMore, setIsNoMore] = useState(false)
   const [animal, setAnimal] = useState<string>('')
   let type = 1 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
@@ -50,16 +50,16 @@ const Search = () => {
     }
     let current = currentPage + 1
     setCurrentPage(current)
-    getList({ current, goodsName, categoryId })
+    getList({ current, productName, categoryId })
   })
   const getList = async ({
     categoryId,
-    goodsName = keyword,
+    productName = keyword,
     flterlist,
     current,
   }: {
     categoryId?: string
-    goodsName?: string
+    productName?: string
     flterlist?: any
     current?: number
   }) => {
@@ -69,11 +69,11 @@ const Search = () => {
       offset = current * 10
     }
     if (categoryId) {
-      params.goodsCategoryId = categoryId
+      params.productCategoryId = categoryId
       setCategoryId(categoryId)
     }
-    if (goodsName) {
-      params.goodsName = goodsName
+    if (productName) {
+      params.productName = productName
     }
     ;(flterlist || filterList).map((el) => {
       el.list
@@ -91,7 +91,7 @@ const Search = () => {
             let attributeRelation = { attributeId: val.attributeId, attributeValueIds: [val.value] }
             params.attributeRelation.push(attributeRelation)
           }
-          params.goodsCategoryId = val.categoryId
+          params.productCategoryId = val.categoryId
         })
     })
     let { productList: list, total } = await getProducts({ limit: 10, sample: params, hasTotal: true, offset })
@@ -158,7 +158,7 @@ const Search = () => {
       key: 'lastSearchList',
       data: newLastSearchList,
     })
-    getList({ goodsName: value })
+    getList({ productName: value })
     setKeyword(value)
   }
 

@@ -50,16 +50,16 @@ const Step = () => {
     // }
 
     if (stepCount === 0) {
-      const { couponList, goodsList, giftList } = await getSubscriptionSimpleRecommend(params)
-      const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
+      const { couponList, productList, giftList } = await getSubscriptionSimpleRecommend(params)
+      const { discountPrice, originalPrice, quantity } = productList[0].cycleList[0]
 
-      // const gift = giftList.filter(item => goodsList[0].giftIdList.includes(item?.goodsVariants?.[0]?.id))
-      const gift = goodsList[0].giftIdList.map((el) => {
-        let goodsVariants = giftList.find((giftItem) => giftItem?.goodsVariants?.[0]?.id === el.giftId)
+      // const gift = giftList.filter(item => productList[0].giftIdList.includes(item?.productVariants?.[0]?.id))
+      const gift = productList[0].giftIdList.map((el) => {
+        let productVariants = giftList.find((giftItem) => giftItem?.productVariants?.[0]?.id === el.giftId)
         let data: any = {}
-        if (goodsVariants && el) {
+        if (productVariants && el) {
           data = {
-            ...goodsVariants,
+            ...productVariants,
             subscriptionRecommendRuleId: el.subscriptionRecommendRuleId,
             quantityRule: el.quantityRule,
             quantity: el.quantity,
@@ -86,12 +86,12 @@ const Step = () => {
         return data
       })
       console.info('giftgift', gift)
-      setRecommendInfo({ ...recommendInfo, goodsList, couponList, giftList })
+      setRecommendInfo({ ...recommendInfo, productList, couponList, giftList })
       setRecommendProduct({
         ...recommenProduct,
-        ...goodsList[0],
+        ...productList[0],
         quantity,
-        cycle: goodsList[0].cycleList[0],
+        cycle: productList[0].cycleList[0],
         giftList: gift,
         discountPrice,
         originalPrice,
@@ -129,11 +129,11 @@ const Step = () => {
         }) || []
       setRecommendProduct({ ...recommenProduct, couponList: couponsList })
       // 切换商品总价和赠品没有改变
-      // const { goodsList, giftList } = recommendInfo
-      // const { discountPrice, originalPrice, quantity } = goodsList[0].cycleList[0]
-      // const gift = getGifts(goodsList[0].giftIdList, giftList)
+      // const { productList, giftList } = recommendInfo
+      // const { discountPrice, originalPrice, quantity } = productList[0].cycleList[0]
+      // const gift = getGifts(productList[0].giftIdList, giftList)
       // setRecommendInfo({ ...recommendInfo, discountPrice, originalPrice })
-      // setRecommendProduct({ ...recommenProduct, ...goodsList[0], quantity, cycle: goodsList[0].cycleList[0], giftList: gift })
+      // setRecommendProduct({ ...recommenProduct, ...productList[0], quantity, cycle: productList[0].cycleList[0], giftList: gift })
     }
 
     setStepCount(stepCount + 1)
@@ -170,12 +170,12 @@ const Step = () => {
             className="stepButton"
             onClick={() => {
               console.log('recommenProductrecommenProductrecommenProduct', recommenProduct)
-              const { freshType, cycle, goodsVariantInfo, giftList, subscriptionRecommendRuleId, couponList } =
+              const { freshType, cycle, productVariantInfo, giftList, subscriptionRecommendRuleId, couponList } =
                 recommenProduct
               const { recommPetInfo } = recommendInfo
               let { birthday, code: breedCode, breed: breedName, gender, id, image, name, type } = recommPetInfo
               birthday = moment(birthday)
-              let goodsList = [{ ...goodsVariantInfo, subscriptionRecommendRuleId }]
+              let productList = [{ ...productVariantInfo, subscriptionRecommendRuleId }]
               Taro.setStorage({
                 key: 'select-product',
                 data: JSON.stringify({
@@ -192,13 +192,15 @@ const Step = () => {
                     name,
                     type,
                   },
-                  goodsList: goodsList.map((el) => normalizeCartData({ goodsNum: recommenProduct.quantity }, el, true)),
+                  productList: productList.map((el) =>
+                    normalizeCartData({ productNum: recommenProduct.quantity }, el, true),
+                  ),
                   isSubscription: true,
                   giftList:
                     giftList?.map((el) => {
-                      let goodsNum = el.quantity
-                      // el.subscriptionRecommendRuleId=goodsList
-                      return normalizeCartData({ goodsNum }, el, true)
+                      let productNum = el.quantity
+                      // el.subscriptionRecommendRuleId=productList
+                      return normalizeCartData({ productNum }, el, true)
                     }) || [],
                   couponList: couponList.map((el) => {
                     el.subscriptionRecommendRuleId = subscriptionRecommendRuleId

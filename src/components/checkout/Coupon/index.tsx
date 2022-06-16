@@ -77,14 +77,14 @@ const Coupon = ({
   //获取产品型优惠券针对当前所要购买的商品的最大优惠价格
   const handleProductVoucherPrice = (voucher) => {
     let canUsedProduct: any[] = []
-    voucher.voucherGoodsRelated.map((el) => {
-      const item = tradeItems.find((orderProduct) => el?.goodsId === orderProduct?.goodsId)
+    voucher.voucherProductRelated.map((el) => {
+      const item = tradeItems.find((orderProduct) => el?.productId === orderProduct?.productId)
       if (item) {
         canUsedProduct.push(item)
       }
     })
     return canUsedProduct.reduce((prev, cur) => {
-      return prev + cur?.skuGoodInfo?.goodsVariants[0].marketingPrice * cur?.goodsNum
+      return prev + cur?.skuGoodInfo?.productVariants[0].marketingPrice * cur?.productNum
     }, 0)
   }
 

@@ -10,7 +10,7 @@ import { useAtom } from 'jotai'
 import { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
 import './index.less'
 
-const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
+const ProductVoucherModal = ({ productId }: { productId: string }) => {
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [showReceiveVoucher, setShowReceiveVoucher] = useState(false)
   const [showSuccessReceive, setShowSuccessReceive] = useState(false)
@@ -18,8 +18,8 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
 
   const getVoucherList = async () => {
-    console.log('aaaaaaa', goodsId)
-    const res = await getPdpVouchers({ goodsId })
+    console.log('aaaaaaa', productId)
+    const res = await getPdpVouchers({ productId })
     setVouchers(res.sort((a, b) => a.isReceived - b.isReceived))
   }
 
@@ -53,10 +53,10 @@ const ProductVoucherModal = ({ goodsId }: { goodsId: string }) => {
   }
 
   useEffect(() => {
-    if (goodsId) {
+    if (productId) {
       getVoucherList()
     }
-  }, [goodsId])
+  }, [productId])
 
   return (
     <>

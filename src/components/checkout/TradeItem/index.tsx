@@ -4,7 +4,7 @@ import './index.less'
 import GiftItem from '../GiftItem'
 
 const ProductItem = ({ product }: { product: any }) => {
-  const { goodsNum } = product
+  const { productNum } = product
   const { image, price, tags, name } = product.localData
 
   return (
@@ -21,7 +21,7 @@ const ProductItem = ({ product }: { product: any }) => {
         </View>
         <View className="flex flex-row justify-between items-end mt-4">
           <Text className="text-26 text-primary-red font-semibold">{formatMoney(price)}</Text>
-          <Text className="text-22">x {goodsNum}</Text>
+          <Text className="text-22">x {productNum}</Text>
         </View>
       </View>
     </View>

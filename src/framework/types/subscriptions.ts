@@ -21,7 +21,7 @@ export type Subscription = {
 export type SubscriptionProductItem = {
     nextDeliveryTime: Scalars['DateTime']
     firstDeliveryTime: Scalars['DateTime']
-    subscribeGoodsId: string
+    subscribeProductId: string
     periodTypeId: string
     subscribeNum: number
     originalPrice: Price

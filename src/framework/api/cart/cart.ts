@@ -23,7 +23,7 @@ export const getCarts = async (isNeedReload = false) => {
         console.log('cart data', cartProducts)
         for (let i = 0; i < cartProducts.length; i++) {
           //查询商品信息
-          let data = await getProductBySkuId({ goodsVariantId: cartProducts[i].goodsVariantID })
+          let data = await getProductBySkuId({ productVariantId: cartProducts[i].productVariantID })
           if (data?.productBySkuId) {
             finallyCartDatas.push(normalizeCartData(cartProducts[i], data?.productBySkuId))
           }
@@ -74,7 +74,7 @@ export const getCartAndProducts = async (isNeedReload = false) => {
   }
 }
 
-export const getCartNumber = async (goodsId, consumerInfo) => {
+export const getCartNumber = async (productId, consumerInfo) => {
   // let { consumerAccount } = Taro.getStorageSync('wxLoginRes')
   if (!consumerInfo?.id) {
     return {
@@ -87,9 +87,9 @@ export const getCartNumber = async (goodsId, consumerInfo) => {
     storeId: '12345678',
   })
   const cartNumber = (res?.carts || []).reduce((prev, cur) => {
-    return prev + cur.goodsNum
+    return prev + cur.productNum
   }, 0)
-  let currentCartSpu = (res?.carts || []).filter((el) => el.goodsId === goodsId)
+  let currentCartSpu = (res?.carts || []).filter((el) => el.productId === productId)
 
   return {
     cartNumber: cartNumber || 0,
@@ -137,12 +137,12 @@ export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator:
   }
 }
 
-export const updateCart = async ({ id, goodsNum, operator }: { id: string; goodsNum: number; operator: string }) => {
+export const updateCart = async ({ id, productNum, operator }: { id: string; productNum: number; operator: string }) => {
   try {
     const cart = await ApiRoot.carts().updateCart({
       body: {
         id,
-        goodsNum,
+        productNum,
         operator,
         storeId: baseSetting.storeId,
       },

@@ -42,7 +42,7 @@ export const getListVouchers = async () => {
 export const getPdpVouchers = async (params) => {
   try {
     const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot.vouchers().getVouchersByGoodsId({
+    const res = await ApiRoot.vouchers().getVouchersByProductId({
       ...params,
       consumerId: wxLoginRes?.consumerAccount?.consumerId,
       storeId: wxLoginRes?.consumerAccount?.storeId,
@@ -87,7 +87,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     voucherUsePrice: Number(minimumBasketPrice || discountValue || 0), //达到多少钱可使用优惠券
     voucherType: voucherType,
     isCanUsed: false,
-    voucherGoodsRelated: voucher?.voucherGoodsRelated || [],
+    voucherProductRelated: voucher?.voucherProductRelated || [],
     recurrence: voucher?.recurrence || false,
     orderType: voucher?.orderType || 'ALL',
     originVoucher: voucher,

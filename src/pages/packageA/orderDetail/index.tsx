@@ -35,7 +35,7 @@ const OrderDetails = () => {
       detail: '',
     },
     tradePrice: {
-      goodsPrice: 0,
+      productPrice: 0,
       deliveryPrice: 0,
       totalPrice: 0,
       discountsPrice: 0,
@@ -46,7 +46,7 @@ const OrderDetails = () => {
     },
   })
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
-  const { totalPrice, discountsPrice, goodsPrice } = orderDetail?.tradePrice
+  const { totalPrice, discountsPrice, productPrice } = orderDetail?.tradePrice
   const { trackingId, deliveries } = orderDetail?.shippingInfo
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
@@ -163,7 +163,7 @@ const OrderDetails = () => {
                         <View className="text-xs font-black mb-1">{el?.skuName}</View>
                         <View className="text-primary-red flex ProductIntroduction justify-between items-center">
                           <View className="flex flex-row flex-wrap">
-                            {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                            {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag) => (
                               <View
                                 className="px-1 border rounded-lg border-solid border-red mr-2 mt-2"
                                 style={{ borderWidth: '1PX' }}
@@ -174,7 +174,7 @@ const OrderDetails = () => {
                           </View>
                           <View className="numcolor">X{el?.num}</View>
                         </View>
-                        <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                        <View className="mt-2 ProductIntroduction numcolor">规格：{el?.productSpecifications}</View>
                         {orderDetail.freshType === 'FRESH_100_DAYS' ? (
                           <View className="mt-1 ProductIntroduction numcolor">新鲜度：100天</View>
                         ) : null}
@@ -198,21 +198,21 @@ const OrderDetails = () => {
                         </View>
                         <View className="flex ProductIntroduction justify-between items-center">
                           <View className="flex flex-row flex-wrap">
-                            {/* {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                            {/* {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag) => (
                             <View style={{ borderColor: '#e8e8e8' }} className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2">{tag}</View>
                           ))} */}
                           </View>
                           <View className="numcolor">X{el?.num}</View>
                         </View>
-                        {el?.goodsSpecifications ? (
-                          <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                        {el?.productSpecifications ? (
+                          <View className="mt-2 ProductIntroduction numcolor">规格：{el?.productSpecifications}</View>
                         ) : null}
                       </View>
                     </View>
                   ))}
                   <View className="w-full h-8 footerText flex items-end flex-col">
                     <View className="text-right">
-                      共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(goodsPrice)}，优惠
+                      共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(productPrice)}，优惠
                       {formatMoney(discountsPrice)}，实付款
                       <Text className="text-primary-red text-28">{formatMoney(totalPrice)}</Text>
                     </View>
