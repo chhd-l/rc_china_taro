@@ -4,7 +4,9 @@ import { AuthLogin } from '@/components/customer'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import PetList from '@/components/customer/PetList'
 import { SHIPPED_ORDER_ICON, TO_SHIP_ORDER_ICON, UNPAID_ORDER_ICON, VOUCHER_ORDER_ICON } from '@/lib/constants'
+import { MYACCOUNT_SOCIALGROUP } from '@/lib/mine'
 import routers from '@/routers'
+// import {MYACCOUNT_SOCIALGROUP}
 import { customerAtom } from '@/store/customer'
 // import Announcement from '@/components/common/Announcement'
 // import defaultIcon from '@/assets/icons/icon-home.png'
@@ -164,14 +166,22 @@ const Account = () => {
           </View>
         </View>
         {/*/!*官方福利群*!/*/}
-        {/* <View>官方福利群</View> */}
+        <Image
+          src={MYACCOUNT_SOCIALGROUP}
+          className="w-rc692 h-rc194 m-auto"
+          onClick={() =>
+            Taro.navigateTo({
+              url: '/pages/packageA/welfare/index',
+            })
+          }
+        />
         {/*/!*打卡冷知识*!/*/}
         {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
         {/* <View>微信关注</View> */}
         {/*/!*我的宠物*!/*/}
         <View>
-          <PetList withoutLoading={true} />
+          <PetList withoutLoading />
         </View>
         <AtModal isOpened={signoutOpend}>
           <AtModalHeader>
