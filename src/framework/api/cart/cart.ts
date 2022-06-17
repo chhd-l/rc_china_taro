@@ -24,8 +24,8 @@ export const getCarts = async (isNeedReload = false) => {
         for (let i = 0; i < cartProducts.length; i++) {
           //查询商品信息
           let data = await getProductBySkuId({ productVariantId: cartProducts[i].productVariantID })
-          if (data?.productBySkuId) {
-            finallyCartDatas.push(normalizeCartData(cartProducts[i], data?.productBySkuId))
+          if (data?.productGetByProductVariantId) {
+            finallyCartDatas.push(normalizeCartData(cartProducts[i], data?.productGetByProductVariantId))
           }
         }
         session.set('cart-data', finallyCartDatas)
@@ -57,8 +57,8 @@ export const getCartAndProducts = async (isNeedReload = false) => {
         cartProducts = res || []
         console.log('cart data', cartProducts)
         for (let i = 0; i < cartProducts.length; i++) {
-          if (cartProducts[i]?.productBySkuId) {
-            finallyCartDatas.push(normalizeCartData(cartProducts[i], cartProducts[i]?.productBySkuId))
+          if (cartProducts[i]?.productGetByProductVariantId) {
+            finallyCartDatas.push(normalizeCartData(cartProducts[i], cartProducts[i]?.productGetByProductVariantId))
           }
         }
         session.set('cart-data', finallyCartDatas)

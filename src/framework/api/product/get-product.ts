@@ -8,8 +8,8 @@ import { normalizeCatOrDogAttr, normalizeProductForFe, normalizeProductsforFe } 
 
 export const getProduct = async ({ storeId, productId }) => {
   try {
-    // const { productBySpuId: data } = mockProduct.data
-    const { productBySpuId: data } = await ApiRoot.products().getProductBySpu({
+    // const { productGet: data } = mockProduct.data
+    const { productGet: data } = await ApiRoot.products().getProductBySpu({
       storeId,
       productId,
     })
@@ -27,14 +27,14 @@ export const getProducts = async (params: any) => {
   // let list = mockProduct.data.FindProductList.records[0]
   try {
     const res = await ApiRoot.products().getESProductLists(params)
-    let list = res?.getEsProducts?.records || []
+    let list = res?.productFindPageByEs?.records || []
     console.info('test', res)
     // const pets = await ApiRoot.pets().getProduct({ id: "20220415" });
     const productList = normalizeProductsforFe(list)
     console.info('productList', productList)
     return {
       productList,
-      total: res?.getEsProducts?.total || 0
+      total: res?.productFindPageByEs?.total || 0
     }
   } catch (err) {
     console.info('err', err)
@@ -62,7 +62,7 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string; categ
       categoryId,
     })
     console.log('getProductBySkuId view', res)
-    return normalizeCatOrDogAttr(res?.getAttributes || [], categoryId)
+    return normalizeCatOrDogAttr(res?.productAttributeFindByCategoryId || [], categoryId)
   } catch (err) {
     console.log(err, 'err')
   }

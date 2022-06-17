@@ -140,7 +140,7 @@ const ChooseSpec = ({
     let data = await getProductBySkuId({ productVariantId: choosedSku.id })
     let selectedProduct = normalizeCartData(
       { productNum: buyCount, productId: detailInfo.id, productVariantId: choosedSku.id },
-      data.productBySkuId,
+      data.productGetByProductVariantId,
     )
     Taro.setStorage({
       key: 'select-product',
