@@ -1,5 +1,5 @@
 export const CDNIMGURL = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/'
-export const UPLOADPATH = 'msstg.fivefen.com/faas'
+export const SERVICEPATH = 'msstg.fivefen.com/faas'
 // export const SERVICEPATH = 'https://msdev.d2cgo.com/faas'
 // export const SERVICEPATH = 'http://localhost:9000/graphql'
 // export const SERVICEPATH = 'https://msdev.fivefen.com/faas'
