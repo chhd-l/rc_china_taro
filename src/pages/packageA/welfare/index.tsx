@@ -44,7 +44,7 @@ const Welfare = () => {
       </ScrollView>
       <AtModal isOpened={open} closeOnClickOverlay onClose={() => setOpen(false)} className="modal">
         <AtModalContent>
-          <Image src={MYACCOUNT_SOCIALGROUP_03} className="h-rc823 w-full" />
+          <Image src={MYACCOUNT_SOCIALGROUP_03} className="h-rc823 w-full" show-menu-by-longpress />
         </AtModalContent>
       </AtModal>
     </View>
