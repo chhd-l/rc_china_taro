@@ -50,4 +50,6 @@ export const PDP_POSTER = `${CDNIMGURL}poster.svg`
 export const SHARE_BG = `${CDNIMGURL}Share_bg.png`
 export const SHRRE_DOWNLOAD = `${CDNIMGURL}Share_download.svg`
 
+export const WECHAT = `${CDNIMGURL}Wechat.png`
+
 

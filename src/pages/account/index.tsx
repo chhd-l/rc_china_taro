@@ -1,9 +1,10 @@
 import quitIcon from '@/assets/icons/quit.svg'
 import NavBar from '@/components/common/Navbar'
-import { AuthLogin } from '@/components/consumer'
-import { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
-import PetList from '@/components/consumer/PetList'
+import { Attention, AuthLogin } from '@/components/customer'
+import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
+import PetList from '@/components/customer/PetList'
 import { SHIPPED_ORDER_ICON, TO_SHIP_ORDER_ICON, UNPAID_ORDER_ICON, VOUCHER_ORDER_ICON } from '@/lib/constants'
+import { MYACCOUNT_SOCIALGROUP } from '@/lib/mine'
 import routers from '@/routers'
 import { consumerAtom } from '@/store/consumer'
 // import Announcement from '@/components/common/Announcement'
@@ -13,6 +14,7 @@ import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import { AtAvatar, AtButton, AtModal, AtModalAction, AtModalHeader } from 'taro-ui'
+// import CustomerService from "@/components/common/CustomerService";
 import './index.less'
 
 interface OrderTypeProps {
@@ -164,14 +166,23 @@ const Account = () => {
           </View>
         </View>
         {/*/!*官方福利群*!/*/}
-        {/* <View>官方福利群</View> */}
+        <Image
+          src={MYACCOUNT_SOCIALGROUP}
+          className="w-rc692 h-rc194 m-auto"
+          onClick={() =>
+            Taro.navigateTo({
+              url: '/pages/packageA/welfare/index',
+            })
+          }
+        />
         {/*/!*打卡冷知识*!/*/}
         {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
-        {/* <View>微信关注</View> */}
+        <Attention />
+        {/*<CustomerService/>*/}
         {/*/!*我的宠物*!/*/}
         <View>
-          <PetList withoutLoading={true} />
+          <PetList withoutLoading />
         </View>
         <AtModal isOpened={signoutOpend}>
           <AtModalHeader>
