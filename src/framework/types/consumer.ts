@@ -24,6 +24,7 @@ export type Consumer = {
   addresses: Address[]
   pets?: any[]
   orders?: any[]
+  isCommunity?:boolean
 }
 
 export interface PetListItemProps {

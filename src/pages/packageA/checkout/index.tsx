@@ -318,9 +318,14 @@ const Checkout = () => {
     getShippingPrice()
   }, [])
 
+  const communityDiscountPrice = useMemo(
+    () => (consumerInfo?.isCommunity ? (totalPrice + shippingPrice - discountPrice - subDiscountPrice) * 0.05 : 0),
+    [totalPrice, discountPrice, subDiscountPrice, shippingPrice],
+  )
+
   const payPrice = useMemo(
-    () => totalPrice - discountPrice - subDiscountPrice,
-    [totalPrice, discountPrice, subDiscountPrice],
+    () => totalPrice + shippingPrice - discountPrice - subDiscountPrice - communityDiscountPrice,
+    [totalPrice, discountPrice, subDiscountPrice, communityDiscountPrice],
   )
 
   return (
@@ -360,6 +365,7 @@ const Checkout = () => {
               discountPrice={discountPrice}
               subDiscountPrice={subDiscountPrice}
               shipPrice={shippingPrice}
+              communityDiscountPrice={communityDiscountPrice}
             />
           </View>
         </View>
