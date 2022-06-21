@@ -86,7 +86,7 @@ export interface Order {
   logs?: Logs
   remark?: string
   buyer?: Buyer
-  shippingInfo: ShippingInfo
+  delivery: ShippingInfo
 }
 
 export interface ShippingInfo {
