@@ -1,6 +1,7 @@
 import { Scalars, ProductKeyReference, Asset, Image, TaxCategoryKeyReference } from './common.schema'
 import { Price, ScopedPrice } from './prices.schema'
 import { AttributeConstraint } from '../enum'
+
 export enum IsSupport100 {
   Yes = 'YES',
   No = 'No',
@@ -70,7 +71,7 @@ export interface ProductVariants {
   // last_modified_at: string
   // last_modified_by: string
   // is_deleted: string //？？
-  productSpecificationRel: ProductSpecificationValueRel[] | null
+  specificationRelations: ProductSpecificationValueRel[] | null
 }
 export interface ProductAssets {
   // id: string
@@ -132,32 +133,6 @@ export interface Product {
   productVariants: ProductVariants[]
   productAsserts: ProductAssets[]
   productAttributeValueRel: ProductAttributeAndValue[] //？？
-}
-
-export type Product = {
-  id: string
-  key: string
-  version: number
-  createdAt: Scalars['DateTime']
-  createdBy: Scalars['DateTime']
-  lastModifiedAt: Scalars['DateTime']
-  lastModifiedBy: Scalars['DateTime']
-  productType: ProductKeyReference
-  masterData: ProductCatalogData
-  taxCategory: TaxCategoryKeyReference
-}
-
-export type ProductType = {
-  id: string
-  key: string
-  version: number
-  createdAt: Scalars['DateTime']
-  createdBy: Scalars['DateTime']
-  lastModifiedAt: Scalars['DateTime']
-  lastModifiedBy: Scalars['DateTime']
-  name: string
-  description: string
-  attributes: AttributeDefinition[]
 }
 
 export type AttributeDefinition = {
