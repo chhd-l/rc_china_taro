@@ -81,7 +81,7 @@ module.exports = {
         rc560: '560px',
         rc724: '724px',
         rc823: '823px',
-        rc5000: '5000px',
+        rc5500: '5500px',
       },
       lineHeight: {
         rc22: '22px',

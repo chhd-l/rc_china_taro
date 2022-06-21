@@ -28,6 +28,7 @@ const Welfare = () => {
         src={MYACCOUNT_SOCIALGROUP_SHADOW_01}
         className={`h-rc176 w-full ${scrollHeight > 499 ? 'block' : 'hidden'}`}
       />
+      {/* <Image src={MYACCOUNT_SOCIALGROUP_01} className="h-rc144 w-full" onClick={() => setOpen(true)} /> */}
       <ScrollView
         className="scrollview"
         scrollY
@@ -40,7 +41,7 @@ const Welfare = () => {
       >
         <Image src={MYACCOUNT_SOCIALGROUP_BANNER} className="h-rc724 w-full" />
         <Image src={MYACCOUNT_SOCIALGROUP_01} className="h-rc144 w-full" onClick={() => setOpen(true)} />
-        <Image src={MYACCOUNT_SOCIALGROUP_02} className="h-rc5000 w-full" />
+        <Image src={MYACCOUNT_SOCIALGROUP_02} className="h-rc5500 w-full" />
       </ScrollView>
       <AtModal isOpened={open} closeOnClickOverlay onClose={() => setOpen(false)} className="modal">
         <AtModalContent>
