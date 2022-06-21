@@ -12,12 +12,12 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
   try {
     //入参处理 start
     const productList = cloneDeep(orderItems).map((el) => {
-      if (el.skuGoodInfo.productVariants?.length > 0 || el.skuGoodInfo.productVariant?.length > 0) {
-        el.skuGoodInfo.productVariant = Object.assign(omit(el.skuGoodInfo.productVariants[0], ['isDeleted']), {
+      if (el.skuGoodInfo.variants?.length > 0 ) {
+        el.skuGoodInfo.variants = Object.assign(omit(el.skuGoodInfo.variants[0], ['isDeleted','variantBundles']), {
           num: el.productNum,
         })
       }
-      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'productVariants'])
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted'])
       return el.skuGoodInfo
     })
     let shoppingCartIds: any[] = []
@@ -107,12 +107,6 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
         },
       })
     }
-    // else {
-    //   Taro.atMessage({
-    //     message: '系统繁忙，请稍后再试',
-    //     type: 'error',
-    //   })
-    // }
     return res
   } catch (err) {
     console.log(err)
