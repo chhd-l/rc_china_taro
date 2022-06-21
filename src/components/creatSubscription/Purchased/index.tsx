@@ -9,11 +9,11 @@ import './index.less'
 const Purchased = () => {
   const [recommendProduct] = useAtom(recommendProductAtom)
   const {
-    productVariantInfo: { productVariants, productAttributeValueRel, productAsserts, productName },
+    productVariantInfo: { variants, productAttributeValueRel, productAsserts, name },
     giftList,
     couponList,
   } = recommendProduct
-  console.log('Purchased', productVariants)
+  console.log('Purchased', variants)
 
   return (
     <View className="m-4">
@@ -24,16 +24,16 @@ const Purchased = () => {
           <Image
             className="w-full "
             mode="widthFix"
-            src={productVariants?.[0]?.defaultImage || productAsserts?.[0]?.artworkUrl}
+            src={variants?.[0]?.defaultImage || productAsserts?.[0]?.artworkUrl}
           />
           <CountTag type="center">{recommendProduct.quantity!}</CountTag>
         </View>
         <View className="flex-1">
-          <View className="font-bold text-rc26 text-rc_222222">{productVariants?.[0]?.name || productName}</View>
+          <View className="font-bold text-rc26 text-rc_222222">{variants?.[0]?.name || name}</View>
           <View className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center my-2">
             逐包随单发货
           </View>
-          {normalizeTags(productAttributeValueRel, productVariants?.[0]?.feedingDays).map((item) => (
+          {normalizeTags(productAttributeValueRel, variants?.[0]?.feedingDays).map((item) => (
             <View className="text-rc22 text-textGray" key={item}>
               {item}
             </View>
@@ -41,7 +41,7 @@ const Purchased = () => {
           <View className="flex flex-row items-center justify-between">
             <View className="my-2">
               <Text className="text-rc20 text-primary-red">￥</Text>
-              <Text className="font-bold text-primary-red text-rc28">{productVariants?.[0]?.subscriptionPrice}</Text>
+              <Text className="font-bold text-primary-red text-rc28">{variants?.[0]?.subscriptionPrice}</Text>
               {/* <Text className="text-primary-red text-rc20">.00</Text> */}
             </View>
             <View className="text-textGray text-rc22">x{recommendProduct.quantity}</View>
@@ -56,14 +56,14 @@ const Purchased = () => {
               <Image
                 className="w-full"
                 mode="widthFix"
-                src={list.productVariants?.[0]?.defaultImage || list.productAsserts?.[0]?.artworkUrl}
+                src={list.variants?.[0]?.defaultImage || list.productAsserts?.[0]?.artworkUrl}
               />
               {/* <CountTag type="center" >{list.quantityRule === 'DOUBLE_OF_SKU_NUMBER' ? recommendProduct.quantity! * 2 : list.quantity}</CountTag> */}
               <CountTag type="center">{list.quantity}</CountTag>
             </View>
             <View className="flex-1">
               <View className="font-bold text-rc26 text-rc_222222">
-                {list.productVariants?.[0]?.name || list.productName}
+                {list.variants?.[0]?.name || list.name}
               </View>
               {/* <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View> */}
               <View className="flex flex-row items-center">
@@ -97,7 +97,7 @@ const Purchased = () => {
               <View className="flex flex-row items-center">
                 <IconFont name="a-Frame1" size={73} />
                 <Text className="bg-rc_9B9C9D text-white text-rc18 w-rc124 h-rc26 leading-rc26 text-center ml-1">
-                  {'一次性发货'}
+                  一次性发货
                   {/* {list.quantityRule !== 'FIRST_DELIVERY_FIXED_NUMBER' ? '一次性发货' : '逐包随单发货'} */}
                 </Text>
               </View>

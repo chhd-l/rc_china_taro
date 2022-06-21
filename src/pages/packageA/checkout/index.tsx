@@ -94,21 +94,19 @@ const Checkout = () => {
       }
       setLoading(true)
       const productList = orderItems.map((el) => {
-        if (el.skuGoodInfo.productVariants?.length > 0) {
-          el.skuGoodInfo.productVariant = Object.assign(el.skuGoodInfo.productVariants[0], {
+        if (el.skuGoodInfo.variants?.length > 0) {
+          el.skuGoodInfo.variants = Object.assign(el.skuGoodInfo.variants[0], {
             num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.productVariants
         return el.skuGoodInfo
       })
       const benefits = giftItems.map((el) => {
-        if (el.skuGoodInfo.productVariants?.length > 0) {
-          el.skuGoodInfo.productVariant = Object.assign(el.skuGoodInfo.productVariants[0], {
+        if (el.skuGoodInfo.variants?.length > 0) {
+          el.skuGoodInfo.variants = Object.assign(el.skuGoodInfo.variants[0], {
             num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.productVariants
         return el.skuGoodInfo
       })
       let finalVoucher =

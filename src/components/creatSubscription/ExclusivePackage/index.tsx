@@ -13,16 +13,16 @@ const ExclusivePackage = () => {
   const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
   const [recommendInfo] = useAtom(recommendInfoAtom)
   const {
-    productVariantInfo: { productVariants },
+    productVariantInfo: { variants },
   } = recommendProduct
   const [current, setCurrent] = useState(recommendProduct.freshType)
 
   const changeFreshType = (val: string) => {
     const { productList } = recommendInfo
     if (val === 'FRESH_100_DAYS') {
-      if (!productVariants[0].isSupport100) {
+      if (!variants[0].isSupport100) {
         // 新鲜度不存在100天 筛选存在100天的第一条数据
-        const good = productList.filter((item) => item.productVariantInfo.productVariants[0].isSupport100)[0]
+        const good = productList.filter((item) => item.productVariantInfo.variants[0].isSupport100)[0]
         setRecommendProduct({ ...recommendProduct, ...good, freshType: val })
       } else {
         // 变更freshType
@@ -42,7 +42,7 @@ const ExclusivePackage = () => {
         <View className="borderLine" />
         <View className="px-rc120 pt-rc50">
           <View className="w-full relative">
-            <Image className="w-full " mode="widthFix" src={productVariants[0].defaultImage} />
+            <Image className="w-full " mode="widthFix" src={variants[0].defaultImage} />
             <CountTag>{recommendProduct.quantity!}包</CountTag>
           </View>
           <View
@@ -52,16 +52,16 @@ const ExclusivePackage = () => {
             <IconFont name="dingzhitaocan0" size={30} />
             更多套餐选择 {'>'}
           </View>
-          <View className="font-bold text-rc23 my-2">{productVariants[0].name}</View>
+          <View className="font-bold text-rc23 my-2">{variants[0].name}</View>
           <View className="flex direction-row items-center">
             <View className="bg-primary-red text-white text-rc20 w-rc98 h-rc26 flex flex-row items-center justify-center">
               <IconFont name="shangdianjia" size={20} />
               <Text className="m-px"> 商城价</Text>
             </View>
-            <View className="text-primary-red font-bold text-rc28">￥{productVariants[0].marketingPrice}/包</View>
-            {/* <View className="line-through text-textGray text-rc16 ml-2">￥{productVariants[0].listPrice}</View> */}
+            <View className="text-primary-red font-bold text-rc28">￥{variants[0].marketingPrice}/包</View>
+            {/* <View className="line-through text-textGray text-rc16 ml-2">￥{variants[0].listPrice}</View> */}
             <View className="line-through text-textGray text-rc16 ml-2 self-end margin-bottom-4rpx">
-              ￥{productVariants[0].listPrice}
+              ￥{variants[0].listPrice}
             </View>
           </View>
         </View>
