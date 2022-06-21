@@ -40,14 +40,14 @@ const OrderDetails = () => {
       totalPrice: 0,
       discountsPrice: 0,
     },
-    shippingInfo: {
+    delivery: {
       trackingId: '',
       deliveries: [],
     },
   })
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
   const { totalPrice, discountsPrice, productPrice } = orderDetail?.orderPrice
-  const { trackingId, deliveries } = orderDetail?.shippingInfo
+  const { trackingId, deliveries } = orderDetail?.delivery
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [orderCancelMinute, setOrderCancelMinute] = useState(30)
@@ -84,7 +84,7 @@ const OrderDetails = () => {
   }
 
   const getCarrierType = () => {
-    const carriers = carrierTypes.filter((item) => item?.code === orderDetail?.shippingInfo?.shippingCompany)
+    const carriers = carrierTypes.filter((item) => item?.code === orderDetail?.delivery?.shippingCompany)
     return carriers.length > 0 ? carriers[0].name : ''
   }
 
@@ -254,7 +254,7 @@ const OrderDetails = () => {
                   </View>
                   <View className="flex items-center justify-between boderTop">
                     <Text>发货时间</Text>
-                    <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
+                    <Text>{handleReturnTime(orderDetail?.delivery?.expectedShippingDate)?.split(' ')[0]}</Text>
                   </View>
                   <View className="flex items-center justify-between boderTop break-words">
                     <Text>备注</Text>

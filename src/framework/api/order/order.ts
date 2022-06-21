@@ -31,9 +31,9 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-          ...voucher,
-          voucherStatus: 'Ongoing',
-        }
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -130,14 +130,11 @@ export const getOrderSetting = async () => {
     if (orderSettings) {
       orderSettings = JSON.parse(orderSettings)
     } else {
-      const res = await ApiRoot.orders().getOrderSetting({
+      orderSettings = await ApiRoot.orders().getOrderSetting({
         storeId: baseSetting.storeId,
       })
-      console.log('get orderSetting view data', res)
-      if (res.orderSettings) {
-        orderSettings = res.orderSettings
-        Taro.setStorageSync('order-setting', JSON.stringify(res.orderSettings))
-      }
+      console.log('get orderSetting view data', orderSettings)
+      Taro.setStorageSync('order-setting', JSON.stringify(orderSettings))
     }
     return orderSettings
   } catch (e) {
@@ -158,12 +155,12 @@ export const getOrderList = async (queryOrderListParams: any) => {
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const params = Object.assign(queryOrderListParams, {
         storeId: wxLoginRes?.userInfo?.storeId || '12345678',
-        operator: wxLoginRes?.userInfo?.nickName || 'system',
+        operator: 'system',
         isNeedTotal: true,
         sample: { ...queryOrderListParams?.sample, consumerId: wxLoginRes?.consumerAccount?.consumerId },
       })
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams: params })
-      const { records, total } = res.orders
+      const { records, total } = res
       console.log('query orders view list', res)
       return {
         total: total || 0,
@@ -184,9 +181,9 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
     if (isMock) {
       return orderDetailMockData
     } else {
-      let { getOrder } = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
-      console.info('res', getOrder)
-      return getOrder
+      let res = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
+      console.info('res', res)
+      return res
     }
   } catch (e) {
     console.log(e)
@@ -200,8 +197,7 @@ export const getExpressCompanyList = async () => {
     if (!expressCompanyList) {
       let res = await ApiRoot.orders().getExpressCompany({ storeId: '12345678' })
       console.info('get expressCompany data view', res)
-      expressCompanyList = res.expressCompanies || []
-      session.set('express-company-list', expressCompanyList)
+      session.set('express-company-list', res)
     }
     return expressCompanyList
   } catch (e) {
@@ -220,7 +216,7 @@ export const shippedOrder = async (params: any) => {
     console.info('shipped order view params', params)
     let res = await ApiRoot.orders().shippedOrder({ body: params })
     console.info('shipped order data view', res)
-    return res.shippedOrder || false
+    return res
   } catch (e) {
     console.log(e)
     return false
@@ -237,7 +233,7 @@ export const completedOrder = async (params: any) => {
     console.info('completed order view params', params)
     let res = await ApiRoot.orders().completedOrder({ body: params })
     console.info('completed order data view', res)
-    return res.completedOrder || false
+    return res
   } catch (e) {
     console.log(e)
     return false
@@ -254,7 +250,7 @@ export const cancelOrder = async (params: any) => {
     console.info('cancel order view params', params)
     let res = await ApiRoot.orders().cancelOrder({ body: params })
     console.info('cancel order data view', res)
-    return res.cancelOrder || false
+    return res
   } catch (e) {
     console.log(e)
     return false
