@@ -6,5 +6,6 @@ const routers = {
   orderList: '/pages/packageA/orderList/index',
   orderDetail: '/pages/packageA/orderDetail/index',
   voucherList: '/pages/packageB/voucherList/index',
+  officialAccount:'/pages/packageA/officialAccount/index'
 }
 export default routers
