@@ -23,22 +23,22 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
         console.info('============')
         if (res['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ'] && res['xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc']) {
           console.info('xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc')
-          let payInfoId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = '', payInfo: any = {}
+          let paymentId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = '', payment: any = {}
           if (paymentRequest?.success) {
-            payInfo = paymentRequest.payInfo
+            payment = paymentRequest.payment
             console.info('.....paymentRequest,isSubscription', paymentRequest)
             timeStamp = paymentRequest.wxPaymentRequest.timeStamp
             nonceStr = paymentRequest.wxPaymentRequest.nonceStr
             packageStr = paymentRequest.wxPaymentRequest.package
             signType = paymentRequest.wxPaymentRequest.signType
             paySign = paymentRequest.wxPaymentRequest.paySign
-            payInfoId = paymentRequest.payInfo.id
+            paymentId = paymentRequest.payment.id
           } else {
-            console.info('........', payInfo)
+            console.info('........', payment)
             console.info('paramsparamsparams', params)
             const { pay: data } = await ApiRoot.orders().pay({ body: params })
             console.info('data', data)
-            payInfo = data.payment
+            payment = data.payment
             const wxPaymentRequest = data.wxPaymentRequest
             if (data.isSuccess && wxPaymentRequest) {
               timeStamp = wxPaymentRequest.timeStamp
@@ -46,12 +46,12 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               packageStr = wxPaymentRequest.package
               signType = wxPaymentRequest.signType
               paySign = wxPaymentRequest.paySign
-              payInfoId = payInfo.id
+              paymentId = payment.id
               console.info('.....notSubscription', wxPaymentRequest)
             }
           }
-          console.info('payInfo', payInfo)
-          if (payInfo?.status === 'PAID') {
+          console.info('payment', payment)
+          if (payment?.status === 'PAID') {
             //0元就不用调用支付接口
             Taro.showLoading({
               title: '支付成功',
@@ -78,7 +78,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               async success() {
                 await ApiRoot.orders().syncOrder({
                   input: {
-                    paymentId:payInfoId,
+                    paymentId:paymentId,
                     storeId: '12345678',
                     operator: 'zyq',
                   },

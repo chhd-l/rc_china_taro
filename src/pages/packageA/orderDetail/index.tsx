@@ -250,7 +250,7 @@ const OrderDetails = () => {
                   </View>
                   <View className="flex items-center justify-between boderTop">
                     <Text>支付方式</Text>
-                    <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
+                    <Text>{'微信支付' || orderDetail?.payment?.payWayCode}</Text>
                   </View>
                   <View className="flex items-center justify-between boderTop">
                     <Text>发货时间</Text>

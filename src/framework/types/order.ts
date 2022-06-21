@@ -26,7 +26,7 @@ export interface OrderLineItem {
   isGift?: boolean
 }
 
-export interface PayInfo {
+export interface Payment {
   payWayCode: string
   payWayOrderID: string
   amount: string
@@ -76,7 +76,7 @@ export interface Order {
   version?: string
   lineItem?: OrderLineItem[]
   shippingAddress: Address
-  payInfo?: PayInfo
+  payment?: Payment
   isSubscription?: string
   subscriptionId?: string
   freshType?: string
