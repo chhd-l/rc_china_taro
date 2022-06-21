@@ -244,10 +244,6 @@ const Checkout = () => {
       await createOrder({ orderItems, address, remark, deliveryTime, voucher })
     } catch (e) {
       console.log('create order err', e)
-      Taro.atMessage({
-        message: '系统繁忙，请稍后再试',
-        type: 'error',
-      })
     } finally {
       setLoading(false)
     }

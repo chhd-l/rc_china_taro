@@ -38,9 +38,9 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
             console.info('paramsparamsparams', params)
             const { pay: data } = await ApiRoot.orders().pay({ body: params })
             console.info('data', data)
-            payInfo = data.payInfo
+            payInfo = data.payment
             const wxPaymentRequest = data.wxPaymentRequest
-            if (data.success && wxPaymentRequest) {
+            if (data.isSuccess && wxPaymentRequest) {
               timeStamp = wxPaymentRequest.timeStamp
               nonceStr = wxPaymentRequest.nonceStr
               packageStr = wxPaymentRequest.package
@@ -78,7 +78,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               async success() {
                 await ApiRoot.orders().syncOrder({
                   input: {
-                    payInfoId,
+                    paymentId:payInfoId,
                     storeId: '12345678',
                     operator: 'zyq',
                   },
