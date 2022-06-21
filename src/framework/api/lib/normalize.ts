@@ -26,7 +26,7 @@ export const normalizePetsForFe = (petInfo: any) => {
 }
 
 export const normalizeProductForFe = (product: any): any => {
-  // product.productAttributeValueRel?.forEach((attr) => {
+  // product.attributeValueRelations?.forEach((attr) => {
   //   let tagStr = ''
   //   switch (attr.attributeName) {
   //     case '年龄':
@@ -69,7 +69,7 @@ export const normalizeProductForFe = (product: any): any => {
     img: product.asserts?.filter((el) => el.type === 'image')?.map((el) => el.artworkUrl),
     video: product.asserts?.filter((el) => el.type === 'video')?.[0]?.artworkUrl,
     skus: variants
-      ?.map((sku, index) => normalizeSkuForFe(sku, index, product.productAttributeValueRel, specifications)),
+      ?.map((sku, index) => normalizeSkuForFe(sku, index, product.attributeValueRelations, specifications)),
     type: product.type,
     description: product.description,
     specifications:
@@ -96,10 +96,10 @@ export const normalizeProductForFe = (product: any): any => {
 export const normalizeSkuForFe = (
   sku: ProductVariants,
   index: number,
-  productAttributeValueRel: any,
+  attributeValueRelations: any,
   specifications,
 ): SkuItemProps => {
-  let tags: string[] = normalizeTags(productAttributeValueRel, sku.feedingDays)
+  let tags: string[] = normalizeTags(attributeValueRelations, sku.feedingDays)
   // let tags = sku.feedingDays ? [...spuTags, `建议饲喂天数:${sku.feedingDays}天`] : [...spuTags]
   let item = {
     // specs: string
