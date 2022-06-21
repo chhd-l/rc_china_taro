@@ -30,8 +30,8 @@ export interface PayInfo {
   payWayCode: string
   payWayOrderID: string
   amount: string
-  payStartTime: string
-  payFinishTime: string
+  paymentStartTime: string
+  paymentFinishTime: string
   lastModifiedBy: string
   paymentState: string
 }
