@@ -19,15 +19,14 @@ const CustomerService = () => {
         x={xOffset}
         y={yOffset}
         outOfBounds
-        onChange={(e) => {
-          console.log('rrrrrr', e)
-          if (e.detail.x > 0 && e.detail.x < 160) {
+        onTouchEnd={(e) => {
+          console.log('mmmmmmmmmmm', e)
+          const x = e.changedTouches[0].pageX
+          if (x > 0 && x < 160) {
             setXOffset(0)
-            setYOffset(e.detail.y)
           }
-          if (e.detail.x > 160 && e.detail.x < 320) {
+          if (x > 160 && x < 320) {
             setXOffset(320)
-            setYOffset(e.detail.y)
           }
         }}
       >
