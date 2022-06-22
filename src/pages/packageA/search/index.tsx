@@ -50,16 +50,16 @@ const Search = () => {
     }
     let current = currentPage + 1
     setCurrentPage(current)
-    getList({ current, productName, categoryId })
+    getList({ current, name:productName, productCategoryId:categoryId })
   })
   const getList = async ({
-    categoryId,
-    productName = keyword,
+    productCategoryId,
+    name = keyword,
     flterlist,
     current,
   }: {
-    categoryId?: string
-    productName?: string
+    productCategoryId?: string
+    name?: string
     flterlist?: any
     current?: number
   }) => {
@@ -68,30 +68,30 @@ const Search = () => {
     if (current) {
       offset = current * 10
     }
-    if (categoryId) {
-      params.productCategoryId = categoryId
-      setCategoryId(categoryId)
+    if (productCategoryId) {
+      params.categoryId = productCategoryId
+      setCategoryId(productCategoryId)
     }
-    if (productName) {
-      params.productName = productName
+    if (name) {
+      params.name = name
     }
     ;(flterlist || filterList).map((el) => {
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
-          if (!params.attributeRelation?.length) {
-            params.attributeRelation = []
+          if (!params.attributeRelations?.length) {
+            params.attributeRelations = []
           }
-          let hasAttributeIdIdx = params.attributeRelation?.findIndex(
+          let hasAttributeIdIdx = params.attributeRelations?.findIndex(
             (relation) => relation.attributeId === val.attributeId,
           )
           if (hasAttributeIdIdx > -1) {
-            params.attributeRelation[hasAttributeIdIdx]?.attributeValueIds.push(val.value)
+            params.attributeRelations[hasAttributeIdIdx]?.attributeValueIds.push(val.value)
           } else {
-            let attributeRelation = { attributeId: val.attributeId, attributeValueIds: [val.value] }
-            params.attributeRelation.push(attributeRelation)
+            let attributeRelations = { attributeId: val.attributeId, attributeValueIds: [val.value] }
+            params.attributeRelations.push(attributeRelations)
           }
-          params.productCategoryId = val.categoryId
+          params.categoryId = val.categoryId
         })
     })
     let { productList: list, total } = await getProducts({ limit: 10, sample: params, hasTotal: true, offset })
@@ -158,13 +158,13 @@ const Search = () => {
       key: 'lastSearchList',
       data: newLastSearchList,
     })
-    getList({ productName: value })
+    getList({ name: value })
     setKeyword(value)
   }
 
-  const getCatOrDogAttrs = async (type: string) => {
+  const getCatOrDogAttrs = async (petType: string) => {
     // gou:8 cat:10
-    const res = await getAttrs({ storeId: '12345678', categoryId: type === 'cat' ? '10' : '8' })
+    const res = await getAttrs({ storeId: '12345678', categoryId: petType === 'cat' ? '10' : '8' })
     console.log('get cat Attrs', res)
     setFilterList(res)
     // setAnimal(type)
@@ -224,7 +224,7 @@ const Search = () => {
                 <AtButton
                   className={`${animal === 'cat' && 'animal-color'} ${largeButtonClass}`}
                   onClick={() => {
-                    getList({ categoryId: '10' })
+                    getList({ productCategoryId: '10' })
                     getCatOrDogAttrs('cat')
                     setAnimal('cat')
                   }}
@@ -241,7 +241,7 @@ const Search = () => {
                 <AtButton
                   className={`${animal === 'dog' && 'animal-color'} ${largeButtonClass}`}
                   onClick={() => {
-                    getList({ categoryId: '8' })
+                    getList({ productCategoryId: '8' })
                     getCatOrDogAttrs('dog')
                     setAnimal('dog')
                   }}
