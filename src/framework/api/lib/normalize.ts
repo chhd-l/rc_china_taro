@@ -47,7 +47,7 @@ export const normalizeProductForFe = (product: any): any => {
       (el) => el.specificationRelations?.[0]?.specificationDetailId,
     )
     console.info('productSpecificationDetailIdArr', productSpecificationDetailIdArr)
-    specifications[0].specificationDetail = specifications[0]?.specificationDetail?.filter((el) =>
+    specifications[0].specificationDetails = specifications[0]?.specificationDetails?.filter((el) =>
       productSpecificationDetailIdArr.find((cel) => el?.id === cel),
     )
     console.info('specifications', specifications)
@@ -78,7 +78,7 @@ export const normalizeProductForFe = (product: any): any => {
           let item = {
             id: spec.id,
             name: spec.specificationName,
-            children: spec.specificationDetail?.map((el) => {
+            children: spec.specificationDetails?.map((el) => {
               return {
                 able: true,
                 id: el.id,
@@ -134,7 +134,7 @@ export const normalizeProductsforFe = (data: any) => {
     //   }
     // })
     return {
-      name: item.productName,
+      name: item.name,
       img: minItem?.defaultImage || (images ? images[0]?.artworkUrl : null),
       originalPrice: minItem?.listPrice,
       price: minItem?.marketingPrice,
@@ -147,7 +147,7 @@ export const normalizeProductsforFe = (data: any) => {
 export const normalizeSpecText = (specificationRelations, specifications): string[] => {
   return specificationRelations?.map((el) => {
     let specObj = specifications.find((spec) => spec.id === el.specificationId)
-    let specDetailName = specObj?.specificationDetail?.find(
+    let specDetailName = specObj?.specificationDetails?.find(
       (specDetail) => specDetail.id === el.specificationDetailId,
     )?.specificationDetailName
     // console.info('productSpecificationDetailId', specDetailName)

@@ -31,7 +31,7 @@ export const getProducts = async (params: any) => {
     console.info('test', res)
     // const pets = await ApiRoot.pets().getProduct({ id: "20220415" });
     const productList = normalizeProductsforFe(list)
-    console.info('productList', productList)
+    console.info('productList res', productList)
     return {
       productList,
       total: res?.productFindPageByEs?.total || 0
