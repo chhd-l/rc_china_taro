@@ -68,7 +68,7 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
       body: Object.assign(params, { storeId: baseSetting.storeId }),
     })
     console.log('create order view', res)
-    if (res.createOrder) {
+    if (res) {
       Taro.removeStorageSync('select-product')
       //下单成功处理删除购物车数据
       let cartProducts = session.get('cart-data') || []
@@ -86,11 +86,11 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
         params: {
           consumerId: wxLoginRes?.userInfo?.id || '',
           consumerOpenId: wxLoginRes?.consumerAccount?.openId,
-          orderId: res.createOrder?.orderNumber,
-          orderNo: res.createOrder?.orderNumber,
+          orderId: res?.orderNumber,
+          orderNo: res?.orderNumber,
           orderDescription: '商品',
           payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
-          amount: res.createOrder?.orderPrice.totalPrice * 100,
+          amount: res?.orderPrice.totalPrice * 100,
           currency: 'CNY',
           storeId: '12345678',
           operator: wxLoginRes?.userInfo?.nickName || '',
