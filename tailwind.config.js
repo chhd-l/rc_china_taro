@@ -96,7 +96,7 @@ module.exports = {
         rc10: '10px',
         rc14: '14px',
         rc30: '30px',
-
+        rc58: '58px',
         rc150: '150px',
       },
       padding: {

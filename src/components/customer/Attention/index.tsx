@@ -10,7 +10,7 @@ const Attention = () => {
   const [errMsg, setErrMsg] = useState('')
 
   return (
-    <View className="flex py-rc28 px-rc30 text-24 items-center bg-gray-fb ">
+    <View className="flex py-rc28 px-rc30 text-24 items-center bg-gray-fb my-rc58">
       <View className="w-rc80 h-rc80 mr-2">
         <Image className="w-full h-full" src={WECHAT} />
       </View>
