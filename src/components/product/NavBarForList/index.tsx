@@ -30,6 +30,7 @@ const NavBarForList = ({
 
   useEffect(() => {
     setLeft(scrollLeft || null)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [setShowPendant])
 
   // const [keyword, setKeyword] = useState('猫奶罐')
