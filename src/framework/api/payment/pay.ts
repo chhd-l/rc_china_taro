@@ -36,7 +36,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
           } else {
             console.info('........', payment)
             console.info('paramsparamsparams', params)
-            const { pay: data } = await ApiRoot.orders().pay({ body: params })
+            const data = await ApiRoot.orders().pay({ body: params })
             console.info('data', data)
             payment = data.payment
             const wxPaymentRequest = data.wxPaymentRequest
@@ -78,7 +78,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               async success() {
                 await ApiRoot.orders().syncOrder({
                   input: {
-                    paymentId:paymentId,
+                    paymentId: paymentId,
                     storeId: '12345678',
                     operator: 'zyq',
                   },

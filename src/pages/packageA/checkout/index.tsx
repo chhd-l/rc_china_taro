@@ -94,21 +94,19 @@ const Checkout = () => {
       }
       setLoading(true)
       const productList = orderItems.map((el) => {
-        if (el.skuGoodInfo.productVariants?.length > 0) {
-          el.skuGoodInfo.productVariant = Object.assign(el.skuGoodInfo.productVariants[0], {
+        if (el.skuGoodInfo.variants?.length > 0) {
+          el.skuGoodInfo.variants = Object.assign(el.skuGoodInfo.variants[0], {
             num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.productVariants
         return el.skuGoodInfo
       })
       const benefits = giftItems.map((el) => {
-        if (el.skuGoodInfo.productVariants?.length > 0) {
-          el.skuGoodInfo.productVariant = Object.assign(el.skuGoodInfo.productVariants[0], {
+        if (el.skuGoodInfo.variants?.length > 0) {
+          el.skuGoodInfo.variants = Object.assign(el.skuGoodInfo.variants[0], {
             num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.productVariants
         return el.skuGoodInfo
       })
       let finalVoucher =
@@ -183,7 +181,7 @@ const Checkout = () => {
       }
       console.log('create order params', params)
       const res = await subscriptionCreateAndPay(params)
-      if (res.payment?.payment?.status === 'PAID') {
+      if (res.paymentStartResult?.payment?.status === 'PAID') {
         //0元就不用调用支付接口
         Taro.showLoading({
           title: '支付成功',
@@ -191,18 +189,18 @@ const Checkout = () => {
         toOrderList()
         return
       }
-      if (res.payment) {
+      if (res.paymentStartResult) {
         console.log(res, 'subscriptionCreateAndPayressssss')
         Taro.removeStorageSync('select-product')
         pay({
           params: {
             consumerId: consumerInfo?.id || '',
             consumerOpenId: wxLoginRes?.consumerAccount?.openId,
-            orderId: res.payment?.payment?.orderNo,
-            orderNo: res.payment?.payment?.orderNo,
+            orderId: res.paymentStartResult?.payment?.orderNo,
+            orderNo: res.paymentStartResult?.payment?.orderNo,
             orderDescription: '商品',
             payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
-            amount: res.payment?.payment?.amount * 100,
+            amount: res.paymentStartResult?.payment?.amount * 100,
             currency: 'CNY',
             storeId: '12345678',
             operator: consumerInfo?.nickName || '',
@@ -215,7 +213,7 @@ const Checkout = () => {
               url: `${routers.orderList}?status=UNPAID&isFromSubscription=true`,
             })
           },
-          paymentRequest: res.payment,
+          paymentRequest: res.paymentStartResult,
         })
       } else {
         Taro.atMessage({

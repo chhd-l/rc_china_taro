@@ -19,9 +19,9 @@ export const getSubscriptionSimpleRecommend = async (params: any) => {
 
 export const subscriptionCreateAndPay = async (params?: any) => {
     try {
-        const { subscriptionCreateAndPay } = await ApiRoot.subscriptions().subscriptionCreateAndPay({ body: params })
-        console.info('subscriptionCreateAndPay', subscriptionCreateAndPay)
-        return subscriptionCreateAndPay
+        const data = await ApiRoot.subscriptions().subscriptionCreateAndPay({ body: params })
+        console.info('subscriptionCreateAndPay', data)
+        return data
     } catch (err) {
         return {}
     }
