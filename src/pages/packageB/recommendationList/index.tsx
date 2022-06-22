@@ -25,11 +25,11 @@ const List = () => {
     let { quantity } = currentCycle
     const { giftList } = productList
     const gift = good.giftIdList.map((el) => {
-      let productVariants = giftList.find((giftItem) => giftItem?.productVariants?.[0]?.id === el.giftId)
+      let variants = giftList.find((giftItem) => giftItem?.variants?.[0]?.id === el.giftId)
       let data: any = {}
-      if (productVariants && el) {
+      if (variants && el) {
         data = {
-          ...productVariants,
+          ...variants,
           subscriptionRecommendRuleId: el.subscriptionRecommendRuleId,
           quantityRule: el.quantityRule,
           quantity: el.quantity,
@@ -73,7 +73,7 @@ const List = () => {
     <View className="px-1 product-list">
       <View className="product-list-box grid grid-cols-2 gap-2 px-2">
         {productList?.productList?.map((item) => {
-          const product = item.productVariantInfo.productVariants[0]
+          const product = item.productVariantInfo.variants[0]
           return (
             <View key={product.name} className="col-span-1" onClick={() => chooseRecommendProduct(item)}>
               <View className="border border-solid border-gray-300 rounded-sm pb-2 mb-2 text-center">

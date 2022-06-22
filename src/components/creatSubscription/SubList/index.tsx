@@ -19,15 +19,15 @@ export const handleBuyMore = (children) => {
   let { birthday, breedCode, breedName, gender, id, image, name, type } = buyInfo.pet
   let { cycle, type: subType, freshType, productList, benefits: giftList } = buyInfo
   productList?.forEach((el) => {
-    el.productVariant = [el.productVariant]
+    el.variants = [el.variants]
   })
   giftList?.forEach((el) => {
-    el.productVariant = [el.productVariant]
+    el.variants = [el.variants]
   })
-  let { originalPrice, discountPrice } = getCycleItem(productList[0].productVariant?.[0], cycle)
+  let { originalPrice, discountPrice } = getCycleItem(productList[0].variants?.[0], cycle)
   const checkoutData = {
     type: subType,
-    cycle: { cycle, quantity: productList[0].productVariant?.[0]?.num, originalPrice, discountPrice },
+    cycle: { cycle, quantity: productList[0].variants?.[0]?.num, originalPrice, discountPrice },
     freshType,
     pet: {
       birthday,
@@ -39,9 +39,9 @@ export const handleBuyMore = (children) => {
       name,
       type,
     },
-    productList: productList.map((el) => normalizeCartData({ productNum: el?.productVariant?.[0]?.num }, el, true)),
+    productList: productList.map((el) => normalizeCartData({ productNum: el?.variants?.[0]?.num }, el, true)),
     isSubscription: true,
-    giftList: giftList?.map((el) => normalizeCartData({ productNum: el?.productVariant?.[0]?.num }, el, true)) || [],
+    giftList: giftList?.map((el) => normalizeCartData({ productNum: el?.variants?.[0]?.num }, el, true)) || [],
     couponList: [],
   }
   console.info('.....', checkoutData)
@@ -65,7 +65,7 @@ const SubList = ({ children }) => {
   }
 
   return children?.productList?.map((el) => {
-    const { productVariant = {} } = el
+    const { variants = {} } = el
     console.info('planingDeliveriesplaningDeliveriesplaningDeliveries', children?.planingDeliveries)
     return (
       <View className="px-2 sub-list " key={el.spuNo} style={{ margin: '20px 0' }}>
@@ -97,16 +97,15 @@ const SubList = ({ children }) => {
             <View className="mt-4   border-gray-200" style={{ borderTop: '1px solid #E2E2E2' }}>
               <View className="w-full  flex  items-center" style={{ minHeight: '5rem' }}>
                 <View className="w-rc163 h-rc163">
-                  <Image className="w-full h-full" src={productVariant?.defaultImage} />
+                  <Image className="w-full h-full" src={variants?.defaultImage} />
                 </View>
                 <View className="flex flex-col pl-3 justify-center py-2">
                   <View>
-                    <View className="text-rc24 mb-1">{productVariant?.name}</View>
+                    <View className="text-rc24 mb-1">{variants?.name}</View>
                     <View className="text-primary-red flex  justify-between items-center">
                       <View className="flex flex-row flex-wrap">
                         {(
-                          normalizeTags(el?.productAttributeValueRel, productVariant?.feedingDays) ||
-                          el?.productAttributeValueRel
+                          normalizeTags(el?.specificationRelations, variants?.feedingDays) || el?.specificationRelations
                         ).map((tag) => (
                           <View
                             key={tag}

@@ -41,7 +41,7 @@ export const getSubscriptionFindByConsumerId = async (consumerId: string) => {
 
 export const getSubscriptionDetail = async (id: any) => {
     try {
-        const { subscriptionDetail } = await ApiRoot.subscriptions().subscriptionDetail({ id })
+        const subscriptionDetail = await ApiRoot.subscriptions().subscriptionDetail({ id })
         return subscriptionDetail
     } catch (err) {
         return {}
