@@ -52,4 +52,6 @@ export const SHRRE_DOWNLOAD = `${CDNIMGURL}Share_download.svg`
 
 export const WECHAT = `${CDNIMGURL}Wechat.png`
 
+export const CUSTOMER_SERVICE = `${CDNIMGURL}MP_CC.png`
+
 

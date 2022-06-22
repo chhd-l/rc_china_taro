@@ -8,13 +8,11 @@ import { MYACCOUNT_SOCIALGROUP } from '@/lib/mine'
 import routers from '@/routers'
 import { consumerAtom } from '@/store/consumer'
 // import Announcement from '@/components/common/Announcement'
-// import defaultIcon from '@/assets/icons/icon-home.png'
 import { Button, Image, Text, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import { AtAvatar, AtButton, AtModal, AtModalAction, AtModalHeader } from 'taro-ui'
-// import CustomerService from "@/components/common/CustomerService";
 import './index.less'
 
 interface OrderTypeProps {
@@ -27,7 +25,7 @@ const orderTypeList: OrderTypeProps[] = [
   { label: '待付款', icon: UNPAID_ORDER_ICON, url: `${routers.orderList}?status=UNPAID` },
   { label: '待发货', icon: TO_SHIP_ORDER_ICON, url: `${routers.orderList}?status=TO_SHIP` },
   { label: '待收货', icon: SHIPPED_ORDER_ICON, url: `${routers.orderList}?status=SHIPPED` },
-  // { label: '退货/退款', icon: defaultIcon, url: '' },
+  // { label: '退货/退款', icon: SHIPPED_ORDER_ICON, url: '' },
   { label: '我的卡券', icon: VOUCHER_ORDER_ICON, url: `${routers.voucherList}?voucherStatus=NOT_USED` },
 ]
 
@@ -179,7 +177,6 @@ const Account = () => {
         {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
         <Attention />
-        {/*<CustomerService/>*/}
         {/*/!*我的宠物*!/*/}
         <View>
           <PetList withoutLoading />

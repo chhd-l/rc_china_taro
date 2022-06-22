@@ -1,31 +1,47 @@
-import { MovableArea, MovableView, Text } from '@tarojs/components'
-import { AtFab } from 'taro-ui'
+import { Button, MovableArea, MovableView } from '@tarojs/components'
 import { useState } from 'react'
+import { CUSTOMER_SERVICE } from '@/lib/constants'
+import './index.less'
 
 const CustomerService = () => {
-  const [xOffset, setXOffset] = useState(0)
+  const [xOffset, setXOffset] = useState(320)
+  const [yOffset, setYOffset] = useState(540)
 
   return (
-    <MovableArea style="height: 100vh; width: 100%;background:red">
+    <MovableArea style="height: 100vh;" className="fixed w-full z-50 pointer-events-none">
       <MovableView
-        style="height: 112rpx; width: 112rpx;background:blue"
+        className="pointer-events-auto z-50"
+        style={{
+          height: '112rpx',
+          width: '112rpx',
+        }}
         direction="all"
         x={xOffset}
-        onDragEnd={(e) => {
-          console.log('vvvvvvvvvvvvvv', e)
-        }}
+        y={yOffset}
+        outOfBounds
         onChange={(e) => {
-          setXOffset(0)
-          console.log('vcdcdcddcdd', e)
-          if (e?.detail?.x > 0) {
-            console.log(e?.detail?.x)
-            setXOffset(50)
+          console.log('rrrrrr', e)
+          if (e.detail.x > 0 && e.detail.x < 160) {
+            setXOffset(0)
+            setYOffset(e.detail.y)
+          }
+          if (e.detail.x > 160 && e.detail.x < 320) {
+            setXOffset(320)
+            setYOffset(e.detail.y)
           }
         }}
       >
-        <AtFab>
-          <Text className="at-fab__icon at-icon at-icon-menu" />
-        </AtFab>
+        <Button
+          openType="contact"
+          onContact={(e) => {
+            console.log('vvvvvsd', e)
+          }}
+          sessionFrom="11111111"
+          className="customer-service-button bg-cover bg-no-repeat"
+          style={{
+            backgroundImage: `url(${CUSTOMER_SERVICE})`,
+          }}
+        />
       </MovableView>
     </MovableArea>
   )
