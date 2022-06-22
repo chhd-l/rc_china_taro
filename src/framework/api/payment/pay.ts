@@ -25,18 +25,18 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
           console.info('xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc')
           let payInfoId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = '', payInfo: any = {}
           if (paymentRequest?.success) {
-            payInfo = paymentRequest.payInfo
+            payInfo = paymentRequest.payment
             console.info('.....paymentRequest,isSubscription', paymentRequest)
             timeStamp = paymentRequest.wxPaymentRequest.timeStamp
             nonceStr = paymentRequest.wxPaymentRequest.nonceStr
             packageStr = paymentRequest.wxPaymentRequest.package
             signType = paymentRequest.wxPaymentRequest.signType
             paySign = paymentRequest.wxPaymentRequest.paySign
-            payInfoId = paymentRequest.payInfo.id
+            payInfoId = paymentRequest.payment.id
           } else {
             console.info('........', payInfo)
             console.info('paramsparamsparams', params)
-            const { pay: data } = await ApiRoot.orders().pay({ body: params })
+            const data = await ApiRoot.orders().pay({ body: params })
             console.info('data', data)
             payInfo = data.payInfo
             const wxPaymentRequest = data.wxPaymentRequest
