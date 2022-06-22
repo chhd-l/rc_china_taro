@@ -3,7 +3,7 @@
   "description": "项目私有配置文件。此文件中的内容将覆盖 project.config.json 中的相同字段。项目的改动优先同步到此文件中。详见文档：https://developers.weixin.qq.com/miniprogram/dev/devtools/projectconfig.html",
   "setting": {
     "urlCheck": false,
-    "compileHotReLoad": true,
+    "compileHotReLoad": false,
     "preloadBackgroundData": false,
     "useIsolateContext": true
   },
@@ -11,62 +11,6 @@
   "condition": {
     "miniprogram": {
       "list": [
-        {
-          "name": "11",
-          "pathName": "pages/packageB/deliveryProgress/index",
-          "query": "id=fcd70129-87f4-b743-db4c-dee2f3f93925",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "petList",
-          "pathName": "pages/packageB/petList/index",
-          "query": "petNumber=3",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "petList",
-          "pathName": "pages/packageB/petList/index",
-          "query": "petNumber=3",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "pdp",
-          "pathName": "pages/packageA/productDetail/index",
-          "query": "id=0958f8aa-de01-bed2-8e0b-b16c6f41a49d",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "plp",
-          "pathName": "pages/packageA/search/index",
-          "query": "",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "test",
-          "pathName": "pages/packageB/deliveryManagement/index",
-          "query": "id=d941864d-5422-60a8-ac1e-6299575a42fb",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "test",
-          "pathName": "pages/packageB/deliveryManagement/index",
-          "query": "id=d941864d-5422-60a8-ac1e-6299575a42fb",
-          "launchMode": "default",
-          "scene": null
-        },
-        {
-          "name": "orderList",
-          "pathName": "pages/packageA/orderList/index",
-          "query": "status=ALL",
-          "launchMode": "default",
-          "scene": null
-        },
         {
           "name": "我的",
           "pathName": "pages/account/index",
@@ -77,6 +21,13 @@
         {
           "name": "订阅",
           "pathName": "pages/subscription/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "福利群",
+          "pathName": "pages/packageA/welfare/index",
           "query": "",
           "launchMode": "default",
           "scene": null

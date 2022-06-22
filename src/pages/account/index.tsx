@@ -1,10 +1,12 @@
 import quitIcon from '@/assets/icons/quit.svg'
 import NavBar from '@/components/common/Navbar'
-import { AuthLogin } from '@/components/customer'
+import { Attention, AuthLogin } from '@/components/customer'
 import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
 import PetList from '@/components/customer/PetList'
 import { SHIPPED_ORDER_ICON, TO_SHIP_ORDER_ICON, UNPAID_ORDER_ICON, VOUCHER_ORDER_ICON } from '@/lib/constants'
+import { MYACCOUNT_SOCIALGROUP } from '@/lib/mine'
 import routers from '@/routers'
+// import {MYACCOUNT_SOCIALGROUP}
 import { customerAtom } from '@/store/customer'
 // import Announcement from '@/components/common/Announcement'
 // import defaultIcon from '@/assets/icons/icon-home.png'
@@ -13,6 +15,7 @@ import Taro from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
 import { AtAvatar, AtButton, AtModal, AtModalAction, AtModalHeader } from 'taro-ui'
+// import CustomerService from "@/components/common/CustomerService";
 import './index.less'
 
 interface OrderTypeProps {
@@ -136,7 +139,7 @@ const Account = () => {
           </View>
         </View>
         {/*/!*我的订单*!/*/}
-        <View className="p-3 bg-gray-fb">
+        <View className=" px-rc18 bg-gray-fb mx-rc14 rounded-lg py-rc16">
           <View className="flex items-center justify-between pb-3 border-b-2 border-l-0 border-r-0 border-t-0 border-solid border-gray-eee">
             <View className="text-26 font-semibold">我的订单</View>
             <View
@@ -164,14 +167,27 @@ const Account = () => {
           </View>
         </View>
         {/*/!*官方福利群*!/*/}
-        {/* <View>官方福利群</View> */}
+
+        <View className="w-rc692 h-rc194 my-rc30 mx-auto ">
+          <Image
+            className="w-full h-full"
+            src={MYACCOUNT_SOCIALGROUP}
+            onClick={() =>
+              Taro.navigateTo({
+                url: '/pages/packageA/welfare/index',
+              })
+            }
+          />
+        </View>
+
         {/*/!*打卡冷知识*!/*/}
         {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
-        {/* <View>微信关注</View> */}
+        <Attention />
+        {/*<CustomerService/>*/}
         {/*/!*我的宠物*!/*/}
         <View>
-          <PetList withoutLoading={true} />
+          <PetList withoutLoading />
         </View>
         <AtModal isOpened={signoutOpend}>
           <AtModalHeader>

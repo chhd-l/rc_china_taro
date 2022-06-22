@@ -185,6 +185,9 @@ const Checkout = () => {
       const res = await subscriptionCreateAndPay(params)
       if (res.payment?.payInfo?.status === 'PAID') {
         //0元就不用调用支付接口
+        Taro.showLoading({
+          title: '支付成功',
+        })
         toOrderList()
         return
       }
