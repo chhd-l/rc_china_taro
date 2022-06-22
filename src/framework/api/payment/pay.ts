@@ -80,7 +80,6 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
                   input: {
                     paymentId: paymentId,
                     storeId: '12345678',
-                    operator: 'zyq',
                   },
                 })
                 Taro.showLoading({
