@@ -4,7 +4,6 @@ import {
   MYACCOUNT_SOCIALGROUP_01,
   MYACCOUNT_SOCIALGROUP_02,
   MYACCOUNT_SOCIALGROUP_03,
-  MYACCOUNT_SOCIALGROUP_SHADOW_01,
 } from '@/lib/mine'
 import { useState } from 'react'
 import { AtModal, AtModalContent } from 'taro-ui'
@@ -16,19 +15,19 @@ const Welfare = () => {
   const scrollTop = 0
   const Threshold = 20
   const scrollStyle = {
-    height: '100vh',
+    height: '87vh',
   }
 
-  const onScroll = (e) => setScrollHeight(e.detail.scrollTop)
+  const onScroll = (e) => {
+    console.log('e', e)
+    setScrollHeight(e.detail.scrollTop)
+  }
 
   return (
     <View>
-      <Image
-        onClick={() => setOpen(true)}
-        src={MYACCOUNT_SOCIALGROUP_SHADOW_01}
-        className={`h-rc176 w-full ${scrollHeight > 499 ? 'block' : 'hidden'}`}
-      />
-      {/* <Image src={MYACCOUNT_SOCIALGROUP_01} className="h-rc144 w-full" onClick={() => setOpen(true)} /> */}
+      <View className={`${scrollHeight > 499 ? 'block' : 'hidden'} z-10 relative `} id="topImage">
+        <Image src={MYACCOUNT_SOCIALGROUP_01} onClick={() => setOpen(true)} className="h-rc144 w-full" />
+      </View>
       <ScrollView
         className="scrollview"
         scrollY
@@ -36,12 +35,11 @@ const Welfare = () => {
         scrollTop={scrollTop}
         style={scrollStyle}
         lowerThreshold={Threshold}
-        upperThreshold={Threshold}
         onScroll={onScroll}
       >
         <Image src={MYACCOUNT_SOCIALGROUP_BANNER} className="h-rc724 w-full" />
         <Image src={MYACCOUNT_SOCIALGROUP_01} className="h-rc144 w-full" onClick={() => setOpen(true)} />
-        <Image src={MYACCOUNT_SOCIALGROUP_02} className="h-rc5500 w-full" />
+        <Image src={MYACCOUNT_SOCIALGROUP_02} className="h-rc5800 w-full" />
       </ScrollView>
       <AtModal isOpened={open} closeOnClickOverlay onClose={() => setOpen(false)} className="modal">
         <AtModalContent>

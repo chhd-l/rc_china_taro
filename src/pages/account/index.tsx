@@ -139,7 +139,7 @@ const Account = () => {
           </View>
         </View>
         {/*/!*我的订单*!/*/}
-        <View className="p-3 bg-gray-fb">
+        <View className=" px-rc18 bg-gray-fb mx-rc14 rounded-lg py-rc16">
           <View className="flex items-center justify-between pb-3 border-b-2 border-l-0 border-r-0 border-t-0 border-solid border-gray-eee">
             <View className="text-26 font-semibold">我的订单</View>
             <View
@@ -167,15 +167,19 @@ const Account = () => {
           </View>
         </View>
         {/*/!*官方福利群*!/*/}
-        <Image
-          src={MYACCOUNT_SOCIALGROUP}
-          className="w-rc692 h-rc194 m-auto"
-          onClick={() =>
-            Taro.navigateTo({
-              url: '/pages/packageA/welfare/index',
-            })
-          }
-        />
+
+        <View className="w-rc692 h-rc194 my-rc30 mx-auto ">
+          <Image
+            className="w-full h-full"
+            src={MYACCOUNT_SOCIALGROUP}
+            onClick={() =>
+              Taro.navigateTo({
+                url: '/pages/packageA/welfare/index',
+              })
+            }
+          />
+        </View>
+
         {/*/!*打卡冷知识*!/*/}
         {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
