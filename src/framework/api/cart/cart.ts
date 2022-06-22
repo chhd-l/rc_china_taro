@@ -1,45 +1,9 @@
 import { normalizeCartData } from '@/framework/api/lib/normalize'
-import { getProductBySkuId } from '@/framework/api/product/get-product'
 import { dataSource } from '@/mock/cart'
 import Mock from 'mockjs'
 import { session } from '@/utils/global'
 import Taro from '@tarojs/taro'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
-
-export const getCarts = async (isNeedReload = false) => {
-  try {
-    if (isMock) {
-      return Mock.mock(dataSource)
-    } else {
-      let cartProducts = session.get('cart-data')
-      let finallyCartDatas: any[] = []
-      if (!cartProducts || isNeedReload) {
-        let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-        const res = await ApiRoot.carts().getCarts({
-          consumerId: wxLoginRes?.consumerAccount?.consumerId,
-          storeId: wxLoginRes?.consumerAccount?.storeId,
-        })
-        cartProducts = res?.carts || []
-        console.log('cart data', cartProducts)
-        for (let i = 0; i < cartProducts.length; i++) {
-          //查询商品信息
-          let data = await getProductBySkuId({ productVariantId: cartProducts[i].productVariantID })
-          if (data?.productGetByProductVariantId) {
-            finallyCartDatas.push(normalizeCartData(cartProducts[i], data?.productGetByProductVariantId))
-          }
-        }
-        session.set('cart-data', finallyCartDatas)
-      } else {
-        finallyCartDatas = cartProducts
-      }
-      console.log('cart products data', finallyCartDatas)
-      return finallyCartDatas || []
-    }
-  } catch (err) {
-    console.log('err', err)
-    return []
-  }
-}
 
 export const getCartAndProducts = async (isNeedReload = false) => {
   try {
@@ -116,7 +80,7 @@ export const deleteCart = async ({ id, operator }: { id: string; operator: strin
       body: { id, operator },
     })
     console.log('delete cart view', data)
-    return data?.deleteCart || false
+    return data
   } catch (e) {
     console.log(e)
     return false
@@ -130,7 +94,7 @@ export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator:
       operator,
     })
     console.log('batch delete cart view', data)
-    return data || false
+    return data
   } catch (e) {
     console.log(e)
     return false

@@ -65,12 +65,12 @@ export const orderDetailMockData = {
     postcode: '510000',
     isDefault: null,
   },
-  payInfo: {
+  payment: {
     payWayCode: '',
     payWayOrderID: '',
     amount: '',
-    payStartTime: '',
-    payFinishTime: '',
+    paymentStartTime: '',
+    paymentFinishTime: '',
     lastModifiedBy: '',
     paymentState: '',
   },

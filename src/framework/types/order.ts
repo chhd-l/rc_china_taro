@@ -26,12 +26,12 @@ export interface OrderLineItem {
   isGift?: boolean
 }
 
-export interface PayInfo {
+export interface Payment {
   payWayCode: string
   payWayOrderID: string
   amount: string
-  payStartTime: string
-  payFinishTime: string
+  paymentStartTime: string
+  paymentFinishTime: string
   lastModifiedBy: string
   paymentState: string
 }
@@ -76,7 +76,7 @@ export interface Order {
   version?: string
   lineItem?: OrderLineItem[]
   shippingAddress: Address
-  payInfo?: PayInfo
+  payment?: Payment
   isSubscription?: string
   subscriptionId?: string
   freshType?: string
