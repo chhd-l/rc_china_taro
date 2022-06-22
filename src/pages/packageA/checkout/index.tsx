@@ -189,18 +189,20 @@ const Checkout = () => {
         toOrderList()
         return
       }
-      if (res.paymentStartResult) {
+      let paymentInfo = res.paymentStartResult?.payment
+      if (paymentInfo) {
+        
         console.log(res, 'subscriptionCreateAndPayressssss')
         Taro.removeStorageSync('select-product')
         pay({
           params: {
             consumerId: consumerInfo?.id || '',
             consumerOpenId: wxLoginRes?.consumerAccount?.openId,
-            orderId: res.paymentStartResult?.payment?.orderNo,
-            orderNo: res.paymentStartResult?.payment?.orderNo,
+            orderId: paymentInfo?.orderNo,
+            orderNo: paymentInfo?.orderNo,
             orderDescription: '商品',
             payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
-            amount: res.paymentStartResult?.payment?.amount * 100,
+            amount: paymentInfo?.amount * 100,
             currency: 'CNY',
             storeId: '12345678',
             operator: consumerInfo?.nickName || '',

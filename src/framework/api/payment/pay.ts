@@ -24,7 +24,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
         if (res['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ'] && res['xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc']) {
           console.info('xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc')
           let paymentId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = '', payment: any = {}
-          if (paymentRequest?.success) {
+          if (paymentRequest?.isSuccess) {
             payment = paymentRequest.payment
             console.info('.....paymentRequest,isSubscription', paymentRequest)
             timeStamp = paymentRequest.wxPaymentRequest.timeStamp
