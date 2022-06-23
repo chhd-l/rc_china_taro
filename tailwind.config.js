@@ -123,6 +123,11 @@ module.exports = {
         'gray-eee': '#eeeeee',
         'primary-red': '#d33024',
       },
+      zIndex: {
+        99: 99,
+        999: 999,
+        9999: 9999,
+      },
     },
   },
 }

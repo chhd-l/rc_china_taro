@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react'
 import { View } from '@tarojs/components'
 import IconFont from '@/iconfont'
 import CustomerService from '@/components/common/CustomerService'
+import { getStoreSettings } from '@/framework/api/store'
 
 interface NavbarProps {
   children?: any //自定义navbar
@@ -11,7 +12,7 @@ interface NavbarProps {
   isNeedBack?: boolean //是否需要返回组件 tab bar页面不需要，其余的基本都需要
   navbarTitle?: string //title
   backEvent?: Function //自定义返回上一页事件
-  showService?: boolean //是否显示客服组件
+  showService?: boolean //页面是否需要显示客服组件
 }
 
 const NavBar = ({
@@ -24,6 +25,12 @@ const NavBar = ({
   showService = true,
 }: NavbarProps) => {
   const [paddingTop, setPaddingTop] = useState<any>(0)
+  const [MiniProShowService, setMiniProShowService] = useState(false) //全局是否需要显示客服组件
+
+  const getStoreSettingList = async () => {
+    const storeSettings = await getStoreSettings()
+    setMiniProShowService(storeSettings?.find((item) => item.code === 'store_客服开关')?.isEnabled || false)
+  }
 
   useEffect(() => {
     //将状态栏高度挂载全局，方便自定义页面导航栏
@@ -31,6 +38,7 @@ const NavBar = ({
       console.log(res.statusBarHeight)
       setPaddingTop(res.statusBarHeight)
     })
+    getStoreSettingList()
   }, [])
 
   return (
@@ -92,7 +100,7 @@ const NavBar = ({
           </View>
         )}
       </View>
-      {showService ? <CustomerService /> : null}
+      {showService && MiniProShowService ? <CustomerService /> : null}
     </View>
   )
 }

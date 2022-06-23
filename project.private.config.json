@@ -31,6 +31,13 @@
           "query": "",
           "launchMode": "default",
           "scene": null
+        },
+        {
+          "name": "plp",
+          "pathName": "pages/packageA/search/index",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         }
       ]
     }

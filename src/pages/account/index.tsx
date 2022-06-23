@@ -180,7 +180,7 @@ const Account = () => {
         {/*/!*打卡冷知识*!/*/}
         {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
-        <Attention />
+        <Attention classes='bg-gray-fb'/>
         {/*/!*我的宠物*!/*/}
         <View>
           <PetList withoutLoading />
