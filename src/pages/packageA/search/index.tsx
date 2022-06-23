@@ -50,7 +50,7 @@ const Search = () => {
     }
     let current = currentPage + 1
     setCurrentPage(current)
-    getList({ current, name:productName, productCategoryId:categoryId })
+    getList({ current, name: productName, productCategoryId: categoryId })
   })
   const getList = async ({
     productCategoryId,
@@ -129,6 +129,7 @@ const Search = () => {
     return list
   }
   const handleSearch = async () => {
+    setProductName(keyword)
     await handleLastSearch(keyword)
     // to do search
   }
