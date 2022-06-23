@@ -1,20 +1,22 @@
 import { Button, MovableArea, MovableView } from '@tarojs/components'
 import { useState } from 'react'
 import { CUSTOMER_SERVICE } from '@/lib/constants'
+import Taro from '@tarojs/taro'
 import './index.less'
 
 const CustomerService = () => {
-  const [xOffset, setXOffset] = useState(320)
-  const [yOffset, setYOffset] = useState(540)
+  const screenWidth = Taro.getSystemInfoSync().screenWidth
+  const screenHeight = Taro.getSystemInfoSync().screenHeight
+  const [xOffset, setXOffset] = useState(screenWidth)
+  const [yOffset, setYOffset] = useState(screenHeight - 300)
 
   return (
-    <MovableArea style="height: 100vh;" className="fixed w-full z-50 pointer-events-none">
+    <MovableArea
+      className="fixed w-full z-50 pointer-events-none"
+      style={{ width: screenWidth + 'px', height: screenHeight - 180 + 'px', marginTop: '2.625rem' }}
+    >
       <MovableView
-        className="pointer-events-auto z-50"
-        style={{
-          height: '112rpx',
-          width: '112rpx',
-        }}
+        className="pointer-events-auto z-50 customer-service-size"
         direction="all"
         x={xOffset}
         y={yOffset}
@@ -22,21 +24,18 @@ const CustomerService = () => {
         onTouchEnd={(e) => {
           console.log('mmmmmmmmmmm', e)
           const x = e.changedTouches[0].pageX
-          if (x > 0 && x < 160) {
+          const y = e.changedTouches[0].pageY
+          if (x < screenWidth / 2) {
             setXOffset(0)
+          } else {
+            setXOffset(screenWidth)
           }
-          if (x > 160 && x < 320) {
-            setXOffset(320)
-          }
+          setYOffset(y - 100)
         }}
       >
         <Button
           openType="contact"
-          onContact={(e) => {
-            console.log('vvvvvsd', e)
-          }}
-          sessionFrom="11111111"
-          className="customer-service-button bg-cover bg-no-repeat"
+          className="customer-service-button customer-service-size bg-cover bg-no-repeat"
           style={{
             backgroundImage: `url(${CUSTOMER_SERVICE})`,
           }}
