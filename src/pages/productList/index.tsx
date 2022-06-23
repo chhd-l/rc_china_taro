@@ -82,7 +82,7 @@ const ProductList = () => {
   }, [])
 
   return (
-    <View className="product-list overflow-hidden" style={{ height: '100vh', paddingTop: '190rpx' }}>
+    <View className="product-list" style={{ height: '100vh' }}>
       <NavBarForList
         MyPets={MyPets}
         floorActiveId={floorActiveId}

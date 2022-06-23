@@ -34,7 +34,15 @@ const NavBar = ({
   }, [])
 
   return (
-    <>
+    <View
+      style={{
+        paddingTop: paddingTop + 'px',
+        height: isAutoHeight ? 'auto' : '2.625rem',
+        paddingBottom: '8rpx',
+        zIndex: '99',
+        width: '100%',
+      }}
+    >
       <View
         className="fixed top-0 left-0 bg-white"
         style={{
@@ -85,7 +93,7 @@ const NavBar = ({
         )}
       </View>
       {showService ? <CustomerService /> : null}
-    </>
+    </View>
   )
 }
 export default NavBar
