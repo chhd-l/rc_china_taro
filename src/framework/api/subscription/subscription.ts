@@ -19,20 +19,20 @@ export const getSubscriptionSimpleRecommend = async (params: any) => {
 
 export const subscriptionCreateAndPay = async (params?: any) => {
     try {
-        const { subscriptionCreateAndPay } = await ApiRoot.subscriptions().subscriptionCreateAndPay({ body: params })
-        console.info('subscriptionCreateAndPay', subscriptionCreateAndPay)
-        return subscriptionCreateAndPay
+        const data = await ApiRoot.subscriptions().subscriptionCreateAndPay({ body: params })
+        console.info('subscriptionCreateAndPay', data)
+        return data
     } catch (err) {
         return {}
     }
 }
 
 
-export const getSubscriptionFindByCustomerId = async (customerId: string) => {
+export const getSubscriptionFindByConsumerId = async (consumerId: string) => {
     Taro.setStorageSync('commerce-loading', 1)
     try {
-        const { subscriptionFindByCustomerId } = await ApiRoot.subscriptions().subscriptionFindByCustomerId({ customerId })
-        return subscriptionFindByCustomerId
+        const { subscriptionFindByConsumerId } = await ApiRoot.subscriptions().subscriptionFindByConsumerId({ consumerId })
+        return subscriptionFindByConsumerId
     } catch (err) {
         return []
     }
@@ -41,7 +41,7 @@ export const getSubscriptionFindByCustomerId = async (customerId: string) => {
 
 export const getSubscriptionDetail = async (id: any) => {
     try {
-        const { subscriptionDetail } = await ApiRoot.subscriptions().subscriptionDetail({ id })
+        const subscriptionDetail = await ApiRoot.subscriptions().subscriptionDetail({ id })
         return subscriptionDetail
     } catch (err) {
         return {}

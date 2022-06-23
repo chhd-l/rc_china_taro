@@ -24,7 +24,8 @@ export default defineAppConfig({
         'checkout/index',
         'orderList/index',
         'orderDetail/index',
-        'welfare/index'
+        'welfare/index',
+        'officialAccount/index'
       ],
     },
     {

@@ -7,7 +7,7 @@ import {
   HighPrecisionMoney,
   CustomLineItem,
 } from "./common.schema";
-import { Address } from "./customer.schema";
+import { Address } from "./consumer.schema";
 import { InventoryMode, CartOrigin } from "../enum";
 
 export type Store = {
@@ -84,10 +84,10 @@ export type Cart = {
   lastModifiedAt: Scalars["DateTime"];
   lastModifiedBy: LastModifiedBy;
   /**Present on resources updated after 2019-02-01 except for events not tracked.*/
-  customerId: string;
-  customerEmail: string;
+  consumerId: string;
+  consumerEmail: string;
   anonymousId: string;
-  /**Identifies carts and orders belonging to an anonymous session (the customer has not signed up/in yet).*/
+  /**Identifies carts and orders belonging to an anonymous session (the consumer has not signed up/in yet).*/
   store: Store;
   lineItems: LineItem[];
   customLineItems: CustomLineItem[];
@@ -107,8 +107,8 @@ export type Cart = {
   /**When calculating taxes for taxedPrice, the selected mode is used for rounding.*/
   // taxCalculationMode : TaxCalculationMode
   /**When calculating taxes for taxedPrice, the selected mode is used for calculating the price with LineItemLevel (horizontally) or UnitPriceLevel (vertically) calculation mode.*/
-  // customerGroup : CustomerGroup
-  /**Set automatically when the customer is set and the customer is a member of a customer group. Used for product variant price selection.*/
+  // consumerGroup : ConsumerGroup
+  /**Set automatically when the consumer is set and the consumer is a member of a consumer group. Used for product variant price selection.*/
   country: string;
   /** A two-digit country code as perISO 3166-1 alpha-2. Used for product variant price selection.*/
   // shippingInfo :shippingInfo
@@ -125,7 +125,7 @@ export type Cart = {
   // shippingRateInput :ShippingRateInput
   /**The shippingRateInput is used as an input to select a ShippingRatePriceTier.*/
   origin: CartOrigin;
-  /**The origin field indicates how this cart was created. The value Customer indicates, that the cart was created by the customer.*/
+  /**The origin field indicates how this cart was created. The value Consumer indicates, that the cart was created by the consumer.*/
   itemShippingAddresses: Address[];
   /**Contains addresses for carts with multiple shipping addresses. Line items reference these addresses under their shippingDetails. The addresses captured here are not used to determine eligible shipping methods or the applicable tax rate. Only the cart's shippingAddress is used for this.*/
 };
@@ -136,8 +136,8 @@ export type Price = {
   value: CentPrecisionMoney | HighPrecisionMoney;
   country: string;
   /** A two-digit country code as perISO 3166-1 alpha-2.*/
-  // customerGroup :CustomerGroup
-  /**A reference to a customer group.*/
+  // consumerGroup :ConsumerGroup
+  /**A reference to a consumer group.*/
   // channel :Channel
   /**A reference to a channel.*/
   validFrom: Scalars["DateTime"];
@@ -147,7 +147,7 @@ export type Price = {
   // tiers :PriceTier[]
   // discounted :DiscountedPrice
   /**Set if a matching ProductDiscount exists. If set, the Cart will use the discounted value for the cart price calculation.
-   When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the customer with the
+   When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the consumer with the
    half down rounding.*/
   custom: CustomFields;
 };
@@ -174,8 +174,8 @@ export type ScopedPrice = {
   /**either the original price value or the discounted value, if it's available*/
   country: string;
   /**A two-digit country code as perISO 3166-1 alpha-2.*/
-  // customerGroup :CustomerGroup
-  /**A reference to a customer group.*/
+  // consumerGroup :ConsumerGroup
+  /**A reference to a consumer group.*/
   // channel :Channel
   /**A reference to a channel.*/
   validFrom: Scalars["DateTime"];
@@ -184,7 +184,7 @@ export type ScopedPrice = {
   /**Date until which the price is valid.*/
   // discounted :DiscountedPrice
   /**Is set if a matching ProductDiscount exists. If set, the Cart will use the discounted value for the cart price calculation.
-   When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the customer with the
+   When a relative discount is applied and the fraction part of the discounted price is 0.5, the discounted price is rounded in favor of the consumer with the
    half down rounding.*/
   custom: CustomFields;
 };

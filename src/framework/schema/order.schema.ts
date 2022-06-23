@@ -7,7 +7,7 @@ import {
   CustomFields,
 } from "./common.schema";
 import { Store, LineItem, Cart } from "./cart.schema";
-import { Address } from "./customer.schema";
+import { Address } from "./consumer.schema";
 import {
   TaxMode,
   OrderState,
@@ -32,10 +32,10 @@ export type Order = {
   /**This field will only be present if it was set for Order Import*/
   orderNumber: string;
   /** String that uniquely identifies an order. It can be used to create more human-readable (in contrast to ID) identifier for the order. It should be unique across a project. Once it's set it cannot be changed.*/
-  customerId: string;
-  customerEmail: string;
+  consumerId: string;
+  consumerEmail: string;
   anonymousId: string;
-  /** Identifies carts and orders belonging to an anonymous session (the customer has not signed up/in yet).*/
+  /** Identifies carts and orders belonging to an anonymous session (the consumer has not signed up/in yet).*/
   store: Store;
   lineItems: LineItem[];
   customLineItems: CustomLineItem[];
@@ -50,8 +50,8 @@ export type Order = {
   /**When calculating taxes for taxedPrice, the selected mode is used for rouding.*/
   // taxCalculationMode :TaxCalculationMode
   /**When calculating taxes for taxedPrice, the selected mode is used for calculating the price with LineItemLevel (horizontally) or UnitPriceLevel (vertically) calculation mode.*/
-  // customerGroup :CustomerGroup
-  /**Set when the customer is set and the customer is a member of a customer group. Used for product variant price selection.*/
+  // consumerGroup :ConsumerGroup
+  /**Set when the consumer is set and the consumer is a member of a consumer group. Used for product variant price selection.*/
   country: string;
   /**A two-digit country code as perISO 3166-1 alpha-2. Used for product variant price selection.*/
   orderState: OrderState;

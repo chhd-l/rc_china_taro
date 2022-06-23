@@ -4,7 +4,7 @@ import {
   CustomFields,
   Scalars,
 } from "../schema/common.schema";
-import { Customer } from "./customer";
+import { Consumer } from "./consumer";
 
 export type Payment = {
   id: string;
@@ -12,10 +12,10 @@ export type Payment = {
   createdBy?: CreatedBy;
   lastModifiedAt?: Scalars["DateTime"];
   lastModifiedBy?: LastModifiedBy;
-  customer: Customer;
+  consumer: Consumer;
   anonymousId: string;
   interfaceId: string;
-  amountPlanned: number; //How much money this payment intends to receive from the customer. The value usually matches the cart or order gross total.
+  amountPlanned: number; //How much money this payment intends to receive from the consumer. The value usually matches the cart or order gross total.
   paymentMethodInfo: PaymentMethodInfo;
   paymentStatus: PaymentStatus;
   // transactions: Transaction[];//A list of financial transactions of different TransactionTypes with different TransactionStates.

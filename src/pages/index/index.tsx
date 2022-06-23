@@ -1,10 +1,10 @@
 import NavBarForList from '@/components/index/NavBarForList'
 import ListBanner from '@/components/product/ListBanner'
-import { wxLogin } from '@/framework/api/customer/customer'
+import { wxLogin } from '@/framework/api/consumer/consumer'
 import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
 import IconFont from '@/iconfont'
 import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
-import { customerAtom } from '@/store/customer'
+import { consumerAtom } from '@/store/consumer'
 import { Image, ScrollView, Text, View } from '@tarojs/components'
 import Taro, { requirePlugin, useDidShow } from '@tarojs/taro'
 import { useAtom } from 'jotai'
@@ -69,14 +69,14 @@ const liveStatusIconList = {
 let timer: any = null
 
 const ProductList = () => {
-  const [, setCustomer] = useAtom(customerAtom)
+  const [, setConsumer] = useAtom(consumerAtom)
   const [roomId, setRoomId] = useState<any>(null)
   let [liveStreaming, setLiveStreaming] = useState<any>(undefined)
   const loginInit = async () => {
     if (Taro.getStorageSync('wxLoginRes')) {
       Taro.setStorageSync('commerce-loading', 1)
       const data = await wxLogin()
-      setCustomer(data)
+      setConsumer(data)
     }
   }
 

@@ -26,7 +26,7 @@ export const getLiveStreamingFindOnLive = async (accountId) => {
     // }
     Taro.setStorageSync('commerce-loading', 1)
     try {
-        const { liveStreamingFindOnLive } = await ApiRoot.liveStreams().liveStreamingFindOnLive(accountId)
+        const liveStreamingFindOnLive = await ApiRoot.liveStreams().wxLiveStreamingFindOnLive(accountId)
         return liveStreamingFindOnLive
     } catch (err) {
         console.log('err', err)

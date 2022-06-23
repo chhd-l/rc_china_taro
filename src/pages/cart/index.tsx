@@ -50,10 +50,10 @@ const Cart = () => {
   //勾选商品或者更改商品购买数量
   const changeProduct = async (id, name, value) => {
     let res = true
-    if (name === 'goodsNum') {
+    if (name === 'productNum') {
       res = await updateCart({
         id: id,
-        goodsNum: value,
+        productNum: value,
         operator: 'test',
       })
       if (res) {

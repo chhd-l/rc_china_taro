@@ -1,13 +1,13 @@
 export const products = [
   {
     id: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-    cardName: 'Test Goods Card',
-    goodsVariants: [
+    cardName: 'Test Product Card',
+    productVariants: [
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '08c511d0-bc80-ad68-a56f-52c2287cd6c4',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -28,19 +28,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: '3d66d065-0733-5bf2-e574-550bdfea6e4a',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: '3d66d065-0733-5bf2-e574-550bdfea6e4a',
           },
         ],
         subscriptionPrice: 1231.11,
         id: '2055bb62-019c-a576-7c73-35cad8dffc35',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -61,19 +61,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: '035d8bc5-ac78-0691-2d12-f739d8a5d425',
-            goodsSpecificationDetailId: '041d9dce-13cc-22b6-848f-fafc0ef9282a',
+            productSpecificationId: '035d8bc5-ac78-0691-2d12-f739d8a5d425',
+            productSpecificationDetailId: '041d9dce-13cc-22b6-848f-fafc0ef9282a',
           },
           {
-            goodsSpecificationId: 'a72941ae-b093-3cdf-ac4a-0cb26e25c56f',
-            goodsSpecificationDetailId: '09e7f80a-d109-63b2-f139-8f5433a7bc14',
+            productSpecificationId: 'a72941ae-b093-3cdf-ac4a-0cb26e25c56f',
+            productSpecificationDetailId: '09e7f80a-d109-63b2-f139-8f5433a7bc14',
           },
         ],
         subscriptionPrice: 1231.11,
         id: '2fde6f65-a83a-0760-b9a1-be9411376461',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -94,10 +94,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '35746076-ca72-5b71-aff9-7bf39af42338',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -118,10 +118,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '43cdee8c-83d2-d3a5-d882-c9feff9f2ad4',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -142,19 +142,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: '7b3982c0-96e8-ff2d-6e78-ff70269f2565',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: '7b3982c0-96e8-ff2d-6e78-ff70269f2565',
           },
         ],
         subscriptionPrice: 1231.11,
         id: '4c911ae6-af38-f165-98d7-e4ccbfdd2439',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -175,10 +175,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '66d97776-847b-414d-2de1-9f5c79ed3000',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -199,10 +199,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '9acb4403-1a58-0d12-2a75-cf9633967986',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -223,10 +223,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '9b9948a8-943e-f0ae-055b-63cf167ba641',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -247,10 +247,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '9cef49b3-b737-07e0-bf5a-47fdf17881b6',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -271,10 +271,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: 'a4a606d2-895b-385b-2a2b-c78269792cb0',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -295,19 +295,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: '035d8bc5-ac78-0691-2d12-f739d8a5d425',
-            goodsSpecificationDetailId: '265a54ca-e53e-7014-06a4-dfc0557398b2',
+            productSpecificationId: '035d8bc5-ac78-0691-2d12-f739d8a5d425',
+            productSpecificationDetailId: '265a54ca-e53e-7014-06a4-dfc0557398b2',
           },
           {
-            goodsSpecificationId: 'c84bddca-ede8-b6bd-fb87-19bd70762a31',
-            goodsSpecificationDetailId: 'f1f2cdff-b338-e807-c652-de2afaee030f',
+            productSpecificationId: 'c84bddca-ede8-b6bd-fb87-19bd70762a31',
+            productSpecificationDetailId: 'f1f2cdff-b338-e807-c652-de2afaee030f',
           },
         ],
         subscriptionPrice: 1231.11,
         id: 'acfa8b34-03b3-4eef-db71-7a3bd277f58e',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -328,19 +328,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: '557529d4-81f4-1a47-49fa-65f0412b221d',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: '557529d4-81f4-1a47-49fa-65f0412b221d',
           },
         ],
         subscriptionPrice: 1231.11,
         id: 'b1d3ce27-8131-afbe-162c-39198fb23b43',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -361,19 +361,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: 'b55ff6ae-23c9-dc14-e0f2-76dfd1a92409',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: 'b55ff6ae-23c9-dc14-e0f2-76dfd1a92409',
           },
         ],
         subscriptionPrice: 1231.11,
         id: 'b6b158c0-18d0-55e9-1c52-ad7e5b8970d8',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -394,19 +394,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: '7de3beaf-a389-5926-535a-5cb20ac566cc',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: '7de3beaf-a389-5926-535a-5cb20ac566cc',
           },
         ],
         subscriptionPrice: 1231.11,
         id: 'b8ff2802-2141-8d09-bf51-9918e58fb39c',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -427,19 +427,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: '7521098a-ab8c-ff22-0c11-cb7c44d7e176',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: '7521098a-ab8c-ff22-0c11-cb7c44d7e176',
           },
         ],
         subscriptionPrice: 1231.11,
         id: 'bc4f7d51-ccde-f15f-be93-e3a4a8d2107e',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -460,19 +460,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: '5bd990b4-04e6-04ee-0d55-29f49bba2de2',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: '5bd990b4-04e6-04ee-0d55-29f49bba2de2',
           },
         ],
         subscriptionPrice: 1231.11,
         id: 'd1952f85-2607-f413-1ed7-3a0dbd49e936',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -493,10 +493,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: 'df1eab61-fed2-3621-b793-1f92241a7da4',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -517,19 +517,19 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: null,
-            goodsSpecificationDetailId: null,
+            productSpecificationId: null,
+            productSpecificationDetailId: null,
           },
           {
-            goodsSpecificationId: 'sssss',
-            goodsSpecificationDetailId: '5f02dcdc-f265-24b9-8910-d398a67e794a',
+            productSpecificationId: 'sssss',
+            productSpecificationDetailId: '5f02dcdc-f265-24b9-8910-d398a67e794a',
           },
         ],
         subscriptionPrice: 1231.11,
         id: 'e0d5da38-b8cc-acab-7656-8773f314e945',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -550,10 +550,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: 'ec944a15-f7f2-bd66-cb7e-e5c7f63730cf',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -574,11 +574,11 @@ export const products = [
         isDeleted: '',
       },
     ],
-    goodsAsserts: [
+    productAsserts: [
       {
         id: '00cba2d1-7b62-655a-c251-b5a4815a',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.00cba2d1-7b62-655a-c251-b5a4815a.com',
         type: 'vedio',
         storeId: '123241',
@@ -589,8 +589,8 @@ export const products = [
       },
       {
         id: '0ffae636-28ce-7cdc-3fbc-39ccc5c1',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -601,8 +601,8 @@ export const products = [
       },
       {
         id: '1efbf841-24d6-ea4a-9cc4-a3f8218d',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -613,8 +613,8 @@ export const products = [
       },
       {
         id: '2ce9bfc4-48a9-88db-b6a3-c26b2961',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -625,8 +625,8 @@ export const products = [
       },
       {
         id: '361c20e0-d0eb-780d-94f5-a7dde6df',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -637,8 +637,8 @@ export const products = [
       },
       {
         id: '3bc7fa92-ddb1-2288-b764-aea9fff4',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -649,8 +649,8 @@ export const products = [
       },
       {
         id: '3ea80814-aebf-f42a-abd5-26efbb86',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -661,8 +661,8 @@ export const products = [
       },
       {
         id: '44e4b29c-e260-7f01-2281-05c6d60d',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -673,8 +673,8 @@ export const products = [
       },
       {
         id: '4516c8ad-976c-0003-3521-7400dd5d',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -685,8 +685,8 @@ export const products = [
       },
       {
         id: '53e1534e-9dd7-c479-6e92-6576ac54',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -697,8 +697,8 @@ export const products = [
       },
       {
         id: '617d3d6b-6a82-7270-63b6-3847820c',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -709,8 +709,8 @@ export const products = [
       },
       {
         id: '6f708bbb-3b4d-8a04-3e62-ea8297d3',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -721,8 +721,8 @@ export const products = [
       },
       {
         id: '7939146c-5b4b-160a-5d89-7306a576',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -733,8 +733,8 @@ export const products = [
       },
       {
         id: '891c8342-3fd1-f643-e193-7919ff73',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -745,8 +745,8 @@ export const products = [
       },
       {
         id: '92207ad6-6836-1ca4-8282-2ff5b265',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -757,8 +757,8 @@ export const products = [
       },
       {
         id: '947a75a9-f0fc-a7ee-57b2-6aab04e6',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -769,8 +769,8 @@ export const products = [
       },
       {
         id: '955d0541-6692-b570-7512-e67b043b',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -781,8 +781,8 @@ export const products = [
       },
       {
         id: '9c5a51a2-66c9-4b11-ba2b-4c6e7e85',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -793,8 +793,8 @@ export const products = [
       },
       {
         id: 'a1c39796-b9bf-5857-3c9d-70cf95f0',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -805,8 +805,8 @@ export const products = [
       },
       {
         id: 'a1dc5427-1b8a-5d9b-81d4-9226180c',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -817,8 +817,8 @@ export const products = [
       },
       {
         id: 'b9c074b4-f176-9475-6650-ccd73f0a',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -829,8 +829,8 @@ export const products = [
       },
       {
         id: 'd2e03991-4da4-6807-730b-8f436a54',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -841,8 +841,8 @@ export const products = [
       },
       {
         id: 'd46e2665-9302-6db7-cc56-b592ab24',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -853,8 +853,8 @@ export const products = [
       },
       {
         id: 'f10c8478-848f-5269-7873-c1639487',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',
@@ -865,8 +865,8 @@ export const products = [
       },
       {
         id: 'f7c71582-8cd6-c24a-11b1-ee519927',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -877,8 +877,8 @@ export const products = [
       },
       {
         id: 'ff95497a-30fb-cff0-4671-c7a5cf9f',
-        goodsId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
-        goodsVariantId: null,
+        productId: '75af31b5-119e-123e-807e-b61a0f94ea5d',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -891,22 +891,22 @@ export const products = [
   },
   {
     id: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
-    cardName: 'Test Goods Card',
-    goodsVariants: [
+    cardName: 'Test Product Card',
+    productVariants: [
       {
-        goodsSpecificationRel: [
+        productSpecificationRel: [
           {
-            goodsSpecificationId: '75cfe096-37ef-09d1-2bd8-86546e230fff',
-            goodsSpecificationDetailId: 'cab94ea3-64f7-21e5-22ca-e2399e9ab2e9',
+            productSpecificationId: '75cfe096-37ef-09d1-2bd8-86546e230fff',
+            productSpecificationDetailId: 'cab94ea3-64f7-21e5-22ca-e2399e9ab2e9',
           },
           {
-            goodsSpecificationId: 'b8acab28-aa55-b05c-e3b2-bf8a0e66a260',
-            goodsSpecificationDetailId: '275ffacf-e465-9f08-02f3-cf23e4ea8030',
+            productSpecificationId: 'b8acab28-aa55-b05c-e3b2-bf8a0e66a260',
+            productSpecificationDetailId: '275ffacf-e465-9f08-02f3-cf23e4ea8030',
           },
         ],
         subscriptionPrice: 1231.11,
         id: '624e9193-8b6e-7bed-b167-77bc6ed59233',
-        goodsId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
+        productId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
         skuNo: '9098',
         eanCode: '9899',
         name: 'test sku',
@@ -927,10 +927,10 @@ export const products = [
         isDeleted: '',
       },
       {
-        goodsSpecificationRel: null,
+        productSpecificationRel: null,
         subscriptionPrice: 1000.21,
         id: '824bd87c-847e-8d27-91ab-af5dfd95f31f',
-        goodsId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
+        productId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
         skuNo: '1231232',
         eanCode: '3212123',
         name: 'this is test',
@@ -951,11 +951,11 @@ export const products = [
         isDeleted: '',
       },
     ],
-    goodsAsserts: [
+    productAsserts: [
       {
         id: 'd1f34eca-d1f5-6534-6009-c412dbe1',
-        goodsId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
-        goodsVariantId: null,
+        productId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
+        productVariantId: null,
         artworkUrl: 'www.baidu.com',
         type: 'vedio',
         storeId: '123241',
@@ -966,8 +966,8 @@ export const products = [
       },
       {
         id: 'e5e8f947-16fe-06a5-59a2-42a71d7d',
-        goodsId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
-        goodsVariantId: null,
+        productId: 'a43aada1-44d6-7a6d-e972-91ad7b09b34a',
+        productVariantId: null,
         artworkUrl: 'www.baidu2.com',
         type: 'image',
         storeId: '123132',

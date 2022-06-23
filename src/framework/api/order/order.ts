@@ -8,25 +8,25 @@ import cloneDeep from 'lodash.cloneDeep'
 import { formatDateToApi } from '@/utils/utils'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
-export const createOrder = async ({ tradeItems, address, remark, deliveryTime, voucher }) => {
+export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher }) => {
   try {
     //入参处理 start
-    const goodsList = cloneDeep(tradeItems).map((el) => {
-      if (el.skuGoodInfo.goodsVariants?.length > 0 || el.skuGoodInfo.goodsVariant?.length > 0) {
-        el.skuGoodInfo.goodsVariant = Object.assign(omit(el.skuGoodInfo.goodsVariants[0], ['isDeleted']), {
-          num: el.goodsNum,
+    const productList = cloneDeep(orderItems).map((el) => {
+      if (el.skuGoodInfo.variants?.length > 0 ) {
+        el.skuGoodInfo.variants = Object.assign(omit(el.skuGoodInfo.variants[0], ['isDeleted','variantBundles']), {
+          num: el.productNum,
         })
       }
-      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'goodsVariants'])
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted'])
       return el.skuGoodInfo
     })
     let shoppingCartIds: any[] = []
-    tradeItems.map((el) => {
+    orderItems.map((el) => {
       if (el?.id !== null && el.id !== undefined) {
         shoppingCartIds.push(el.id)
       }
     })
-    const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
+    const addressInfo = omit(address, ['consumerId', 'storeId', 'isDefault'])
     const user = Taro.getStorageSync('wxLoginRes').userInfo
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
@@ -36,17 +36,17 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
           }
         : null
     finalVoucher = finalVoucher
-      ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+      ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
       : null
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const params = {
-      goodsList,
+      productList,
       addressInfo: addressInfo.id !== '' ? addressInfo : null,
       remark,
       shoppingCartIds: shoppingCartIds.length > 0 ? shoppingCartIds : [''],
       expectedShippingDate: formatDateToApi(deliveryTime),
       isSubscription: false,
-      customerInfo: {
+      consumerInfo: {
         id: user.id,
         avatarUrl: user.avatarUrl,
         level: user.level,
@@ -57,8 +57,8 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       operator: user.nickName,
       wxUserInfo: {
         nickName: user.nickName,
-        unionId: wxLoginRes?.customerAccount?.unionId,
-        openId: wxLoginRes?.customerAccount?.openId,
+        unionId: wxLoginRes?.consumerAccount?.unionId,
+        openId: wxLoginRes?.consumerAccount?.openId,
       },
       voucher: finalVoucher,
     }
@@ -68,11 +68,11 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       body: Object.assign(params, { storeId: baseSetting.storeId }),
     })
     console.log('create order view', res)
-    if (res.createOrder) {
+    if (res) {
       Taro.removeStorageSync('select-product')
       //下单成功处理删除购物车数据
       let cartProducts = session.get('cart-data') || []
-      tradeItems.map((item) => {
+      orderItems.map((item) => {
         cartProducts.map((el) => {
           if (item.id === el.id) {
             const delIndex = cartProducts.findIndex((data) => data.id === item.id)
@@ -84,13 +84,13 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
       console.info('////////')
       pay({
         params: {
-          customerId: wxLoginRes?.userInfo?.id || '',
-          customerOpenId: wxLoginRes?.customerAccount?.openId,
-          tradeId: res.createOrder?.orderNumber,
-          tradeNo: res.createOrder?.orderNumber,
-          tradeDescription: '商品',
+          consumerId: wxLoginRes?.userInfo?.id || '',
+          consumerOpenId: wxLoginRes?.consumerAccount?.openId,
+          orderId: res?.orderNumber,
+          orderNo: res?.orderNumber,
+          orderDescription: '商品',
           payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
-          amount: res.createOrder?.tradePrice.totalPrice * 100,
+          amount: res?.orderPrice.totalPrice * 100,
           currency: 'CNY',
           storeId: '12345678',
           operator: wxLoginRes?.userInfo?.nickName || '',
@@ -107,12 +107,6 @@ export const createOrder = async ({ tradeItems, address, remark, deliveryTime, v
         },
       })
     }
-    // else {
-    //   Taro.atMessage({
-    //     message: '系统繁忙，请稍后再试',
-    //     type: 'error',
-    //   })
-    // }
     return res
   } catch (err) {
     console.log(err)
@@ -130,14 +124,11 @@ export const getOrderSetting = async () => {
     if (orderSettings) {
       orderSettings = JSON.parse(orderSettings)
     } else {
-      const res = await ApiRoot.orders().getOrderSetting({
+      orderSettings = await ApiRoot.orders().getOrderSetting({
         storeId: baseSetting.storeId,
       })
-      console.log('get orderSetting view data', res)
-      if (res.orderSettings) {
-        orderSettings = res.orderSettings
-        Taro.setStorageSync('order-setting', JSON.stringify(res.orderSettings))
-      }
+      console.log('get orderSetting view data', orderSettings)
+      Taro.setStorageSync('order-setting', JSON.stringify(orderSettings))
     }
     return orderSettings
   } catch (e) {
@@ -158,12 +149,12 @@ export const getOrderList = async (queryOrderListParams: any) => {
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const params = Object.assign(queryOrderListParams, {
         storeId: wxLoginRes?.userInfo?.storeId || '12345678',
-        operator: wxLoginRes?.userInfo?.nickName || 'system',
+        operator: 'system',
         isNeedTotal: true,
-        sample: { ...queryOrderListParams?.sample, customerId: wxLoginRes?.customerAccount?.customerId },
+        sample: { ...queryOrderListParams?.sample, consumerId: wxLoginRes?.consumerAccount?.consumerId },
       })
       let res = await ApiRoot.orders().getOrders({ queryOrderListParams: params })
-      const { records, total } = res.orders
+      const { records, total } = res
       console.log('query orders view list', res)
       return {
         total: total || 0,
@@ -184,9 +175,9 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
     if (isMock) {
       return orderDetailMockData
     } else {
-      let { getOrder } = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
-      console.info('res', getOrder)
-      return getOrder
+      let res = await ApiRoot.orders().getOrder({ storeId: '12345678', orderNum })
+      console.info('res', res)
+      return res
     }
   } catch (e) {
     console.log(e)
@@ -200,8 +191,7 @@ export const getExpressCompanyList = async () => {
     if (!expressCompanyList) {
       let res = await ApiRoot.orders().getExpressCompany({ storeId: '12345678' })
       console.info('get expressCompany data view', res)
-      expressCompanyList = res.expressCompanies || []
-      session.set('express-company-list', expressCompanyList)
+      session.set('express-company-list', res)
     }
     return expressCompanyList
   } catch (e) {
@@ -220,7 +210,7 @@ export const shippedOrder = async (params: any) => {
     console.info('shipped order view params', params)
     let res = await ApiRoot.orders().shippedOrder({ body: params })
     console.info('shipped order data view', res)
-    return res.shippedOrder || false
+    return res
   } catch (e) {
     console.log(e)
     return false
@@ -237,7 +227,7 @@ export const completedOrder = async (params: any) => {
     console.info('completed order view params', params)
     let res = await ApiRoot.orders().completedOrder({ body: params })
     console.info('completed order data view', res)
-    return res.completedOrder || false
+    return res
   } catch (e) {
     console.log(e)
     return false
@@ -254,7 +244,7 @@ export const cancelOrder = async (params: any) => {
     console.info('cancel order view params', params)
     let res = await ApiRoot.orders().cancelOrder({ body: params })
     console.info('cancel order data view', res)
-    return res.cancelOrder || false
+    return res
   } catch (e) {
     console.log(e)
     return false

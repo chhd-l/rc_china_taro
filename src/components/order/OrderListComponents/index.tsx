@@ -29,11 +29,11 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     pay({
       params: {
-        customerId: wxLoginRes?.userInfo?.id || '',
-        customerOpenId: wxLoginRes?.customerAccount?.openId,
-        tradeId: orderId,
-        tradeNo: orderId,
-        tradeDescription: '商品',
+        consumerId: wxLoginRes?.userInfo?.id || '',
+        consumerOpenId: wxLoginRes?.consumerAccount?.openId,
+        orderId: orderId,
+        orderNo: orderId,
+        orderDescription: '商品',
         payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
         amount,
         currency: 'CNY',
@@ -84,7 +84,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                     复制
                   </View>
                 </View>
-                <View className="text-primary-red">{orderStatusType[item?.tradeState?.orderState || '']}</View>
+                <View className="text-primary-red">{orderStatusType[item?.orderState?.orderState || '']}</View>
               </View>
               {(item?.lineItem?.filter((el) => !el.isGift) || []).map((el, index) => (
                 <View key={index} className="w-full flex items-center min-h-16 " style={{ marginBottom: '36rpx' }}>
@@ -99,7 +99,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                     <View className="text-30 mb-1">{el?.skuName}</View>
                     <View className="text-primary-red flex text-20 justify-between items-center">
                       <View className="flex flex-row flex-wrap">
-                        {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                        {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag) => (
                           <View
                             className="px-1 border rounded-lg border-solid border-red mr-2 mb-1"
                             style={{ borderWidth: '1PX' }}
@@ -111,7 +111,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                       <View className="text-gray-400">X{el?.num}</View>
                     </View>
                     <View className="text-24 mt-2 items-end ProductIntroduction text-gray-400">
-                      规格：{el?.goodsSpecifications}
+                      规格：{el?.productSpecifications}
                     </View>
                     {item.freshType === 'FRESH_100_DAYS' ? (
                       <View className="text-24 mt-1 items-end ProductIntroduction text-gray-400">新鲜度：100天</View>
@@ -142,9 +142,9 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
                       <View className="flex flex-row flex-wrap" />
                       <View className="text-gray-400">X{el?.num}</View>
                     </View>
-                    {el?.goodsSpecifications ? (
+                    {el?.productSpecifications ? (
                       <View className="text-24 mt-2 items-end ProductIntroduction text-gray-400">
-                        规格：{el?.goodsSpecifications}
+                        规格：{el?.productSpecifications}
                       </View>
                     ) : null}
                   </View>
@@ -152,16 +152,16 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
               ))}
               <View className="w-full pt-2 footerText flex items-end flex-col">
                 <View className="text-right text-22">
-                  共{item?.lineItem?.length}件商品 总价{formatMoney(item.tradePrice.goodsPrice)}，优惠
-                  {formatMoney(item.tradePrice.discountsPrice || 0)}，实付款
-                  <Text className="text-primary-red text-28">{formatMoney(item.tradePrice.totalPrice)}</Text>
+                  共{item?.lineItem?.length}件商品 总价{formatMoney(item.orderPrice.productPrice)}，优惠
+                  {formatMoney(item.orderPrice.discountsPrice || 0)}，实付款
+                  <Text className="text-primary-red text-28">{formatMoney(item.orderPrice.totalPrice)}</Text>
                 </View>
                 <OrderAction
-                  orderState={item?.tradeState?.orderState || ''}
+                  orderState={item?.orderState?.orderState || ''}
                   openModalTip={() => {
-                    openModalTip && openModalTip(item?.orderNumber, item?.tradeState?.orderState)
+                    openModalTip && openModalTip(item?.orderNumber, item?.orderState?.orderState)
                   }}
-                  payNow={() => payNow(item.orderNumber || '', item.tradePrice.totalPrice * 100)}
+                  payNow={() => payNow(item.orderNumber || '', item.orderPrice.totalPrice * 100)}
                 />
               </View>
             </View>

@@ -1,8 +1,8 @@
 import { useEffect, useMemo, useState } from 'react'
 import { View, Text, RichText, Image, Video } from '@tarojs/components'
 import { ProductDetailProps, SkuItemProps } from '@/framework/types/products'
-import { AuthLogin } from '@/components/customer'
-import { authLoginOpenedAtom } from '@/components/customer/AuthLogin'
+import { AuthLogin } from '@/components/consumer'
+import { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
 import { mockDetail } from '@/mock/product'
 import ChooseSpec from '@/components/product/ChooseSpec'
 import AddCart from '@/components/product/AddCart'
@@ -13,7 +13,7 @@ import { getProduct } from '@/framework/api/product/get-product'
 import Taro, { getCurrentInstance, useShareAppMessage } from '@tarojs/taro'
 import { baseSetting } from '@/framework/api/fetcher'
 import { useAtom } from 'jotai'
-import { cartSunccessToastShowAtom } from '@/store/customer'
+import { cartSunccessToastShowAtom } from '@/store/consumer'
 import { AtFloatLayout, AtToast } from 'taro-ui'
 import Mock from 'mockjs'
 import './index.less'
@@ -63,14 +63,14 @@ const ProductDetail = () => {
   })
   const getList = async () => {
     console.info('router.params', router?.params)
-    let goodsId = router?.params?.id || ''
-    // if (!goodsId) {
+    let productId = router?.params?.id || ''
+    // if (!productId) {
     //   Taro.switchTab({
     //     url: '/pages/productList/index',
     //   })
     //   return
     // }
-    let detailData = (await getProduct({ storeId: baseSetting.storeId, goodsId })) || detailInfo
+    let detailData = (await getProduct({ storeId: baseSetting.storeId, productId })) || detailInfo
     // debugger
     if (detailData?.skus?.length) {
       detailData.skus.forEach((sku) => {
@@ -80,22 +80,22 @@ const ProductDetail = () => {
       })
     }
     let selecteds = {}
-    detailData.skus[0]?.goodsSpecificationRel?.map((el) => {
-      selecteds[el.goodsSpecificationId] = el.goodsSpecificationDetailId
+    detailData.skus[0]?.productSpecificationRel?.map((el) => {
+      selecteds[el.productSpecificationId] = el.productSpecificationDetailId
     })
     //默认选规格
-    detailData.skus[0]?.goodsSpecificationRel?.forEach((specification) => {
+    detailData.skus[0]?.productSpecificationRel?.forEach((specification) => {
       detailData.specifications
         ?.filter((el) => {
-          // console.info('el.id !== specification?.goodsSpecificationId', el.id, specification?.goodsSpecificationId)
+          // console.info('el.id !== specification?.productSpecificationId', el.id, specification?.productSpecificationId)
           // 如果有多个规格，要筛选当前选择的不做置灰处理，处理其他规格
-          // return detailData.specifications?.length > 1 ? el.id !== specification?.goodsSpecificationId : el.id
-          return el.id !== specification?.goodsSpecificationId
+          // return detailData.specifications?.length > 1 ? el.id !== specification?.productSpecificationId : el.id
+          return el.id !== specification?.productSpecificationId
         })
         ?.map((el) => {
           el.children = el.children.map((e, idx) => {
             // e.able = isAble(e)
-            e.able = isAble(specification?.goodsSpecificationDetailId, e.id, selecteds, detailData.skus)
+            e.able = isAble(specification?.productSpecificationDetailId, e.id, selecteds, detailData.skus)
             // e.able = true
             return e
           })

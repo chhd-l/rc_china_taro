@@ -95,7 +95,7 @@ const Detail = ({ choosedSku, detailInfo, buyCount, handleShowSpec, setShowShare
           ) : null}
         </View>
         {/*店铺优惠活动*/}
-        <VoucherModal goodsId={detailInfo.id} />
+        <VoucherModal productId={detailInfo.id} />
         <View className="flex justify-between text-26 items-center">
           <View>
             已选

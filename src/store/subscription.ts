@@ -3,14 +3,14 @@ import { atom } from 'jotai'
 type RecommendInfoType = {
   recommPetInfo: any;
   couponList: any[];
-  goodsList: any[];
+  productList: any[];
   giftList: any[]
   currentIdx: number;
   checkedArr: string[];
 }
 
 type RecommendProductType = {
-  goodsVariantInfo?: any;
+  productVariantInfo?: any;
   cycleList?: any[];
   quantity?: number;
   giftList: any[];
@@ -35,7 +35,7 @@ export const currentStepAtom = atom(0)
 export const recommendInfoAtom = atom<RecommendInfoType>({
   recommPetInfo: {},
   couponList: [],
-  goodsList: [],
+  productList: [],
   giftList: [],
   currentIdx: 0,
   checkedArr: []
@@ -49,8 +49,8 @@ export const recommendProductAtom = atom<RecommendProductType>({
   freshType: 'FRESH_NORMAL',
   discountPrice: '',
   originalPrice: '',
-  goodsVariantInfo: {
-    goodsVariants: {}, goodsAttributeValueRel: [], goodsAsserts: {}, goodsName: ''
+  productVariantInfo: {
+    productVariants: {}, productAttributeValueRel: [], productAsserts: {}, productName: ''
   }
 })
 

@@ -5,10 +5,10 @@ import { useAtom } from 'jotai'
 import './index.less'
 
 const List = () => {
-  const [goodsList] = useAtom(recommendInfoAtom)
+  const [productList] = useAtom(recommendInfoAtom)
   const [recommendProduct, setRecommendProduct] = useAtom(recommendProductAtom)
 
-  console.log('goodsList', goodsList)
+  console.log('productList', productList)
   const toDetail = (e, spu) => {
     Taro.navigateTo({
       url: `/pages/packageA/productDetail/index?id=${spu}`,
@@ -23,13 +23,13 @@ const List = () => {
     let currentCycle = cycleList[0]
     // let currentCycle = cycleList.find(el => recommendProduct.cycle.cycle === el.cycle)
     let { quantity } = currentCycle
-    const { giftList } = goodsList
+    const { giftList } = productList
     const gift = good.giftIdList.map((el) => {
-      let goodsVariants = giftList.find((giftItem) => giftItem?.goodsVariants?.[0]?.id === el.giftId)
+      let variants = giftList.find((giftItem) => giftItem?.variants?.[0]?.id === el.giftId)
       let data: any = {}
-      if (goodsVariants && el) {
+      if (variants && el) {
         data = {
-          ...goodsVariants,
+          ...variants,
           subscriptionRecommendRuleId: el.subscriptionRecommendRuleId,
           quantityRule: el.quantityRule,
           quantity: el.quantity,
@@ -72,8 +72,8 @@ const List = () => {
   return (
     <View className="px-1 product-list">
       <View className="product-list-box grid grid-cols-2 gap-2 px-2">
-        {goodsList?.goodsList?.map((item) => {
-          const product = item.goodsVariantInfo.goodsVariants[0]
+        {productList?.productList?.map((item) => {
+          const product = item.productVariantInfo.variants[0]
           return (
             <View key={product.name} className="col-span-1" onClick={() => chooseRecommendProduct(item)}>
               <View className="border border-solid border-gray-300 rounded-sm pb-2 mb-2 text-center">
@@ -88,7 +88,7 @@ const List = () => {
                   </View>
                   <View
                     onClick={(e) => {
-                      toDetail(e, item.goodsVariantInfo.id)
+                      toDetail(e, item.productVariantInfo.id)
                     }}
                     className="buy-button px-2 py-1 bg-white text-primary-red border border-solid border-primary-red rounded-full"
                   >

@@ -27,7 +27,7 @@ const TotalSettle = ({
 
   const getTotalPrice = () => {
     const total = selectedProduct.reduce((prev, cur) => {
-      return prev + cur.localData.price * cur.goodsNum
+      return prev + cur.localData.price * cur.productNum
     }, 0)
     setTotalPrice(total)
   }
@@ -39,7 +39,7 @@ const TotalSettle = ({
     // }
     Taro.setStorage({
       key: 'select-product',
-      data: JSON.stringify({ goodsList: selectedProduct }),
+      data: JSON.stringify({ productList: selectedProduct }),
       complete: (respon) => {
         console.log(respon)
         Taro.navigateTo({ url: routers.checkout })

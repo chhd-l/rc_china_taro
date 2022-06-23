@@ -4,7 +4,7 @@ import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { AtBadge, AtIcon } from 'taro-ui'
-import { cartSunccessToastShowAtom, customerAtom } from '@/store/customer'
+import { cartSunccessToastShowAtom, consumerAtom } from '@/store/consumer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
 import './index.less'
@@ -18,7 +18,7 @@ interface Props {
 const AddCart = ({ handleShowSpec, detailInfo }: Props) => {
   const [cartNumber, setCartNumber] = useState(0)
   const [cartSunccessToastShow] = useAtom(cartSunccessToastShowAtom)
-  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
   const [currentCartSpu, setCurrentCartSpu] = useAtom(currentCartSpuAtom)
   useEffect(() => {
     getCart()
@@ -26,11 +26,11 @@ const AddCart = ({ handleShowSpec, detailInfo }: Props) => {
 
   useEffect(() => {
     getCart()
-  }, [detailInfo?.id, customerInfo?.id])
+  }, [detailInfo?.id, consumerInfo?.id])
 
   const getCart = async () => {
     if (detailInfo?.id) {
-      let data = await getCartNumber(detailInfo.id, customerInfo)
+      let data = await getCartNumber(detailInfo.id, consumerInfo)
       // debugger
       console.info('detailInfo.iddetailInfo.id', detailInfo.id)
       setCurrentCartSpu(data.currentCartSpu)

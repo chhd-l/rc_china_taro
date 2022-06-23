@@ -1,15 +1,15 @@
 import { View } from '@tarojs/components'
 import { useEffect, useMemo, useState } from 'react'
-import { Address, TradeItem, DeliveryTime, Remark, Coupon, TotalCheck, TradePrice } from '@/components/checkout'
+import { Address, OrderItem, DeliveryTime, Remark, Coupon, TotalCheck, OrderPrice } from '@/components/checkout'
 import Taro, { useDidHide } from '@tarojs/taro'
 import { createOrder, getOrderSetting } from '@/framework/api/order/order'
 import { AtMessage, AtModal } from 'taro-ui'
 import omit from 'lodash/omit'
 import routers from '@/routers/index'
-import { getAddresses } from '@/framework/api/customer/address'
+import { getAddresses } from '@/framework/api/consumer/address'
 import { pay } from '@/framework/api/payment/pay'
 import { useAtom } from 'jotai'
-import { customerAtom } from '@/store/customer'
+import { consumerAtom } from '@/store/consumer'
 import GiftItem from '@/components/checkout/GiftItem'
 import { subscriptionCreateAndPay } from '@/framework/api/subscription/subscription'
 import moment from 'moment'
@@ -19,9 +19,9 @@ import { formatDateToApi } from '@/utils/utils'
 import './index.less'
 
 const Checkout = () => {
-  const [customerInfo] = useAtom(customerAtom)
+  const [consumerInfo] = useAtom(consumerAtom)
   const [address, setAddress] = useState({ id: '' })
-  const [tradeItems, setTradeItems] = useState<any[]>([])
+  const [orderItems, setOrderItems] = useState<any[]>([])
   const [giftItems, setGiftItems] = useState<any[]>([])
   const [couponItems, setCouponItems] = useState<any[]>([])
   const [orderType, setOrderType] = useState<string>('normal')
@@ -47,15 +47,15 @@ const Checkout = () => {
   }
 
   const getTotalNum = () => {
-    const total = tradeItems.reduce((prev, cur) => {
-      return prev + cur.goodsNum
+    const total = orderItems.reduce((prev, cur) => {
+      return prev + cur.productNum
     }, 0)
     setTotalNum(total)
   }
 
   const getTotalPrice = () => {
-    const total = tradeItems.reduce((prev, cur) => {
-      return prev + cur.goodsNum * cur.localData.price
+    const total = orderItems.reduce((prev, cur) => {
+      return prev + cur.productNum * cur.localData.price
     }, 0)
     let normalTotal = total + shippingPrice
     if (orderType === 'FRESH_BUY') {
@@ -93,22 +93,20 @@ const Checkout = () => {
         return false
       }
       setLoading(true)
-      const goodsList = tradeItems.map((el) => {
-        if (el.skuGoodInfo.goodsVariants?.length > 0) {
-          el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariants[0], {
-            num: el.goodsNum,
+      const productList = orderItems.map((el) => {
+        if (el.skuGoodInfo.variants?.length > 0) {
+          el.skuGoodInfo.variants = Object.assign(el.skuGoodInfo.variants[0], {
+            num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.goodsVariants
         return el.skuGoodInfo
       })
       const benefits = giftItems.map((el) => {
-        if (el.skuGoodInfo.goodsVariants?.length > 0) {
-          el.skuGoodInfo.goodsVariant = Object.assign(el.skuGoodInfo.goodsVariants[0], {
-            num: el.goodsNum,
+        if (el.skuGoodInfo.variants?.length > 0) {
+          el.skuGoodInfo.variants = Object.assign(el.skuGoodInfo.variants[0], {
+            num: el.productNum,
           })
         }
-        delete el.skuGoodInfo.goodsVariants
         return el.skuGoodInfo
       })
       let finalVoucher =
@@ -119,18 +117,18 @@ const Checkout = () => {
             }
           : null
       finalVoucher = finalVoucher
-        ? omit(finalVoucher, ['consumerId', 'goodsInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+        ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
         : null
       let shoppingCartIds: any[] = []
-      tradeItems.map((el) => {
+      orderItems.map((el) => {
         if (el?.id !== null && el.id !== undefined) {
           shoppingCartIds.push(el.id)
         }
       })
-      const addressInfo = omit(address, ['customerId', 'storeId', 'isDefault'])
+      const addressInfo = omit(address, ['consumerId', 'storeId', 'isDefault'])
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const user = wxLoginRes.userInfo
-      const customerAccount = wxLoginRes.customerAccount
+      const consumerAccount = wxLoginRes.consumerAccount
 
       const subscriptionInput = {
         description: 'description',
@@ -138,7 +136,7 @@ const Checkout = () => {
         cycle: subscriptionInfo.cycleObj?.cycle,
         freshType: subscriptionInfo.freshType,
         voucher: finalVoucher,
-        customer: {
+        consumer: {
           id: user.id,
           avatarUrl: user.avatarUrl,
           level: user.level,
@@ -148,13 +146,13 @@ const Checkout = () => {
           email: user.email,
           points: user.points,
           account: {
-            unionId: customerAccount.unionId,
-            openId: customerAccount.openId,
+            unionId: consumerAccount.unionId,
+            openId: consumerAccount.openId,
           },
         },
         pet: subscriptionInfo.pet,
         address: addressInfo.id !== '' ? addressInfo : null,
-        goodsList,
+        productList,
         benefits,
         coupons: couponItems.map((el) => {
           let couponInfo = el.couponInfo
@@ -179,11 +177,11 @@ const Checkout = () => {
         input: subscriptionInput,
         payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
         storeId: '12345678',
-        operator: customerInfo?.nickName || '',
+        operator: consumerInfo?.nickName || '',
       }
       console.log('create order params', params)
       const res = await subscriptionCreateAndPay(params)
-      if (res.payment?.payInfo?.status === 'PAID') {
+      if (res.paymentStartResult?.payment?.status === 'PAID') {
         //0元就不用调用支付接口
         Taro.showLoading({
           title: '支付成功',
@@ -191,21 +189,23 @@ const Checkout = () => {
         toOrderList()
         return
       }
-      if (res.payment) {
+      let paymentInfo = res.paymentStartResult?.payment
+      if (paymentInfo) {
+        
         console.log(res, 'subscriptionCreateAndPayressssss')
         Taro.removeStorageSync('select-product')
         pay({
           params: {
-            customerId: customerInfo?.id || '',
-            customerOpenId: wxLoginRes?.customerAccount?.openId,
-            tradeId: res.payment?.payInfo?.tradeNo,
-            tradeNo: res.payment?.payInfo?.tradeNo,
-            tradeDescription: '商品',
+            consumerId: consumerInfo?.id || '',
+            consumerOpenId: wxLoginRes?.consumerAccount?.openId,
+            orderId: paymentInfo?.orderNo,
+            orderNo: paymentInfo?.orderNo,
+            orderDescription: '商品',
             payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
-            amount: res.payment?.payInfo?.amount * 100,
+            amount: paymentInfo?.amount * 100,
             currency: 'CNY',
             storeId: '12345678',
-            operator: customerInfo?.nickName || '',
+            operator: consumerInfo?.nickName || '',
           },
           success: () => {
             toOrderList()
@@ -215,7 +215,7 @@ const Checkout = () => {
               url: `${routers.orderList}?status=UNPAID&isFromSubscription=true`,
             })
           },
-          paymentRequest: res.payment,
+          paymentRequest: res.paymentStartResult,
         })
       } else {
         Taro.atMessage({
@@ -241,13 +241,9 @@ const Checkout = () => {
         return false
       }
       setLoading(true)
-      await createOrder({ tradeItems, address, remark, deliveryTime, voucher })
+      await createOrder({ orderItems, address, remark, deliveryTime, voucher })
     } catch (e) {
       console.log('create order err', e)
-      Taro.atMessage({
-        message: '系统繁忙，请稍后再试',
-        type: 'error',
-      })
     } finally {
       setLoading(false)
     }
@@ -268,7 +264,7 @@ const Checkout = () => {
   useEffect(() => {
     getTotalNum()
     getTotalPrice()
-  }, [tradeItems, shippingPrice])
+  }, [orderItems, shippingPrice])
 
   const getDefaultAddress = async () => {
     const selectAddress = Taro.getStorageSync('select-address')
@@ -276,7 +272,7 @@ const Checkout = () => {
       setAddress(JSON.parse(selectAddress))
     } else {
       const { userInfo } = Taro.getStorageSync('wxLoginRes')
-      const addresses = await getAddresses({ customerId: userInfo?.id })
+      const addresses = await getAddresses({ consumerId: userInfo?.id })
       const defaultAddress = (addresses || []).filter((item) => item.isDefault)
       if (defaultAddress.length > 0) {
         setAddress(defaultAddress[0])
@@ -289,7 +285,7 @@ const Checkout = () => {
       key: 'select-product',
       success: function (res) {
         let data = JSON.parse(res.data)
-        let { goodsList } = data
+        let { productList } = data
         if (data.isSubscription) {
           setOrderType('FRESH_BUY')
           let { giftList, couponList } = data
@@ -311,16 +307,21 @@ const Checkout = () => {
           let discount = subInfo.cycleObj.originalPrice - subInfo.cycleObj.discountPrice
           setSubDiscountPrice(discount)
         }
-        setTradeItems(goodsList)
+        setOrderItems(productList)
       },
     })
     getDefaultAddress()
     getShippingPrice()
   }, [])
 
+  const communityDiscountPrice = useMemo(
+    () => (consumerInfo?.isCommunity ? (totalPrice + shippingPrice - discountPrice - subDiscountPrice) * 0.05 : 0),
+    [totalPrice, discountPrice, subDiscountPrice, shippingPrice],
+  )
+
   const payPrice = useMemo(
-    () => totalPrice - discountPrice - subDiscountPrice,
-    [totalPrice, discountPrice, subDiscountPrice],
+    () => totalPrice + shippingPrice - discountPrice - subDiscountPrice - communityDiscountPrice,
+    [totalPrice, discountPrice, subDiscountPrice, communityDiscountPrice],
   )
 
   return (
@@ -332,7 +333,7 @@ const Checkout = () => {
             <Address address={address} />
           </View>
           <View className="bggray pb-2 px-2 rounded">
-            <TradeItem tradeItems={tradeItems} />
+            <OrderItem orderItems={orderItems} />
             {giftItems?.map((item) => (
               <GiftItem product={item} />
             ))}
@@ -343,7 +344,7 @@ const Checkout = () => {
               <DeliveryTime changeDeliveryDate={changeDeliveryDate} />
               <Coupon
                 totalPrice={orderType === 'normal' ? totalPrice : totalPrice - subDiscountPrice}
-                tradeItems={tradeItems}
+                orderItems={orderItems}
                 changeMaxDiscount={(maxDiscountPrice) => {
                   console.log('maxDiscountPrice', maxDiscountPrice)
                   setDiscountPrice(maxDiscountPrice)
@@ -355,11 +356,12 @@ const Checkout = () => {
             </View>
           </View>
           <View>
-            <TradePrice
+            <OrderPrice
               totalPrice={totalPrice}
               discountPrice={discountPrice}
               subDiscountPrice={subDiscountPrice}
               shipPrice={shippingPrice}
+              communityDiscountPrice={communityDiscountPrice}
             />
           </View>
         </View>

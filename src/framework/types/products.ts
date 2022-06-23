@@ -29,7 +29,7 @@ export interface SkuItemProps extends ProductBaseProps {
   specIds: string[]
   specText: string[]
   originalPrice: number
-  goodsSpecificationRel: any
+  productSpecificationRel: any
 }
 export interface SpecProps {
   id: string
@@ -41,7 +41,7 @@ export interface ProductDetailProps extends ProductBaseProps {
   skus: SkuItemProps[]
   wxCodeUrl: string
   type: string
-  // goodsAttributeValueRel:attrProps[]
+  // productAttributeValueRel:attrProps[]
   description: string
   specifications: SpecProps[]
 }

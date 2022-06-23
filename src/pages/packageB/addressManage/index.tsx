@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro'
 import { View, Button, Text } from '@tarojs/components'
-import { AddressItem } from '@/components/customer'
+import { AddressItem } from '@/components/consumer'
 import { useState } from 'react'
-import { Address } from '@/framework/types/customer'
-import { getAddresses } from '@/framework/api/customer/address'
+import { Address } from '@/framework/types/consumer'
+import { getAddresses } from '@/framework/api/consumer/address'
 import routers from '@/routers'
 import NavBar from '@/components/common/Navbar'
 import './index.less'
@@ -12,8 +12,8 @@ const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddressList = async () => {
-    const customerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-    const res = await getAddresses({ customerId: customerInfo.id })
+    const consumerInfo = Taro.getStorageSync('wxLoginRes').userInfo
+    const res = await getAddresses({ consumerId: consumerInfo.id })
     setAddressList(res)
   }
 

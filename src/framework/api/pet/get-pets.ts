@@ -4,9 +4,9 @@ import ApiRoot from '../fetcher'
 // import ApiRoot from '@/rc-china-commerce/packages/taro/lib'
 import { normalizePetsForFe } from '../lib/normalize'
 
-export const getPets = async ({ customerId }) => {
+export const getPets = async ({ consumerId }) => {
   try {
-    const pets = await ApiRoot.pets().getPets({ customerId })
+    const pets = await ApiRoot.pets().getPets({ consumerId })
     // const pets = mockPetlist;
     console.info('petspetspetspets', pets)
     return pets.map((pet) => normalizePetsForFe(pet))

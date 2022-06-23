@@ -1,6 +1,6 @@
-import { Address } from '@/framework/types/customer'
+import { Address } from '@/framework/types/consumer'
 
-export interface TradeGoodsAttributeAndValue {
+export interface OrderProductAttributeAndValue {
   attributeName: string
   attributeNameEn: string
   attributeValueName: string
@@ -8,42 +8,42 @@ export interface TradeGoodsAttributeAndValue {
   relId: string
   attributeId: string
   attributeValueId: string
-  goodsId: string
+  productId: string
 }
 
-export interface TradeLineItem {
+export interface OrderLineItem {
   id: string
   skuNo: string
   spuNo: string
   skuName: string
   spuName: string
-  goodsSpecifications: string
+  productSpecifications: string
   pic: string
   price: string
   num: string
-  goodsAttributeAndValues: [TradeGoodsAttributeAndValue]
+  productAttributeAndValues: [OrderProductAttributeAndValue]
   feedingDays: number
   isGift?: boolean
 }
 
-export interface PayInfo {
+export interface Payment {
   payWayCode: string
   payWayOrderID: string
   amount: string
-  payStartTime: string
-  payFinishTime: string
+  paymentStartTime: string
+  paymentFinishTime: string
   lastModifiedBy: string
   paymentState: string
 }
 
-export interface TradePrice {
-  goodsPrice: number
+export interface OrderPrice {
+  productPrice: number
   deliveryPrice: number
   totalPrice: number
   discountsPrice: number
 }
 
-export interface TradeState {
+export interface OrderState {
   orderType: string
   orderState: string
   storeId: string
@@ -62,10 +62,10 @@ export interface Logs {
 
 export interface Buyer {
   isMember: boolean
-  customerId: string
-  customerName: string
-  customerEmail: string
-  customerLevel: string
+  consumerId: string
+  consumerName: string
+  consumerEmail: string
+  consumerLevel: string
   nickName: string
   phone: string
 }
@@ -74,19 +74,19 @@ export interface Order {
   _id?: string
   orderNumber?: string
   version?: string
-  lineItem?: TradeLineItem[]
+  lineItem?: OrderLineItem[]
   shippingAddress: Address
-  payInfo?: PayInfo
+  payment?: Payment
   isSubscription?: string
   subscriptionId?: string
   freshType?: string
   subscriptionNo?: string
-  tradePrice: TradePrice
-  tradeState?: TradeState
+  orderPrice: OrderPrice
+  orderState?: OrderState
   logs?: Logs
   remark?: string
   buyer?: Buyer
-  shippingInfo: ShippingInfo
+  delivery: ShippingInfo
 }
 
 export interface ShippingInfo {

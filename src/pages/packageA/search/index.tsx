@@ -31,7 +31,7 @@ const Search = () => {
   const [productList, setProductList] = useState<ProductListItemProps[]>([])
   const [currentPage, setCurrentPage] = useState(0)
   const [categoryId, setCategoryId] = useState<string>('')
-  const [goodsName, setGoodsName] = useState<string>('')
+  const [productName, setProductName] = useState<string>('')
   const [isNoMore, setIsNoMore] = useState(false)
   const [animal, setAnimal] = useState<string>('')
   let type = 1 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
@@ -50,16 +50,16 @@ const Search = () => {
     }
     let current = currentPage + 1
     setCurrentPage(current)
-    getList({ current, goodsName, categoryId })
+    getList({ current, name: productName, productCategoryId: categoryId })
   })
   const getList = async ({
-    categoryId,
-    goodsName = keyword,
+    productCategoryId,
+    name = keyword,
     flterlist,
     current,
   }: {
-    categoryId?: string
-    goodsName?: string
+    productCategoryId?: string
+    name?: string
     flterlist?: any
     current?: number
   }) => {
@@ -68,30 +68,30 @@ const Search = () => {
     if (current) {
       offset = current * 10
     }
-    if (categoryId) {
-      params.goodsCategoryId = categoryId
-      setCategoryId(categoryId)
+    if (productCategoryId) {
+      params.categoryId = productCategoryId
+      setCategoryId(productCategoryId)
     }
-    if (goodsName) {
-      params.goodsName = goodsName
+    if (name) {
+      params.name = name
     }
     ;(flterlist || filterList).map((el) => {
       el.list
         .filter((cel) => cel.active)
         .map((val) => {
-          if (!params.attributeRelation?.length) {
-            params.attributeRelation = []
+          if (!params.attributeRelations?.length) {
+            params.attributeRelations = []
           }
-          let hasAttributeIdIdx = params.attributeRelation?.findIndex(
+          let hasAttributeIdIdx = params.attributeRelations?.findIndex(
             (relation) => relation.attributeId === val.attributeId,
           )
           if (hasAttributeIdIdx > -1) {
-            params.attributeRelation[hasAttributeIdIdx]?.attributeValueIds.push(val.value)
+            params.attributeRelations[hasAttributeIdIdx]?.attributeValueIds.push(val.value)
           } else {
-            let attributeRelation = { attributeId: val.attributeId, attributeValueIds: [val.value] }
-            params.attributeRelation.push(attributeRelation)
+            let attributeRelations = { attributeId: val.attributeId, attributeValueIds: [val.value] }
+            params.attributeRelations.push(attributeRelations)
           }
-          params.goodsCategoryId = val.categoryId
+          params.categoryId = val.categoryId
         })
     })
     let { productList: list, total } = await getProducts({ limit: 10, sample: params, hasTotal: true, offset })
@@ -129,6 +129,7 @@ const Search = () => {
     return list
   }
   const handleSearch = async () => {
+    setProductName(keyword)
     await handleLastSearch(keyword)
     // to do search
   }
@@ -158,13 +159,13 @@ const Search = () => {
       key: 'lastSearchList',
       data: newLastSearchList,
     })
-    getList({ goodsName: value })
+    getList({ name: value })
     setKeyword(value)
   }
 
-  const getCatOrDogAttrs = async (type: string) => {
+  const getCatOrDogAttrs = async (petType: string) => {
     // gou:8 cat:10
-    const res = await getAttrs({ storeId: '12345678', categoryId: type === 'cat' ? '10' : '8' })
+    const res = await getAttrs({ storeId: '12345678', categoryId: petType === 'cat' ? '10' : '8' })
     console.log('get cat Attrs', res)
     setFilterList(res)
     // setAnimal(type)
@@ -224,7 +225,7 @@ const Search = () => {
                 <AtButton
                   className={`${animal === 'cat' && 'animal-color'} ${largeButtonClass}`}
                   onClick={() => {
-                    getList({ categoryId: '10' })
+                    getList({ productCategoryId: '10' })
                     getCatOrDogAttrs('cat')
                     setAnimal('cat')
                   }}
@@ -241,7 +242,7 @@ const Search = () => {
                 <AtButton
                   className={`${animal === 'dog' && 'animal-color'} ${largeButtonClass}`}
                   onClick={() => {
-                    getList({ categoryId: '8' })
+                    getList({ productCategoryId: '8' })
                     getCatOrDogAttrs('dog')
                     setAnimal('dog')
                   }}

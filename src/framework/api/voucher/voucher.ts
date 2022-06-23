@@ -20,12 +20,12 @@ export const getListVouchers = async () => {
       return normalizeCheckoutAndListVouchers(Mock.mock(dataSource))
     } else {
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-      const res = await ApiRoot.vouchers().getCustomerVouchers({
-        customerId: wxLoginRes?.customerAccount?.customerId || '',
+      const res = await ApiRoot.vouchers().getConsumerVouchers({
+        consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
       })
       let vouchers = res?.consumerVoucherDetailList || []
       vouchers = vouchers.map((el) => normalizeVoucher(el, 'list'))
-      console.log('customer vouchers view data', vouchers)
+      console.log('consumer vouchers view data', vouchers)
       return normalizeCheckoutAndListVouchers(vouchers)
     }
   } catch (err) {
@@ -42,10 +42,10 @@ export const getListVouchers = async () => {
 export const getPdpVouchers = async (params) => {
   try {
     const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot.vouchers().getVouchersByGoodsId({
+    const res = await ApiRoot.vouchers().getVouchersByProductId({
       ...params,
-      customerId: wxLoginRes?.customerAccount?.customerId,
-      storeId: wxLoginRes?.customerAccount?.storeId,
+      consumerId: wxLoginRes?.consumerAccount?.consumerId,
+      storeId: wxLoginRes?.consumerAccount?.storeId,
     })
     let vouchers = res?.voucherDetailList?.filter((item) => !item?.isUsed) || []
     vouchers = vouchers.map((el) => normalizeVoucher(el, 'pdp'))
@@ -87,7 +87,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
     voucherUsePrice: Number(minimumBasketPrice || discountValue || 0), //达到多少钱可使用优惠券
     voucherType: voucherType,
     isCanUsed: false,
-    voucherGoodsRelated: voucher?.voucherGoodsRelated || [],
+    voucherProductRelated: voucher?.voucherProductRelated || [],
     recurrence: voucher?.recurrence || false,
     orderType: voucher?.orderType || 'ALL',
     originVoucher: voucher,
@@ -102,7 +102,7 @@ export const receiveVoucher = async (params) => {
     const wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const res = await ApiRoot.vouchers().receiveVoucher({
       ...params,
-      customerId: wxLoginRes?.customerAccount?.customerId || '',
+      consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
     })
     console.log('receive voucher', res?.voucherReceive)
     return {

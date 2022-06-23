@@ -5,8 +5,8 @@ import {
   CentPrecisionMoney,
   CustomFields,
 } from "./common.schema";
-import { Customer } from "./customer.schema";
-import {State} from "./order.schema"
+import { Consumer } from "./consumer.schema";
+import { State } from "./order.schema"
 
 export type Payment = {
   id: string;
@@ -19,14 +19,14 @@ export type Payment = {
   lastModifiedAt: Scalars["DateTime"];
   lastModifiedBy: LastModifiedBy;
   /**Present on resources updated after 2019-02-01 except for events not tracked.*/
-  customer: Customer;
-  /**A reference to the customer this payment belongs to.*/
+  consumer: Consumer;
+  /**A reference to the consumer this payment belongs to.*/
   anonymousId: string;
-  /**Identifies payments belonging to an anonymous session (the customer has not signed up/in yet).*/
+  /**Identifies payments belonging to an anonymous session (the consumer has not signed up/in yet).*/
   interfaceId: string;
   /** The identifier that is used by the interface that manages the payment (usually the PSP). Cannot be changed once it has been set. The combination of this ID and the PaymentMethodInfo paymentInterface must be unique.*/
   amountPlanned: CentPrecisionMoney;
-  /**How much money this payment intends to receive from the customer. The value usually matches the cart or order gross total.*/
+  /**How much money this payment intends to receive from the consumer. The value usually matches the cart or order gross total.*/
   paymentMethodInfo: PaymentMethodInfo;
   paymentStatus: PaymentStatus;
   // transactions: Transaction[];

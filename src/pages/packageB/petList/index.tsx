@@ -1,9 +1,9 @@
 import NavBar from '@/components/common/Navbar'
-import PetItem from '@/components/customer/PetItem'
+import PetItem from '@/components/consumer/PetItem'
 import { getPets } from '@/framework/api/pet/get-pets'
-import { PetListItemProps } from '@/framework/types/customer'
-import { initNewPet } from '@/lib/customer'
-import { customerAtom } from '@/store/customer'
+import { PetListItemProps } from '@/framework/types/consumer'
+import { initNewPet } from '@/lib/consumer'
+import { consumerAtom } from '@/store/consumer'
 import { petInfoListAuto } from '@/store/pets'
 import { getAge } from '@/utils/utils'
 import { View } from '@tarojs/components'
@@ -18,7 +18,7 @@ const PetList = () => {
   const [petList, setPetList] = useState<PetListItemProps[]>([])
   const [showAddPetBtn, SetshowAddPetBtn] = useState(true)
   const { router } = getCurrentInstance()
-  const [customerInfo, setCustomerInfo] = useAtom(customerAtom)
+  const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
   const { system } = Taro.getSystemInfoSync()
   const systemType = system.indexOf('Android') > -1
   const [petInfoList, setPetInfoList] = useAtom(petInfoListAuto)
@@ -27,7 +27,7 @@ const PetList = () => {
   let petNumber = router?.params?.petNumber || '0'
 
   const getList = async () => {
-    let res = (await getPets({ customerId: customerInfo?.id })) || []
+    let res = (await getPets({ consumerId: consumerInfo?.id })) || []
     console.log('resxxxxxxxxxxxxx', res)
     res.forEach((item) => {
       item.age = getAge(item.birthday)
@@ -42,7 +42,7 @@ const PetList = () => {
           age: '',
           birthday: '',
           breed: '',
-          customerId: '20220415',
+          consumerId: '20220415',
           gender: 'MALE',
           id: '-1',
           image: '',

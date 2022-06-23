@@ -15,7 +15,7 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ product, changeProduct, delCartSuccess, isInvalid = false }: ProductItemProps) => {
-  const { select, goodsNum, id, skuGoodInfo } = product
+  const { select, productNum, id, skuGoodInfo } = product
   const { image, price, specs, tags, name, stock } = product.localData
   const [maxNum, setMaxNum] = useState(5)
   const [showDelTipModal, setShowDelTipModal] = useState(false)
@@ -123,9 +123,9 @@ const ProductItem = ({ product, changeProduct, delCartSuccess, isInvalid = false
                       min={1}
                       max={stock <= maxNum ? stock : maxNum}
                       step={1}
-                      value={goodsNum}
+                      value={productNum}
                       onChange={(value) => {
-                        changeProduct && changeProduct(id, 'goodsNum', value)
+                        changeProduct && changeProduct(id, 'productNum', value)
                       }}
                       type="number"
                       className="rc-input-number"

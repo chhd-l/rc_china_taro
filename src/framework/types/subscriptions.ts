@@ -1,4 +1,4 @@
-// import { Address } from "./customers";
+// import { Address } from "./consumers";
 import { Order } from "./orders"
 import { Scalars } from '../schema/common.schema'
 import { Price } from './prices'
@@ -21,7 +21,7 @@ export type Subscription = {
 export type SubscriptionProductItem = {
     nextDeliveryTime: Scalars['DateTime']
     firstDeliveryTime: Scalars['DateTime']
-    subscribeGoodsId: string
+    subscribeProductId: string
     periodTypeId: string
     subscribeNum: number
     originalPrice: Price

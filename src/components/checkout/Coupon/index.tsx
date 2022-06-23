@@ -9,13 +9,13 @@ import cloneDeep from 'lodash.cloneDeep'
 
 const Coupon = ({
   totalPrice,
-  tradeItems,
+  orderItems,
   changeMaxDiscount,
   orderType,
   changeCheckoutVoucher,
 }: {
   totalPrice: number
-  tradeItems: any[]
+  orderItems: any[]
   changeMaxDiscount: Function
   orderType: string
   changeCheckoutVoucher: Function
@@ -77,14 +77,14 @@ const Coupon = ({
   //获取产品型优惠券针对当前所要购买的商品的最大优惠价格
   const handleProductVoucherPrice = (voucher) => {
     let canUsedProduct: any[] = []
-    voucher.voucherGoodsRelated.map((el) => {
-      const item = tradeItems.find((orderProduct) => el?.goodsId === orderProduct?.goodsId)
+    voucher.voucherProductRelated.map((el) => {
+      const item = orderItems.find((orderProduct) => el?.productId === orderProduct?.productId)
       if (item) {
         canUsedProduct.push(item)
       }
     })
     return canUsedProduct.reduce((prev, cur) => {
-      return prev + cur?.skuGoodInfo?.goodsVariants[0].marketingPrice * cur?.goodsNum
+      return prev + cur?.skuGoodInfo?.productVariants[0].marketingPrice * cur?.productNum
     }, 0)
   }
 
@@ -124,10 +124,10 @@ const Coupon = ({
   }
 
   useEffect(() => {
-    if (tradeItems.length > 0 && initVouchers.length > 0 && totalPrice > 0) {
+    if (orderItems.length > 0 && initVouchers.length > 0 && totalPrice > 0) {
       handleDefaultVoucher()
     }
-  }, [totalPrice, initVouchers, tradeItems, orderType])
+  }, [totalPrice, initVouchers, orderItems, orderType])
 
   useEffect(() => {
     getVoucherList()

@@ -11,7 +11,7 @@ import { createCart } from '@/framework/api/cart/cart'
 import { getProductBySkuId } from '@/framework/api/product/get-product'
 import { normalizeCartData } from '@/framework/api/lib/normalize'
 import { baseSetting } from '@/framework/api/fetcher'
-import { cartSunccessToastShowAtom } from '@/store/customer'
+import { cartSunccessToastShowAtom } from '@/store/consumer'
 import { useAtom } from 'jotai'
 import routers from '@/routers'
 import { getOrderSetting } from '@/framework/api/order/order'
@@ -68,9 +68,9 @@ const ChooseSpec = ({
   const currentNumber = useMemo(
     () =>
       currentCartSpu?.find((el) => {
-        console.log(el.goodsVariantID, choosedSku.id, el.goodsVariantID === choosedSku.id)
-        return el.goodsVariantID === choosedSku.id
-      })?.goodsNum || 0,
+        console.log(el.productVariantID, choosedSku.id, el.productVariantID === choosedSku.id)
+        return el.productVariantID === choosedSku.id
+      })?.productNum || 0,
     [choosedSku],
   )
 
@@ -118,12 +118,12 @@ const ChooseSpec = ({
     console.info('choosedSkuchoosedSkuchoosedSkuchoosedSku', choosedSku)
     const { id } = choosedSku
     await createCart({
-      customerId: baseSetting.customerId,
-      // goodsId: '44c5f184-9146-187f-f738-67db27bf0468',
-      // goodsVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
-      goodsId: detailInfo.id,
-      goodsVariantId: id,
-      goodsNum: buyCount,
+      consumerId: baseSetting.consumerId,
+      // productId: '44c5f184-9146-187f-f738-67db27bf0468',
+      // productVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
+      productId: detailInfo.id,
+      productVariantId: id,
+      productNum: buyCount,
       storeId: baseSetting.storeId,
       petId: '',
       petType: '',
@@ -137,14 +137,14 @@ const ChooseSpec = ({
   }
 
   const addToCheckout = async () => {
-    let data = await getProductBySkuId({ goodsVariantId: choosedSku.id })
+    let data = await getProductBySkuId({ productVariantId: choosedSku.id })
     let selectedProduct = normalizeCartData(
-      { goodsNum: buyCount, goodsId: detailInfo.id, goodsVariantId: choosedSku.id },
-      data.productBySkuId,
+      { productNum: buyCount, productId: detailInfo.id, productVariantId: choosedSku.id },
+      data.productGetByProductVariantId,
     )
     Taro.setStorage({
       key: 'select-product',
-      data: JSON.stringify({ goodsList: [selectedProduct] }),
+      data: JSON.stringify({ productList: [selectedProduct] }),
       complete: (respon) => {
         console.log(respon)
         Taro.navigateTo({ url: routers.checkout })

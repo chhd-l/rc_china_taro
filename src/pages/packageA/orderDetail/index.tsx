@@ -34,26 +34,26 @@ const OrderDetails = () => {
       region: '',
       detail: '',
     },
-    tradePrice: {
-      goodsPrice: 0,
+    orderPrice: {
+      productPrice: 0,
       deliveryPrice: 0,
       totalPrice: 0,
       discountsPrice: 0,
     },
-    shippingInfo: {
+    delivery: {
       trackingId: '',
       deliveries: [],
     },
   })
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
-  const { totalPrice, discountsPrice, goodsPrice } = orderDetail?.tradePrice
-  const { trackingId, deliveries } = orderDetail?.shippingInfo
+  const { totalPrice, discountsPrice, productPrice } = orderDetail?.orderPrice
+  const { trackingId, deliveries } = orderDetail?.delivery
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
   const [orderCancelMinute, setOrderCancelMinute] = useState(30)
 
   const getTimeCount = () => {
-    const time = getDateDiff(orderDetail?.tradeState?.createdAt, new Date(), orderCancelMinute)
+    const time = getDateDiff(orderDetail?.orderState?.createdAt, new Date(), orderCancelMinute)
     return {
       minutes: Number(time.minute.toFixed(0)),
       seconds: Number(time.second.toFixed(0)),
@@ -72,7 +72,7 @@ const OrderDetails = () => {
     const res = await getOrderDetail({ orderNum: id })
     setOrderDetail(res)
     const orderCancelTime = await getOrderCancelTime()
-    const time = getDateDiff(res?.tradeState?.createdAt, new Date(), orderCancelTime)
+    const time = getDateDiff(res?.orderState?.createdAt, new Date(), orderCancelTime)
     setMinutes(Number(time.minute))
     setSeconds(Number(time.second.toFixed(0)))
     console.log(Number(time.minute), Number(time.second.toFixed(0)))
@@ -84,7 +84,7 @@ const OrderDetails = () => {
   }
 
   const getCarrierType = () => {
-    const carriers = carrierTypes.filter((item) => item?.code === orderDetail?.shippingInfo?.shippingCompany)
+    const carriers = carrierTypes.filter((item) => item?.code === orderDetail?.delivery?.shippingCompany)
     return carriers.length > 0 ? carriers[0].name : ''
   }
 
@@ -104,8 +104,8 @@ const OrderDetails = () => {
           {orderDetail?.orderNumber ? (
             <>
               <View className="flex flex-col items-center justify-center w-full h-20 bg-red-600 text-white mb-2 pt-6">
-                <View className="font-bold">{orderStatusType[orderDetail?.tradeState?.orderState || '']}</View>
-                {orderDetail?.tradeState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
+                <View className="font-bold">{orderStatusType[orderDetail?.orderState?.orderState || '']}</View>
+                {orderDetail?.orderState?.orderState === 'UNPAID' && (minutes !== 0 || seconds !== 0) ? (
                   <View>
                     <AtCountdown
                       format={{ hours: ':', minutes: ':', seconds: '' }}
@@ -163,7 +163,7 @@ const OrderDetails = () => {
                         <View className="text-xs font-black mb-1">{el?.skuName}</View>
                         <View className="text-primary-red flex ProductIntroduction justify-between items-center">
                           <View className="flex flex-row flex-wrap">
-                            {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                            {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag) => (
                               <View
                                 className="px-1 border rounded-lg border-solid border-red mr-2 mt-2"
                                 style={{ borderWidth: '1PX' }}
@@ -174,7 +174,7 @@ const OrderDetails = () => {
                           </View>
                           <View className="numcolor">X{el?.num}</View>
                         </View>
-                        <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                        <View className="mt-2 ProductIntroduction numcolor">规格：{el?.productSpecifications}</View>
                         {orderDetail.freshType === 'FRESH_100_DAYS' ? (
                           <View className="mt-1 ProductIntroduction numcolor">新鲜度：100天</View>
                         ) : null}
@@ -198,21 +198,21 @@ const OrderDetails = () => {
                         </View>
                         <View className="flex ProductIntroduction justify-between items-center">
                           <View className="flex flex-row flex-wrap">
-                            {/* {normalizeTags(el.goodsAttributeAndValues, el.feedingDays).map((tag) => (
+                            {/* {normalizeTags(el.productAttributeAndValues, el.feedingDays).map((tag) => (
                             <View style={{ borderColor: '#e8e8e8' }} className="px-1 border rounded-lg border-solid numcolor mr-2 mt-2">{tag}</View>
                           ))} */}
                           </View>
                           <View className="numcolor">X{el?.num}</View>
                         </View>
-                        {el?.goodsSpecifications ? (
-                          <View className="mt-2 ProductIntroduction numcolor">规格：{el?.goodsSpecifications}</View>
+                        {el?.productSpecifications ? (
+                          <View className="mt-2 ProductIntroduction numcolor">规格：{el?.productSpecifications}</View>
                         ) : null}
                       </View>
                     </View>
                   ))}
                   <View className="w-full h-8 footerText flex items-end flex-col">
                     <View className="text-right">
-                      共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(goodsPrice)}，优惠
+                      共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(productPrice)}，优惠
                       {formatMoney(discountsPrice)}，实付款
                       <Text className="text-primary-red text-28">{formatMoney(totalPrice)}</Text>
                     </View>
@@ -229,8 +229,8 @@ const OrderDetails = () => {
                         onClick={() => {
                           debugger
                           if (
-                            orderDetail?.tradeState?.orderState === 'UNPAID' ||
-                            orderDetail?.tradeState?.orderState === 'VOID'
+                            orderDetail?.orderState?.orderState === 'UNPAID' ||
+                            orderDetail?.orderState?.orderState === 'VOID'
                           ) {
                             return
                           }
@@ -246,15 +246,15 @@ const OrderDetails = () => {
                   )}
                   <View className="flex items-center justify-between boderTop">
                     <Text>下单时间</Text>
-                    <Text>{handleReturnTime(orderDetail?.tradeState?.createdAt)}</Text>
+                    <Text>{handleReturnTime(orderDetail?.orderState?.createdAt)}</Text>
                   </View>
                   <View className="flex items-center justify-between boderTop">
                     <Text>支付方式</Text>
-                    <Text>{'微信支付' || orderDetail?.payInfo?.payWayCode}</Text>
+                    <Text>{'微信支付' || orderDetail?.payment?.payWayCode}</Text>
                   </View>
                   <View className="flex items-center justify-between boderTop">
                     <Text>发货时间</Text>
-                    <Text>{handleReturnTime(orderDetail?.shippingInfo?.expectedShippingDate)?.split(' ')[0]}</Text>
+                    <Text>{handleReturnTime(orderDetail?.delivery?.expectedShippingDate)?.split(' ')[0]}</Text>
                   </View>
                   <View className="flex items-center justify-between boderTop break-words">
                     <Text>备注</Text>

@@ -7,7 +7,7 @@ export interface PetItemSchema {
   image: string
   isSterilized: boolean
   birthday: string
-  customerId: string
+  consumerId: string
   operator: string
   id: string
 }
