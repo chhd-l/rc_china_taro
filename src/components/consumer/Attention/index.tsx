@@ -10,9 +10,9 @@ const Attention = () => {
   const [consumerInfo] = useAtom(consumerAtom)
 
   return (
-    <View>
+    <View className="py-rc28 px-rc30 my-rc58">
       {consumerInfo?.id ? (
-        <View className="flex py-2 text-24 items-center bg-gray-fb">
+        <View className="flex py-2 text-24 items-center ">
           <View className="w-12 h-12">
             <Image className="w-full h-full" src={WECHAT} />
           </View>
