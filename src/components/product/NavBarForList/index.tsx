@@ -6,7 +6,9 @@ import Taro from '@tarojs/taro'
 import { floorList } from '@/lib/product'
 import IconFont from '@/iconfont'
 import './index.less'
-
+import { useAtom } from 'jotai'
+import { consumerAtom } from '@/store/consumer'
+import { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
 const NavBarForList = ({
   setFloorId,
   floorActiveId,
@@ -21,6 +23,8 @@ const NavBarForList = ({
   const { system } = Taro.getSystemInfoSync()
   const systemType = system.indexOf('Android') > -1
   const [Left, setLeft] = useState<null | number>(null)
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+  const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
   const menuButtonInfo = Taro.getMenuButtonBoundingClientRect()
   console.info('menuButtonInfo', menuButtonInfo)
   const handleNavClick = ({ id }) => {
@@ -35,6 +39,10 @@ const NavBarForList = ({
 
   // const [keyword, setKeyword] = useState('猫奶罐')
   const handleClick = () => {
+    if (!consumerInfo?.id) {
+      setAuthLoginOpened(true)
+      return
+    }
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
   }
   return (

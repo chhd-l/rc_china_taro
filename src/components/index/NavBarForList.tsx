@@ -5,12 +5,21 @@ import { useState } from 'react'
 import Taro from '@tarojs/taro'
 import IconFont from '@/iconfont'
 import './index.less'
+import { authLoginOpenedAtom } from '../consumer/AuthLogin'
+import { useAtom } from 'jotai'
+import { consumerAtom } from '@/store/consumer'
 
 const NavBarForList = () => {
   const [keyword, setKeyword] = useState('')
   const [openDistMyPets, setOpenDistMyPets] = useState(false)
+  const [, setAuthLoginOpened] = useAtom(authLoginOpenedAtom)
+  const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
 
   const handleClick = () => {
+    if (!consumerInfo?.id) {
+      setAuthLoginOpened(true)
+      return
+    }
     Taro.navigateTo({ url: '/pages/packageA/search/index' })
   }
 
