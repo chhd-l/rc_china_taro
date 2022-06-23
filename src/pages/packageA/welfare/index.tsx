@@ -27,7 +27,7 @@ const Welfare = () => {
         scrollY
         scrollWithAnimation
         scrollTop={scrollTop}
-        style={{ height: scrollHeight > 499 ? '87vh' : '100vh' }}
+        style={{ height: scrollHeight > 499 ? '90vh' : '100vh' }}
         lowerThreshold={Threshold}
         onScroll={onScroll}
       >
