@@ -12,8 +12,8 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
   try {
     //入参处理 start
     const productList = cloneDeep(orderItems).map((el) => {
-      if (el.skuGoodInfo.variants?.length > 0 ) {
-        el.skuGoodInfo.variants = Object.assign(omit(el.skuGoodInfo.variants[0], ['isDeleted','variantBundles']), {
+      if (el.skuGoodInfo.variants?.length > 0) {
+        el.skuGoodInfo.variants = Object.assign(omit(el.skuGoodInfo.variants[0], ['isDeleted', 'variantBundles']), {
           num: el.productNum,
         })
       }
@@ -244,6 +244,51 @@ export const cancelOrder = async (params: any) => {
     console.info('cancel order view params', params)
     let res = await ApiRoot.orders().cancelOrder({ body: params })
     console.info('cancel order data view', res)
+    return res
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionType, subscriptionCycle }) => {
+  try {
+    const productList = cloneDeep(orderItems).map((el) => {
+      if (el.skuGoodInfo.variants?.length > 0) {
+        el.skuGoodInfo.variants = Object.assign(omit(el.skuGoodInfo.variants[0], ['isDeleted', 'variantBundles']), {
+          num: el.productNum,
+        })
+      }
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted','subscriptionRecommendRuleId'])
+      return el.skuGoodInfo
+    })
+    let finalVoucher =
+      voucher && JSON.stringify(voucher) !== '{}'
+        ? {
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
+        : null
+    finalVoucher = finalVoucher
+      ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
+      : null
+    let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+    const params = Object.assign(
+      {
+        storeId: wxLoginRes?.userInfo?.storeId || '12345678',
+        productList,
+        voucher: finalVoucher,
+      },
+      subscriptionType === 'FRESH_BUY'
+        ? {
+            subscriptionType,
+            subscriptionCycle,
+          }
+        : {},
+    )
+    console.info('calculate order price view params', params)
+    let res = await ApiRoot.orders().orderCalculatePrice(params)
+    console.info('calculate order price data view data', res)
     return res
   } catch (e) {
     console.log(e)

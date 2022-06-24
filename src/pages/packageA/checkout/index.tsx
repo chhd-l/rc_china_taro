@@ -2,7 +2,7 @@ import { View } from '@tarojs/components'
 import { useEffect, useMemo, useState } from 'react'
 import { Address, OrderItem, DeliveryTime, Remark, Coupon, TotalCheck, OrderPrice } from '@/components/checkout'
 import Taro, { useDidHide } from '@tarojs/taro'
-import { createOrder, getOrderSetting } from '@/framework/api/order/order'
+import { calculateOrderPrice, createOrder, getOrderSetting } from '@/framework/api/order/order'
 import { AtMessage, AtModal } from 'taro-ui'
 import omit from 'lodash/omit'
 import routers from '@/routers/index'
@@ -17,6 +17,7 @@ import CouponItem from '@/components/checkout/CouponItem'
 import NavBar from '@/components/common/Navbar'
 import { formatDateToApi } from '@/utils/utils'
 import './index.less'
+import { getTagByConsumerIdAndTagCode } from '@/framework/api/tag'
 
 const Checkout = () => {
   const [consumerInfo] = useAtom(consumerAtom)
@@ -37,6 +38,7 @@ const Checkout = () => {
   const [shippingPrice, setShippingPrice] = useState(0)
   const [showNoAddressTip, setShowNoAddressTip] = useState(false)
   const [voucher, setVoucher] = useState<any>(null)
+  const [isCommunity, setIsCommunity] = useState(false)
 
   const changeDeliveryDate = (value) => {
     setDeliveryTime(value)
@@ -53,6 +55,27 @@ const Checkout = () => {
     setTotalNum(total)
   }
 
+  const getIsCommunity = async () => {
+    const res = await getTagByConsumerIdAndTagCode()
+    setIsCommunity(res?.tag || false)
+  }
+
+  const calculatePrice = async () => {
+    const res = await calculateOrderPrice({
+      orderItems,
+      voucher,
+      subscriptionType: orderType,
+      subscriptionCycle: subscriptionInfo?.cycleObj?.cycle,
+    })
+    console.log('calculate order price page', res)
+  }
+
+  useEffect(() => {
+    if(orderType&&orderItems.length>0){
+      calculatePrice()
+    }
+  }, [orderItems, voucher, orderType])
+
   const getTotalPrice = () => {
     const total = orderItems.reduce((prev, cur) => {
       return prev + cur.productNum * cur.localData.price
@@ -66,6 +89,10 @@ const Checkout = () => {
   }
 
   const checkNow = async () => {
+    if (address.id === '') {
+      setShowNoAddressTip(true)
+      return false
+    }
     switch (orderType) {
       case 'FRESH_BUY':
         subscriptionCheckNow()
@@ -88,10 +115,6 @@ const Checkout = () => {
 
   const subscriptionCheckNow = async () => {
     try {
-      if (address.id === '') {
-        setShowNoAddressTip(true)
-        return false
-      }
       setLoading(true)
       const productList = orderItems.map((el) => {
         if (el.skuGoodInfo.variants?.length > 0) {
@@ -191,7 +214,6 @@ const Checkout = () => {
       }
       let paymentInfo = res.paymentStartResult?.payment
       if (paymentInfo) {
-        
         console.log(res, 'subscriptionCreateAndPayressssss')
         Taro.removeStorageSync('select-product')
         pay({
@@ -236,10 +258,6 @@ const Checkout = () => {
 
   const generalCheckNow = async () => {
     try {
-      if (address.id === '') {
-        setShowNoAddressTip(true)
-        return false
-      }
       setLoading(true)
       await createOrder({ orderItems, address, remark, deliveryTime, voucher })
     } catch (e) {
@@ -312,11 +330,12 @@ const Checkout = () => {
     })
     getDefaultAddress()
     getShippingPrice()
+    getIsCommunity()
   }, [])
 
   const communityDiscountPrice = useMemo(
-    () => (consumerInfo?.isCommunity ? (totalPrice + shippingPrice - discountPrice - subDiscountPrice) * 0.05 : 0),
-    [totalPrice, discountPrice, subDiscountPrice, shippingPrice],
+    () => (isCommunity ? (totalPrice + shippingPrice - discountPrice - subDiscountPrice) * 0.05 : 0),
+    [totalPrice, discountPrice, subDiscountPrice, shippingPrice, isCommunity],
   )
 
   const payPrice = useMemo(
