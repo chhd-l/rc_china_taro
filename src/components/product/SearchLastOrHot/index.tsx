@@ -1,7 +1,7 @@
 import { View } from '@tarojs/components'
 import { AtButton } from 'taro-ui'
 const littleSearchClassName =
-  'flex-1 block text-gray-400 border border-gary-400 border-solid search-filter-round mr-2 text-xs mb-2 truncate text-center py-2 px-1'
+  'flex-1 border  border-solid search-filter-round mr-2 text-xs truncate text-center py-2 px-3 text-gray-400'
 const SearchLastOrHot = ({ searchList, titleRight, titleLeft, handleLastSearch }) => {
   return (
     <View className="pb-2 overflow-hidden">
@@ -11,7 +11,18 @@ const SearchLastOrHot = ({ searchList, titleRight, titleLeft, handleLastSearch }
       </View>
       <View className="flex flex-wrap">
         {searchList.map((item) => (
-          <View className={littleSearchClassName}>{item.label}</View>
+          <View
+            style={{ width: '25%' }}
+            onClick={() => {
+              handleLastSearch(item.label)
+            }}
+            className="mb-2 flex"
+          >
+            <View style={{ borderColor: '#CECECE' }} className={littleSearchClassName}>
+              {item.label}
+            </View>
+          </View>
+
           // <AtButton
           //   className={littleSearchClassName}
           //   size="small"

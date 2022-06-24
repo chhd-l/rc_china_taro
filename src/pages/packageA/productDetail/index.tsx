@@ -81,21 +81,21 @@ const ProductDetail = () => {
     }
     let selecteds = {}
     detailData.skus[0]?.productSpecificationRel?.map((el) => {
-      selecteds[el.productSpecificationId] = el.productSpecificationDetailId
+      selecteds[el.specificationId] = el.specificationDetailId
     })
     //默认选规格
     detailData.skus[0]?.productSpecificationRel?.forEach((specification) => {
       detailData.specifications
         ?.filter((el) => {
-          // console.info('el.id !== specification?.productSpecificationId', el.id, specification?.productSpecificationId)
+          // console.info('el.id !== specification?.specificationId', el.id, specification?.specificationId)
           // 如果有多个规格，要筛选当前选择的不做置灰处理，处理其他规格
-          // return detailData.specifications?.length > 1 ? el.id !== specification?.productSpecificationId : el.id
-          return el.id !== specification?.productSpecificationId
+          // return detailData.specifications?.length > 1 ? el.id !== specification?.specificationId : el.id
+          return el.id !== specification?.specificationId
         })
         ?.map((el) => {
           el.children = el.children.map((e, idx) => {
             // e.able = isAble(e)
-            e.able = isAble(specification?.productSpecificationDetailId, e.id, selecteds, detailData.skus)
+            e.able = isAble(specification?.specificationDetailId, e.id, selecteds, detailData.skus)
             // e.able = true
             return e
           })

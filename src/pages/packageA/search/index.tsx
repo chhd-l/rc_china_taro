@@ -41,6 +41,7 @@ const Search = () => {
   const [currentPage, setCurrentPage] = useState(0)
   const [categoryId, setCategoryId] = useState<string>('')
   const [productName, setProductName] = useState<string>('')
+  const [placeholderName, setPlaceholderName] = useState<string>()
   const [isNoMore, setIsNoMore] = useState(false)
   const [animal, setAnimal] = useState<string>('')
   const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
@@ -80,7 +81,7 @@ const Search = () => {
   }, [productName])
   const getList = async ({
     productCategoryId,
-    name = keyword,
+    name = placeholderName || keyword,
     flterlist,
     current,
   }: {
@@ -165,6 +166,7 @@ const Search = () => {
       lastList.map((el) => {
         return { label: el.searchInfo }
       }) || []
+    lastList = lastList.splice(0, 7)
     Taro.setStorage({
       key: 'lastSearchList',
       data: lastList,
@@ -209,13 +211,16 @@ const Search = () => {
       label: value,
       value: value,
     })
+    newLastSearchList = newLastSearchList.splice(0, 7)
     setLastSearchList(newLastSearchList)
     Taro.setStorage({
       key: 'lastSearchList',
       data: newLastSearchList,
     })
     getList({ name: value })
-    setKeyword(value)
+    if (!productName) {
+      setPlaceholderName(value)
+    }
   }
 
   const getCatOrDogAttrs = async (petType: string) => {
@@ -226,9 +231,6 @@ const Search = () => {
     // setAnimal(type)
   }
 
-  const doLastSearch = () => {
-    handleSearch()
-  }
   return (
     <>
       <NavBar navbarTitle="搜索" isNeedBack />
@@ -242,9 +244,9 @@ const Search = () => {
             onChange={(value) => {
               setKeyword(value)
             }}
-            placeholder="猫奶罐"
-            onConfirm={doLastSearch}
-            onActionClick={doLastSearch}
+            placeholder={placeholderName || '猫奶罐'}
+            onConfirm={handleSearch}
+            onActionClick={handleSearch}
           />
           {lastSearchList.length > 0 ? (
             <SearchLastOrHot
@@ -258,16 +260,18 @@ const Search = () => {
               searchList={lastSearchList}
             />
           ) : null}
-          <SearchLastOrHot
-            handleLastSearch={handleLastSearch}
-            titleLeft="热门搜索"
-            titleRight={
-              <View className="text-xs" onClick={changeSearchHot}>
-                换一批
-              </View>
-            }
-            searchList={hotSearchList}
-          />
+          {hotSearchList?.length ? (
+            <SearchLastOrHot
+              handleLastSearch={handleLastSearch}
+              titleLeft="热门搜索"
+              titleRight={
+                <View className="text-xs" onClick={changeSearchHot}>
+                  换一批
+                </View>
+              }
+              searchList={hotSearchList}
+            />
+          ) : null}
 
           <View className="border-0">
             {/* <View
