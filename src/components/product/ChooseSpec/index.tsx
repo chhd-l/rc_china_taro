@@ -233,7 +233,7 @@ const ChooseSpec = ({
             </View>
           </View>
         ))}
-        <View className="flex py-3 items-center mb-6 justify-between">
+        <View className="flex py-3 buycount-input items-center mb-6 justify-between">
           <View>数量</View>
           <View>
             {' '}
