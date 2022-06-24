@@ -52,7 +52,7 @@ const Search = () => {
   useEffect(() => {
     getCatOrDogAttrs('cat')
     getList({})
-    // getHotList()
+    getHotList()
     getLastList()
   }, [])
 
@@ -260,16 +260,18 @@ const Search = () => {
               searchList={lastSearchList}
             />
           ) : null}
-          <SearchLastOrHot
-            handleLastSearch={handleLastSearch}
-            titleLeft="热门搜索"
-            titleRight={
-              <View className="text-xs" onClick={changeSearchHot}>
-                换一批
-              </View>
-            }
-            searchList={hotSearchList}
-          />
+          {hotSearchList?.length ? (
+            <SearchLastOrHot
+              handleLastSearch={handleLastSearch}
+              titleLeft="热门搜索"
+              titleRight={
+                <View className="text-xs" onClick={changeSearchHot}>
+                  换一批
+                </View>
+              }
+              searchList={hotSearchList}
+            />
+          ) : null}
 
           <View className="border-0">
             {/* <View
