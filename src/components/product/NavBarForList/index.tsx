@@ -1,14 +1,15 @@
-import { ScrollView, View } from '@tarojs/components'
 import NavBar from '@/components/common/Navbar'
-import { AtSearchBar } from 'taro-ui'
-import { useEffect, useState } from 'react'
-import Taro from '@tarojs/taro'
-import { floorList } from '@/lib/product'
-import IconFont from '@/iconfont'
-import './index.less'
-import { useAtom } from 'jotai'
-import { consumerAtom } from '@/store/consumer'
 import { authLoginOpenedAtom } from '@/components/consumer/AuthLogin'
+import IconFont from '@/iconfont'
+import { floorList } from '@/lib/product'
+import { consumerAtom } from '@/store/consumer'
+import { ScrollView, View } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import { useAtom } from 'jotai'
+import { useEffect, useState } from 'react'
+import { AtSearchBar } from 'taro-ui'
+import './index.less'
+
 const NavBarForList = ({
   setFloorId,
   floorActiveId,
