@@ -9,8 +9,10 @@ import { Image, ScrollView, Text, View } from '@tarojs/components'
 import Taro, { requirePlugin, useDidShow } from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-import { AtButton, AtDivider } from 'taro-ui'
+import {  AtDivider } from 'taro-ui'
+import {Attention} from "@/components/consumer"
 import './index.less'
+
 
 let livePlayer = requirePlugin('live-player-plugin')
 
@@ -165,24 +167,8 @@ const ProductList = () => {
             </View>
           </View>
           <ListBanner bannerList={bannerLists} liveStreaming={liveStreaming} />
-          <View className="p-2 pt-10 pb-0">
-            <View className="flex h-12">
-              <View className="w-12 h-full">
-                <Image
-                  className="w-full h-full"
-                  src="https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Wechat.png"
-                />
-              </View>
-              <View className="flex flex-col h-full ml-2">
-                <View>更多有趣易懂养宠知识都在这里</View>
-                <View className="mt-1">订阅我，随时掌握宠粮发货进度</View>
-              </View>
-              <View className="flex-1 h-full flex pt-1 justify-end">
-                <AtButton className="m-0 py-0" full={false} size="small" type="primary">
-                  去关注
-                </AtButton>
-              </View>
-            </View>
+          <View className="p-2 pt-4 pb-0">
+            <Attention classes='bg-white mb-8'/>
             <View className="mt-4">
               <View style={{ fontSize: '0.8rem' }} className="font-bold mt-6 mb-3">
                 开启专属宠爱

@@ -9,19 +9,13 @@ import { useState } from 'react'
 import { AtModal, AtModalContent } from 'taro-ui'
 import './index.less'
 
+const scrollTop = 0
+const Threshold = 20
+
 const Welfare = () => {
   const [scrollHeight, setScrollHeight] = useState(0)
   const [open, setOpen] = useState(false)
-  const scrollTop = 0
-  const Threshold = 20
-  const scrollStyle = {
-    height: '87vh',
-  }
-
-  const onScroll = (e) => {
-    console.log('e', e)
-    setScrollHeight(e.detail.scrollTop)
-  }
+  const onScroll = (e) => setScrollHeight(e.detail.scrollTop)
 
   return (
     <View>
@@ -33,7 +27,7 @@ const Welfare = () => {
         scrollY
         scrollWithAnimation
         scrollTop={scrollTop}
-        style={scrollStyle}
+        style={{ height: scrollHeight > 499 ? '90vh' : '100vh' }}
         lowerThreshold={Threshold}
         onScroll={onScroll}
       >

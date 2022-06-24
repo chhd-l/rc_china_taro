@@ -1,42 +1,49 @@
 import { Button, MovableArea, MovableView } from '@tarojs/components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { CUSTOMER_SERVICE } from '@/lib/constants'
+import Taro from '@tarojs/taro'
 import './index.less'
 
 const CustomerService = () => {
-  const [xOffset, setXOffset] = useState(320)
-  const [yOffset, setYOffset] = useState(540)
+  const screenWidth = Taro.getSystemInfoSync().windowWidth
+  const screenHeight = Taro.getSystemInfoSync().windowHeight
+  const tabBarHeight = Taro.getSystemInfoSync()?.statusBarHeight || 47
+  const navBarHeight = Taro.getSystemInfoSync()?.safeArea?.top || 42
+  const [xOffset, setXOffset] = useState(screenWidth)
+  const [yOffset, setYOffset] = useState(screenHeight - 200)
+
+  useEffect(() => {
+    console.log('111111', Taro.getSystemInfoSync())
+  }, [])
 
   return (
-    <MovableArea style="height: 100vh;" className="fixed w-full z-50 pointer-events-none">
+    <MovableArea
+      className="fixed w-full z-999 pointer-events-none"
+      style={{
+        width: screenWidth + 'px',
+        height: screenHeight - tabBarHeight - navBarHeight + 'px',
+        marginTop: navBarHeight + 'px',
+      }}
+    >
       <MovableView
-        className="pointer-events-auto z-50"
-        style={{
-          height: '112rpx',
-          width: '112rpx',
-        }}
+        className="pointer-events-auto z-999 customer-service-size bg-white"
         direction="all"
         x={xOffset}
         y={yOffset}
+        damping={5}
         outOfBounds
+        animation
         onTouchEnd={(e) => {
           console.log('mmmmmmmmmmm', e)
           const x = e.changedTouches[0].pageX
-          if (x > 0 && x < 160) {
-            setXOffset(0)
-          }
-          if (x > 160 && x < 320) {
-            setXOffset(320)
-          }
+          const y = e.changedTouches[0].pageY
+          setXOffset(x < screenWidth / 2 ? 0 : screenWidth)
+          setYOffset(y - 95)
         }}
       >
         <Button
           openType="contact"
-          onContact={(e) => {
-            console.log('vvvvvsd', e)
-          }}
-          sessionFrom="11111111"
-          className="customer-service-button bg-cover bg-no-repeat"
+          className="customer-service-button customer-service-size bg-cover bg-no-repeat z-999"
           style={{
             backgroundImage: `url(${CUSTOMER_SERVICE})`,
           }}

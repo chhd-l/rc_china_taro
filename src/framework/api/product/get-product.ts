@@ -67,3 +67,36 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string; categ
     console.log(err, 'err')
   }
 }
+
+export const addSearchInfoRecordRecently = async (params) => {
+  try {
+    const res = await ApiRoot.products().searchInfoRecordRecently(params)
+    return true
+  } catch (err) {
+    console.log(err, 'err')
+    return false
+  }
+}
+
+export const searchInfoRecordRecentlyFind = async (consumerId: string) => {
+  try {
+    const res = await ApiRoot.products().searchInfoRecordRecentlyFind(consumerId)
+    return res
+  } catch (err) {
+    console.log(err, 'err')
+    return []
+  }
+}
+
+export const hotSearchFindPage = async (params: any) => {
+  try {
+    const res = await ApiRoot.products().hotSearchFindPage(params)
+    return res
+  } catch (err) {
+    console.log(err, 'err')
+    return {
+      total: 0,
+      records: []
+    }
+  }
+}
