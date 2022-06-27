@@ -31,6 +31,7 @@ const ProductList = () => {
   const [floorId, setFloorId] = useState<string>('')
 
   const onScroll = (e) => {
+    setFloorId('')
     if (e.detail.scrollTop > 370) {
       setMyPets2(true)
     } else {
@@ -54,7 +55,7 @@ const ProductList = () => {
     if (e.detail.scrollTop >= 2520) {
       setFloorActiveId('dogStar')
     }
-    if (e.detail.scrollTop >= 2790) {
+    if (e.detail.scrollTop >= 2990) {
       setFloorActiveId('odgDryFood')
     }
     if (e.detail.scrollTop >= 3598) {

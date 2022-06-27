@@ -39,6 +39,7 @@ const OrderDetails = () => {
       deliveryPrice: 0,
       totalPrice: 0,
       discountsPrice: 0,
+      vipDiscountsPrice:0
     },
     delivery: {
       trackingId: '',
@@ -46,7 +47,7 @@ const OrderDetails = () => {
     },
   })
   const { receiverName, phone, province, city, region, detail } = orderDetail?.shippingAddress
-  const { totalPrice, discountsPrice, productPrice } = orderDetail?.orderPrice
+  const { totalPrice, discountsPrice, productPrice,vipDiscountsPrice,deliveryPrice } = orderDetail?.orderPrice
   const { trackingId, deliveries } = orderDetail?.delivery
   const [minutes, setMinutes] = useState(0)
   const [seconds, setSeconds] = useState(0)
@@ -212,8 +213,8 @@ const OrderDetails = () => {
                   ))}
                   <View className="w-full h-8 footerText flex items-end flex-col">
                     <View className="text-right">
-                      共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(productPrice)}，优惠
-                      {formatMoney(discountsPrice)}，实付款
+                      共{orderDetail?.lineItem?.length}件商品 总价{formatMoney(productPrice+deliveryPrice)}，优惠
+                      {formatMoney((discountsPrice+vipDiscountsPrice))}，实付款
                       <Text className="text-primary-red text-28">{formatMoney(totalPrice)}</Text>
                     </View>
                   </View>

@@ -19,7 +19,7 @@ const AddressInfo = ({ address }: { address: Address | any }) => {
   }
 
   return (
-    <View onClick={() => selectAddress()}>
+    <View className="bggray pb-2 mt-2 rounded" onClick={() => selectAddress()}>
       {receiverName ? (
         <View className="flex flex-row justify-between items-start px-4 py-2">
           <View className="text-black text-26 font-semibold keep-all">{receiverName}</View>

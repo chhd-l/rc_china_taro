@@ -12,8 +12,7 @@ const Index = () => {
   const [addressList, setAddressList] = useState<Address[]>([])
 
   const getAddressList = async () => {
-    const consumerInfo = Taro.getStorageSync('wxLoginRes').userInfo
-    const res = await getAddresses({ consumerId: consumerInfo.id })
+    const res = await getAddresses()
     setAddressList(res)
   }
 
