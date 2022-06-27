@@ -254,7 +254,7 @@ const Search = () => {
               titleLeft="最近搜索"
               titleRight={
                 <View>
-                  <AtIcon onClick={deleteLast} value="trash" size="16" color="rgb(107, 114, 128)"></AtIcon>
+                  <AtIcon onClick={deleteLast} value="trash" size="16" color="#CECECE"></AtIcon>
                 </View>
               }
               searchList={lastSearchList}
@@ -265,7 +265,7 @@ const Search = () => {
               handleLastSearch={handleLastSearch}
               titleLeft="热门搜索"
               titleRight={
-                <View className="text-xs" onClick={changeSearchHot}>
+                <View className="text-xs" style={{ color: '#CECECE' }} onClick={changeSearchHot}>
                   换一批
                 </View>
               }
