@@ -13,12 +13,14 @@ const Coupon = ({
   changeMaxDiscount,
   orderType,
   changeCheckoutVoucher,
+  isReload
 }: {
   totalPrice: number
   orderItems: any[]
   changeMaxDiscount: Function
   orderType: string
   changeCheckoutVoucher: Function
+  isReload:boolean
 }) => {
   const [showNoCoupon, setShowNoCoupon] = useState(false)
   const [showVoucherModal, setShowVoucherModal] = useState(false)
@@ -132,6 +134,12 @@ const Coupon = ({
   useEffect(() => {
     getVoucherList()
   }, [])
+
+  useEffect(() => {
+    if(isReload){
+      getVoucherList()
+    }
+  }, [isReload])
 
   return (
     <View className="bg-white mt-2 pl-2 py-2 rounded ">

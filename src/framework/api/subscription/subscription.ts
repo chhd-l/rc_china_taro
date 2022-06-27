@@ -31,6 +31,7 @@ export const subscriptionCreateAndPay = async ({
   couponItems,
   remark,
   deliveryTime,
+  isWXGroupVip,
 }) => {
   try {
     const productList = orderItems.map((el) => {
@@ -79,6 +80,7 @@ export const subscriptionCreateAndPay = async ({
         account: {
           unionId: wxLoginRes?.consumerAccount?.unionId,
           openId: wxLoginRes?.consumerAccount?.openId,
+          isWXGroupVip
         },
       },
       pet: subscriptionInfo.pet,

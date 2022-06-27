@@ -8,7 +8,7 @@ import cloneDeep from 'lodash.cloneDeep'
 import { formatDateToApi } from '@/utils/utils'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
-export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher }) => {
+export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher,isWXGroupVip }) => {
   try {
     //入参处理 start
     const productList = cloneDeep(orderItems).map((el) => {
@@ -59,6 +59,7 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
         nickName: user.nickName,
         unionId: wxLoginRes?.consumerAccount?.unionId,
         openId: wxLoginRes?.consumerAccount?.openId,
+        isWXGroupVip
       },
       voucher: finalVoucher,
     }
@@ -251,7 +252,7 @@ export const cancelOrder = async (params: any) => {
   }
 }
 
-export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionType, subscriptionCycle }) => {
+export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionType, subscriptionCycle,isWXGroupVip }) => {
   try {
     const productList = cloneDeep(orderItems).map((el) => {
       if (el.skuGoodInfo.variants?.length > 0) {
@@ -278,6 +279,7 @@ export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionTyp
         storeId: wxLoginRes?.userInfo?.storeId || '12345678',
         productList,
         voucher: finalVoucher,
+        isWXGroupVip
       },
       subscriptionType === 'FRESH_BUY'
         ? {

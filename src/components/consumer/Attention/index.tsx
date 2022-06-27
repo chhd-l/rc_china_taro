@@ -21,13 +21,13 @@ const Attention = ({ classes = 'bg-white' }: { classes?: string }) => {
           <View className="w-10 h-10">
             <Image className="w-full h-full" src={WECHAT} />
           </View>
-          <View className="flex flex-col ml-4 items-center justify-center text-26">
+          <View className="flex flex-col ml-6 items-center justify-center text-26">
             <View>更多有趣易懂养宠知识都在这里</View>
             <View className="mt-1">订阅我，随时掌握宠粮发货进度</View>
           </View>
           <View className="flex-1 flex justify-end">
             <AtButton
-              className="m-0 py-0 text-24 flex items-center justify-center w-16"
+              className="m-0 py-0 text-26 flex items-center justify-center w-16"
               full={false}
               size="small"
               type="primary"

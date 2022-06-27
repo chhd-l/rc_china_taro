@@ -26,10 +26,11 @@ const Checkout = () => {
   const [voucher, setVoucher] = useState<any>(null)
   const [isCommunityVip, setIsCommunityVip] = useState(false)
   const [orderPrice, setOrderPrice] = useState<any>(null)
+  const [isReloadVouchers, setIsReloadVouchers] = useState(false)
 
   const getIsCommunity = async () => {
     const res = await getTagByConsumerIdAndTagCode()
-    setIsCommunityVip(res?.tag)
+    setIsCommunityVip(res?.tag ? true : false)
   }
 
   const calculatePrice = async () => {
@@ -38,6 +39,7 @@ const Checkout = () => {
       voucher,
       subscriptionType: orderType,
       subscriptionCycle: subscriptionInfo?.cycleObj?.cycle,
+      isWXGroupVip: isCommunityVip,
     })
     setOrderPrice(res)
     console.log('calculate order price page', res)
@@ -47,7 +49,7 @@ const Checkout = () => {
     if (orderType && orderItems.length > 0) {
       calculatePrice()
     }
-  }, [orderItems, voucher, orderType])
+  }, [orderItems, voucher, orderType,isCommunityVip])
 
   const checkNow = async () => {
     if (address.id === '') {
@@ -66,12 +68,14 @@ const Checkout = () => {
           couponItems,
           remark,
           deliveryTime,
+          isWXGroupVip: isCommunityVip,
         })
         break
       case 'normal':
-        await createOrder({ orderItems, address, remark, deliveryTime, voucher })
+        await createOrder({ orderItems, address, remark, deliveryTime, voucher, isWXGroupVip: isCommunityVip })
         break
     }
+    setIsReloadVouchers(true)
   }
 
   useDidHide(() => {
@@ -144,6 +148,7 @@ const Checkout = () => {
                 }}
               />
               <Coupon
+                isReload={isReloadVouchers}
                 totalPrice={orderPrice?.totalPrice || 0}
                 orderItems={orderItems}
                 changeMaxDiscount={(maxDiscountPrice) => {

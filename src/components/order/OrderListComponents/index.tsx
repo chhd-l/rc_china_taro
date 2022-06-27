@@ -152,8 +152,9 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
               ))}
               <View className="w-full pt-2 footerText flex items-end flex-col">
                 <View className="text-right text-22">
-                  共{item?.lineItem?.length}件商品 总价{formatMoney(item.orderPrice.productPrice)}，优惠
-                  {formatMoney(item.orderPrice.discountsPrice || 0)}，实付款
+                  共{item?.lineItem?.length}件商品 总价
+                  {formatMoney(item.orderPrice.productPrice + item.orderPrice.deliveryPrice)}，优惠
+                  {formatMoney(item.orderPrice.discountsPrice + item?.orderPrice?.vipDiscountsPrice || 0)}，实付款
                   <Text className="text-primary-red text-28">{formatMoney(item.orderPrice.totalPrice)}</Text>
                 </View>
                 <OrderAction
