@@ -186,8 +186,9 @@ const Search = () => {
     return list
   }
   const handleSearch = async () => {
-    setProductName(keyword)
-    await handleLastSearch(keyword)
+    let name = keyword?.trim()
+    setProductName(name)
+    await handleLastSearch(name)
     // to do search
   }
   const changeSearchHot = () => {
@@ -230,6 +231,9 @@ const Search = () => {
     setFilterList(res)
     // setAnimal(type)
   }
+  const handleCancel = () => {
+    setPlaceholderName('猫奶罐')
+  }
 
   return (
     <>
@@ -239,6 +243,7 @@ const Search = () => {
           <AtSearchBar
             showActionButton
             // focus
+            onClear={handleCancel}
             value={keyword}
             className="search-bar"
             onChange={(value) => {
