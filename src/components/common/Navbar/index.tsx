@@ -34,8 +34,8 @@ const NavBar = ({
   }
 
   useEffect(() => {
-    Taro.onAppHide(() => {
-      console.log('aaaaaaaaa', 'onAppHide')
+    Taro.onAppShow(() => {
+      console.log('aaaaaaaaa', 'onAppShow')
       Taro.clearStorageSync()
     })
     //将状态栏高度挂载全局，方便自定义页面导航栏
