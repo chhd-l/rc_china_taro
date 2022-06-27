@@ -1,9 +1,9 @@
 import Taro from '@tarojs/taro'
 import omit from 'lodash/omit'
 import { formatDateToApi } from '@/utils/utils'
-import ApiRoot from '../fetcher'
 import { pay } from '@/framework/api/payment/pay'
 import routers from '@/routers'
+import ApiRoot from '../fetcher'
 
 export const getSubscriptionSimpleRecommend = async (params: any) => {
   try {

@@ -28,11 +28,16 @@ const NavBar = ({
   const [MiniProShowService, setMiniProShowService] = useState(false) //全局是否需要显示客服组件
 
   const getStoreSettingList = async () => {
+    console.log('store-settingaaaaaaa')
     const storeSettings = await getStoreSettings()
     setMiniProShowService(storeSettings?.find((item) => item.code === 'store_客服开关')?.isEnabled || false)
   }
 
   useEffect(() => {
+    Taro.onAppShow(() => {
+      console.log('aaaaaaaaa', 'onAppShow')
+      Taro.clearStorageSync()
+    })
     //将状态栏高度挂载全局，方便自定义页面导航栏
     Taro.getSystemInfo({}).then((res) => {
       console.log(res.statusBarHeight)
