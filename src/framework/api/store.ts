@@ -4,6 +4,7 @@ import ApiRoot from './fetcher'
 export const getStoreSettings = async () => {
   try {
     let storeSettings = session.get('store-setting')
+    console.log('store-setting',storeSettings)
     if (!storeSettings) {
       storeSettings = await ApiRoot.stores().getStoreSettings()
       console.log('get storeSetting list view data', storeSettings)
