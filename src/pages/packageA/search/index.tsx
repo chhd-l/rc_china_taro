@@ -146,7 +146,7 @@ const Search = () => {
     }
     let { total, records } = await hotSearchFindPage(params)
     if (offset + 4 >= total) {
-      offset = 1
+      offset = 0
     } else {
       offset += 4
     }
