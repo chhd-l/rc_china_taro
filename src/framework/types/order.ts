@@ -41,7 +41,7 @@ export interface OrderPrice {
   deliveryPrice: number
   totalPrice: number
   discountsPrice: number
-  vipDiscountsPrice:number
+  vipDiscountsPrice: number
 }
 
 export interface OrderState {
@@ -97,7 +97,7 @@ export interface ShippingInfo {
   trackingId?: string
   isReturn?: string
   status?: string
-  deliveries?: DeliveryInfo[]
+  deliveryItems?: DeliveryInfo[]
 }
 
 export interface DeliveryInfo {
