@@ -43,7 +43,7 @@ export interface ProductSpecification {
 }
 export interface ProductSpecificationValueRel {
   productSpecificationId: string
-  productSpecificationDetailId: string
+  specificationDetailId: string
   // productVariantId: string
   id: string
   // relId: string

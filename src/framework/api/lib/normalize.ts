@@ -117,7 +117,7 @@ export const normalizeSkuForFe = (
     specText: normalizeSpecText(sku.specificationRelations, specifications)?.filter((el) => el),
     specIds:
       sku.specificationRelations?.map((el) => {
-        return el.productSpecificationDetailId
+        return el.specificationDetailId
       }) || [],
     defaultChoose: index === 0 ? true : false,
   }
