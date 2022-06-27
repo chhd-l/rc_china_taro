@@ -11,6 +11,7 @@ import {
   getAttrs,
   getProducts,
   hotSearchFindPage,
+  searchInfoRecordRecentlyDelete,
   searchInfoRecordRecentlyFind,
 } from '@/framework/api/product/get-product'
 import Taro, { useReachBottom } from '@tarojs/taro'
@@ -194,12 +195,23 @@ const Search = () => {
   const changeSearchHot = () => {
     getHotList()
   }
-  const deleteLast = () => {
+  const deleteLast = async () => {
     console.info('....')
-    Taro.setStorage({
+    await searchInfoRecordRecentlyDelete({ id: consumerInfo?.id })
+    Taro.removeStorage({
       key: 'lastSearchList',
-      data: [],
+      success: () => {
+        console.info('成功')
+      },
+      fail: (err) => {
+        console.info('err', err)
+      },
     })
+    setLastSearchList([])
+    // Taro.setStorage({
+    //   key: 'lastSearchList',
+    //   data: [],
+    // })
   }
   const handleLastSearch = async (value) => {
     let newLastSearchList: OptionProps[] = await getStorageLast()

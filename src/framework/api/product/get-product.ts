@@ -78,6 +78,17 @@ export const addSearchInfoRecordRecently = async (params) => {
   }
 }
 
+
+export const searchInfoRecordRecentlyDelete = async (params) => {
+  try {
+    const res = await ApiRoot.products().searchInfoRecordRecentlyDelete(params)
+    return true
+  } catch (err) {
+    console.log(err, 'err')
+    return false
+  }
+}
+
 export const searchInfoRecordRecentlyFind = async (consumerId: string) => {
   try {
     const res = await ApiRoot.products().searchInfoRecordRecentlyFind(consumerId)
@@ -91,6 +102,9 @@ export const searchInfoRecordRecentlyFind = async (consumerId: string) => {
 export const hotSearchFindPage = async (params: any) => {
   try {
     const res = await ApiRoot.products().hotSearchFindPage(params)
+    if (!res.isVisibleOnShop) {
+      return []
+    }
     return res
   } catch (err) {
     console.log(err, 'err')
