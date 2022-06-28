@@ -143,7 +143,7 @@ const PetList = (props: Props) => {
           borderRadius: '50%',
           backgroundImage: `url(https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/Pet_Add.png)`,
         }}
-        className="w-16 h-16 m-auto mb-3  bg-no-repeat  bg-contain flex justify-center items-center Petpictureshadow text-gray-300 mt-2 relative"
+        className="w-22 h-22 bg-no-repeat  bg-contain flex justify-center items-center Petpictureshadow text-gray-300 mt-2 relative"
 
         // src={pet.image}
       >
@@ -210,8 +210,8 @@ const PetList = (props: Props) => {
       <View className="box-border">
         <View className="w-full flex items-center mb-2">
           <Swiper
-            style={{ minHeight: '6.5rem' }}
-            className="w-72 flex items-center"
+            style={{ minHeight: '5rem' }}
+            className="w-72 flex items-center h-22"
             circular
             nextMargin={systemType ? '180rpx' : '100rpx'}
             previousMargin={systemType ? '160rpx' : '200rpx'}
@@ -282,8 +282,8 @@ const PetList = (props: Props) => {
       <View className="box-border">
         <View className="w-full flex items-center mb-2">
           <Swiper
-            style={{ minHeight: '6.5rem' }}
-            className="w-full flex items-center"
+            style={{ minHeight: '5rem' }}
+            className="w-full flex items-center h-22"
             circular
             // displayMultipleItems={fakePet.length > 1 ? 3 : fakePet.length}
             nextMargin="200rpx"
@@ -360,7 +360,7 @@ const PetList = (props: Props) => {
 
   return (
     <View
-      className="box-border pb-4 px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy"
+      className={`${!fakePet.length ? '' : 'pb-4'}box-border px-4 rounded-lg  bg-contain  bg-gray-100 mt-4 PetListMy`}
       style={{
         backgroundImage: `url(${petBg})`,
       }}
@@ -372,7 +372,7 @@ const PetList = (props: Props) => {
       {renderPetContent()}
       {console.log(Nopets)}
       {Nopets && (
-        <View className="custompettips relative flex flex-col items-center top-3">
+        <View className="custompettips relative flex flex-col items-center top-0">
           <View className="triangle" />
           <View
             className="w-full h-9 flex items-center justify-center text-xs text-white"
