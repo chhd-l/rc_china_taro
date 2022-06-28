@@ -12,7 +12,7 @@ const App = (props) => {
     console.log(props, '12345')
     Taro.onAppShow(() => {
       console.log('aaaaaaaaa', 'onAppShow')
-      Taro.clearStorageSync()
+      // Taro.clearStorageSync()
     })
   }, [])
 
