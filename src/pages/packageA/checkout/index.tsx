@@ -75,7 +75,7 @@ const Checkout = () => {
         await createOrder({ orderItems, address, remark, deliveryTime, voucher, isWXGroupVip: isCommunityVip })
         break
     }
-    setIsReloadVouchers(true)
+    // setIsReloadVouchers(true)
   }
 
   useDidHide(() => {
