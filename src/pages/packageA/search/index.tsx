@@ -248,6 +248,8 @@ const Search = () => {
     // setAnimal(type)
   }
   const handleCancel = () => {
+    setProductName('')
+    setKeyword('')
     setPlaceholderName('猫奶罐')
   }
 
