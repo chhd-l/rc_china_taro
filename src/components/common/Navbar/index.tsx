@@ -49,7 +49,10 @@ const NavBar = ({
   return (
     <View
       style={{
-        height: '186rpx',
+        paddingTop: paddingTop + 'px',
+        height: isAutoHeight ? 'auto' : '2.625rem',
+        paddingBottom: '8rpx',
+        zIndex: '99',
         width: '100%',
       }}
     >
@@ -57,7 +60,7 @@ const NavBar = ({
         className="fixed top-0 left-0 bg-white"
         style={{
           paddingTop: paddingTop + 'px',
-          height: 'auto',
+          height: isAutoHeight ? 'auto' : '2.625rem',
           paddingBottom: '8rpx',
           zIndex: '99',
           width: '100%',

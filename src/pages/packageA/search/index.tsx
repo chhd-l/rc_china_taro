@@ -11,6 +11,7 @@ import {
   getAttrs,
   getProducts,
   hotSearchFindPage,
+  searchInfoRecordRecentlyDelete,
   searchInfoRecordRecentlyFind,
 } from '@/framework/api/product/get-product'
 import Taro, { useReachBottom } from '@tarojs/taro'
@@ -145,7 +146,7 @@ const Search = () => {
     }
     let { total, records } = await hotSearchFindPage(params)
     if (offset + 4 >= total) {
-      offset = 1
+      offset = 0
     } else {
       offset += 4
     }
@@ -186,19 +187,31 @@ const Search = () => {
     return list
   }
   const handleSearch = async () => {
-    setProductName(keyword)
-    await handleLastSearch(keyword)
+    let name = keyword?.trim()
+    setProductName(name)
+    await handleLastSearch(name)
     // to do search
   }
   const changeSearchHot = () => {
     getHotList()
   }
-  const deleteLast = () => {
+  const deleteLast = async () => {
     console.info('....')
-    Taro.setStorage({
+    await searchInfoRecordRecentlyDelete({ id: consumerInfo?.id })
+    Taro.removeStorage({
       key: 'lastSearchList',
-      data: [],
+      success: () => {
+        console.info('成功')
+      },
+      fail: (err) => {
+        console.info('err', err)
+      },
     })
+    setLastSearchList([])
+    // Taro.setStorage({
+    //   key: 'lastSearchList',
+    //   data: [],
+    // })
   }
   const handleLastSearch = async (value) => {
     let newLastSearchList: OptionProps[] = await getStorageLast()
@@ -230,6 +243,9 @@ const Search = () => {
     setFilterList(res)
     // setAnimal(type)
   }
+  const handleCancel = () => {
+    setPlaceholderName('猫奶罐')
+  }
 
   return (
     <>
@@ -239,6 +255,7 @@ const Search = () => {
           <AtSearchBar
             showActionButton
             // focus
+            onClear={handleCancel}
             value={keyword}
             className="search-bar"
             onChange={(value) => {

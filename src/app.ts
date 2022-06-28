@@ -5,7 +5,7 @@ import '@/assets/css/custom-theme.scss'
 import './app.less'
 import './assets/css/global.less'
 import 'windi.css'
-import Taro from "@tarojs/taro";
+import Taro from "@tarojs/taro"
 
 const App = (props) => {
   useEffect(() => {
