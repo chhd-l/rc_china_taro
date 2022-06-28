@@ -143,7 +143,7 @@ const Search = () => {
       offset,
       limit: 4,
       isNeedTotal: true,
-      sample: { storeId: '12345678' },
+      sample: { storeId: '12345678', status: true },
     }
     let { total, records } = await hotSearchFindPage(params)
     if (offset + 4 >= total) {
