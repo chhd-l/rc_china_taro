@@ -56,15 +56,13 @@ const Purchased = () => {
               <Image
                 className="w-full"
                 mode="widthFix"
-                src={list.variants?.[0]?.defaultImage || list.productAsserts?.[0]?.artworkUrl}
+                src={list.variants?.[0]?.defaultImage || list.asserts?.[0]?.artworkUrl}
               />
               {/* <CountTag type="center" >{list.quantityRule === 'DOUBLE_OF_SKU_NUMBER' ? recommendProduct.quantity! * 2 : list.quantity}</CountTag> */}
               <CountTag type="center">{list.quantity}</CountTag>
             </View>
             <View className="flex-1">
-              <View className="font-bold text-rc26 text-rc_222222">
-                {list.variants?.[0]?.name || list.name}
-              </View>
+              <View className="font-bold text-rc26 text-rc_222222">{list.variants?.[0]?.name || list.name}</View>
               {/* <View className="font-bold text-rc26 text-rc_222222 mt-1">不可同时享受</View> */}
               <View className="flex flex-row items-center">
                 <IconFont name="a-Frame1" size={73} />

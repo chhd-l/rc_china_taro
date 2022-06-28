@@ -8,7 +8,7 @@ import cloneDeep from 'lodash.cloneDeep'
 import { formatDateToApi } from '@/utils/utils'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
-export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher,isWXGroupVip }) => {
+export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher, isWXGroupVip }) => {
   try {
     //入参处理 start
     const productList = cloneDeep(orderItems).map((el) => {
@@ -31,9 +31,9 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -252,7 +252,7 @@ export const cancelOrder = async (params: any) => {
   }
 }
 
-export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionType, subscriptionCycle,isWXGroupVip }) => {
+export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionType, subscriptionCycle, isWXGroupVip }) => {
   try {
     const productList = cloneDeep(orderItems).map((el) => {
       if (el.skuGoodInfo.variants?.length > 0) {
@@ -260,15 +260,18 @@ export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionTyp
           num: el.productNum,
         })
       }
-      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted','subscriptionRecommendRuleId'])
+      // 一键续订有quantity，处理下
+      delete el.skuGoodInfo.quantity
+      delete el.skuGoodInfo.quantityRule
+      el.skuGoodInfo = omit(el.skuGoodInfo, ['isDeleted', 'subscriptionRecommendRuleId'])
       return el.skuGoodInfo
     })
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -283,9 +286,9 @@ export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionTyp
       },
       subscriptionType === 'FRESH_BUY'
         ? {
-            subscriptionType,
-            subscriptionCycle,
-          }
+          subscriptionType,
+          subscriptionCycle,
+        }
         : {},
     )
     console.info('calculate order price view params', params)
