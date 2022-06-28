@@ -218,22 +218,25 @@ const Search = () => {
     // })
   }
   const handleLastSearch = async (value) => {
-    let newLastSearchList: OptionProps[] = await getStorageLast()
-    newLastSearchList.forEach((el, i) => {
-      if (el.label === value) {
-        newLastSearchList.splice(i, 1)
-      }
-    })
-    newLastSearchList.unshift({
-      label: value,
-      value: value,
-    })
-    newLastSearchList = newLastSearchList.splice(0, 7)
-    setLastSearchList(newLastSearchList)
-    Taro.setStorage({
-      key: 'lastSearchList',
-      data: newLastSearchList,
-    })
+    if (value !== '') {
+      let newLastSearchList: OptionProps[] = await getStorageLast()
+      newLastSearchList.forEach((el, i) => {
+        if (el.label === value) {
+          newLastSearchList.splice(i, 1)
+        }
+      })
+      newLastSearchList.unshift({
+        label: value,
+        value: value,
+      })
+      newLastSearchList = newLastSearchList.splice(0, 7)
+      setLastSearchList(newLastSearchList)
+      Taro.setStorage({
+        key: 'lastSearchList',
+        data: newLastSearchList,
+      })
+    }
+
     getList({ name: value })
     if (!productName) {
       setPlaceholderName(value)
