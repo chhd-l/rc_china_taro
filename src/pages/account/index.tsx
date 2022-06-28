@@ -180,13 +180,13 @@ const Account = () => {
         {/*/!*打卡冷知识*!/*/}
         {/* <View>打卡冷知识</View> */}
         {/*/!*微信关注*!/*/}
-          <Attention classes='bg-gray-fb py-3 px-2'/>
+        <Attention classes="bg-gray-fb py-3 px-2" />
 
         {/*/!*我的宠物*!/*/}
         <View>
           <PetList withoutLoading />
         </View>
-        <AtModal isOpened={signoutOpend}>
+        <AtModal isOpened={signoutOpend} onClose={() => setSignoutOpend(false)}>
           <AtModalHeader>
             <View style={{ height: '100rpx', lineHeight: '100rpx' }}>确定要退出登录？</View>
           </AtModalHeader>
