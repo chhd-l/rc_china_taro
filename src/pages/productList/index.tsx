@@ -6,6 +6,8 @@ import List from '@/components/product/List'
 import ListBanner from '@/components/product/ListBanner'
 import NavBarForList from '@/components/product/NavBarForList'
 import StarsList from '@/components/product/StarsList'
+import AuthLogin from '@/components/consumer/AuthLogin'
+
 import { getProducts } from '@/framework/api/product/get-product'
 import {
   activityList,
@@ -211,6 +213,7 @@ const ProductList = () => {
           </View>
         </View>
       </ScrollView>
+      <AuthLogin />
     </View>
   )
 }

@@ -45,6 +45,7 @@ const Search = () => {
   const [placeholderName, setPlaceholderName] = useState<string>()
   const [isNoMore, setIsNoMore] = useState(false)
   const [animal, setAnimal] = useState<string>('')
+  const [noChangeMore, setNoChangeMore] = useState(false)
   const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
   const [hotCurrentCount, setHotCurrentCount] = useState(0)
   let type = 1 // 0. 显示直播、预告、商品讲解、回放其中之一的挂件；1. 只显示直播的挂件；2. 只显示预告的挂件；3. 只显示商品讲解的挂件；4. 只显示回放的挂件
@@ -149,6 +150,9 @@ const Search = () => {
       offset = 0
     } else {
       offset += 4
+    }
+    if (total < 5) {
+      setNoChangeMore(true)
     }
     setHotCurrentCount(offset)
     let hotList = records.map((el) => {
@@ -282,9 +286,11 @@ const Search = () => {
               handleLastSearch={handleLastSearch}
               titleLeft="热门搜索"
               titleRight={
-                <View className="text-xs" style={{ color: '#CECECE' }} onClick={changeSearchHot}>
-                  换一批
-                </View>
+                !noChangeMore ? (
+                  <View className="text-xs" style={{ color: '#CECECE' }} onClick={changeSearchHot}>
+                    换一批
+                  </View>
+                ) : null
               }
               searchList={hotSearchList}
             />

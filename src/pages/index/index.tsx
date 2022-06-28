@@ -9,10 +9,9 @@ import { Image, ScrollView, Text, View } from '@tarojs/components'
 import Taro, { requirePlugin, useDidShow } from '@tarojs/taro'
 import { useAtom } from 'jotai'
 import { useEffect, useState } from 'react'
-import {  AtDivider } from 'taro-ui'
-import {Attention} from "@/components/consumer"
+import { AtDivider } from 'taro-ui'
+import { Attention, AuthLogin } from '@/components/consumer'
 import './index.less'
-
 
 let livePlayer = requirePlugin('live-player-plugin')
 
@@ -168,7 +167,7 @@ const ProductList = () => {
           </View>
           <ListBanner bannerList={bannerLists} liveStreaming={liveStreaming} />
           <View className="p-2 pt-4 pb-0">
-            <Attention classes='bg-white mb-8'/>
+            <Attention classes="bg-white mb-8" />
             <View className="mt-4">
               <View style={{ fontSize: '0.8rem' }} className="font-bold mt-6 mb-3">
                 开启专属宠爱
@@ -217,6 +216,7 @@ const ProductList = () => {
         </View>
       </View>
       <AtDivider className="h-16" fontColor="#d5d5d5" lineColor="#d5d5d5" content="我也是有底线的" />
+      <AuthLogin />
     </View>
   )
 }

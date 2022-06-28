@@ -103,7 +103,7 @@ export const hotSearchFindPage = async (params: any) => {
   try {
     const res = await ApiRoot.products().hotSearchFindPage(params)
     if (!res.isVisibleOnShop) {
-      return []
+      return { total: 0, records: [] }
     }
     return res
   } catch (err) {
