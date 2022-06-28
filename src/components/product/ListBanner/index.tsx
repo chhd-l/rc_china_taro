@@ -1,20 +1,13 @@
+import { Image, Swiper, SwiperItem, View } from '@tarojs/components'
 import Taro from '@tarojs/taro'
-import { SwiperItem, Image, Swiper, View } from '@tarojs/components'
 // import { SwiperProps } from '@/framework/types/products'
 import './index.less'
-import { useEffect } from 'react'
 
 interface ListBannerProps {
   bannerList: any[]
   liveStreaming?: any
 }
 const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
-  const toPage = ({ linkHref }) => {
-    console.info('linkHref', linkHref)
-    Taro.navigateTo({
-      url: linkHref,
-    })
-  }
   let list = liveStreaming ? [liveStreaming, ...bannerList] : bannerList
   return (
     <Swiper
@@ -32,7 +25,9 @@ const ListBanner = ({ bannerList, liveStreaming }: ListBannerProps) => {
               className="relative"
               onClick={() => {
                 console.info('bannerbanner', banner)
-                toPage(banner)
+                Taro.navigateTo({
+                  url: banner?.linkHref || '',
+                })
               }}
             >
               {/* 直播间状态。101：直播中，102：未开始，103已结束，104禁播，105：暂停，106：异常，107：已过期 */}
