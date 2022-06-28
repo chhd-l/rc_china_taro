@@ -30,7 +30,7 @@ const CustomerService = () => {
         direction="all"
         x={xOffset}
         y={yOffset}
-        damping={5}
+        damping={15}
         outOfBounds
         animation
         onTouchEnd={(e) => {
@@ -38,7 +38,7 @@ const CustomerService = () => {
           const x = e.changedTouches[0].pageX
           const y = e.changedTouches[0].pageY
           setXOffset(x < screenWidth / 2 ? 0 : screenWidth)
-          setYOffset(y - 95)
+          setYOffset(y - 98)
         }}
       >
         <Button
