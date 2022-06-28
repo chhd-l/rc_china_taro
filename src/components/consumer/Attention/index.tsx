@@ -15,7 +15,7 @@ const Attention = ({ classes = 'bg-white' }: { classes?: string }) => {
   }, [])
 
   return (
-    <View className={classes}>
+    <View className={`${consumerInfo?.id?classes:''}`}>
       {consumerInfo?.id ? (
         <View className="flex py-2 items-center">
           <View className="w-10 h-10">
