@@ -1,4 +1,4 @@
-import Taro, { getCurrentInstance, useReachBottom } from '@tarojs/taro'
+import Taro, { getCurrentInstance, getCurrentPages, useReachBottom } from '@tarojs/taro'
 import { useState } from 'react'
 import { AtModal, AtTabs, AtTabsPane } from 'taro-ui'
 import OrderListComponents from '@/components/order/OrderListComponents'
@@ -8,6 +8,7 @@ import { View } from '@tarojs/components'
 import routers from '@/routers'
 import { cloneDeep } from 'lodash'
 import NavBar from '@/components/common/Navbar'
+import { session } from '@/utils/global'
 import './index.less'
 
 const tabList = [{ title: '全部' }, { title: '待付款' }, { title: '待发货' }, { title: '待收货' }]
@@ -69,6 +70,7 @@ const OrderList = () => {
       setShowActionTipModal(true)
       setFirstIn(false)
     }
+    session.remove('cur-orderTab-status')
   })
 
   const handleClick = async (value) => {
@@ -143,7 +145,18 @@ const OrderList = () => {
 
   return (
     <View>
-      <NavBar navbarTitle={tabList[OrderStatusEnum?.[current]]?.title} isNeedBack />
+      <NavBar
+        navbarTitle={tabList[OrderStatusEnum?.[current]]?.title}
+        isNeedBack
+        backEvent={() => {
+          const orderListRouters = getCurrentPages().filter((el) => el.route === routers.orderList.replace('/', ''))
+          if(orderListRouters.length>1){
+            Taro.navigateBack({ delta: orderListRouters.length })
+          }else{
+            Taro.navigateBack({ delta: 1 })
+          }
+        }}
+      />
       <AtTabs
         className="order-list-tab bg-gray-eee"
         current={OrderStatusEnum[current]}
@@ -162,6 +175,7 @@ const OrderList = () => {
                   setCurActionOrderId(orderId)
                   setCurActionType(orderStatus)
                 }}
+                curTabStatus={current}
               />
             ) : null}
           </AtTabsPane>
