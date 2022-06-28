@@ -10,6 +10,8 @@ import OrderLogistics from '@/components/order/Logistics'
 import { LOGISTICS_ORDER_ICON, ADDRESS_ORDER_ICON } from '@/lib/constants'
 import IconFont from '@/iconfont'
 import NavBar from '@/components/common/Navbar'
+import {session} from "@/utils/global";
+import routers from "@/routers";
 import './index.less'
 
 const orderStatusType = {
@@ -99,7 +101,13 @@ const OrderDetails = () => {
 
   return (
     <>
-      <NavBar navbarTitle="订单详情" isNeedBack />
+      <NavBar navbarTitle="订单详情" isNeedBack backEvent={()=>{
+        if(session.get('cur-orderTab-status')){
+          Taro.redirectTo({url:`${routers.orderList}?status=${session.get('cur-orderTab-status')}`})
+        }else{
+          Taro.navigateBack({ delta: 1 })
+        }
+      }}/>
       <ScrollView scrollY overflow-anchor={false}>
         <View className="OrderDetails">
           {orderDetail?.orderNumber ? (

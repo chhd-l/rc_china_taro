@@ -6,6 +6,7 @@ import { normalizeTags } from '@/framework/api/lib/normalize'
 import routers from '@/routers'
 import IconFont from '@/iconfont'
 import { pay } from '@/framework/api/payment/pay'
+import {session} from "@/utils/global";
 import OrderAction from '../OrderAction'
 import './index.less'
 
@@ -17,7 +18,7 @@ const orderStatusType = {
   VOID: '已取消',
 }
 
-const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalTip: Function }) => {
+const OrderListComponents = ({ list, openModalTip,curTabStatus }: { list: Order[]; openModalTip: Function,curTabStatus:string }) => {
   const copyText = (orderNumber) => {
     Taro.setClipboardData({
       data: orderNumber,
@@ -57,6 +58,7 @@ const OrderListComponents = ({ list, openModalTip }: { list: Order[]; openModalT
               key={idx}
               onClick={(e) => {
                 e.stopPropagation()
+                session.set('cur-orderTab-status',curTabStatus)
                 Taro.navigateTo({
                   url: `${routers.orderDetail}?id=${item.orderNumber}`,
                 })

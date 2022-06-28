@@ -1,7 +1,7 @@
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { useState } from 'react'
 import { AtTabs, AtTabsPane } from 'taro-ui'
-import { ScrollView, View } from '@tarojs/components'
+import { View } from '@tarojs/components'
 import { Voucher } from '@/framework/types/voucher'
 import { getListVouchers } from '@/framework/api/voucher/voucher'
 import VoucherItem from '@/components/voucher/VoucherItem'
@@ -16,6 +16,7 @@ const VoucherStatusEnum = {
 }
 
 const VoucherList = () => {
+  const navBarHeight = Taro.getSystemInfoSync()?.safeArea?.top || 42
   const [current, setCurrent] = useState('NOT_USED')
   const [voucherList, setVoucherList] = useState<Voucher[]>([])
   const { router } = getCurrentInstance()
@@ -54,11 +55,18 @@ const VoucherList = () => {
   return (
     <View>
       <NavBar navbarTitle="我的优惠券" isNeedBack />
-      <AtTabs className="index" current={VoucherStatusEnum[current]} tabList={tabList} onClick={handleClick} swipeable>
+      <AtTabs
+        customStyle={{ top: navBarHeight + 'px' }}
+        className="voucher-list-container"
+        current={VoucherStatusEnum[current]}
+        tabList={tabList}
+        onClick={handleClick}
+        swipeable
+      >
         {tabList.map((item, index) => (
           <AtTabsPane current={VoucherStatusEnum[current]} index={index} key={item.title}>
-            <ScrollView className="voucher-list p-2" scrollY>
-              {voucherList?.length > 0
+            <View className="voucher-list p-2">
+              {voucherList?.length > 0 && index === VoucherStatusEnum[current]
                 ? voucherList.map((el) => (
                     <VoucherItem
                       voucher={el}
@@ -81,7 +89,7 @@ const VoucherList = () => {
                     />
                   ))
                 : null}
-            </ScrollView>
+            </View>
           </AtTabsPane>
         ))}
       </AtTabs>
