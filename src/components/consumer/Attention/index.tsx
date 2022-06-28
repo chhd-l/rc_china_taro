@@ -5,18 +5,27 @@ import { useAtom } from 'jotai'
 import { consumerAtom } from '@/store/consumer'
 import routers from '@/routers'
 import Taro from '@tarojs/taro'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { getConsumerAccounts } from '@/framework/api/consumer/account'
 
 const Attention = ({ classes = 'bg-white' }: { classes?: string }) => {
   const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
+  const [isAlreadyAttention, setIsAlreadyAttention] = useState(false) //是否已经关注过公众号
+
+  const queryConsumerAccounts = async () => {
+    const res = await getConsumerAccounts()
+    const isOfficialAccount = res.find((el) => el.userType === 'OFFICIAL_ACCOUNT')
+    setIsAlreadyAttention(isOfficialAccount ? true : false)
+  }
 
   useEffect(() => {
     setConsumerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
+    queryConsumerAccounts()
   }, [])
 
   return (
-    <View className={`${consumerInfo?.id?classes:''}`}>
-      {consumerInfo?.id ? (
+    <View className={`${consumerInfo?.id ? classes : ''}`}>
+      {consumerInfo?.id && !isAlreadyAttention ? (
         <View className="flex py-2 items-center">
           <View className="w-10 h-10">
             <Image className="w-full h-full" src={WECHAT} />
