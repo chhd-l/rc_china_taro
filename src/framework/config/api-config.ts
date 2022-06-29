@@ -13,7 +13,7 @@ const API_CONFIG: IApiConfig = {
     auth: "http://localhost:7000/graphql",
   },
   production: {
-    auth: "https://fc-sc-auth-dev-selercenter-umayykwqea.cn-shanghai.fcapp.run/graphql",
+    auth: "https://fc-mp-auth-dev-miniprogram-dkpsdvztiu.cn-shanghai.fcapp.run/graphql",
   }
 }
 

@@ -43,7 +43,7 @@ export const wxRegisterAndLogin = async (): Promise<Consumer> => {
 
 export const wxLogin = async () => {
   let wxLoginResStorage = Taro.getStorageSync('wxLoginRes')
-  const { wxLogin: wxLoginRes }: { wxLogin: WxLoginResult } = await ApiRoot().consumers().wxLogin({
+  const { wxLogin: wxLoginRes }: { wxLogin: WxLoginResult } = await ApiRoot({ url: apis.auth }).consumers().wxLogin({
     id: wxLoginResStorage.userInfo.id,
   })
   console.log('wxLoginRes', wxLoginRes)
@@ -54,11 +54,10 @@ export const wxLogin = async () => {
 export const wxBindPhone = async (jsCode) => {
   let wxLoginRes = Taro.getStorageSync('wxLoginRes')
   if (wxLoginRes) {
-    const res = await ApiRoot().consumers().wxBindPhone({
+    const res = await ApiRoot({ url: apis.auth }).consumers().wxBindPhone({
       input: {
         jsCode,
         storeID: '12345678',
-        operator: 'zyq',
         consumerId: wxLoginRes.userInfo.id,
       },
     })
