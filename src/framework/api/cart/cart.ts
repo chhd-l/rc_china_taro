@@ -3,7 +3,60 @@ import { dataSource } from '@/mock/cart'
 import Mock from 'mockjs'
 import { session } from '@/utils/global'
 import Taro from '@tarojs/taro'
+import { getProductInfoBySkuIds } from '@/framework/api/product/get-product'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
+
+export const getCarts = async (isNeedReload = false) => {
+  try {
+    if (isMock) {
+      return Mock.mock(dataSource)
+    } else {
+      let cartProducts = session.get('cart-data')
+      let finallyCartDatas: any[] = []
+      if (!cartProducts || isNeedReload) {
+        let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+        cartProducts = await ApiRoot.carts().getCarts({
+          consumerId: wxLoginRes?.consumerAccount?.consumerId,
+          storeId: wxLoginRes?.consumerAccount?.storeId,
+        })
+        let skuIds = cartProducts
+          .filter((el: any) => {
+            return el.productVariantId
+          })
+          .map((item) => item.productVariantId) //把map换成filter，避免出现[null]情况
+        if (skuIds.length > 0) {
+          const data = await getProductInfoBySkuIds({ skuIds })
+          console.log('getProductInfoBySkuIds view data', data)
+          cartProducts = cartProducts.map((el: any) => {
+            const productGetByProductVariantId = data.find((item: any) => {
+              const productVariants = (item?.variants || []).filter(
+                (productVariant: any) => productVariant?.id === el.productVariantId,
+              )
+              if (productVariants.length > 0) {
+                return { ...item, productVariants }
+              }
+            })
+            el.productGetByProductVariantId = productGetByProductVariantId
+            return el
+          })
+          for (let i = 0; i < cartProducts.length; i++) {
+            if (cartProducts[i]?.productGetByProductVariantId) {
+              finallyCartDatas.push(normalizeCartData(cartProducts[i], cartProducts[i]?.productGetByProductVariantId))
+            }
+          }
+        }
+        session.set('cart-data', finallyCartDatas)
+      } else {
+        finallyCartDatas = cartProducts
+      }
+      console.log('cart products data', finallyCartDatas)
+      return finallyCartDatas || []
+    }
+  } catch (err) {
+    console.log('err', err)
+    return []
+  }
+}
 
 export const getCartAndProducts = async (isNeedReload = false) => {
   try {
@@ -74,10 +127,10 @@ export const createCart = async (params: any) => {
   }
 }
 
-export const deleteCart = async ({ id, operator }: { id: string; operator: string }) => {
+export const deleteCart = async ({ id }: { id: string }) => {
   try {
     const data = await ApiRoot.carts().deleteCart({
-      body: { id, operator },
+      body: { id },
     })
     console.log('delete cart view', data)
     return data
@@ -87,11 +140,10 @@ export const deleteCart = async ({ id, operator }: { id: string; operator: strin
   }
 }
 
-export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator: string }) => {
+export const batchDeleteCart = async ({ ids }: { ids: any[] }) => {
   try {
     const data = await ApiRoot.carts().batchDeleteCart({
       ids,
-      operator,
     })
     console.log('batch delete cart view', data)
     return data
@@ -101,13 +153,12 @@ export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator:
   }
 }
 
-export const updateCart = async ({ id, productNum, operator }: { id: string; productNum: number; operator: string }) => {
+export const updateCart = async ({ id, productNum }: { id: string; productNum: number }) => {
   try {
     const cart = await ApiRoot.carts().updateCart({
       body: {
         id,
         productNum,
-        operator,
         storeId: baseSetting.storeId,
       },
     })
