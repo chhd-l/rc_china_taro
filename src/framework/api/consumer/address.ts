@@ -3,6 +3,7 @@ import { addressListMockData } from '@/mock/consumer'
 import Mock from 'mockjs'
 import Taro from "@tarojs/taro";
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
+import apis from "@/framework/config/api-config";
 
 export const getAddresses = async () => {
   try {
@@ -10,7 +11,7 @@ export const getAddresses = async () => {
       return Mock.mock(addressListMockData)
     } else {
       const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-      const addresses = await ApiRoot().addresses().getAddresses({ consumerId: wxLoginRes?.userInfo?.id })
+      const addresses = await ApiRoot({ url: apis.address }).addresses().getAddresses({ consumerId: wxLoginRes?.userInfo?.id })
       return addresses
     }
   } catch (err) {

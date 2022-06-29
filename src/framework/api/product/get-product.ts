@@ -5,6 +5,7 @@ import { ProductDetailProps } from '@/framework/types/products'
 // import { ProductDetailProps } from '@/framework/types/products'
 import ApiRoot from '../fetcher'
 import { normalizeCatOrDogAttr, normalizeProductForFe, normalizeProductsforFe } from '../lib/normalize'
+import apis from "@/framework/config/api-config";
 
 export const getProduct = async ({ storeId, productId }) => {
   try {
@@ -117,7 +118,7 @@ export const hotSearchFindPage = async (params: any) => {
 
 export const getProductInfoBySkuIds = async ({ skuIds }: { skuIds: string[] }) => {
   try {
-    const res = await ApiRoot.products().getProductInfoBySkuIds(skuIds)
+    const res = await ApiRoot({ url: apis.productSkuDetail }).products().getProductInfoBySkuIds(skuIds)
     console.log('getProductBySkuId view', res)
     return res
   } catch (err) {

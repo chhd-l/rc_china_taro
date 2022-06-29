@@ -4,6 +4,7 @@ import Mock from 'mockjs'
 import { session } from '@/utils/global'
 import Taro from '@tarojs/taro'
 import { getProductInfoBySkuIds } from '@/framework/api/product/get-product'
+import apis from '@/framework/config/api-config'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
 
 export const getCarts = async (isNeedReload = false) => {
@@ -15,7 +16,7 @@ export const getCarts = async (isNeedReload = false) => {
       let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
         let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-        cartProducts = await ApiRoot.carts().getCarts({
+        cartProducts = await ApiRoot({ url: apis.cart }).carts().getCarts({
           consumerId: wxLoginRes?.consumerAccount?.consumerId,
           storeId: wxLoginRes?.consumerAccount?.storeId,
         })
@@ -67,10 +68,12 @@ export const getCartAndProducts = async (isNeedReload = false) => {
       let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
         let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-        const res = await ApiRoot().carts().getCartAndProduct({
-          consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
-          storeId: wxLoginRes?.consumerAccount?.storeId || '',
-        })
+        const res = await ApiRoot()
+          .carts()
+          .getCartAndProduct({
+            consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
+            storeId: wxLoginRes?.consumerAccount?.storeId || '',
+          })
         cartProducts = res || []
         console.log('cart data', cartProducts)
         for (let i = 0; i < cartProducts.length; i++) {
@@ -116,7 +119,7 @@ export const getCartNumber = async (productId, consumerInfo) => {
 
 export const createCart = async (params: any) => {
   try {
-    const cart = await ApiRoot().carts().createCart({
+    const cart = await ApiRoot({ url: apis.cart }).carts().createCart({
       body: params,
     })
     console.log('create cart view', cart)
@@ -129,7 +132,7 @@ export const createCart = async (params: any) => {
 
 export const deleteCart = async ({ id }: { id: string }) => {
   try {
-    const data = await ApiRoot().carts().deleteCart({
+    const data = await ApiRoot({ url: apis.cart }).carts().deleteCart({
       body: { id },
     })
     console.log('delete cart view', data)
@@ -142,7 +145,7 @@ export const deleteCart = async ({ id }: { id: string }) => {
 
 export const batchDeleteCart = async ({ ids }: { ids: any[] }) => {
   try {
-    const data = await ApiRoot().carts().batchDeleteCart({
+    const data = await ApiRoot({ url: apis.cart }).carts().batchDeleteCart({
       ids,
     })
     console.log('batch delete cart view', data)
@@ -155,13 +158,15 @@ export const batchDeleteCart = async ({ ids }: { ids: any[] }) => {
 
 export const updateCart = async ({ id, productNum }: { id: string; productNum: number }) => {
   try {
-    const cart = await ApiRoot().carts().updateCart({
-      body: {
-        id,
-        productNum,
-        storeId: baseSetting.storeId,
-      },
-    })
+    const cart = await ApiRoot({ url: apis.cart })
+      .carts()
+      .updateCart({
+        body: {
+          id,
+          productNum,
+          storeId: baseSetting.storeId,
+        },
+      })
     console.log(cart)
     return cart
   } catch (e) {
