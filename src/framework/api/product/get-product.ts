@@ -9,7 +9,7 @@ import { normalizeCatOrDogAttr, normalizeProductForFe, normalizeProductsforFe } 
 export const getProduct = async ({ storeId, productId }) => {
   try {
     // const { productGet: data } = mockProduct.data
-    const { productGet: data } = await ApiRoot.products().getProductBySpu({
+    const { productGet: data } = await ApiRoot().products().getProductBySpu({
       storeId,
       productId,
     })
@@ -26,10 +26,10 @@ export const getProduct = async ({ storeId, productId }) => {
 export const getProducts = async (params: any) => {
   // let list = mockProduct.data.FindProductList.records[0]
   try {
-    const res = await ApiRoot.products().getESProductLists(params)
+    const res = await ApiRoot().products().getESProductLists(params)
     let list = res?.productFindPageByEs?.records || []
     console.info('test', res)
-    // const pets = await ApiRoot.pets().getProduct({ id: "20220415" });
+    // const pets = await ApiRoot().pets().getProduct({ id: "20220415" });
     const productList = normalizeProductsforFe(list)
     console.info('productList res', productList)
     return {
@@ -46,7 +46,7 @@ export const getProducts = async (params: any) => {
 }
 export const getProductBySkuId = async ({ productVariantId }: { productVariantId: string }) => {
   try {
-    const res = await ApiRoot.products().getProductBySku({
+    const res = await ApiRoot().products().getProductBySku({
       productVariantId,
     })
     console.log('getProductBySkuId view', res)
@@ -57,7 +57,7 @@ export const getProductBySkuId = async ({ productVariantId }: { productVariantId
 }
 export const getAttrs = async ({ storeId, categoryId }: { storeId: string; categoryId: string }) => {
   try {
-    const res = await ApiRoot.products().getAttrList({
+    const res = await ApiRoot().products().getAttrList({
       storeId,
       categoryId,
     })
@@ -70,7 +70,7 @@ export const getAttrs = async ({ storeId, categoryId }: { storeId: string; categ
 
 export const addSearchInfoRecordRecently = async (params) => {
   try {
-    const res = await ApiRoot.products().searchInfoRecordRecently(params)
+    const res = await ApiRoot().products().searchInfoRecordRecently(params)
     return true
   } catch (err) {
     console.log(err, 'err')
@@ -81,7 +81,7 @@ export const addSearchInfoRecordRecently = async (params) => {
 
 export const searchInfoRecordRecentlyDelete = async (params) => {
   try {
-    const res = await ApiRoot.products().searchInfoRecordRecentlyDelete(params)
+    const res = await ApiRoot().products().searchInfoRecordRecentlyDelete(params)
     return true
   } catch (err) {
     console.log(err, 'err')
@@ -91,7 +91,7 @@ export const searchInfoRecordRecentlyDelete = async (params) => {
 
 export const searchInfoRecordRecentlyFind = async (consumerId: string) => {
   try {
-    const res = await ApiRoot.products().searchInfoRecordRecentlyFind(consumerId)
+    const res = await ApiRoot().products().searchInfoRecordRecentlyFind(consumerId)
     return res
   } catch (err) {
     console.log(err, 'err')
@@ -101,7 +101,7 @@ export const searchInfoRecordRecentlyFind = async (consumerId: string) => {
 
 export const hotSearchFindPage = async (params: any) => {
   try {
-    const res = await ApiRoot.products().hotSearchFindPage(params)
+    const res = await ApiRoot().products().hotSearchFindPage(params)
     if (!res.isVisibleOnShop) {
       return { total: 0, records: [] }
     }

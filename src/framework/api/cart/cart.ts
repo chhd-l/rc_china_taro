@@ -14,7 +14,7 @@ export const getCartAndProducts = async (isNeedReload = false) => {
       let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
         let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-        const res = await ApiRoot.carts().getCartAndProduct({
+        const res = await ApiRoot().carts().getCartAndProduct({
           consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
           storeId: wxLoginRes?.consumerAccount?.storeId || '',
         })
@@ -46,7 +46,7 @@ export const getCartNumber = async (productId, consumerInfo) => {
       currentCartSpu: [],
     }
   }
-  const res = await ApiRoot.carts().getCarts({
+  const res = await ApiRoot().carts().getCarts({
     consumerId: consumerInfo?.id,
     storeId: '12345678',
   })
@@ -63,7 +63,7 @@ export const getCartNumber = async (productId, consumerInfo) => {
 
 export const createCart = async (params: any) => {
   try {
-    const cart = await ApiRoot.carts().createCart({
+    const cart = await ApiRoot().carts().createCart({
       body: params,
     })
     console.log('create cart view', cart)
@@ -76,7 +76,7 @@ export const createCart = async (params: any) => {
 
 export const deleteCart = async ({ id, operator }: { id: string; operator: string }) => {
   try {
-    const data = await ApiRoot.carts().deleteCart({
+    const data = await ApiRoot().carts().deleteCart({
       body: { id, operator },
     })
     console.log('delete cart view', data)
@@ -89,7 +89,7 @@ export const deleteCart = async ({ id, operator }: { id: string; operator: strin
 
 export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator: string }) => {
   try {
-    const data = await ApiRoot.carts().batchDeleteCart({
+    const data = await ApiRoot().carts().batchDeleteCart({
       ids,
       operator,
     })
@@ -103,7 +103,7 @@ export const batchDeleteCart = async ({ ids, operator }: { ids: any[]; operator:
 
 export const updateCart = async ({ id, productNum, operator }: { id: string; productNum: number; operator: string }) => {
   try {
-    const cart = await ApiRoot.carts().updateCart({
+    const cart = await ApiRoot().carts().updateCart({
       body: {
         id,
         productNum,

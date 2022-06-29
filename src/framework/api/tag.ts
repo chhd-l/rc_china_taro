@@ -4,7 +4,7 @@ import ApiRoot from './fetcher'
 export const getTagByConsumerIdAndTagCode = async () => {
   try {
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot.tags().getTagByConsumerIdAndTagCode({
+    const res = await ApiRoot().tags().getTagByConsumerIdAndTagCode({
       code: 'WX_GROUP_VIP',
       consumerId: wxLoginRes?.userInfo?.id || '',
     })
@@ -19,7 +19,7 @@ export const getTagByConsumerIdAndTagCode = async () => {
 export const getTagsByConsumerId = async () => {
   try {
     let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot.consumers().getConsumerTags({
+    const res = await ApiRoot().consumers().getConsumerTags({
       consumerId: wxLoginRes?.userInfo?.id || '',
     })
     console.log('get tags by consumerId view data', res)

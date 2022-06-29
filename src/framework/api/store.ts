@@ -6,9 +6,9 @@ export const getStoreSettings = async () => {
     // let storeSettings = session.get('store-setting')
     // console.log('store-setting',storeSettings)
     // if (!storeSettings) {
-      const storeSettings = await ApiRoot.stores().getStoreSettings()
-      console.log('get storeSetting list view data', storeSettings)
-      session.set('store-setting', storeSettings)
+    const storeSettings = await ApiRoot().stores().getStoreSettings()
+    console.log('get storeSetting list view data', storeSettings)
+    session.set('store-setting', storeSettings)
     // }
     return storeSettings
   } catch (e) {

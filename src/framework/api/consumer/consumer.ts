@@ -1,10 +1,11 @@
 import { Consumer } from '@/framework/types/consumer'
 import Taro from '@tarojs/taro'
 import ApiRoot, { baseSetting } from '../fetcher'
+import apis from '@/framework/config/api-config'
 
 export const getConsumer = async () => {
   try {
-    const consumer = await ApiRoot.consumers().getConsumer({ id: baseSetting.consumerId })
+    const consumer = await ApiRoot().consumers().getConsumer({ id: baseSetting.consumerId })
     console.log('get consumer view', consumer)
     return consumer
   } catch (err) {
@@ -24,19 +25,17 @@ export const wxRegisterAndLogin = async (): Promise<Consumer> => {
   })
   const loginRes = await Taro.login()
   const { wxRegisterAndLogin: wxLoginRes }: { wxRegisterAndLogin: WxLoginResult } =
-    await ApiRoot.consumers().wxRegisterAndLogin({
+    await ApiRoot({ url: apis.auth }).consumers().wxRegisterAndLogin({
       input: {
         jsCode: loginRes.code,
         storeId: '12345678',
-        operator: userInfo.nickName,
       },
       userInfo: {
         avatarUrl: userInfo.avatarUrl,
         nickName: userInfo.nickName,
         gender: userInfo.gender + '',
-        operator: userInfo.nickName,
       },
-    })
+    }, userInfo.nickName)
   console.log('wxLoginRes', wxLoginRes)
   Taro.setStorageSync('wxLoginRes', wxLoginRes)
   return wxLoginRes.userInfo
@@ -44,7 +43,7 @@ export const wxRegisterAndLogin = async (): Promise<Consumer> => {
 
 export const wxLogin = async () => {
   let wxLoginResStorage = Taro.getStorageSync('wxLoginRes')
-  const { wxLogin: wxLoginRes }: { wxLogin: WxLoginResult } = await ApiRoot.consumers().wxLogin({
+  const { wxLogin: wxLoginRes }: { wxLogin: WxLoginResult } = await ApiRoot().consumers().wxLogin({
     id: wxLoginResStorage.userInfo.id,
   })
   console.log('wxLoginRes', wxLoginRes)
@@ -55,7 +54,7 @@ export const wxLogin = async () => {
 export const wxBindPhone = async (jsCode) => {
   let wxLoginRes = Taro.getStorageSync('wxLoginRes')
   if (wxLoginRes) {
-    const res = await ApiRoot.consumers().wxBindPhone({
+    const res = await ApiRoot().consumers().wxBindPhone({
       input: {
         jsCode,
         storeID: '12345678',

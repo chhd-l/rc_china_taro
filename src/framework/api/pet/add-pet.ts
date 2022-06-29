@@ -9,7 +9,7 @@ export const addPet = async (petInfo) => {
   console.info('addPet params', params)
   try {
     // const pets = mockPetlist.push(params);
-    const pets = await ApiRoot.pets().createPet({ body: params })
+    const pets = await ApiRoot().pets().createPet({ body: params })
     return pets
   } catch (err) {
     console.log(err)

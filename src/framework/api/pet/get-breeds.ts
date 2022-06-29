@@ -7,7 +7,7 @@ import { normalizePetsForFe } from '../lib/normalize'
 export const getBreedList = async () => {
   let params = { storeId: baseSetting.storeId }
   try {
-    const breeds = await ApiRoot.pets().getBreeds({ body: params })
+    const breeds = await ApiRoot().pets().getBreeds({ body: params })
     // const breeds = mockPetlist;
     return breeds
   } catch (err) {
@@ -21,7 +21,7 @@ export const getSortedBreeds = async (param?: any) => {
     params.type = param.type
   }
   try {
-    const { breedsSortedByPy } = await ApiRoot.pets().getSortedBreeds({ body: params })
+    const { breedsSortedByPy } = await ApiRoot().pets().getSortedBreeds({ body: params })
     // const breeds = mockPetlist;
     console.info('breedsSortedByPy', breedsSortedByPy)
     return breedsSortedByPy || []
