@@ -7,7 +7,7 @@ import ApiRoot from '../fetcher'
 
 export const getSubscriptionSimpleRecommend = async (params: any) => {
   try {
-    const { subscriptionSimpleRecommend } = await ApiRoot.subscriptions().subscriptionSimpleRecommend({ body: params })
+    const { subscriptionSimpleRecommend } = await ApiRoot().subscriptions().subscriptionSimpleRecommend({ body: params })
     let { couponList, couponInfoList } = subscriptionSimpleRecommend
     couponList?.forEach((el) => {
       el.coupons?.forEach((coupon) => {
@@ -53,9 +53,9 @@ export const subscriptionCreateAndPay = async ({
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -113,7 +113,7 @@ export const subscriptionCreateAndPay = async ({
       operator: wxLoginRes?.userInfo?.nickName || '',
     }
     console.log('create order params', params)
-    const res = await ApiRoot.subscriptions().subscriptionCreateAndPay({ body: params })
+    const res = await ApiRoot().subscriptions().subscriptionCreateAndPay({ body: params })
     console.info('subscriptionCreateAndPay', res)
     if (res.paymentStartResult?.payment?.status === 'PAID') {
       //0元就不用调用支付接口
@@ -176,7 +176,7 @@ export const subscriptionCreateAndPay = async ({
 export const getSubscriptionFindByConsumerId = async (consumerId: string) => {
   Taro.setStorageSync('commerce-loading', 1)
   try {
-    const { subscriptionFindByConsumerId } = await ApiRoot.subscriptions().subscriptionFindByConsumerId({ consumerId })
+    const { subscriptionFindByConsumerId } = await ApiRoot().subscriptions().subscriptionFindByConsumerId({ consumerId })
     return subscriptionFindByConsumerId
   } catch (err) {
     return []
@@ -185,7 +185,7 @@ export const getSubscriptionFindByConsumerId = async (consumerId: string) => {
 
 export const getSubscriptionDetail = async (id: any) => {
   try {
-    const subscriptionDetail = await ApiRoot.subscriptions().subscriptionDetail({ id })
+    const subscriptionDetail = await ApiRoot().subscriptions().subscriptionDetail({ id })
     return subscriptionDetail
   } catch (err) {
     return {}
@@ -194,7 +194,7 @@ export const getSubscriptionDetail = async (id: any) => {
 
 export const getSubscriptionScheduleNextDelivery = async (params: any) => {
   try {
-    const { subscriptionScheduleNextDelivery } = await ApiRoot.subscriptions().subscriptionScheduleNextDelivery({
+    const { subscriptionScheduleNextDelivery } = await ApiRoot().subscriptions().subscriptionScheduleNextDelivery({
       body: params,
     })
     return subscriptionScheduleNextDelivery

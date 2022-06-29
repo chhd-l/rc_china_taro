@@ -67,7 +67,7 @@ export const getCartAndProducts = async (isNeedReload = false) => {
       let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
         let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-        const res = await ApiRoot.carts().getCartAndProduct({
+        const res = await ApiRoot().carts().getCartAndProduct({
           consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
           storeId: wxLoginRes?.consumerAccount?.storeId || '',
         })
@@ -99,7 +99,7 @@ export const getCartNumber = async (productId, consumerInfo) => {
       currentCartSpu: [],
     }
   }
-  const res = await ApiRoot.carts().getCarts({
+  const res = await ApiRoot().carts().getCarts({
     consumerId: consumerInfo?.id,
     storeId: '12345678',
   })
@@ -116,7 +116,7 @@ export const getCartNumber = async (productId, consumerInfo) => {
 
 export const createCart = async (params: any) => {
   try {
-    const cart = await ApiRoot.carts().createCart({
+    const cart = await ApiRoot().carts().createCart({
       body: params,
     })
     console.log('create cart view', cart)
@@ -129,7 +129,7 @@ export const createCart = async (params: any) => {
 
 export const deleteCart = async ({ id }: { id: string }) => {
   try {
-    const data = await ApiRoot.carts().deleteCart({
+    const data = await ApiRoot().carts().deleteCart({
       body: { id },
     })
     console.log('delete cart view', data)
@@ -142,7 +142,7 @@ export const deleteCart = async ({ id }: { id: string }) => {
 
 export const batchDeleteCart = async ({ ids }: { ids: any[] }) => {
   try {
-    const data = await ApiRoot.carts().batchDeleteCart({
+    const data = await ApiRoot().carts().batchDeleteCart({
       ids,
     })
     console.log('batch delete cart view', data)
@@ -155,7 +155,7 @@ export const batchDeleteCart = async ({ ids }: { ids: any[] }) => {
 
 export const updateCart = async ({ id, productNum }: { id: string; productNum: number }) => {
   try {
-    const cart = await ApiRoot.carts().updateCart({
+    const cart = await ApiRoot().carts().updateCart({
       body: {
         id,
         productNum,

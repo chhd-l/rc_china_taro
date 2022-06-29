@@ -21,6 +21,6 @@ const API_URL = `${SERVICEPATH}/graphql`
 // 开发
 // const API_URL = 'https://dtc-faas-dev-dtc-plaform-dev-yfetifgpvj.cn-shanghai.fcapp.run/graphql'
 
-const ApiRoot = new ClientBuilder().config({ url: API_URL })
-new ClientBuilder().config({ url: API_URL })
+const ApiRoot = ({ url = API_URL }: { url?: string } = { url: API_URL }) => new ClientBuilder().config({ url: url })
+// new ClientBuilder().config({ url: API_URL })
 export default ApiRoot

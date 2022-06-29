@@ -9,7 +9,7 @@ export const deletePet = async ({ id }) => {
   //   }
   // });
   try {
-    return await ApiRoot.pets().deletePet({ id })
+    return await ApiRoot().pets().deletePet({ id })
     return true
   } catch (err) {
     console.log(err)

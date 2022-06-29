@@ -17,7 +17,7 @@ export const updatePet = async (petInfo, primaryData) => {
   // })
   // console.info('mockPetlist', mockPetlist)
   try {
-    const pets = await ApiRoot.pets().updatePet({ body: params })
+    const pets = await ApiRoot().pets().updatePet({ body: params })
     return pets
   } catch (err) {
     console.log(err)
