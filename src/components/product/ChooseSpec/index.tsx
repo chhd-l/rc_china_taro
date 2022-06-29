@@ -127,7 +127,6 @@ const ChooseSpec = ({
       storeId: baseSetting.storeId,
       petId: '',
       petType: '',
-      operator: 'test',
     })
     setToastShow(true)
     // setToastShow(true)

@@ -102,14 +102,14 @@ export const getCartNumber = async (productId, consumerInfo) => {
       currentCartSpu: [],
     }
   }
-  const res = await ApiRoot().carts().getCarts({
+  const res = await ApiRoot({ url: apis.cart }).carts().getCarts({
     consumerId: consumerInfo?.id,
     storeId: '12345678',
   })
-  const cartNumber = (res?.carts || []).reduce((prev, cur) => {
+  const cartNumber = res.reduce((prev, cur) => {
     return prev + cur.productNum
   }, 0)
-  let currentCartSpu = (res?.carts || []).filter((el) => el.productId === productId)
+  let currentCartSpu = res.filter((el) => el.productId === productId)
 
   return {
     cartNumber: cartNumber || 0,
