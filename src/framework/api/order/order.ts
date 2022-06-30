@@ -6,8 +6,8 @@ import { pay } from '@/framework/api/payment/pay'
 import routers from '@/routers'
 import cloneDeep from 'lodash.cloneDeep'
 import { formatDateToApi } from '@/utils/utils'
+import apis from '@/framework/config/api-config'
 import ApiRoot, { baseSetting, isMock } from '../fetcher'
-import apis from "@/framework/config/api-config";
 
 export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher, isWXGroupVip }) => {
   try {
@@ -32,9 +32,9 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-          ...voucher,
-          voucherStatus: 'Ongoing',
-        }
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -59,15 +59,17 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
         nickName: user.nickName,
         unionId: wxLoginRes?.consumerAccount?.unionId,
         openId: wxLoginRes?.consumerAccount?.openId,
-        isWXGroupVip
+        isWXGroupVip,
       },
       voucher: finalVoucher,
     }
     //入参处理 end
     console.log('create order params', params)
-    const res = await ApiRoot({ url: apis.orderCreate }).orders().createOrder({
-      body: Object.assign(params, { storeId: baseSetting.storeId }),
-    })
+    const res = await ApiRoot({ url: apis.orderCreate })
+      .orders()
+      .createOrder({
+        body: Object.assign(params, { storeId: baseSetting.storeId }),
+      })
     console.log('create order view', res)
     if (res) {
       Taro.removeStorageSync('select-product')
@@ -200,22 +202,6 @@ export const getExpressCompanyList = async () => {
   }
 }
 
-export const shippedOrder = async (params: any) => {
-  try {
-    let { userInfo } = Taro.getStorageSync('wxLoginRes')
-    params = Object.assign(params, {
-      storeId: userInfo?.storeId || '12345678',
-    })
-    console.info('shipped order view params', params)
-    let res = await ApiRoot({ url: apis.order }).orders().shippedOrder({ body: params })
-    console.info('shipped order data view', res)
-    return res
-  } catch (e) {
-    console.log(e)
-    return false
-  }
-}
-
 export const completedOrder = async (params: any) => {
   try {
     let { userInfo } = Taro.getStorageSync('wxLoginRes')
@@ -248,7 +234,13 @@ export const cancelOrder = async (params: any) => {
   }
 }
 
-export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionType, subscriptionCycle, isWXGroupVip }) => {
+export const calculateOrderPrice = async ({
+  orderItems,
+  voucher,
+  subscriptionType,
+  subscriptionCycle,
+  isWXGroupVip,
+}) => {
   try {
     const productList = cloneDeep(orderItems).map((el) => {
       if (el.skuGoodInfo.variants?.length > 0) {
@@ -265,9 +257,9 @@ export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionTyp
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-          ...voucher,
-          voucherStatus: 'Ongoing',
-        }
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -278,13 +270,13 @@ export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionTyp
         storeId: wxLoginRes?.userInfo?.storeId || '12345678',
         productList,
         voucher: finalVoucher,
-        isWXGroupVip
+        isWXGroupVip,
       },
       subscriptionType === 'FRESH_BUY'
         ? {
-          subscriptionType,
-          subscriptionCycle,
-        }
+            subscriptionType,
+            subscriptionCycle,
+          }
         : {},
     )
     console.info('calculate order price view params', params)
