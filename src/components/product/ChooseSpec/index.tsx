@@ -118,13 +118,9 @@ const ChooseSpec = ({
     console.info('choosedSkuchoosedSkuchoosedSkuchoosedSku', choosedSku)
     const { id } = choosedSku
     await createCart({
-      consumerId: baseSetting.consumerId,
-      // productId: '44c5f184-9146-187f-f738-67db27bf0468',
-      // productVariantId: '00e9ec09-2370-b0f2-896f-7165cfcfd6df',
       productId: detailInfo.id,
       productVariantId: id,
       productNum: buyCount,
-      storeId: baseSetting.storeId,
       petId: '',
       petType: '',
     })

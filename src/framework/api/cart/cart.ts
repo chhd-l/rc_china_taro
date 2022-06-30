@@ -15,11 +15,7 @@ export const getCarts = async (isNeedReload = false) => {
       let cartProducts = session.get('cart-data')
       let finallyCartDatas: any[] = []
       if (!cartProducts || isNeedReload) {
-        let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-        cartProducts = await ApiRoot({ url: apis.cart }).carts().getCarts({
-          consumerId: wxLoginRes?.consumerAccount?.consumerId,
-          storeId: wxLoginRes?.consumerAccount?.storeId,
-        })
+        cartProducts = await ApiRoot({ url: apis.cart }).carts().getCarts()
         let skuIds = cartProducts
           .filter((el: any) => {
             return el.productVariantId
@@ -102,10 +98,7 @@ export const getCartNumber = async (productId, consumerInfo) => {
       currentCartSpu: [],
     }
   }
-  const res = await ApiRoot({ url: apis.cart }).carts().getCarts({
-    consumerId: consumerInfo?.id,
-    storeId: '12345678',
-  })
+  const res = await ApiRoot({ url: apis.cart }).carts().getCarts()
   const cartNumber = res.reduce((prev, cur) => {
     return prev + cur.productNum
   }, 0)
