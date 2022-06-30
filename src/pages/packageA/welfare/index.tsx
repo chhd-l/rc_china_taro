@@ -1,4 +1,5 @@
-import { View, Image, ScrollView } from '@tarojs/components'
+import { View, Image, ScrollView, BaseEventOrig, ScrollViewProps } from '@tarojs/components'
+import NavBar from '@/components/common/Navbar'
 import {
   MYACCOUNT_SOCIALGROUP_BANNER,
   MYACCOUNT_SOCIALGROUP_01,
@@ -15,10 +16,11 @@ const Threshold = 20
 const Welfare = () => {
   const [scrollHeight, setScrollHeight] = useState(0)
   const [open, setOpen] = useState(false)
-  const onScroll = (e) => setScrollHeight(e.detail.scrollTop)
+  const onScroll = (e: BaseEventOrig<ScrollViewProps.onScrollDetail>) => setScrollHeight(e.detail.scrollTop)
 
   return (
     <View>
+      <NavBar navbarTitle="社群开始招募啦" isNeedBack />
       <View className={`${scrollHeight > 499 ? 'block' : 'hidden'} z-10 relative `} id="topImage">
         <Image src={MYACCOUNT_SOCIALGROUP_01} onClick={() => setOpen(true)} className="h-rc144 w-full" />
       </View>
@@ -27,7 +29,7 @@ const Welfare = () => {
         scrollY
         scrollWithAnimation
         scrollTop={scrollTop}
-        style={{ height: scrollHeight > 499 ? '90vh' : '100vh' }}
+        style={{ height: scrollHeight > 499 ? '76vh' : '100vh' }}
         lowerThreshold={Threshold}
         onScroll={onScroll}
       >
