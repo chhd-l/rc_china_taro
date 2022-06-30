@@ -27,6 +27,7 @@ const Coupon = ({
   const [vouchers, setVouchers] = useState<Voucher[]>([])
   const [selectedVoucher, setSelectedVoucher] = useState<any>(null)
   const [initVouchers, setInitVouchers] = useState<Voucher[]>([])
+  const [isSelfSelect,setIsSelfSelect]=useState(false)
 
   //有可使用的优惠券时默认显示最高价值的优惠券
   const handleDefaultVoucher = () => {
@@ -122,14 +123,15 @@ const Coupon = ({
   //手动选择优惠券
   const selectVoucher = (value) => {
     setShowVoucherModal(false)
+    setIsSelfSelect(true)
     changeSelectVoucher(value, vouchers)
   }
 
   useEffect(() => {
-    if (orderItems.length > 0 && initVouchers.length > 0 && totalPrice > 0) {
+    if (orderItems.length > 0 && initVouchers.length > 0 && totalPrice > 0&&!isSelfSelect) {
       handleDefaultVoucher()
     }
-  }, [totalPrice, initVouchers, orderItems, orderType])
+  }, [totalPrice,initVouchers, orderItems, orderType])
 
   useEffect(() => {
     getVoucherList()
