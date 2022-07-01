@@ -6,8 +6,8 @@ import RegionPicker from '@/components/common/WePicker/index'
 import { createAddress, updateAddress } from '@/framework/api/consumer/address'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
 import { pickForUpdate } from '@/utils/utils'
-import './index.less'
 import NavBar from '@/components/common/Navbar'
+import './index.less'
 
 const Index = () => {
   const { router } = getCurrentInstance()
@@ -54,6 +54,7 @@ const Index = () => {
   }
 
   const saveNewAddress = async () => {
+    let actionRes=false
     if (!addressInfo.detail || !addressInfo.phone || !addressInfo.province || !addressInfo.receiverName) {
       setIsOpen(true)
       return
@@ -62,19 +63,17 @@ const Index = () => {
       return
     } else if (router?.params.type === 'edit') {
       let params = pickForUpdate(addressInfo, initData)
-      await updateAddress({
+      actionRes=await updateAddress({
         params: Object.assign(params, { id: addressInfo.id }),
       })
     } else {
-      await createAddress(
-        Object.assign(addressInfo, {
-          operator: 'master',
-        }),
-      )
+      actionRes=await createAddress(addressInfo)
     }
-    Taro.navigateBack({
-      delta: 1,
-    })
+    if(actionRes){
+      Taro.navigateBack({
+        delta: 1,
+      })
+    }
   }
 
   useEffect(() => {

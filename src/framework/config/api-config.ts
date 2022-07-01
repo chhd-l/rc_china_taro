@@ -13,7 +13,7 @@ const API_CONFIG: IApiConfig = {
     auth: "http://localhost:7000/graphql",
     cart: "http://localhost:7000/graphql",
     order: "http://localhost:7000/graphql",
-    address: "http://localhost:9000/graphql",
+    address: "http://localhost:7000/graphql",
     productSkuDetail:"http://localhost:7000/graphql",
     orderCreate:"http://localhost:7000/graphql",
     orderList:"http://localhost:7000/graphql",
@@ -23,6 +23,15 @@ const API_CONFIG: IApiConfig = {
   },
   production: {
     auth: "https://fc-mp-auth-dev-miniprogram-dkpsdvztiu.cn-shanghai.fcapp.run/graphql",
+    cart: "https://fc-mp-cart-dev-miniprogram-dkpsdtlniw.cn-shanghai.fcapp.run/graphql",
+    order: "https://fc-com-order-dev-common-matrcxbdtw.cn-shanghai.fcapp.run/graphql",
+    address: "http://localhost:7000/graphql",
+    productSkuDetail:"http://localhost:7000/graphql",
+    orderCreate:"https://fc-mp-or-create-dev-miniprogram-oldnuaupiz.cn-shanghai.fcapp.run/graphql",
+    orderList:"https://fc-com-der-list-dev-common-vbypvtabkd.cn-shanghai.fcapp.run/graphql",
+    orderDetail:"https://fc-com-r-detail-dev-common-osunrnujbz.cn-shanghai.fcapp.run/graphql",
+    voucher:"https://fc-com-voucher-dev-common-sfkvithbhy.cn-shanghai.fcapp.run/graphql",
+    payment:"https://fc-com-payment-dev-common-szirsgqhhy.cn-shanghai.fcapp.run/graphql",
   }
 }
 

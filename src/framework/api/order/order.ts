@@ -65,7 +65,7 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
     }
     //入参处理 end
     console.log('create order params', params)
-    const res = await ApiRoot({ url: apis.orderCreate }).orders().createOrder({
+    const res = await ApiRoot({ url: apis?.orderCreate }).orders().createOrder({
       body: params,
     })
     console.log('create order view', res)
@@ -150,7 +150,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
         isNeedTotal: true,
         sample: { ...queryOrderListParams?.sample, consumerId: wxLoginRes?.consumerAccount?.consumerId },
       })
-      let res = await ApiRoot({ url: apis.order }).orders().getOrders({ queryOrderListParams: params })
+      let res = await ApiRoot({ url: apis?.orderList }).orders().getOrders({ queryOrderListParams: params })
       const { records, total } = res
       console.log('query orders view list', res)
       return {
@@ -265,7 +265,7 @@ export const calculateOrderPrice = async ({
         : {},
     )
     console.info('calculate order price view params', params)
-    let res = await ApiRoot({ url: apis.order }).orders().orderCalculatePrice(params)
+    let res = await ApiRoot({ url: apis?.orderCreate }).orders().orderCalculatePrice(params)
     console.info('calculate order price data view data', res)
     return res
   } catch (err) {

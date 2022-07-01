@@ -1,9 +1,9 @@
 import { Address } from '@/framework/types/consumer'
 import { addressListMockData } from '@/mock/consumer'
 import Mock from 'mockjs'
-import Taro from "@tarojs/taro";
-import ApiRoot, { baseSetting, isMock } from '../fetcher'
-import apis from "@/framework/config/api-config";
+import Taro from '@tarojs/taro'
+import apis from '@/framework/config/api-config'
+import ApiRoot, { isMock } from '../fetcher'
 
 export const getAddresses = async () => {
   try {
@@ -11,7 +11,9 @@ export const getAddresses = async () => {
       return Mock.mock(addressListMockData)
     } else {
       const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-      const addresses = await ApiRoot({ url: apis.address }).addresses().getAddresses({ consumerId: wxLoginRes?.userInfo?.id })
+      const addresses = await ApiRoot({ url: apis.address })
+        .addresses()
+        .getAddresses({ consumerId: wxLoginRes?.userInfo?.id })
       return addresses
     }
   } catch (err) {
@@ -22,40 +24,39 @@ export const getAddresses = async () => {
 
 export const createAddress = async (params: any) => {
   try {
-    const addresses = await ApiRoot().addresses().createAddress({
-      body: Object.assign(params, { storeId: baseSetting.storeId, consumerId: baseSetting.consumerId }),
-    })
-    console.log(addresses)
-    return addresses
-  } catch (e) {
-    console.log(e)
-    return []
-  }
-}
-
-export const deleteAddress = async ({ id }: { id: string }) => {
-  try {
-    const addresses = await ApiRoot().addresses().deleteAddress({
-      id,
-      operator: 'system',
-    })
-    console.log(addresses)
-    return addresses
-  } catch (e) {
-    console.log(e)
-    return []
-  }
-}
-
-export const updateAddress = async ({ params }: { params: Address | any }) => {
-  try {
-    const addresses = await ApiRoot().addresses().updateAddress({
+    const addresses = await ApiRoot({ url: apis.address }).addresses().createAddress({
       body: params,
     })
     console.log(addresses)
     return addresses
   } catch (e) {
     console.log(e)
-    return []
+    return false
+  }
+}
+
+export const deleteAddress = async ({ id }: { id: string }) => {
+  try {
+    const addresses = await ApiRoot({ url: apis.address }).addresses().deleteAddress({
+      id,
+    })
+    console.log(addresses)
+    return addresses
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+}
+
+export const updateAddress = async ({ params }: { params: Address | any }) => {
+  try {
+    const addresses = await ApiRoot({ url: apis.address }).addresses().updateAddress({
+      body: params,
+    })
+    console.log(addresses)
+    return addresses
+  } catch (e) {
+    console.log(e)
+    return false
   }
 }
