@@ -21,10 +21,11 @@ export const getListVouchers = async () => {
       return normalizeCheckoutAndListVouchers(Mock.mock(dataSource))
     } else {
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-      const res = await ApiRoot({url:apis?.voucher}).vouchers().getConsumerVouchers({
-        consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
-      })
-      let vouchers = res?.consumerVoucherDetailList || []
+      let vouchers = await ApiRoot({ url: apis?.voucher })
+        .vouchers()
+        .getConsumerVouchers({
+          consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
+        })
       vouchers = vouchers.map((el) => normalizeVoucher(el, 'list'))
       console.log('consumer vouchers view data', vouchers)
       return normalizeCheckoutAndListVouchers(vouchers)
@@ -42,13 +43,8 @@ export const getListVouchers = async () => {
 //获取PDP page vouchers
 export const getPdpVouchers = async (params) => {
   try {
-    const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot({url:apis?.voucher}).vouchers().getVouchersByProductId({
-      ...params,
-      consumerId: wxLoginRes?.consumerAccount?.consumerId,
-      storeId: wxLoginRes?.consumerAccount?.storeId,
-    })
-    let vouchers = res?.voucherDetailList?.filter((item) => !item?.isUsed) || []
+    const res = await ApiRoot({ url: apis?.voucher }).vouchers().getVouchersByProductId(params)
+    let vouchers = res?.filter((item) => !item?.isUsed) || []
     vouchers = vouchers.map((el) => normalizeVoucher(el, 'pdp'))
     console.log('PDP vouchers view data', vouchers)
     return vouchers || []
@@ -96,14 +92,10 @@ const normalizeVoucher = (voucher: any, origin: string) => {
 //领取优惠券
 export const receiveVoucher = async (params) => {
   try {
-    const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot({url:apis?.voucher}).vouchers().receiveVoucher({
-      ...params,
-      consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
-    })
-    console.log('receive voucher', res?.voucherReceive)
+    const res = await ApiRoot({ url: apis?.voucher }).vouchers().receiveVoucher(params)
+    console.log('receive voucher', res)
     return {
-      result: res?.voucherReceive || false,
+      result: res,
       errorCode: '',
     }
   } catch (err) {
