@@ -94,7 +94,6 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
           amount: res?.orderPrice.totalPrice * 100,
           currency: 'CNY',
           storeId: '12345678',
-          operator: wxLoginRes?.userInfo?.nickName || '',
         },
         success: () => {
           Taro.redirectTo({

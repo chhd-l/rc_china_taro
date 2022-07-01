@@ -13,7 +13,7 @@ interface PayInput {
   amount: number
   currency: string
   storeId: string
-  operator: string
+  operator?: string
 }
 
 export const pay = async ({ params, success, fail, paymentRequest }: { params: PayInput; success?: Function; fail?: Function; paymentRequest?: any }) => {
