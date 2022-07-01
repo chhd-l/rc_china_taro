@@ -10,7 +10,7 @@ interface IApiConfig {
 
 const API_CONFIG: IApiConfig = {
   development: {
-    auth: "http://localhost:9000/graphql",
+    auth: "http://localhost:7000/graphql",
     cart: "http://localhost:7000/graphql",
     order: "http://localhost:7000/graphql",
     address: "http://localhost:9000/graphql",

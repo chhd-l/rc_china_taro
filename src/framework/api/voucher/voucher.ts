@@ -3,6 +3,7 @@ import Mock from 'mockjs'
 import { Voucher } from '@/framework/types/voucher'
 import moment from 'moment'
 import Taro from '@tarojs/taro'
+import apis from '@/framework/config/api-config'
 import ApiRoot, { isMock } from '../fetcher'
 
 const normalizeCheckoutAndListVouchers = (voucherList) => {
@@ -20,7 +21,7 @@ export const getListVouchers = async () => {
       return normalizeCheckoutAndListVouchers(Mock.mock(dataSource))
     } else {
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-      const res = await ApiRoot().vouchers().getConsumerVouchers({
+      const res = await ApiRoot({url:apis?.voucher}).vouchers().getConsumerVouchers({
         consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
       })
       let vouchers = res?.consumerVoucherDetailList || []
@@ -42,7 +43,7 @@ export const getListVouchers = async () => {
 export const getPdpVouchers = async (params) => {
   try {
     const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot().vouchers().getVouchersByProductId({
+    const res = await ApiRoot({url:apis?.voucher}).vouchers().getVouchersByProductId({
       ...params,
       consumerId: wxLoginRes?.consumerAccount?.consumerId,
       storeId: wxLoginRes?.consumerAccount?.storeId,
@@ -53,10 +54,6 @@ export const getPdpVouchers = async (params) => {
     return vouchers || []
   } catch (err) {
     console.log('err', err)
-    // Taro.atMessage({
-    //   message: err?.errors?.Message || '系统繁忙，请稍后再试',
-    //   type: 'error',
-    // })
     return []
   }
 }
@@ -100,7 +97,7 @@ const normalizeVoucher = (voucher: any, origin: string) => {
 export const receiveVoucher = async (params) => {
   try {
     const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot().vouchers().receiveVoucher({
+    const res = await ApiRoot({url:apis?.voucher}).vouchers().receiveVoucher({
       ...params,
       consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
     })
@@ -111,10 +108,6 @@ export const receiveVoucher = async (params) => {
     }
   } catch (err) {
     console.log('err', err?.errors?.Message)
-    // Taro.atMessage({
-    //   message: err?.errors?.Code === 'E0611920100'||err?.errors?.Code === 'E06201' ? '优惠券已领完' : err?.errors?.Message || '系统繁忙，请稍后再试',
-    //   type: 'error',
-    // })
     return {
       result: false,
       errorCode: err?.errors?.Code || '',

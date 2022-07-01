@@ -5,7 +5,7 @@ import { session } from '@/utils/global'
 import Taro from '@tarojs/taro'
 import { getProductInfoBySkuIds } from '@/framework/api/product/get-product'
 import apis from '@/framework/config/api-config'
-import ApiRoot, { baseSetting, isMock } from '../fetcher'
+import ApiRoot, { isMock } from '../fetcher'
 
 export const getCarts = async (isNeedReload = false) => {
   try {
@@ -151,15 +151,12 @@ export const batchDeleteCart = async ({ ids }: { ids: any[] }) => {
 
 export const updateCart = async ({ id, productNum }: { id: string; productNum: number }) => {
   try {
-    const cart = await ApiRoot({ url: apis.cart })
-      .carts()
-      .updateCart({
-        body: {
-          id,
-          productNum,
-          storeId: baseSetting.storeId,
-        },
-      })
+    const cart = await ApiRoot({ url: apis.cart }).carts().updateCart({
+      body: {
+        id,
+        productNum,
+      },
+    })
     console.log(cart)
     return cart
   } catch (e) {
