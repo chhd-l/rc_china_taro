@@ -90,6 +90,17 @@ const ProductDetail = () => {
           // console.info('el.id !== specification?.specificationId', el.id, specification?.specificationId)
           // 如果有多个规格，要筛选当前选择的不做置灰处理，处理其他规格
           // return detailData.specifications?.length > 1 ? el.id !== specification?.specificationId : el.id
+          if (detailData.specifications.length == 1) {
+            el.children = el.children.map((e, idx) => {
+              // e.able = isAble(e)
+              // e.able = detailData.skus
+              //   .map((sku) => sku.productSpecificationRel?.map((rel) => rel.specificationDetailId))
+              //   .find((sku) => sku.specIds?.[0] == e.id)?.stock
+              e.able = detailData.skus.find((sku) => sku.specIds[0] == e.id).stock
+              return e
+            })
+          }
+
           return el.id !== specification?.specificationId
         })
         ?.map((el) => {

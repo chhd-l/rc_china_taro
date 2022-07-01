@@ -215,14 +215,15 @@ const ChooseSpec = ({
                   }}
                   style={{ minWidth: '60px' }}
                   className={`mr-2 inline-block text-center text-26 py-1  border-2 border-solid px-2 rounded-full defalt border-gray-200 text-gray-400 relative
-                  ${el.able && choosedSku.stock > 0 ? '' : 'disabled'}
+                  ${el.able ? '' : 'disabled'}
                   ${selected[specification.id] === el.id && choosedSku.stock > 0 ? 'active textWhite' : ''}`}
                 >
-                  {el.able && choosedSku.stock > 0 ? null : (
+                  {el.able ? null : (
                     <View className="absolute -top-3 -right-1">
                       <IconFont name="a-Frame21" size={50} />
                     </View>
                   )}
+                  {el.able}
                   {el.name}
                   {/* {console.info('selected', selected)}
                   {console.info('specification.id', specification.id)}
