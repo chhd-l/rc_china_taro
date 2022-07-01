@@ -25,7 +25,7 @@ const NavBar = ({
   showService = true,
 }: NavbarProps) => {
   const [paddingTop, setPaddingTop] = useState<any>(0)
-  const [MiniProShowService, setMiniProShowService] = useState(false) //全局是否需要显示客服组件
+  const [MiniProShowService, setMiniProShowService] = useState(true) //全局是否需要显示客服组件
 
   const getStoreSettingList = async () => {
     console.log('store-settingaaaaaaa')
@@ -43,7 +43,7 @@ const NavBar = ({
       console.log(res.statusBarHeight)
       setPaddingTop(res.statusBarHeight)
     })
-    getStoreSettingList()
+    // getStoreSettingList()
   }, [])
 
   return (
