@@ -115,3 +115,13 @@ export const hotSearchFindPage = async (params: any) => {
     }
   }
 }
+
+export const getProductInfoBySkuIds = async ({ skuIds }: { skuIds: string[] }) => {
+  try {
+    const res = await ApiRoot({ url: apis.productSkuDetail }).products().getProductInfoBySkuIds(skuIds)
+    console.log('getProductBySkuId view', res)
+    return res
+  } catch (err) {
+    console.log(err, 'err')
+  }
+}

@@ -19,7 +19,7 @@ const Attention = ({ classes = 'bg-white' }: { classes?: string }) => {
   }
 
   useEffect(() => {
-    setConsumerInfo(Taro.getStorageSync('wxLoginRes').userInfo)
+    setConsumerInfo(Taro.getStorageSync('wxLoginRes')?.userInfo)
     queryConsumerAccounts()
   }, [])
 

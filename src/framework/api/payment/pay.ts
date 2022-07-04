@@ -1,5 +1,6 @@
 import routers from '@/routers'
 import Taro from '@tarojs/taro'
+import apis from '@/framework/config/api-config'
 import ApiRoot from '../fetcher'
 
 interface PayInput {
@@ -12,7 +13,7 @@ interface PayInput {
   amount: number
   currency: string
   storeId: string
-  operator: string
+  operator?: string
 }
 
 export const pay = async ({ params, success, fail, paymentRequest }: { params: PayInput; success?: Function; fail?: Function; paymentRequest?: any }) => {
@@ -36,7 +37,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
           } else {
             console.info('........', payment)
             console.info('paramsparamsparams', params)
-            const data = await ApiRoot().orders().pay({ body: params })
+            const data = await ApiRoot({url:apis?.payment}).orders().pay({ body: params })
             console.info('data', data)
             payment = data.payment
             const wxPaymentRequest = data.wxPaymentRequest
@@ -76,7 +77,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               paySign,
               // 调用成功回调
               async success() {
-                await ApiRoot().orders().syncOrder({
+                await ApiRoot({url:apis?.payment}).orders().syncOrder({
                   input: {
                     paymentId: paymentId,
                     storeId: '12345678',

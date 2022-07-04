@@ -33,11 +33,13 @@ const AddressItem = ({
   }
 
   const delAddress = async () => {
-    await deleteAddress({
+    const res = await deleteAddress({
       id: addressInfo.id || '',
     })
     setShowDelTip(false)
-    delAddressSuccess && delAddressSuccess()
+    if (res) {
+      delAddressSuccess && delAddressSuccess()
+    }
   }
 
   const setAsDefault = async () => {
