@@ -32,7 +32,8 @@ const API_CONFIG: IApiConfig = {
     subscriptionRecommend: "https://fc-mp-secommend-dev-miniprogram-vlanfdfmqo.cn-shanghai.fcapp.run/graphql",
     subscription: "https://fc-mp-scription-dev-miniprogram-pvbcaozpei.cn-shanghai.fcapp.run/graphql",
     tag:"https://fc-mp-tag-dev-miniprogram-mnsragfkdg.cn-shanghai.fcapp.run/graphql",
-    order_action:'https://fc-mp-or-action-dev-miniprogram-onmccvfpiz.cn-shanghai.fcapp.run/graphql'
+    order_action:'https://fc-mp-or-action-dev-miniprogram-onmccvfpiz.cn-shanghai.fcapp.run/graphql',
+    address_action:'https://fc-mp-address-dev-miniprogram-fvpbgogegq.cn-shanghai.fcapp.run/graphql'
   },
   production: {
     auth: "https://fc-mp-auth-dev-miniprogram-dkpsdvztiu.cn-shanghai.fcapp.run/graphql",
@@ -50,7 +51,9 @@ const API_CONFIG: IApiConfig = {
     productDetail: "https://fc-com-t-detail-dev-common-slnmmkfhwn.cn-shanghai.fcapp.run/graphql",
     subscriptionRecommend: "https://fc-mp-secommend-dev-miniprogram-vlanfdfmqo.cn-shanghai.fcapp.run/graphql",
     subscription: "https://fc-mp-scription-dev-miniprogram-pvbcaozpei.cn-shanghai.fcapp.run/graphql",
-    tag:"https://fc-mp-tag-dev-miniprogram-mnsragfkdg.cn-shanghai.fcapp.run/graphql"
+    tag:"https://fc-mp-tag-dev-miniprogram-mnsragfkdg.cn-shanghai.fcapp.run/graphql",
+    order_action:'https://fc-mp-or-action-dev-miniprogram-onmccvfpiz.cn-shanghai.fcapp.run/graphql',
+    address_action:'https://fc-mp-address-dev-miniprogram-fvpbgogegq.cn-shanghai.fcapp.run/graphql'
   }
 }
 
