@@ -124,7 +124,7 @@ export const getOrderSetting = async () => {
     if (orderSettings) {
       orderSettings = JSON.parse(orderSettings)
     } else {
-      orderSettings = await ApiRoot({ url: apis.order }).orders().getOrderSetting()
+      orderSettings = await ApiRoot({ url: apis?.orderList }).orders().getOrderSetting()
       console.log('get orderSetting view data', orderSettings)
       Taro.setStorageSync('order-setting', JSON.stringify(orderSettings))
     }
@@ -185,7 +185,7 @@ export const getExpressCompanyList = async () => {
   try {
     let expressCompanyList = session.get('express-company-list')
     if (!expressCompanyList) {
-      let res = await ApiRoot({ url: apis.order }).orders().getExpressCompany()
+      let res = await ApiRoot({ url: apis?.orderList }).orders().getExpressCompany()
       console.info('get expressCompany data view', res)
       session.set('express-company-list', res)
     }
@@ -199,7 +199,7 @@ export const getExpressCompanyList = async () => {
 export const completedOrder = async (params: any) => {
   try {
     console.info('completed order view params', params)
-    let res = await ApiRoot({ url: apis.order }).orders().completedOrder({ body: params })
+    let res = await ApiRoot({ url: apis?.order_action }).orders().completedOrder({ body: params })
     console.info('completed order data view', res)
     return res
   } catch (e) {
@@ -211,7 +211,7 @@ export const completedOrder = async (params: any) => {
 export const cancelOrder = async (params: any) => {
   try {
     console.info('cancel order view params', params)
-    let res = await ApiRoot({ url: apis.order }).orders().cancelOrder({ body: params })
+    let res = await ApiRoot({ url: apis?.order_action }).orders().cancelOrder({ body: params })
     console.info('cancel order data view', res)
     return res
   } catch (e) {
