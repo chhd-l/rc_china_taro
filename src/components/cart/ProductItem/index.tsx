@@ -22,7 +22,7 @@ const ProductItem = ({ product, changeProduct, delCartSuccess, isInvalid = false
   const [isOpened, setIsOpened] = useState(false)
 
   const delCartProduct = async () => {
-    const res = await deleteCart({ id, operator: '111' })
+    const res = await deleteCart({ id })
     if (res) {
       delCartSuccess && delCartSuccess([id])
     }

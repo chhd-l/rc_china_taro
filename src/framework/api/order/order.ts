@@ -6,7 +6,8 @@ import { pay } from '@/framework/api/payment/pay'
 import routers from '@/routers'
 import cloneDeep from 'lodash.cloneDeep'
 import { formatDateToApi } from '@/utils/utils'
-import ApiRoot, { baseSetting, isMock } from '../fetcher'
+import apis from '@/framework/config/api-config'
+import ApiRoot, { isMock } from '../fetcher'
 
 export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher, isWXGroupVip }) => {
   try {
@@ -31,9 +32,9 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-          ...voucher,
-          voucherStatus: 'Ongoing',
-        }
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -54,19 +55,18 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
         nickName: user.nickName,
         name: user.name,
       },
-      operator: user.nickName,
       wxUserInfo: {
         nickName: user.nickName,
         unionId: wxLoginRes?.consumerAccount?.unionId,
         openId: wxLoginRes?.consumerAccount?.openId,
-        isWXGroupVip
+        isWXGroupVip,
       },
       voucher: finalVoucher,
     }
     //入参处理 end
     console.log('create order params', params)
-    const res = await ApiRoot().orders().createOrder({
-      body: Object.assign(params, { storeId: baseSetting.storeId }),
+    const res = await ApiRoot({ url: apis?.orderCreate }).orders().createOrder({
+      body: params,
     })
     console.log('create order view', res)
     if (res) {
@@ -94,7 +94,6 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
           amount: res?.orderPrice.totalPrice * 100,
           currency: 'CNY',
           storeId: '12345678',
-          operator: wxLoginRes?.userInfo?.nickName || '',
         },
         success: () => {
           Taro.redirectTo({
@@ -125,9 +124,7 @@ export const getOrderSetting = async () => {
     if (orderSettings) {
       orderSettings = JSON.parse(orderSettings)
     } else {
-      orderSettings = await ApiRoot().orders().getOrderSetting({
-        storeId: baseSetting.storeId,
-      })
+      orderSettings = await ApiRoot({ url: apis.order }).orders().getOrderSetting()
       console.log('get orderSetting view data', orderSettings)
       Taro.setStorageSync('order-setting', JSON.stringify(orderSettings))
     }
@@ -149,12 +146,10 @@ export const getOrderList = async (queryOrderListParams: any) => {
       console.log('query orders view params', queryOrderListParams)
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const params = Object.assign(queryOrderListParams, {
-        storeId: wxLoginRes?.userInfo?.storeId || '12345678',
-        operator: 'system',
         isNeedTotal: true,
         sample: { ...queryOrderListParams?.sample, consumerId: wxLoginRes?.consumerAccount?.consumerId },
       })
-      let res = await ApiRoot().orders().getOrders({ queryOrderListParams: params })
+      let res = await ApiRoot({ url: apis?.orderList }).orders().getOrders({ queryOrderListParams: params })
       const { records, total } = res
       console.log('query orders view list', res)
       return {
@@ -176,7 +171,7 @@ export const getOrderDetail = async ({ orderNum }: { orderNum: string }) => {
     if (isMock) {
       return orderDetailMockData
     } else {
-      let res = await ApiRoot().orders().getOrder({ storeId: '12345678', orderNum })
+      let res = await ApiRoot({ url: apis.orderDetail }).orders().getOrder({ orderNum })
       console.info('res', res)
       return res
     }
@@ -190,7 +185,7 @@ export const getExpressCompanyList = async () => {
   try {
     let expressCompanyList = session.get('express-company-list')
     if (!expressCompanyList) {
-      let res = await ApiRoot().orders().getExpressCompany({ storeId: '12345678' })
+      let res = await ApiRoot({ url: apis.order }).orders().getExpressCompany()
       console.info('get expressCompany data view', res)
       session.set('express-company-list', res)
     }
@@ -201,32 +196,10 @@ export const getExpressCompanyList = async () => {
   }
 }
 
-export const shippedOrder = async (params: any) => {
-  try {
-    let { userInfo } = Taro.getStorageSync('wxLoginRes')
-    params = Object.assign(params, {
-      storeId: userInfo?.storeId || '12345678',
-      operator: userInfo?.nickName || 'system',
-    })
-    console.info('shipped order view params', params)
-    let res = await ApiRoot().orders().shippedOrder({ body: params })
-    console.info('shipped order data view', res)
-    return res
-  } catch (e) {
-    console.log(e)
-    return false
-  }
-}
-
 export const completedOrder = async (params: any) => {
   try {
-    let { userInfo } = Taro.getStorageSync('wxLoginRes')
-    params = Object.assign(params, {
-      storeId: userInfo?.storeId || '12345678',
-      operator: userInfo?.nickName || 'system',
-    })
     console.info('completed order view params', params)
-    let res = await ApiRoot().orders().completedOrder({ body: params })
+    let res = await ApiRoot({ url: apis.order }).orders().completedOrder({ body: params })
     console.info('completed order data view', res)
     return res
   } catch (e) {
@@ -237,13 +210,8 @@ export const completedOrder = async (params: any) => {
 
 export const cancelOrder = async (params: any) => {
   try {
-    let { userInfo } = Taro.getStorageSync('wxLoginRes')
-    params = Object.assign(params, {
-      storeId: userInfo?.storeId || '12345678',
-      operator: userInfo?.nickName || 'system',
-    })
     console.info('cancel order view params', params)
-    let res = await ApiRoot().orders().cancelOrder({ body: params })
+    let res = await ApiRoot({ url: apis.order }).orders().cancelOrder({ body: params })
     console.info('cancel order data view', res)
     return res
   } catch (e) {
@@ -252,7 +220,13 @@ export const cancelOrder = async (params: any) => {
   }
 }
 
-export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionType, subscriptionCycle, isWXGroupVip }) => {
+export const calculateOrderPrice = async ({
+  orderItems,
+  voucher,
+  subscriptionType,
+  subscriptionCycle,
+  isWXGroupVip,
+}) => {
   try {
     const productList = cloneDeep(orderItems).map((el) => {
       if (el.skuGoodInfo.variants?.length > 0) {
@@ -269,34 +243,36 @@ export const calculateOrderPrice = async ({ orderItems, voucher, subscriptionTyp
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-          ...voucher,
-          voucherStatus: 'Ongoing',
-        }
+            ...voucher,
+            voucherStatus: 'Ongoing',
+          }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
       : null
-    let wxLoginRes = Taro.getStorageSync('wxLoginRes')
     const params = Object.assign(
       {
-        storeId: wxLoginRes?.userInfo?.storeId || '12345678',
         productList,
         voucher: finalVoucher,
-        isWXGroupVip
+        isWXGroupVip,
       },
       subscriptionType === 'FRESH_BUY'
         ? {
-          subscriptionType,
-          subscriptionCycle,
-        }
+            subscriptionType,
+            subscriptionCycle,
+          }
         : {},
     )
     console.info('calculate order price view params', params)
-    let res = await ApiRoot().orders().orderCalculatePrice(params)
+    let res = await ApiRoot({ url: apis?.orderCreate }).orders().orderCalculatePrice(params)
     console.info('calculate order price data view data', res)
     return res
-  } catch (e) {
-    console.log(e)
+  } catch (err) {
+    console.log(err)
+    Taro.atMessage({
+      message: err?.errors?.Message || '系统繁忙，请稍后再试',
+      type: 'error',
+    })
     return false
   }
 }

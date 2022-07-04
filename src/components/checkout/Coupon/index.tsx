@@ -128,7 +128,7 @@ const Coupon = ({
   }
 
   useEffect(() => {
-    if (orderItems.length > 0 && initVouchers.length > 0 && totalPrice > 0 && !isSelfSelect && !selectedVoucher) {
+    if (orderItems.length > 0 && initVouchers.length > 0 && totalPrice > 0&&!isSelfSelect) {
       handleDefaultVoucher()
     }
   }, [totalPrice, initVouchers, orderItems, orderType])

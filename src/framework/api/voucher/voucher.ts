@@ -3,6 +3,7 @@ import Mock from 'mockjs'
 import { Voucher } from '@/framework/types/voucher'
 import moment from 'moment'
 import Taro from '@tarojs/taro'
+import apis from '@/framework/config/api-config'
 import ApiRoot, { isMock } from '../fetcher'
 
 const normalizeCheckoutAndListVouchers = (voucherList) => {
@@ -20,10 +21,11 @@ export const getListVouchers = async () => {
       return normalizeCheckoutAndListVouchers(Mock.mock(dataSource))
     } else {
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
-      const res = await ApiRoot().vouchers().getConsumerVouchers({
-        consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
-      })
-      let vouchers = res?.consumerVoucherDetailList || []
+      let vouchers = await ApiRoot({ url: apis?.voucher })
+        .vouchers()
+        .getConsumerVouchers({
+          consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
+        })
       vouchers = vouchers.map((el) => normalizeVoucher(el, 'list'))
       console.log('consumer vouchers view data', vouchers)
       return normalizeCheckoutAndListVouchers(vouchers)
@@ -41,22 +43,13 @@ export const getListVouchers = async () => {
 //获取PDP page vouchers
 export const getPdpVouchers = async (params) => {
   try {
-    const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot().vouchers().getVouchersByProductId({
-      ...params,
-      consumerId: wxLoginRes?.consumerAccount?.consumerId,
-      storeId: wxLoginRes?.consumerAccount?.storeId,
-    })
-    let vouchers = res?.voucherDetailList?.filter((item) => !item?.isUsed) || []
+    const res = await ApiRoot({ url: apis?.voucher }).vouchers().getVouchersByProductId(params)
+    let vouchers = res?.filter((item) => !item?.isUsed) || []
     vouchers = vouchers.map((el) => normalizeVoucher(el, 'pdp'))
     console.log('PDP vouchers view data', vouchers)
     return vouchers || []
   } catch (err) {
     console.log('err', err)
-    // Taro.atMessage({
-    //   message: err?.errors?.Message || '系统繁忙，请稍后再试',
-    //   type: 'error',
-    // })
     return []
   }
 }
@@ -99,22 +92,14 @@ const normalizeVoucher = (voucher: any, origin: string) => {
 //领取优惠券
 export const receiveVoucher = async (params) => {
   try {
-    const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-    const res = await ApiRoot().vouchers().receiveVoucher({
-      ...params,
-      consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
-    })
-    console.log('receive voucher', res?.voucherReceive)
+    const res = await ApiRoot({ url: apis?.voucher }).vouchers().receiveVoucher(params)
+    console.log('receive voucher', res)
     return {
-      result: res?.voucherReceive || false,
+      result: res,
       errorCode: '',
     }
   } catch (err) {
     console.log('err', err?.errors?.Message)
-    // Taro.atMessage({
-    //   message: err?.errors?.Code === 'E0611920100'||err?.errors?.Code === 'E06201' ? '优惠券已领完' : err?.errors?.Message || '系统繁忙，请稍后再试',
-    //   type: 'error',
-    // })
     return {
       result: false,
       errorCode: err?.errors?.Code || '',
