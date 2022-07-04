@@ -352,6 +352,7 @@ const PetList = (props: Props) => {
     )
   }
   const renderPetContent = () => {
+    console.info('.....fakePetfakePetfakePetfakePetrenderOnePet',fakePet)
     if (!fakePet.length) return renderNoPet()
     if (fakePet.length === 1) return renderOnePet()
     if (fakePet.length === 2) return renderTwoPet()
