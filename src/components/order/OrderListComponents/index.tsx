@@ -39,7 +39,7 @@ const OrderListComponents = ({ list, openModalTip,curTabStatus }: { list: Order[
         amount,
         currency: 'CNY',
         storeId: '12345678',
-        operator: wxLoginRes?.userInfo?.nickName || '',
+        // operator: wxLoginRes?.userInfo?.nickName || '',
       },
       success: function () {
         Taro.redirectTo({
