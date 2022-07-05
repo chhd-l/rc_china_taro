@@ -1,3 +1,4 @@
+import apis from '@/framework/config/api-config'
 // import { ApiRoot } from "../../fetcher";
 import { mockPetlist } from '@/framework/mock/pet'
 import ApiRoot from '../fetcher'
@@ -6,7 +7,7 @@ import { normalizePetsForFe } from '../lib/normalize'
 
 export const getPets = async ({ consumerId }) => {
   try {
-    const pets = await ApiRoot().pets().getPets({ consumerId })
+    const pets = await ApiRoot({ url: apis?.common_pet }).pets().getPets({ consumerId })
     // const pets = mockPetlist;
     console.info('petspetspetspets', pets)
     return pets.map((pet) => normalizePetsForFe(pet))

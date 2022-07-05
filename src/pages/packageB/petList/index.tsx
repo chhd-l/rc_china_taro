@@ -42,7 +42,7 @@ const PetList = () => {
           age: '',
           birthday: '',
           breed: '',
-          consumerId: '20220415',
+          // consumerId: '20220415',
           gender: 'MALE',
           id: '-1',
           image: '',

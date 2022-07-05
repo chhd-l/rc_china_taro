@@ -7,6 +7,8 @@ type TApiConfig = {
   subscriptionRecommend: string
   subscription: string
   common_subscription: string
+  wx_pet: string
+  common_pet: string
 }
 
 interface IApiConfig {
@@ -36,6 +38,8 @@ const API_CONFIG: IApiConfig = {
     order_action: 'https://fc-mp-or-action-dev-miniprogram-onmccvfpiz.cn-shanghai.fcapp.run/graphql',
     address_action: 'https://fc-mp-address-dev-miniprogram-fvpbgogegq.cn-shanghai.fcapp.run/graphql',
     common_subscription: "https://fc-com-cription-dev-common-ogvrfcxebk.cn-shanghai.fcapp.run/graphql",
+    common_pet: "https://fc-com-pet-dev-common-oecjgzxfmp.cn-shanghai.fcapp.run/graphql",
+    wx_pet: "https://fc-mp-pet-dev-miniprogram-mnsracjtdg.cn-shanghai.fcapp.run/graphql"
   },
   production: {
     auth: "https://fc-mp-auth-dev-miniprogram-dkpsdvztiu.cn-shanghai.fcapp.run/graphql",
@@ -57,6 +61,9 @@ const API_CONFIG: IApiConfig = {
     order_action: 'https://fc-mp-or-action-dev-miniprogram-onmccvfpiz.cn-shanghai.fcapp.run/graphql',
     address_action: 'https://fc-mp-address-dev-miniprogram-fvpbgogegq.cn-shanghai.fcapp.run/graphql',
     common_subscription: "https://fc-com-cription-dev-common-ogvrfcxebk.cn-shanghai.fcapp.run/graphql",
+    common_pet: "https://fc-com-pet-dev-common-oecjgzxfmp.cn-shanghai.fcapp.run/graphql",
+    wx_pet: "https://fc-mp-pet-dev-miniprogram-mnsracjtdg.cn-shanghai.fcapp.run/graphql"
+
   }
 }
 
