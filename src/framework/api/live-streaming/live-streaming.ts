@@ -1,4 +1,5 @@
 import Taro from '@tarojs/taro'
+import apis from '@/framework/config/api-config'
 import ApiRoot from '../fetcher'
 
 //获取PDP page vouchers
@@ -26,7 +27,7 @@ export const getLiveStreamingFindOnLive = async (accountId) => {
   // }
   Taro.setStorageSync('commerce-loading', 1)
   try {
-    const liveStreamingFindOnLive = await ApiRoot().liveStreams().wxLiveStreamingFindOnLive(accountId)
+    const liveStreamingFindOnLive = await ApiRoot({url:apis?.liveStreaming}).liveStreams().wxLiveStreamingFindOnLive(accountId)
     return liveStreamingFindOnLive
   } catch (err) {
     console.log('err', err)

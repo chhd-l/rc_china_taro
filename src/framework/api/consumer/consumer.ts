@@ -1,18 +1,7 @@
 import { Consumer } from '@/framework/types/consumer'
 import Taro from '@tarojs/taro'
-import ApiRoot, { baseSetting } from '../fetcher'
 import apis from '@/framework/config/api-config'
-
-export const getConsumer = async () => {
-  try {
-    const consumer = await ApiRoot().consumers().getConsumer({ id: baseSetting.consumerId })
-    console.log('get consumer view', consumer)
-    return consumer
-  } catch (err) {
-    console.log(err)
-    return []
-  }
-}
+import ApiRoot from '../fetcher'
 
 interface WxLoginResult {
   access_token: string

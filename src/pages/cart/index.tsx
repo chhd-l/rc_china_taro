@@ -1,7 +1,7 @@
 import { View } from '@tarojs/components'
 import { ProductItem, Empty, TotalSettle } from '@/components/cart'
 import { useEffect, useState } from 'react'
-import {batchDeleteCart, getCartAndProducts, getCarts, updateCart} from '@/framework/api/cart/cart'
+import {batchDeleteCart, getCarts, updateCart} from '@/framework/api/cart/cart'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { session } from '@/utils/global'
 import NavBar from '@/components/common/Navbar'
@@ -21,7 +21,6 @@ const Cart = () => {
     setProductList([])
     setInvalidProducts([])
     const res = await getCarts(true)
-    // const res = await getCartAndProducts(true)
     handleIsValidProduct(res)
     setLoading(false)
   }

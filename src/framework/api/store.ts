@@ -1,4 +1,5 @@
 import { session } from '@/utils/global'
+import apis from '@/framework/config/api-config'
 import ApiRoot from './fetcher'
 
 export const getStoreSettings = async () => {
@@ -6,7 +7,7 @@ export const getStoreSettings = async () => {
     // let storeSettings = session.get('store-setting')
     // console.log('store-setting',storeSettings)
     // if (!storeSettings) {
-    const storeSettings = await ApiRoot().stores().getStoreSettings()
+    const storeSettings = await ApiRoot({url:apis?.storeSetting}).stores().getStoreSettings()
     console.log('get storeSetting list view data', storeSettings)
     session.set('store-setting', storeSettings)
     // }

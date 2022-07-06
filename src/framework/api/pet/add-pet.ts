@@ -1,8 +1,6 @@
-import { mockPetlist } from '@/framework/mock/pet'
-import { PetItemSchema } from '@/framework/schema/pet.schema'
+import apis from '@/framework/config/api-config'
 import ApiRoot from '../fetcher'
 import { normalizePetsForApi } from '../lib/normalize'
-import apis from '@/framework/config/api-config'
 
 export const addPet = async (petInfo) => {
   let params: any = normalizePetsForApi(petInfo)
