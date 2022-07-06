@@ -11,7 +11,7 @@ export const getAddresses = async () => {
       return Mock.mock(addressListMockData)
     } else {
       const wxLoginRes = Taro.getStorageSync('wxLoginRes')
-      const addresses = await ApiRoot({ url: apis.address })
+      const addresses = await ApiRoot({ url: apis?.address_list })
         .addresses()
         .getAddresses({ consumerId: wxLoginRes?.userInfo?.id })
       return addresses
@@ -24,7 +24,7 @@ export const getAddresses = async () => {
 
 export const createAddress = async (params: any) => {
   try {
-    const addresses = await ApiRoot({ url: apis.address }).addresses().createAddress({
+    const addresses = await ApiRoot({ url: apis.address_action }).addresses().createAddress({
       body: params,
     })
     console.log(addresses)
@@ -37,7 +37,7 @@ export const createAddress = async (params: any) => {
 
 export const deleteAddress = async ({ id }: { id: string }) => {
   try {
-    const addresses = await ApiRoot({ url: apis.address }).addresses().deleteAddress({
+    const addresses = await ApiRoot({ url: apis.address_action }).addresses().deleteAddress({
       id,
     })
     console.log(addresses)
@@ -50,7 +50,7 @@ export const deleteAddress = async ({ id }: { id: string }) => {
 
 export const updateAddress = async ({ params }: { params: Address | any }) => {
   try {
-    const addresses = await ApiRoot({ url: apis.address }).addresses().updateAddress({
+    const addresses = await ApiRoot({ url: apis.address_action }).addresses().updateAddress({
       body: params,
     })
     console.log(addresses)
