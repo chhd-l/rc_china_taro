@@ -1,5 +1,6 @@
 export const CDNIMGURL = 'https://dtc-platform.oss-cn-shanghai.aliyuncs.com/static/'
 export const SERVICEPATH = 'https://msstg.fivefen.com/faas'
+export const UPLOADURL = 'https://fc-com-upload-dev-common-rzqhcekwtz.cn-shanghai.fcapp.run/upload'
 // export const SERVICEPATH = 'https://msdev.d2cgo.com/faas'
 // export const SERVICEPATH = 'http://localhost:9000'
 // export const SERVICEPATH = 'https://msdev.fivefen.com/faas'

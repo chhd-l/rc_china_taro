@@ -190,16 +190,16 @@ const PetList = (props: Props) => {
           </View>
         </View>
         <View className="text-center flex justify-center items-center">
-          <Text className="text-primary-red font-semibold text-lg mx-2">{fakePet[currentIdx]?.name}</Text>
+          <Text className="text-primary-red font-semibold text-lg mx-2">{fakePet[0]?.name}</Text>
           <View
             className="w-3 h-3 mr-4  bg-contain"
             style={{
-              backgroundImage: `url(${fakePet[currentIdx]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
+              backgroundImage: `url(${fakePet[0]?.gender === PetGender.Female ? femaleIcon : maleIcon})`,
             }}
           ></View>
           <Text className=" text-22 bg-white">
-            {fakePet[currentIdx]?.breed}
-            <Text className=" ml-1">{fakePet[currentIdx]?.age ? ` ${fakePet[currentIdx]?.age}` : ''}</Text>
+            {fakePet[0]?.breed}
+            <Text className=" ml-1">{fakePet[0]?.age ? ` ${fakePet[0]?.age}` : ''}</Text>
           </Text>
         </View>
       </View>
@@ -352,6 +352,8 @@ const PetList = (props: Props) => {
     )
   }
   const renderPetContent = () => {
+    console.info('.....fakePetfakePetfakePetfakePetrenderOnePet',fakePet)
+    console.info('.....fakePetfakePetfakePetfakePetrenderOnePet',fakePet?.[0],fakePet?.[0]?.[0])
     if (!fakePet.length) return renderNoPet()
     if (fakePet.length === 1) return renderOnePet()
     if (fakePet.length === 2) return renderTwoPet()

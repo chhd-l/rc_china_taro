@@ -186,7 +186,7 @@ export const getSubscriptionFindByConsumerId = async (consumerId: string) => {
 
 export const getSubscriptionDetail = async (id: any) => {
   try {
-    const subscriptionDetail = await ApiRoot({ url: apis.subscription }).subscriptions().subscriptionDetail({ id })
+    const subscriptionDetail = await ApiRoot({ url: apis.common_subscription }).subscriptions().subscriptionDetail({ id })
     return subscriptionDetail
   } catch (err) {
     return {}
@@ -195,7 +195,7 @@ export const getSubscriptionDetail = async (id: any) => {
 
 export const getSubscriptionScheduleNextDelivery = async (params: any) => {
   try {
-    const { subscriptionScheduleNextDelivery } = await ApiRoot({ url: apis.subscription }).subscriptions().subscriptionScheduleNextDelivery({
+    const { subscriptionScheduleNextDelivery } = await ApiRoot({ url: apis.common_subscription }).subscriptions().subscriptionScheduleNextDelivery({
       body: params,
     })
     return subscriptionScheduleNextDelivery

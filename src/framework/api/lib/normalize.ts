@@ -9,7 +9,7 @@ export const normalizePetsForApi = (petInfo: any) => {
     //处理新增情况
     delete data.id
   }
-  data.operator = ''
+  delete data.operator
   if (data.birthday) {
     //处理日期
     data.birthday = formatDateToApi(data.birthday)

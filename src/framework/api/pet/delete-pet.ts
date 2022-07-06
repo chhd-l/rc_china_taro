@@ -1,3 +1,4 @@
+import apis from '@/framework/config/api-config'
 import { mockPetlist } from '@/framework/mock/pet'
 import ApiRoot from '../fetcher'
 
@@ -9,8 +10,7 @@ export const deletePet = async ({ id }) => {
   //   }
   // });
   try {
-    return await ApiRoot().pets().deletePet({ id })
-    return true
+    return await ApiRoot({ url: apis.wx_pet }).pets().deletePet({ id })
   } catch (err) {
     console.log(err)
   }

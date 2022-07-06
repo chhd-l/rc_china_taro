@@ -10,7 +10,7 @@ export const initNewPet = {
   isSterilized: false,
   birthday: '',
   image: '',
-  consumerId: '20220415',
+  // consumerId: '20220415',
 }
 
 export const editPetButton = [
