@@ -24,7 +24,7 @@ export type Consumer = {
   addresses: Address[]
   pets?: any[]
   orders?: any[]
-  isCommunity?:boolean
+  isCommunity?: boolean
 }
 
 export interface PetListItemProps {
@@ -48,7 +48,7 @@ export enum PetType {
 
 export enum PetGender {
   Male = 'MALE',
-  Female = 'FEMAL',
+  Female = 'FEMALE',
 }
 
 export enum Sterilized {
