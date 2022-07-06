@@ -25,7 +25,7 @@ const NavBar = ({
   showService = true,
 }: NavbarProps) => {
   const [paddingTop, setPaddingTop] = useState<any>(0)
-  const [MiniProShowService, setMiniProShowService] = useState(true) //全局是否需要显示客服组件
+  const [MiniProShowService, setMiniProShowService] = useState(false) //全局是否需要显示客服组件
 
   const getStoreSettingList = async () => {
     console.log('store-settingaaaaaaa')
@@ -43,7 +43,7 @@ const NavBar = ({
       console.log(res.statusBarHeight)
       setPaddingTop(res.statusBarHeight)
     })
-    // getStoreSettingList()
+    getStoreSettingList()
   }, [])
 
   return (
@@ -79,6 +79,7 @@ const NavBar = ({
                   style={{ borderRight: '1px solid #C3C3C3' }}
                   className="h-full flex items-center pl-3 pr-2"
                   onClick={() => {
+                    console.log('navbar back click')
                     console.log('current pages router ', getCurrentPages())
                     if (backEvent) {
                       backEvent && backEvent()
@@ -91,6 +92,7 @@ const NavBar = ({
                 </View>
                 <View
                   onClick={() => {
+                    console.log('navbar back home click')
                     Taro.switchTab({
                       url: '/pages/index/index',
                     })

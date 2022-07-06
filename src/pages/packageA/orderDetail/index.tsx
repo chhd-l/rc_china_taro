@@ -267,7 +267,7 @@ const OrderDetails = () => {
                   </View>
                   <View className="flex items-center justify-between boderTop break-words">
                     <Text>备注</Text>
-                    <Text style={{ wordWrap: 'break-word', width: '70%' }}>{orderDetail?.remark}</Text>
+                    <Text style={{ wordWrap: 'break-word', width: '70%',textAlign:'right' }}>{orderDetail?.remark}</Text>
                   </View>
                 </AtCard>
               </View>
