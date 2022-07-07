@@ -4,6 +4,7 @@ import Mock from 'mockjs'
 import { session } from '@/utils/global'
 import { getProductInfoBySkuIds } from '@/framework/api/product/get-product'
 import apis from '@/framework/config/api-config'
+import Taro from "@tarojs/taro";
 import ApiRoot, { isMock } from '../fetcher'
 
 export const getCarts = async (isNeedReload = false) => {
@@ -52,6 +53,41 @@ export const getCarts = async (isNeedReload = false) => {
     console.log('err', err)
     return []
   }
+}
+
+export const getCartAndProducts = async (isNeedReload = false) => {
+  try {
+    if (isMock) {
+      return Mock.mock(dataSource)
+    } else {
+      let cartProducts = session.get('cart-data')
+      let finallyCartDatas: any[] = []
+      if (!cartProducts || isNeedReload) {
+        let wxLoginRes = Taro.getStorageSync('wxLoginRes')
+        const res = await ApiRoot({url:apis?.cart})
+          .carts()
+          .getCartAndProduct({
+            consumerId: wxLoginRes?.consumerAccount?.consumerId || '',
+            storeId: wxLoginRes?.consumerAccount?.storeId || '',
+          })
+        cartProducts = res || []
+        console.log('cart data', cartProducts)
+        for (let i = 0; i < cartProducts.length; i++) {
+          if (cartProducts[i]?.productGetByProductVariantId) {
+            finallyCartDatas.push(normalizeCartData(cartProducts[i], cartProducts[i]?.productGetByProductVariantId))
+          }
+        }
+        session.set('cart-data', finallyCartDatas)
+      } else {
+        finallyCartDatas = cartProducts
+      }
+      console.log('cart products data', finallyCartDatas)
+      return finallyCartDatas || []
+    }
+} catch (err) {
+  console.log('err', err)
+  return []
+}
 }
 
 export const getCartNumber = async (productId, consumerInfo) => {
