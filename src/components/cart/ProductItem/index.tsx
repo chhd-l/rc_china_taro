@@ -1,9 +1,9 @@
 import { Radio, View, Image } from '@tarojs/components'
 import { AtInputNumber, AtModal, AtSwipeAction } from 'taro-ui'
 import { formatMoney } from '@/utils/utils'
-import { deleteCart } from '@/framework/api/cart/cart'
+import { deleteCart } from '@/framework/api/cart'
 import Taro from '@tarojs/taro'
-import { getOrderSetting } from '@/framework/api/order/order'
+import { getOrderSetting } from '@/framework/api/order'
 import { useEffect, useState } from 'react'
 import './index.less'
 

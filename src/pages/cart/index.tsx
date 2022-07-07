@@ -1,7 +1,7 @@
 import { View } from '@tarojs/components'
 import { ProductItem, Empty, TotalSettle } from '@/components/cart'
 import { useEffect, useState } from 'react'
-import {batchDeleteCart, getCartAndProducts, getCarts, updateCart} from '@/framework/api/cart/cart'
+import {batchDeleteCart, getCartAndProducts, getCarts, updateCart} from '@/framework/api/cart'
 import Taro, { useDidShow } from '@tarojs/taro'
 import { session } from '@/utils/global'
 import NavBar from '@/components/common/Navbar'

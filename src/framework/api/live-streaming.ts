@@ -1,6 +1,6 @@
 import Taro from '@tarojs/taro'
 import apis from '@/framework/config/api-config'
-import ApiRoot from '../fetcher'
+import ApiRoot from './fetcher'
 
 //获取PDP page vouchers
 export const getLiveStreamingFindOnLive = async (accountId) => {

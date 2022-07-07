@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { VOUCHER_ORDER_ICON } from '@/lib/constants'
 import CheckoutVoucherModal from '@/components/voucher/CheckoutVoucherModal'
 import { Voucher } from '@/framework/types/voucher'
-import { getListVouchers } from '@/framework/api/voucher/voucher'
+import { getListVouchers } from '@/framework/api/voucher'
 import cloneDeep from 'lodash.cloneDeep'
 
 const Coupon = ({

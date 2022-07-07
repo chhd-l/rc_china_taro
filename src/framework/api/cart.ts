@@ -5,7 +5,7 @@ import { session } from '@/utils/global'
 import { getProductInfoBySkuIds } from '@/framework/api/product/get-product'
 import apis from '@/framework/config/api-config'
 import Taro from "@tarojs/taro";
-import ApiRoot, { isMock } from '../fetcher'
+import ApiRoot, { isMock } from './fetcher'
 
 export const getCarts = async (isNeedReload = false) => {
   try {

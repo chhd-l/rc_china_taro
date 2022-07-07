@@ -2,7 +2,7 @@ import { View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import { Address, OrderItem, DeliveryTime, Remark, Coupon, TotalCheck, OrderPrice } from '@/components/checkout'
 import Taro, { useDidHide } from '@tarojs/taro'
-import { calculateOrderPrice, createOrder } from '@/framework/api/order/order'
+import { calculateOrderPrice, createOrder } from '@/framework/api/order'
 import { AtMessage, AtModal } from 'taro-ui'
 import { getAddresses } from '@/framework/api/consumer/address'
 import GiftItem from '@/components/checkout/GiftItem'
@@ -22,7 +22,8 @@ const Checkout = () => {
   const [subscriptionInfo, setSubscriptionInfo] = useState<any>({})
   const [deliveryTime, setDeliveryTime] = useState(moment().format('YYYY-MM-DD'))
   const [remark, setRemark] = useState('')
-  const [showNoAddressTip, setShowNoAddressTip] = useState(false)
+  const [errorTipModal, setErrorTipModal] = useState(false)
+  const [errorTipText, setErrorTipText] = useState('')
   const [voucher, setVoucher] = useState<any>(null)
   const [isCommunityVip, setIsCommunityVip] = useState(false)
   const [orderPrice, setOrderPrice] = useState<any>(null)
@@ -49,11 +50,12 @@ const Checkout = () => {
     if (orderType && orderItems.length > 0) {
       calculatePrice()
     }
-  }, [orderItems, voucher, orderType,isCommunityVip])
+  }, [orderItems, voucher, orderType, isCommunityVip])
 
   const checkNow = async () => {
     if (address.id === '') {
-      setShowNoAddressTip(true)
+      setErrorTipText('请填写收货地址')
+      setErrorTipModal(true)
       return false
     }
     switch (orderType) {
@@ -72,10 +74,26 @@ const Checkout = () => {
         })
         break
       case 'normal':
-        await createOrder({ orderItems, address, remark, deliveryTime, voucher, isWXGroupVip: isCommunityVip })
+        const res = await createOrder({
+          orderItems,
+          address,
+          remark,
+          deliveryTime,
+          voucher,
+          isWXGroupVip: isCommunityVip,
+        })
+        if (res?.errorCode === 'ED301202') {
+          setErrorTipText('商品存库不足，请稍后再试！')
+          setErrorTipModal(true)
+        }
+        if (res?.errorCode === 'ED301201') {
+          setErrorTipText('优惠券核销失败，请稍后再试！')
+          setErrorTipModal(true)
+          setIsReloadVouchers(true)
+        }
         break
     }
-    // setIsReloadVouchers(true)
+
   }
 
   useDidHide(() => {
@@ -172,18 +190,18 @@ const Checkout = () => {
         <AtMessage />
         <AtModal
           key="noAddressTip"
-          isOpened={showNoAddressTip}
+          isOpened={errorTipModal}
           title="提示"
-          content="请填写收货地址"
+          content={errorTipText}
           confirmText="确定"
           onClose={() => {
-            setShowNoAddressTip(false)
+            setErrorTipModal(false)
           }}
           onCancel={() => {
-            setShowNoAddressTip(false)
+            setErrorTipModal(false)
           }}
           onConfirm={() => {
-            setShowNoAddressTip(false)
+            setErrorTipModal(false)
           }}
           className="rc_modal"
         />

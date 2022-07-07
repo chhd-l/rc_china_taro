@@ -6,7 +6,7 @@ import Taro from '@tarojs/taro'
 import { useEffect, useState } from 'react'
 import { AtFloatLayout, AtIcon } from 'taro-ui'
 import VoucherModal from '@/components/voucher/ProductVoucherModal'
-import { getOrderSetting } from '@/framework/api/order/order'
+import { getOrderSetting } from '@/framework/api/order'
 import './Style.less'
 import { PDP_SHARE } from '@/lib/constants'
 

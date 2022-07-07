@@ -1,4 +1,4 @@
-import { getCartNumber } from '@/framework/api/cart/cart'
+import { getCartNumber } from '@/framework/api/cart'
 import { addToTypeEnum } from '@/framework/types/common'
 import { View } from '@tarojs/components'
 import Taro from '@tarojs/taro'

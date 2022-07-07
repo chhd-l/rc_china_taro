@@ -7,7 +7,7 @@ import routers from '@/routers'
 import cloneDeep from 'lodash.cloneDeep'
 import { formatDateToApi } from '@/utils/utils'
 import apis from '@/framework/config/api-config'
-import ApiRoot, { isMock } from '../fetcher'
+import ApiRoot, { isMock } from './fetcher'
 
 export const createOrder = async ({ orderItems, address, remark, deliveryTime, voucher, isWXGroupVip }) => {
   try {
@@ -107,14 +107,16 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
         },
       })
     }
-    return res
+    return {
+      result: Boolean(res?.orderNumber),
+      errorCode: '',
+    }
   } catch (err) {
-    console.log(err)
-    Taro.atMessage({
-      message: err?.errors?.Message || '系统繁忙，请稍后再试',
-      type: 'error',
-    })
-    return []
+    console.log('err', err?.errors?.Message)
+    return {
+      result: false,
+      errorCode: err?.errors?.Code || '',
+    }
   }
 }
 

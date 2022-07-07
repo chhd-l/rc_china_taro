@@ -2,7 +2,7 @@ import Taro, { getCurrentInstance, getCurrentPages, useReachBottom } from '@taro
 import { useState } from 'react'
 import { AtModal, AtTabs, AtTabsPane } from 'taro-ui'
 import OrderListComponents from '@/components/order/OrderListComponents'
-import { cancelOrder, completedOrder, getOrderList } from '@/framework/api/order/order'
+import { cancelOrder, completedOrder, getOrderList } from '@/framework/api/order'
 import { Order } from '@/framework/types/order'
 import { View } from '@tarojs/components'
 import routers from '@/routers'

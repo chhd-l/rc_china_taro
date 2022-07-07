@@ -4,7 +4,7 @@ import { Voucher } from '@/framework/types/voucher'
 import moment from 'moment'
 import Taro from '@tarojs/taro'
 import apis from '@/framework/config/api-config'
-import ApiRoot, { isMock } from '../fetcher'
+import ApiRoot, { isMock } from './fetcher'
 
 const normalizeCheckoutAndListVouchers = (voucherList) => {
   return {

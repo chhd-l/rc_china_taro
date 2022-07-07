@@ -1,7 +1,7 @@
 import NavBarForList from '@/components/index/NavBarForList'
 import ListBanner from '@/components/product/ListBanner'
 import { wxLogin } from '@/framework/api/consumer/consumer'
-import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming/live-streaming'
+import { getLiveStreamingFindOnLive } from '@/framework/api/live-streaming'
 import IconFont from '@/iconfont'
 import { LIVINGSTREAMING_ONGOING, LIVINGSTREAMING_UPCOMING } from '@/lib/constants'
 import { consumerAtom } from '@/store/consumer'

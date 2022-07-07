@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { View } from '@tarojs/components'
 import IconFont from '@/iconfont'
 import CustomerService from '@/components/common/CustomerService'
-import { getStoreSettings } from '@/framework/api/store'
+import { getStoreSettings } from '@/framework/api/storeSetting'
 
 interface NavbarProps {
   children?: any //自定义navbar
