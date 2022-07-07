@@ -15,7 +15,7 @@ const Attention = ({ classes = 'bg-white' }: { classes?: string }) => {
   const queryConsumerAccounts = async () => {
     const res = await getConsumerAccounts()
     const isOfficialAccount = res.find((el) => el.userType === 'OFFICIAL_ACCOUNT')
-    setIsAlreadyAttention(isOfficialAccount ? true : false)
+    setIsAlreadyAttention(Boolean(isOfficialAccount?.userType))
   }
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const Attention = ({ classes = 'bg-white' }: { classes?: string }) => {
   }, [])
 
   return (
-    <View className={`${consumerInfo?.id ? classes : ''}`}>
+    <View className={`${consumerInfo?.id && !isAlreadyAttention ? classes : ''}`}>
       {consumerInfo?.id && !isAlreadyAttention ? (
         <View className="flex py-2 items-center">
           <View className="w-10 h-10">
