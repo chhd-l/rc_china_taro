@@ -117,7 +117,7 @@ export const hotSearchFindPage = async (params: any) => {
 
 export const getProductInfoBySkuIds = async ({ skuIds }: { skuIds: string[] }) => {
   try {
-    const res = await ApiRoot({ url: apis.productSkuDetail }).products().getProductInfoBySkuIds(skuIds)
+    const res = await ApiRoot({ url: apis?.sku_detail }).products().getProductInfoBySkuIds(skuIds)
     console.log('getProductBySkuId view', res)
     return res
   } catch (err) {
