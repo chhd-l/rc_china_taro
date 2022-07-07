@@ -20,7 +20,7 @@ interface IApiConfig {
 
 const API_CONFIG: IApiConfig = {
   development: {
-    auth: "https://fc-mp-auth-dev-miniprogram-dkpsdvztiu.cn-shanghai.fcapp.run/graphql",
+    auth: "https://fcstg.fivefen.com/fc-mp-auth/graphql",
     cart: "https://fc-mp-cart-dev-miniprogram-dkpsdtlniw.cn-shanghai.fcapp.run/fc-mp-cart/graphql",
     orderCreate: "https://fc-mp-or-create-dev-miniprogram-oldnuaupiz.cn-shanghai.fcapp.run/fc-mp-order-create/graphql",
     orderList: "https://fc-com-der-list-dev-common-vbypvtabkd.cn-shanghai.fcapp.run/fc-com-order-list/graphql",
@@ -46,7 +46,7 @@ const API_CONFIG: IApiConfig = {
     sku_detail: "https://fc-com-u-detail-dev-common-rfhybdgjkv.cn-shanghai.fcapp.run/graphql"
   },
   production: {
-    auth: "https://fc-mp-auth-dev-miniprogram-dkpsdvztiu.cn-shanghai.fcapp.run/graphql",
+    auth: "https://fcstg.fivefen.com/fc-mp-auth/graphql",
     cart: "https://fc-mp-cart-dev-miniprogram-dkpsdtlniw.cn-shanghai.fcapp.run/fc-mp-cart/graphql",
     orderCreate: "https://fc-mp-or-create-dev-miniprogram-oldnuaupiz.cn-shanghai.fcapp.run/fc-mp-order-create/graphql",
     orderList: "https://fc-com-der-list-dev-common-vbypvtabkd.cn-shanghai.fcapp.run/fc-com-order-list/graphql",
