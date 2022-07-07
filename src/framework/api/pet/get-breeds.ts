@@ -15,19 +15,3 @@ export const getBreedList = async () => {
     return []
   }
 }
-
-export const getSortedBreeds = async (param?: any) => {
-  let params: any = { storeId: baseSetting.storeId }
-  if (param?.type) {
-    params.type = param.type
-  }
-  try {
-    const { breedsSortedByPy } = await ApiRoot().pets().getSortedBreeds({ body: params })
-    // const breeds = mockPetlist;
-    console.info('breedsSortedByPy', breedsSortedByPy)
-    return breedsSortedByPy || []
-  } catch (err) {
-    return []
-  }
-}
-

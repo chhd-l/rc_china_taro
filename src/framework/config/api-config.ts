@@ -9,6 +9,7 @@ type TApiConfig = {
   common_subscription: string
   wx_pet: string
   common_pet: string
+  sku_detail: string
 }
 
 interface IApiConfig {
@@ -40,9 +41,10 @@ const API_CONFIG: IApiConfig = {
     common_subscription: "https://fc-com-cription-dev-common-ogvrfcxebk.cn-shanghai.fcapp.run/graphql",
     common_pet: "https://fc-com-pet-dev-common-oecjgzxfmp.cn-shanghai.fcapp.run/graphql",
     wx_pet: "https://fc-mp-pet-dev-miniprogram-mnsracjtdg.cn-shanghai.fcapp.run/graphql",
-    consumer:'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
-    storeSetting:'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
-    liveStreaming:'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql'
+    consumer: 'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
+    storeSetting: 'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
+    liveStreaming: 'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql',
+    sku_detail: "https://fc-com-u-detail-dev-common-rfhybdgjkv.cn-shanghai.fcapp.run/graphql"
   },
   production: {
     auth: "https://fc-mp-auth-dev-miniprogram-dkpsdvztiu.cn-shanghai.fcapp.run/graphql",
@@ -66,9 +68,10 @@ const API_CONFIG: IApiConfig = {
     common_subscription: "https://fc-com-cription-dev-common-ogvrfcxebk.cn-shanghai.fcapp.run/graphql",
     common_pet: "https://fc-com-pet-dev-common-oecjgzxfmp.cn-shanghai.fcapp.run/graphql",
     wx_pet: "https://fc-mp-pet-dev-miniprogram-mnsracjtdg.cn-shanghai.fcapp.run/graphql",
-    consumer:'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
-    storeSetting:'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
-    liveStreaming:'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql'
+    consumer: 'https://fc-sc-consumer-dev-selercenter-ybuuesxcai.cn-shanghai.fcapp.run/graphql',
+    storeSetting: 'https://fc-com-setting-dev-common-dmgwlxbcvr.cn-shanghai.fcapp.run/graphql',
+    liveStreaming: 'https://fc-com-treaming-dev-common-unckjafhvm.cn-shanghai.fcapp.run/graphql',
+    sku_detail: "https://fc-com-u-detail-dev-common-rfhybdgjkv.cn-shanghai.fcapp.run/graphql"
   }
 }
 

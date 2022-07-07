@@ -30,7 +30,6 @@ export const getProducts = async (params: any) => {
     const res = await ApiRoot({ url: apis.productList }).products().getESProductLists(params)
     let list = res?.productFindPageByEs?.records || []
     console.info('test', res)
-    // const pets = await ApiRoot().pets().getProduct({ id: "20220415" });
     const productList = normalizeProductsforFe(list)
     console.info('productList res', productList)
     return {
@@ -47,7 +46,7 @@ export const getProducts = async (params: any) => {
 }
 export const getProductBySkuId = async ({ productVariantId }: { productVariantId: string }) => {
   try {
-    const res = await ApiRoot().products().getProductBySku({
+    const res = await ApiRoot({ url: apis?.sku_detail }).products().getProductBySku({
       productVariantId,
     })
     console.log('getProductBySkuId view', res)
