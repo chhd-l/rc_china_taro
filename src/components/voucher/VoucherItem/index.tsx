@@ -78,7 +78,9 @@ const VoucherItem = ({
           ) : (
             <View>
               <Text>{getCurrencyCode()}</Text>
-              <Text className="text-4xl font-medium">{voucherPrice}</Text>
+              <Text className={`${String(voucherPrice).indexOf('.') > -1 ? 'text-2xl' : 'text-4xl'} font-medium`}>
+                {voucherPrice}
+              </Text>
             </View>
           )}
           <View className={`${originVoucher?.voucherDefaultImage ? '' : 'mt-3'}`}>{voucherName}</View>
