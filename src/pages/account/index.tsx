@@ -186,32 +186,29 @@ const Account = () => {
         <View>
           <PetList withoutLoading />
         </View>
-        <AtModal isOpened={signoutOpend} onClose={() => setSignoutOpend(false)}>
-          <AtModalHeader>
-            <View style={{ height: '100rpx', lineHeight: '100rpx' }}>确定要退出登录？</View>
-          </AtModalHeader>
-          <AtModalAction>
-            <Button
-              onClick={() => {
-                setSignoutOpend(false)
-              }}
-            >
-              取消
-            </Button>
-            <Button
-              onClick={() => {
-                Taro.removeStorageSync('wxLoginRes')
-                setConsumerInfo(null)
-                setSignoutOpend(false)
-                const pages = Taro.getCurrentPages()
-                const perpage = pages[pages.length - 1]
-                perpage.onLoad()
-              }}
-            >
-              确定
-            </Button>
-          </AtModalAction>
-        </AtModal>
+        <AtModal
+        isOpened={signoutOpend}
+        title="确认"
+        cancelText="取消"
+        confirmText="确定"
+        onClose={() => {
+          setSignoutOpend(false)
+        }}
+        onCancel={() => {
+          setSignoutOpend(false)
+
+        }}
+        onConfirm={() => {
+          Taro.removeStorageSync('wxLoginRes')
+          setConsumerInfo(null)
+          setSignoutOpend(false)
+          const pages = Taro.getCurrentPages()
+          const perpage = pages[pages.length - 1]
+          perpage.onLoad()
+        }}
+        content="确定要退出登录？"
+        className="error-tips-modal"
+      />
       </View>
       <AuthLogin />
     </View>
