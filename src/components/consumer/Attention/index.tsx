@@ -10,7 +10,7 @@ import { getConsumerAccounts } from '@/framework/api/consumer/account'
 
 const Attention = ({ classes = 'bg-white' }: { classes?: string }) => {
   const [consumerInfo, setConsumerInfo] = useAtom(consumerAtom)
-  const [isAlreadyAttention, setIsAlreadyAttention] = useState(false) //是否已经关注过公众号
+  const [isAlreadyAttention, setIsAlreadyAttention] = useState(true) //是否已经关注过公众号
 
   const queryConsumerAccounts = async () => {
     const res = await getConsumerAccounts()
