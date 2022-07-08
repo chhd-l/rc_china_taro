@@ -123,7 +123,7 @@ const Search = () => {
           params.categoryId = val.categoryId
         })
     })
-    let { productList: list, total } = await getProducts({ limit: 10, sample: params, hasTotal: true, offset })
+    let { productList: list, total } = await getProducts({ limit: 10, sample: params, withTotal: true, offset })
     console.info('list, totallist, total', list, total, offset)
     let listData = list
     if (offset > 0) {
@@ -142,7 +142,7 @@ const Search = () => {
     let params = {
       offset,
       limit: 4,
-      isNeedTotal: true,
+      withTotal: true,
       sample: { storeId: '12345678', status: true },
     }
     let { total, records } = await hotSearchFindPage(params)

@@ -32,9 +32,9 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -148,7 +148,7 @@ export const getOrderList = async (queryOrderListParams: any) => {
       console.log('query orders view params', queryOrderListParams)
       let wxLoginRes = Taro.getStorageSync('wxLoginRes')
       const params = Object.assign(queryOrderListParams, {
-        isNeedTotal: true,
+        withTotal: true,
         sample: { ...queryOrderListParams?.sample, consumerId: wxLoginRes?.consumerAccount?.consumerId },
       })
       let res = await ApiRoot({ url: apis?.orderList }).orders().getOrders({ queryOrderListParams: params })
@@ -245,9 +245,9 @@ export const calculateOrderPrice = async ({
     let finalVoucher =
       voucher && JSON.stringify(voucher) !== '{}'
         ? {
-            ...voucher,
-            voucherStatus: 'Ongoing',
-          }
+          ...voucher,
+          voucherStatus: 'Ongoing',
+        }
         : null
     finalVoucher = finalVoucher
       ? omit(finalVoucher, ['consumerId', 'productInfoIds', 'orderCode', 'isDeleted', 'isGetStatus'])
@@ -260,9 +260,9 @@ export const calculateOrderPrice = async ({
       },
       subscriptionType === 'FRESH_BUY'
         ? {
-            subscriptionType,
-            subscriptionCycle,
-          }
+          subscriptionType,
+          subscriptionCycle,
+        }
         : {},
     )
     console.info('calculate order price view params', params)
