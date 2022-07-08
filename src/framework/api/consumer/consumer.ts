@@ -33,7 +33,8 @@ export const wxRegisterAndLogin = async (): Promise<Consumer> => {
 export const wxLogin = async () => {
   let wxLoginResStorage = Taro.getStorageSync('wxLoginRes')
   const { wxLogin: wxLoginRes }: { wxLogin: WxLoginResult } = await ApiRoot({ url: apis.auth }).consumers().wxLogin({
-    id: wxLoginResStorage.userInfo.id,
+    token: wxLoginResStorage.access_token,
+    // id: wxLoginResStorage.userInfo.id,
   })
   console.log('wxLoginRes', wxLoginRes)
   Taro.setStorageSync('wxLoginRes', Object.assign(wxLoginResStorage, wxLoginRes))

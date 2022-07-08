@@ -59,7 +59,7 @@ const ProductVoucherModal = ({ productId }: { productId: string }) => {
   }, [productId])
 
   return (
-    <>
+    <View>
       {vouchers.length > 0 ? (
         <View className="flex flex-row bg-gray-fb py-2 text-26">
           <View className="flex flex-row w-full keep-all">
@@ -135,7 +135,7 @@ const ProductVoucherModal = ({ productId }: { productId: string }) => {
         }}
         onConfirm={() => setShowSuccessReceive(false)}
       />
-    </>
+    </View>
   )
 }
 
