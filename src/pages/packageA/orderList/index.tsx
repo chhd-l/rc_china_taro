@@ -102,6 +102,7 @@ const OrderList = () => {
   }
 
   const handleClickActionTipModal = async () => {
+    setShowActionTipModal(false)
     switch (curActionType) {
       case 'UNPAID':
         await cancel()
@@ -119,7 +120,6 @@ const OrderList = () => {
       default:
         break
     }
-    setShowActionTipModal(false)
   }
 
   const getModalContent = () => {
