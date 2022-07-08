@@ -9,6 +9,9 @@ import ApiRoot, { isMock } from './fetcher'
 
 export const getCarts = async (isNeedReload = false) => {
   try {
+    if(!Taro.getStorageSync('wxLoginRes')?.userInfo?.id){
+      return []
+    }
     if (isMock) {
       return Mock.mock(dataSource)
     } else {
@@ -57,6 +60,9 @@ export const getCarts = async (isNeedReload = false) => {
 
 export const getCartAndProducts = async (isNeedReload = false) => {
   try {
+    if(!Taro.getStorageSync('wxLoginRes')?.userInfo?.id){
+      return []
+    }
     if (isMock) {
       return Mock.mock(dataSource)
     } else {
