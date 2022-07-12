@@ -71,6 +71,7 @@ let timer: any = null
 
 const ProductList = () => {
   const [, setConsumer] = useAtom(consumerAtom)
+  const [refreshed,setRefreshed] = useState(false)
   const [roomId, setRoomId] = useState<any>(null)
   let [liveStreaming, setLiveStreaming] = useState<any>(undefined)
   const loginInit = async () => {
@@ -78,6 +79,7 @@ const ProductList = () => {
       Taro.setStorageSync('commerce-loading', 1)
       const data = await wxLogin()
       setConsumer(data)
+      setRefreshed(true)//兼容token过期报错
     }
   }
 
@@ -169,7 +171,7 @@ const ProductList = () => {
           </View>
           <ListBanner bannerList={bannerLists} liveStreaming={liveStreaming} />
           <View className="p-2 pt-4 pb-0">
-            <Attention classes="bg-white mb-8" />
+          {refreshed&&<Attention classes="bg-white mb-8" />}
             <View className="mt-4">
               <View style={{ fontSize: '0.8rem' }} className="font-bold mt-6 mb-3">
                 开启专属宠爱
