@@ -48,12 +48,15 @@ const Account = () => {
         url: item.url,
       })
     } else {
+      // 新活动上线通知
+      // 优惠券过期提醒
       Taro.requestSubscribeMessage({
-        tmplIds: ['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc', 'b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk'],
+        // @ts-ignore
+        tmplIds: [newActivitiesTemplateId, couponExpiredTemplateId],
         success: async (res) => {
           if (
-            res['vL5mda-5SHGeMup3XUNoc6Tr53N6p45mVWL7IFLdNTc'] &&
-            res['b3XJc4_PToInELkByyRUDYVn7gbSKGhnVLSu7uHg1qk']
+             // @ts-ignore
+            res[newActivitiesTemplateId] && res[couponExpiredTemplateId]
           ) {
             Taro.navigateTo({
               url: item.url,

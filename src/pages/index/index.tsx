@@ -147,6 +147,8 @@ const ProductList = () => {
   })
   useEffect(() => {
     loginInit()
+  // @ts-ignore
+    console.info('toBePaidTemplateIdtoBePaidTemplateId',toBePaidTemplateId)
     return () => {
       clearInterval(timer)
     }

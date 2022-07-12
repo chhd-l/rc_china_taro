@@ -4,7 +4,7 @@ import './index.less'
 const OfficialAccount = () => {
   return (
     <View>
-      <WebView src="https://mp.weixin.qq.com/s/kqsKrR951H6QjyA5pQoy5g" />
+      <WebView src={wechatFollow} />
     </View>
   )
 }

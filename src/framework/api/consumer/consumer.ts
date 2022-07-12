@@ -13,6 +13,8 @@ export const wxRegisterAndLogin = async (): Promise<Consumer> => {
     desc: '获取授权',
   })
   const loginRes = await Taro.login()
+  console.log('loginRes', loginRes)
+  debugger
   const { wxRegisterAndLogin: wxLoginRes }: { wxRegisterAndLogin: WxLoginResult } =
     await ApiRoot({ url: apis.auth }).consumers().wxRegisterAndLogin({
       input: {
@@ -25,7 +27,6 @@ export const wxRegisterAndLogin = async (): Promise<Consumer> => {
         gender: userInfo.gender + '',
       },
     }, userInfo.nickName)
-  console.log('wxLoginRes', wxLoginRes)
   Taro.setStorageSync('wxLoginRes', wxLoginRes)
   return wxLoginRes.userInfo
 }

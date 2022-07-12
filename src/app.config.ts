@@ -1,4 +1,4 @@
-import { useGlobalIconFont } from './iconfont/helper';
+import { useGlobalIconFont } from './iconfont/helper'
 
 export default defineAppConfig({
   pages: [
@@ -10,7 +10,7 @@ export default defineAppConfig({
   ],
   plugins: {
     'live-player-plugin': {
-      version: '1.3.0',
+      version: '1.3.2',
       provider: 'wx2b03c6e691cd7370',
     },
   },

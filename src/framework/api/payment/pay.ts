@@ -18,12 +18,16 @@ interface PayInput {
 
 export const pay = async ({ params, success, fail, paymentRequest }: { params: PayInput; success?: Function; fail?: Function; paymentRequest?: any }) => {
   try {
+    // 订单发货提醒
+    // 订单待支付提醒
+    // @ts-ignore
     Taro.requestSubscribeMessage({
-      tmplIds: ['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ', 'xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc'],
+      // @ts-ignore
+      tmplIds: [deliverGoodsTemplateId, toBePaidTemplateId],
       success: async (res) => {
         console.info('============')
-        if (res['otY6R389-5izW9df-1-0zNsEnWq59GxEnsD5BYYvLqQ'] && res['xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc']) {
-          console.info('xGYlhYSx6T9tgzdLSiSGzYgRB3LC0ZZxzgFI4xrdIzc')
+        // @ts-ignore
+        if (res[deliverGoodsTemplateId] && res[toBePaidTemplateId]) {
           let paymentId = '', timeStamp = '', nonceStr = '', packageStr = '', signType: any = '', paySign = '', payment: any = {}
           if (paymentRequest?.isSuccess) {
             payment = paymentRequest.payment
@@ -37,7 +41,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
           } else {
             console.info('........', payment)
             console.info('paramsparamsparams', params)
-            const data = await ApiRoot({url:apis?.payment}).payments().pay({ body: params })
+            const data = await ApiRoot({ url: apis?.payment }).payments().pay({ body: params })
             console.info('data', data)
             payment = data.payment
             const wxPaymentRequest = data.wxPaymentRequest
@@ -77,7 +81,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
               paySign,
               // 调用成功回调
               async success() {
-                await ApiRoot({url:apis?.payment}).payments().syncOrder({
+                await ApiRoot({ url: apis?.payment }).payments().syncOrder({
                   input: {
                     paymentId: paymentId,
                     storeId: '12345678',

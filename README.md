@@ -12,6 +12,14 @@ In the project directory, you can run:
 
 ### `yarn build:weapp`(以微信小程序为例，打包编译)
 
+### 迁移小程序
+- config文件新增环境，并处理相应变量（appid也是在这里处理）
+- 配置安全域名
+- 新增环境需要新增对应的执行命令
+## 区分环境
+- build-dev:weapp 测试环境：非凡汇
+- build-prod:weapp  生产环境：五分优选
+
 ## 文件命名语义化
 
 1、assets ---资源（icon、bg、btn、img.'-'连接）\

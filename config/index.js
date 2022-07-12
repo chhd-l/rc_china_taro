@@ -71,8 +71,17 @@ const config = {
 }
 
 module.exports = function (merge) {
-  if (process.env.NODE_ENV === 'development') {
-    return merge({}, config, require('./dev'))
+  let configData = {}
+  switch (process.env.NODE_ENV){
+    case 'development':
+      configData= merge({}, config, require('./dev'))
+      break
+      case 'stg':
+        configData= merge({}, config, require('./stg'))
+        break
+        case 'production':
+          configData= merge({}, config, require('./prod'))
+          break
   }
-  return merge({}, config, require('./prod'))
+  return configData
 }

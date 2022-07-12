@@ -5,7 +5,8 @@
     "urlCheck": false,
     "compileHotReLoad": true,
     "preloadBackgroundData": false,
-    "useIsolateContext": true
+    "useIsolateContext": true,
+    "bigPackageSizeSupport": true
   },
   "projectname": "rc_china_taro",
   "condition": {
