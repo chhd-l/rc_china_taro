@@ -218,7 +218,7 @@ const ChooseSpec = ({
                       <IconFont name="a-Frame21" size={50} />
                     </View>
                   )}
-                  {el.able}
+                  {/* {el.able} */}
                   {el.name}
                   {/* {console.info('selected', selected)}
                   {console.info('specification.id', specification.id)}
