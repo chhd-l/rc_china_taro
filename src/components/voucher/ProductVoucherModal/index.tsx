@@ -19,7 +19,7 @@ const ProductVoucherModal = ({ productId }: { productId: string }) => {
 
   const getVoucherList = async () => {
     console.log('aaaaaaa', productId)
-    const res = await getPdpVouchers({ productId })
+    const res = await getPdpVouchers({ productId,storeId:"12345678" })
     setVouchers(res.sort((a, b) => a.isReceived - b.isReceived))
   }
 

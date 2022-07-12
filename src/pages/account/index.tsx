@@ -203,6 +203,7 @@ const Account = () => {
         }}
         onConfirm={() => {
           Taro.removeStorageSync('wxLoginRes')
+          Taro.removeStorageSync('rc_access_token')
           setConsumerInfo(null)
           setSignoutOpend(false)
           const pages = Taro.getCurrentPages()
