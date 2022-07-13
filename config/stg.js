@@ -8,7 +8,7 @@ module.exports = {
     deliverGoodsTemplateId:'"UrLIKpXTvOqYy1rs9bhZ0ckAT7GKYj5ukNQsvToaEzI"',//订单发货提醒
     newActivitiesTemplateId:'"HK2dlFHkL_WhoO6wknkuZAD8PcnM5nSyQxuTSuBwrvA"',//订单发货提醒
     couponExpiredTemplateId:'"0s9wQ2VAr1RorQBFW6obyjn-khBtOKg7xw3eWTgV60Y"',//优惠券过期提醒
-    wechatFollow:'"https://mp.weixin.qq.com/s/AkHjEwaLonRAz8T6glZAEg"', //去关注公众号
+    wechatFollow:'"https://mp.weixin.qq.com/s/wPCWb9R2ZAJ7jch6-Ong3g"', //去关注公众号
   },
   mini: {},
   h5: {
