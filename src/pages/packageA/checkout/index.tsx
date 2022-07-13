@@ -15,6 +15,7 @@ import './index.less'
 
 const Checkout = () => {
   const [address, setAddress] = useState({ id: '' })
+  const [noAddressText,setNoAddressText] = useState("新增收货地址")
   const [orderItems, setOrderItems] = useState<any[]>([])
   const [giftItems, setGiftItems] = useState<any[]>([])
   const [couponItems, setCouponItems] = useState<any[]>([])
@@ -105,11 +106,15 @@ const Checkout = () => {
     const selectAddress = Taro.getStorageSync('select-address')
     if (selectAddress) {
       setAddress(JSON.parse(selectAddress))
+      setNoAddressText("选择地址信息")
     } else {
       const addresses = await getAddresses()
       const defaultAddress = (addresses || []).find((item) => item.isDefault)
       if (defaultAddress) {
         setAddress(defaultAddress)
+      }
+      if(addresses?.length){
+        setNoAddressText("选择地址信息")
       }
     }
   }
@@ -150,7 +155,7 @@ const Checkout = () => {
       <NavBar navbarTitle="确认订单" isNeedBack />
       <View className="index py-2" style={{ marginBottom: '75rpx' }}>
         <View className="px-4 bg-white">
-          <Address address={address} />
+          <Address noAddressText={noAddressText} address={address} />
           <View className="bggray pb-2 px-2 rounded">
             <OrderItem orderItems={orderItems} />
             {giftItems?.map((item) => (
