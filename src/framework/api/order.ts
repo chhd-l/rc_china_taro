@@ -126,7 +126,7 @@ export const getOrderSetting = async () => {
     if (orderSettings) {
       orderSettings = JSON.parse(orderSettings)
     } else {
-      orderSettings = await ApiRoot({ url: apis?.orderList }).orders().getOrderSetting()
+      orderSettings = await ApiRoot({ url: apis?.orderList }).orders().getOrderSetting("12345678")
       console.log('get orderSetting view data', orderSettings)
       Taro.setStorageSync('order-setting', JSON.stringify(orderSettings))
     }
