@@ -42,19 +42,15 @@ const PetList = (props: Props) => {
   }, [consumerInfo?.id])
 
   Taro.useDidShow(() => {
-    console.info('Taro.getStorageSync', Taro.getStorageSync('wxLoginRes').userInfo)
     getList()
   })
 
   const getList = async () => {
-    console.log('getList', getList)
-    console.log('petInfoList', petInfoList)
     if (props.withoutLoading) {
       Taro.setStorageSync('commerce-loading', 1)
     }
     // const consumerInfo = await Taro.getStorageSync('wxLoginRes').userInfo
     if (!consumerInfo?.id) {
-      console.info('!consumerInfo?.id', !consumerInfo?.id)
       //未登录需要清空宠物信息
       setPetList([])
       setFakePet([])
@@ -64,7 +60,6 @@ const PetList = (props: Props) => {
       let petArr: any = [props.siglePetInfo]
       petArr[0].age = getAge(petArr[0].birthday)
       petArr[0].breed = petArr[0].breedName
-      console.info('breedName', petArr)
       setPetList(petArr)
       setFakePet(petArr)
       setNopets(false)
@@ -96,7 +91,6 @@ const PetList = (props: Props) => {
     // } else {
     //   setRecommendInfo({ ...recommendInfo, currentIdx: 0, checkedArr: [] })
     // }
-    console.log('res', res)
     if (res.length) {
       setNopets(false)
       Taro.setStorageSync('Nopets', false)
@@ -352,8 +346,6 @@ const PetList = (props: Props) => {
     )
   }
   const renderPetContent = () => {
-    console.info('.....fakePetfakePetfakePetfakePetrenderOnePet',fakePet)
-    console.info('.....fakePetfakePetfakePetfakePetrenderOnePet',fakePet?.[0],fakePet?.[0]?.[0])
     if (!fakePet.length) return renderNoPet()
     if (fakePet.length === 1) return renderOnePet()
     if (fakePet.length === 2) return renderTwoPet()
@@ -372,7 +364,6 @@ const PetList = (props: Props) => {
         <View className="w-4 h-4 bgacIImg" onClick={toPetList}></View>
       </View>
       {renderPetContent()}
-      {console.log(Nopets)}
       {Nopets && (
         <View className="custompettips relative flex flex-col items-center top-0">
           <View className="triangle" />
