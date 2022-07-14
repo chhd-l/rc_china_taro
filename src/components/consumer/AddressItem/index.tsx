@@ -89,7 +89,7 @@ const AddressItem = ({
               data: JSON.stringify(addressInfo),
               success: function (res) {
                 console.log(res)
-                Taro.redirectTo({ url: routers.checkout })
+                Taro.navigateBack()
               },
             })
             Taro.removeStorageSync('address-from-checkout')

@@ -65,7 +65,8 @@ const Index = () => {
     <>
       <NavBar navbarTitle="地址管理" isNeedBack backEvent={()=>{
         // 在选择默认地址后，返回到结算页面，应该默认选择地址
-        Taro.redirectTo({ url: routers.checkout })
+        Taro.navigateBack()
+        // Taro.redirectTo({ url: routers.checkout })
       }}/>
       <View className="index p-2 min-h-screen bg-gray-eee">
         {addressList.map((item: Address) => (

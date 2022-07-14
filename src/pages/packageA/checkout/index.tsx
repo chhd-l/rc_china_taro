@@ -1,7 +1,7 @@
 import { View } from '@tarojs/components'
 import { useEffect, useState } from 'react'
 import { Address, OrderItem, DeliveryTime, Remark, Coupon, TotalCheck, OrderPrice } from '@/components/checkout'
-import Taro, { useDidHide } from '@tarojs/taro'
+import Taro, { useDidHide, useDidShow } from '@tarojs/taro'
 import { calculateOrderPrice, createOrder } from '@/framework/api/order'
 import { AtMessage, AtModal } from 'taro-ui'
 import { getAddresses } from '@/framework/api/consumer/address'
@@ -101,7 +101,10 @@ const Checkout = () => {
     console.log('1111111')
     Taro.removeStorageSync('select-address')
   })
-
+  useDidShow(()=>{
+    // 兼容选择地址之后的地址显示，之前是用的redirectTo，会多出一个历史栈，现在改成navigateBack
+    getDefaultAddress()
+  })
   const getDefaultAddress = async () => {
     const selectAddress = Taro.getStorageSync('select-address')
     if (selectAddress) {
@@ -120,6 +123,8 @@ const Checkout = () => {
   }
 
   useEffect(() => {
+    // 删除默认地址
+    Taro.removeStorageSync('select-address')
     Taro.getStorage({
       key: 'select-product',
       success: function (res) {
