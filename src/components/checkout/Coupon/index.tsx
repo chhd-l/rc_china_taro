@@ -87,7 +87,8 @@ const Coupon = ({
       }
     })
     return canUsedProduct.reduce((prev, cur) => {
-      return prev + cur?.skuGoodInfo?.productVariants[0].marketingPrice * cur?.productNum
+      console.info('cur?.skuGoodInfo',cur?.skuGoodInfo)
+      return prev + cur?.skuGoodInfo?.variants?.[0].marketingPrice * cur?.productNum
     }, 0)
   }
 
