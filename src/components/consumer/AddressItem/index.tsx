@@ -55,6 +55,14 @@ const AddressItem = ({
       if (res) {
         isDefaultUpdateSuccess && isDefaultUpdateSuccess(addressInfo, !addressInfo.isDefault)
       }
+      Taro.setStorage({
+        key: 'select-address',
+        data: JSON.stringify(addressInfo),
+        success: function (selectRes) {
+          console.log(selectRes)
+          // Taro.redirectTo({ url: routers.checkout })
+        },
+      })
     } else {
       //不允许将默认地址设置成非默认地址
       return false
@@ -74,6 +82,7 @@ const AddressItem = ({
       Taro.getStorage({
         key: 'address-from-checkout',
         success: function (data) {
+          console.info('datadatadata',data)
           if (data.data) {
             Taro.setStorage({
               key: 'select-address',
