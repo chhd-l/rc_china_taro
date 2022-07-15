@@ -118,16 +118,20 @@ export const subscriptionCreateAndPay = async ({
     console.info('subscriptionCreateAndPay', res)
     if (res.paymentStartResult?.payment?.status === 'PAID') {
       //0元就不用调用支付接口
-      Taro.showLoading({
+      Taro.showToast({
         title: '支付成功',
+        icon: 'success',
+        duration: 1000
       })
-      let url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true`
-      if (couponItems?.length) {
-        url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true&isSendCoupon=true`
-      }
-      Taro.redirectTo({
-        url,
-      })
+      setTimeout(() => {
+        let url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true`
+        if (couponItems?.length) {
+          url = `${routers.orderList}?status=TO_SHIP&isFromSubscription=true&isSendCoupon=true`
+        }
+        Taro.redirectTo({
+          url,
+        })
+      }, 1000)
       return
     }
     let paymentInfo = res.paymentStartResult?.payment
