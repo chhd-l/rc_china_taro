@@ -12,6 +12,13 @@ In the project directory, you can run:
 
 ### `yarn build:weapp`(以微信小程序为例，打包编译)
 
+### 发布小程序（目前stg是线上环境）
+
+- 打包：npm run build-stg:weapp 
+- 发布：微信开发者工具右上角发布
+- 选为体验版：微信后台—版本管理—选为体验版本
+- 上线：微信后台—版本管理—提交审核
+
 ### 迁移小程序
 - config文件新增环境，并处理相应变量（appid也是在这里处理）
 - 配置安全域名
