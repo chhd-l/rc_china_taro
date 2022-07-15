@@ -68,19 +68,19 @@ const Search = () => {
   })
   useEffect(() => {
     console.info('consumerInfo', consumerInfo)
-    if (!productName) {
+    if (!productName&&!placeholderName) {
       return
     }
     let params = {
       id: consumerInfo?.id,
       searchInfoItem: {
-        searchInfo: productName,
+        searchInfo: productName||placeholderName,
         searchTime: moment(new Date()),
       },
     }
     console.info('searchInfoRecordRecently', params)
     addSearchInfoRecordRecently(params)
-  }, [productName])
+  }, [productName,placeholderName])
   const getList = async ({
     productCategoryId,
     name = placeholderName || keyword,
@@ -94,9 +94,13 @@ const Search = () => {
   }) => {
     let params: any = {}
     let offset = 0
+    let currentData =0
     if (current) {
+      //  重置current
+      currentData = current
       offset = current * 10
     }
+    setCurrentPage(currentData)
     if (productCategoryId) {
       params.categoryId = productCategoryId
       setCategoryId(productCategoryId)
