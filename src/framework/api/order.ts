@@ -90,7 +90,7 @@ export const createOrder = async ({ orderItems, address, remark, deliveryTime, v
           orderId: res?.orderNumber,
           orderNo: res?.orderNumber,
           orderDescription: '商品',
-          payWayId: '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+          payWayId: 'WECHAT_PAY', // '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
           amount: res?.orderPrice.totalPrice * 100,
           currency: 'CNY',
           storeId: '12345678',
