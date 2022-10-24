@@ -109,8 +109,9 @@ export const subscriptionCreateAndPay = async ({
     }
     let params = {
       input: subscriptionInput,
-      payWayId: 'WECHAT_PAY', // '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+      payWayCode: 'WECHAT_PAY', // '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
       storeId: '12345678',
+      projectName: 'ACYK_WX',
       operator: wxLoginRes?.userInfo?.nickName || '',
     }
     console.log('create order params', params)
@@ -145,7 +146,8 @@ export const subscriptionCreateAndPay = async ({
           orderId: paymentInfo?.orderNo,
           orderNo: paymentInfo?.orderNo,
           orderDescription: '商品',
-          payWayId: 'WECHAT_PAY', // '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+          payWayCode: 'WECHAT_PAY', // '241e2f4e-e975-6e14-a62a-71fcd435e7e9',
+          projectName: 'ACYK_WX',
           amount: paymentInfo?.amount * 100,
           currency: 'CNY',
           storeId: '12345678',

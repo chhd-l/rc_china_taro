@@ -94,7 +94,8 @@ const BreedList = () => {
                       handleBreed(breed)
                     }}
                   >
-                    <Image lazyLoad src={breed.image} className="w-full rounded-full  h-8" mode="widthFix" />
+                    {/* <Image lazyLoad src={breed.image} className="w-full rounded-full  h-8" mode="widthFix" /> */}
+                    <Image lazyLoad src={breed.image} className="w-0 rounded-full  h-0" mode="widthFix" />
                     <View className="text-24 whitespace-nowrap overflow-hidden overflow-ellipsis">{breed.name}</View>
                   </View>
                 ))}

@@ -9,7 +9,8 @@ interface PayInput {
   orderId: string
   orderNo: string
   orderDescription: string
-  payWayId: string
+  payWayCode: string
+  projectName: string
   amount: number
   currency: string
   storeId: string
@@ -88,6 +89,7 @@ export const pay = async ({ params, success, fail, paymentRequest }: { params: P
                 await ApiRoot({ url: apis?.payment }).payments().syncOrder({
                   input: {
                     paymentId: paymentId,
+                    projectName: 'ACYK_WX',
                     storeId: '12345678',
                   },
                 })

@@ -26,7 +26,8 @@ const BreedLists = ({ activeId, list, handleBreed }: Props) => {
                 >
                   <View className="flex px-2 py-3 border-b border-t-0 border-l-0 border-r-0 border-solid border-gray-200 items-center">
                     {/* <View className="w-full max-"></View> */}
-                    <Image lazyLoad className="w-10 rounded-full h-10" src={el.image} mode="widthFix" />
+                    {/* <Image lazyLoad className="w-10 rounded-full h-10" src={el.image} mode="widthFix" /> */}
+                    <Image lazyLoad className="w-0 rounded-full h-0" src={el.image} mode="widthFix" />
                     <View className="flex-1 pl-2 text-xs">{el.name}</View>
                   </View>
                 </View>

@@ -15,10 +15,12 @@ export const wxRegisterAndLogin = async (): Promise<Consumer> => {
   const loginRes = await Taro.login()
   console.log('loginRes', loginRes)
   debugger
-  const { wxRegisterAndLogin: wxLoginRes }: { wxRegisterAndLogin: WxLoginResult } =
+  const { allAuth: wxLoginRes }: { allAuth: WxLoginResult } =
     await ApiRoot({ url: apis.auth }).consumers().wxRegisterAndLogin({
       input: {
+        authType: 'WECHAT',
         jsCode: loginRes.code,
+        projectName: 'ACYK_WX',
         storeId: '12345678',
       },
       userInfo: {
